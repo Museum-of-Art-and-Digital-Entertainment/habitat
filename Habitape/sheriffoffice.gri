@@ -1,0 +1,238 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Sheriff's Office    "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use couch {
+  container: r -1001
+  x: 8
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 120
+  y: 156
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use plaque {
+  container: r -1001
+  x: 108
+  y: 78
+  style: 1
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 1
+  text_id: 1
+  last_page: 1
+}
+use countertop {
+  container: r -1001
+  x: 108
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a 0, a 0, a 0, a 0, a 0
+}
+use sign {
+  container: r -1001
+  x: 110
+  y: 122
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "****\R\R\R\R****                            "
+}
+use door {
+  container: r -1001
+  x: 68
+  y: 32
+  style: 5
+  gr_state: 0
+  orient: 120
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2026
+  connection: r -1
+}
+use glue {
+  container: r -1001
+  x: 140
+  y: 78
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 254
+  y_offset_1: 220
+  x_offset_2: 254
+  y_offset_2: 232
+  x_offset_3: 254
+  y_offset_3: 244
+  x_offset_4: 253
+  y_offset_4: 3
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use gun {
+  container: o -1010
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: o -1010
+  x: 1
+  y: 1
+  style: 1
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: o -1010
+  x: 2
+  y: 2
+  style: 2
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: o -1010
+  x: 3
+  y: 3
+  style: 3
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid {
+  container: r -1001
+  x: 136
+  y: 72
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 0
+  upper_right_x: 23
+  lower_left_x: 0
+  lower_right_x: 23
+  height: 184
+}
+use super_trapezoid {
+  container: r -1001
+  x: 8
+  y: 112
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 0
+  upper_right_x: 51
+  lower_left_x: 0
+  lower_right_x: 51
+  height: 136
+  pattern_x_size: 1
+  pattern_y_size: 7
+  pattern: 85, 85, 85, 85, 85, 105, 85, 170, 85, 170, 85, 105, 85, 85, 85, 85, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+}

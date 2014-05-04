@@ -1,0 +1,52 @@
+/*
+ *   class_garbage_can.pl1
+ *
+ *   Behavior module for object class garbage_can.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace GARBAGE_CAN_CAPACITY by 20;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_garbage_can: procedure;
+
+     %replace GARBAGE_CAN_REQUESTS by 6;
+
+     declare a(0:GARBAGE_CAN_REQUESTS) entry based;
+     declare class_garbage_can_actions pointer;
+     declare 1 garbage_can based %include struct_garbage_can;
+
+     %replace I by CLASS_GARBAGE_CAN;
+
+     Class_Table(I).capacity = GARBAGE_CAN_CAPACITY;
+     Class_Table(I).max_requests = GARBAGE_CAN_REQUESTS;
+     Class_Table(I).alloc_size = size(garbage_can);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_garbage_can_actions);
+     Class_Table(I).actions = class_garbage_can_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)     = illegal;           /* 1 */
+     Class_Table(I).actions->a(2)     = illegal;           /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;           /* 3 */
+     Class_Table(I).actions->a(4)     = illegal;           /* 4 */
+     Class_Table(I).actions->a(5)     = illegal;           /* 5 */
+     Class_Table(I).actions->a(FLUSH) = garbage_can_FLUSH; /* 6 */
+
+end initialize_class_garbage_can;
+
+garbage_can_FLUSH: procedure;
+     call destroy_contents(selfptr);
+     call n_msg_0(selfptr, FLUSH$);
+     call r_msg_1(TRUE);
+end garbage_can_FLUSH;

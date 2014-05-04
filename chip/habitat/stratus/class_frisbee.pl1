@@ -1,0 +1,41 @@
+/*
+ *   class_frisbee.pl1
+ *
+ *   Frisbee object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_frisbee: procedure;
+
+     %replace FRISBEE_REQUESTS by 3;
+
+     declare a(0:FRISBEE_REQUESTS) entry based;
+     declare class_frisbee_actions pointer;
+     declare 1 frisbee based %include struct_frisbee;
+
+     %replace I by CLASS_FRISBEE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = FRISBEE_REQUESTS;
+     Class_Table(I).alloc_size = size(frisbee);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_frisbee_actions);
+     Class_Table(I).actions = class_frisbee_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+
+end initialize_class_frisbee;

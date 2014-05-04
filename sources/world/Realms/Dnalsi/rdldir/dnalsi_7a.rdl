@@ -1,0 +1,17 @@
+@region $ dnalsi_7a {
+    north: dnalsi_7b.l;
+    south: dnalsi_79.l;
+    west: dnalsi_6a.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @bush { x:76; y:22; or:16; style:4; gr_state:2; }
+        @bush { x:104; y:22; or:16; style:4; gr_state:2; }
+        @bush { x:64; y:19; or:16; style:4; gr_state:2; }
+        @bush { x:32; y:19; or:16; style:4; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @bush { x:152; y:22; or:17; style:4; gr_state:2; }
+        @bush { x:24; y:24; or:17; style:4; gr_state:2; }
+    ]
+}

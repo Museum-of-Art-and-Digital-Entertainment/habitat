@@ -1,0 +1,14 @@
+/*
+ *   struct_matchbook.incl.pl1
+ *
+ *   Struct stub for matchbook instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+/* Host private: */
+     2    class_specific      ,
+           3   text      character(84) varying;

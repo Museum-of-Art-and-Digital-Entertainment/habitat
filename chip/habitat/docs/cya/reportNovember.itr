@@ -1,0 +1,111 @@
+.lg 1
+.ds D December 5, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Report
+
+December 5, 1985\s-9
+.AU
+``Because we thought you'd want to know''
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+.ds LH MONTHLY REPORT
+.ds CH \\*D
+.ds RH MicroCosm Project
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This is the first in a series of monthly reports detailing the progress on the
+\fBMicroCosm\fP project at Lucasfilm.  This report describes events and
+achievements during the month of November, 1985.
+.SH
+\s+1People In The News\s-1
+.PP
+Aric Wilmunder joined the project full-time on Monday, November 4.  Randy
+Farmer joined the project full-time on Monday, November 18.  Both immediately
+started working on 6502 software for the project.
+.PP
+In addition to Aric, Randy and myself, we have enlisted the aid of two other
+Lucasfilm Games Division members, Charlie Kellner and Kevin Furry, who are
+involved with other projects inside the Games Division.  By getting them to
+write some of their software in a fashion that is more general than would be
+required for their projects alone, we obtain some of the components for
+MicroCosm without having to write them ourselves.  Right now, Charlie is
+working on animation and graphics software.  Kevin is developing a flexible,
+high-performance Commodore 64 disk I/O package.  Both of these sets of
+software will be very useful to us.  Part of our strategy for meeting the
+ambitious development schedule we have planned is to build on top of the
+efforts of other projects in the Division when appropriate.
+.PP
+Gary Winnick is the Games Division's primary artist and animator in residence.
+Gary will be working on the animation and imagery for the avatars and for many
+of the other objects that will be found in the world.
+.SH
+\s+1Work In Progress/Tasks Accomplished\s-1
+.PP
+I have finished the full set of system design documents save one, the
+description of the basic object set (the design of which is not yet complete).
+I have also set up a semi-automated system to manage the various documentation
+revisions as they occur and to keep track of who has what versions of what
+documents.
+.PP
+Design of the fantasy world itself is proceeding apace.  On Thursday, November
+21, we had a meeting of most of the Division design staff to discuss the
+MicroCosm fantasy and the proper constitution of the basic object set.
+Numerous good ideas, clever suggestions and potential pitfalls were
+identified.  These will be incorporated into the eventual design.  We have a
+preliminary list of objects for the basic object set now, but this list needs
+to be refined to bring it into line with our design goals and within reach of
+implementation.
+.PP
+The Lucasfilm Animation Cel Editor (ACE) is an interactive tool we previously
+developed for creating images and animation for our cel animation driver (it
+was used to create the creature animation used in \fIThe Eidolon\fR).
+However, ACE is fairly primitive and difficult to use as such things go.
+Since we will be creating a large volume of animation and imagery in this
+project, we have decided that it will be expedient to substantially update and
+improve the editor.  Aric is therefor working on what we are tentatively
+naming GRACE (Gary's Revised Animation Cel Editor \(em Gary being the primary
+user for whom the tool is being tailored).  GRACE will allow us to produce a
+large amount of imagery in as short a time as possible.  As of the end of
+November, this work is approximately 2/3 completed.
+.PP
+Concurrently with the work on the cel editor, we are proceeding with work on
+the animation driver itself.  As of the end of November, Charlie has completed
+the high speed cel painter routines, which are the heart of the animation
+driver.  This is a completely new system, different from the one used in
+\fIThe Eidolon\fR.  In addition to being faster it allows cels to be enlarged
+or shrunk by a scale factor as they are painted on the screen.  This will
+allow figures to change size as their distance from the viewpoint changes.  It
+will also enable avatar customization in the form of alterations to the size
+and relative proportions of the various body parts.
+.PP
+Randy has begun work on various components of the user interface, including
+routines to handle the text-balloon display, the keyboard, text buffering and
+editing, the joystick and the sprites (sprites will be used for the cursor and
+for the pointer that connects a text-balloon to a speaking avatar).  This work
+is proceeding well, with the text-balloon display functions already
+operational.
+.SH
+\s+1Tasks For December\s-1
+.PP
+During December we plan to finish GRACE, the animation driver, and at least
+the lowest level routines of the user interface.  In addition we intend to get
+started on the communications routines linking the Commodore 64 with the host
+system.  Further design and documentation work on the basic object set and the
+fantasy world itself will also be high priority.
+.PP
+We are on target for our December 15 milestones.  We expect to deliver as
+planned.
+.SH
+\s+1Quantum Comments\s-1
+.PP
+We are still awaiting the Commodore 64 communications routines from Quantum.
+These will be required before we can proceed with work on the MicroCosm
+communications software.
+

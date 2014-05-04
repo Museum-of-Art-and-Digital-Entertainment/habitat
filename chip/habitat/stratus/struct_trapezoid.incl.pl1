@@ -1,0 +1,18 @@
+/*
+ *   struct_trapezoid.incl.pl1
+ *
+ *   Struct stub for trapezoid instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   7-July-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   trapezoid_type binary(15),
+           3   upper_left_x   binary(15),
+           3   upper_right_x  binary(15),
+           3   lower_left_x   binary(15),
+           3   lower_right_x  binary(15),
+           3   height         binary(15);

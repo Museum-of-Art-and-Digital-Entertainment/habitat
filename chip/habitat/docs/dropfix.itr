@@ -1,0 +1,58 @@
+.AM
+.ds Dq December 5, 1986
+.lg 1
+.TL
+\s+9Proposed fix for the
+
+``drop behind object problem''\s-9
+.AU
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH DROP FIX
+.ds CH \\*(Dq
+.ds RH Habitat Minor Missive
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3The Problem\s-3
+.PP
+It is possible, either by throwing or \fBPUT\fPting, to place one object
+behind another in such a manner that the rear object become permanently
+inaccessible to the players (we can extract it with Twiddle if we know it
+there, but that's clearly not acceptable for a running system).  This is due
+to the way the \fBPUT\fR and throw commands work: you indicate where you want
+an object to go by pointing at the desired location.  For certain objects,
+such as the ground, the object is placed at the location indicated.  For other
+objects, such as the wall, the location's Y-coordinate is clamped at the
+horizon (the rationale being that the object needs to land on a surface, such
+as the ground, rather than hovering in mid-air).  This means that you can
+point to the wall above some other object, such as a couch, and throw what the
+Avatar is holding behind it.  Conceptually, the object flies through the air,
+hits the wall, and drops down behind the couch.  Similarly, \fBPUT\fRting or
+throwing to many free-standing objects causes the \fBPUT\fR or thrown item to
+wind up at the target object's (X,Y) location, rather than the precise
+position pointed at.  The resulting location, however, may be obscured by a
+third object.  If an obscuring object is immobile, the object that is behind
+is left permanently stuck, since there is no way for anyone to point at it in
+order to indicate that they wish to pick it up.
+.SH
+\s+3The Solution\s-3
+.PP
+Only allow \fBPUT\fR and throw to work in circumstances where it makes sense.
+This means that you can only \fBPUT\fR or throw to objects where the exact
+(X,Y) location indicated may be used, such as the ground or the road, or to
+containers that are going to end up holding the object when the operation is
+done (such containers include Avatars, so you can still play catch).
+.SH
+\s+3What It Involves\s-3
+.PP
+This change involves only the removal of capabilities.  Therefore, no
+Commodore programming is required to implement it.  However, substantial
+(though simple) changes to the Muddle file that describes the C64 object disk
+are needed in order to take out the unwanted \fBRDO\fP (throw) and \fBPUT\fR
+behaviors.  In addition, the host object definitions need to be altered
+slightly to disallow the now illegal operations.  We estimate that this is
+about a half day's work in total.

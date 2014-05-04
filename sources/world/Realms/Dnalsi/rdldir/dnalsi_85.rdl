@@ -1,0 +1,21 @@
+@region $ dnalsi_85 {
+    south: dnalsi_84.l;
+    west: dnalsi_75.l;
+    region_orientation: FACE_NORTH;
+    [
+        @flat { x:0; y:4; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @trapezoid { x:116; y:164; or:8; gr_state:2; 
+            8:3;
+            9:0;
+            10:27;
+            11:0;
+            12:27;
+            13:35;
+        }
+        @head { x:136; y:38; or:17; style:12; }
+        @ground { x:200; y:4; or:188; style:1; }
+    ]
+}

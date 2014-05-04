@@ -1,0 +1,514 @@
+.AM
+.ds Dq October 29, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Coming Attractions\s-9
+.AU
+a status report on things to do and places to go in the Habitat beta world
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+October 20, 1986
+updated \\*(Dq
+.ds LH COMING ATTRACTIONS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 27
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+In preparation for beta-test we have added or are in the process of adding a
+number of new realms, regions and activities to the \fIHabitat\fP world.  This
+document describes these things and discusses the current status of each.
+.SH
+\s+3Populopolis\s-3
+.PP
+\fIPopulopolis\fP is the name of \fIHabitat\fP's first town.  In its initial
+form, it consists of a downtown area together with residential areas holding
+turves for up to 120 players.  The residential areas of Populopolis are
+suburban in character.  There are 12 streets of tract houses plus connecting
+roads.  Downtown contains just under a dozen businesses to serve the
+population, as well as a central plaza with the Oracle's fountain in the
+middle.
+.SH
+\fIEnlarged residential area
+.PP
+To meet the needs of the beta-test population, the residential areas needed to
+be enlarged.  We expanded the existing neighborhoods and added a couple of
+entirely new neighborhoods as well, creating 20 new residential streets.  The
+new residential regions nearly triple the potential population of Populopolis,
+bringing the residential capacity to 320.
+.PP
+The new residential regions have been generated as individual streets,
+disconnected from the rest of the world, though we have mapped where they
+should be placed.  The region definitions have been run through the various
+levels of software to produce actual regions in the \fIHabitat\fP host
+database, but the streets still need to be manually connected (using the
+\fITwiddle\fP program) to the rest of the world according to the layout on our
+map.
+.SH
+\fIImproved downtown
+.PP
+With the enlarged population, we concluded that the present downtown was too
+small to handle the expected traffic.  We therefor decided to enlarge the
+downtown area.  Since we were adding a number of new storefronts anyway, we
+took this as an opportunity to improve the entire downtown area, rearranging
+the collection of businesses and adding a number of new establishments.  The
+revised plan also includes some empty storefronts available ``for lease'' to
+players who wish to establish businesses of their own in the downtown area.
+.PP
+The new downtown includes the following establishments:
+.IP "\ \ \ \ \(sq\ "
+\fIBanks.\fP  There are two of these, one on each side of town, in order to
+reduce waiting in line.  These each have two ATM's from which Avatars can
+withdraw cash Tokens from their bank accounts.
+.IP "\ \ \ \ \(sq\ "
+\fINews stands.\fR  There are two news stands.  These are the distribution
+points for the \fIWeekly Rant\fR.  They will also be able to sell maps,
+guidebooks, TelePort directories, and any other printed material we may wish
+to put into the world for the players.
+.IP "\ \ \ \ \(sq\ "
+\fIBars.\fR  There are three of these social spots, differing from one another
+largely in theme.  ``Kelly's Bar & Grill'' is a typical dive, unpretentious
+and working class in feel.  ``Tivolli's Garden'' is a ferns-and-wood yuppie
+hangout, trendy and overpriced.  ``Hamlet's Place'' is a hangout for the
+after-theater crowd.
+.IP "\ \ \ \ \(sq\ "
+\fIStores.\fR  There are several of these, selling all manner of artifacts.
+``The Knick-Knacks Shop'' sells miscellaneous, usually useless junk.
+``Randy's Adventure Ymporium'' sells adventure supplies. ``Body Paints Ltd.''
+sells body sprayers (devices for changing an Avatar's body color/patterns).
+``Machuta's Magic Shop'' sells magical items of all sorts, and will be used as
+a distribution channel for specialized artifacts useful in particular
+adventures or puzzles.  ``The New You'' sells heads and also contains a sex
+change machine that people can use.  ``Lefty's Locksmithery'' sells keys, as
+well as being a hangout for the local criminal element.  ``Fine Furniture''
+sells new region interiors (for turf customization).  The ``General Store''
+sells useful miscellaneous merchandise.
+.IP "\ \ \ \ \(sq\ "
+\fIPawnshop.\fP  The pawnshop provides a means whereby players can convert
+items into ready cash (at a steep discount, of course).
+.IP "\ \ \ \ \(sq\ "
+\fITheaters.\fP  There are four theater-like places.  ``The Bijou'' is a forum
+for plays and shows.  ``Costello's'' is a comedy club.  ``Quizshows Inc.'' is
+a place for \fIHabitat\fP game shows to be conducted.  The ``Meeting Hall'' is
+a community gathering place for adventure organization/orientation meetings,
+politicking, and other player organized gatherings.
+.IP "\ \ \ \ \(sq\ "
+\fIArcade.\fP  The Arcade is a place for \fIHabitat\fP-resident board games
+like checkers and backgammon.
+.IP "\ \ \ \ \(sq\ "
+\fIStock Exchange.\fP  The \fIHabitat\fP Stock Exchange is the place where we
+will put the stock market game that we are working on.  This is described in
+greater detail below.
+.IP "\ \ \ \ \(sq\ "
+\fILibrary.\fP  The Library holds books of all sorts, useful as references by
+the players.  It is also a place where we bury clues for adventures and a
+place where we can put books written by the players themselves.
+.IP "\ \ \ \ \(sq\ "
+\fICity Hall.\fR  City Hall is the center of Populopolis' government.  It
+contains the various Bureaucrats-In-A-Box as are needed for running the city.
+Presently there are four of these, representing the Bureau Of Real Estate (to
+handle transfers of title to turves), the Bureau Of Advertising (to handle
+public signs), the Bureau Of Scheduling (to handling scheduling of the theater
+and meeting hall facilities), and the Bureau Of Commerce (to handle allocation
+of business property).
+.IP "\ \ \ \ \(sq\ "
+\fIHall of Records.\fP  The Hall of Records is the repository for the Book of
+Records.  The Book of Records is simply a special book that contains the top
+\fIN\fP Avatars (or the bottom \fIN\fP Avatars, depending) in a wide variety
+of categories.  The Hall of Records is simply a place that Avatars can come to
+consult this book, to find out who's on top in any particular dimension.  
+.IP "\ \ \ \ \(sq\ "
+\fIFor rent.\fR  There are three unallocated commercial properties that are
+available for the use of the players.  These will be rented by the city to
+Avatars to use for their own purposes.  If there are more than three players
+who wish to start businesses, we will have to make a determination of the most
+appropriate use of the property in terms of gameplay interest and fun for the
+whole community.  If there are vastly more than three interested players, we
+will have to consider adding some additional commercial streets to the
+downtown area, but that is for the future.
+.PP
+Most of these establishments have required us to create anew both an
+exterior/street region and an interior region.  Several, of course, are the
+same as their counterparts in the old (present) downtown design, and so we can
+use them as they are with little or no change.  The new regions are designed,
+awaiting upload and installation.
+.SH
+\s+3Other Places\s-3
+.PP
+We have already created a number of realms for exploration and minor
+adventures.  These are:
+.SH
+\fIForest Road
+.PP
+The Forest Road is an outdoors realm consisting of a branching road that goes
+deep into the heart of a mysterious forest.  Along its branches are a number
+of sites of interest.  These include a number of fairly mundane businesses
+(such as \fIThe Tavern At The End Of The Road\fR and \fIRhonda's Rhoadside
+Rhesort\fR) as well as a few enchanted places.  Among the enchantments is a
+false Oracle (it looks like an ordinary Oracle fountain, but the region it is
+in is sinister looking) that operates like a regular Oracle but it always
+tells lies.  There is also a wicked witch's house (containing a genuine wicked
+witch as soon as we find someone who wants to be one) and a hermitage
+(containing an old guru dispensing the wisdom of the ages).
+.PP
+The Forest Road is designed and ready for uploading to the host.
+.SH
+\fIThe Really Quite Confusing Desert
+.PP
+The Really Quite Confusing Desert is a maze puzzle.  It consists of 30 regions
+connected together in a bizarre and confusing manner, forming a maze that is
+easy to get into and difficult to get out of.  In the very center of the
+Desert is a TelePort booth, which is the obvious shortcut for getting to the
+middle.  Also in the middle is a vending machine selling rare and exotic
+artifacts, as a reward for those who successfully navigate the maze.
+.PP
+The Desert is finished and installed.
+.SH
+\fIThe Beach
+.PP
+The Beach is a simple social area, designed to look like a beach.  There are
+rumors of buried treasure.  Like the Desert, it too is finished and installed.
+.SH
+\fIThe Back Forty
+.PP
+The Back Forty is 40 regions of forest, mostly empty, but home to a pair of
+wizards, Dada Salesh and Sasa Dalesh.  These twin brothers are known to the
+world as the Wise Man and the Not-So-Wise Man.  The only problem is that
+nobody, least of all themselves, can agree who is which.  These two
+individuals inhabit their homes at opposite sides of the forest, dispensing
+magic and advice to those who seek them out.
+.PP
+The Back Forty is designed and installed in the world.  Randy Farmer has
+agreed to fill the role of Dada Salesh, though his counterpart is as yet
+unknown.
+.SH
+\s+3Things To Do\s-3
+.PP
+In addition to the above geographic areas available for general exploration
+and treasure hunting, we have also designed a number of more specialized
+things to do, some of which have special places of their own associated with
+them.  These are in various stages of completion and will be detailed below.
+.SH
+\fIRandy's Region Rally
+.PP
+This is a ``road rally'' game set in the \fIHabitat\fP environment.  It is
+both a puzzle for the players and the excuse for a semi-guided tour of the
+existing world.  It follows the tradition of all road rally games, having a
+series of puzzles, each of which leads you to the next.  At each step along
+the way, the player collects clues that are used to solve the final puzzle.
+This particular rally is just the first of what we hope will be an ongoing
+series, since the theme has infinite variations.
+.PP
+This rally begins at the Oracle in the center of town.  At the appointed time
+(we will appoint the time), the Oracle begins periodically (i.e., every five
+minutes) uttering the first clue.  The players follow this clue to another
+region, where they find a second clue, that leads them to a third region, and
+so on.  In this particular puzzle there are five intermediate clues to solve,
+and there are a couple of red herrings for players who take obvious wrong
+turns.  The intermediate clues are a combination of altered landmarks, signs,
+and text on special pamphlets dispensed by news-vendo machines.  Correctly
+solving the final puzzle results in a TelePort address.  Porting to this
+address places you in a special endgame region containing a magic pushbutton
+(and TelePort is the \fIonly\fP way into this region).  When an Avatar presses
+the button he wins a prize (e.g., T5,000).  The prize is large for the first
+player to solve the puzzle, then tapers off with successive winners to a
+modest but still rewarding amount (e.g., T100).  The game runs for a specified
+period (e.g., three evenings or until somebody solves the puzzle, whichever
+comes last) and then ends.
+.PP
+The clues are all designed, as is the special endgame region.  Installation of
+the clues requires us to add some objects to a few of the regions in the world
+at the start of the game (and to clean up after ourselves at the end of the
+game by removing them again).  The easiest way to do this is to create the
+objects in a special ``holding pen'' region from which the objects can be
+moved when needed using Twiddle.  This we have done.  We will write a Stratus
+command file to perform all the Twiddle machinations quickly.  The special
+regions still need to be uploaded to the host and installed, and we still need
+to do a little bit of special programming on the host to make it work.  This
+programming includes the special magic function for the ``winner'' button and
+a flag-bit enhancement to the Avatar record so that players can't win the
+rally more than once.  This programming represents a few hours effort at most.
+(The Oracle also needs to be able to broadcast the first clue periodically,
+but that should be one of the Oracle's intrinsic capabilities anyhow.)  In
+addition, we need to add entries in the text database for the clue pamphlets
+and in the TelePort directory database for the endgame region.
+.PP
+Once we are set up to go, all we need to do is run the command file that moves
+everything into place and set the Oracle to broadcasting.  Once the game has
+run its course we execute a second command file that moves all the special
+objects back to the holding pen, and then it's over.  The endgame region and
+all the special programming can be used again in future rallies.
+.SH
+\fID'nalsi Island adventure
+.PP
+D'nalsi Island is a classic treasure hunt adventure.  It involves a quest for
+a stolen magical amulet.  Finding the treasure requires the solution of a set
+of puzzles.  The initial set of clues will be embedded in an article in the
+first issue of the \fIWeekly Rant\fR.  The clues ultimately lead the player to
+D'nalsi Island, a desert island where the pirates of old used to bury their
+booty.  The missing amulet is hidden somewhere on the island.
+.PP
+The D'nalsi Island adventure consists of a new realm, the island itself, and a
+set of clues to be placed in the world.  One of the principals in the intrigue
+is Dada Salesh, one of the wizards who lives in the Back Forty.  When online,
+Randy Farmer will fill this role, answering questions and dispensing clues.
+When not online, the wizard leaves behind a vending machine that dispenses
+pamphlets.
+.PP
+All of the regions for this adventure are designed and installed.  All of the
+clues are planned and the article for the \fIRant\fP that sets things in
+motion is written.  Some special artifacts (such as the wizard's vendo and
+some books in the Library) still need to be placed in the world.
+.SH
+\fICapture The Flag
+.PP
+Capture The Flag is a game that seems like it will fit in nicely with the
+\fIHabitat\fP model of interaction.  What we want to do is establish a Capture
+The Flag arena.  The arena is a set of regions that represent the playing
+area.  We currently have designs for three such arenas, ranging in size from 5
+regions to around 40.  We plan to implement all three, and let market forces
+choose which is the preferred design.
+.PP
+The key to making Capture The Flag work is controlling access to the playing
+field.  The way we plan to do this is to create a special entrance region with
+three special entrances to the arena: ``Blue Team'', ``Red Team'' and
+``Spectators''.  The team entrances won't allow Avatars to pass if they are
+carrying anything, either in their hands or their pockets (this prevents
+cheating, for example by being armed), nor will they allow more than five
+Avatars on a team to enter.  The team entrances also change the colors on the
+Avatars of each team so that it is clear who is who when they are playing.
+The spectator entrance only lets ghosts through, and once through, the playing
+arena regions don't let them change between ghost and Avatar form.  Thus,
+cheating is automatically prohibited and the spectators are handled in a
+simple and natural manner.  All of this is accomplished through specialized
+region exit daemons in the entrance region and it's neighbors.
+.PP
+Once on the playing field, the two teams face off against each other.  The
+object is to capture the other team's flag and bring it back to your team's
+goal.  Winning is signalled using another variant of the magic button.
+.PP
+We have worked out the mechanism for Capture The Flag and we have designed the
+layout for the three sizes of playing arena.  We must still design the playing
+arena regions themselves and the entrance region and we have to program the
+exit daemons to regulate the play.  Region design is about a day's worth of
+effort, and programming the exit daemons is another day's worth.
+.SH
+\fIQuest for The Tome of Wealth and Fame
+.PP
+The Quest for The Tome of Wealth and Fame is an ongoing game that pits the
+players against each other in creating the puzzle.  The Tome itself is a
+special sort of magical record book (that looks like a stone tablet) that is
+the McGuffin for this particular adventure.  The Tome is hidden somewhere in
+the world.  Somewhere else in the world is a clue to where the Tome is hidden.
+The first object of the game is to find the Tome.  The finder's name is then
+inscribed on the Tome itself, and he or she must then hide it someplace else
+and leave a clue as to its new location.
+.PP
+To implement this requires some special behavior code for object class book,
+creation of the book itself, and some attention from the Oracle/sysop.  We
+have written the book itself.  It contains a description of the rules of the
+game and directions for the player to follow:
+.RS
+.LP
+\fC>>>>> The Tome of Wealth and Fame <<<<<
+.LP
+\fCIMPORTANT: Please read ALL of the stones in this tablet.
+.LP
+\fCCONGRATULATIONS! You have completed the first step in the Quest for:
+.LP
+\fC>>>>> The Tome of Wealth and Fame <<<<<
+.LP
+\fCUpon successful completion of the quest, you will receive T5000. Also, for
+NO EXTRA CHARGE, you will have your name engraved on this tablet for all
+ETERNITY so treasure seekers will know that YOU have joined the ranks of
+Master Adventurers.
+.br
+To collect your prize you must:
+.br
+1) READ all of this tablet
+.br
+2) HIDE it in a place that will make it hard to find.
+.br
+3) NOT show it to ANYONE.
+.br
+4) NOT hide it in a turf.
+.br
+5) When it is hidden, seek an Oracle and say "Willy Willy Nilly Billy".
+.LP
+\fCThe Oracle will decide how well you obeyed the rules & how well you hid the
+tome.  To collect your prize you MUST hide it well enough that no one else
+finds it before the Oracle can respond.
+.LP
+\fCThe list of MASTER ADVENTURERS:
+.br
+\fIlist of names follows...\fR
+.RE
+.PP
+The mechanism to implement this is relatively simple, but still must be
+programmed.  In addition, some Oracular sysop will have to be responsible for
+monitoring the Tome's movements.
+.SH
+\fITalk Show
+.PP
+The Talk Show will be based in one of the regions inside the Bijou Theater of
+the new downtown Populopolis.  No special programming will be required, just a
+region designed to look like the set of the Tonight Show or David Letterman.
+Some volunteer work will be required to arrange programing \(em locating and
+scheduling guests, making sure the guests are there when they're supposed to
+be, seeing that appropriate notices get placed in the \fIRant\fP and so on.
+Also, a volunteer Avatar will act as host.  The Talk Show operates rather like
+the QuantumLink auditorium, but it is more directed \(em the host asks
+questions, insults the guests, and tries to seem witty; the guests answer the
+questions, insult the host back, and try to seem important.  Also, there may
+be multiple guests from completely different walks of life, and there may be
+guests who are there primarily to be entertainers (i.e., comics, poets, and
+the like).  In short, it operates like a TV talk show.
+.SH
+\fIGame Show
+.PP
+The Game Show operates as another theater set, this time in the establishment
+of Quizshows, Inc. downtown.  The Game Show area is actually designed be able
+to support several different Game Shows on separate sets.  However, we will
+only be implementing one game initially.  The Game Show will be run like any
+other \fIHabitat\fP theater: performers/contestants as Avatars in a
+set-region, with the audience lurking in the background as ghosts.  We have
+designed a number of special purpose items to enable us to conduct various TV
+games: contestant booths with buttons to press, spinning wheels, etc.
+However, these have not been implemented yet, since the Game Show game itself
+is still being designed.
+.PP
+To implement the Game Show, we must design the game, create the set(s), and
+program any special purpose objects that will be required to moderate the
+activities.  All totalled, this is probably two or three days' work.  Once
+implemented, operations volunteers will be required to select contestants,
+generate quiz questions, and run the show.
+.SH
+\fITheater
+.PP
+The Bijou Theater is Populopolis' dramatic center.  It consists of a lobby
+area connected to some number of stage regions.  Initially there will be two
+stage regions, one for the Talk Show and the other for regular drama.  The
+latter will be a mostly blank region, though it may be possible to have
+special objects put into it as sets and props if prior arrangements are made
+with the system operators and the operators have time to set it up.
+Arrangements to use the theater are made by speaking to the Bureau Of
+Scheduling in City Hall.
+.PP
+The presentation of dramatic productions is left as an exercise for the
+players.  The purpose of the theater is simply to make this possible.
+.SH
+\fICostello's Comedy Club
+.PP
+Costello's Comedy Club is another one of the new downtown's theatrical spots.
+It is intended as a site for online humor of all sorts.  As with the other
+theatrical realms, it requires no special programming, merely a region to act
+as the stage.  This region has already been designed and awaits installation
+with the rest of the new downtown.  Costello's will operate like a player run
+business, and Aric has volunteered to run it.
+.SH
+\fISpeakers' Corner
+.PP
+Speakers' Corner is a public area downtown where we encourage anyone who feels
+like it to stand up and air their views on whatever they care to air their
+views on.  Like its real-life counterpart in London's Hyde Park, it should add
+color and character to the city.  It requires little special design save a
+sign and a couple of soapboxes on the right street corner.
+.SH
+\fIBoard games
+.PP
+With the addition of a couple of special types of object, we can implement
+simple board games such as checkers, chess, othello, go, and backgammon.
+These special objects are the game piece and the die.  The die is an ordinary
+six-sided die that can be used to let the host generate random number for the
+players.  Game piece is an inert marker that can be moved around in the region
+without requiring Avatars to pick it up, carry it, and then put it down again.
+With these objects and specially designed regions to act as boards, we can
+support the above mentioned board games quite easily, since these games
+largely consist of moving markers around on a board.
+.PP
+A day's programming is needed to implement the behavior for the new objects.
+Their graphics are already done, as are the region designs for the boards.
+.PP
+We will place the board games in an arcade in the new downtown.  The arcade
+lobby will direct the players to one of several corridors, each corridor
+corresponding to a particular type of game.  Along the corridors will be doors
+leading into ``board rooms''.  Scheduling and allocation of these rooms will
+be left to the players themselves.  We will design the playing pieces so that
+they cannot be removed from the rooms they are in, so no maintenance of any
+sort will be needed once the arcade is set up.
+.SH
+\fICooties
+.PP
+``Cooties'' is sort of a cross between ``Assassin'' and ``Tag'', but with a
+\fIHabitat\fP twist.  It's a simple minded time-waster that's easy to play and
+easy to program.  It works as follows: we ``infect'' some Avatar in the town.
+An infected Avatar displays a cootie head instead of his or her regular head.
+The infected Avatar is also given a Magic Cootie Zapper, a variant on the
+magic wand.  What the infected Avatar must do is ``tag'' another Avatar by
+zapping him with the Magic Cootie Zapper, whereupon the first Avatar regains
+his regular head and the tagged Avatar inherits the cootie head \fIand\fP the
+Magic Cootie Zapper (automatically).  Once having had the cootie head, an
+Avatar is immune to future infection.
+.PP
+We have the head already.  Implementing the game will require programming the
+Magic Cootie Zapper on the host, a task of a day or so.  Making the software
+to do this work hinges on the addition of some general-use state bits in the
+Avatar record.  However, these bits are also needed to make the region rally
+work.
+.SH
+\fIMachiavelli
+.PP
+Machiavelli is a game of paranoid power politics and secret societies.  The
+details are described in another document.  Briefly, it involves setting up a
+secret society inside \fIHabitat\fP, within which the various members strive
+for power and position.  Machiavelli requires no special programming.  What it
+does need is a clear set of starting rules (I say ``starting rules'' because
+the rules of the game will themselves mutate over the course of the game) and
+an initial set of players to ``prime the pump''.  The initial set of players
+will be ourselves (i.e., Randy, Aric, myself, possibly Noah, and any of the
+other LFL or Quantum people who are so inclined).  Part of the game involves
+recruitment of new players, so it should be self sustaining once it is up and
+going.  I have written a first draft of the design, and need to spend another
+couple of days refining the rules before unleashing it upon the unsuspecting
+world.
+.SH
+\fIStock market
+.PP
+We want to implement a stock market game inside the \fIHabitat\fP economy.
+The \fIHabitat\fP stock market is a two-level game.  The first level involves
+trading in fictitious stocks, and is a sort of parimutuel gambling game.
+Inside the Stock Exchange you can buy and sell these stocks, and the prices
+fluctuate daily.  If it is legal to do so, we will take the prices of our
+fictitious stocks from real stocks on the New York Stock Exchange.  If we
+can't do that, we'll have to write a simulator to generate fake data.  Inside
+the \fIHabitat\fP Stock Exchange there will be a ticker-tape display that
+shows the present prices of the various stocks.
+.PP
+The second level of stock market game involves the creation of actual
+\fIHabitat\fP corporations and the trading of stocks in \fIthese\fP companies.
+Since these companies will have actual assets and income or losses within the
+\fIHabitat\fP framework, their stocks will also have actual value within the
+\fIHabitat\fP framework as well.
+.PP
+For both levels of the stock market game, considerable design work is still
+required.   However, the first level can be designed and implemented in a few
+days, since it is quite simple.  The legal question about the source of our
+stock data will still have to be answered however, before we can proceed
+beyond the design stage.  The second level requires further study, and so we
+have no concrete plans to implement anything there yet.
+.SH
+\fIKingpin
+.PP
+Kingpin is a power politics game modeled on the Chicago mob of the prohibition
+era.  Aric is still designing it, and we therefor do not yet have any estimate
+of the level of effort required to implement it.  However, while we expect it
+to require some additional region design and a set of rules, we anticipate
+that little, if any, special-case programming will be required.

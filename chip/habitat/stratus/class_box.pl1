@@ -1,0 +1,51 @@
+/*
+ *   class_box.pl1
+ *
+ *   Box object behavior module for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%replace BOX_CAPACITY by 10;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_box: procedure;
+
+     %replace BOX_REQUESTS by 5;
+
+     declare a(0:BOX_REQUESTS) entry based;
+     declare class_box_actions pointer;
+     declare 1 box based %include struct_box;
+
+     %replace I by CLASS_BOX;
+
+     Class_Table(I).capacity = BOX_CAPACITY;
+     Class_Table(I).max_requests = BOX_REQUESTS;
+     Class_Table(I).alloc_size = size(box);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_box_actions);
+     Class_Table(I).actions = class_box_actions;
+
+     Class_Table(I).actions->a(HELP) = box_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)            = generic_GET;           /* 1 */
+     Class_Table(I).actions->a(PUT)            = generic_PUT;           /* 2 */
+     Class_Table(I).actions->a(THROW)          = generic_THROW;         /* 3 */
+     Class_Table(I).actions->a(CLOSECONTAINER) = generic_CLOSECONTAINER;/* 4 */
+     Class_Table(I).actions->a(OPENCONTAINER)  = generic_OPENCONTAINER; /* 5 */
+
+end initialize_class_box;
+
+box_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_box;
+
+     call lock_HELP('Box', self.key_hi * 256 + self.key_lo, self.open_flags);
+end box_HELP;

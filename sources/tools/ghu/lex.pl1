@@ -1,0 +1,694 @@
+/****************************************************************************
+ *                                                                          *
+ *   "There's glory for you!"                                               *
+ *                                                                          *
+ *   "I don't know what you mean by 'glory,' " Alice said.                  *
+ *                                                                          *
+ *   Humpty Dumpty smiled contemptuously.  "Of course you don't--till I     *
+ *   tell you.  I meant 'there's a nice knock-down argument for you!'"      *
+ *                                                                          *
+ *   "But 'glory' doesn't mean 'a nice knock-down argument,' " Alice        *
+ *   objected.                                                              *
+ *                                                                          *
+ *   "When I use a word," Humpty Dumpty said in a rather a scornful tone,   *
+ *   "it means just what I choose it to mean--neither more nor less."       *
+ *                                                                          *
+ *   "The question is," said Alice, "whether you *can* make words mean      *
+ *   different things."                                                     *
+ *                                                                          *
+ *   "The question is," said Humpty Dumpty, "which is to be master--that's  *
+ *   all."                                                                  *
+ *                                                                          *
+ *               -- Lewis Carroll                                           *
+ *                  "Through the Looking Glass"                             *
+ *                                                                          *
+ ****************************************************************************/
+
+/*
+ * lex.pl1 -- Lexical analyzer for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 31-March-1987
+ *
+ * These routines tokenize a stream of characters so that the parser can try
+ * to make sense of it.  The primary routine is yylex, which simply returns
+ * the next token in the input stream.  In addition, the global variable
+ * yylval is set to the value of the token, if any such value is relevant
+ * (e.g., the value of a Number token or a symbol table entry pointer for a
+ * Name token.  Note that, as far as PL/1 is concerned, all tokens and token
+ * values are bin(31)s regardless of what they actually are as far as we are
+ * concerned.  Token syntax is described in the Ghu writeup, so I'll not
+ * repeat it here.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'command.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'y.tab.incl.pl1';
+
+declare workBufStr character(LINE_LENGTH) varying static init('');
+declare workBuf(-1:LINE_LENGTH) character(1) defined(workBufStr);
+declare workNum binary(31) static init(0);
+declare 1 workBits like vbit_struct static;
+
+declare inside_define bit(1) static external init(false);
+declare yylval binary(31) external;
+
+%replace COMMWORD_COUNT by 53;
+%replace LINEWORD_COUNT by 42;
+/*
+   The commword_strings and lineword_strings tables contain all the keywords
+   recognized by Ghu.  commword_strings are the keywords that can begin a
+   command, while lineword_strings are those found on a line after the
+   command.  The entries MUST be maintained in collating sequence order.  A
+   slash embedded in a keyword marks the minimal initial substring that is a
+   valid abbreviation for the word.
+ */
+declare commword_strings(COMMWORD_COUNT) character(14) varying static init(
+          'a/dd',      'ali/as',    'allm/acros','alln/ames', 'br/eak',
+          'cl/ass',    'c/ontents', 'coo/k',     'de/fine',   'd/isplay',
+          'else',      'elseif',    'endf/or',   'endi/f',    'endm/acro',
+          'e/xecute',  'f/ind',     'for',       'g/et',      'gr/iddle',
+          'h/elp',     'if',        'k/ill',     'l/ist',     'm/acro',
+          'na/me',     'newt/urf',  'nu/ke',     'ora/cle',   'pa/ges',
+          'pl/ayers',  'pr/ocesses','q/uit',     'raw',       'read',
+          'readm/ail', 'rem/ove',   'remt/urf',  'sen/dmail', 's/et',
+          'sta/rt_logging',         'sto/p_logging',
+          'tel/eport', 'ti/tles',   'tu/rfs',    'tu/rves',   'un/ame',
+          'unn/ame',   'up/date',   'v/alue',    'vo/ice',    'w/atch',
+          'wr/ite');
+declare lineword_strings(LINEWORD_COUNT) character(14) varying static init(
+          'a',         'ac/tive',   'all',       'and',       'ava/id',
+          'bin15',     'bin31',     'bit',       'byte',      'ch/aracter',
+          'co/ntinue', 'dump',      'endd/efine','ent/ity',   'eq',
+          'fat/word',  'fi/le',     'fr/om',     'fu/ll',     'ge/q',
+          'gt',        'in',        'int/eger',  'into',      'le/q',
+          'lo/ng',     'lt',        'neq',       'new',       'not',
+          'o',         'obj/id',    'of/f',      'ol/d',      'or',
+          'r',         'reg/id',    'si/nce',    'to',        'u',
+          'var/string','wo/rds');
+/*
+   The commword_tokens and lineword_tokens tables contain the token values
+   that correspond to the various keywords.  These tables MUST be maintained
+   in parallel with their xxx_strings counterparts.
+ */
+declare commword_tokens(COMMWORD_COUNT) binary(15) static init(
+          ADD,         ALIAS,       ALLMACROS,   ALLNAMES,    BREAK,
+          CLASS,       CONTENTS,    COOK,        DEFINE,      DISPLAY,
+          ELSE,        ELSEIF,      ENDFOR,      ENDIF,       ENDMACRO,
+          EXECUTE,     FIND,        FOR,         GET,         GRIDDLE,
+          HELP,        IF,          KILL,        LIST,        MACRO,
+          NAME,        NEWTURF,     NUKE,        ORACLE,      PAGES,
+          PLAYERS,     PROCESSES,   QUIT,        RAW,         READ,
+          READMAIL,    REMOVE,      REMTURF,     SENDMAIL,    SET,
+          START_LOGGING,            STOP_LOGGING,
+          TELEPORT,    TITLES,      TURFS,       TURFS,       UNNAME,
+          UNNAME,      UPDATE,      VALUE,       VOICE,       WATCH,
+          WRITE);
+declare lineword_tokens(LINEWORD_COUNT) binary(15) static init(
+          A,           ACTIVE,      ALL,         LOGAND,      AVAID,
+          BIN15,       BIN31,       BIT,         BYTE,        CHARACTER,
+          CONTINUE,    DUMP,        ENDDEFINE,   ENTITY,      EQ,
+          FATWORD,     FILE,        FROM,        FULL,        GEQ,
+          GT,          IN,          BIN15,       INTO,        LEQ,
+          BIN31,       LT,          NEQ,         NEW,         BANG,
+          O,           OBJID,       OFF,         OLD,         LOGOR,
+          R,           REGID,       SINCE,       TO,          U,
+          VARSTRING,   WORDS);
+declare commword_minlength(COMMWORD_COUNT) static binary(15);
+declare lineword_minlength(LINEWORD_COUNT) static binary(15);
+
+%replace ESCAPE_COUNT by 23;
+declare escape_chars(ESCAPE_COUNT) binary(15) static init(
+          N_LOWER,     T_LOWER,     B_LOWER,     R_LOWER,     F_LOWER,
+          E_LOWER,     BACKSLASH,   APOSTROPHE,  QUOTE,       SPACE,
+          POUND,       PLUS,        MINUS,       LPAREN,      RPAREN,
+          H_LOWER,     D_LOWER,     I_LOWER,     GT,          LT,
+          CARET,       V_LOWER,     R_UPPER);
+declare escape_codes(ESCAPE_COUNT) binary(15) static init(
+          NEWLINE,     TAB,         BACKSPACE,   RETURN,      FORMFEED,
+          ESCAPE,      BACKSLASH,   APOSTROPHE,  QUOTE,       HALF_SPACE,
+          DOUBLE_SPACE,INC_WIDTH,   DEC_WIDTH,   INC_HEIGHT,  DEC_HEIGHT,
+          HALF_SIZE,   DN_HALF_CHAR,INVERSE,     CURSOR_LEFT, CURSOR_RIGHT,
+          CURSOR_UP,   CURSOR_DOWN, CHAR_RETURN);
+
+declare previous_token binary(31) static init(NEWLINE);
+
+yylex: procedure returns(binary(31));
+     declare c binary(15);
+     declare result binary(31);
+
+try_again:
+     c = getchar();
+     do while (c = SPACE | c = TAB);
+          c = getchar();
+     end;
+     if (previous_token = INTO | previous_token = FILE |
+                               previous_token = APPEND |
+                               previous_token = COOK |
+                               previous_token = START_LOGGING |
+                               previous_token = EXECUTE) then do;
+          call scan_filename(c);
+          yylval = build_lex_result_string();
+          result = Filename;
+     end; else if (c = QUOTE) then do;
+          call scan_string(QUOTE);
+          yylval = build_lex_result_string();
+          result = String;
+     end; else if (c = APOSTROPHE) then do;
+          call scan_string(APOSTROPHE);
+          c = getchar();
+          if (c ^= B & c ^= B_LOWER) then do;
+               call ungetc(c);
+               yylval = build_lex_result_string();
+               result = String;
+          end; else do;
+               c = getchar();
+               if (c = TWO) then
+                    call decode_bitstring(2, 4);
+               else if (c = THREE) then
+                    call decode_bitstring(3, 8);
+               else if (c = FOUR) then
+                    call decode_bitstring(4, 16);
+               else do;
+                    call ungetc(c);
+                    call decode_bitstring(1, 2);
+               end;
+               yylval = build_lex_result_bitstring();
+               result = Bitstring;
+          end;
+     end; else if (c = DOLLAR) then do;
+          call scan_identifier(c);
+          call decode_parameter_number;
+          yylval = build_lex_result_parameter();
+          result = Name;
+     end; else if (is_digit(c)) then do;
+          call scan_identifier(c);
+          call decode_unix_number;
+          yylval = build_lex_result_number();
+          result = Number;
+     end; else if (is_alpha(c)) then do;
+          call scan_identifier(c);
+          if (((previous_token = NEWLINE | previous_token = SEMICOLON) &
+                    ^inside_define) | previous_token = HELP) then
+               result = match_keyword(COMMWORD_COUNT, commword_strings,
+                    commword_minlength, commword_tokens);
+          else
+               result = match_keyword(LINEWORD_COUNT, lineword_strings,
+                    lineword_minlength, lineword_tokens);
+          yylval = result;
+          if (result = 0) then do;
+               yylval = build_lex_result_name();
+               result = Name;
+          end;
+     end; else if (c = GT) then do;
+          c = getchar();
+          if (c = GT) then
+               result = APPEND;
+          else if (c = EQUAL) then
+               result = GEQ;
+          else do;
+               call ungetc(c);
+               result = GT;
+          end;
+     end; else if (double(c, MINUS, MINUS, DASH, result)) then do;
+          ;
+     end; else if (double(c, LT, EQUAL, LEQ, result)) then do;
+          ;
+     end; else if (double(c, EQUAL, EQUAL, EQ, result)) then do;
+          ;
+     end; else if (double(c, AND, AND, LOGAND, result)) then do;
+          ;
+     end; else if (double(c, OR, OR, LOGOR, result)) then do;
+          ;
+     end; else if (double(c, BANG, EQUAL, NEQ, result)) then do;
+          ;
+     end; else do;
+          result = match_literal(c);
+          if (result = -1) then do;
+               call error('Illegal character "' || byte(c) || '".');
+               goto try_again;
+          end;
+     end;
+     previous_token = result;
+     return(result);
+end yylex;
+
+getval: procedure(default_flag, abort_flag) returns(pointer);
+     declare default_flag bit(1);
+     declare abort_flag bit(1);
+     declare token binary(31);
+     declare tag_type binary(15);
+
+     tag_type = SYM$INTEGER;
+     previous_token = Number; /* anything that's not start of line */
+     abort_flag = false;
+     do while (^user_break_flag);
+          token = yylex();
+          if (token = NEWLINE) then do;
+               if (default_flag) then
+                    return(null());
+               call error('please enter something');
+          end; else if (token = PERIOD) then do;
+               abort_flag = true;
+               return(null());
+          end; else if (token = Number) then do;
+               call skip_to_end_of_line;
+               return(create_value(tag_type, yylval));
+          end; else if (token = Bitstring) then do;
+               call skip_to_end_of_line;
+               if (tag_type = SYM$INTEGER) then
+                    return(create_value(SYM$BITSTRING, yylval));
+               call error('improper data type');
+          end; else if (token = String) then do;
+               call skip_to_end_of_line;
+               if (tag_type = SYM$INTEGER) then
+                    return(create_value(SYM$STRING, yylval));
+               else if (tag_type = SYM$AVATAR) then
+                    return(create_value(SYM$AVA_NAME, yylval));
+               call error('improper data type');
+          end; else if (token = A & tag_type = SYM$INTEGER) then do;
+               tag_type = SYM$AVATAR;
+          end; else if (token = O & tag_type = SYM$INTEGER) then do;
+               tag_type = SYM$OBJECT;
+          end; else if (token = R & tag_type = SYM$INTEGER) then do;
+               tag_type = SYM$REGION;
+          end; else do;
+               call error('syntax error in value');
+               tag_type = SYM$INTEGER;
+               call skip_to_end_of_line;
+          end;
+     end;
+     abort_flag = true;
+     return(null());
+
+     skip_to_end_of_line: procedure;
+          do while (token ^= NEWLINE);
+               token = yylex();
+          end;
+     end skip_to_end_of_line;
+end getval;
+
+double: procedure(c, match1, match2, token2, result) returns(bit(1));
+     declare c binary(15);
+     declare (match1, match2) binary(15);
+     declare token2 binary(15);
+     declare result binary(31);
+     declare c2 binary(15);
+
+     if (c = match1) then do;
+          c2 = getchar();
+          if (c2 = match2) then
+               result = token2;
+          else do;
+               call ungetc(c2);
+               result = match1;
+          end;
+          return(true);
+     end; else
+          return(false);
+end double;
+
+is_digit: procedure(c) returns(bit(1));
+     declare c binary(15);
+
+     return(ZERO <= c & c <= NINE);
+end is_digit;
+
+is_alpha: procedure(c) returns(bit(1));
+     declare c binary(15);
+
+     return((A <= c & c <= Z) | (A_LOWER <= c & c <= Z_LOWER) |
+            c = UNDERLINE | c = DOLLAR);
+end is_alpha;
+
+read_page_line: procedure(line, input_file);
+     declare line character(*) varying;
+     declare line_ptr binary(15);
+     declare input_file file;
+     declare inbufStr character(LINE_LENGTH) varying;
+     declare inbuf(-1:LINE_LENGTH) character(1) defined(inbufStr);
+
+     on endfile(input_file) goto end_of_document;
+     if (input_file = sysin) then
+          inbufStr = getline();
+     else
+          get file(input_file) edit(inbufStr)(a);
+     line = '';
+     line_ptr = 1;
+     do while(line_ptr <= length(inbufStr));
+          if (inbuf(line_ptr) = '\') then do;
+               line_ptr = line_ptr + 1;
+               line = line || byte(process_escape(line_getchar, line_ungetc));
+          end; else do;
+               line = line || inbuf(line_ptr);
+               line_ptr = line_ptr + 1;
+          end;
+     end;
+     return;
+
+end_of_document:
+     line = '.';
+
+     line_getchar: procedure returns(binary(15));
+          declare result binary(15);
+
+          if (line_ptr > length(inbufStr)) then
+               result = NEWLINE;
+          else
+               result = rank(inbuf(line_ptr));
+          line_ptr = line_ptr + 1;
+          return(result);
+     end line_getchar;
+
+     line_ungetc: procedure(c);
+          declare c binary(15);
+
+          if (line_ptr > 1) then
+               line_ptr = line_ptr - 1;
+     end line_ungetc;
+end read_page_line;
+
+scan_string: procedure(delim);
+     declare delim binary(15);
+     declare c binary(15);
+
+     workBufStr = '';
+     do while (true);
+          c = getchar();
+          if (delim = NEWLINE & c = delim) then
+               return;
+          else if (c = delim) then do;
+               c = getchar();
+               if (c ^= delim) then do;
+                    call ungetc(c);
+                    return;
+               end;
+          end; else if (c = NEWLINE) then do;
+               call warning('unterminated string');
+               call ungetc(c);
+               return;
+          end; else if (c = BACKSLASH) then
+               c = process_escape(getchar, ungetc);
+          workBufStr = workBufStr || byte(c);
+     end;
+end scan_string;
+
+scan_filename: procedure(first);
+     declare first binary(15);
+     declare c binary(15);
+
+     workBufStr = byte(first);
+     do while (true);
+          c = getchar();
+          if (c = SPACE | c = TAB | c = NEWLINE) then do;
+               call ungetc(c);
+               return;
+          end;
+          workBufStr = workBufStr || byte(c);
+     end;
+end scan_filename;
+
+scan_identifier: procedure(first);
+     declare first binary(15);
+     declare c binary(15);
+
+     workBufStr = byte(first);
+     do while (true);
+          c = getchar();
+          if (^is_digit(c) & ^is_alpha(c)) then do;
+               call ungetc(c);
+               return;
+          end;
+          workBufStr = workBufStr || byte(c);
+     end;
+end scan_identifier;
+
+decode_unix_number: procedure;
+     declare radix binary(15);
+
+     if (workBuf(1) = '0') then do;
+          if (length(workBufStr) = 1) then do;
+               workNum = 0;
+               return;
+          end; else if (workBuf(2) = 'x' | workBuf(2) = 'X') then
+               radix = 16;
+          else if (workBuf(2) = 'b' | workBuf(2) = 'B') then
+               radix = 2;
+          else if (workBuf(2) = 'q' | workBuf(2) = 'Q') then
+               radix = 4;
+          else
+               radix = 8;
+          if (radix ^= 8) then
+               workBufStr = substr(workBufStr, 3);
+          call decode_number(radix);
+     end; else
+          call decode_number(10);
+end decode_unix_number;
+
+decode_parameter_number: procedure;
+     workBufStr = substr(workBufStr, 2);
+     call decode_number(10);
+     if (workNum < 1) then do;
+          call error('illegal parameter number ' || ltrim(workNum));
+          workNum = 1;
+     end;
+end decode_parameter_number;
+
+decode_number: procedure(radix);
+     declare radix binary(15);
+     declare digitptr binary(15);
+
+     workNum = 0;
+     digitptr = 1;
+     do while (digitptr <= length(workBufStr));
+          workNum = workNum * radix + decode_digit(rank(workBuf(digitptr)),
+               radix);
+          digitptr = digitptr + 1;
+     end;
+end decode_number;
+
+decode_bitstring: procedure(digitsize, radix);
+     declare digitsize binary(15);
+     declare radix binary(15);
+     declare digitptr binary(15);
+     declare bits bit(32);
+     declare len binary(15);
+
+     len = length(workBufStr) * digitsize;
+     if (len > 32) then do;
+          call error('bitstring constant too long');
+          len = 32;
+     end;
+     digitptr = 1;
+     do while (digitptr <= divide(len, digitsize, 15));
+          substr(bits, (digitptr - 1) * digitsize + 1, digitsize) =
+               substr(decode_bits(rank(workBuf(digitptr)), digitsize, radix),
+               1, digitsize);
+          digitptr = digitptr + 1;
+     end;
+     workBits.len = len;
+     workBits.bits = bits;
+end decode_bitstring;
+
+decode_bits: procedure(digit, digitsize, radix) returns(bit(4));
+     declare digit binary(15);
+     declare digitsize binary(15);
+     declare radix binary(15);
+
+     return(substr(bit(decode_digit(digit, radix), 15), 15 - digitsize + 1,
+          digitsize) || copy('0'b, 4 - digitsize));
+end decode_bits;
+
+decode_digit: procedure(c, radix) returns(binary(15));
+     declare c binary(15);
+     declare radix binary(15);
+     declare result binary(15);
+
+     if (is_digit(c)) then
+          result = c - ZERO;
+     else if (A <= c & c <= Z) then
+          result = c - A + 10;
+     else
+          result = c - A_LOWER + 10;
+     if (result >= radix) then
+          call error('Illegal base ' || ltrim(radix) || ' digit "' ||
+               byte(c) || '".');
+     return(result);
+end decode_digit;
+
+match_literal: procedure(c) returns(binary(15));
+     declare c binary(15);
+     declare i binary(15);
+     %replace LITERAL_COUNT by 16;
+     /* A future optimization will be to put this table in order and bail out
+        when the character we are trying to match exceeds a table entry. */
+     declare literal_table(LITERAL_COUNT) binary(15) static init(
+          COMMA, SEMICOLON, AT, LPAREN, RPAREN, PLUS, SLASH, STAR, CARET,
+          PERIOD, NEWLINE, TILDE, COLON, POUND, QUESTION, EOF);
+
+     do i=1 to LITERAL_COUNT;
+          if (c = literal_table(i)) then
+               return(c);
+     end;
+     return(-1);
+end match_literal;
+
+/* This is a setup routine that must be called during initialization time.  It
+   figures out the minimum length of each keyword on the basis of the slashes
+   in the initial keyword table declaration, and then strips the slashes out.
+ */
+set_keyword_minlengths: procedure;
+     call compute_keyword_minlengths(COMMWORD_COUNT, commword_strings,
+          commword_minlength);
+     call compute_keyword_minlengths(LINEWORD_COUNT, lineword_strings,
+          lineword_minlength);
+end set_keyword_minlengths;
+
+compute_keyword_minlengths: procedure(count, strings, minlengths);
+     declare count binary(15);
+     declare strings(*) character(14) varying;
+     declare minlengths(*) binary(15);
+     declare i binary(15);
+     declare len binary(15);
+
+     do i=1 to count;
+          len = index(strings(i), '/');
+          if (len = 0) then
+               minlengths(i) = length(strings(i));
+          else do;
+               minlengths(i) = len - 1;
+               strings(i) = substr(strings(i), 1, len - 1) ||
+                            substr(strings(i), len + 1);
+          end;
+     end;
+end compute_keyword_minlengths;
+
+match_keyword: procedure(count,strings,minlengths,tokens) returns(binary(15));
+     declare count binary(15);
+     declare strings(*) character(14) varying;
+     declare minlengths(*) binary(15);
+     declare tokens(*) binary(15);
+     declare i binary(15);
+
+     do i=1 to count;
+          if (length(workBufStr) >= minlengths(i) &
+                    length(workBufStr) <= length(strings(i))) then
+               if (workBufStr = substr(strings(i),1,length(workBufStr))) then
+                    return(tokens(i));
+     end;
+     return(0);
+end match_keyword;
+
+process_escape: procedure(getchar, ungetc) returns(binary(15));
+     declare getchar entry returns(binary(15));
+     declare ungetc entry(binary(15));
+     declare c binary(15);
+     declare result binary(15);
+     declare i binary(15);
+
+     c = getchar();
+     if (c = CARET) then
+          result = control_character(getchar());
+     else if (c = X_LOWER) then do;
+          result = 0;
+          do i=1 to 2;
+               c = getchar();
+               if ((ZERO <= c & c <= NINE) | (A <= c & c <= Z) |
+                         (A_LOWER <= c & c <= Z_LOWER)) then
+                    result = result * 16 + decode_digit(c, 16);
+               else
+                    call ungetc(c);
+          end;
+     end; else if (ZERO <= c & c <= SEVEN) then do;
+          result = decode_digit(c, 8);
+          do i=1 to 2;
+               c = getchar();
+               if (ZERO <= c & c <= SEVEN) then
+                    result = result * 8 + decode_digit(c, 8);
+               else
+                    call ungetc(c);
+          end;
+     end; else do;
+          do i=1 to ESCAPE_COUNT;
+               if (c = escape_chars(i)) then
+                    return(escape_codes(i));
+          end;
+          result = c;
+     end;
+     return(result);
+end process_escape;
+
+unescape: procedure(ch) returns(character(4) varying);
+     declare ch character(1);
+     declare c binary(15);
+     declare result character(4) varying;
+     declare i binary(15);
+     declare len binary(15);
+
+     c = rank(ch);
+     if (SPACE <= c & c <= TILDE) then
+          return(ch);
+     else if (c = 0) then
+          return('\0');
+     else do;
+          do i = 1 to ESCAPE_COUNT;
+               if (c = escape_codes(i)) then
+                    return('\' || byte(escape_chars(i)));
+          end;
+          result = '';
+          len = 0;
+          do while (c > 8);
+               result = byte(ZERO + mod(c, 8)) || result;
+               c = divide(c, 8, 15);
+               len = len + 1;
+          end;
+          result = byte(ZERO + c) || result;
+          len = len + 1;
+          result = '\' || copy('0', 3 - len) || result;
+          return(result);
+     end;
+end unescape;
+
+build_lex_result_string: procedure returns(binary(31));
+     return(p2i(copy_string(workBufStr)));
+end build_lex_result_string;
+
+build_lex_result_bitstring: procedure returns(binary(31));
+     declare result pointer;
+
+     result = alloc(size(vbit_struct), 18);
+     result->vbit_struct = workBits;
+     return(p2i(result));
+end build_lex_result_bitstring;
+
+build_lex_result_parameter: procedure returns(binary(31));
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     symbolptr = lookup_or_install_symbol(workBufStr);
+     symbol.symbol_type = SYM$PARAMETER;
+     symbol.symbol_value = workNum;
+     return(p2i(symbolptr));
+end build_lex_result_parameter;
+
+build_lex_result_number: procedure returns(binary(31));
+     return(workNum);
+end build_lex_result_number;
+
+build_lex_result_name: procedure returns(binary(31));
+     return(p2i(lookup_or_install_symbol(workBufStr)));
+end build_lex_result_name;
+
+control_character: procedure(c) returns(binary(15));
+     declare c binary(15);
+
+     return(binary(bit(c, 16) & '0000000000111111'b, 15));
+end control_character;

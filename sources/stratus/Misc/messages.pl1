@@ -1,0 +1,649 @@
+/*
+ *   messages.pl1
+ *
+ *   Procedures to send messages to the home system.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+
+%replace BUFLEN by 256;
+declare msg_buffer(BUFLEN) character(1) static;
+declare msg_buffer_string  character(BUFLEN) defined(msg_buffer);
+
+declare encoded_buffer     character(BUFLEN) static;
+declare encoded_length     binary(31) static;
+
+declare BUGON              bit(1) static external;
+
+/* The following should probably wind up in an include file eventually */
+%replace message$normal by 1;
+%replace MSG_BASE by 4;
+%replace MICROCOSM_ID_BYTE by 'U';
+%replace PHANTOM_REQUEST_HEADER by 250;
+
+declare trace_msg entry(char(*) varying);
+declare encode_buffer entry(character(*), binary(31), character(*), binary(31))
++;
+declare encode_string entry(character(*) varying, character(*) varying);
+declare encode_byte entry(binary(15)) returns(character(2) varying);
+declare send_multiple_packets entry(binary(15), character(*) varying, character
++(*) varying,
+               binary(31), bit(1) aligned);
+declare send_message entry(pointer, binary(31), character(*), binary(31),
+               binary(31), binary(31));
+declare send_fan_message entry((*) pointer, binary(15),
+               binary(31), character(*), binary(31), binary(31), binary(31));
+declare Build_Fan_List entry(binary(31), bit(1));
+
+/*
+ * n_msg_N -- Send a message to my neighbors.  'N' encodes number of args.
+ *
+ */
+n_msg_0: procedure(to_object, message_number);
+     declare to_object pointer;
+     declare message_number binary(15);
+
+     call send_n_msg(to_object, message_number, 0);
+end n_msg_0;
+
+n_msg_1: procedure(to_object, message_number, arg1);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     call send_n_msg(to_object, message_number, 1);
+end n_msg_1;
+
+n_msg_2: procedure(to_object, message_number, arg1, arg2);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     call send_n_msg(to_object, message_number, 2);
+end n_msg_2;
+
+n_msg_3: procedure(to_object, message_number, arg1, arg2, arg3);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     call send_n_msg(to_object, message_number, 3);
+end n_msg_3;
+
+n_msg_4: procedure(to_object, message_number, arg1, arg2, arg3, arg4);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     call send_n_msg(to_object, message_number, 4);
+end n_msg_4;
+
+n_msg_5: procedure(to_object, message_number, arg1, arg2, arg3, arg4, arg5);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+     declare arg5 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     msg_buffer(MSG_BASE+5) = byte(arg5);
+     call send_n_msg(to_object, message_number, 5);
+end n_msg_5;
+
+n_msg_6: procedure(to_object, message_number, arg1, arg2, arg3, arg4, arg5, arg
++6);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+     declare arg5 binary(15);
+     declare arg6 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     msg_buffer(MSG_BASE+5) = byte(arg5);
+     msg_buffer(MSG_BASE+6) = byte(arg6);
+     call send_n_msg(to_object, message_number, 6);
+end n_msg_6;
+
+n_msg_1_s: procedure(to_object, message_number, arg1, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+1)) defined(msg_buffer(MSG_BASE
+++2));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     argslot = args;
+     call send_n_msg(to_object, message_number, 1+length(args));
+end n_msg_1_s;
+
+n_msg_2_s: procedure(to_object, message_number, arg1, arg2, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+2)) defined(msg_buffer(MSG_BASE
+++3));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     argslot = args;
+     call send_n_msg(to_object, message_number, 2+length(args));
+end n_msg_2_s;
+
+n_msg_3_s: procedure(to_object, message_number, arg1, arg2, arg3, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+3)) defined(msg_buffer(MSG_BASE
+++4));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     argslot = args;
+     call send_n_msg(to_object, message_number, 3+length(args));
+end n_msg_3_s;
+
+n_msg_s: procedure(to_object, message_number, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE)) defined(msg_buffer(MSG_BASE+1
++));
+
+     argslot = args;
+     call send_n_msg(to_object, message_number, length(args));
+end n_msg_s;
+
+send_n_msg: procedure(to_objectptr, message_number, count);
+     declare 1 to_object based(to_objectptr) %include struct_gen_object;
+     declare to_objectptr pointer;
+     declare message_number binary(15);
+     declare count binary(15);
+
+     msg_buffer(1) = MICROCOSM_ID_BYTE;
+     msg_buffer(2) = byte(PHANTOM_REQUEST_HEADER);
+     if (to_objectptr = null()) then
+          msg_buffer(3) = byte(THE_REGION);
+     else
+          msg_buffer(3) = byte(to_object.noid);
+     msg_buffer(4) = byte(message_number);
+     call Build_Fan_List(current_qid, false);
+     if (fan_cnt < 1) then return;
+     call encode_buffer (msg_buffer_string, count + MSG_BASE, encoded_buffer,
+               encoded_length);
+     if (BUGON) then
+         call trace_msg('n_msg:' || substr(encoded_buffer, 1, encoded_length));
+     call send_fan_message(fan_list, fan_cnt, message$normal, encoded_buffer,
+               encoded_length, 0, 0);
+end send_n_msg;
+
+/*
+ * b_msg_N -- Send a message to everyone here.  'N' encodes number of args.
+ *
+ */
+b_msg_0: procedure(to_object, message_number);
+     declare to_object pointer;
+     declare message_number binary(15);
+
+     call send_b_msg(to_object, message_number, 0);
+end b_msg_0;
+
+b_msg_1: procedure(to_object, message_number, arg1);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     call send_b_msg(to_object, message_number, 1);
+end b_msg_1;
+
+b_msg_2: procedure(to_object, message_number, arg1, arg2);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     call send_b_msg(to_object, message_number, 2);
+end b_msg_2;
+
+b_msg_3: procedure(to_object, message_number, arg1, arg2, arg3);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     call send_b_msg(to_object, message_number, 3);
+end b_msg_3;
+
+b_msg_4: procedure(to_object, message_number, arg1, arg2, arg3, arg4);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     call send_b_msg(to_object, message_number, 4);
+end b_msg_4;
+
+b_msg_5: procedure(to_object, message_number, arg1, arg2, arg3, arg4, arg5);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+     declare arg5 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     msg_buffer(MSG_BASE+5) = byte(arg5);
+     call send_b_msg(to_object, message_number, 5);
+end b_msg_5;
+
+b_msg_7: procedure(to_object, message_number, arg1, arg2, arg3, arg4, arg5, arg
++6, arg7);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+     declare arg5 binary(15);
+     declare arg6 binary(15);
+     declare arg7 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     msg_buffer(MSG_BASE+5) = byte(arg5);
+     msg_buffer(MSG_BASE+6) = byte(arg6);
+     msg_buffer(MSG_BASE+7) = byte(arg7);
+     call send_b_msg(to_object, message_number, 7);
+end b_msg_7;
+
+b_msg_1_s: procedure(to_object, message_number, arg1, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+1)) defined(msg_buffer(MSG_BASE
+++2));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     argslot = args;
+     call send_b_msg(to_object, message_number, 1+length(args));
+end b_msg_1_s;
+
+b_msg_s: procedure(to_object, message_number, args);
+     declare to_object pointer;
+     declare message_number binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE)) defined(msg_buffer(MSG_BASE+1
++));
+
+     argslot = args;
+     call send_b_msg(to_object, message_number, length(args));
+end b_msg_s;
+
+send_b_msg: procedure(to_objectptr, message_number, count);
+     declare 1 to_object based(to_objectptr) %include struct_gen_object;
+     declare to_objectptr pointer;
+     declare message_number binary(15);
+     declare count binary(15);
+
+     msg_buffer(1) = MICROCOSM_ID_BYTE;
+     msg_buffer(2) = byte(PHANTOM_REQUEST_HEADER);
+     if (to_objectptr = null()) then
+          msg_buffer(3) = byte(THE_REGION);
+     else
+          msg_buffer(3) = byte(to_object.noid);
+     msg_buffer(4) = byte(message_number);
+     call Build_Fan_List(current_qid, true);
+     if (fan_cnt < 1) then return;
+     call encode_buffer (msg_buffer_string, count + MSG_BASE, encoded_buffer,
+               encoded_length);
+     if (encoded_length >= 120) then do;
+        encoded_length = 119;
+        if (substr(encoded_buffer,encoded_length,1) = byte(93))
+           then encoded_length = 118;
+        end;
+     if (BUGON) then
+         call trace_msg('b_msg:' || substr(encoded_buffer, 1, encoded_length));
+     call send_fan_message(fan_list, fan_cnt, message$normal, encoded_buffer,
+               encoded_length, 0, 0);
+end send_b_msg;
+
+/*
+ * p_msg_N -- Send a point-to-point message.  'N' encodes number of args.
+ *
+ */
+p_msg_0: procedure(to_object, to_whom, message_number);
+     declare to_object pointer;
+     declare to_whom pointer;
+     declare message_number binary(15);
+
+     call send_p_msg(to_object, to_whom, message_number, 0);
+end p_msg_0;
+
+p_msg_1: procedure(to_object, to_whom, message_number, arg1);
+     declare to_object pointer;
+     declare to_whom pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     call send_p_msg(to_object, to_whom, message_number, 1);
+end p_msg_1;
+
+p_msg_s: procedure(to_object, to_whom, message_number, args);
+     declare to_object pointer;
+     declare to_whom pointer;
+     declare message_number binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE)) defined(msg_buffer(MSG_BASE+1
++));
+
+     argslot = args;
+     call send_p_msg(to_object, to_whom, message_number, length(args));
+end p_msg_s;
+
+p_msg_1_s: procedure(to_object, to_whom, message_number, arg1, args);
+     declare to_object pointer;
+     declare to_whom pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+1)) defined(msg_buffer(MSG_BASE
+++2));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     argslot = args;
+     call send_p_msg(to_object, to_whom, message_number, 1+length(args));
+end p_msg_1_s;
+
+send_p_msg: procedure(to_objectptr, to_whomptr, message_number, count);
+     declare 1 to_object based(to_objectptr) %include struct_gen_object;
+     declare to_objectptr pointer;
+     declare 1 to_whom based(to_whomptr) %include struct_avatar;
+     declare to_whomptr pointer;
+     declare message_number binary(15);
+     declare count binary(15);
+     declare 1 receiver based(receiverptr) %include struct_user;
+     declare receiverptr pointer;
+
+     if (to_whomptr = null()) then
+          receiverptr = userptr;
+     else
+          receiverptr = UserList(to_whom.avatarslot);
+     msg_buffer(1) = MICROCOSM_ID_BYTE;
+     msg_buffer(2) = byte(PHANTOM_REQUEST_HEADER);
+     if (to_objectptr = null()) then
+          msg_buffer(3) = byte(THE_REGION);
+     else
+          msg_buffer(3) = byte(to_object.noid);
+     msg_buffer(4) = byte(message_number);
+     call encode_buffer (msg_buffer_string, count + MSG_BASE, encoded_buffer,
+          encoded_length);
+     if (BUGON) then
+          call trace_msg('p_msg:' || substr(encoded_buffer, 1, encoded_length))
++;
+     if (receiver.online) then
+          call send_message(receiver.U_Q, message$normal, encoded_buffer,
+               encoded_length, receiver.U_Id, receiver.U_Q_Id);
+end send_p_msg;
+
+/*
+ * r_msg_N -- Send a response message.  'N' encodes number of args.
+ *
+ */
+r_msg_1: procedure(arg1);
+     declare arg1 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     call send_r_msg(1);
+end r_msg_1;
+
+r_msg_2: procedure(arg1, arg2);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     call send_r_msg(2);
+end r_msg_2;
+
+r_msg_3: procedure(arg1, arg2, arg3);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     call send_r_msg(3);
+end r_msg_3;
+
+r_msg_4: procedure(arg1, arg2, arg3, arg4);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     call send_r_msg(4);
+end r_msg_4;
+
+r_msg_5: procedure(arg1, arg2, arg3, arg4, arg5);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare arg4 binary(15);
+     declare arg5 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     msg_buffer(MSG_BASE+4) = byte(arg4);
+     msg_buffer(MSG_BASE+5) = byte(arg5);
+     call send_r_msg(5);
+end r_msg_5;
+
+r_msg_1_s: procedure(arg1, args);
+     declare arg1 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+1)) defined(msg_buffer(MSG_BASE
+++2));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     argslot = args;
+     call send_r_msg(1+length(args));
+end r_msg_1_s;
+
+r_msg_2_s: procedure(arg1, arg2, args);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+2)) defined(msg_buffer(MSG_BASE
+++3));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     argslot = args;
+     call send_r_msg(2+length(args));
+end r_msg_2_s;
+
+r_msg_3_s: procedure(arg1, arg2, arg3, args);
+     declare arg1 binary(15);
+     declare arg2 binary(15);
+     declare arg3 binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE+3)) defined(msg_buffer(MSG_BASE
+++4));
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     msg_buffer(MSG_BASE+2) = byte(arg2);
+     msg_buffer(MSG_BASE+3) = byte(arg3);
+     argslot = args;
+     call send_r_msg(3+length(args));
+end r_msg_3_s;
+
+r_msg_s: procedure(args);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE)) defined(msg_buffer(MSG_BASE+1
++));
+
+     argslot = args;
+     call send_r_msg(length(args));
+end r_msg_s;
+
+send_r_msg: procedure(count);
+     declare count binary(15);
+     declare 1 receiver based(receiverptr) %include struct_user;
+     declare receiverptr pointer;
+
+     receiverptr = userptr;
+     msg_buffer(1) = MICROCOSM_ID_BYTE;
+     msg_buffer(2) = current_header;
+     msg_buffer(3) = byte(self.noid);
+     msg_buffer(4) = byte(current_request);
+     call encode_buffer (msg_buffer_string, count + MSG_BASE, encoded_buffer,
+          encoded_length);
+     if (BUGON) then
+          call trace_msg('r_msg:' || substr(encoded_buffer, 1, encoded_length))
++;
+     call send_message(receiver.U_Q, message$normal, encoded_buffer,
+          encoded_length, receiver.U_Id, receiver.U_Q_Id);
+end send_r_msg;
+
+e_msg_1: procedure(to_object, exclude_whom, message_number, arg1);
+     declare to_object pointer;
+     declare exclude_whom pointer;
+     declare message_number binary(15);
+     declare arg1 binary(15);
+
+     msg_buffer(MSG_BASE+1) = byte(arg1);
+     call send_e_msg(to_object, exclude_whom, message_number, 1);
+end e_msg_1;
+
+e_msg_s: procedure(to_object, exclude_whom, message_number, args);
+     declare to_object pointer;
+     declare exclude_whom pointer;
+     declare message_number binary(15);
+     declare args character(*) varying;
+     declare argslot character(BUFLEN-(MSG_BASE)) defined(msg_buffer(MSG_BASE+1
++));
+
+     argslot = args;
+     call send_e_msg(to_object, exclude_whom, message_number, length(args));
+end e_msg_s;
+
+send_e_msg: procedure(to_objectptr, exclude_whomptr, message_number, count);
+     declare 1 to_object based(to_objectptr) %include struct_gen_object;
+     declare to_objectptr pointer;
+     declare 1 exclude_whom based(exclude_whomptr) %include struct_avatar;
+     declare exclude_whomptr pointer;
+     declare message_number binary(15);
+     declare count binary(15);
+     declare 1 nonreceiver based(nonreceiverptr) %include struct_user;
+     declare nonreceiverptr pointer;
+
+     if (exclude_whomptr = null()) then
+          nonreceiverptr = userptr;
+     else
+          nonreceiverptr = UserList(exclude_whom.avatarslot);
+     msg_buffer(1) = MICROCOSM_ID_BYTE;
+     msg_buffer(2) = byte(PHANTOM_REQUEST_HEADER);
+     if (to_objectptr = null()) then
+          msg_buffer(3) = byte(THE_REGION);
+     else
+          msg_buffer(3) = byte(to_object.noid);
+     msg_buffer(4) = byte(message_number);
+     call Build_Fan_List(nonreceiver.U_Q_Id, false);
+     call encode_buffer (msg_buffer_string, count + MSG_BASE, encoded_buffer,
+          encoded_length);
+     if (BUGON) then
+          call trace_msg('e_msg:' || substr(encoded_buffer, 1, encoded_length))
++;
+     call send_fan_message(fan_list, fan_cnt, message$normal, encoded_buffer,
+               encoded_length, 0, 0);
+end send_e_msg;
+
+send_bogus_track_sector_update: procedure(who_noid, track, sector, val);
+     declare who_noid binary(15);
+     declare track binary(15);
+     declare sector binary(15);
+     declare val binary(15);
+     declare prefix character(6) varying;
+     declare data character(516) varying;
+     declare encoded_data character(516) varying;
+
+     prefix = MICROCOSM_ID_BYTE || byte(PHANTOM_REQUEST_HEADER) ||
+          encode_byte(THE_REGION) || encode_byte(UPDATE$);
+     data = encode_byte(track) || encode_byte(sector) || copy(encode_byte(val),
++ 256);
+/*     call encode_string(data, encoded_data);*/
+     call send_multiple_packets(who_noid, prefix, data, 0, true);
+end send_bogus_track_sector_update;
+
+%replace IMALIVE by 3;
+%replace NEWUSER by 2;
+
+send_bogus_customize_response: procedure(who_noid);
+     declare who_noid binary(15);
+     call trace_msg ('Error: call to send_bogus_customize_response!!!');
+end send_bogus_customize_response;

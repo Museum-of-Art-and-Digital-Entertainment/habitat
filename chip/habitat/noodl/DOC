@@ -1,0 +1,7 @@
+/u0/chip/habitat/noodl: OBSOLETE
+
+	The files here were the first attempt at implementing Noodl, the
+Negligable Overhead Object Description Language, an attempt at designing an
+object behavior definition scheme for the Habitat host.  It was quickly
+superceded by the host PL/1 code that we have now.  Too bad.  The files here
+are of historical interest only.

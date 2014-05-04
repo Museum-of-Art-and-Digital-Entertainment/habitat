@@ -1,0 +1,39 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+After we sent out the mid-February deliverables we discovered a clerical error
+in the accompanying cover letter.  To wit: the letter refered to the enclosed
+tape as being part of the mid-January deliverables as described in Exhibit B
+of the agreement, when, in fact, it is the mid-\fIFebruary\fP deliverable.
+
+I apologize for this mistake and hope that it did not result in confusion or
+consternation at your end.  What happened was that I composed the cover letter
+by editing a copy of the previous month's letter, and accidently missed
+changing the month.
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+Project Leader
+
+cc:  Steve Arnold
+     Jim Kimsey
+     Marc Seriff
+     Clive Smith

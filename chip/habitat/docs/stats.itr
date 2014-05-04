@@ -1,0 +1,546 @@
+.AM
+.ds Dq March 20, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Hall of Records\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH RECORDS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 42
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document is adapted from an earlier document about the Hall of Records
+(Habitat document #32).  While the earlier document described the records to
+be kept in the Hall of Records, this one describes the manner in which they
+are to be kept: the text accompanying each in the Book of Records and the
+method of computing each from the information in the various databases.
+.SH
+\s+3The Records\s-3
+.PP
+These are the records which we have defined so far.  In each category we will
+list the 10 top (or bottom, depending on the nature of the record) Avatars.
+.SH
+\s+1Wealthiest\s-1
+.LP
+\fIText:\fC
+.nf
+	WEALTHIEST: The 10 Avatars with the
+	largest bank accounts today.
+
+	 1. nnnnnnnnnn $aaaaaaaaaa
+	 2. nnnnnnnnnn $aaaaaaaaaa
+	...
+	 9. nnnnnnnnnn $aaaaaaaaaa
+	10. nnnnnnnnnn $aaaaaaaaaa
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCaaaaaaaaaa\fP is
+the amount of money (in tokens).
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCavatar.bank_account_balance\fR, take
+top 10.
+.SH
+\s+1All-Time Wealthiest\s-1
+.LP
+\fIText:\fC
+.nf
+	ALL-TIME WEALTHIEST: The 10 largest bank
+	account balances ever achieved.
+
+	 1. nnnnnnnnnn $aaaaaaaaaa
+	 2. nnnnnnnnnn $aaaaaaaaaa
+	...
+	 9. nnnnnnnnnn $aaaaaaaaaa
+	10. nnnnnnnnnn $aaaaaaaaaa
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCaaaaaaaaaa\fP is
+the amount of money (in tokens).
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$max_wealth\fR, take top 10.
+.SH
+\s+1Longest Lived\s-1
+.LP
+\fIText:\fC
+.nf
+	LONGEST LIVED: The 10 oldest Avatars
+	today.
+
+	 1. nnnnnnnnnn lll days
+	 2. nnnnnnnnnn lll days
+	...
+	 9. nnnnnnnnnn lll days
+	10. nnnnnnnnnn lll days
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fClll\fP is the
+avatar's age (in days).
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$lifetime\fR, take top 10.
+.SH
+\s+1All-Time Longest Lived\s-1
+.LP
+\fIText:\fC
+.nf
+	ALL-TIME LONGEST LIVED: The 10 oldest
+	Avatars that ever were.
+
+	 1. nnnnnnnnnn lll days
+	 2. nnnnnnnnnn lll days
+	...
+	 9. nnnnnnnnnn lll days
+	10. nnnnnnnnnn lll days
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fClll\fP is the
+avatar's age (in days).
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$max_lifetime\fR, take top 10.
+.SH
+\s+1Most Times Killed\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TIMES KILLED: The 10 most killed
+	Avatars.
+
+	 1. nnnnnnnnnn ddd
+	 2. nnnnnnnnnn ddd
+	...
+	 9. nnnnnnnnnn ddd
+	10. nnnnnnnnnn ddd
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCddd\fP is the
+number of times the avatar has been killed.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$deaths\fR, take top 10.
+.SH
+\s+1Most Travelled\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TRAVELLED: The 10 Avatars alive
+	today who have moved around the most.
+
+	 1. nnnnnnnnnn ttttt
+	 2. nnnnnnnnnn ttttt
+	...
+	 9. nnnnnnnnnn ttttt
+	10. nnnnnnnnnn ttttt
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCttttt\fP is the
+number of region transitions.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$travel\fR, take top 10.
+.SH
+\s+1All-Time Most Travelled\s-1
+.LP
+\fIText:\fC
+.nf
+	ALL-TIME MOST TRAVELLED: The 10 Avatars
+	ever who have moved around the most.
+
+	 1. nnnnnnnnnn ttttt
+	 2. nnnnnnnnnn ttttt
+	...
+	 9. nnnnnnnnnn ttttt
+	10. nnnnnnnnnn ttttt
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCttttt\fP is the
+number of region transitions.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$max_travel\fR, take top 10.
+.SH
+\s+1Most Active TelePorter\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST ACTIVE TELEPORTER: The 10 Avatars
+	alive today who have TelePorted most.
+
+	 1. nnnnnnnnnn ppppp ports
+	 2. nnnnnnnnnn ppppp ports
+	...
+	 9. nnnnnnnnnn ppppp ports
+	10. nnnnnnnnnn ppppp ports
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCppppp\fP is the
+number of teleport rides.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$teleports\fR, take top 10.
+.SH
+\s+1Most Territory Explored\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TERRITORY EXPLORED: The 10 Avatars
+	who visited the most regions for the
+	first time.
+
+	 1. nnnnnnnnnn rrrrr regions
+	 2. nnnnnnnnnn rrrrr regions
+	...
+	 9. nnnnnnnnnn rrrrr regions
+	10. nnnnnnnnnn rrrrr regions
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCrrrrr\fP is the
+number of regions explored.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$explored\fR, take top 10.
+.SH
+\s+1Most Time In Habitat\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TIME IN HABITAT: The 10 Avatars who
+	have spent the most time here.
+
+	 1. nnnnnnnnnn mmmmmmm minutes
+	 2. nnnnnnnnnn mmmmmmm minutes
+	...
+	 9. nnnnnnnnnn mmmmmmm minutes
+	10. nnnnnnnnnn mmmmmmm minutes
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCmmmmmmm\fP is the
+number of minutes in Habitat.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$online_time\fR, take top 10.
+.SH
+\s+1Best Dressed\s-1
+.LP
+\fIText:\fC
+.nf
+	BEST DRESSED: The 10 Avatars most
+	stylishly attired, according to the
+	editors of Avatar's Wear Daily.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Choose 10 Avatars at random, with a bias towards the ones already on the list.
+.SH
+\s+1Most Treasures Found\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TREASURES FOUND: The 10 Avatars who
+	have found the greatest number of rare
+	and valuable artifacts.
+
+	 1. nnnnnnnnnn ttt items
+	 2. nnnnnnnnnn ttt items
+	...
+	 9. nnnnnnnnnn ttt items
+	10. nnnnnnnnnn ttt items
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCttt\fP is the
+number of treasures found.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$treasures\fR, take top 10.
+.SH
+\s+1Most Outspoken\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST OUTSPOKEN: The 10 most talkative
+	Avatars.
+
+	 1. nnnnnnnnnn tttt
+	 2. nnnnnnnnnn tttt
+	...
+	 9. nnnnnnnnnn tttt
+	10. nnnnnnnnnn tttt
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCtttt\fP is the
+talk rating.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$talkcount\fR, take top 10, show
+number divided by 1000.
+.SH
+\s+1Most Active\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST ACTIVE: The 10 most active Avatars.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$travel/HS$lifetime\fR, take top
+10.
+.SH
+\s+1Most Sedate\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST SEDATE: The 10 least active
+	Avatars.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by ascending order of \fCHS$travel/HS$lifetime\fR, take bottom
+10.
+.SH
+\s+1Most Expressive\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST EXPRESSIVE: The 10 Avatars who are
+	the biggest letter writers.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$mail_send_count\fR, take top 10.
+.SH
+\s+1Biggest Thief\s-1
+.LP
+\fIText:\fC
+.nf
+	BIGGEST THIEVES: The 10 Avatars who have
+	taken the most items away from other
+	Avatars.
+
+	 1. nnnnnnnnnn tttt thefts
+	 2. nnnnnnnnnn tttt thefts
+	...
+	 9. nnnnnnnnnn tttt thefts
+	10. nnnnnnnnnn tttt thefts
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCtttt\fP is the
+number of thefts.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$grabs\fR, take top 10.
+.SH
+\s+1Most Dangerous\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST DANGEROUS: The 10 Avatars who have
+	killed the largest number of their
+	fellow Avatars.
+
+	 1. nnnnnnnnnn kkk kills
+	 2. nnnnnnnnnn kkk kills
+	...
+	 9. nnnnnnnnnn kkk kills
+	10. nnnnnnnnnn kkk kills
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCkkk\fP is the
+number of kills.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$kills\fR, take top 10.
+.SH
+\s+1Most Cowardly\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST COWARDLY: The 10 Avatars who have
+	escaped danger by artificial means the
+	greatest number of times.
+
+	 1. nnnnnnnnnn eee escapes
+	 2. nnnnnnnnnn eee escapes
+	...
+	 9. nnnnnnnnnn eee escapes
+	10. nnnnnnnnnn eee escapes
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCeee\fP is the
+number of escapes.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$escapes\fR, take top 10.
+.SH
+\s+1Most Ghostlike\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST GHOSTLIKE: The 10 Avatars who spent
+	the greatest part of their time in
+	Habitat as ghosts.
+
+	 1. nnnnnnnnnn pp.pp%
+	 2. nnnnnnnnnn pp.pp%
+	...
+	 9. nnnnnnnnnn pp.pp%
+	10. nnnnnnnnnn pp.pp%
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCpp.pp%\fP is the
+percentage of time spent as a ghost.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$ghost_time/HS$online_time\fR, take
+top 10, convert to percentage for printing.
+.SH
+\s+1Least Ghostlike\s-1
+.LP
+\fIText:\fC
+.nf
+	LEAST GHOSTLIKE: The 10 Avatars who have
+	spent the smallest part of their time in
+	Habitat as ghosts.
+
+	 1. nnnnnnnnnn pp.pp%
+	 2. nnnnnnnnnn pp.pp%
+	...
+	 9. nnnnnnnnnn pp.pp%
+	10. nnnnnnnnnn pp.pp%
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar and \fCpp.pp%\fP is the
+percentage of time spent as a ghost.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by ascending order of \fCHS$ghost_time/HS$online_time\fR, take
+bottom 10, convert to percentage for printing.
+.SH
+\s+1Biggest Chameleon\s-1
+.LP
+\fIText:\fC
+.nf
+	BIGGEST CHAMELEON: The 10 Avatars who
+	change their appearance most often.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$body_changes/HS$lifetime\fR, take
+top 10.
+.SH
+\s+1Most Telepathic\s-1
+.LP
+\fIText:\fC
+.nf
+	MOST TELEPATHIC: The 10 Avatars with the
+	greatest usage of ESP.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fC(HS$esp_send_count + HS$esp_recv_count)
+/ HS$lifetime\fR, take top 10.
+.SH
+\s+1Busiest\s-1
+.LP
+\fIText:\fC
+.nf
+	BUSIEST: The 10 Avatars doing the most
+	things.
+
+	 1. nnnnnnnnnn
+	 2. nnnnnnnnnn
+	...
+	 9. nnnnnnnnnn
+	10. nnnnnnnnnn
+
+.fi
+\fRwhere: \fCnnnnnnnnnn\fP is the name of the avatar.
+.LP
+\fIComputation:\fR
+.PP
+Sort avatars by descending order of \fCHS$requests/HS$lifetime\fR, take top
+10.

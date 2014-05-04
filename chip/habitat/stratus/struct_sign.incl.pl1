@@ -1,0 +1,13 @@
+/*
+ *   struct_sign.incl.pl1
+ *
+ *   Struct stub for sign instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   text(40)       binary(15);

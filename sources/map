@@ -1,0 +1,60 @@
+This is a brief map of the reconstructed Lucasfilm/QuantunLink source file
+directories.
+
+c64 -- Source for the Commodore-64 Habitat/Club Caribe frontend.  This
+        top-level directory contains headers, machine-generated include files,
+        the .mud file for building the C64 disk database, and copies of the
+        binaries for the .dat files which resulted.
+
+    c64/Behaviors -- Macross 6502 source for all the position-independent,
+        dynamically loaded object behavior code.
+
+    c64/Images -- Macross 6502 source files and binary .cel files for the C64
+            object image data, in two sets:
+        c64/Images/Heads -- Heads
+        c64/Images/Props -- Everything else
+
+    c64/Main -- Macross 6502 source for the main body of the C64 frontend.
+
+    c64/Sounds -- Macross 6502 source for the C64 sound effects data, in three
+        sets of files, *.sbb, *.sob and *.spp
+
+stratus -- Undifferentiated mass of PL/1 source for all the backend stuff (not
+        including the Ghu utility which is in the 'tools' directory).
+        struct_*.incl.pl1 files are essentially equivalent to C typedefs (since
+        PL/1 has no type definition facility we hacked around it with include
+        files).  *.incld.pl1 files in general are headers of various types.
+        class_*.pl1 files are the host parts of the object behaviors.  Main
+     	processes are habitat.pl1, habitat_db.pl1, hatchery.pl1, and
+        regionproc.pl1.
+
+tools -- Various tools used in the construction of the Habitat databases.
+        Except for Ghu, these are C utilities that run under Unix.
+
+    tools/ghu -- PL/1 source for Ghu (Ghod's Handy Utility), a (very) general
+        purpose backend database display and tweaking tool.
+
+    tools/griddle -- C source for Griddle and Fred, used to generate region
+        data for upload to the host.
+
+    tools/misc -- C source for miscellaneous C64 database fiddling.  Probably
+        not interesting.
+
+    tools/muddle -- C source for Muddle and Puddle, used to generate the C64
+        object disk image.
+
+    tools/plex --C source for Plex, a 2-dimensional programming language for
+        generating complexes of regions.
+
+world -- Region data defining the initial Habitat world.  These were processed
+        by various of our tools and uploaded to the host for consumption by Ghu
+        and thence into the backend databases.
+
+    world/Realms -- Realms are groups of regions.  These files define the
+        relationship (interconnection, etc.) among clusters of thematically
+        related regions, as well as the objects to be found inside those
+        regions.  These are text files which are ultimately input to Ghu.  Each
+        subdirectory is a realm with its related files.
+
+    world/Regions -- These are binary representations of various regions,
+        editable with the C64 region editor, Fred.

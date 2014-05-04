@@ -1,0 +1,246 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "The Office.         "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 58
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use chair {
+  container: r -1001
+  x: 16
+  y: 28
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 120
+  y: 28
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use countertop {
+  container: r -1001
+  x: 10
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a 0, a 0, a 0, a 0, a 0
+}
+use countertop {
+  container: r -1001
+  x: 108
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a 0, a 0, a 0, a 0, a 0
+}
+use chest {
+  container: r -1001
+  x: 56
+  y: 27
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chest {
+  container: r -1001
+  x: 80
+  y: 27
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chest {
+  container: r -1001
+  x: 80
+  y: 50
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chest {
+  container: r -1001
+  x: 56
+  y: 50
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chest {
+  container: r -1001
+  x: 56
+  y: 73
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chest {
+  container: r -1001
+  x: 80
+  y: 73
+  style: 3
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 2200
+}
+use chair {
+  container: r -1001
+  x: 0
+  y: 133
+  style: 1
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 140
+  y: 133
+  style: 1
+  gr_state: 0
+  orient: 205
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use sign {
+  container: r -1001
+  x: 16
+  y: 82
+  style: 1
+  gr_state: 1
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Hello\R*Naka!                            "
+}
+use sign {
+  container: r -1001
+  x: 116
+  y: 82
+  style: 1
+  gr_state: 1
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\ We\RSue\R\hAnybody                       "
+}
+use countertop {
+  container: r -1001
+  x: 62
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a 0, a 0, a 0, a 0, a 0
+}

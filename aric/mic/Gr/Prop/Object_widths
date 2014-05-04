@@ -1,0 +1,340 @@
+Object	width	X change on flip
+	bytes	bytes
+
+
+amulet	2	0
+
+ans	4	0
+
+atm	4	-3
+
+bag	2	0
+
+ball1	2	4
+
+barred	6	-6
+
+bbox0	5	-4
+
+beds	14	-15
+
+booke	3	-4
+
+bookf	3	-3
+
+bottle	2	0
+
+box1	5	-3
+
+brang	3	-4
+
+bridgef	10	-10
+
+bridges	21	-18
+
+bush1	5	-2
+
+bush2	4	-1
+
+bush3	5	-6
+
+bush4	4	-4
+
+bwall5	0	2
+
+bwall8	0	0
+
+camera0	5	-4
+
+cassette	2	0
+
+cat	6	-7
+
+cave0	0	-10
+
+cball0	2	0
+
+ccard	2	0
+
+chairfb	6	-3
+
+chairs	6	-4
+
+chango	4	-1
+
+chess0	2	-1
+
+chestf	8	-5
+
+chests	6	-5
+
+cinder	5	-11
+
+club2	6	0
+
+coke1	6	-5
+
+compass	2	-1
+
+couchfb	14	-16
+
+couchs	7	-5
+
+counter0	11	-10
+
+crack0	0	-4
+
+cups0	2	0
+
+dcase	11	-7
+
+dials	3	-4
+
+die	2	-1
+
+doll	2	1
+
+door1	7	-5
+
+door2	7	-5
+
+escaper	2	-2
+
+eye0	4	-8
+
+fence1	7	-8
+
+fgun1	4	0
+
+flag	1	1
+
+flamp	3	0
+
+flat	3	-3
+
+flite	3	0
+
+floor0	0	0
+
+floor1	0	0
+
+fortun	3	-2
+
+fount2	11	-8
+
+fris	3	-3
+
+ftank2	7	-3
+
+gcan	4	-4
+
+gem	1	2
+
+glue0	0	-4
+
+grass0	0	-6
+
+gren	2	0
+
+gun1	3	0
+
+gun2	3	0
+
+gun3	3	0
+
+hand	0	3
+
+hole0	0	-4
+
+hottub	15	-16
+
+house2	14	-12
+
+jug0	3	-2
+
+juke	6	-2
+
+kcan	3	-1
+
+key1	2	2
+
+kk1	3	-1
+
+kk2	3	0
+
+kk3	3	0
+
+knife1	5	0
+
+knife2	5	0
+
+luggages	4	-2
+
+mag	2	0
+
+maus	5	0
+
+mbook0	1	1
+
+mbox	3	-1
+
+mdrop	4	0
+
+mic0	1	1
+
+mlamp2	6	-3
+
+mount1	0	-16
+
+mpill	1	2
+
+mring	1	2
+
+mstaff	1	2
+
+news	3	2
+
+newsstand0	6	243
+
+newsstand1	0	2
+
+palm2	4	-5
+
+paper	2	-1
+
+patgun0	4	-2
+
+pawn	7	-3
+
+peng	3	-1
+
+phone1	3	-2
+
+picture1	4	-5
+
+picture2	12	-12
+
+picture3	7	-10
+
+pillbot	2	0
+
+pipe0	0	-12
+
+plant1	3	-3
+
+plant2	4	-4
+
+plant3	4	-4
+
+pond0	0	-14
+
+port7	6	-5
+
+rduk	4	-3
+
+region0	0	-4
+
+road0	0	12
+
+rock1	2	-2
+
+rock2	3	-2
+
+rock3	6	-7
+
+safe1	4	-6
+
+saw	7	-6
+
+security	3	-1
+
+sensor	2	0
+
+sexo	6	-4
+
+shovel0	4	-3
+
+sign0	6	-8
+
+sign1	6	-10
+
+sign2	2	-2
+
+sign3	2	10
+
+sign4	12	-16
+
+sign5	2	-2
+
+sign6	13	-14
+
+slite1	4	-3
+
+slite2	4	-3
+
+stock0	4	-1
+
+stool0	4	-4
+
+switches	2	-2
+
+table0	8	-4
+
+tablets	4	-3
+
+tapep	5	-2
+
+tbear	5	-3
+
+tele0	6	-5
+
+ticket	0	0
+
+tok	0	2
+
+torch0	1	-1
+
+towel	3	0
+
+trchest	7	-6
+
+tree1	5	-3
+
+tree2	5	-3
+
+tree4	4	-4
+
+tree5	8	-10
+
+tree6	6	-6
+
+tree7	4	0
+
+tree8	9	-12
+
+tree9	3	-4
+
+treeA	10	-12
+
+treeB	5	-3
+
+tube0	7	-7
+
+undefined	0	-6
+
+varpicture	4	-12
+
+vase	2	-2
+
+vendo0	10	248
+
+vendo1	0	-4
+
+wand1	2	0
+
+wand2	2	2
+
+window1	5	-2
+
+window3	5	-5
+

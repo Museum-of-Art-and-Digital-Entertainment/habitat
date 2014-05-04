@@ -1,0 +1,43 @@
+.so /u1/gg/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 2 inches
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 5 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+The enclosed two diskettes contain the \(*b1.4 version of the Commodore 64
+Habitat software.
+
+This version contains the various features and objects required to implement
+customization of Avatars and turf.  We thus consider this to be the June 15
+deliverable as described in Exhibit B of the development agreement.  As beta
+testing has not yet begun, this version supercedes any of the previous
+versions which you have received.
+
+This version also fixes contains numerous other fixes and improvements
+including a variety of additional scenic objects and substantially improved
+Avatar choreography.
+
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+cc:	Steve Arnold
+	Steve Case
+	Jim Kimsey
+	Marc Seriff

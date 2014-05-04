@@ -1,0 +1,77 @@
+set ex=
+set eol=
+set parity=none
+
+dialing...ringing...connected
+
+
+TELENET
+415 117A 
+
+TERMINAL=
+
+@70339l
+
+
+703 39L CONNECTED
+Stratus/32, VOS Release 4.2a, Module %cvideo#m1
+Please login  12:24:54
+login chip -modulem1
+
+login chip -module m1
+login: Invalid control argument. -modulem1
+Stratus/32, VOS Release 4.2a, Module %cvideo#m1
+login chip
+Please login  12:25:42
+Password?
+login: Access denied.
+Stratus/32, VOS Release 4.2a, Module %cvideo#m1
+Please login  12:26:23
+login chip
+Password?
+guest.lucas logged in on %cvideo#m1 at 86-08-05 12:26:35 edt.
+
+Welcome to the Quantum (Control Video) Stratus System.
+
+Until further notice, do NOT dial in the Stratus between
+8 P.M. and 1 A.M. except in emergencies.
+
+eh? cdrun
+eh? e twiddle
+
+> eh? c 1286
+
+                                 POSITION               GRAPHIC
+ GLOBAL ID        CLASS            X   Y   STYLE ORIENT  ST  WD   CONTAINER
+      4634    36 (ground)           0   4     1   220     0   0              
+      4635    69 (sky)              0   0     4   244     0   0              
+      4636   154 (streetlamp)      60  25     0     0     0   0              
+      4637    69 (sky)              0   2     7   172     0   0              
+> eh? add
+Global ID:  eh? 4800
+Using global ID       4856
+Class:  eh? 24
+Container:  eh? 1286
+     Type:  eh? 0
+X Position:  eh? 28
+Y Position:  eh? 138
+Graphic State:  eh? 0
+Graphic Width:  eh? 00
+Orientation:  eh? 0
+Style:  eh? 0
+
+OBJECT ADDED. 
+
+> eh? 
+ERROR:  Unknown command 
+> eh? 
+
+ERROR:  Unknown command 
+> eh? ~}/
+703 39L DISCONNECTED 00 D9
+
+@Or
+NO CARRIER
+~
+disconnecting...
+[EOT]

@@ -1,0 +1,20 @@
+; phone_busy:
+;		Uses no PW ramps
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0xc0,0x13,0x20,0x0,0x0,0x0	; Start_Freq,Duration,Increment
+	byte	0x0,0xe0	; ADSR
+	byte	0x10	; Waveform
+
+	byte	0x10		;Extd 
+	byte	0x4	; Extended Command ByteDur 
+	byte	0x20,0x0	; Set Duration
+
+	byte	0x80		;loop 
+	byte	0xe,0x7	; reverse_rel_branch,count
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

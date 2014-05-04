@@ -1,0 +1,159 @@
+echo Kludge_Ct_s_end
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_s_end.reg \
+     -o rdldir/Kludge_Ct_s_end.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_s_end \
+     -n Kludge_Ct_118_front
+echo Kludge_Ct_118_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_118_front.reg \
+     -o rdldir/Kludge_Ct_118_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_118_front \
+     -w Kludge_Ct_118_interior \
+     -n Kludge_Ct_218_front \
+     -s Kludge_Ct_s_end
+echo Kludge_Ct_118_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_118_interior.reg \
+     -o rdldir/Kludge_Ct_118_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_118_interior \
+     -e Kludge_Ct_118_front
+echo Kludge_Ct_218_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_218_front.reg \
+     -o rdldir/Kludge_Ct_218_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_218_front \
+     -w Kludge_Ct_218_interior \
+     -n Kludge_Ct_318_front \
+     -s Kludge_Ct_118_front
+echo Kludge_Ct_218_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_218_interior.reg \
+     -o rdldir/Kludge_Ct_218_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_218_interior \
+     -e Kludge_Ct_218_front
+echo Kludge_Ct_318_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_318_front.reg \
+     -o rdldir/Kludge_Ct_318_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_318_front \
+     -w Kludge_Ct_318_interior \
+     -n Kludge_Ct_418_front \
+     -s Kludge_Ct_218_front
+echo Kludge_Ct_318_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_318_interior.reg \
+     -o rdldir/Kludge_Ct_318_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_318_interior \
+     -e Kludge_Ct_318_front
+echo Kludge_Ct_418_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_418_front.reg \
+     -o rdldir/Kludge_Ct_418_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_418_front \
+     -w Kludge_Ct_418_interior \
+     -n Kludge_Ct_518_front \
+     -s Kludge_Ct_318_front
+echo Kludge_Ct_418_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_418_interior.reg \
+     -o rdldir/Kludge_Ct_418_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_418_interior \
+     -e Kludge_Ct_418_front
+echo Kludge_Ct_518_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_518_front.reg \
+     -o rdldir/Kludge_Ct_518_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_518_front \
+     -w Kludge_Ct_518_interior \
+     -n Kludge_Ct_cross \
+     -s Kludge_Ct_418_front
+echo Kludge_Ct_518_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_518_interior.reg \
+     -o rdldir/Kludge_Ct_518_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_518_interior \
+     -e Kludge_Ct_518_front
+echo Kludge_Ct_cross
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_cross.reg \
+     -o rdldir/Kludge_Ct_cross.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_cross \
+     -n Kludge_Ct_618_front \
+     -s Kludge_Ct_518_front
+echo Kludge_Ct_618_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_618_front.reg \
+     -o rdldir/Kludge_Ct_618_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_618_front \
+     -w Kludge_Ct_618_interior \
+     -n Kludge_Ct_718_front \
+     -s Kludge_Ct_cross
+echo Kludge_Ct_618_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_618_interior.reg \
+     -o rdldir/Kludge_Ct_618_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_618_interior \
+     -e Kludge_Ct_618_front
+echo Kludge_Ct_718_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_718_front.reg \
+     -o rdldir/Kludge_Ct_718_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_718_front \
+     -w Kludge_Ct_718_interior \
+     -n Kludge_Ct_818_front \
+     -s Kludge_Ct_618_front
+echo Kludge_Ct_718_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_718_interior.reg \
+     -o rdldir/Kludge_Ct_718_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_718_interior \
+     -e Kludge_Ct_718_front
+echo Kludge_Ct_818_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_818_front.reg \
+     -o rdldir/Kludge_Ct_818_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_818_front \
+     -w Kludge_Ct_818_interior \
+     -n Kludge_Ct_918_front \
+     -s Kludge_Ct_718_front
+echo Kludge_Ct_818_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_818_interior.reg \
+     -o rdldir/Kludge_Ct_818_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_818_interior \
+     -e Kludge_Ct_818_front
+echo Kludge_Ct_918_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_918_front.reg \
+     -o rdldir/Kludge_Ct_918_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_918_front \
+     -w Kludge_Ct_918_interior \
+     -n Kludge_Ct_1018_front \
+     -s Kludge_Ct_818_front
+echo Kludge_Ct_918_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_918_interior.reg \
+     -o rdldir/Kludge_Ct_918_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_918_interior \
+     -e Kludge_Ct_918_front
+echo Kludge_Ct_1018_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_1018_front.reg \
+     -o rdldir/Kludge_Ct_1018_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_1018_front \
+     -w Kludge_Ct_1018_interior \
+     -n Kludge_Ct_n_end \
+     -s Kludge_Ct_918_front
+echo Kludge_Ct_1018_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_1018_interior.reg \
+     -o rdldir/Kludge_Ct_1018_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_1018_interior \
+     -e Kludge_Ct_1018_front
+echo Kludge_Ct_n_end
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_n_end.reg \
+     -o rdldir/Kludge_Ct_n_end.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_n_end \
+     -s Kludge_Ct_1018_front

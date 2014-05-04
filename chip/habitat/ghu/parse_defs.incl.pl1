@@ -1,0 +1,9 @@
+%include 'ghu.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'command.incl.pl1';
+%include 'class.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'expr.incl.pl1';

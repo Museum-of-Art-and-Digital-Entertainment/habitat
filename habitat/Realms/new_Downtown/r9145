@@ -1,0 +1,92 @@
+use region r_9145 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9156
+  west_neighbor: r r_9133
+  north_neighbor: r r_9146
+  south_neighbor: r r_9144
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use flat o_7124 {
+  container: r r_9145
+  x: 0
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  flat_type: 2
+}
+use sky o_7125 {
+  container: r r_9145
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid o_7126 {
+  container: r r_9145
+  x: 4
+  y: 25
+  style: 0
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 249
+  upper_right_x: 73
+  lower_left_x: 248
+  lower_right_x: 73
+  height: 23
+}
+use teleport o_7127 {
+  container: r r_9145
+  x: 112
+  y: 144
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+  take: 1260
+  address: "Pop-Plaza NE        "
+}
+use street o_7128 {
+  container: r r_9145
+  x: 68
+  y: 12
+  style: 0
+  gr_state: 9
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

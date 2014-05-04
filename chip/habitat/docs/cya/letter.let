@@ -1,0 +1,38 @@
+.so /u1/gg/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 1.5i			\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.TA 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.ds T \v'-3p'\s-5TM\s+5\v'3p'   \" \*T in document
+.ds S \v'-9p'\s-9\s-6TM\s+9\s+6\v'9p' \" \*S in title
+.AS 4                            \" 2 lines address and date
+.na				\" no adjust
+.if !n .ps 12                   \" use large font size if itroff/ditroff 
+.if !n .vs 13p                   \" and use larger vertical spacing
+.if !n .PS 12
+.if !n .VS 13p
+.nh
+.ND
+.H				\" page headers
+.DT 
+.LA
+\fIVia Federal Express\fR
+[ADDRESS]
+.NM [WHO]
+Dear []:
+[BODY]
+.LS
+Sincerely,
+.FI
+[YOUR NAME]
+[YOUR TITLE]
+
+[ENC.]
+[XX:xx]
+
+[cc:  a,b,c] 
+
+

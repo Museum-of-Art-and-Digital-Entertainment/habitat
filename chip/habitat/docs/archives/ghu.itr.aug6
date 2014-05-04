@@ -1,0 +1,296 @@
+.AM
+.ds Dq August 6, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+.ds [ \s+1\z[\h'1p'\z[\h'-1p'\s-1\0
+.ds ] \s+1\z]\h'-1p'\z]\s-1\0
+.ds Z \s+1\z]\h'-1p'\z]\h'3p'\z*\s-1\0
+\s+9Functional specs
+
+for Ghu\s-9
+.AU
+(God's Handy Utility)
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GHU
+.ds CH \\*(Dq
+.ds RH Habitat Document # 23
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the preliminary specifications for \fBGhu\fR, a
+utility for Habitat\*T operators on the host system.
+.PP
+Many of these functions are redundant with \fBTwiddle\fR; in fact, the
+starting point for this definition is the \fBTwiddle\fR command set.  The main
+distinction between \fBGhu\fR and \fBTwiddle\fR is that \fBGhu\fR must be
+capable of dealing with active regions.  The command specifications below are
+intended to convey the set of required functions.  As actual commands, in
+terms of both syntax and in the way the function set is spread over various
+commands, they are advisory only.  In other words, if it is convenient, for
+purposes of easing implementation or improving the user interface, feel free
+to redefine them, so long as the set of capabilities is maintained.
+.SH
+\s+3Types and Values\s-3
+.PP
+In a number of commands below, you must provide a global id number for some
+entity in one of the databases.  Since the key spaces for the three databases
+overlap (potentially if not in fact), it is necessary to indicate with the
+global id number what sort of entity it is that you are referring to.  Many of
+the command definitions refer to something called an \fIobspec\fR, which is an
+object specifier.  It has the following form:
+.IP
+\*[ \fItype\fR \*] \fIvalue\fR
+.LP
+Where \fItype\fR is one of the four letters \fCa\fR (for Avatar), \fCo\fR (for
+Object), \fCr\fR (for Region) or \fCu\fR (for Undefined, i.e., no particular
+type is intended).  If \fItype\fR is omitted or is \fCu\fR, a default is
+chosen that is based on the particular type of command begin executed.  In the
+definitions below, this default is indicated by a letter after a dash
+(\fC-\fR) character in the particularly syntactic entity in question.  For
+example, \fIobspec-r\fR refers to an \fIobspec\fR whose default type is
+Region.
+.PP
+\fIvalue\fR is either a decimal number, a symbolic name (defined using the
+\fCname\fR command, which is described below), or a simple expression.  In
+general, anyplace where a \fIvalue\fR is called for a name or simple
+expression my be given.  The expression syntax is:
+.LP
+.nf
+	\fIdecimal number\fR
+	\fIname\fR
+	\fC- \fIexpression\fR
+	\fC^ \fIexpression\fR
+	\fC( \fIexpression\fC )\fR
+	\fIexpression\fC + \fIexpression\fR
+	\fIexpression\fC - \fIexpression\fR
+	\fIexpression\fC * \fIexpression\fR
+	\fIexpression\fC / \fIexpression\fR
+	\fIexpression\fC & \fIexpression\fR
+	\fIexpression\fC | \fIexpression\fR
+.fi
+.PP
+The operators all have their usual meanings and precedences.  Each term has a
+type.  The type of a \fIdecimal number\fR is \fCu\fR.  The type of a
+\fIname\fR is assigned when the name is defined.  The type of unary operator
+term or of a parenthesized sub-expression is simply the type of the
+\fIexpression\fR being operated upon.  The type of a binary operator term is
+chosen from the types of the two sub-expressions as follows: if the two
+sub-expressions have the same type, then the result has this type; else if one
+of the two sub-expressions has type \fCu\fR, then the result has the type of
+the other (non-\fCu\fR) sub-expression; otherwise an error results from trying
+to combine two incompatible types.
+.SH
+\s+3The Commands\s-3
+.PP
+Here are the commands.  The command names have been chosen so that they are
+unique in the first character, thus 1 letter abbreviations are possible.  In
+general, commands are terminated by the end of the line, but it should be
+possible to put multiple commands on a line separated by semicolons (\fC;\fR).
+.sp
+.LP
+\fChelp \fR\*[ \fIcommand\fR \*]
+.PP
+If no \fIcommand\fR is given, print out a list of the available commands along
+with a quick one-liner description of each.  If a \fIcommand\fR *is* given,
+print out a screen worth of explanation of that command.
+.sp
+.LP
+\fCname \fIname\fR \*[\fC =  \fR\*] \*[ \fItype-u\fR \*] \fIvalue\fR
+.PP
+Assigns the symbolic name \fIname\fR the type and value specified by
+\fItype\fR and \fIvalue\fR.  If \fItype\fR is omitted, the type of \fIname\fR
+becomes whatever the type of \fIvalue\fR happens to be.  If \fItype\fR is
+given, \fIvalue\fR had better have type \fCu\fR.
+.sp
+.LP
+\fCevaluate \fIvalue\fR
+.PP
+Simply prints out the type and value of \fIvalue\fR.  This is mostly to
+refresh one's memory as to the values of symbolic names, though it can also be
+used as a simple calculator.
+.sp
+.LP
+\fCquit\fR
+.PP
+Exit \fBGhu\fR and return to the system command level.
+.sp
+.LP
+\fClist \fR\*[ \fIregionid1\fR \*] \*[ \fC--  \fR\*] \*[ \fIregionid2\fR \*] \*[ \fCactive\fR \*]
+.PP
+Print a list of the regions in the range from \fIregionid1\fR to
+\fIregionid2\fR (inclusive).  The \fIregionid\fR values must have type \fCr\fR
+or \fCu\fR.  If \fIregionid1\fR is omitted, it defaults to 0, i.e., the
+beginning of the database.  If \fIregionid2\fR is omitted, it defaults to
+\fBMAXINT\fR, i.e., the end of the database.  If only one \fIregionid\fR is
+given and the \fC--\fR is omitted, only the one region specified is listed.
+If both \fIregionid\fRs are omitted the \fC--\fR may be omitted as well.
+Omitting both means that the entire region database is to be listed.  If the
+keyword \fCactive\fR is given, only regions which are currently active (i.e.,
+memory resident) are listed.  For each region, the list command prints a line
+containing the region id number, those of its four neighbors (-1 if there is
+no neighbor in a particular direction), and a flag (a \fC*\fR) if the region
+is active.  For example,
+.LP
+.nf
+	\fClist 5		\fRlists region number 5
+	\fClist 5--10	\fRlists regions 5 through 10
+	\fClist 5--		\fRlists from region 5 to the end of the database
+	\fClist --10	\fRlists from the start of the database to region 10
+	\fClist --		\fRlists all regions
+	\fClist			\fRalso lists all regions
+	\fClist active	\fRlists all active regions
+.fi
+.sp
+.LP
+\fCcontents \fIobspec-r\fR
+.PP
+Prints out a list of the entities contained by the entity specified by
+\fIobspec\fR (a region by default).  Each entity is listed on a line with its
+global id and the values of its fundamental properties (x-y position,
+orientation, etc.).
+.sp
+.LP
+\fCfind \fIobspec-o\fR
+.PP
+Print out the chain of containership from the entity \fIobspec\fR (an object
+by default) to the outermost containing region, listing the global id of each
+entity in the chain.
+.sp
+.LP
+\fCget \fIobspec-o\fR
+.PP
+Makes the entity indicated by \fIobspec\fR the ``working'' entity.  By default
+it is an object.
+.sp
+.LP
+\fCdisplay \fR\*[ \fIobspec-o\fR \*]
+.PP
+Makes the entity indicated by \fIobspec\fR (an object by default) the
+``working'' entity and then prints out the values of its fields.
+.sp
+.LP
+\fCset \fR\*[ \fIobspec-o\fC . \fR\*] \fIfield\fR \*[\fC =  \fR\*] \fIvalue\fR
+.PP
+Set the value of the property named by \fIfield\fR in the ``working'' entity
+to the value specified by \fIvalue\fR.  \fIvalue\fR must have type \fCu\fR.
+If \fIfield\fR is preceded by \fIobspec\fR \fC.\fR, the entity specified by
+\fIobspec\fR (an object by default) is first made the ``working'' entity.
+.sp
+.LP
+\fCupdate\fR
+.PP
+Write the ``working'' entity out to its associated database.  If the entity is
+in an active region, broadcast an \f(CBUPDATE\fR request to all the players in
+the region informing them of the change.
+.sp
+.LP
+\fCadd \fR\*[ \fItype-o\fR \*] \*[ \fIclass\fR \*[ \fIvalue\fR \*[\fC , \fIvalue\fR \*Z \*] \*]
+.PP
+Create a new entity of the given type (an object by default).  You can specify
+its class (if it is an object) and the values of its property fields (in
+order) on the command line.  The entity becomes the ``working'' entity.  Any
+that you omit you will be prompted for.  If the entity is placed into an
+active region, broadcast a \f(CBHEREIS\fR request to all the players in the
+region informing them of the new item.
+.sp
+.LP
+\fCremove \fIobspec-o\fR
+.PP
+Effectively delete the specified entity (an object by default) from the
+database by moving it to a ``limbo'' region.  If the entity is an avatar its
+associated player must not be online.  If the entity is in an active region,
+broadcast a \f(CBGOAWAY\fR request to all the players in the region informing
+them of the disappearance.
+.sp
+.LP
+\fCzap \fIobspec-a\fR
+.PP
+\fCzap\fR is like remove, only more dramatic.  It may also (and usually will)
+be applied to an online avatar.  If the specified target (an avatar by
+default) is in an active region, broadcast a hand-of-god \f(CBZAP\fR message
+to all the players in that region.  This will cause the hand-of-god animation
+to appear on their screen and blast the target with a lightning bolt.  If the
+target is an avatar, kill it (i.e., start it going through the normal avatar
+death-and-reincarnation cycle), otherwise remove it to ``limbo''.
+.PP
+In order for \fCzap\fR to work, the must be a hand-of-god object in the
+region, so the command will complain at you and not do anything if this
+condition is not fulfilled.  Ultimately there ought to be some sort of command
+macro facility so that you can create a hand-of-god object in a region,
+\fCzap\fP somebody there, and then \fCremove\fP the hand-of-god object, all
+with a single command invocation.  Such a feature is for the future, however,
+due to the amount of effort involved.
+.sp
+.LP
+\fCplayers\fR
+.PP
+Print a list of the currently online players in the Habitat, together with
+appropriate information (global id's, location, etc.).
+.sp
+.LP
+\fCvoice \fR\*[ \fIobspec-r\fR \*] \*[\fC "\fItext\fC"  \fR\*]
+.PP
+Broadcast to the indicated entity (a region by default) a \f(CBSPEAK\fR
+message from God containing the given text.  If \fItext\fR is omitted it will
+be prompted for.  The \fItext\fR should be short enought to fit in a packet.
+If \fIobspec\fR is omitted and some entity is currently being \fCwatch\fRd
+(see below), the text is sent to that entity.  Otherwise an error results.
+.sp
+.LP
+\fCwatch \fC\*[ \fIobspec-r\fR  | \fCoff \fR\*]
+.PP
+If an \fIobspec\fR is given (a region by default), monitor message traffic
+associated with the indicated entity.  If \fIobspec\fR is a region, display
+all requests sent to or from that region.  If \fIobspec\fR is an avatar,
+display all messages sent by or to the associated player.  \fIobspec\fR may
+not be an ordinary object.  Once a \fCwatch\fR command is issued, you may
+continue issuing other commands.  The messages will simply be printed as they
+arrive.  Entering another \fCwatch\fR command supercedes the previous one (you
+can only \fCwatch\fR one entity at a time).  Giving the keyword \fCoff\fR in
+place of the \fIobspec\fR turns \fCwatch\fRing off.
+.sp
+.LP
+\fCoracle \fR\*[ \fIobspec-o\fR  | \fCoff\fR  | \fCold\fR \*]
+.PP
+Attach the operator to the given oracle.  \fIobspec\fR must refer to an
+oracular object.  Henceforth any messages sent to that oracle will be printed
+along with their player of origin.  Entering another \fCoracle\fR command
+supercedes the previous one (you can only listen to one oracle at a time).
+\fCoracle\fR is a special form of \fCwatch\fR, and \fCwatch\fR commands and
+\fCoracle\fR commands also supercede each other.  The object indicated in an
+\fCoracle\fR command becomes the \fCwatch\fRed entity for purposes of sending
+\fCvoice\fR messages, etc.  Entering the keyword \fCoff\fR instead of an
+\fIobspec\fR turns oracle monitoring off.  Entering the keyword \fCold\fR
+instead of an \fIobspec\fR gets you a printout of old, unattended messages to
+that oracle that have been written to the oracle log file.
+.sp
+.LP
+\fCtext \fR\*[ \fIobspec-o\fR \*]
+.PP
+Prints out the text of the indicated document.  If \fIobspec\fR has type
+\fCo\fR it must refer to a paper or book object, and that object's text entry
+is printed.  If it has type \fCu\fR it is used directly as the text id number.
+.sp
+.LP
+\fCmail \fIusername\fR
+.PP
+Send a Habitat mail letter to the indicated user.  You will be prompted for
+the text.  There is a limitation of 16 lines of no more than 40 characters per
+line.
+.sp
+.LP
+\fCinput \fIfilename\fR
+.PP
+Read \fBGhu\fR commands from the indicated file, returning to terminal input
+upon reaching the end of the file.
+

@@ -1,0 +1,45 @@
+/*
+ *   class_movie_camera.pl1
+ *
+ *   Object behavior module for class movie_camera.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_movie_camera: procedure;
+
+     %replace MOVIE_CAMERA_REQUESTS by 5;
+
+     declare a(0:MOVIE_CAMERA_REQUESTS) entry based;
+     declare class_movie_camera_actions pointer;
+     declare 1 movie_camera based %include struct_movie_camera;
+
+     %replace I by CLASS_MOVIE_CAMERA;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = MOVIE_CAMERA_REQUESTS;
+     Class_Table(I).alloc_size = size(movie_camera);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_movie_camera_actions);
+     Class_Table(I).actions = class_movie_camera_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     /* These should be changed to class-specific versions eventually */
+     Class_Table(I).actions->a(OFF)   = generic_OFF;   /* 4 */
+     Class_Table(I).actions->a(ON)    = generic_ON;    /* 5 */
+
+end initialize_class_movie_camera;

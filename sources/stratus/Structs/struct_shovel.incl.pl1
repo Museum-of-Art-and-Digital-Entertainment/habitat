@@ -1,0 +1,12 @@
+/*
+ *   struct_shovel.incl.pl1
+ *
+ *   Struct stub for shovel instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   27-July-1986
+ *
+ */
+,    2    common_head         like instance_head
+ ; /* terminates struct header from include file */

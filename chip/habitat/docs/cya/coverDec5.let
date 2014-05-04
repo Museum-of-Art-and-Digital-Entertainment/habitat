@@ -1,0 +1,42 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Marc Seriff
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Marc Seriff
+Dear Marc,
+
+Even though we are still working to finalize the contractual relationship
+between our companies, everyone here is confident that an agreement will be
+finalized soon.  Therefore, we are going to begin the exchange of progress
+reports, as called for in the contract.  Accordingly, you will find attached
+the first such document, detailing progress during the month of November,
+1985.  We would like to receive the equivalent status report from you as soon
+as is convenient.
+
+Despite the ongoing delays in legal matters, we are progressing well on the
+technical side of the project.  I look forward to scheduling your first visit
+to see us in the very near future.  I believe a few days of wild brainstorming
+will do us all a world of good.
+
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+ENC. Progress report document
+
+cc:  Steve Arnold, Jim Kimsey

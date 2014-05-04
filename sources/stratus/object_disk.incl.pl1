@@ -1,0 +1,13 @@
+/*  This table contains the track/sector updates for the Habitat object    *
+ *  disk.  The format is:                                                  *
+ *                   1 byte   track #                                      *
+ *                   1 byte   sector #                                     *
+ *                 256 bytes  disk data                                    */
+
+%replace MAX_UPDATES by 5;
+
+declare disk_patch (MAX_UPDATES) char(258) external;
+
+declare 1 disk_update based,
+          2 qid     bin(31),
+          2 which   bin(15);

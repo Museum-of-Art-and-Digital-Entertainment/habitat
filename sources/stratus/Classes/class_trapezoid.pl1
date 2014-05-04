@@ -1,0 +1,36 @@
+/*
+ *   class_trapezoid.pl1
+ *
+ *   Trapezoid object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   7-July-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+declare ground_HELP entry;
+
+initialize_class_trapezoid: procedure;
+     declare a(0:0) entry based;
+     declare 1 trapezoid based %include struct_trapezoid;
+     declare class_trapezoid_actions pointer;
+
+     %replace TRAPEZOID_REQUESTS by 0;
+
+     %replace I by CLASS_TRAPEZOID;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_trapezoid_actions);
+     Class_Table(I).actions = class_trapezoid_actions;
+     Class_Table(I).max_requests = TRAPEZOID_REQUESTS;
+     Class_Table(I).alloc_size = size(trapezoid);
+     Class_Table(I).pc_state_bytes = 6;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = ground_HELP;
+end initialize_class_trapezoid;

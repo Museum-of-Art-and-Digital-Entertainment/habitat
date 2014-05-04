@@ -1,0 +1,40 @@
+.ds LH OBJECT CHECKLIST
+.ds CH Paperwork
+.ds RH MicroCosm Form # 47-b
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF 
+.ds RF Confidential
+.lg 1
+.AM
+.PP
+This is the object class checklist form.
+.bp
+.B1
+.IP "\fH\s+3Object:\s-3 \l'10'"
+.nf
+.ft H
+.ta .4i 1.5i
+
+Definition:	\l'5' \fRby\fP \l'5'\ \ \ \ \ 
+
+Graphics:
+	Imagery:	\l'5' \fRby\fP \l'5'
+	Code:	\l'5' \fRby\fP \l'5'
+
+Sound:	\l'5' \fRby\fP \l'5'
+
+Home System Command Behavior:
+	Coded:	\l'5' \fRby\fP \l'5'
+	Tested:	\l'5' \fRby\fP \l'5'
+
+Home System Asynchronous Behavior:
+	Coded:	\l'5' \fRby\fP \l'5'
+	Tested:	\l'5' \fRby\fP \l'5'
+
+Host System Behavior:
+	Coded:	\l'5' \fRby\fP \l'5'
+	Tested:	\l'5' \fRby\fP \l'5'
+
+Final Certification:	\l'5' \fRby\fP \l'5'
+.sp 1
+.B2

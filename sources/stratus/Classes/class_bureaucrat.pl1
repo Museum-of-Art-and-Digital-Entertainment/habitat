@@ -1,0 +1,48 @@
+/*
+ *   class_bureaucrat.pl1
+ *
+ *   Object behavior module for class bureaucrat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   6-February-1987
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_bureaucrat: procedure;
+
+     %replace BUREAUCRAT_REQUESTS by 4;
+
+     declare a(0:BUREAUCRAT_REQUESTS) entry based;
+     declare class_bureaucrat_actions pointer;
+     declare 1 bureaucrat based %include struct_bureaucrat;
+
+     %replace I by CLASS_BUREAUCRAT;
+
+     Class_Table(I).capacity = 1;
+     Class_Table(I).max_requests = BUREAUCRAT_REQUESTS;
+     Class_Table(I).alloc_size = size(bureaucrat);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_bureaucrat_actions);
+     Class_Table(I).actions = class_bureaucrat_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)   = illegal;       /* 1 */
+     Class_Table(I).actions->a(2)   = illegal;       /* 2 */
+     Class_Table(I).actions->a(3)   = illegal;       /* 3 */
+     Class_Table(I).actions->a(ASK) = bureaucrat_ASK;   /* 4 */
+
+end initialize_class_bureaucrat;
+
+bureaucrat_ASK: procedure;
+     call generic_ASK;
+     call object_say(self.noid, 'Mmm hmm.');
+end bureaucrat_ASK;

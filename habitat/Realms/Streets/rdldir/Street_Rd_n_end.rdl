@@ -1,0 +1,19 @@
+@region $ Street_Rd_n_end {
+    south: Street_Rd_1031_front.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:16; style:1; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @wall { x:0; y:2; or:172; style:7; }
+        @teleport_booth { x:44; y:130; or:0; 
+            8:0;
+        }
+        @bush { x:108; y:56; or:8; }
+        @bush { x:12; y:58; or:188; }
+        @bush { x:76; y:156; or:172; }
+        @street { x:68; y:7; or:252; gr_state:3; 
+            8:0;
+            9:0;
+        }
+    ]
+}

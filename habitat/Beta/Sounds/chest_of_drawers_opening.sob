@@ -1,0 +1,13 @@
+; chest_of_drawers_opening:
+;		Uses no PW ramp
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x20,0x16,0x0,0xaa,0xd	; Start_Freq,Duration,Increment
+	byte	0x90,0x0	; ADSR
+	byte	0x80	; Waveform
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

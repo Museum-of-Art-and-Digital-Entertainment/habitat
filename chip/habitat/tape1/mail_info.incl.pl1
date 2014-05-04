@@ -1,0 +1,4 @@
+     10 addressee   binary(31),
+     10 sender      binary(31),
+     10 time_sent   binary(31),
+     10 text_id     binary(31);

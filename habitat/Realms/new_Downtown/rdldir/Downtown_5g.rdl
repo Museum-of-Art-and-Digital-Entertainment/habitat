@@ -1,0 +1,21 @@
+@region $ Downtown_5g {
+    north: Downtown_5h.l;
+    south: Downtown_5f.l;
+    east: Downtown_6g.l;
+    west: Downtown_4g.l;
+    region_orientation: FACE_WEST;
+    [
+        @flat { x:176; y:4; or:104; 
+            8:2;
+        }
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:84; y:4; or:220; 
+            8:2;
+        }
+        @street { x:68; y:12; or:8; gr_state:5; 
+            8:0;
+            9:0;
+        }
+        @streetlamp { x:40; y:141; or:0; }
+    ]
+}

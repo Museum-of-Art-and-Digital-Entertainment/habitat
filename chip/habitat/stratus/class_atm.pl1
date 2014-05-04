@@ -1,0 +1,90 @@
+/*
+ *   class_atm.pl1
+ *
+ *   Object behavior module for class atm.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_atm: procedure;
+
+     %replace ATM_REQUESTS by 2;
+
+     declare a(0:ATM_REQUESTS) entry based;
+     declare class_atm_actions pointer;
+     declare 1 atm based %include struct_atm;
+
+     %replace I by CLASS_ATM;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = ATM_REQUESTS;
+     Class_Table(I).alloc_size = size(atm);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_atm_actions);
+     Class_Table(I).actions = class_atm_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(DEPOSIT)  = atm_DEPOSIT;     /* 1 */
+     Class_Table(I).actions->a(WITHDRAW) = atm_WITHDRAW;    /* 2 */
+
+end initialize_class_atm;
+
+atm_DEPOSIT: procedure;
+     declare token_id binary(15);
+     declare 1 token based(tokenptr) %include struct_tokens;
+     declare tokenptr pointer;
+     declare success binary(15);
+
+     token_id = rank(request(FIRST));
+     tokenptr = ObjList(token_id);
+     if (holding(tokenptr) & token.class = CLASS_TOKENS) then do;
+          avatar.bank_account_balance = avatar.bank_account_balance +
+               tget(tokenptr);
+          call set_record (avatarptr, HS$wealth, avatar.bank_account_balance);
+          call destroy_object(token_id);
+     call n_msg_1(avatarptr, POSTURE$, OPERATE);
+          call n_msg_1(null(), GOAWAY_$, token_id);
+          success = TRUE;
+     end; else do;
+          call object_say(self.noid, 'You aren''t holding any money.');
+          success = FALSE;
+     end;
+     call r_msg_1(success);
+end atm_DEPOSIT;
+
+atm_WITHDRAW: procedure;
+     declare withdrawal binary(31);
+     declare actual_withdrawal binary(31);
+     declare result_code binary(15);
+
+     withdrawal = rank(request(FIRST)) + rank(request(SECOND))*256;
+     result_code = TRUE;
+     if (avatar.bank_account_balance >= withdrawal) then
+          actual_withdrawal = withdrawal;
+     else
+          actual_withdrawal = avatar.bank_account_balance;
+     if (actual_withdrawal <= 0) then
+          result_code = FALSE;
+     else if (^pay_to(avatarptr, actual_withdrawal)) then do;
+          actual_withdrawal = 0;
+          result_code = BOING_FAILURE;
+     end;
+     call n_msg_1(avatarptr, POSTURE$, OPERATE);
+     avatar.bank_account_balance = avatar.bank_account_balance -
+          actual_withdrawal;
+     if (actual_withdrawal ^= 0) then
+          call set_record (avatarptr, HS$wealth, avatar.bank_account_balance);
+     call r_msg_3(mod(actual_withdrawal, 256), divide(actual_withdrawal, 256,
+          15), result_code);
+end atm_WITHDRAW;

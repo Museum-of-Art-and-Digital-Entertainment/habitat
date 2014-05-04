@@ -1,0 +1,82 @@
+;
+;	avatar_put.m
+;
+;	Action code for the avatar 'put' behavior.
+;
+;	This file should be assembled as position independent code.
+;
+;	Chip Morningstar
+;	Lucasfilm Ltd.
+;	18-May-1986
+;
+;	Hand whatever we are holding to the avatar pointed at.  This won't
+;	 work if we are pointing at ourself, if the pointed at avatar is
+;	 already holding something, or if we aren't holding anything, of
+;	 course.  If we are pointing at ourself, we want to take some article
+;	 of clothing off and put it in our hands, which of course requires
+;	 that our hands be empty.
+;
+	include	"action_head.i"
+	include "class_equates.m"
+
+; These are the parameters of the message response to the HAND request
+define HAND_SUCCESS = 0		; TRUE --> We handed over *something*
+
+	actionStart
+
+	ldx	pointed_noid
+	cpx	me_noid
+	if (!equal) {				; No handing to yourself!
+	    lda	in_hand_noid
+	    if (!zero) {			; Must be holding something
+		doMyAction ACTION_GO		; My GO walks to this object
+		waitWhile animation_wait_bit	; Wait till we get there
+		jsr	v_face_cursor
+
+		chore AV_ACT_hand_out
+		sendMsg pointed_noid, MSG_HAND, 0
+		chore AV_ACT_hand_back
+
+		getResponse HAND_SUCCESS
+		if (!zero) {			; Non-zero is success
+		    lda	in_hand_noid
+		    jsr	v_get_subject_object
+		    changeContainers 0, AVATAR_HAND, pointed_noid
+		    rts
+		}
+	    }
+	    chainTo v_beep		; Catch the various errors
+	}
+	; If we got here we were pointed at ourselves, and we want to disrobe.
+					;  or pocket
+
+	lda pointed_at_limb	; What body part are we indicating?
+	cmp #AVATAR_LEG_CEL	; If legs, check for pants
+	if (equal) {
+		getProp pointed, AVATAR_contents + AVATAR_LEGS
+	} else {
+		cmp #AVATAR_TORSO_CEL	; If torso, check for top
+		if (!equal) {
+			cmp #AVATAR_ARM_CEL ; Still could be top
+			if (!equal) {
+				chainTo v_beep	; Nope, complain
+			}
+		}
+		; If we got here he was pointing at arms or torso
+		getProp pointed, AVATAR_contents + AVATAR_TORSO
+	}
+	if (zero) {				; If not wearing anything...
+		chainTo v_beep			; complain!
+	}
+	ldy in_hand_noid		; Empty handed? doff
+	if (zero) {
+		jsr v_get_subject_object	; So we can put in hand later
+		sound	CLOTHES_DOFFED, subject_noid	; sound with item
+		sendMsgN subject_noid, MSG_REMOVE, 0
+		changeContainers 0, AVATAR_HAND, actor_noid
+		rts
+	}
+	jsr	v_putInto			; else pocket!
+	rts
+
+	actionEnd

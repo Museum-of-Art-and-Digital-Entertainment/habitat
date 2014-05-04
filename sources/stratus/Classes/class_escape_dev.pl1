@@ -1,0 +1,76 @@
+/*
+ *   class_escape_dev.pl1
+ *
+ *   Object behavior module for class escape_dev.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_escape_dev: procedure;
+
+     %replace ESCAPE_DEV_REQUESTS by 4;
+
+     declare a(0:ESCAPE_DEV_REQUESTS) entry based;
+     declare class_escape_dev_actions pointer;
+     declare 1 escape_dev based %include struct_escape_dev;
+
+     %replace I by CLASS_ESCAPE_DEV;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = ESCAPE_DEV_REQUESTS;
+     Class_Table(I).alloc_size = size(escape_dev);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_escape_dev_actions);
+     Class_Table(I).actions = class_escape_dev_actions;
+
+     Class_Table(I).actions->a(HELP) = escape_dev_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)    = generic_GET;       /* 1 */
+     Class_Table(I).actions->a(PUT)    = generic_PUT;       /* 2 */
+     Class_Table(I).actions->a(THROW)  = generic_THROW;     /* 3 */
+     Class_Table(I).actions->a(BUGOUT) = escape_dev_BUGOUT; /* 4 */
+
+end initialize_class_escape_dev;
+
+escape_dev_BUGOUT: procedure;
+     declare 1 self based(selfptr) %include struct_escape_dev;
+     declare dummy binary(15);
+
+     if (holding(selfptr) & self.charge > 0) then do;
+          if (avatar.turf = Region) then do;
+               call object_say(self.noid, 'You''re already home.');
+               call r_msg_1(FALSE);
+          end; else do;
+               avatar.x = 80;
+               avatar.y = 132;
+               call inc_record(avatarptr, HS$escapes);
+               call n_msg_1(selfptr, BUGOUT$, avatar.noid);
+               self.charge = self.charge - 1;
+               self.gen_flags(MODIFIED) = true;
+               call goto_new_region(avatarptr, avatar.turf, 0, 1);
+          end;
+     end; else do;
+          call object_say(self.noid, 'Its charge is all used up.');
+          call r_msg_1(FALSE);
+     end;
+end escape_dev_BUGOUT;
+
+escape_dev_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_escape_dev;
+
+     if (self.charge > 0) then
+          call r_msg_s('Choose DO to activate.  Available charge: ' ||
+               ltrim(self.charge) || ' units.');
+     else
+          call r_msg_s('This device has run out of charge.');
+end escape_dev_HELP;

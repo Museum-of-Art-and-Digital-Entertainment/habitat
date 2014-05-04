@@ -1,0 +1,46 @@
+/u0/chip/habitat/doc/notes:
+	This directory contains various little notes that are too minor to be
+turned into full-fledged documents but too important to throw away.
+
+Files here are:
+DOC		- this file
+abstract.t	- notes on problems encountered in running the project
+avatarcustom.t	- notes on avatar customization
+bitmap.t	- notes on what would be involved in going to an all-bitmap
+		  display on the C64
+blurb.t		- short promo blurb
+bugreport.t	- explanation of bug report form
+burmashave	- some "Burma Shave" signs from Noah
+capacity.pl1	- notes on capacity monitor on host
+comm.t		- notes on problems with Q-Link telecomm protocols
+congrats.itr	- a silly promo blurb
+contVector.t	- format for contents vectors
+counters.t	- notes on design of counters and display cases
+credits.t	- credits for Habitat
+custom.t	- user help text for customizer
+disk.t		- layout of C64 object disk
+docs.t		- list of original design documents
+farmerComm.t	- notes on telecomm protocols
+glossary.t	- brief glossary of Habitat terminology
+groups.t	- object classes listed by functional groupd
+help_messages.t	- help text for various objects (obsolete)
+ideas.t		- some ideas
+ideas1.t	- more ideas
+ideas2.t	- still more ideas
+manualids	- userstat output on user-ids listed in Habitat manual
+messages.t	- description of Habitat message numbers
+moneyNotes.t	- notes on usage of money in vendos
+names.t		- list of proposed reserved user-ids
+newu.t		- protocol for signing on new user
+orient.t	- layout of orientation byte
+palindromes.t	- palindromic Burma Shave signs from Noah
+patt.t		- format of 16 Habitat graphics patterns
+protocol_notes.t - Randy's telecom protocol wishlist
+rant.1.1.rt	- Vol 1, Number 1 of the Rant
+slur.t		- Documentation for Slur and Riddle (obsolete)
+source.t	- A guide to the Habitat source code
+stats		- stat codes for Hall of Records
+stats.t		- list of possible statistics to collect on users
+stratusMap.t	- map of directories on Stratus
+throttle.t	- notes on the telecomm throttle
+version.t	- notes on track/sector disk update

@@ -1,0 +1,238 @@
+/*
+ *   class_paper.pl1
+ *
+ *   Paper object behavior module for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ *   revised by Chip Morningstar, 19-January-1987 for new mail system
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+%replace PAPER_BLANK_STATE by 0;
+%replace PAPER_WRITTEN_STATE by 1;
+%replace PAPER_LETTER_STATE by 2;
+
+initialize_class_paper: procedure;
+
+     %replace PAPER_REQUESTS by 6;
+
+     declare a(0:PAPER_REQUESTS) entry based;
+     declare class_paper_actions pointer;
+     declare 1 paper based %include struct_paper;
+
+     %replace I by CLASS_PAPER;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = PAPER_REQUESTS;
+     Class_Table(I).alloc_size = size(paper);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_paper_actions);
+     Class_Table(I).actions = class_paper_actions;
+
+     Class_Table(I).actions->a(HELP)  = paper_HELP;  /* 0 */
+     Class_Table(I).actions->a(GET)   = paper_GET;     /* 1 */
+     Class_Table(I).actions->a(PUT)   = paper_PUT;     /* 2 */
+     Class_Table(I).actions->a(THROW) = paper_THROW;   /* 3 */
+     Class_Table(I).actions->a(READ)  = paper_READ;    /* 4 */
+     Class_Table(I).actions->a(WRITE) = paper_WRITE;   /* 5 */
+     Class_Table(I).actions->a(PSENDMAIL) = paper_SENDMAIL;   /* 6 */
+
+end initialize_class_paper;
+
+paper_GET: procedure;
+     declare success binary(15);
+     declare how binary(15);
+     declare 1 self based(selfptr) %include struct_gen_switch;
+     declare 1 cont based(contptr) %include struct_gen_container;
+     declare contptr pointer;
+     declare announce_it bit(1);
+     declare special_get bit(1);
+     declare dummy bit(1);
+     declare new_paperptr pointer;
+     declare 1 new_paper based(new_paperptr) %include struct_paper;
+
+     %replace FROM_POCKET by 1;
+     %replace FROM_GROUND by 0;
+     contptr = ObjList(self.container);
+     if (cont.noid ^= avatar.noid) then do;
+          call generic_GET;
+          return;
+     end;
+     announce_it = false;
+     if (empty_handed(avatarptr) & getable(selfptr) & accessable(selfptr) &
+               cont.class ^= CLASS_GLUE) then do;
+          if (self.container = avatar.noid) then
+               how = FROM_POCKET;
+          else
+               how = FROM_GROUND;
+          special_get = (self.container = avatar.noid & self.position =
+               MAIL_SLOT);
+          if (^change_containers(self.noid, avatar.noid, HANDS, true)) then do;
+               call r_msg_1(FALSE);
+               return;
+          end;
+          success = TRUE;
+          if (special_get) then do;     /* getting mail or new sheet */
+               new_paperptr = create_object(CLASS_PAPER, 0, 0, 0, MAIL_SLOT,
+                    16, PAPER_BLANK_STATE, avatar.noid);
+               if (new_paperptr = null()) then do; /* put old item back */
+                    dummy = change_containers(self.noid, avatar.noid,
+                         MAIL_SLOT, true);
+                    call r_msg_1(FALSE);
+                    return;
+               end;
+               new_paper.text_id = 0;
+               if (self.gr_state = PAPER_LETTER_STATE) then do; /* mail */
+                    call get_mail_message(avatarptr);
+                    return; /* reply will come later */
+               end; else /* getting new sheet of paper */
+                    announce_it = true;
+          end;
+          call n_msg_2(avatarptr, GET$, self.noid, how);
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+     /* It is important that the new paper object in the pocket be announced
+        to the C64 *after* the C64 removes the old paper object! */
+     if (announce_it) then do;
+          call checkpoint_object(0,new_paper.noid);
+          call announce_object(new_paperptr);
+     end;
+end paper_GET;
+
+generic_READMAIL_result: procedure(message_id, more_mail);
+     declare message_id binary(31);
+     declare more_mail binary(15);
+     declare 1 letter based(letterptr) %include struct_paper;
+     declare letterptr pointer;
+     declare 1 new_paper based(new_paperptr) %include struct_paper;
+     declare new_paperptr pointer;
+     declare dummy bit(1);
+
+     letterptr = ObjList(avatar.contents->c(HANDS));
+     new_paperptr = ObjList(avatar.contents->c(MAIL_SLOT));
+     if (message_id ^= 0) then do;     /* there was mail */
+          letter.text_id = message_id;
+          letter.gr_state = PAPER_WRITTEN_STATE;
+          letter.gen_flags(MODIFIED) = true;
+          call b_msg_4(null(), FIDDLE_$, letter.noid, C64_gr_state_offset, 1,
+               PAPER_WRITTEN_STATE);
+          call r_msg_1(TRUE);
+          call n_msg_2(avatarptr, GET$, letter.noid, FROM_POCKET);
+          if (more_mail = TRUE) then
+               new_paper.gr_state = PAPER_LETTER_STATE;
+          new_paper.orientation = 16;
+          new_paper.gen_flags(MODIFIED) = true;
+          call inc_record(avatarptr, HS$mail_recv_count);
+          call checkpoint_object(0,new_paper.noid);
+          call announce_object(new_paperptr);
+     end; else do;  /* there was no mail, undo *everything* */
+          call destroy_object(new_paper.noid);
+          dummy = change_containers(letter.noid, avatar.noid, MAIL_SLOT, true);
+          call r_msg_1(FALSE);
+     end;
+end generic_READMAIL_result;
+
+paper_PUT: procedure;
+     declare 1 self based(selfptr) %include struct_paper;
+
+     call generic_PUT;
+     if (put_success & self.text_id = NULL) then do;
+          call b_msg_1(null(), GOAWAY_$, self.noid);
+          call destroy_object(self.noid);
+     end;
+end paper_PUT;
+
+paper_THROW: procedure;
+     declare 1 self based(selfptr) %include struct_paper;
+
+     call generic_THROW;
+     if (throw_success & self.text_id = NULL) then do;
+          call b_msg_1(null(), GOAWAY_$, self.noid);
+          call destroy_object(self.noid);
+     end;
+end paper_THROW;
+
+paper_READ: procedure;
+     declare 1 self based(selfptr) %include struct_paper;
+
+     %replace PAGE_1 by 1;
+
+     if (holding(selfptr)) then
+          if (self.text_id ^= 0) then
+               call show_text_page(self.text_id, PAGE_1, 0);
+          else 
+               call r_msg_s(copy(byte(10), 16));   /* blank page */
+     else
+          call r_msg_s(copy(byte(10), 16));
+end paper_READ;
+
+paper_WRITE: procedure;
+     declare 1 self based(selfptr) %include struct_paper;
+     declare success binary(15);
+     declare fiddle_flag bit(1);
+     %replace text_type by 2;
+
+     fiddle_flag = false;
+     if (holding(selfptr)) then do;
+          success = TRUE;
+          if (length(request_string) = 16) then do;
+               self.text_id = 0;
+               if (self.gr_state ^= PAPER_BLANK_STATE) then do;
+                    self.gr_state = PAPER_BLANK_STATE;
+                    fiddle_flag = true;
+               end;
+          end; else do;
+               if (self.text_id = 0) then
+                    self.text_id = global_id(text_type);
+               call checkpoint_text(self.text_id, request_string);
+               self.gr_state = PAPER_WRITTEN_STATE;
+          end;
+          self.gen_flags(MODIFIED) = true;
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+     if (fiddle_flag) then do;
+          call b_msg_4(null(), FIDDLE_$, self.noid, 
+               C64_gr_state_offset, 1, PAPER_BLANK_STATE);
+          end;
+end paper_WRITE;
+
+paper_SENDMAIL: procedure;
+     declare letter_id binary(15);
+     declare 1 letter based(letterptr) %include struct_paper;
+     declare letterptr pointer;
+     declare success binary(15);
+
+     if (holding(selfptr)) then do;
+          letter_id = avatar.contents->c(HANDS);
+          letterptr = ObjList(letter_id);
+          if (letter.text_id = 0)
+             then success = FALSE;
+             else success = send_mail_message(avatarptr,letter.text_id);
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+     if (success = TRUE) then do;
+          call disappear_object(letter_id);
+          call inc_record(avatarptr, HS$mail_send_count);
+          call b_msg_1(null(), GOAWAY_$, letter_id);
+     end;
+end paper_SENDMAIL;
+
+%replace PAPER$HELP by 3;
+paper_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_paper;
+
+     call get_title_page(self.text_id, PAPER$HELP);
+end paper_HELP;

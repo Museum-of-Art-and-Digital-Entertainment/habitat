@@ -1,0 +1,62 @@
+From chip Tue Jun  9 19:04:12 1987
+Received: by moth; 09 JUN 87 19:04:12 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer, nancy, sda
+Cc: quantum
+Subject: summary report 6/9
+Status: R
+
+Here is the task summary for Tuesday, June 9.
+
+Format: Left-hand column is priority/release requirement ('A' = alpha, 'B' =
+beta, 'R' = release, '+' = strictly wishlist item).  Next column to the right
+is status: 'D' = done, 'T' = testing, 'W' = working on it, ' ' = pending, 'I'
+= just an idea right now, 'N' = we decided not to do it at all.  Next comes
+the initials of the people responsible for the item, then the item tag number,
+and finally the item itself.
+
+Currently active official task list items:
+2B W j #x2 create program to generate book of records (#21a)
+3R W c #x3 implement Ghu (#54)
+
+General items on internal list:
+3B   ? #x9 Publish first Rant, and populate newstands
+3R   r #x15 Check prices in all vendos
+3B   r #x18 make clone recurse
+3R   r #x19 spray cans run out (host destroys) after n uses
+4+   ? #x22 camera object
+4R   a #x23 customizer: 4-5 selections of heads -- host chooses vector to send
+4+   j #x24 change host flag for ghost (Y hi-bit) so avatars' XY pos are kept
+4+ T r #x25 Give objects the power to PROMPT user ('What is the secret word?')
+4+   r a #x26 magic GO
+4R   r c g #x27 book binder machine
+4R   r c g #x28 xerox machine
+4+   r #x29 make host send avatars word balloon color in customizer byte
+?R   ? #x30 Batch process: Close all unlocked doors
+?B   ? #x31 Batch process: Remove curses, immunities
+?+ I ? #x32 Turn to fly on teleport
+?+ I ? #x33 teleport to Auditorium, and you arrive as a ghost (for meetings)
+?+ I ? #x34 traps that spring monsters
+?+ I ? #x35 wands that identify everyone in the room
+
+test items prior to 5/1:
+4+   c #x40 You can enter a region thru a closed door
+4B W r #x43 Screen Flash
+1B D r #x46 what if an avatar dies while waiting for a reply?
+3B   r #x47 Capture The Flag Entry: Frame-Rate sucks & needs T intersect
+4+   r #x52 Make clicking cursor also face front & back.
+2A W j c #115 make ESP send fail message, echo talk in response
+?+ I a c r #118 Immobile magic that would require key to operate
+3+ I r #129 book interface:'back' beep on page 0, Limit cursor to bottom line?
+2B ? r #163 Cathy and bahia had problems opening a box in Machutas[await tape]
+2A ? r j #167 Janet had problems picking up martini glass after purchasing.
+
+test items prior to 6/1:
+3B   r a #177 Install remaining Capture-The-Flag fields (if the game works)
+3R   a c #186 Wand of teleport does not work on heads
+3R   a c #187 Wand of style change does not work on others.
+2B T a #188 Can not get help on hand held object, if style=spider.
+1A T all #?? probe memory/telecomm problems with diagnostic tools
+2B T c r #190 ESP does not work when pointing to oracle (same for bbox)
+?-     #198 Long time to initialize (Habitat logo screen)
+

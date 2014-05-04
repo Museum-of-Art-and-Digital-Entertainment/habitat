@@ -1,0 +1,267 @@
+.AM
+.ds Dq October 1, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Ethics in Habitat\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH ETHICS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 44
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.PP
+Recently there has been heated debate among the Alpha-test community on the
+topic of moral and ethical standards in Habitat.  While it does rather put us
+on the spot, we still appreciate everyone's concern and input.  This sort of
+discussion is exactly the type of feedback we had hoped to get from the test
+phase.  The testers' comments have been invaluable to us.
+.PP
+The issues that people have raised were not a complete surprise to us.  We
+have been debating these questions among ourselves for some time now.  What
+\fIwas\fP a surprise was the strength of people's feelings on the matter.
+Since it is clear that this is an important subject to many, we feel it is
+time for us to share with the Habitat community our own position, as the
+creators and operators of Habitat.
+.PP
+In addition, as Habitat becomes operational, we must have clearly formulated
+policies, both as guidelines for the operational staff and as a way of
+responding to both the curious and the critical among the public and press.
+Furthermore, the resolutions to these issues that we adopt will have a
+profound impact on the nature of the Habitat world, reaching as they do to the
+core of the design.  It is therefor important for us to settle on a coherent
+set of policies now, when it is still relatively easy to rearrange things if
+necessary.
+.PP
+There is raised here an important question of the agenda for Habitat.  Several
+people have made statements which indicate that they have very definite
+notions of its purpose and intent.  While all of these statements reflect part
+of the truth, none can be said to be totally accurate in that there is no
+\fIsingle\fP overriding purpose that drives the design.  The feedback from the
+tester community is reminiscent of the old fable about the blind men and the
+elephant.  To state the mission of Habitat in terms of a single principle, be
+it economic, social, moral, political, or educational is missing the point
+entirely.  Habitat is intended to be a world unto itself.  It thus
+incorporates all of these elements to the extent of what the players and the
+operators carry into the world with them.
+.PP
+Here are some statements of the \fIpurpose\fP of Habitat, as different people
+have seen it during the debate:
+.IP "\ \ \ \(bu\ "
+``Just a game''
+.IP "\ \ \ \(bu\ "
+A fantasy role playing game
+.IP "\ \ \ \(bu\ "
+``An interactive role playing game''
+.IP "\ \ \ \(bu\ "
+A source of income for Quantum and Lucasfilm
+.IP "\ \ \ \(bu\ "
+``Not a game but an environment''
+.IP "\ \ \ \(bu\ "
+A sociological laboratory
+.IP "\ \ \ \(bu\ "
+``An alternative to violence in computer games''
+.IP "\ \ \ \(bu\ "
+A forum for moral and ethical education
+.IP "\ \ \ \(bu\ "
+A place to learn about the realities of life and death
+.IP "\ \ \ \(bu\ "
+A model of an ideal world
+.IP "\ \ \ \(bu\ "
+A form of entertainment
+.LP
+Not only do these statements reflect a broad range of views, but some of them
+are relatively incompatible.  It is clear that if any particular view were to
+prevail, then the Habitat world would have a very different character than if
+a different view won the day.
+.PP
+Several people have quite rightly raised the question of who is going to be
+the one to decide these questions.  At the most basic level, of course, we at
+Quantum and Lucasfilm will decide.  It is our system and so we are the ones
+who are responsible for what happens here.  However, this does not mean that
+we should make our decision without regard to what anyone else thinks, but
+simply that we represent the final word in the matter.  Any service such as
+this quite naturally depends on the continued support and goodwill of its
+subscribers, and thus their concerns and interests must and will be taken into
+account.  We must recognize too, however, that we will not be able to please
+everyone; there will invariably be some who are disgruntled or alienated by
+our decisions.  This is just a price we must pay to exist.
+.PP
+Let us then start with a few general statements of principle.
+.SH
+1) We can't forget that this is a business.
+.PP
+The system must remain profitable or we cannot continue to operate it.  This
+means that we are not allowed to ignore the demands of the market simply
+because someone disapproves of what the market wants.  This does not mean that
+we have to prostitute ourselves by grabbing for the biggest bucks.  It simply
+means that we have to exercise reasonable business judgement and consider the
+costs and returns of anything we do.
+.SH
+2) We are not allowed to be dull.
+.PP
+We are primarily in business to be an entertainment medium.  This does not
+mean that we must \fIalways\fP be entertaining, but we must certainly at least
+try to be always compelling and interesting.
+.SH
+3) There can be no drama without conflict.
+.PP
+This is a principle that writers and storytellers have understood since the
+beginning of time.  We cannot accede to any demand that the Habitat world be
+so sanitized that there is nothing that is disturbing or offensive to anyone
+at all.  The result would be a dull and lifeless place.  Remember that
+conflict need not always take the form of violent interpersonal combat to be
+compelling.
+.SH
+4) Habitat is \f(BInot\fP going to be a vehicle for the imposition of any
+particular person or group's moral or political agenda.
+.PP
+This does not mean that we will not have any standards of behavior.  Some
+standards are necessary in order for the system to survive in the real world
+(given that there are laws and such that come from outside the system), and
+other standards may be necessary for functional reasons that we will discuss
+further below.  We simply mean that we do not have any particular axe to grind
+and are going to stubbornly insist on not grinding it.
+.SH
+5) Pluralism is better than monism.
+.PP
+In other words, diversity is generally a good thing.  In the face of
+legitimate conflicts over standards of behavior, our preferred solution should
+be to try to find ways of accommodating both sides, if possible.  This can be
+accomplished, for example, by having different standards apply in different
+parts of the Habitat world.
+.SH
+6) We \f(BIdo\fP want Habitat to be a powerful and effective educational
+medium.
+.PP
+However, we prefer that education derive from experience and demonstration
+rather than from authority and command.  In other words, we are not going to
+tell people what they must be learning from an encounter with Habitat, but
+allow them to discover for themselves what lessons they will draw from it.
+.PP
+From these general principles, let us now consider some specific design issues
+that have raised questions.
+.PP
+It has long been recognized by philosophers that there is no life without at
+least the potential for death.  In order for existence to be meaningful there
+needs to be a state of non-existence to contrast it to.  Similarly, a piece of
+property only has value by virtue of the degree to which it is distinguishable
+from other pieces of property.  In order for Habitat to model a world, persons
+and objects must have identities of their own.  Thus the potential for loss is
+inherent in the very structure of our system.  Once you have any concept of
+value, there exists the potential for unethical usurpation of the basis for
+that value.  Whether we allow this potential to be realized remains, of
+course, up to us.
+.PP
+We feel very strongly that it must be possible for one avatar to effect
+another in very immediate and concrete ways.  We want people to be able to
+interact in ways that go beyond exchanging words and images (you can get words
+and images from the rest of Q-Link).  It is for this reason that the potential
+for thievery and death is present in Habitat.  Note that ``death'' in Habitat
+is a transitory thing, not the obliteration that death in the real world is.
+It does, however, give you cause to value your person and property.  Indeed,
+we originally feared that the value that players would attach to their avatars
+and their avatars' property would be sufficiently weak that the modest
+manifestations of crime and violence that our software supports would have
+little effect.  Clearly, experience has proven us wrong in this concern!
+.PP
+The notions of morality and ethics are brought into the Habitat world by the
+players themselves.  Nevertheless, some of the testers are appealing to the
+Oracle to be the source of law and order.  This, we think, is because people
+are accustomed to living in a society where there is an institutional
+framework that provides the rules and structure.  Like a fish being unaware of
+the water it swims in, they have forgotten that the institutions of
+civilization are a part of the society itself, rather than coming from some
+external source.  They sometimes tend to think of these institutions as
+external, even though some of the players are themselves a part of the
+institutional structure.  They see the Oracle as the symbol of the system's
+power and authority and look to it as the source of control.  However, the
+Oracle is simply a tool for us to interact with environment.  Its primary
+purpose is to provide a communications channel between the players and
+ourselves.  It is not an accident that we called it the ``Oracle'' and not the
+``Deity'', ``God'', ``Creator'', ``Master'', or some other name more symbolic
+of power and control.  The fact is that the system itself is fundamentally
+unable to enforce moral codes, even if we could all agree on what code should
+be the standard.  (This very debate is evidence that we cannot.)  While it can
+prevent certain specific infractions (e.g., taking something out of someone
+else's hands), ultimately there is no way to guard against all crimes.  The
+moral standards must therefor be chosen and enforced by the community itself.
+.PP
+Instead of appealing to the Oracle to be the magical omnipotent lawgiver,
+policeman and judge, people might join together to form societies that are
+able to establish their own standards of conduct.  Since Avatars can effect
+each another in numerous ways, of which ``killing'' is but one among many,
+communities of Avatars can enforce their standards with various sanctions,
+just as people do in the real world.  Our design goal, then, is to devise ways
+to encourage and enable the formation of such communities, and to support them
+in their operation.  We also advocate that there should always be some
+``lawless'' territories, both to provide contrast and so that there is a place
+for the inevitable misfits to go.
+.PP
+In other words, we aren't going to let people get away with passing the buck
+for their own moral and ethical decisions.  To the extent that they feel the
+need for rules, they must ask for them.  To the extent that they wish to avoid
+rules, we will not impose them.  We will provide assistance in the form of
+tools and information, subject to the general statement of principles given
+above.
+.PP
+For example, here are some of the tools, both existing and proposed, that we
+can provide for the maintainence of civilization in Habitat:
+.IP "\ \ \ \(bu\ "
+\fIWeapons-free zones\fR \(em regions in which weapons do not work, thus
+rendering them ``impotent and obsolete''.
+.IP "\ \ \ \(bu\ "
+\fITheft-free zones\fR \(em regions in which goods cannot be snatched out of
+an avatar's hands, thus preventing the most common and blatant form of
+thievery.
+.IP "\ \ \ \(bu\ "
+\fIGates\fR \(em magical passageways that could be placed at the boundaries to
+towns and the like, which permit or exclude the passage of certain avatars.
+Thus it would be possible for a town to banish trouble makers.
+.IP "\ \ \ \(bu\ "
+\fIPolice\fR \(em we could establish a mechanism that would allow particular
+individuals (appointed by means of the community's choosing) to be immune to
+weapons-free zone restrictions.  Less drastically, we could provide particular
+types of magic that appointed authorities could use to banish avatars, remove
+them to an area outside the village gates, teleport them home (useful for
+breaking up fights), turn them blue (since we can't render them in scarlet!),
+or otherwise impose some degree of community sanction.
+.IP "\ \ \ \(bu\ "
+\fISigns\fR \(em by providing information about what areas are enforcing what
+restrictions, avatars could move about with more assurance about what they are
+getting themselves into.  Thus, for example, at the outskirts of town might be
+a sign saying ``WARNING: weapons-free zone restrictions not enforced beyond
+this point'' or ``Avatars entering this area subject to banditry'' or some
+such.
+.LP
+This list could go on, but to do so would be outside the scope of this
+document.
+.PP
+Obviously there will have to be some minimum standards which apply everywhere.
+Restrictions required by law or by the Q-Link Terms of Service (to the extent
+that they are applicable within Habitat) will have to be enforced.  Also, a
+minimal set of ``meta-rules'' may be required to ensure, for example, that the
+pluralism of the above model may be maintained.  We would advocate, for
+example, a right-of-passage rule that would prevent an area from imprisoning
+avatars within it or blocking major passageways from one area to another.  The
+general principle here is that an area would have broad latitude in
+determining the rules that apply within it, but would be limited in the degree
+to which it could attempt to impose its rules on outside areas.
+.PP
+In summary then, here is our position:  We want Habitat to be fun.  We want
+Habitat to be successful.  The best way to this is to encourage diversity, so
+that varying interests can each get what they want out of it without
+interfering with the others.  This means that we cannot allow ourselves to be
+heavy handed with the rules.  By the same token, rules are often required.  To
+the extent that it is possible, we would prefer that the standards of conduct
+come from within rather than from without.  We will do what we can to
+encourage this to happen, within a spirit of pluralism and tolerance of
+diversity.

@@ -1,0 +1,15 @@
+.atm_put.m -- DEPOSIT -- needs response (money could go away)
+.bottle_rdo.m -- POUR -- needs response (bottle could be gone)
+.drugs_do.m -- TAKE -- needs response (drugs could be gone)
+.fake_gun_do.m -- RESET -- needs response (gun could be gone)
+.fake_gun_rdo.m -- FAKESHOOT -- needs response (gun could be gone)
+.generic_doMagic.m -- MAGIC -- response to delay?
+.generic_doMagicIfMagic.m -- MAGIC -- ditto
+.generic_rdoMagic.m -- MAGIC -- response for delay?
+.generic_rdoMagicIfMagic.m -- MAGIC -- ditto?
+.head_get.m -- REMOVE -- ????
+
+aquarium_do.m -- FEED -- needs response (fish food or aq. could go away)
+boomerang_rdo.m -- THROW -- goes away? wrong anyhow
+stereo_get.m -- UNLOAD -- should have response (but dead code?)
+windup_toy_do.m -- WIND -- needs response (toy might be gone)

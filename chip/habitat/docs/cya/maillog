@@ -1,0 +1,36 @@
+From chip Wed Dec 11 22:08:40 1985
+Received: by kessel; 11 DEC 85 22:08:40 PST
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer
+Subject: Minimum object set
+Status: R
+
+I have just finished my magnum opus of the week, a very very rough first pass
+at a specification document for the minimum object set.  I have copies for
+each of you at my desk and I'd like your feedback.  Remind me to give you each
+a copy when I come in on Thursday.
+
+
+From chip Thu Dec 12 14:18:59 1985
+Received: by kessel; 12 DEC 85 14:18:59 PST
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: sda
+Cc: chip
+Subject: Just talked to Marc Seriff
+Status: RO
+
+Next week is too crazy for them to contemplate doing anything.
+We are tentatively planning a meeting after the holidays, with them
+flying out the afternoon/evening of Monday, Jan. 6, meeting on Tuesday and
+possibly also Wednesday morning, and departing Wednesday afternoon.  This
+should be plenty of time to cover the stuff we need to cover.  I plan this
+to be strictly a technical working session, so he won't bring Steve Case
+with him (unless you want to arrange otherwise -- I'd prefer to keep it
+focused on technical issues if possible thought).  He is going to make the
+travel arrangements.  He'd like us to make hotel reservations for him
+based on our superior knowledge of the local hostelry.  I will get Mary
+to work on that.
+
+He's also going to put the C64 communications code on the system tonight
+for us to download, with documentation sent by Federal Express tomorrow.
+I'll set Randy to snarfing that stuff and starting to work with it.

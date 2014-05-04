@@ -1,0 +1,28 @@
+@region $ Road_St_732_interior {
+    east: Road_St_732_front.l;
+    region_owner: 0.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:4; or:16; style:1; }
+        @wall { x:0; y:0; or:88; style:4; }
+        @table { x:80; y:129; or:0; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @chest { x:128; y:138; or:244; style:2; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @chair { x:32; y:138; or:220; style:5; }
+        @door { x:4; y:33; or:236; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @floor_lamp { x:60; y:31; or:16; 
+            8:1;
+        }
+    ]
+}

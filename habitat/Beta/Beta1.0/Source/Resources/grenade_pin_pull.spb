@@ -1,0 +1,8 @@
+; grenade_pin_pull_pw
+	; Pulsewidth Ramp starts here
+	byte	0x44		;Ramp bref 
+	byte	0x0,0x2	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

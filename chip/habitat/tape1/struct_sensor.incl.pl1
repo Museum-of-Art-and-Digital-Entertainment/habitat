@@ -1,0 +1,13 @@
+/*
+ *   struct_sensor.incl.pl1
+ *
+ *   Struct stub for sensor instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   scan_type      binary(15);

@@ -1,0 +1,15 @@
+/*
+ *   struct_movie_camera.incl.pl1
+ *
+ *   Struct stub for movie_camera instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   on             binary(15),
+/* Host private: */
+           3   film           pointer;

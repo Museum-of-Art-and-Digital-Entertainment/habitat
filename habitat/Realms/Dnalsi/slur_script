@@ -1,0 +1,929 @@
+
+echo dnalsi_02
+slur regdir/dnalsi_02.reg \
+	-o rdldir/dnalsi_02.rdl \
+	-d FACE_WEST \
+	-r dnalsi_02 \
+	-e dnalsi_12 \
+	-n dnalsi_03
+
+echo dnalsi_03
+slur regdir/dnalsi_03.reg \
+	-o rdldir/dnalsi_03.rdl \
+	-d FACE_WEST \
+	-r dnalsi_03 \
+	-s dnalsi_02 \
+	-n dnalsi_04
+
+echo dnalsi_04
+slur regdir/dnalsi_04.reg \
+	-o rdldir/dnalsi_04.rdl \
+	-d FACE_WEST \
+	-r dnalsi_04 \
+	-s dnalsi_03 \
+	-n dnalsi_05
+
+echo dnalsi_05
+slur regdir/dnalsi_05.reg \
+	-o rdldir/dnalsi_05.rdl \
+	-d FACE_WEST \
+	-r dnalsi_05 \
+	-e dnalsi_15 \
+	-s dnalsi_04
+
+echo dnalsi_08
+slur regdir/dnalsi_08.reg \
+	-o rdldir/dnalsi_08.rdl \
+	-d FACE_WEST \
+	-r dnalsi_08 \
+	-e dnalsi_18 \
+	-n dnalsi_09
+
+echo dnalsi_09
+slur regdir/dnalsi_09.reg \
+	-o rdldir/dnalsi_09.rdl \
+	-d FACE_WEST \
+	-r dnalsi_09 \
+	-e dnalsi_19 \
+	-s dnalsi_08 \
+	-n dnalsi_0a
+
+echo dnalsi_0a
+slur regdir/dnalsi_0a.reg \
+	-o rdldir/dnalsi_0a.rdl \
+	-d FACE_WEST \
+	-r dnalsi_0a \
+	-e dnalsi_1a \
+	-s dnalsi_09
+
+
+echo dnalsi_11
+slur regdir/dnalsi_11.reg \
+	-o rdldir/dnalsi_11.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_11 \
+	-e dnalsi_21 \
+	-n dnalsi_12
+
+echo dnalsi_12
+slur regdir/dnalsi_12.reg \
+	-o rdldir/dnalsi_12.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_12 \
+	-w dnalsi_02 \
+	-s dnalsi_11
+
+echo dnalsi_15
+slur regdir/dnalsi_15.reg \
+	-o rdldir/dnalsi_15.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_15 \
+	-w dnalsi_05 \
+	-e dnalsi_25
+
+echo dnalsi_18
+slur regdir/dnalsi_18.reg \
+	-o rdldir/dnalsi_18.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_18 \
+	-n dnalsi_19 \
+	-w dnalsi_08 \
+	-e dnalsi_28
+
+echo dnalsi_19
+slur regdir/dnalsi_19.reg \
+	-o rdldir/dnalsi_19.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_19 \
+	-w dnalsi_09 \
+	-e dnalsi_29 \
+	-n dnalsi_1a \
+	-s dnalsi_18
+
+echo dnalsi_1a
+slur regdir/dnalsi_1a.reg \
+	-o rdldir/dnalsi_1a.rdl \
+	-d FACE_WEST \
+	-r dnalsi_1a \
+	-w dnalsi_0a \
+	-e dnalsi_2a \
+	-s dnalsi_19 \
+	-n dnalsi_1b
+
+echo dnalsi_1b
+slur regdir/dnalsi_1b.reg \
+	-o rdldir/dnalsi_1b.rdl \
+	-d FACE_WEST \
+	-r dnalsi_1b \
+	-e dnalsi_2b \
+	-s dnalsi_1a \
+	-n dnalsi_1c
+
+echo dnalsi_1c
+slur regdir/dnalsi_1c.reg \
+	-o rdldir/dnalsi_1c.rdl \
+	-d FACE_WEST \
+	-r dnalsi_1c \
+	-e dnalsi_2c \
+	-s dnalsi_1b \
+	-n dnalsi_1d
+
+echo dnalsi_1d
+slur regdir/dnalsi_1d.reg \
+	-o rdldir/dnalsi_1d.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_1d \
+	-e dnalsi_1c \
+	-s dnalsi_2d \
+	-n 1152
+
+echo dnalsi_21
+slur regdir/dnalsi_21.reg \
+	-o rdldir/dnalsi_21.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_21 \
+	-w dnalsi_11 \
+	-n dnalsi_cave1_0a \
+	-e dnalsi_31
+
+echo dnalsi_25
+slur regdir/dnalsi_25.reg \
+	-o rdldir/dnalsi_25.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_25 \
+	-w dnalsi_15 \
+	-n dnalsi_26
+
+echo dnalsi_26
+slur regdir/dnalsi_26.reg \
+	-o rdldir/dnalsi_26.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_26 \
+	-e dnalsi_36 \
+	-s dnalsi_25
+
+echo dnalsi_28
+slur regdir/dnalsi_28.reg \
+	-o rdldir/dnalsi_28.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_28 \
+	-n dnalsi_29 \
+	-w dnalsi_18 \
+	-e dnalsi_38
+
+echo dnalsi_29
+slur regdir/dnalsi_29.reg \
+	-o rdldir/dnalsi_29.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_29 \
+	-w dnalsi_19 \
+	-e dnalsi_39 \
+	-n dnalsi_2a \
+	-s dnalsi_28
+
+echo dnalsi_2a
+slur regdir/dnalsi_2a.reg \
+	-o rdldir/dnalsi_2a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_2a \
+	-w dnalsi_1a \
+	-e dnalsi_3a \
+	-n dnalsi_2b \
+	-s dnalsi_29
+
+echo dnalsi_2b
+slur regdir/dnalsi_2b.reg \
+	-o rdldir/dnalsi_2b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_2b \
+	-w dnalsi_1b \
+	-e dnalsi_3b \
+	-n dnalsi_2c \
+	-s dnalsi_2a
+
+echo dnalsi_2c
+slur regdir/dnalsi_2c.reg \
+	-o rdldir/dnalsi_2c.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_2c \
+	-w dnalsi_1c \
+	-e dnalsi_3c \
+	-n dnalsi_2d \
+	-s dnalsi_2b
+
+echo dnalsi_2d
+slur regdir/dnalsi_2d.reg \
+	-o rdldir/dnalsi_2d.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_2d \
+	-s dnalsi_2c \
+	-w dnalsi_1d \
+	-e dnalsi_3d
+
+echo dnalsi_30
+slur regdir/dnalsi_30.reg \
+	-o rdldir/dnalsi_30.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_30 \
+	-e dnalsi_40 \
+	-n dnalsi_31
+
+echo dnalsi_31
+slur regdir/dnalsi_31.reg \
+	-o rdldir/dnalsi_31.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_31 \
+	-w dnalsi_21 \
+	-s dnalsi_30
+
+echo dnalsi_36
+slur regdir/dnalsi_36.reg \
+	-o rdldir/dnalsi_36.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_36 \
+	-w dnalsi_26 \
+	-s dnalsi_cave3_2c \
+	-n dnalsi_37
+
+echo dnalsi_37
+slur regdir/dnalsi_37.reg \
+	-o rdldir/dnalsi_37.rdl \
+	-d FACE_WEST \
+	-r dnalsi_37 \
+	-e dnalsi_47 \
+	-s dnalsi_36 \
+	-n dnalsi_38
+
+echo dnalsi_38
+slur regdir/dnalsi_38.reg \
+	-o rdldir/dnalsi_38.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_38 \
+	-e dnalsi_48 \
+	-w dnalsi_28 \
+	-s dnalsi_37 \
+	-n dnalsi_39
+
+echo dnalsi_39
+slur regdir/dnalsi_39.reg \
+	-o rdldir/dnalsi_39.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_39 \
+	-w dnalsi_2a \
+	-e dnalsi_4a \
+	-n dnalsi_3a \
+	-s dnalsi_38
+
+echo dnalsi_3a
+slur regdir/dnalsi_3a.reg \
+	-o rdldir/dnalsi_3a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_3a \
+	-w dnalsi_2a \
+	-e dnalsi_4a \
+	-n dnalsi_3b \
+	-s dnalsi_39
+
+echo dnalsi_3b
+slur regdir/dnalsi_3b.reg \
+	-o rdldir/dnalsi_3b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_3b \
+	-w dnalsi_2b \
+	-e dnalsi_4b \
+	-n dnalsi_3c \
+	-s dnalsi_3a
+
+echo dnalsi_3c
+slur regdir/dnalsi_3c.reg \
+	-o rdldir/dnalsi_3c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_3c \
+	-e dnalsi_4c \
+	-w dnalsi_2c \
+	-s dnalsi_3b \
+	-n dnalsi_3d
+
+echo dnalsi_3d
+slur regdir/dnalsi_3d.reg \
+	-o rdldir/dnalsi_3d.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_3d \
+	-w dnalsi_2d \
+	-s dnalsi_3c
+
+echo dnalsi_40
+slur regdir/dnalsi_40.reg \
+	-o rdldir/dnalsi_40.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_40 \
+	-w dnalsi_30 \
+	-e dnalsi_50
+
+echo dnalsi_47
+slur regdir/dnalsi_47.reg \
+	-o rdldir/dnalsi_47.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_47 \
+	-w dnalsi_37 \
+	-e dnalsi_57 \
+	-n dnalsi_48
+
+echo dnalsi_48
+slur regdir/dnalsi_48.reg \
+	-o rdldir/dnalsi_48.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_48 \
+	-w dnalsi_38 \
+	-e dnalsi_58 \
+	-n dnalsi_49 \
+	-s dnalsi_47
+
+echo dnalsi_49
+slur regdir/dnalsi_49.reg \
+	-o rdldir/dnalsi_49.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_49 \
+	-w dnalsi_39 \
+	-e dnalsi_59 \
+	-n dnalsi_4a \
+	-s dnalsi_48
+
+echo dnalsi_4a
+slur regdir/dnalsi_4a.reg \
+	-o rdldir/dnalsi_4a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_4a \
+	-w dnalsi_3a \
+	-e dnalsi_5a \
+	-n dnalsi_4b \
+	-s dnalsi_49
+
+echo dnalsi_4b
+slur regdir/dnalsi_4b.reg \
+	-o rdldir/dnalsi_4b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_4b \
+	-w dnalsi_3b \
+	-e dnalsi_5b \
+	-n dnalsi_4c \
+	-s dnalsi_4a
+
+echo dnalsi_4c
+slur regdir/dnalsi_4c.reg \
+	-o rdldir/dnalsi_4c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_4c \
+	-s dnalsi_4b \
+	-w dnalsi_3c \
+	-e dnalsi_5c
+
+echo dnalsi_50
+slur regdir/dnalsi_50.reg \
+	-o rdldir/dnalsi_50.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_50 \
+	-w dnalsi_40 \
+	-e dnalsi_60
+
+echo dnalsi_57
+slur regdir/dnalsi_57.reg \
+	-o rdldir/dnalsi_57.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_57 \
+	-w dnalsi_47 \
+	-e dnalsi_67 \
+	-n dnalsi_58
+
+echo dnalsi_58
+slur regdir/dnalsi_58.reg \
+	-o rdldir/dnalsi_58.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_58 \
+	-w dnalsi_48 \
+	-e dnalsi_68 \
+	-n dnalsi_59 \
+	-s dnalsi_57
+
+echo dnalsi_59
+slur regdir/dnalsi_59.reg \
+	-o rdldir/dnalsi_59.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_59 \
+	-w dnalsi_49 \
+	-e dnalsi_69 \
+	-n dnalsi_5a \
+	-s dnalsi_58
+
+echo dnalsi_5a
+slur regdir/dnalsi_5a.reg \
+	-o rdldir/dnalsi_5a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_5a \
+	-w dnalsi_4a \
+	-e dnalsi_6a \
+	-n dnalsi_5b \
+	-s dnalsi_59
+
+echo dnalsi_5b
+slur regdir/dnalsi_5b.reg \
+	-o rdldir/dnalsi_5b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_5b \
+	-w dnalsi_4b \
+	-e dnalsi_6b \
+	-n dnalsi_5c \
+	-s dnalsi_5a
+
+echo dnalsi_5c
+slur regdir/dnalsi_5c.reg \
+	-o rdldir/dnalsi_5c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_5c \
+	-s dnalsi_5b \
+	-w dnalsi_4c \
+	-e dnalsi_6c
+
+echo dnalsi_60
+slur regdir/dnalsi_60.reg \
+	-o rdldir/dnalsi_60.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_60 \
+	-w dnalsi_50 \
+	-n dnalsi_61
+
+echo dnalsi_61
+slur regdir/dnalsi_61.reg \
+	-o rdldir/dnalsi_61.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_61 \
+	-n dnalsi_62 \
+	-e dnalsi_71 \
+	-s dnalsi_60
+
+
+echo dnalsi_62
+slur regdir/dnalsi_62.reg \
+	-o rdldir/dnalsi_62.rdl \
+	-d FACE_WEST \
+	-r dnalsi_62 \
+	-e dnalsi_72 \
+	-s dnalsi_61 \
+	-w dnalsi_cave2_2c \
+	-n dnalsi_63
+
+echo dnalsi_63
+slur regdir/dnalsi_63.reg \
+	-o rdldir/dnalsi_63.rdl \
+	-d FACE_EAST \
+	-r dnalsi_63 \
+	-e dnalsi_73 \
+	-s dnalsi_62 \
+	-n dnalsi_64
+
+echo dnalsi_64
+slur regdir/dnalsi_64.reg \
+	-o rdldir/dnalsi_64.rdl \
+	-d FACE_EAST \
+	-r dnalsi_64 \
+	-e dnalsi_74 \
+	-n dnalsi_65 \
+	-s dnalsi_63
+
+echo dnalsi_65
+slur regdir/dnalsi_65.reg \
+	-o rdldir/dnalsi_65.rdl \
+	-d FACE_EAST \
+	-r dnalsi_65 \
+	-e dnalsi_75 \
+	-s dnalsi_64 \
+	-n dnalsi_66
+
+echo dnalsi_66
+slur regdir/dnalsi_66.reg \
+	-o rdldir/dnalsi_66.rdl \
+	-d FACE_EAST \
+	-r dnalsi_66 \
+	-e dnalsi_76 \
+	-s dnalsi_65 \
+	-n dnalsi_67
+
+echo dnalsi_67
+slur regdir/dnalsi_67.reg \
+	-o rdldir/dnalsi_67.rdl \
+	-d FACE_EAST \
+	-r dnalsi_67 \
+	-w dnalsi_57 \
+	-s dnalsi_66 \
+	-n dnalsi_68
+
+echo dnalsi_68
+slur regdir/dnalsi_68.reg \
+	-o rdldir/dnalsi_68.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_68 \
+	-w dnalsi_58 \
+	-e dnalsi_78 \
+	-n dnalsi_69 \
+	-s dnalsi_67
+
+echo dnalsi_69
+slur regdir/dnalsi_69.reg \
+	-o rdldir/dnalsi_69.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_69 \
+	-e dnalsi_79 \
+	-w dnalsi_59 \
+	-n dnalsi_6a \
+	-s dnalsi_68
+
+echo dnalsi_6a
+slur regdir/dnalsi_6a.reg \
+	-o rdldir/dnalsi_6a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_6a \
+	-e dnalsi_7a \
+	-w dnalsi_5a \
+	-n dnalsi_6b \
+	-s dnalsi_69
+
+echo dnalsi_6b
+slur regdir/dnalsi_6b.reg \
+	-o rdldir/dnalsi_6b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_6b \
+	-e dnalsi_7b \
+	-w dnalsi_5b \
+	-n dnalsi_6c \
+	-s dnalsi_6a
+
+echo dnalsi_6c
+slur regdir/dnalsi_6c.reg \
+	-o rdldir/dnalsi_6c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_6c \
+	-s dnalsi_6b \
+	-w dnalsi_5c \
+	-e dnalsi_7c
+
+echo dnalsi_71
+slur regdir/dnalsi_71.reg \
+	-o rdldir/dnalsi_71.rdl \
+	-d FACE_EAST \
+	-r dnalsi_71 \
+	-w dnalsi_61 \
+	-n dnalsi_72
+
+echo dnalsi_72
+slur regdir/dnalsi_72.reg \
+	-o rdldir/dnalsi_72.rdl \
+	-d FACE_EAST \
+	-r dnalsi_72 \
+	-w dnalsi_62 \
+	-s dnalsi_71 \
+	-n dnalsi_73
+
+echo dnalsi_73
+slur regdir/dnalsi_73.reg \
+	-o rdldir/dnalsi_73.rdl \
+	-d FACE_EAST \
+	-r dnalsi_73 \
+	-w dnalsi_63 \
+	-s dnalsi_72
+
+echo dnalsi_74
+slur regdir/dnalsi_74.reg \
+	-o rdldir/dnalsi_74.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_74 \
+	-w dnalsi_64 \
+	-e dnalsi_84 \
+	-n dnalsi_75
+
+echo dnalsi_75
+slur regdir/dnalsi_75.reg \
+	-o rdldir/dnalsi_75.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_75 \
+	-e dnalsi_85 \
+	-s dnalsi_74 \
+	-n dnalsi_76
+
+echo dnalsi_76
+slur regdir/dnalsi_76.reg \
+	-o rdldir/dnalsi_76.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_76 \
+	-w dnalsi_66 \
+	-s dnalsi_75
+
+echo dnalsi_78
+slur regdir/dnalsi_78.reg \
+	-o rdldir/dnalsi_78.rdl \
+	-d FACE_EAST \
+	-r dnalsi_78 \
+	-w dnalsi_68 \
+	-n dnalsi_79
+
+echo dnalsi_79
+slur regdir/dnalsi_79.reg \
+	-o rdldir/dnalsi_79.rdl \
+	-d FACE_EAST \
+	-r dnalsi_79 \
+	-w dnalsi_69 \
+	-s dnalsi_78 \
+	-n dnalsi_7a
+
+echo dnalsi_7a
+slur regdir/dnalsi_7a.reg \
+	-o rdldir/dnalsi_7a.rdl \
+	-d FACE_EAST \
+	-r dnalsi_7a \
+	-w dnalsi_6a \
+	-s dnalsi_79 \
+	-n dnalsi_7b
+
+echo dnalsi_7b
+slur regdir/dnalsi_7b.reg \
+	-o rdldir/dnalsi_7b.rdl \
+	-d FACE_EAST \
+	-r dnalsi_7b \
+	-w dnalsi_6b \
+	-s dnalsi_7a \
+	-n dnalsi_7c
+
+echo dnalsi_7c
+slur regdir/dnalsi_7c.reg \
+	-o rdldir/dnalsi_7c.rdl \
+	-d FACE_EAST \
+	-r dnalsi_7c \
+	-w dnalsi_6c \
+	-s dnalsi_7b
+
+echo dnalsi_82
+slur regdir/dnalsi_82.reg \
+	-o rdldir/dnalsi_82.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_82 \
+	-e dnalsi_92 \
+	-n dnalsi_83
+
+echo dnalsi_83
+slur regdir/dnalsi_83.reg \
+	-o rdldir/dnalsi_83.rdl \
+	-d FACE_WEST \
+	-r dnalsi_83 \
+	-e dnalsi_93 \
+	-s dnalsi_82 \
+	-n dnalsi_84
+
+echo dnalsi_84
+slur regdir/dnalsi_84.reg \
+	-o rdldir/dnalsi_84.rdl \
+	-d FACE_EAST \
+	-r dnalsi_84 \
+	-w dnalsi_74 \
+	-e dnalsi_94 \
+	-s dnalsi_83 \
+	-n dnalsi_85
+
+echo dnalsi_85
+slur regdir/dnalsi_85.reg \
+	-o rdldir/dnalsi_85.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_85 \
+	-w dnalsi_75 \
+	-s dnalsi_84
+
+echo dnalsi_92
+slur regdir/dnalsi_92.reg \
+	-o rdldir/dnalsi_92.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_92 \
+	-w dnalsi_82 \
+	-n dnalsi_93
+
+echo dnalsi_93
+slur regdir/dnalsi_93.reg \
+	-o rdldir/dnalsi_93.rdl \
+	-d FACE_EAST \
+	-r dnalsi_93 \
+	-w dnalsi_83 \
+	-s dnalsi_92 \
+	-n dnalsi_94
+
+echo dnalsi_94
+slur regdir/dnalsi_94.reg \
+	-o rdldir/dnalsi_94.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_94 \
+	-w dnalsi_84 \
+	-s dnalsi_93
+
+
+
+
+
+echo dnalsi_cave1_0a
+slur regdir/dnalsi_cave1_0a.reg \
+	-o rdldir/dnalsi_cave1_0a.rdl \
+	-d FACE_EAST \
+	-r dnalsi_cave1_0a \
+	-n dnalsi_cave1_0b \
+	-s dnalsi_21 \
+	-e dnalsi_cave1_1a
+
+echo dnalsi_cave1_0b
+slur regdir/dnalsi_cave1_0b.reg \
+	-o rdldir/dnalsi_cave1_0b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_cave1_0b \
+	-s dnalsi_cave1_0a \
+	-e dnalsi_cave1_1b
+
+echo dnalsi_cave1_1a
+slur regdir/dnalsi_cave1_1a.reg \
+	-o rdldir/dnalsi_cave1_1a.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_cave1_1a \
+	-n dnalsi_cave1_1b \
+	-w dnalsi_cave1_0a
+
+echo dnalsi_cave1_1b
+slur regdir/dnalsi_cave1_1b.reg \
+	-o rdldir/dnalsi_cave1_1b.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave1_1b \
+	-s dnalsi_cave1_0b \
+	-w dnalsi_cave1_1b
+
+
+
+
+echo dnalsi_cave2_0c
+slur regdir/dnalsi_cave2_0c.reg \
+	-o rdldir/dnalsi_cave2_0c.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_0c \
+	-n dnalsi_cave2_0d \
+	-e dnalsi_cave2_1c
+
+echo dnalsi_cave2_0d
+slur regdir/dnalsi_cave2_0d.reg \
+	-o rdldir/dnalsi_cave2_0d.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_cave2_0d \
+	-s dnalsi_cave2_0c \
+	-e dnalsi_cave2_1d
+
+echo dnalsi_cave2_1a
+slur regdir/dnalsi_cave2_1a.reg \
+	-o rdldir/dnalsi_cave2_1a.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_cave2_1a \
+	-n dnalsi_cave2_1b \
+	-e dnalsi_cave2_2a
+
+echo dnalsi_cave2_1b
+slur regdir/dnalsi_cave2_1b.reg \
+	-o rdldir/dnalsi_cave2_1b.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_1b \
+	-s dnalsi_cave2_1a \
+	-e dnalsi_cave2_2b
+
+echo dnalsi_cave2_1c
+slur regdir/dnalsi_cave2_1c.reg \
+	-o rdldir/dnalsi_cave2_1c.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_1c \
+	-n dnalsi_cave2_1d \
+	-e dnalsi_cave2_2d \
+	-w dnalsi_cave2_0c
+
+echo dnalsi_cave2_1d
+slur regdir/dnalsi_cave2_1d.reg \
+	-o rdldir/dnalsi_cave2_1d.rdl \
+	-d FACE_EAST \
+	-r dnalsi_cave2_1d \
+	-n dnalsi_cave2_1e \
+	-e dnalsi_cave2_2d \
+	-s dnalsi_cave2_1c \
+	-e dnalsi_cave2_2d
+
+echo dnalsi_cave2_1e
+slur regdir/dnalsi_cave2_1e.reg \
+	-o rdldir/dnalsi_cave2_1e.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_1e \
+	-e dnalsi_cave2_2e \
+	-s dnalsi_cave2_1d
+
+echo dnalsi_cave2_2a
+slur regdir/dnalsi_cave2_2a.reg \
+	-o rdldir/dnalsi_cave2_2a.rdl \
+	-d FACE_EAST \
+	-r dnalsi_cave2_2a \
+	-w dnalsi_cave2_1a \
+	-e dnalsi_cave2_3a
+
+echo dnalsi_cave2_2b
+slur regdir/dnalsi_cave2_2b.reg \
+	-o rdldir/dnalsi_cave2_2b.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_2b \
+	-n dnalsi_cave2_2c \
+	-w dnalsi_cave2_1b
+
+echo dnalsi_cave2_2c
+slur regdir/dnalsi_cave2_2c.reg \
+	-o rdldir/dnalsi_cave2_2c.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_2c \
+	-n dnalsi_cave2_2d \
+	-e dnalsi_62 \
+	-s dnalsi_cave2_2b \
+	-w dnalsi_cave2_1c
+
+echo dnalsi_cave2_2d
+slur regdir/dnalsi_cave2_2d.reg \
+	-o rdldir/dnalsi_cave2_2d.rdl \
+	-d FACE_EAST \
+	-r dnalsi_cave2_2d \
+	-n dnalsi_cave2_2e \
+	-s dnalsi_cave2_2c \
+	-w dnalsi_cave2_1d
+
+echo dnalsi_cave2_2e
+slur regdir/dnalsi_cave2_2e.reg \
+	-o rdldir/dnalsi_cave2_2e.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_2e \
+	-s dnalsi_cave2_2d \
+	-w dnalsi_cave2_1e
+
+
+echo dnalsi_cave2_3a
+slur regdir/dnalsi_cave2_3a.reg \
+	-o rdldir/dnalsi_cave2_3a.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave2_3a \
+	-w dnalsi_cave2_2a
+
+
+
+echo dnalsi_cave3_0c
+slur regdir/dnalsi_cave3_0c.reg \
+	-o rdldir/dnalsi_cave3_0c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_cave3_0c \
+	-e dnalsi_cave3_1c
+
+echo dnalsi_cave3_1a
+slur regdir/dnalsi_cave3_1a.reg \
+	-o rdldir/dnalsi_cave3_1a.rdl \
+	-d FACE_EAST \
+	-r dnalsi_cave3_1a \
+	-e dnalsi_cave3_2a
+
+echo dnalsi_cave3_1c
+slur regdir/dnalsi_cave3_1c.reg \
+	-o rdldir/dnalsi_cave3_1c.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_cave3_1c \
+	-e dnalsi_cave3_2c \
+	-w dnalsi_cave3_0c
+
+echo dnalsi_cave3_2a
+slur regdir/dnalsi_cave3_2a.reg \
+	-o rdldir/dnalsi_cave3_2a.rdl \
+	-d FACE_WEST \
+	-r dnalsi_cave3_2a \
+	-w dnalsi_cave3_1a \
+	-n dnalsi_cave3_2b
+
+echo dnalsi_cave3_2b
+slur regdir/dnalsi_cave3_2b.reg \
+	-o rdldir/dnalsi_cave3_2b.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_cave3_2b \
+	-n dnalsi_cave3_2c \
+	-s dnalsi_cave3_2a
+
+echo dnalsi_cave3_2c
+slur regdir/dnalsi_cave3_2c.reg \
+	-o rdldir/dnalsi_cave3_2c.rdl \
+	-d FACE_SOUTH \
+	-r dnalsi_cave3_2c \
+	-n dnalsi_36 \
+	-e dnalsi_cave3_3c \
+	-s dnalsi_cave3_2b \
+	-w dnalsi_cave3_1c \
+
+echo dnalsi_cave3_3c
+slur regdir/dnalsi_cave3_3c.reg \
+	-o rdldir/dnalsi_cave3_3c.rdl \
+	-d FACE_NORTH \
+	-r dnalsi_cave3_3c \
+	-w dnalsi_cave3_3c
+

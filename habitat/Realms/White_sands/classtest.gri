@@ -1,0 +1,1498 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!         "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use table {
+  container: r -1001
+  x: 12
+  y: 135
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use tree {
+  container: r -1001
+  x: 60
+  y: 27
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 100
+  y: 60
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use bureaucrat {
+  container: o -1001
+  x: 100
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use head {
+  container: o -1008
+  x: 0
+  y: 0
+  style: 148
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!         "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use fortune_machine {
+  container: r -1001
+  x: 4
+  y: 30
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 0
+}
+use fountain {
+  container: r -1001
+  x: 72
+  y: 30
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  live: '0'b
+}
+use house_cat {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use jukebox {
+  container: r -1001
+  x: 24
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use pond {
+  container: r -1001
+  x: 80
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use safe {
+  container: r -1001
+  x: 112
+  y: 80
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use streetlamp {
+  container: r -1001
+  x: 128
+  y: 140
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use bush {
+  container: r -1001
+  x: 4
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use chair {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chest {
+  container: r -1001
+  x: 32
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 0
+}
+use coke_machine {
+  container: r -1001
+  x: 100
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 0
+}
+use couch {
+  container: r -1001
+  x: 32
+  y: 138
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use fence {
+  container: r -1001
+  x: 100
+  y: 29
+  style: 0
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use floor_lamp {
+  container: r -1001
+  x: 132
+  y: 130
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 1
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use spray_can {
+  container: r -1001
+  x: 4
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 40
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use pawn_machine {
+  container: r -1001
+  x: 28
+  y: 151
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use switch {
+  container: r -1001
+  x: 96
+  y: 70
+  style: 1
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 7
+  magic_data: 0
+}
+use glue {
+  container: r -1001
+  x: 60
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 0
+  y_offset_1: 0
+  x_offset_2: 0
+  y_offset_2: 0
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use aquarium {
+  container: r -1001
+  x: 4
+  y: 129
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+}
+use bed {
+  container: r -1001
+  x: 104
+  y: 129
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use bridge {
+  container: r -1001
+  x: 56
+  y: 140
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  length: 0
+}
+use building {
+  container: r -1001
+  x: 6
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  connection: r -1
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use teleport {
+  container: r -1001
+  x: 4
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+  take: 0
+  address: "White Sands-32767   "
+}
+use ticket {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  event: 0
+}
+use windup_toy {
+  container: r -1001
+  x: 8
+  y: 140
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use changomatic {
+  container: r -1001
+  x: 16
+  y: 128
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use hole {
+  container: r -1001
+  x: 40
+  y: 22
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use short_sign {
+  container: r -1001
+  x: 4
+  y: 80
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hHOLE v   "
+}
+use shovel {
+  container: r -1001
+  x: 68
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sex_changer {
+  container: r -1001
+  x: 100
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use stun_gun {
+  container: r -1001
+  x: 112
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use magic_staff {
+  container: r -1001
+  x: 4
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 3
+  magic_data: 0
+}
+use magic_wand {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 4
+  magic_data: 0
+}
+use mailbox {
+  container: r -1001
+  x: 16
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mail_arrived: 0
+  owner: a 0
+}
+use matchbook {
+  container: r -1001
+  x: 16
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_length: 40
+  text: "Ohio Blue Tip: THe REAL Avatars Match!                                                                                                                                                                                                                          "
+}
+use movie_camera {
+  container: r -1001
+  x: 32
+  y: 130
+  style: 3
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use plaque {
+  container: r -1001
+  x: 32
+  y: 72
+  style: 2
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 1
+  text_id: 999
+  last_page: 1
+}
+use short_sign {
+  container: r -1001
+  x: 8
+  y: 100
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hSHORTSIGN"
+}
+use plant {
+  container: r -1001
+  x: 32
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use ring {
+  container: r -1001
+  x: 52
+  y: 157
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 5
+  magic_data: 0
+}
+use rock {
+  container: r -1001
+  x: 100
+  y: 153
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use security_dev {
+  container: r -1001
+  x: 56
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use sensor {
+  container: r -1001
+  x: 72
+  y: 151
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  scan_type: 1
+}
+use stereo {
+  container: r -1001
+  x: 80
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+  tape: 0
+}
+use tape {
+  container: r -1001
+  x: 100
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use gemstone {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 2
+  magic_data: 0
+}
+use grenade {
+  container: r -1001
+  x: 12
+  y: 140
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  pinpulled: 0
+}
+use gun {
+  container: r -1001
+  x: 8
+  y: 160
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use hand_of_god {
+  container: r -1001
+  x: 56
+  y: 80
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+}
+use hand_of_god {
+  container: r -1001
+  x: 16
+  y: 158
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+}
+use instant_object {
+  container: r -1001
+  x: 44
+  y: 137
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  instant_what: 0
+}
+use key {
+  container: r -1001
+  x: 42
+  y: 160
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  key_number: 1
+}
+use knick_knack {
+  container: r -1001
+  x: 28
+  y: 128
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knife {
+  container: r -1001
+  x: 48
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use magic_lamp {
+  container: r -1001
+  x: 80
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  lamp_state: 0
+  wisher: 0
+  live: '0'b
+}
+use box {
+  container: r -1001
+  x: 120
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 96
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 1
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "OFF LIMITS!!        "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use crystal_ball {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  live: '0'b
+}
+use die {
+  container: r -1001
+  x: 4
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 1
+}
+use display_case {
+  container: r -1001
+  x: 16
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use dropbox {
+  container: r -1001
+  x: 16
+  y: 128
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use drugs {
+  container: r -1001
+  x: 32
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  count: 5
+  effect: 1
+}
+use escape_dev {
+  container: r -1001
+  x: 40
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  charge: 10
+}
+use fake_gun {
+  container: r -1001
+  x: 32
+  y: 142
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+}
+use elevator {
+  container: r -1001
+  x: 126
+  y: 12
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+  take: 0
+  address: "White Sands PRV     "
+}
+use flag {
+  container: r -1001
+  x: 70
+  y: 128
+  style: 0
+  gr_state: 0
+  orient: 97
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use flashlight {
+  container: r -1001
+  x: 68
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use frisbee {
+  container: r -1001
+  x: 80
+  y: 150
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use garbage_can {
+  container: r -1001
+  x: 98
+  y: 144
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "Apartment Hallway 1 "
+  avatars: 0
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 120
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "White Sands: Class Proving Grounds      "
+}
+use amulet {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use atm {
+  container: r -1001
+  x: 16
+  y: 160
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use game_piece {
+  container: r -1001
+  x: 28
+  y: 140
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted

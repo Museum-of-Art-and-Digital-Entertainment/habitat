@@ -1,0 +1,27 @@
+; money_into_atm:
+;		Uses PW ramps
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x8,0x20,0x0,0xd0,0xff	; Start_Freq,Duration,Increment
+	byte	0x94,0xb9	; ADSR
+	byte	0x50	; Waveform
+
+	byte	0x10		;Extd 
+	byte	0x4	; Extended Command ByteDur 
+	byte	0x80,0x0	; Set Duration
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+; money_into_atm.pw:
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0x0,0x4,0x7,0x0,0x60,0x4	; Start_Freq,Duration,Increment
+
+	byte	0x80		;loop 
+	byte	0x7,0x1	; reverse_rel_branch,count
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

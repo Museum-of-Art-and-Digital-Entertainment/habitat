@@ -1,0 +1,14 @@
+/*
+ *   struct_key.incl.pl1
+ *
+ *   Struct stub for key instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   key_number_lo  binary(15),
+           3   key_number_hi  binary(15);

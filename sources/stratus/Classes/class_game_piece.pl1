@@ -1,0 +1,68 @@
+/*
+ *   class_game_piece.pl1
+ *
+ *   Game piece object behavior module for Habitat(TM).
+ *
+ *   Chip Morningstar & Aric Wilmunder
+ *   Lucasfilm Ltd.
+ *   17-December-1986
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+initialize_class_game_piece: procedure;
+
+     %replace GAME_PIECE_REQUESTS by 4;
+
+     declare a(0:GAME_PIECE_REQUESTS) entry based;
+     declare class_game_piece_actions pointer;
+     declare 1 game_piece based %include struct_game_piece;
+
+     %replace I by CLASS_GAME_PIECE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = GAME_PIECE_REQUESTS;
+     Class_Table(I).alloc_size = size(game_piece);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_game_piece_actions);
+     Class_Table(I).actions = class_game_piece_actions;
+
+     Class_Table(I).actions->a(HELP) = game_piece_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;    /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(ROLL) = game_piece_CHANGE; /* 4 */
+
+end initialize_class_game_piece;
+
+game_piece_CHANGE: procedure;
+     %replace CHECKER_PIECE by 6;
+     %replace CHECKER_KING by 7;
+
+     if (self.gr_state = CHECKER_PIECE) then 
+          self.gr_state = CHECKER_KING;
+     else if (self.gr_state = CHECKER_KING) then
+          self.gr_state = CHECKER_PIECE;
+     self.gen_flags(MODIFIED) = true;
+     call n_msg_1(selfptr, ROLL$, self.gr_state);
+     call r_msg_1(self.gr_state);
+end game_piece_CHANGE;
+
+game_piece_HELP: procedure;
+     declare msg character(114) varying;
+     declare 1 self based(selfptr) %include struct_game_piece;
+
+     msg = 'Game piece: GET brings it to you. DO the board to throw piece to desired spot.';
+     if (self.gr_state = CHECKER_PIECE) then
+          msg = msg || ' DO the piece itself to "king" it.';
+     else if (self.gr_state = CHECKER_KING) then
+          msg = msg || ' DO the piece itself to "unking" it.';
+     call r_msg_s(msg);
+end game_piece_HELP;

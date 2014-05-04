@@ -1,0 +1,89 @@
+declare database_directory_path character(256) varying external;
+declare open_habitat_files entry;
+declare get_next_avatar entry(pointer, binary(15)) returns(binary(31));
+declare get_avatar entry(binary(31), binary(15)) returns(bit(1));
+declare get_avatar_by_name entry(binary(31), binary(15)) returns(bit(1));
+declare get_object entry(binary(31), binary(15)) returns(bit(1));
+declare get_region entry(binary(31), binary(15)) returns(bit(1));
+declare pos_avatar entry(binary(31), binary(15)) returns(binary(31));
+declare pos_avatar_by_region entry(binary(31), binary(15))
+     returns(binary(31));
+declare pos_avatar_by_name entry(binary(31), binary(15)) returns(binary(31));
+declare get_next_object entry(pointer, binary(15)) returns(binary(31));
+declare advance_object entry(binary(31)) returns(bit(1));
+declare advance_avatar entry(binary(31)) returns(bit(1));
+declare pos_object entry(binary(31), binary(15)) returns(binary(31));
+declare pos_object_by_cont entry(1 like value_descriptor, binary(15))
+     returns(binary(31));
+declare get_next_region entry(pointer, binary(15)) returns(binary(31));
+declare pos_region entry(binary(31), binary(15)) returns(binary(31));
+declare lookup_data entry(1 like value_descriptor, binary(15), binary(15))
+     returns(bit(1));
+declare pos_by_value entry(1 like value_descriptor, binary(15), binary(15))
+     returns(binary(31));
+declare delete_current_record entry(binary(15));
+declare map_avatar_name_to_id entry(binary(31)) returns(binary(31));
+declare map_avatar_id_to_name entry(binary(31)) returns(character(10) varying);
+declare update_record entry(binary(15));
+declare write_new_record entry(binary(15), binary(15));
+declare generate_new_id entry(binary(15)) returns(binary(31));
+declare generate_new_text_id entry returns(binary(31));
+declare type_code entry(binary(15)) returns(binary(15));
+declare get_teleport entry(character(*) varying, binary(15), bit(1))
+     returns(bit(1));
+declare pos_teleport entry(character(*) varying, bit(1)) returns(bit(1));
+declare delete_teleport entry(character(*) varying);
+declare get_next_teleport entry(character(*) varying, binary(15))
+     returns(bit(1));
+declare get_text_id entry(binary(15), bit(1)) returns(binary(31));
+declare pos_text entry(binary(31), binary(15)) returns(bit(1));
+declare rewind_text entry returns(bit(1));
+declare get_next_text entry(binary(15)) returns(bit(1));
+declare send_mail entry(binary(31), binary(31), binary(31));
+declare pos_mail entry(binary(31)) returns(bit(1));
+declare get_next_mail entry(binary(15)) returns(bit(1));
+declare delete_current_mail entry;
+declare rewind_questions entry;
+declare get_next_question entry(binary(15)) returns(bit(1));
+declare rewrite_question entry(binary(15));
+declare delete_current_question entry;
+declare get_page entry(binary(31), binary(15), binary(15)) returns(bit(1));
+declare write_page entry(char(640)var, binary(31), binary(15));
+declare end_document entry(binary(31), binary(15), bit(1));
+declare rewind_turfs entry;
+declare get_next_turf entry(binary(15)) returns(binary(15));
+declare delete_current_turf entry;
+declare write_new_turf entry(character(*) varying);
+
+declare 1 avatar_struct based, %include 'avatar';;
+declare 1 object_struct based, %include 'object';;
+declare 1 region_struct based, %include 'region';;
+declare 1 teleport_struct based, %include 'teleport';
+declare 1 text_struct based, %include 'new_textdb';
+declare 1 question_struct based, %include 'question';
+declare 1 mail_struct based, %include 'mail_info';
+declare 1 turf_struct based, %include 'turf';
+
+%replace DB$CURRENT by 1;
+%replace DB$TEMP    by 2;
+declare info_buf(2) static external character(MAX_RECORD_SIZE);
+declare info_type(2) static external char(1);
+declare changed_flag(2) bit(1) static external;
+declare 1 cur_region    defined(info_buf(DB$CURRENT)) like region_struct;
+declare 1 cur_avatar    defined(info_buf(DB$CURRENT)) like avatar_struct;
+declare 1 cur_object    defined(info_buf(DB$CURRENT)) like object_struct;
+declare 1 cur_teleport  defined(info_buf(DB$CURRENT)) like teleport_struct;
+declare 1 cur_text      defined(info_buf(DB$CURRENT)) like text_struct;
+declare 1 cur_question  defined(info_buf(DB$CURRENT)) like question_struct;
+declare 1 cur_mail      defined(info_buf(DB$CURRENT)) like mail_struct;
+declare 1 cur_turf      defined(info_buf(DB$CURRENT)) like turf_struct;
+declare 1 temp_region   defined(info_buf(DB$TEMP))    like region_struct;
+declare 1 temp_avatar   defined(info_buf(DB$TEMP))    like avatar_struct;
+declare 1 temp_object   defined(info_buf(DB$TEMP))    like object_struct;
+declare 1 temp_teleport defined(info_buf(DB$TEMP))    like teleport_struct;
+declare 1 temp_text     defined(info_buf(DB$TEMP))    like text_struct;
+declare 1 temp_question defined(info_buf(DB$TEMP))    like question_struct;
+declare 1 temp_mail     defined(info_buf(DB$TEMP))    like mail_struct;
+declare 1 temp_turf     defined(info_buf(DB$TEMP))    like turf_struct;
+declare contents_symbolptr static external pointer;
+declare index_symbolptr static external pointer;

@@ -1,0 +1,102 @@
+From chip Fri May 29 18:45:30 1987
+Received: by moth; 29 MAY 87 18:45:30 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer, nancy, quantum, sda
+Subject: Summary report, 5/29
+Status: R
+
+Here is the task summary for Friday, May 29.
+
+Format: Left-hand column is priority/release requirement ('A' = alpha, 'B' =
+beta, 'R' = release, '-' = usable as done, '+' = strictly wishlist item).
+Next column to the right is status: 'D' = done, 'T' = testing, 'W' = working
+on it, ' ' = pending, 'I' = just an idea right now.  Next comes the initials
+of the people responsible for the item, then the item tag number, and finally
+the item itself.
+
+Currently active official task list items:
+2B   j #x2 create program to generate book of records (#21a)
+3R W c #x3 implement Ghu (#54)
+
+General items on internal list:
+2B T j #x7 max occupants for region
+2B   ? #x9 Publish first Rant, and populate newstands
+3B T c #x14 describe graphics chars in online document
+3R   r #x15 Check prices in all vendos
+3B   r #x18 make clone recurse
+3R   r #x19 spray cans run out (host destroys) after n uses
+4+   ? #x22 camera object
+4R   a #x23 customizer: 4-5 selections of heads -- host chooses vector to send
+4+   j #x24 change host flag for ghost (Y hi-bit) so avatars' XY pos are kept
+4+   r #x25 Give objects the power to PROMPT user ('What is the secret word?')
+4+   r a #x26 magic GO
+4R   r c g #x27 book binder machine
+4R   r c g #x28 xerox machine
+4+   r #x29 make host send avatars word balloon color in customizer byte
+?R   ? #x30 Batch process: Close all unlocked doors
+?B   ? #x31 Batch process: Remove curses, immunities
+?+ I ? #x32 Turn to fly on teleport
+?+ I ? #x33 teleport to Auditorium, and you arrive as a ghost (for meetings)
+?+ I ? #x34 traps that spring monsters
+?+ I ? #x35 wands that identify everyone in the room
+
+playtest 4.7 problems 4/16:
+2A T r #x39 Get pointed info BEFORE throttle wait
+4+   c #x40 You can enter a region thru a closed door
+4B   r #x43 Screen Flash
+
+playtest 4.7/4.8 problems 4/20:
+2B   r #x46 what if an avatar dies while waiting for a reply?
+2B   r #x47 Capture The Flag Entry: Frame-Rate sucks & needs T intersect
+3-   r #x50 Teleport Put chore CBB
+4+   r #x52 Make clicking cursor also face front & back.
+4+   r #x53 Map shift-0 into ')' for touch typists
+
+ARF bugs to 4/23
+4+   r #101 Better SFX timing (lowest prio, not likely to happen)
+3B   r #104 If you swap disks early on return to PC, recover.
+1B T r #105 Better error recovery for disk routines.
+3B T r #106 bottom of screen interrupt tears after text mode.
+1R   j #108 Charlie almost 'timed-out' while in text mode (HOST) (turn off the
+	'inactivity timer')
+1A T r #113 C64 protocol dropping packets on rare occasion
+2A W j c #115 make ESP send fail message, echo talk in response
+
+ARF bugs to 4/27: (version 4.9)
+?+ I a c r #118 Immobile magic that would require key to operate
+2B   r #122 for 'DO's that include GO (door/vendo/hole) face_cursor on arrival
+
+ARF bugs 4/28:
+3- I r #129 book interface:BACK beep on page 0, Limit cursor to bottom line?
+
+ARF bugs 4/29:
+2B ? r #163 Cathy and bahia had problems opening a box in Machutas[await tape]
+1A D r j #165 Flashing go trying to enter Bobs Bank (aric & janet)
+2A ? r j #167 Janet had problems picking up martini glass after purchasing.
+2B   r #172 paper REPLY: put cursor on 2nd line
+
+ARF bugs 5/4:
+2A W r #173 Janet got meltdown just after sending ESP [investigating]
+1A T r #176 Keyboard output tied to frame rate
+2B   r a #177 Install remaining Capture-The-Flag fields (if the game works)
+2A W a #184 There are only 3 boardgame regions of each type.
+2B   a #185 Need better walkto for Crat-n-a-box (Not obscuring Crat)
+3R   a c #186 Wand of teleport does not work on heads
+3R   a c #187 Wand of style change does not work on others.
+3B   a #188 Can not get help on hand held object, if style=spider.
+
+2A T c #?? ESP fails when pointing at teleport booth
+2A W r a #?? flashlights are acting weird
+1A W all #?? probe memory/telecomm problems with diagnostic tools
+
+ARFs thru 5/28: (version 5.2/5.2a tested)
+2B   c r #190 ESP does not work when pointing to oracle (same for BBox)
+1A D j c r #191 FE#1 (mem full) avatars being allowed to dghost in full region
+-- D   #192 Nancy have FE#3 (LRC). User error. Dumped to Object Disk.
+-- D   #193 Super trap patterns corrupted. FIXED 5.2b.
+2A   r #195 Camera, Lights, Stereo, Sec Dev cause problems async.
+1A T j #196 Could not return to PC after FE#1. FIXED
+       #198 Long time to initialize (Habitat logo screen)
+2A T r #199 Bahia was unable to return to PC. (disk routines improved)
+1A T r #204 Janet had strange meltdown (awaiting tape)
+

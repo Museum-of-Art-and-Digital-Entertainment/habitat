@@ -1,0 +1,128 @@
+/*
+ *   class_region.pl1
+ *
+ *   Region object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ * Revised to add 'prompt-reply' engine
+ * 28-Jan-1987 FRF
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+%replace NUMBER_OF_REPLYS by 3; /*This should GROW*/
+declare reply_actions(NUMBER_OF_REPLYS) entry variable external;
+declare reply_strings(NUMBER_OF_REPLYS) character(114) varying static init(
+          'Edit:',
+               /* 1 = God Tool */
+          'Yes?',
+               /* 2 = Magic Opener */
+          'Enter your 3 digit number:'
+               /* 3 = Lottery */
+);
+
+
+declare set_offline entry (binary(15));
+declare update_object_disk entry;
+declare god_tool_revisited entry;
+declare magic_opener_revisited entry;
+declare lottery_revisited entry;
+
+initialize_class_region: procedure;
+
+     %replace REGION_REQUESTS by 7;
+
+     declare a(0:REGION_REQUESTS) entry based;
+     declare class_region_actions pointer;
+
+     %replace I by CLASS_REGION;
+
+     Class_Table(I).capacity = 0;  /* Contents is in ObjList, not instance */
+     Class_Table(I).max_requests = REGION_REQUESTS;
+     Class_Table(I).alloc_size = size(self);
+     Class_Table(I).pc_state_bytes = 0; /* Not really true */
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_region_actions);
+     Class_Table(I).actions = class_region_actions;
+
+     Class_Table(I).actions->a(HELP)      = generic_HELP;         /* 0 */
+     Class_Table(I).actions->a(DESCRIBE)  = region_DESCRIBE;      /* 1 */
+     Class_Table(I).actions->a(LEAVE)     = region_LEAVE;         /* 2 */
+     Class_Table(I).actions->a(IMALIVE)   = region_IM_ALIVE;      /* 3 */
+     Class_Table(I).actions->a(CUSTOMIZE) = region_CUSTOMIZE;     /* 4 */
+     Class_Table(I).actions->a(FINGER_IN_QUE) = region_FINGER_IN_QUE; /* 5 */
+     Class_Table(I).actions->a(I_AM_HERE) = region_I_AM_HERE;    /* 6 */
+     Class_Table(I).actions->a(PROMPT_REPLY) = region_PROMPT_REPLY;    /* 7 */
+
+     reply_actions(1) = god_tool_revisited;
+     reply_actions(2) = magic_opener_revisited;
+     reply_actions(3) = lottery_revisited;
+
+end initialize_class_region;
+
+region_DESCRIBE: procedure;
+     %replace CURRENT_OBJECT_VERSION by '0';
+
+     if (substr(request_string,3,1) = CURRENT_OBJECT_VERSION)
+          then call send_region_contents;
+          else call update_object_disk;
+end region_DESCRIBE;
+
+region_LEAVE: procedure;
+     call set_offline (avatar.avatarslot);
+end region_LEAVE;
+
+     /*  The IM_ALIVE and CUSTOMIZE request processing deserve special  */
+     /*  comment.  First, the fact that they get to this point means    */
+     /*  that a successful response should be sent.  This was           */
+     /*  determined by the master process (microcosm), but the          */
+     /*  actual response must be sent by this process (regionproc)      */
+     /*  in order to insure that the terminal handler's default output  */
+     /*  queue has been switched to this process.  JDH                  */
+
+region_IM_ALIVE: procedure;
+     call r_msg_2_s (TRUE, 48   /* 48 = ascii "0" */,
+                  'Insert Habitat data disk; press any key.');
+end region_IM_ALIVE;
+
+region_CUSTOMIZE: procedure;
+     call r_msg_1 (TRUE);
+end region_CUSTOMIZE;
+
+region_FINGER_IN_QUE: procedure;
+     call p_msg_1(null(),avatarptr,CAUGHT_UP_$,TRUE);
+end region_FINGER_IN_QUE;
+
+region_I_AM_HERE: procedure;
+     call clear_bit(avatar.gr_state,7);
+     call b_msg_1(null(),APPEARING_$,avatar.noid);
+end region_I_AM_HERE;
+
+region_PROMPT_REPLY: procedure;
+declare i binary(15);
+declare L binary(15);
+declare strlen binary(15);
+declare reply_number binary(15);
+
+     do i=0 to NUMBER_OF_REPLYS;
+          L = length(reply_strings(i));
+          if (length(request_string) >= L) then do;
+               if (substr(request_string,1,L)=reply_strings(i)) then do;
+                    strlen=L;
+                    reply_number=i;
+               end;
+          end;
+     end;
+     if (reply_number>0) then do;
+          request_string = substr(request_string,strlen+1);
+          call reply_actions(reply_number);
+     end;
+end region_PROMPT_REPLY;

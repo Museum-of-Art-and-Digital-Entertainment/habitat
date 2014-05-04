@@ -1,0 +1,309 @@
+use region r_9118 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r r_9180
+  north_neighbor: r r_9119
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6804 {
+  container: r r_9118
+  x: 0
+  y: 1
+  style: 6
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6805 {
+  container: r r_9118
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_6806 {
+  container: r r_9118
+  x: 36
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use sign o_6815 {
+  container: r r_9118
+  x: 4
+  y: 71
+  style: 1
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " Heads\R  for\R \ Vous                     "
+}
+use vendo_inside o_6816 {
+  container: r r_9118
+  x: 80
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use sign o_6826 {
+  container: r r_9118
+  x: 40
+  y: 104
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Stylish    \ Trendy                      "
+}
+use sign o_17733 {
+  container: r r_9118
+  x: 124
+  y: 71
+  style: 1
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\R\h \177                                    "
+}
+use vendo_front o_6807 {
+  container: o o_6806
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 499
+  display_item: 2
+  prices: 250, 305, 499, 400, 625, 400, 425, 0, 0, 0
+}
+use head o_6811 {
+  container: o o_6806
+  x: 2
+  y: 1
+  style: 39
+  gr_state: 0
+  orient: 24
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_front o_6817 {
+  container: o o_6816
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 249
+  display_item: 7
+  prices: 349, 429, 299, 500, 409, 619, 387, 249, 0, 0
+}
+use head o_6822 {
+  container: o o_6816
+  x: 7
+  y: 1
+  style: 113
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6812 {
+  container: o o_6807
+  x: 3
+  y: 3
+  style: 49
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6808 {
+  container: o o_6807
+  x: 4
+  y: 4
+  style: 84
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6813 {
+  container: o o_6807
+  x: 5
+  y: 5
+  style: 56
+  gr_state: 1
+  orient: 40
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6810 {
+  container: o o_6807
+  x: 6
+  y: 6
+  style: 87
+  gr_state: 1
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6814 {
+  container: o o_6807
+  x: 1
+  y: 0
+  style: 80
+  gr_state: 1
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6809 {
+  container: o o_6807
+  x: 1
+  y: 1
+  style: 65
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6825 {
+  container: o o_6817
+  x: 1
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6821 {
+  container: o o_6817
+  x: 1
+  y: 1
+  style: 89
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6823 {
+  container: o o_6817
+  x: 2
+  y: 2
+  style: 65
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6819 {
+  container: o o_6817
+  x: 3
+  y: 3
+  style: 45
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6818 {
+  container: o o_6817
+  x: 4
+  y: 4
+  style: 41
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6824 {
+  container: o o_6817
+  x: 5
+  y: 5
+  style: 32
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_6820 {
+  container: o o_6817
+  x: 6
+  y: 6
+  style: 112
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

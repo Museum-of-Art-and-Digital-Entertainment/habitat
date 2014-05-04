@@ -1,0 +1,107 @@
+.lg 1
+.ds D January 8, 1986
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Report
+
+January 8, 1986\s-9
+.AU
+``Because we thought you'd want to know''
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+.ds LH MONTHLY REPORT
+.ds CH \\*D
+.ds RH MicroCosm Project
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This is the second in a series of monthly reports detailing the progress on
+the \fBMicroCosm\fP project at Lucasfilm.  This report describes events and
+achievements during the month of December, 1985.
+.SH
+\s+1Work In Progress/Tasks Accomplished\s-1
+.PP
+We met our December 15 milestones and delivered as planned.
+.PP
+Aric Wilmunder finished the revisions to GRACE, our animation cel editor.
+Using this editor, our animator, Gary Winnick, has begun work on the avatar.
+We jointly arrived at a specification for the required animation (a list of
+the motions and postures that will be required).  From this he has started
+designing the precise set of cels that will, in various combinations, realize
+the spec.  The first look at this indicates that it may require fewer cels
+(and therefore less storage) that originally anticipated.
+.PP
+With the cel editor finished, Aric has started work on the MicroCosm animation
+driver.  Starting with the basic routines created by Charlie Kellner (see
+previous month's report for details), he has begun the skeleton around which
+all MicroCosm graphics will hang.  We hit one snag in this area, in that the
+original method that we intended to use for rendering animation proved to be
+too slow when a large number of animated characters were placed on the screen
+at one time.  Six to eight avatar-sized figures brought the frame rate down to
+2-3 frames per second, which we find unacceptable.  After some thought we
+regrouped and have started over with a different animation process (though one
+which results in visually similar animation) that is two to four times faster.
+This seems to be working well.
+.PP
+Randy Farmer has finished the basic components of the player interface.  We
+know have a working Balloon-O-Matic\*T text display system, keyboard and
+joystick input handling routines, and working cursor and action-menu sprites.
+The only component of the player interface now missing are the routines which
+determine what object on the screen the cursor is pointing at.  For
+efficiency, these will be part of the animation engine and so must wait until
+that is further along.
+.PP
+Randy Farmer is now working on the communications software.  We have received
+Quantum's Q-Link communications protocol software and are now in the process
+of integrating this with our own system.  This includes translating the source
+into the format required by our proprietary assembler, Macross\*T, and linking
+it together with the beginnings of the MicroCosm message handling software.
+Also, one unexpected problem has developed in this area.  We had not realized
+that the Q-Link software used the Commodore 64's own ROM kernel to handle the
+RS232 interface to the modem.  Since we wish to bank out the Commodore ROM to
+recover the extra memory space which it occupies, we must now write our own
+interrupt-driven RS232 routines.  Randy has begun work on this and seems to be
+having few difficulties.  In spite of this problem, we anticipate being able
+to establish data communications between our system-under-development and the
+Q-Link host in time to meet the January 15 deadline.
+.PP
+I have drafted a preliminary object set design document which lays out the set
+of basic objects we will be implementing as part of the MicroCosm fantasy
+world.  We held a full-Division brainstorming meeting to discuss the object
+set and the fantasy itself.  Lots of good ideas and criticisms were generated
+at this meeting and these are now being incorporated into the formal design.
+.PP
+I also drafted a set of guidelines for the design and layout of the world
+itself, circulated this among the Division members, and held yet another
+design meeting in which we generated a very rough preliminary world map.  This
+map is likely to evolve beyond recognition as we develop the world, but it at
+least provides us with a starting point for such development.
+.SH
+\s+1Tasks For January\s-1
+.PP
+During January we plan to finish the communications software and polish the
+object set design.  Both of these will be done by the middle of the month in
+order to meet our January deliverables requirements.  In addition, we intend
+to continue work on the avatar animation and begin artwork for the objects
+themselves.  We will also start work on the home-system object database
+software.
+.PP
+We are on target for our January 15 milestones.  We expect to deliver as
+planned.
+.SH
+\s+1Quantum Comments\s-1
+.PP
+Mid-month we received the Q-Link communications software source code as we had
+requested.  We are about at the point where we will need access to the Quantum
+host development system to work on the object definitions that will go in the
+host database.  During early January we will meet with Marc Seriff and Janet
+Hunter to discuss the technical specifics of the host database processor so
+that they can begin work on it.
+
+
+

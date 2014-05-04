@@ -1,0 +1,328 @@
+use region r_9116 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9117
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6770 {
+  container: r r_9116
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_6771 {
+  container: r r_9116
+  x: 12
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6778 {
+  container: r r_9116
+  x: 60
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 156
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6786 {
+  container: r r_9116
+  x: 108
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use wall o_6793 {
+  container: r r_9116
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_6794 {
+  container: r r_9116
+  x: 12
+  y: 108
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\(Supplies   \ Containers   \ Weapons      "
+}
+use shovel o_6776 {
+  container: r r_9116
+  x: 4
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_front o_6772 {
+  container: o o_6771
+  x: 184
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 1125
+  display_item: 1
+  prices: 22, 1125, 195, 4, 150, 0, 0, 0, 0, 0
+}
+use escape_dev o_6774 {
+  container: o o_6771
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  charge: 10
+}
+use vendo_front o_6779 {
+  container: o o_6778
+  x: 181
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 156
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 80
+  display_item: 2
+  prices: 22, 25, 80, 88, 79, 45, 0, 0, 99, 0
+}
+use box o_6784 {
+  container: o o_6778
+  x: 2
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use vendo_front o_6787 {
+  container: o o_6786
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 800
+  display_item: 2
+  prices: 395, 129, 800, 850, 425, 0, 0, 0, 0, 0
+}
+use gun o_6790 {
+  container: o o_6786
+  x: 2
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use compass o_6775 {
+  container: o o_6772
+  x: 2
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use flashlight o_6777 {
+  container: o o_6772
+  x: 1
+  y: 0
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use box o_6783 {
+  container: o o_6779
+  x: 3
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 40
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use box o_6782 {
+  container: o o_6779
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use bag o_6781 {
+  container: o o_6779
+  x: 5
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 2
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use bag o_6785 {
+  container: o o_6779
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 2
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use bag o_6780 {
+  container: o o_6779
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 2
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use gun o_6791 {
+  container: o o_6787
+  x: 3
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife o_6788 {
+  container: o o_6787
+  x: 4
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife o_6792 {
+  container: o o_6787
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use club o_6789 {
+  container: o o_6787
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

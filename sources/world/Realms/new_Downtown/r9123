@@ -1,0 +1,146 @@
+use region {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r 9134
+  west_neighbor: r 9113
+  north_neighbor: r 9124
+  south_neighbor: r 9122
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign {
+  container: r -1001
+  x: 48
+  y: 104
+  style: 4
+  gr_state: 2
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hMeeting\h\ \hHall                         "
+}
+use window {
+  container: r -1001
+  x: 88
+  y: 59
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 20
+  y: 104
+  style: 1
+  gr_state: 2
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door {
+  container: r -1001
+  x: 16
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use coke_machine {
+  container: r -1001
+  x: 124
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 280
+}
+use street {
+  container: r -1001
+  x: 68
+  y: 7
+  style: 0
+  gr_state: 6
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use window {
+  container: r -1001
+  x: 56
+  y: 59
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use short_sign {
+  container: r -1001
+  x: 136
+  y: 129
+  style: 5
+  gr_state: 7
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Admin Av  "
+}

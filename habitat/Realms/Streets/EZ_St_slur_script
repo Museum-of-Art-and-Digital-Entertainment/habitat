@@ -1,0 +1,159 @@
+echo EZ_St_s_end
+/u0/chip/microcosm/slur/slur regdir/EZ_St_s_end.reg \
+     -o rdldir/EZ_St_s_end.rdl \
+     -d FACE_WEST \
+     -r EZ_St_s_end \
+     -n EZ_St_126_front
+echo EZ_St_126_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_126_front.reg \
+     -o rdldir/EZ_St_126_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_126_front \
+     -w EZ_St_126_interior \
+     -n EZ_St_226_front \
+     -s EZ_St_s_end
+echo EZ_St_126_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_126_interior.reg \
+     -o rdldir/EZ_St_126_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_126_interior \
+     -e EZ_St_126_front
+echo EZ_St_226_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_226_front.reg \
+     -o rdldir/EZ_St_226_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_226_front \
+     -w EZ_St_226_interior \
+     -n EZ_St_326_front \
+     -s EZ_St_126_front
+echo EZ_St_226_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_226_interior.reg \
+     -o rdldir/EZ_St_226_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_226_interior \
+     -e EZ_St_226_front
+echo EZ_St_326_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_326_front.reg \
+     -o rdldir/EZ_St_326_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_326_front \
+     -w EZ_St_326_interior \
+     -n EZ_St_426_front \
+     -s EZ_St_226_front
+echo EZ_St_326_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_326_interior.reg \
+     -o rdldir/EZ_St_326_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_326_interior \
+     -e EZ_St_326_front
+echo EZ_St_426_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_426_front.reg \
+     -o rdldir/EZ_St_426_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_426_front \
+     -w EZ_St_426_interior \
+     -n EZ_St_526_front \
+     -s EZ_St_326_front
+echo EZ_St_426_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_426_interior.reg \
+     -o rdldir/EZ_St_426_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_426_interior \
+     -e EZ_St_426_front
+echo EZ_St_526_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_526_front.reg \
+     -o rdldir/EZ_St_526_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_526_front \
+     -w EZ_St_526_interior \
+     -n EZ_St_cross \
+     -s EZ_St_426_front
+echo EZ_St_526_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_526_interior.reg \
+     -o rdldir/EZ_St_526_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_526_interior \
+     -e EZ_St_526_front
+echo EZ_St_cross
+/u0/chip/microcosm/slur/slur regdir/EZ_St_cross.reg \
+     -o rdldir/EZ_St_cross.rdl \
+     -d FACE_WEST \
+     -r EZ_St_cross \
+     -n EZ_St_626_front \
+     -s EZ_St_526_front
+echo EZ_St_626_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_626_front.reg \
+     -o rdldir/EZ_St_626_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_626_front \
+     -w EZ_St_626_interior \
+     -n EZ_St_726_front \
+     -s EZ_St_cross
+echo EZ_St_626_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_626_interior.reg \
+     -o rdldir/EZ_St_626_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_626_interior \
+     -e EZ_St_626_front
+echo EZ_St_726_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_726_front.reg \
+     -o rdldir/EZ_St_726_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_726_front \
+     -w EZ_St_726_interior \
+     -n EZ_St_826_front \
+     -s EZ_St_626_front
+echo EZ_St_726_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_726_interior.reg \
+     -o rdldir/EZ_St_726_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_726_interior \
+     -e EZ_St_726_front
+echo EZ_St_826_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_826_front.reg \
+     -o rdldir/EZ_St_826_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_826_front \
+     -w EZ_St_826_interior \
+     -n EZ_St_926_front \
+     -s EZ_St_726_front
+echo EZ_St_826_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_826_interior.reg \
+     -o rdldir/EZ_St_826_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_826_interior \
+     -e EZ_St_826_front
+echo EZ_St_926_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_926_front.reg \
+     -o rdldir/EZ_St_926_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_926_front \
+     -w EZ_St_926_interior \
+     -n EZ_St_1026_front \
+     -s EZ_St_826_front
+echo EZ_St_926_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_926_interior.reg \
+     -o rdldir/EZ_St_926_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_926_interior \
+     -e EZ_St_926_front
+echo EZ_St_1026_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_1026_front.reg \
+     -o rdldir/EZ_St_1026_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_1026_front \
+     -w EZ_St_1026_interior \
+     -n EZ_St_n_end \
+     -s EZ_St_926_front
+echo EZ_St_1026_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_1026_interior.reg \
+     -o rdldir/EZ_St_1026_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_1026_interior \
+     -e EZ_St_1026_front
+echo EZ_St_n_end
+/u0/chip/microcosm/slur/slur regdir/EZ_St_n_end.reg \
+     -o rdldir/EZ_St_n_end.rdl \
+     -d FACE_WEST \
+     -r EZ_St_n_end \
+     -s EZ_St_1026_front

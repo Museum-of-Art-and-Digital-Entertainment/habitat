@@ -1,0 +1,176 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Lotto Lobby         "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door {
+  container: r -1001
+  x: 0
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use door {
+  container: r -1001
+  x: 24
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use door {
+  container: r -1001
+  x: 48
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use door {
+  container: r -1001
+  x: 100
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 57
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use door {
+  container: r -1001
+  x: 124
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 57
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use door {
+  container: r -1001
+  x: 148
+  y: 32
+  style: 4
+  gr_state: 0
+  orient: 57
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r -1
+}
+use plaque {
+  container: r -1001
+  x: 72
+  y: 106
+  style: 2
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 1
+  text_id: 1
+  last_page: 1
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 118
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hHABITAT    LOTTO!                      "
+}
+use sign {
+  container: r -1001
+  x: 4
+  y: 30
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h|\h Purchasing \h|\h    \h|\h Redemption \h| "
+}

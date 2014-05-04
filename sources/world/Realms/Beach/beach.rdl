@@ -1,0 +1,23 @@
+include "/net/moth/u0/chip/microcosm/riddle/beta_objects.rdl";
+include "beach_regions.rdl";
+
+include	"rdldir/beach_0a.rdl";
+include	"rdldir/beach_0b.rdl";
+include	"rdldir/beach_0c.rdl";
+include	"rdldir/beach_0d.rdl";
+include	"rdldir/beach_0e.rdl";
+include	"rdldir/beach_0f.rdl";
+include	"rdldir/beach_1a.rdl";
+include	"rdldir/beach_1b.rdl";
+include	"rdldir/beach_1c.rdl";
+include	"rdldir/beach_1d.rdl";
+include	"rdldir/beach_1e.rdl";
+include	"rdldir/beach_1f.rdl";
+include	"rdldir/beach_1g.rdl";
+include	"rdldir/beach_2a.rdl";
+include	"rdldir/beach_2b.rdl";
+include	"rdldir/beach_2c.rdl";
+include	"rdldir/beach_2d.rdl";
+include	"rdldir/beach_2e.rdl";
+include	"rdldir/beach_2f.rdl";
+

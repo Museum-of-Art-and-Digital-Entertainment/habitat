@@ -1,0 +1,131 @@
+.lg 1
+.ds D December 13, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Avatar Animation Specs\s-9
+.AU
+Images and animation required for the MicroCosm avatar
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*D
+.ds LH AVATAR ANIMATION
+.ds CH \\*D
+.ds RH MicroCosm Document # 18
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+3Introduction\s-3
+.PP
+This document is the specification for the set of animation cels required to
+represent avatars in all their diverse forms and actions within the
+\fBMicroCosm\fP world.
+.SH
+\s+3Views\s-3
+.PP
+Avatars may be displayed from any of four views: front, back, left side and
+right side.  Since the avatar is bilaterally symmetrical, the only views which
+actually have to be created and stored are the front, back, and one of the
+side views.  The cels for the second side view can be obtained by reflecting
+the cels for the first side view left-to-right during the rendering process.
+Thus three complete sets of animation cels will be required.
+.PP
+We may wish to enhance the animation by including 45\(de angle views as well.
+However, the four additional views will require two additional sets of cels,
+bringing the total number of cel sets to five.  This entails a two-thirds
+increase in the amount of graphic material that must be generated and stored.
+This cost may be prohibitive in both terms of the available disk and memory
+space and in terms of the number of hours of our animator's time we have.
+.SH
+\s+3Cels\s-3
+.PP
+An avatar is a generic humanoid figure.  It is made of five cels: the torso,
+the left arm/hand, the right arm/hand, the legs/feet, and the head.  Possible
+uses for a sixth cel include a hat on the head and objects in either hand.
+The overall avatar figure should be roughly 70 pixels tall in the standing
+position, with the various body parts proportioned accordingly.
+.PP
+The avatar is located on the screen by the position of its leg cel.  The torso
+is then attached to the legs and the arms and head are attached to the torso.
+.SH
+\s+3Positions\s-3
+.PP
+The avatar should be capable of holding any of three basic positions:
+.IP "  \(bu "
+Standing
+.IP "  \(bu "
+Sitting
+.IP "  \(bu "
+Laying
+.LP
+while simultaneously holding either of its arms in any of these positions:
+.IP "  \(bu "
+At side
+.IP "  \(bu "
+Upper arm at side, elbow bent 90\(de (as if holding something to the belly)
+.IP "  \(bu "
+Upper arm at side, elbow bent more or less all the way (as if holding
+something to the chest)
+.IP "  \(bu "
+Extended in front
+.IP "  \(bu "
+Extended way out in front (like Frankenstein)
+.IP "  \(bu "
+Hands at head
+.IP "  \(bu "
+Extended to side with elbow crooked 90\(de
+.IP "  \(bu "
+Extended to side fully
+.IP "  \(bu "
+Raised vertically
+.LP
+The avatar should also be capable of making reasonable transitions from any
+position to any other position.
+.SH
+\s+3Motions\s-3
+.PP
+The avatar should be capable of the following motions:
+.IP "  \(bu "
+Walking (with arms at sides or while carrying something in either or both
+hands)
+.IP "  \(bu "
+Running (same arm constraints)
+.IP "  \(bu "
+Jumping in place
+.IP "  \(bu "
+Operating device in hands or controls at waist height
+.IP "  \(bu "
+Operating device in hands or controls at chest height
+.IP "  \(bu "
+Operating device in hands or controls at head
+.IP "  \(bu "
+Picking something up from/setting some thing down on the ground
+.IP "  \(bu "
+Picking something up from/setting some thing down on a table
+.IP "  \(bu "
+Ducking
+.IP "  \(bu "
+Striking another avatar
+.IP "  \(bu "
+Getting hit/shot
+.IP "  \(bu "
+Falling over
+.IP "  \(bu "
+Putting on/taking off clothing
+.IP "  \(bu "
+Rummaging through pockets
+.IP "  \(bu "
+Waving hands/gesturing
+.IP "  \(bu "
+Shaking hands with another avatar
+.IP "  \(bu "
+Opening/closing door
+.LP
+Clearly there will be a lot of overlap between the various cel states required
+to realize all of these (there had better be if we are going to make it all
+fit).  In any case, as of this draft this list is still a working document and
+subject to revision as suits us.
+

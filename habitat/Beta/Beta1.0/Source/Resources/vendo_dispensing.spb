@@ -1,0 +1,8 @@
+; vendo_dispensing.pw:
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0x80,0x4,0x80,0x0,0x4,0x0	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

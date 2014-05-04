@@ -1,0 +1,37 @@
+/*
+ *   class_flat.pl1
+ *
+ *   Flat object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-August-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+declare ground_HELP entry;
+
+initialize_class_flat: procedure;
+
+     declare a(0:0) entry based;
+     declare 1 flat based %include struct_flat;
+     declare class_flat_actions pointer;
+
+     %replace FLAT_REQUESTS by 0;
+
+     %replace I by CLASS_FLAT;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_flat_actions);
+     Class_Table(I).actions = class_flat_actions;
+     Class_Table(I).max_requests = FLAT_REQUESTS;
+     Class_Table(I).alloc_size = size(flat);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = ground_HELP;
+end initialize_class_flat;

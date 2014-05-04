@@ -1,0 +1,270 @@
+/*
+ *
+ *   width.pl1
+ *
+ *   Width and path collision routines for Habitat
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-March-1987
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'width.incl.pl1';
+%replace ORIENTATION_BIT by 1;
+declare test_bit entry(binary(15), binary(15)) returns(bit(1));
+declare clear_bit entry(binary(15), binary(15));
+declare set_bit entry(binary(15), binary(15));
+declare trace_msg entry(character(*) varying);
+
+/*
+ * check_path -- Compute (new_x,new_y) coordinates with collision detection
+ *     along city-block path from (avatar.x, avatar.y) to (x,y).
+ */
+old_check_path: procedure(target_noid, x, y, new_x, new_y, flip_path);
+     declare target_noid binary(15);
+     declare x binary(15);
+     declare y binary(15);
+     declare new_x binary(15);
+     declare new_y binary(15);
+     declare flip_path bit(1) aligned;
+
+     /* For now, just assume that the way is always clear. */
+     new_x = x;
+     new_y = y;
+     flip_path = false;
+end old_check_path;
+
+check_path: procedure(target_noid, x, y, new_x, new_y, flip_path);
+     declare target_noid binary(15);
+     declare x binary(15);
+     declare y binary(15);
+     declare new_x binary(15);
+     declare new_y binary(15);
+     declare collide_y binary(15);
+     declare scaled_y binary(15);
+     declare flip_path bit(1) aligned;
+     %replace MAX_COORD by 160;
+     %replace MAX_COORD_FLOAT by 160.0;
+
+     if (^COLLISION_ON) then do;
+          call old_check_path(target_noid, x, y, new_x, new_y, flip_path);
+          return;
+     end;
+
+     /* Currently, we are only checking the Y portion of the path (i.e.,
+        objects are considered to be infinitesimally thin). */
+
+     /* The Avatar always walks in vertical and horizontal lines, never
+        diagonally.  To go from one coordinate to another, there is always
+        the question of whether to take the horizontal portion of the path
+        first or the vertical portion.  This is controlled by the variable
+        'flip_path'.  If 'flip_path' is false, we walk horizontally followed
+        by vertically, other wise we do the opposite.  Depending on the
+        destination coordinates, we "prefer" one over the other, based on the
+        heuristic that we wish to take the path that comes closest to the
+        center of the region (i.e., the "elbow" of the path is in the middle
+        of the screen).  However, if we collide with an object on the
+        preferred path, we then try the other path.  If we collide there also,
+        then we just walk to the spot where we collided in the first place. */
+
+     /* First, figure out the preferred path */
+     call clear_bit(y, 8);
+     /* For a language that has such carefully defined automatic type
+        conversions, why can't PL/1 get integer--floating arithmetic right? */
+     scaled_y = fixed(float(y, 15) * (MAX_COORD_FLOAT /
+          float(current_region.depth, 15)), 15);
+     call set_bit(y, 8);
+     flip_path = (x >= MAX_COORD - scaled_y);
+     if (scaled_y >= x) then
+          flip_path = ^flip_path;
+
+     /* Now, check the path based on our preferences */
+     new_x = x;
+     if (flip_path) then do;     /* vertical then horizontal */
+          new_y = check_y_line(avatar.x, avatar.y, y);
+          if (new_y ^= y) then do;
+               collide_y = new_y;
+               new_y = check_y_line(new_x, avatar.y, y);
+               if (new_y ^= y) then do;
+                    new_x = avatar.x;
+                    new_y = collide_y;
+               end; else
+                    flip_path = false;
+          end;
+     end; else do;               /* horizontal then vertical */
+          new_y = check_y_line(new_x, avatar.y, y);
+          if (new_y ^= y) then do;
+               collide_y = new_y;
+               new_y = check_y_line(avatar.x, avatar.y, y);
+               if (new_y ^= y) then
+                    new_y = collide_y;
+               else
+                    flip_path = true;
+          end;
+     end;
+
+check_y_line: procedure(x, start_y, end_y) returns(binary(15));
+     declare x binary(15);
+     declare start_y binary(15);
+     declare end_y binary(15);
+     declare y_result binary(15);
+     declare i binary(15);
+     declare 1 obj based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+
+     /* Trivial check for purely horizontal paths */
+     if (start_y = end_y) then
+          return(end_y);
+
+     y_result = end_y;
+     do i=1 to 254;
+          objptr = ObjList(i);
+          if (objptr ^= null() & i ^= avatar.noid) then
+               if (obj.container = THE_REGION) then
+                    if (end_y > start_y) then do;
+                         if (start_y < obj.y & obj.y <= y_result) then
+                              if (x_overlap(objptr, x, 0)) then
+                                   y_result = obj.y - 1;
+                    end; else do; 
+                         if (start_y > obj.y & obj.y >= y_result) then
+                              if (x_overlap(objptr, x, 0)) then
+                                   y_result = obj.y + 1;
+                    end;
+          end;
+     return(y_result);
+end check_y_line;
+end check_path;
+
+/*
+ * x_overlap -- Determine if a given object overlaps in X with the Avatar at
+ *     the given x location.
+ */
+x_overlap: procedure(objptr, avatar_x, tolerance) returns(bit(1) aligned);
+     declare objptr pointer;
+     declare 1 object based(objptr) %include struct_gen_object;
+     declare avatar_x binary(15);
+     declare tolerance binary(15);
+     declare (object_left, object_right) binary(15);
+     declare (avatar_left, avatar_right) binary(15);
+     declare (object_base, avatar_base) binary(15);
+     declare avatar_width binary(15);
+     declare result bit(1) aligned;
+     declare BUGON bit(1) static external;
+
+     if (object.class = CLASS_AVATAR | object.class = CLASS_HEAD) then
+          return(false);
+     object_left = object.x;
+     object_base = image_base(object.class) + object.style;
+     if (test_bit(object.orientation, ORIENTATION_BIT)) then
+          object_left = object_left + image_flipOffset(object_base);
+     object_right = object_left + image_width(object_base);
+     if (object_left = object_right & tolerance = 0) then
+          return(false);
+
+     avatar_width = image_width(image_base(CLASS_AVATAR) + avatar.style);
+     avatar_left  = avatar_x - avatar_width;
+     avatar_right = avatar_x + avatar_width;
+
+     result = (^ (avatar_left > object_right + tolerance |
+                  avatar_right < object_left - tolerance));
+     if (result & BUGON) then
+          call trace_msg('collision with object ' || ltrim(object.noid) || ' at
++ x=' || ltrim(avatar_x) || ' y=' || ltrim(object.y) || ' tol=' || ltrim(tolera
++nce));
+     return(result);
+end x_overlap;
+
+/*
+ * adjacent -- Return true iff Avatar is adjacent (within some tolerance) of
+ *     the given object.  We are assuming a tolerance of +/- 2 in Y and +/- 8
+ *     in X.
+ */
+old_adjacent: procedure(objptr) returns(bit(1) aligned);
+     declare 1 object based(objptr) %include struct_gen_container;
+     declare objptr pointer;
+
+     return(true);
+end old_adjacent;
+
+adjacent: procedure(objptr) returns(bit(1) aligned);
+     declare objptr pointer;
+     declare 1 object based(objptr) %include struct_gen_container;
+     declare obase binary(15);
+     declare (x_left, x_right, y) binary(15);
+     declare (av_x, av_y) binary(15);
+     %replace X_MAX by 156;
+
+     if (^ADJACENCY_ON) then return(old_adjacent(objptr));
+     if (object.noid = avatar.noid) then return(true);
+/* NEXT LINE IS A HACK... FRF */
+     if (object.class = CLASS_HEAD) then return(true);
+     obase = image_base(object.class) + object.style;
+     if (test_bit(object.orientation, ORIENTATION_BIT)) then do;
+          x_right = object.x - image_x_right(obase) - image_celWidth(obase);
+          x_left = object.x - image_x_left(obase) - image_celWidth(obase);
+     end; else do;
+          x_right = object.x + image_x_right(obase);
+          x_left = object.x + image_x_left(obase);
+     end;
+     y = object.y;
+     call clear_bit(y, 8);
+     y = y + image_y(obase);
+
+     if (y < 0) then
+          y = 0;
+     if (y > current_region.depth) then
+          y = current_region.depth;
+     call clear_bit(y, 1);
+
+     if (x_right < 0) then x_right = 0;
+     else if (x_right > X_MAX) then x_right = X_MAX;
+     call clear_bit(x_right, 1);
+     call clear_bit(x_right, 2);
+
+     if (x_left < 0) then x_left = 0;
+     else if (x_left > X_MAX) then x_left = X_MAX;
+     call clear_bit(x_left, 1);
+     call clear_bit(x_left, 2);
+
+     av_x = avatar.x;
+     call clear_bit(av_x, 1);
+     call clear_bit(av_x, 2);
+
+     av_y = avatar.y;
+     call clear_bit(av_y, 1);
+     call clear_bit(av_y, 8);
+
+     return((av_x = x_left | av_x = x_right) & av_y = y);
+end adjacent;
+
+/*
+ * elsewhere -- Return true iff the object is not near the Avatar (i.e., not
+ *     adjacent and not in hand).
+ */
+old_elsewhere: procedure(objptr) returns(bit(1) aligned);
+     declare 1 object based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+
+     return(object.container ^= avatar.noid & ^here(objptr));
+end old_elsewhere;
+
+elsewhere: procedure(objptr) returns(bit(1) aligned);
+     declare 1 object based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+
+     return(object.container ^= avatar.noid & ^adjacent(objptr));
+end elsewhere;
+
+/*
+ * here -- Return true iff the given object is exactly where the Avatar is.
+ */
+here: procedure(objptr) returns(bit(1) aligned);
+     declare 1 object based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+
+     return(object.container = THE_REGION &
+            object.x = avatar.x &
+            object.y = avatar.y);
+end here;

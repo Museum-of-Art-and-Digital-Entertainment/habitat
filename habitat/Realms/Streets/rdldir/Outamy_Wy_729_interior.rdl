@@ -1,0 +1,28 @@
+@region $ Outamy_Wy_729_interior {
+    east: Outamy_Wy_729_front.l;
+    region_owner: 0.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:4; or:16; style:1; }
+        @wall { x:0; y:0; or:80; style:4; }
+        @table { x:48; y:129; or:188; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @chest { x:20; y:32; or:204; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @couch { x:88; y:138; or:228; }
+        @door { x:120; y:33; or:16; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @floor_lamp { x:72; y:31; or:188; 
+            8:1;
+        }
+    ]
+}

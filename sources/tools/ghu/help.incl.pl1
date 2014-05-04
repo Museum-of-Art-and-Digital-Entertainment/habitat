@@ -1,0 +1,2 @@
+declare c$help entry(binary(31), binary(31));
+declare c$help_general entry(binary(31), binary(31));

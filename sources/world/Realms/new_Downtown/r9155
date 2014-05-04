@@ -1,0 +1,107 @@
+use region r_9155 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_1258
+  west_neighbor: r r_9144
+  north_neighbor: r r_9156
+  south_neighbor: r r_9154
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use sky o_7227 {
+  container: r r_9155
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use ground o_7228 {
+  container: r r_9155
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use street o_7229 {
+  container: r r_9155
+  x: 68
+  y: 11
+  style: 0
+  gr_state: 13
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use flag o_7230 {
+  container: r r_9155
+  x: 24
+  y: 137
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 4
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use sky o_7231 {
+  container: r r_9155
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use flag o_7232 {
+  container: r r_9155
+  x: 132
+  y: 137
+  style: 0
+  gr_state: 0
+  orient: 244
+  gr_width: 4
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use short_sign o_7233 {
+  container: r r_9155
+  x: 136
+  y: 129
+  style: 5
+  gr_state: 7
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Broadway  "
+}

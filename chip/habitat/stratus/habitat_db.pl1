@@ -1,0 +1,1426 @@
+/*    habitat_db - Habitat DataBase Handler                   */
+
+%replace true                           by     '1'b;
+%replace false                          by     '0'b;
+
+%replace lower_case                     by   'abcdefghijklmnopqrstuvwxyz';
+%replace upper_case                     by   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+%replace e$caller_must_wait             by     1277;
+%replace e$end_of_file                  by     1025;
+%replace e$invalid_duplicate_key        by     1111;
+%replace e$record_not_found             by     1112;
+
+%replace key_equal                      by        4;
+
+%replace max_stratus_msg                by      1024;
+
+declare  c$attach_link        entry (char(*) var, char(*) var, bin(15), bin(15));
+
+declare  s$attach_event       entry (char(*)var, bin(31), bin(31), bin(15));
+declare  s$detach_event       entry (bin(31), bin(15));
+declare  s$cv_to_string_date_time
+                              entry (bin(31), char(32) var);
+declare  s$int_date_time      entry (bin(31));
+declare  s$keyed_position     entry (bin(15), char(*)var, char(*)var, bin(15),
+                                     char(*), bin(15), bin(15));
+declare  s$keyed_read         entry (bin(15), char(*)var, char(*)var, bin(15),
+                                     bin(15), char(*), bin(15));
+declare  s$keyed_rewrite      entry (bin(15), char(*) var, bin(15), char(*),
+                                     bin(15));
+declare  s$open               entry (bin(15), bin(15), bin(15), bin(15),
+                                     bin(15), bin(15), char(32)var, bin(15));
+declare  s$parse_command      entry (char(*) var, bin(15),
+                                     char(*) var, bit(1) aligned,
+                                     char(*) var, bit(1) aligned,
+                                     char(*) var);
+declare  s$read_event         entry (bin(31), bin(31), bin(31), bin(15));
+declare  s$seq_delete         entry (bin(15), bin(15));
+declare  s$seq_read           entry (bin(15), bin(15), bin(15), char(*), bin(15));
+declare  s$seq_rewrite        entry (bin(15), bin(15), char(*), bin(15));
+declare  s$seq_write          entry (bin(15), bin(15), char(*), bin(15));
+declare  s$set_time_event     entry (bin(31), bin(31), bin(31), bin(15));
+declare  s$set_task_wait_info entry (bin(31), bin(15), bin(15), bin(15));
+declare  s$sleep              entry (bin(31), bin(15));
+declare  s$string_date_time   entry (char(32) var);
+declare  s$task_setup_wait    entry (bin(31), bin(15), bin(15), bin(31),
+                                     bin(31), bin(31), bin(15), bin(15));
+declare  s$task_wait_event    entry (bin(31), bin(31), bin(15), bin(31),
+                                     bin(15), bin(31), bin(31), bin(15));
+
+
+%nolist; %include 'Messages';       %list;
+%nolist; %include 'Queues';         %list;
+%nolist; %include 'Debug';          %list;
+%nolist; %include 'TimeAfterTime';  %list;
+%nolist; %include 'Stat.strux';     %list;
+
+%include 'region.defs';
+%include 'defs_class';
+%page;
+%include 'containment';
+
+%page;
+declare  BUGON                          bit     (1)  static external initial(false);
+declare  BUGON_high                     bit     (1)  static external initial(false);
+
+declare  habitat_db_queue      pointer   external   initial (null ());
+declare  master_queue          pointer   external   initial (null ());
+
+declare  checkpointing        bit(1) aligned external initial(false);
+
+%page;
+%replace pkt$length_minus_prefix        by      117;
+
+%replace server_event                   by        1;  /* my server event      */
+%replace tact_event                     by        2;  /* Tact task            */
+%replace master_event                   by        3;  /* habitat process      */
+%replace region_event                   by        4;  /* a regionproc process */
+%replace stat_event                     by        5;
+%replace obn_event                      by        6;
+
+%replace max_events                     by        6;
+
+%replace wait_forever                   by       -1;
+
+%include 'descriptor.structs.incl.pl1';
+
+%page;
+habitat_db:  procedure   options (main);
+   declare  code                        binary (15);
+   declare  event_count (max_events)    binary (31);
+   declare  event_id    (max_events)    binary (31);
+   declare  done                        bit     (1);
+   declare  bin_flags                   binary (15);
+   declare  flags                       bit    (16)   defined  bin_flags;
+   declare  master_wait                 bit     (1);
+   declare  region_wait                 bit     (1);
+   declare  task_id                     binary (15);
+   declare  event                       binary (31);
+   declare  count                       binary (31);
+   declare  event_index                 binary (15);
+   declare  event_num                   binary (15);
+   declare  event_status                binary (31);
+   declare  habitat_log                 bit(1) aligned;
+
+   declare  (region_port,region_size)   bin(15);
+   declare  (avatar_port,avatar_size)   bin(15);
+   declare  (object_port,object_size)   bin(15);
+   declare  (text_port,text_size)       bin(15);
+   declare  (mail_port,mail_size)       bin(15);
+   declare  (tele_port,tport_size)      bin(15);
+   declare  (clue_port,clue_size)       bin(15);
+   declare  oracle_port                 bin(15);
+   declare  beta_port                   bin(15);       /* BTest */
+
+%page;
+   declare 1 region,
+   %include 'region';;
+   declare region_buf char(1) defined(region);
+
+   declare 1 avatar,
+   %include 'avatar';;
+   declare avatar_buf char(1) defined(avatar);
+
+   declare 1 object,
+   %include 'object';;
+   declare object_buf char(1) defined(object);
+
+   declare 1 text,
+   %include 'textdb';;
+   declare text_buf char(1) defined(text);
+
+   declare 1 mail,
+   %include 'mail_info';;
+   declare mail_buf char(1) defined(mail);
+
+   declare 1 tport,
+   %include 'teleport';;
+   declare tport_buf char(1) defined(tport);
+
+   declare 1 clue,
+             2 ident          binary(31),
+             2 start_time     bin(31),
+             2 end_time       bin(31),
+             2 interval       bin(15),
+             2 msg_text       char(100) var;
+             
+   declare clue_buf char(1) defined(clue);
+
+%page;
+   call s$parse_command ('habitat_db',                 code,
+                         'switch(-checkpoint),=1',     checkpointing,
+                         'switch(-subsys_log),=1',     habitat_log,
+                         'end');
+   if (code ^=0) then stop;
+
+   if (habitat_log) then call set_debug_queue ('habitat_debug');
+   call initialize_queues_and_tasks ('habitat_db', habitat_db_queue, max_events,
+                                       obn_event, tact_event);
+
+   call make_sender_queue ('habitat', master_event, master_queue);
+
+   call open_habitat_files;
+   call init_stats (stat_event);
+
+   do  while (true);
+       call s$task_wait_event (Master_ei, wait_forever, task_id, event,
+                               event_index, count, event_status, code);
+       if (code ^= 0)  then
+           call die_msg (code, ' on task_wait_event, index='  ||  ltrim (event_index));
+
+         else
+           if (task_id = server_event)  then call handle_msg;
+         else
+           if (task_id = tact_event)  then
+               do;
+               call ProcessTact;
+               call GetTactInfo (event_id (tact_event), event_count (tact_event));
+               call s$task_setup_wait (Master_ei, tact_event, 1,
+                                       event_id (tact_event), event_count (tact_event),
+                                       wait_forever, event_index, code);
+               if (code ^= 0)  then  call debug_msg (code, ' on Tact setup_wait');
+               end;
+         else
+           if (task_id = master_event)  then
+               call resend_msg (master_queue);
+         else
+           if (task_id = stat_event)  then
+               call resend_msg (stat_queue_ptr);
+         else
+           if (task_id = obn_event)  then
+               call resend_msg (Q_ptrs (event_index));
+       end;
+
+%page;
+handle_msg:  procedure;
+   declare  event_index                 binary (15);
+   declare  msg_type                    binary (31);
+   declare  msg_len                     binary (31);
+   declare  uid                         binary (31);
+   declare  qid                         binary (31);
+   declare  user_ptr                    pointer;
+   declare  msg_buff                    char  (1024);
+   declare  code                        binary (15);
+
+
+do while (true);
+   call get_message (habitat_db_queue, event_index, msg_type, msg_buff,
+                     length (msg_buff),  msg_len, uid, qid);
+
+   if (BUGON)  then
+       call trace_msg ('Incoming msg: '  ||  ltrim (msg_type)  ||
+                       ltrim (substr (msg_buff, 1, msg_len)));
+
+   if (msg_type = -1)  then return;
+
+   if (msg_len < 0)  then  msg_len = length (msg_buff);
+
+   if (msg_type = msg$db_lookup)  then
+       call handle_lookup_msg (addr(msg_buff),uid,qid);
+     else
+       if (msg_type = msg$find_current_region)  then
+           call get_current_location (addr(msg_buff),qid);
+     else
+       if (msg_type = msg$ckpoint_objects)  then
+           call checkpoint (addr(msg_buff));
+     else
+       if (msg_type = msg$ckpoint_my_region)  then
+           call checkpoint_region_value (addr(msg_buff));
+     else
+       if (msg_type = msg$oracle)  then
+           call oracle_message (addr(msg_buff));
+     else
+       if (msg_type = message$statflush)  then
+           call send_stats;
+     else
+       if (msg_type = message$debug_msg)  then
+           call debug_on (msg_buff, msg_len);
+   end;
+
+end  handle_msg;
+
+%page;
+handle_lookup_msg:  procedure (buf,uid,qid);
+declare buf    pointer;
+declare 1 buf_olay       based (buf),
+          2 db_function  bin(15),
+          2 object       bin(31),
+          2 transaction  bin(31),
+          2 initiator    bin(31);
+declare uid    bin(31);
+declare qid    bin(31);
+
+declare queue pointer;
+
+declare 1 obj,
+          2 function     bin(15),
+          2 container    bin(31), 
+          2 count        bin(15),
+          2 transaction  bin(31),
+          2 list_data(1016) char(1);
+declare obj_list         char(1) defined (obj);
+
+declare op pointer;
+declare base bin(15);
+
+%replace obj_fixed  by 26;
+
+declare containers       bin(15);
+declare containIDs(255)  bin(31);
+
+declare 1 summary_info,
+          2 region_num                  bin(31);
+declare   summ_info  char(1) defined (summary_info);
+
+declare (i,bytes) bin(15);
+
+     if (db_function < 1  |  db_function > MC$max_defined_fn) then do;
+        call trace_msg ('Received unknown lookup type: ' || 
+                         ltrim(string(db_function)));
+        return;
+        end;
+
+     call open_queue_from_number (qid, queue);     /* send back to requestor. */
+
+     goto lookup(db_function);
+
+lookup(MC$dbf_desc_region):                         /*   1  */
+     call return_region_contents;
+     return;
+
+lookup(MC$dbf_contents):                            /*   2  */
+     call return_container_contents;
+     return;
+
+lookup(MC$dbf_read_text):                           /*   3  */
+     call return_text_page (buf,queue,uid);
+     return;
+
+lookup(MC$dbf_locate_teleport):                     /*   4  */
+     call return_teleport_info (buf,queue,uid);
+     return;
+
+lookup(MC$dbf_write_text):                          /*   5  */
+     call cast_text_in_stone (buf);
+     return;
+
+lookup(MC$dbf_send_mail):                           /*   6  */
+     call postman (buf);
+     return;
+
+lookup(MC$dbf_mail_check):                          /*   7  */
+     call check_for_mail (buf,queue);
+     return;
+
+lookup(MC$dbf_avatar_desc):                         /*   8  */
+     call return_avatar_info;
+     return;
+
+lookup(MC$dbf_oracle_msg):                          /*   9  */
+     call return_oracle_wisdom (buf,queue);
+     return;
+
+lookup(MC$dbf_read_title):                          /*  10  */
+     call return_title_page (buf,queue,uid);
+     return;
+
+lookup(MC$dbf_init_welcome):                        /*  11  */
+     call return_welcome_text (queue);
+     return;
+
+lookup(MC$dbf_name_region):                         /*  12  */
+     call return_region_name (buf,queue,uid);
+     return;
+
+lookup(MC$dbf_locate_player):                       /*  13  */
+     call return_current_region (buf,queue,uid);
+     return;
+
+lookup(MC$dbf_check_mail):                          /*  14  */
+     call return_mail_status (buf,uid);
+     return;
+
+/* end of code for handle_lookup_msg */
+%page;
+return_region_contents: procedure;
+
+     if (BUGON_high) then call trace_msg ('Request for contents of region ' ||
+                                          ltrim(buf_olay.object));
+
+     containers     = 0;
+
+     call init_result_list;
+     if (position_by_host (buf_olay.object,0))
+        then call process_objects (buf_olay.object,0);
+
+     if (containers ^= 0) then call process_containers;
+
+     call process_region (buf_olay.object);
+     call s$int_date_time (obj.transaction);
+     call send_message (queue, msg$lookup_results, obj_list, base+11, 0, 0);
+
+     summary_info.region_num  = buf_olay.object;
+     call send_message (master_queue,msg$lookup_results,summ_info,8,0,0);
+
+     return;
+
+end return_region_contents;
+%page;
+read_avatar: procedure (avatar_id) returns(bit(1) aligned);
+declare avatar_id  bin(31);
+
+     avatar.ident = avatar_id;
+     call s$keyed_read (avatar_port,'ident','',avatar_size,bytes,
+                        avatar_buf,code);
+     if (code ^= 0) then do;
+        call debug_msg (code,' (Ra) for avatar ' || ltrim(avatar_id));
+        return (false);
+        end;
+
+     return (true);
+
+end read_avatar;
+%page;
+process_single_avatar: procedure;
+
+     obj.count                = obj.count + 1;
+     op->obj_desc.id          = avatar.ident;
+     op->obj_desc.class       = byte(CLASS_AVATAR);
+     op->obj_desc.x_pos       = 8;                /* was avatar.x_pos */
+
+     op->obj_desc.container   = 0;
+     op->obj_desc.position    = byte(0);
+     op->obj_desc.contype     = byte(0);
+     op->obj_desc.y_pos       = byte(128);        /* was byte(avatar.y_pos) */
+
+     op->obj_desc.style       = avatar.style;
+     op->obj_desc.orientation = byte(avatar.orientation);
+     op->obj_desc.graph_state = byte(avatar.graphic_st);
+     op->obj_desc.graph_width = byte(avatar.graphic_wd);
+     op->obj_desc.gen_flags   = avatar.genl_flags;
+     op->obj_desc.prop_len    = avatar.prof_length + 10;
+     op->obj_desc.var_field   = 2;
+     substr(op->obj_desc.props,1,avatar.prof_length + 10) = 
+                                   avatar.screen_name ||
+                                   substr(avatar.profile,1,avatar.prof_length);
+
+     base = base + op->obj_desc.prop_len + obj_fixed;
+     op = addr (obj.list_data(base));
+
+end process_single_avatar;
+
+%page;
+position_by_host: procedure (host_id,host_type) returns(bit(1));
+declare host_id   bin(31);
+declare host_type bin(15);
+
+     object.host = host_id;
+     object.type = host_type;
+     call s$keyed_position (object_port,'container','',object_size,
+                            object_buf,key_equal,code);
+     if (code ^= 0) then do;
+        if (code ^= e$record_not_found & code ^= e$end_of_file) then
+           call debug_msg (code,' (Po) for container ' || ltrim(host_id) ||
+                           '/' || ltrim(host_type));
+        return (false);
+        end;
+     call s$seq_read (object_port,object_size,bytes,object_buf,code);
+     if (code ^= 0) then do;
+        call debug_msg (code,' (Ro) for container ' || ltrim(host_id) ||
+                           '/' || ltrim(host_type));
+        return (false);
+        end;
+
+     return (true);
+
+end position_by_host;
+
+%page;
+process_objects: procedure (key,key_type);
+declare key       bin(31);
+declare key_type  bin(15);
+declare open_flags char(1);
+declare flag_bits(8) bit(1) defined (open_flags);
+
+%replace open_now   by 8;
+
+     do while (object.host = key  &  object.type = key_type);
+        if ((base+11+object.prop_length + obj_fixed) > max_stratus_msg) then do;
+           call send_message (queue, msg$lookup_results, obj_list,
+                             base+11,0,0);
+           call init_result_list;
+           end;
+        obj.count                = obj.count + 1;
+        op->obj_desc.id          = object.ident;
+        op->obj_desc.class       = byte(object.class);
+        op->obj_desc.x_pos       = object.x_pos;
+        op->obj_desc.style       = byte(object.style);
+        op->obj_desc.orientation = byte(object.orientation);
+        op->obj_desc.graph_state = byte(object.graphic_st);
+        op->obj_desc.graph_width = byte(object.graphic_wd);
+        op->obj_desc.gen_flags   = object.genl_flags;
+        op->obj_desc.prop_len    = object.prop_length;
+
+        if (buf_olay.db_function = MC$dbf_desc_region  &
+            object.host = buf_olay.object) then do;
+           op->obj_desc.container = 0;
+           op->obj_desc.y_pos     = byte(object.y_pos);
+           op->obj_desc.contype   = byte(0);
+           op->obj_desc.position  = byte(0);
+           end;
+        else do;
+           op->obj_desc.container = object.host;
+           op->obj_desc.y_pos     = byte(0);                 
+           op->obj_desc.contype   = byte(object.type);
+           op->obj_desc.position  = byte(object.y_pos);
+           end;
+
+        substr(op->obj_desc.props,1,object.prop_length) = 
+                substr(object.properties,1,object.prop_length);
+
+        if (object_is_container(object.class)) then do;
+           open_flags = substr(object.properties,2,1);
+           if (flag_bits(open_now)) then do;
+              containers = containers + 1;
+              containIDs(containers) = object.ident;
+              end;
+           end;
+
+        base = base + object.prop_length + obj_fixed;
+        op = addr (obj.list_data(base));
+        call s$seq_read (object_port,object_size,bytes,object_buf,code);
+        if (code ^= 0) then do;
+           if (code ^= e$end_of_file) then
+              call debug_msg (code,' (Ro) for container ' || ltrim(key) ||
+                           '/' || ltrim(key_type));
+           return;
+           end;
+     end;
+
+end process_objects;
+%page;
+process_containers: procedure;
+
+declare (i,first,last) bin(15);
+
+     first = 1;
+
+more:
+     last  = containers;
+     do i = first to last;
+        if (position_by_host (containIDs(i),2))
+           then call process_objects (containIDs(i),2);
+        end;
+
+     if (last < containers) then do;  /* A "work around" for PL/I feature:    */
+         first = i;                   /* the limits of the DO are evaluated   */
+         goto more;                   /* only once (at the beginning).  We    */
+         end;                         /* check if more containers were added. */
+
+end process_containers;
+%page;
+process_region: procedure (host_id);
+declare host_id  bin(31);
+
+declare 1 region_props,
+          2 links(4)     bin(31),
+          2 exits(4)     bin(15);
+declare link_string char(24) defined (region_props);
+
+     region.ident = host_id;
+     call s$keyed_read (region_port,'ident','',region_size,bytes,
+                        region_buf,code);
+     if (code ^= 0) then do;
+        call debug_msg (code,' (Rr) for region ' || ltrim(string(host_id)));
+        return;
+        end;
+
+     if ((base + 57 + obj_fixed) > max_stratus_msg) then do;
+        call send_message (queue, msg$lookup_results, obj_list,
+                          base+11,0,0);
+        call init_result_list;
+        end;
+
+     op->obj_desc.id          = host_id;
+     op->obj_desc.class       = byte(CLASS_REGION);
+     op->obj_desc.container   = region.owner_id;
+     op->obj_desc.position    = region.terrain;
+     op->obj_desc.x_pos       = region.bounds(1);
+     op->obj_desc.y_pos       = byte(region.bounds(2));
+     op->obj_desc.style       = byte(region.class_group);
+     op->obj_desc.orientation = byte(region.orientation);
+     op->obj_desc.graph_state = byte(0);                    /* for now... */
+     op->obj_desc.graph_width = byte(0);                    /* for now... */
+     op->obj_desc.contype     = byte(0);
+     op->obj_desc.gen_flags   = region.flags;
+     op->obj_desc.prop_len    = 44;
+
+     region_props.links(1) = region.neighbor(1);
+     region_props.links(2) = region.neighbor(2);
+     region_props.links(3) = region.neighbor(3);
+     region_props.links(4) = region.neighbor(4);
+     region_props.exits(1) = region.exit_type(1);
+     region_props.exits(2) = region.exit_type(2);
+     region_props.exits(3) = region.exit_type(3);
+     region_props.exits(4) = region.exit_type(4);
+     substr(op->obj_desc.props,1,46) = link_string    || region.name ||
+                                       region.to_town || region.to_port;
+     base = base + obj_fixed + 46;
+     obj.count = obj.count + 1;
+
+     return;
+
+end process_region;
+
+init_result_list: procedure;
+
+     obj.function    = buf_olay.db_function;
+     obj.container   = buf_olay.object;
+     obj.transaction = buf_olay.transaction;
+     obj.count       = 0;
+
+     base = 1;
+     op = addr(obj.list_data(base));
+
+end init_result_list;
+%page;
+return_avatar_info: procedure;
+
+     call init_result_list;
+     if (^read_avatar (buf_olay.object))
+        then return;
+     call process_single_avatar;
+
+     if (position_by_host (buf_olay.object,1))
+        then call process_objects (buf_olay.object,1);
+
+     call s$int_date_time (obj.transaction);
+     call send_message (queue, msg$lookup_results, obj_list, base+11, 
+                        buf_olay.object, 0);
+     return;
+
+end return_avatar_info;
+
+%page;
+return_container_contents: procedure;
+
+     containers = 1;
+     containIDs(containers) = buf_olay.object;
+
+     call init_result_list;
+     call process_containers;
+     call send_message (queue, msg$lookup_results, obj_list, base+11, 0, 0);
+
+end return_container_contents;
+end handle_lookup_msg;
+%page;
+return_welcome_text: procedure (queue);
+declare queue pointer;
+
+declare 1 result,
+          2 function     bin(15),
+          2 datalen      bin(15),
+          2 data         char(100);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   text.key        = 0;
+   text.page       = 0;
+   result.function = MC$dbf_init_welcome;
+
+   call s$keyed_read (text_port,'ident','',text_size,bytes,text_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' read welcome msg');
+      return;
+      end;
+
+   result.datalen = length(text.data);
+   result.data    = text.data;
+   call send_message (queue, msg$lookup_results,
+                   substr(result_buf,1,result.datalen+4),result.datalen+4,
+                   0,0);
+
+end return_welcome_text;
+%page;
+return_text_page: procedure(buf,queue,uid);
+declare buf    pointer;
+declare queue  pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 key          bin(31),
+          2 page         bin(15);
+
+declare 1 result,
+          2 function     bin(15),
+          2 ident        bin(31), 
+          2 page         bin(15),
+          2 num_pages    bin(15),
+          2 datalen      bin(15),
+          2 data         char(640);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   text.key         = buff.key;
+   text.page        = buff.page;
+   result.function  = MC$dbf_read_text;
+   result.ident     = buff.key;
+   result.page      = buff.page;
+   result.num_pages = 0;
+
+   call s$keyed_read (text_port,'ident','',text_size,bytes,text_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' read text ' || ltrim(string(buff.key)) ||
+                      ', page ' || ltrim(string(buff.page)));
+      result.datalen = 0;
+      call send_message (queue, msg$lookup_results, substr (result_buf,1,12),
+                            12,uid,0);
+      return;
+      end;
+
+   result.datalen = length(text.data);
+   result.data    = text.data;                   
+   if (buff.page = 1) then result.num_pages = text.page_cnt;
+   call send_message (queue, msg$lookup_results,
+                   substr(result_buf,1,result.datalen+12),result.datalen+12,
+                   uid,0);
+
+end return_text_page;
+%page;
+return_title_page: procedure(buf,queue,uid);
+declare buf    pointer;
+declare queue  pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 key          bin(31);
+
+declare 1 result,
+          2 function     bin(15),
+          2 ident        bin(31), 
+          2 datalen      bin(15),
+          2 data         char(40);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   text.key        = buff.key;
+   text.page       = 1;
+   result.function = MC$dbf_read_title;
+   result.ident    = buff.key;
+
+   call s$keyed_read (text_port,'ident','',text_size,bytes,text_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' read title ' || ltrim(string(buff.key)));
+      result.datalen = 0;
+      call send_message (queue, msg$lookup_results, substr (result_buf,1,8),
+                            8,uid,0);
+      return;
+      end;
+
+   result.datalen = index(text.data,byte(10)) - 1;
+   if (result.datalen = -1)
+      then result.datalen = 40;
+      else result.datalen = min(result.datalen,40);
+   result.data    = substr(text.data,1,result.datalen);
+   call send_message (queue, msg$lookup_results,
+                   substr(result_buf,1,result.datalen+8),result.datalen+8,
+                   uid,0);
+
+end return_title_page;
+%page;
+return_teleport_info: procedure(buf,queue,uid);
+declare buf    pointer;
+declare queue  pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 port_number  char(20);
+
+declare 1 result,
+          2 function     bin(15),
+          2 global_id    bin(31),
+          2 region       bin(31),
+          2 x_coord      bin(15),
+          2 y_coord      bin(15);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   tport.key  = buff.port_number;
+   
+   result.function  = MC$dbf_locate_teleport;
+   result.global_id = 0;
+   result.region    = 0;
+
+   call s$keyed_read (tele_port,'dial_code','',tport_size,bytes,tport_buf,code);
+   if (code ^= 0) then do;
+      if (code ^= e$record_not_found)
+         then call debug_msg (code,' read teleport ' || buff.port_number);
+      call send_message (queue, msg$lookup_results, substr (result_buf,1,14),
+                            14,uid,0);
+      return;
+      end;
+
+   object.ident     = tport.device_id;
+   call s$keyed_read (object_port,'ident','',object_size,bytes,object_buf,code);
+   if (code ^= 0  |  object.location.type ^= 0) then do;
+      if (code ^= 0) then
+         call debug_msg (code,' read teleport object ' || ltrim(tport.device_id));
+      call send_message (queue, msg$lookup_results, substr (result_buf,1,14),
+                            14,uid,0);
+      return;
+      end;
+
+   result.global_id = tport.device_id;
+   result.region    = object.host;
+   result.x_coord   = object.x_pos;
+   result.y_coord   = object.y_pos;
+   call send_message (queue, msg$lookup_results, substr (result_buf,1,14),
+                            14,uid,0);
+   return;
+
+end return_teleport_info;
+%page;
+cast_text_in_stone: procedure(buf);               /* Write to text database */
+declare buf    pointer;
+declare 1 buff based(buf),
+          2 function     bin(15),
+          2 id           bin(31),
+          2 page         bin(15),
+          2 data         char(640) var;
+
+   text.key       = buff.id;
+   text.page      = buff.page;
+   text.page_cnt  = 1;
+   text.permanent = false;
+   text.unused    = false;
+   text.data      = buff.data;
+
+   call s$seq_write (text_port,text_size,text_buf,code);
+   if (code = e$invalid_duplicate_key) 
+      then call s$keyed_rewrite (text_port,'',text_size,text_buf,code);
+   if (code ^= 0) then
+      call debug_msg (code,' writing text db ' || ltrim(text.key) || '/' ||
+                           ltrim(text.page));
+
+end cast_text_in_stone;
+%page;
+return_region_name: procedure(buf,queue,uid);
+declare buf    pointer;
+declare queue  pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 key          bin(31);
+
+declare 1 result,
+          2 function     bin(15),
+          2 region_id    bin(31),
+          2 region_name  char(20);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   result.function  = buff.db_function;
+   result.region_id = buff.key;
+
+   region.ident = buff.key;
+   call s$keyed_read (region_port,'ident','',region_size,bytes,region_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' (Rr) for region ' || ltrim(region.ident));
+      result.region_name = '';
+      end;
+   else result.region_name = region.name;
+   call send_message (queue, msg$lookup_results,substr(result_buf,1,26),26,
+                                                                   uid,0);
+
+end return_region_name;
+%page;
+return_current_region: procedure(buf,queue,uid);
+declare buf    pointer;
+declare queue  pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 player_id    bin(31);
+
+declare 1 result,
+          2 function     bin(15),
+          2 player_id    bin(31),
+          2 region_id    bin(31);
+declare result_buf char(1) defined(result);
+declare bytes  bin(15);
+
+   result.function  = buff.db_function;
+   result.player_id = buff.player_id;
+
+   avatar.ident = buff.player_id;
+   call s$keyed_read (avatar_port,'ident','',avatar_size,bytes,avatar_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' (Ra) for avatar ' || ltrim(avatar.ident));
+      result.region_id = 0;
+      end;
+   else result.region_id = avatar.region;
+   call send_message (queue, msg$lookup_results,substr(result_buf,1,10),10,
+                                                                   uid,0);
+
+end return_current_region;
+%page;
+return_mail_status: procedure(buf,uid);
+declare buf    pointer;
+declare uid    bin(31);
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 player_id    bin(31);
+
+declare 1 trans,
+          2 timestamp    bin(31);
+declare trans_buf char(4) defined(trans);
+
+   if (^has_mail_waiting(buff.player_id)) then return;
+
+   call s$int_date_time (trans.timestamp);
+   call send_message (master_queue,msg$mail_arrived,trans_buf,4,
+                      buff.player_id,0);
+
+end return_mail_status;
+%page;
+postman: procedure(buf);                     /* Validate & deliver mail */
+declare buf    pointer;
+declare 1 buff based(buf),
+          2 function     bin(15),
+          2 sender_name  char(10),
+          2 sender_uid   bin(31),
+          2 text_id      bin(31);
+
+declare to_name char(10);
+declare bytes   bin(15);
+
+declare 1 signal,
+          2 timestamp    bin(31);
+declare signal_buf char(4) defined(signal);
+
+   text.key   = buff.text_id;
+   text.page  = 1;
+
+   call s$keyed_read (text_port,'ident','',text_size,bytes,text_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' read mail text ' || ltrim(string(buff.text_id)) ||
+                      ', user ' || ltrim(string(sender_uid)));
+      return;
+      end;
+
+   if (^valid_mailing_address(buff.sender_name))
+      then mail.addressee = sender_uid;
+
+   mail.sender  = sender_uid;
+   mail.text_id = buff.text_id;
+   call s$seq_write (mail_port,mail_size,mail_buf,code);
+   if (code ^= 0) then do;
+      call debug_msg (code,' writing mail (' || ltrim(buff.text_id) ||
+                           '  from user ' || ltrim(buff.sender_name));
+      call update_text (false);
+      return;
+      end;
+
+   call update_text (true);
+
+   call s$int_date_time (signal.timestamp);
+   call send_message (master_queue,msg$mail_arrived,signal_buf,4,
+                      mail.addressee,0);
+
+end postman;
+%page;
+valid_mailing_address: procedure (sender_tag) returns(bit(1) aligned);
+declare sender_tag  char(*);
+declare address     char(40) var;
+declare postmark    char(32) var;
+declare (s1,s2)     bin(15);
+declare bytes       bin(15);
+
+   call s$string_date_time (postmark);
+   call s$int_date_time (mail.time_sent);
+
+   s1 = verify(text.data, byte(10));         /* Find 1st nonblank line */
+   if (s1 = 0) then s1 = 1;
+   s2 = index(substr(text.data,s1+1), byte(10));
+   if (s2 = 0) then s2 = length(text.data) - s1;
+   address = reduce_mail_addr(substr(text.data,s1,s2));
+   if (substr(address,1,3) ^= 'to:') then do;
+      call make_dead_letter;
+      return (false);
+      end;
+
+   avatar.name = substr(address,4);
+   if (avatar.name = 'theoracle') then do;
+      call make_dead_letter;
+      return (false);
+      end;
+   call s$keyed_read (avatar_port,'compname','',avatar_size,bytes,
+                        avatar_buf,code);
+   if (code ^= 0) then do;
+      /* Should do the same for cancelled/terminated users. */
+      call make_dead_letter;
+      return (false);
+      end;
+
+   text.data = 'From: ' || sender_tag || copy(' ',5) || 'Postmark: ' ||
+               substr(postmark,1,8) || substr(text.data,(s1+s2)) ||
+               substr(text.data,1,s1-1);
+
+   mail.addressee = avatar.ident;
+
+   return(true);
+
+make_dead_letter: procedure;
+declare pad_char char(1) var;
+
+   mail.addressee = 0;
+   if (length(address) > 19) then address = substr(address,1,19);
+   if (s2 = 40)
+      then pad_char = byte(10);
+      else pad_char = '';
+   text.data = 'NOT DELIVERABLE:  *' || address || '*' || pad_char ||
+                substr(text.data,(s1+s2)) || substr(text.data,1,s1-1);
+   return;
+
+end make_dead_letter;
+end valid_mailing_address;
+reduce_mail_addr: procedure(buffer) returns(char(40) var);
+declare buffer char(*) var;
+declare (work,result) char(40) var;
+declare i bin(15);
+
+  work = translate(buffer,lower_case,upper_case);
+  result = '';
+  do i = 1 to length(work);
+     if (substr(work,i,1) ^= ' ') then result = result || substr(work,i,1);
+     end;
+  return (result);
+         
+end reduce_mail_addr;
+%page;
+update_text: procedure (pass_fail);
+declare pass_fail bit(1);
+
+  text.flags.delivered = pass_fail;
+  call s$seq_rewrite (text_port,text_size,text_buf,code);
+  if (code ^= 0) then
+     call debug_msg (code, ' Posting ' || ltrim(text.key));
+
+end update_text;
+%page;
+check_for_mail: procedure(buf,queue);
+declare buf    pointer;
+declare 1 buff based(buf),
+          2 function     bin(15),   /* Input                                */
+          2 reader_uid   bin(31),   /* Input:  mail for me?                 */
+          2 text_id      bin(31),   /* OUTPUT:  identifies 1st mail message */
+          2 more_mail    bin(15),   /* OUTPUT:  1=> more  0=>no more        */
+          2 current_time bin(31);
+declare buff_str char(1) based(buf);
+declare queue pointer;
+declare bytes bin(15);
+
+  buff.more_mail = 0;
+  buff.text_id   = 0;
+  call s$int_date_time (buff.current_time);
+
+  if (has_mail_waiting (buff.reader_uid)) then do;
+     buff.text_id = mail.text_id;
+     call s$seq_delete (mail_port,code);
+     if (code ^= 0) then call debug_msg (code,
+        ' purge mail for ' || ltrim(reader_uid) || ' text ' || ltrim(buff.text_id));
+     call s$seq_read (mail_port,mail_size,bytes,mail_buf,code);
+     if (code ^= 0) then if (code ^= e$end_of_file)
+        then call debug_msg (code, ' read mail for ' || ltrim(reader_uid));
+     if (code = 0  &  mail.addressee = buff.reader_uid) then buff.more_mail = 1;
+     end;
+     
+  call send_message (queue, msg$lookup_results, buff_str, 16, reader_uid, 0);
+
+end check_for_mail;
+%page;
+has_mail_waiting: procedure (userid) returns (bit(1) aligned);
+declare userid bin(31);
+declare bytes  bin(15);
+
+  mail.addressee = userid;
+  call s$keyed_position (mail_port,'account','',mail_size,mail_buf,key_equal,code);
+  if (code ^= 0) then do;
+     if (code ^= e$record_not_found)
+        then call debug_msg (code, ' pos mail for ' || ltrim(userid));
+     return (false);
+     end;
+
+  call s$seq_read (mail_port,mail_size,bytes,mail_buf,code);
+  if (code ^= 0) then do;
+     if (code ^= e$record_not_found)
+        then call debug_msg (code, ' pos mail for ' || ltrim(userid));
+     return (false);
+     end;
+
+  if (mail.addressee = userid)
+     then return (true);
+     else return (false);
+
+end has_mail_waiting;
+%page;
+get_current_location: procedure (buf,qid);
+declare buf pointer;
+declare 1 buf_olay       based (buf),
+          2 sub_account  bin(31),
+          2 sub_qid      bin(31),
+          2 version      bin(15);
+declare qid  bin(31);
+declare (abytes,rbytes) bin(15);
+declare 1 obuff          ,
+          2 region_id    bin(31);
+declare obuff_info       char(4) defined (obuff);
+
+%include 'instance_head.def.incl.pl1';
+declare 1 class_avatar %include 'struct_avatar';
+declare 1 avatar_property based (p),
+          2 field  like class_avatar.class_specific;
+declare p pointer;
+declare when   char(32) var;
+
+     avatar.ident = sub_account;
+     call s$keyed_read (avatar_port,'ident','',avatar_size,abytes,avatar_buf,code);
+     if (code ^= 0) then do;
+        if (code = e$record_not_found)
+           then obuff.region_id = beta_tester (sub_account);
+           else do;
+               call debug_msg (code,' (Ra) for avatar ' || ltrim(sub_account));
+               obuff.region_id   = -1;
+               end;
+        call send_message (master_queue,msg$current_region,obuff_info,4,
+                        sub_account,sub_qid);
+        return;
+        end;
+
+     if (avatar.region ^= Null_Region)
+        then obuff.region_id = avatar.region;
+        else do;
+            p = addr(avatar.profile);
+            obuff.region_id = avatar_property.turf;
+            end;
+     call send_message (master_queue,msg$current_region,obuff_info,4,
+                        sub_account,sub_qid);
+
+/*   avatar.region = Null_Region;
+     call s$seq_rewrite (avatar_port,avatar_size,avatar_buf,code);
+     if (code ^= 0)
+        then call debug_msg (code,' (Ua) for avatar ' || ltrim(avatar.ident));
+*/
+end get_current_location;
+%page;
+beta_tester: procedure (acct_num) returns (bin(15));
+declare acct_num  bin(31);
+declare acct_str  char(10);
+declare bytes     bin(15);
+
+  acct_str = substr(string(acct_num),5,10);
+  acct_str = translate(acct_str,'0',' ');
+
+  call s$keyed_read (beta_port,'acct','',10,bytes,acct_str,code);
+  if (code = 0)
+      then return (0);
+  if (code = e$record_not_found)
+      then return (-2);
+  return (-1);
+
+end beta_tester;
+%page;
+return_oracle_wisdom: procedure(buf,queue);
+declare buf    pointer;
+declare 1 buff based(buf),
+          2 db_function  bin(15),
+          2 oracles_id   bin(31), 
+          2 start_time   bin(31),
+          2 end_time     bin(31),
+          2 interval     bin(15),
+          2 msg_text     char(100) var;
+declare buff_str char(1) based(buf);
+declare queue pointer;
+declare bytes bin(15);
+
+  clue.ident = oracles_id;
+  call s$keyed_read (clue_port,'ident','',clue_size,bytes,clue_buf,code);
+  if (code ^= 0) then do;
+     if (code ^= e$record_not_found)
+        then call debug_msg (code,' read msg for oracle ' || ltrim(oracles_id));
+     return;
+     end;
+     
+  buff.start_time = clue.start_time;
+  buff.end_time   = clue.end_time;
+  buff.interval   = clue.interval;
+  buff.msg_text   = clue.msg_text;
+
+  call send_message (queue, msg$lookup_results, buff_str, 18+length(msg_text), 0, 0);
+
+end return_oracle_wisdom;
+%page;
+checkpoint: procedure (buf);
+declare buf pointer;
+declare 1 request        based (buf),
+          2 region_id    bin(31),
+          2 count        bin(15),
+          2 list_data    char(250);
+declare op pointer;
+declare (i,bytes)  bin(15);
+declare record_exists bit(1);
+
+   if (^checkpointing) then return;
+
+   op = addr(request.list_data);
+   do i = 1 to request.count;
+      if (op->obj_desc.class = byte(CLASS_AVATAR)) then do;
+         avatar.ident = op->obj_desc.id;
+         call s$keyed_read (avatar_port,'ident','',avatar_size,bytes,avatar_buf,code);
+         end;
+      else do;
+         object.ident = op->obj_desc.id;
+         call s$keyed_read (object_port,'ident','',object_size,bytes,object_buf,code);
+         end;
+      if (code = 0) then record_exists = true;
+      else if (code = e$record_not_found) then record_exists = false;
+         else do;
+            call debug_msg (code,' (CKPT) reading ' || ltrim(op->obj_desc.id) || ' in '
+                            || ltrim(region_id) || ' region');
+            goto next_description;
+            end;
+      if (record_exists)
+         then call update_info;
+         else call init_new_record;
+      call flush_to_disk (record_exists,rank(op->obj_desc.class));
+      next_description:
+      op = addrel(op, obj_fixed + op->obj_desc.prop_len);
+      end;
+
+      return;
+
+%page;
+update_info: procedure;
+
+   if (op->obj_desc.class = byte(CLASS_AVATAR)) then do;
+      avatar.region = request.region_id;
+      avatar.inside = op->obj_desc.container;
+      if (avatar.inside = 0)
+         then avatar.y_pos = rank(op->obj_desc.y_pos);
+         else avatar.y_pos = rank(op->obj_desc.position);
+      avatar.x_pos = op->obj_desc.x_pos;
+      avatar.style = op->obj_desc.style;
+      avatar.orientation = rank(op->obj_desc.orientation);
+      avatar.graphic_st = rank(op->obj_desc.graph_state);
+      avatar.graphic_wd = rank(op->obj_desc.graph_width);
+      avatar.genl_flags = op->obj_desc.gen_flags;
+      avatar.prof_length = op->obj_desc.prop_len - 10;
+      substr(avatar.profile,1,avatar.prof_length) = 
+                       substr(op->obj_desc.props,11,avatar.prof_length);
+      end;
+
+   else do;
+      if (op->obj_desc.container = 0) then
+         if (request.region_id = Dead_Region) then do;
+               object.host  = Null_Region;        /* Make entire key null. */
+               object.y_pos = 0;
+               end;
+            else do;
+               object.host = request.region_id;
+               object.type = 0;
+               object.y_pos = rank(op->obj_desc.y_pos);
+               end;
+      else do;
+         object.host = op->obj_desc.container;
+         object.type = rank(op->obj_desc.contype);
+         object.y_pos = rank(op->obj_desc.position);
+         end;
+      if (object.host = Null_Region)
+         then object.type  = Null_Host_Type;        /* Make entire key null. */
+      object.x_pos = op->obj_desc.x_pos;
+      object.style = rank(op->obj_desc.style);
+      object.orientation = rank(op->obj_desc.orientation);
+      object.graphic_st = rank(op->obj_desc.graph_state);
+      object.graphic_wd = rank(op->obj_desc.graph_width);
+      object.genl_flags = op->obj_desc.gen_flags;
+      object.prop_length = op->obj_desc.prop_len;
+      substr(object.properties,1,object.prop_length) = 
+                       substr(op->obj_desc.props,1,object.prop_length);
+      end;
+
+end update_info;
+%page;
+init_new_record: procedure;
+declare i bin(15);
+
+   object.ident = op->obj_desc.id;
+   object.class = rank(op->obj_desc.class);
+   object.type  = 0;
+
+   object.genl_flags = false;
+   do i = 1 to 5;
+     object.fillers(i) = 0;
+     end;
+
+   bytes = object_size;
+
+   call update_info;
+
+end init_new_record;
+%page;
+flush_to_disk: procedure (exists,class);
+declare exists bit(1);
+declare class  bin(15);
+
+   if (class = CLASS_AVATAR)
+      then if (exists)
+         then call s$seq_rewrite (avatar_port,bytes,avatar_buf,code);
+         else call s$seq_write   (avatar_port,bytes,avatar_buf,code);
+      else if (exists)
+         then call s$seq_rewrite (object_port,bytes,object_buf,code);
+         else call s$seq_write   (object_port,bytes,object_buf,code);
+
+   if (code ^= 0)
+         then call debug_msg (code,' (CKPT) for ' || ltrim(object.ident) ||
+                              ', disk write');
+
+end flush_to_disk;
+end checkpoint;
+%page;
+checkpoint_region_value: procedure (buf);
+declare buf pointer;
+declare 1 request        based (buf),
+          2 region_id    bin(31),
+          2 user_cnt     bin(15),
+          2 user_id(206) bin(31);
+declare (i,bytes)  bin(15);
+declare ghost_em   bit(1) aligned;
+
+   if (^checkpointing) then return;
+   if (substr(q_context.holding_area,2,1) = 'G')
+      then ghost_em = true;
+      else ghost_em = false;
+
+   do i = 1 to request.user_cnt;
+      avatar.ident = request.user_id(i);
+      call s$keyed_read (avatar_port,'ident','',avatar_size,bytes,avatar_buf,code);
+      if (code ^= 0) then do;
+          call debug_msg (code,' (CKPT) reading ' || ltrim(user_id(i)) || ' in '
+                          || ltrim(region_id) || ' region');
+          return;
+          end;
+      avatar.region = request.region_id;
+      if (ghost_em) then do;
+          avatar.x_pos  = -1;
+          avatar.inside = 0;
+          end;
+      call s$seq_rewrite (avatar_port,bytes,avatar_buf,code);
+      if (code ^= 0)
+         then call debug_msg (code,' (CKPT) for ' || ltrim(user_id(i)) ||
+                              ', disk write');
+      end;
+
+   return;
+
+end checkpoint_region_value;
+%page;
+oracle_message: procedure (argptr);
+declare argptr  pointer;
+declare 1 arg            based(argptr),
+          2 asker        bin(31),
+          2 askee        bin(31),
+          2 text         char(113) var;
+declare 1 buff           ,
+          %include       'question';
+declare buff_string      char(128) defined(buff);
+
+   buff.originator = arg.asker;
+   buff.oracle_id  = arg.askee;
+   buff.answered   = false;            /* Will be set when actually answered. */
+   buff.unused     = false;
+   buff.text       = arg.text;
+
+   call s$int_date_time (buff.time_asked);
+
+   call s$seq_write (oracle_port,(length(buff.text)+16),buff_string,code);
+   if (code ^= 0) then
+      call debug_msg (code,'writing oracle log, user ' || ltrim(arg.askee));
+
+end oracle_message;
+%page;
+open_habitat_files: procedure;
+
+%replace implicit_lock   by 4;
+%replace indexed_access  by 3;
+%replace input_io        by 1;
+%replace seq_access      by 1;
+%replace seq_org         by 3;
+%replace update_io       by 4;
+
+     region_size = bytesize(region);
+     avatar_size = bytesize(avatar);
+     object_size = bytesize(object);
+     text_size   = bytesize(text);
+     mail_size   = bytesize(mail);
+     tport_size  = bytesize(tport);
+     clue_size   = bytesize(clue);
+
+     call c$attach_link ('MC_region', 'MC_region', region_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_region');
+     call s$open (region_port, seq_org, region_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_region');
+
+     call c$attach_link ('MC_avatar', 'MC_avatar', avatar_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_avatar');
+     call s$open (avatar_port, seq_org, avatar_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_avatar');
+
+     call c$attach_link ('MC_object', 'MC_object', object_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_object');
+     call s$open (object_port, seq_org, object_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_object');
+
+     call c$attach_link ('MC_text', 'MC_text', text_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_text');
+     call s$open (text_port, seq_org, text_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_text');
+
+     call c$attach_link ('MC_mail', 'MC_mail', mail_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_mail');
+     call s$open (mail_port, seq_org, mail_size, update_io, 
+                  implicit_lock, indexed_access, 'account', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_mail');
+
+     call c$attach_link ('MC_teleport', 'MC_teleport', tele_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_teleport');
+     call s$open (tele_port, seq_org, tport_size, input_io, 
+                  implicit_lock, indexed_access, 'dial_code', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_teleport');
+
+     call c$attach_link ('MC_oracle', 'MC_oracle', oracle_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_oracle');
+     call s$open (oracle_port, seq_org, 128, update_io, implicit_lock,
+                  seq_access, '', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_oracle');
+
+     call c$attach_link ('MC_clues', 'MC_clues', clue_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_clues');
+     call s$open (clue_port, seq_org, clue_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_clue');
+
+     /* BTest */
+     call c$attach_link ('MC_betalist', 'MC_betalist', beta_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_betalist');
+     call s$open (beta_port, seq_org, 10, input_io, 
+                  implicit_lock, indexed_access, 'acct', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_betalist');
+
+end  open_habitat_files;
+
+end  habitat_db;

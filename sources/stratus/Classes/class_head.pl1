@@ -1,0 +1,110 @@
+/*
+ *   class_head.pl1
+ *
+ *   Head object behavior module for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   17-June-1986
+ *   revised 13-March-1987 CM add curses and consolidate w/ actions_clothing.
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_head: procedure;
+
+     %replace HEAD_REQUESTS by 7;
+
+     declare a(0:HEAD_REQUESTS) entry based;
+     declare class_head_actions pointer;
+     declare 1 head based %include struct_head;
+
+     %replace I by CLASS_HEAD;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = HEAD_REQUESTS;
+     Class_Table(I).alloc_size = size(head);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_head_actions);
+     Class_Table(I).actions = class_head_actions;
+
+     Class_Table(I).actions->a(HELP)   = head_HELP;      /* 0 */
+     Class_Table(I).actions->a(GET)    = head_WEAR;      /* 1 */
+     Class_Table(I).actions->a(PUT)    = generic_PUT;    /* 2 */
+     Class_Table(I).actions->a(THROW)  = generic_THROW;  /* 3 */
+     Class_Table(I).actions->a(4)      = illegal;        /* 4 */
+     Class_Table(I).actions->a(5)      = illegal;        /* 5 */
+     Class_Table(I).actions->a(WEAR)   = head_WEAR;      /* 6 */
+     Class_Table(I).actions->a(REMOVE) = head_REMOVE;    /* 7 */
+
+end initialize_class_head;
+
+%replace HEAD_GROUND_STATE     by 2;
+head_WEAR: procedure;
+     declare success binary(15);
+
+     if (holding(selfptr)) then do;
+          if (avatar.contents->c(HEAD) ^= NULL) then do;
+               call r_msg_1(FALSE);
+               return;
+          end; else if (^change_containers(self.noid, avatar.noid, HEAD, false)) then do;
+               call r_msg_1(FALSE);
+               call trace_msg ('*ERR* change_containers failed in head_WEAR for '
+                               || ltrim(avatar.obj_id));
+               return;
+          end;
+          self.gr_state = 0;
+          self.gen_flags(MODIFIED) = true;
+          call checkpoint_object (0, self.noid);
+          avatar.true_head_style = self.style;
+          call inc_record(avatarptr, HS$body_changes);
+          call n_msg_0(avatarptr, WEAR$);
+          call r_msg_1(TRUE);
+     end; else if (ObjList(self.container)->o.class ^= CLASS_AVATAR |
+               self.container = avatar.noid) then
+          call generic_GET;
+     else
+          call r_msg_1(FALSE);
+end head_WEAR;
+
+head_REMOVE: procedure;
+     declare success binary(15);
+
+     success = FALSE;
+     if (avatar.curse_type = CURSE_COOTIES |
+               avatar.curse_type = CURSE_SMILEY |
+               avatar.curse_type = CURSE_MUTANT) then
+          call object_say(self.noid, 'You can''t remove the head.  It is cursed.');
+     else if (wearing(selfptr) & empty_handed(avatarptr)) then
+          if (change_containers(self.noid, avatar.noid, HANDS, false)) then do;
+               success = TRUE;
+               self.gr_state = HEAD_GROUND_STATE;
+               self.gen_flags(MODIFIED) = true;
+               call checkpoint_object (0, self.noid);
+               call n_msg_1(avatarptr, REMOVE$, self.noid);
+          end;
+     call r_msg_1(success);
+end head_REMOVE;
+
+head_HELP: procedure;
+     declare avatar_IDENTIFY entry;
+     declare 1 wearer based(wearerptr) %include struct_avatar;
+     declare wearerptr pointer;
+
+     if (self.container ^= NULL) then do;
+          wearerptr = ObjList(self.container);
+          if (wearer.class = CLASS_AVATAR) then do;
+               selfptr = wearerptr;
+               call avatar_IDENTIFY; /* Warning!  Tricky stuff here! */
+               return;
+          end;
+     end;
+     call r_msg_s('HEAD: point at your body and select PUT to wear head.  GETing the head will remove it if you are wearing it.');
+end head_HELP;

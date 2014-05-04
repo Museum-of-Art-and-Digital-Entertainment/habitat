@@ -1,0 +1,39 @@
+@region $ dnalsi_36 {
+    north: dnalsi_37.l;
+    south: dnalsi_cave3_2c.l;
+    west: dnalsi_26.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:0; y:1; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @ground { x:68; y:2; or:188; }
+        @rock { x:64; y:148; or:16; style:1; 
+            8:1;
+        }
+        @tree { x:48; y:28; or:172; style:2; }
+        @tree { x:128; y:27; or:173; style:2; }
+        @tree { x:92; y:136; or:172; style:2; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @sky { x:68; y:1; or:0; style:4; }
+        @hole { x:112; y:149; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @rock { x:3; y:3; or:0; 
+                    8:1;
+                }
+                @rock { x:1; y:1; or:72; style:1; 
+                    8:1;
+                }
+                @rock { x:0; y:0; or:32; style:1; 
+                    8:1;
+                }
+                @rock { x:2; y:2; or:0; 
+                    8:1;
+                }
+            ]
+        }
+    ]
+}

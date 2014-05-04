@@ -1,0 +1,40 @@
+@region $ dnalsi_02 {
+    north: dnalsi_03.l;
+    east: dnalsi_12.l;
+    region_orientation: FACE_WEST;
+    [
+        @flat { x:0; y:4; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @trapezoid { x:32; y:56; or:156; 
+            8:0;
+            9:0;
+            10:0;
+            11:246;
+            12:1;
+            13:18;
+        }
+        @trapezoid { x:16; y:48; or:204; 
+            8:0;
+            9:254;
+            10:24;
+            11:6;
+            12:19;
+            13:8;
+        }
+        @tree { x:12; y:133; or:1; style:7; }
+        @tree { x:20; y:142; or:1; style:7; }
+        @tree { x:28; y:151; or:1; style:7; }
+        @flat { x:24; y:4; or:244; 
+            8:1;
+        }
+        @bottle { x:88; y:150; or:0; 
+            8:0;
+        }
+        @bottle { x:104; y:144; or:1; 
+            8:0;
+        }
+        @ground { x:24; y:4; or:188; style:1; }
+    ]
+}

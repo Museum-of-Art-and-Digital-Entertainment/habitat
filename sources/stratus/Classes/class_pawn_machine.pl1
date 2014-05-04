@@ -1,0 +1,64 @@
+/*
+ *   class_pawn_machine.pl1
+ *
+ *   Behavior module for object class pawn_machine.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   6-October-1986
+ */
+
+%replace PAWN_MACHINE_CAPACITY by 1;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_pawn_machine: procedure;
+
+     %replace PAWN_MACHINE_REQUESTS by 6;
+
+     declare a(0:PAWN_MACHINE_REQUESTS) entry based;
+     declare class_pawn_machine_actions pointer;
+     declare 1 pawn_machine based %include struct_pawn_machine;
+
+     %replace I by CLASS_PAWN_MACHINE;
+
+     Class_Table(I).capacity = PAWN_MACHINE_CAPACITY;
+     Class_Table(I).max_requests = PAWN_MACHINE_REQUESTS;
+     Class_Table(I).alloc_size = size(pawn_machine);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_pawn_machine_actions);
+     Class_Table(I).actions = class_pawn_machine_actions;
+
+     Class_Table(I).actions->a(HELP)  = generic_HELP;      /* 0 */
+     Class_Table(I).actions->a(1)     = illegal;           /* 1 */
+     Class_Table(I).actions->a(2)     = illegal;           /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;           /* 3 */
+     Class_Table(I).actions->a(4)     = illegal;           /* 4 */
+     Class_Table(I).actions->a(5)     = illegal;           /* 5 */
+     Class_Table(I).actions->a(MUNCH) = pawn_machine_MUNCH;/* 6 */
+
+end initialize_class_pawn_machine;
+
+pawn_machine_MUNCH: procedure;
+     declare 1 self based(selfptr) %include struct_pawn_machine;
+
+     if (adjacent(selfptr) & self.contents->c(0) ^= NULL) then do;
+          if (pay_to(avatarptr, item_value(ObjList(self.contents->c(0))))) then
++ do; 
+               call n_msg_1(selfptr, MUNCH$, avatar.noid);
+               call n_msg_1(null(), GOAWAY_$, self.contents->c(0));
+               call destroy_contents(selfptr);
+               call r_msg_1(TRUE);
+               return;
+          end;
+          call r_msg_1(BOING_FAILURE);
+          return;
+     end;
+     call r_msg_1(FALSE);
+end pawn_machine_MUNCH;

@@ -1,0 +1,18 @@
+/*   MicroCosm REGION Database                                           */
+
+
+     10 ident            bin(31),            /* Unique region number          */
+     10 owner_id         bin(31),            /* Avatar's ID or -1=public      */
+     10 bounds(2)        bin(15),            /* 1=x-length  2=y-length        */
+     10 neighbor(4)      bin(31),            /* 1=east 2=west 3=north 4=south */
+     10 class_group      bin(15),
+     10 orientation      bin(15),
+     10 entry_proc       bin(15),
+     10 exit_proc        bin(15),
+     10 exit_type(4)     bin(15),
+     10 flags(32)        bit(1),
+     10 name             character(20),
+     10 terrain          character(1),
+     10 to_town          character(1),
+     10 to_port          character(1),
+     10 fillchar         character(33)

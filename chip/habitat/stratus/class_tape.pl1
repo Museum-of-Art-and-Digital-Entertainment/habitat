@@ -1,0 +1,55 @@
+/*
+ *   class_tape.pl1
+ *
+ *   Object behavior module for class tape.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_tape: procedure;
+
+     %replace TAPE_REQUESTS by 4;
+
+     declare a(0:TAPE_REQUESTS) entry based;
+     declare class_tape_actions pointer;
+     declare 1 tape based %include struct_tape;
+
+     %replace I by CLASS_TAPE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = TAPE_REQUESTS;
+     Class_Table(I).alloc_size = size(tape);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_tape_actions);
+     Class_Table(I).actions = class_tape_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)       = generic_GET;    /* 1 */
+     Class_Table(I).actions->a(PUT)       = generic_PUT;    /* 2 */
+     Class_Table(I).actions->a(THROW)     = generic_THROW;  /* 3 */
+     Class_Table(I).actions->a(READLABEL) = tape_READLABEL; /* 4 */
+
+end initialize_class_tape;
+
+tape_READLABEL: procedure;
+     declare 1 self based(selfptr) %include struct_tape;
+     declare 1 music based %include struct_music;
+     declare text character(TEXT_LENGTH) varying;
+
+     if (holding(selfptr)) then
+          text = self.song->music.title;
+     else
+          text = '';
+     call r_msg_s(text);
+end tape_READLABEL;

@@ -1,0 +1,66 @@
+From chip Mon Jul 20 11:56:34 1987
+Received: by moth; 20 JUL 87 11:56:34 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer, nancy, quantum, sda
+Subject: Latest status summary
+Status: R
+
+Here is the task summary for Moon-day, July 20.
+
+Format: Left-hand column is priority/release requirement ('A' = alpha, 'B' =
+beta, 'R' = release, '+' = strictly wishlist item).  Next column to the right
+is status: 'D' = done, 'T' = testing, 'W' = working on it, ' ' = pending, 'I'
+= just an idea right now, 'N' = we decided not to do it at all.  Next comes
+the initials of the people responsible for the item, then the item tag number,
+and finally the item itself.
+
+Currently active official task list items:
+3R W c #x3 implement Ghu (#54)
+
+General items on internal list:
+3B   ? #x9 Publish first Rant, and populate newstands
+3R   r #x15 Check prices in all vendos
+3B   r #x18 make clone recurse
+3R   r #x19 spray cans run out (host destroys) after n uses
+4+   ? #x22 camera object
+4R   a #x23 customizer: 4-5 selections of heads -- host chooses vector to send
+4+   j #x24 change host flag for ghost (Y hi-bit) so avatars' XY pos are kept
+4+ T r #x25 Give objects the power to PROMPT user ('What is the secret word?')
+4+   r a #x26 magic GO
+4R   r c g #x27 book binder machine
+4R   r c g #x28 xerox machine
+4+   r #x29 make host send avatars word balloon color in customizer byte
+3R   j #x30 Batch process: Close all unlocked doors
+3B   j #x31 Batch process: Remove curses, immunities
+
+test items prior to 5/1:
+4+   r #x52 Make clicking cursor also face front & back.
+2B W j c #115 make ESP send fail message, echo talk in response
+
+test items prior to 6/1:
+3B   r a #177 Install remaining Capture-The-Flag fields (if the game works)
+3R   a c #186 Wand of teleport does not work on heads
+3R   a c #187 Wand of style change does not work on others.
+
+test items as of 7/2:
+2B   c j #208 If region transition fails, light level and 'on-hold' bit wrong
+1B   j #209 Regionproc crash (null pointer)
+2B   j #210 Avatar in two regions at the same time
+1B   r c j #211 Communications hang. Seems to be related to boxes/bags
+2B   c r #213 dv hung when PUT down a head when someone else had grabbed it.
+1B W c a #214 Auto-teleport (escape device) causes crash in asynch case.
+1B T r #217 Bahia got an 'impossible' heap overrun. (new diagnositic: FE#9)
+2B T c r #218 Head Grstate in containers not set right (check host head-get)
+2B   r #219 Grab from left hand side sometimes doesn't work.
+2B   r j #220 Return to people connection failed?
+2B   r #221 lock cursor movement when button pressed
+2R   c #222 light help should tell light switch state
+2B   c #223 style changing magic doesn't call capmon
+
+Playtest 7/7:
+?? ? r #225 Rasputin got a FE#3 (LRC)...no dump, no tape
+2B W r #226 Ras got hung with flashing get (awaiting dump)
+3B   r #227 Janet got another coloram glitch (awaiting dump)
+1A   r c j #228 perform exhaustive class test
+2B   c #229 fix curses.pl1 to reflect Janet's nitty_bits layout
+

@@ -1,0 +1,55 @@
+@region $ Woods_6j {
+    north: Woods_6k.l;
+    south: Woods_6i.l;
+    east: Woods_7k.l;
+    west: Woods_5j.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @pond { x:96; y:15; or:8; gr_state:1; }
+        @pond { x:12; y:15; or:8; gr_state:1; }
+        @glue { x:28; y:147; or:0; gr_state:1; 
+            8:0;
+            9:0;
+            10:0;
+            11:255;
+            12:0;
+            13:0;
+            14:0;
+            15:0;
+            16:0;
+            17:0;
+            18:0;
+            19:0;
+            20:0;
+            21:0;
+            22:0;
+
+            [
+                @head { x:0; y:0; or:0; style:108; }
+            ]
+        }
+        @glue { x:112; y:147; or:0; gr_state:1; 
+            8:0;
+            9:0;
+            10:0;
+            11:255;
+            12:0;
+            13:0;
+            14:0;
+            15:0;
+            16:0;
+            17:0;
+            18:0;
+            19:0;
+            20:0;
+            21:0;
+            22:0;
+
+            [
+                @head { x:0; y:0; or:0; style:108; gr_state:1; }
+            ]
+        }
+    ]
+}

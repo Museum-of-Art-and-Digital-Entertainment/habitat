@@ -1,0 +1,2544 @@
+echo Baker_St_w_end
+/u0/chip/microcosm/slur/slur regdir/Baker_St_w_end.reg \
+     -o rdldir/Baker_St_w_end.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_w_end \
+     -e Baker_St_121_front
+echo Baker_St_121_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_121_front.reg \
+     -o rdldir/Baker_St_121_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_121_front \
+     -n Baker_St_121_interior \
+     -e Baker_St_221_front \
+     -w Baker_St_w_end
+echo Baker_St_121_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_121_interior.reg -t \
+     -o rdldir/Baker_St_121_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_121_interior \
+     -s Baker_St_121_front
+echo Baker_St_221_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_221_front.reg \
+     -o rdldir/Baker_St_221_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_221_front \
+     -n Baker_St_221_interior \
+     -e Baker_St_321_front \
+     -w Baker_St_121_front
+echo Baker_St_221_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_221_interior.reg -t \
+     -o rdldir/Baker_St_221_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_221_interior \
+     -s Baker_St_221_front
+echo Baker_St_321_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_321_front.reg \
+     -o rdldir/Baker_St_321_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_321_front \
+     -n Baker_St_321_interior \
+     -e Baker_St_421_front \
+     -w Baker_St_221_front
+echo Baker_St_321_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_321_interior.reg -t \
+     -o rdldir/Baker_St_321_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_321_interior \
+     -s Baker_St_321_front
+echo Baker_St_421_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_421_front.reg \
+     -o rdldir/Baker_St_421_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_421_front \
+     -n Baker_St_421_interior \
+     -e Baker_St_521_front \
+     -w Baker_St_321_front
+echo Baker_St_421_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_421_interior.reg -t \
+     -o rdldir/Baker_St_421_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_421_interior \
+     -s Baker_St_421_front
+echo Baker_St_521_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_521_front.reg \
+     -o rdldir/Baker_St_521_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_521_front \
+     -n Baker_St_521_interior \
+     -e Baker_St_cross \
+     -w Baker_St_421_front
+echo Baker_St_521_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_521_interior.reg -t \
+     -o rdldir/Baker_St_521_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_521_interior \
+     -s Baker_St_521_front
+echo Baker_St_cross
+/u0/chip/microcosm/slur/slur regdir/Baker_St_cross.reg \
+     -o rdldir/Baker_St_cross.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_cross \
+     -e Baker_St_621_front \
+     -w Baker_St_521_front
+echo Baker_St_621_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_621_front.reg \
+     -o rdldir/Baker_St_621_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_621_front \
+     -n Baker_St_621_interior \
+     -e Baker_St_721_front \
+     -w Baker_St_cross
+echo Baker_St_621_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_621_interior.reg -t \
+     -o rdldir/Baker_St_621_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_621_interior \
+     -s Baker_St_621_front
+echo Baker_St_721_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_721_front.reg \
+     -o rdldir/Baker_St_721_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_721_front \
+     -n Baker_St_721_interior \
+     -e Baker_St_821_front \
+     -w Baker_St_621_front
+echo Baker_St_721_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_721_interior.reg -t \
+     -o rdldir/Baker_St_721_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_721_interior \
+     -s Baker_St_721_front
+echo Baker_St_821_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_821_front.reg \
+     -o rdldir/Baker_St_821_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_821_front \
+     -n Baker_St_821_interior \
+     -e Baker_St_921_front \
+     -w Baker_St_721_front
+echo Baker_St_821_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_821_interior.reg -t \
+     -o rdldir/Baker_St_821_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_821_interior \
+     -s Baker_St_821_front
+echo Baker_St_921_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_921_front.reg \
+     -o rdldir/Baker_St_921_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_921_front \
+     -n Baker_St_921_interior \
+     -e Baker_St_1021_front \
+     -w Baker_St_821_front
+echo Baker_St_921_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_921_interior.reg -t \
+     -o rdldir/Baker_St_921_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_921_interior \
+     -s Baker_St_921_front
+echo Baker_St_1021_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_1021_front.reg \
+     -o rdldir/Baker_St_1021_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_1021_front \
+     -n Baker_St_1021_interior \
+     -e Baker_St_e_end \
+     -w Baker_St_921_front
+echo Baker_St_1021_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_1021_interior.reg -t \
+     -o rdldir/Baker_St_1021_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_1021_interior \
+     -s Baker_St_1021_front
+echo Baker_St_e_end
+/u0/chip/microcosm/slur/slur regdir/Baker_St_e_end.reg \
+     -o rdldir/Baker_St_e_end.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_e_end \
+     -w Baker_St_1021_front
+echo Disk_Dr_s_end
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_s_end.reg \
+     -o rdldir/Disk_Dr_s_end.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_s_end \
+     -n Disk_Dr_127_front
+echo Disk_Dr_127_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_127_front.reg \
+     -o rdldir/Disk_Dr_127_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_127_front \
+     -w Disk_Dr_127_interior \
+     -n Disk_Dr_227_front \
+     -s Disk_Dr_s_end
+echo Disk_Dr_127_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_127_interior.reg -t \
+     -o rdldir/Disk_Dr_127_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_127_interior \
+     -e Disk_Dr_127_front
+echo Disk_Dr_227_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_227_front.reg \
+     -o rdldir/Disk_Dr_227_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_227_front \
+     -w Disk_Dr_227_interior \
+     -n Disk_Dr_327_front \
+     -s Disk_Dr_127_front
+echo Disk_Dr_227_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_227_interior.reg -t \
+     -o rdldir/Disk_Dr_227_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_227_interior \
+     -e Disk_Dr_227_front
+echo Disk_Dr_327_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_327_front.reg \
+     -o rdldir/Disk_Dr_327_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_327_front \
+     -w Disk_Dr_327_interior \
+     -n Disk_Dr_427_front \
+     -s Disk_Dr_227_front
+echo Disk_Dr_327_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_327_interior.reg -t \
+     -o rdldir/Disk_Dr_327_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_327_interior \
+     -e Disk_Dr_327_front
+echo Disk_Dr_427_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_427_front.reg \
+     -o rdldir/Disk_Dr_427_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_427_front \
+     -w Disk_Dr_427_interior \
+     -n Disk_Dr_527_front \
+     -s Disk_Dr_327_front
+echo Disk_Dr_427_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_427_interior.reg -t \
+     -o rdldir/Disk_Dr_427_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_427_interior \
+     -e Disk_Dr_427_front
+echo Disk_Dr_527_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_527_front.reg \
+     -o rdldir/Disk_Dr_527_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_527_front \
+     -w Disk_Dr_527_interior \
+     -n Disk_Dr_cross \
+     -s Disk_Dr_427_front
+echo Disk_Dr_527_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_527_interior.reg -t \
+     -o rdldir/Disk_Dr_527_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_527_interior \
+     -e Disk_Dr_527_front
+echo Disk_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_cross.reg \
+     -o rdldir/Disk_Dr_cross.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_cross \
+     -n Disk_Dr_627_front \
+     -s Disk_Dr_527_front
+echo Disk_Dr_627_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_627_front.reg \
+     -o rdldir/Disk_Dr_627_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_627_front \
+     -w Disk_Dr_627_interior \
+     -n Disk_Dr_727_front \
+     -s Disk_Dr_cross
+echo Disk_Dr_627_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_627_interior.reg -t \
+     -o rdldir/Disk_Dr_627_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_627_interior \
+     -e Disk_Dr_627_front
+echo Disk_Dr_727_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_727_front.reg \
+     -o rdldir/Disk_Dr_727_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_727_front \
+     -w Disk_Dr_727_interior \
+     -n Disk_Dr_827_front \
+     -s Disk_Dr_627_front
+echo Disk_Dr_727_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_727_interior.reg -t \
+     -o rdldir/Disk_Dr_727_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_727_interior \
+     -e Disk_Dr_727_front
+echo Disk_Dr_827_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_827_front.reg \
+     -o rdldir/Disk_Dr_827_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_827_front \
+     -w Disk_Dr_827_interior \
+     -n Disk_Dr_927_front \
+     -s Disk_Dr_727_front
+echo Disk_Dr_827_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_827_interior.reg -t \
+     -o rdldir/Disk_Dr_827_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_827_interior \
+     -e Disk_Dr_827_front
+echo Disk_Dr_927_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_927_front.reg \
+     -o rdldir/Disk_Dr_927_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_927_front \
+     -w Disk_Dr_927_interior \
+     -n Disk_Dr_1027_front \
+     -s Disk_Dr_827_front
+echo Disk_Dr_927_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_927_interior.reg -t \
+     -o rdldir/Disk_Dr_927_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_927_interior \
+     -e Disk_Dr_927_front
+echo Disk_Dr_1027_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_1027_front.reg \
+     -o rdldir/Disk_Dr_1027_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_1027_front \
+     -w Disk_Dr_1027_interior \
+     -n Disk_Dr_n_end \
+     -s Disk_Dr_927_front
+echo Disk_Dr_1027_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_1027_interior.reg -t \
+     -o rdldir/Disk_Dr_1027_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_1027_interior \
+     -e Disk_Dr_1027_front
+echo Disk_Dr_n_end
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_n_end.reg \
+     -o rdldir/Disk_Dr_n_end.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_n_end \
+     -s Disk_Dr_1027_front
+echo EZ_St_s_end
+/u0/chip/microcosm/slur/slur regdir/EZ_St_s_end.reg \
+     -o rdldir/EZ_St_s_end.rdl \
+     -d FACE_WEST \
+     -r EZ_St_s_end \
+     -n EZ_St_126_front
+echo EZ_St_126_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_126_front.reg \
+     -o rdldir/EZ_St_126_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_126_front \
+     -w EZ_St_126_interior \
+     -n EZ_St_226_front \
+     -s EZ_St_s_end
+echo EZ_St_126_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_126_interior.reg -t \
+     -o rdldir/EZ_St_126_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_126_interior \
+     -e EZ_St_126_front
+echo EZ_St_226_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_226_front.reg \
+     -o rdldir/EZ_St_226_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_226_front \
+     -w EZ_St_226_interior \
+     -n EZ_St_326_front \
+     -s EZ_St_126_front
+echo EZ_St_226_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_226_interior.reg -t \
+     -o rdldir/EZ_St_226_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_226_interior \
+     -e EZ_St_226_front
+echo EZ_St_326_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_326_front.reg \
+     -o rdldir/EZ_St_326_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_326_front \
+     -w EZ_St_326_interior \
+     -n EZ_St_426_front \
+     -s EZ_St_226_front
+echo EZ_St_326_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_326_interior.reg -t \
+     -o rdldir/EZ_St_326_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_326_interior \
+     -e EZ_St_326_front
+echo EZ_St_426_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_426_front.reg \
+     -o rdldir/EZ_St_426_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_426_front \
+     -w EZ_St_426_interior \
+     -n EZ_St_526_front \
+     -s EZ_St_326_front
+echo EZ_St_426_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_426_interior.reg -t \
+     -o rdldir/EZ_St_426_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_426_interior \
+     -e EZ_St_426_front
+echo EZ_St_526_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_526_front.reg \
+     -o rdldir/EZ_St_526_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_526_front \
+     -w EZ_St_526_interior \
+     -n EZ_St_cross \
+     -s EZ_St_426_front
+echo EZ_St_526_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_526_interior.reg -t \
+     -o rdldir/EZ_St_526_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_526_interior \
+     -e EZ_St_526_front
+echo EZ_St_cross
+/u0/chip/microcosm/slur/slur regdir/EZ_St_cross.reg \
+     -o rdldir/EZ_St_cross.rdl \
+     -d FACE_WEST \
+     -r EZ_St_cross \
+     -n EZ_St_626_front \
+     -s EZ_St_526_front
+echo EZ_St_626_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_626_front.reg \
+     -o rdldir/EZ_St_626_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_626_front \
+     -w EZ_St_626_interior \
+     -n EZ_St_726_front \
+     -s EZ_St_cross
+echo EZ_St_626_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_626_interior.reg -t \
+     -o rdldir/EZ_St_626_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_626_interior \
+     -e EZ_St_626_front
+echo EZ_St_726_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_726_front.reg \
+     -o rdldir/EZ_St_726_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_726_front \
+     -w EZ_St_726_interior \
+     -n EZ_St_826_front \
+     -s EZ_St_626_front
+echo EZ_St_726_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_726_interior.reg -t \
+     -o rdldir/EZ_St_726_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_726_interior \
+     -e EZ_St_726_front
+echo EZ_St_826_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_826_front.reg \
+     -o rdldir/EZ_St_826_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_826_front \
+     -w EZ_St_826_interior \
+     -n EZ_St_926_front \
+     -s EZ_St_726_front
+echo EZ_St_826_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_826_interior.reg -t \
+     -o rdldir/EZ_St_826_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_826_interior \
+     -e EZ_St_826_front
+echo EZ_St_926_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_926_front.reg \
+     -o rdldir/EZ_St_926_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_926_front \
+     -w EZ_St_926_interior \
+     -n EZ_St_1026_front \
+     -s EZ_St_826_front
+echo EZ_St_926_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_926_interior.reg -t \
+     -o rdldir/EZ_St_926_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_926_interior \
+     -e EZ_St_926_front
+echo EZ_St_1026_front
+/u0/chip/microcosm/slur/slur regdir/EZ_St_1026_front.reg \
+     -o rdldir/EZ_St_1026_front.rdl \
+     -d FACE_WEST \
+     -r EZ_St_1026_front \
+     -w EZ_St_1026_interior \
+     -n EZ_St_n_end \
+     -s EZ_St_926_front
+echo EZ_St_1026_interior
+/u0/chip/microcosm/slur/slur regdir/EZ_St_1026_interior.reg -t \
+     -o rdldir/EZ_St_1026_interior.rdl \
+     -d FACE_EAST \
+     -r EZ_St_1026_interior \
+     -e EZ_St_1026_front
+echo EZ_St_n_end
+/u0/chip/microcosm/slur/slur regdir/EZ_St_n_end.reg \
+     -o rdldir/EZ_St_n_end.rdl \
+     -d FACE_WEST \
+     -r EZ_St_n_end \
+     -s EZ_St_1026_front
+echo Fast_Ln_s_end
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_s_end.reg \
+     -o rdldir/Fast_Ln_s_end.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_s_end \
+     -n Fast_Ln_124_front
+echo Fast_Ln_124_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_124_front.reg \
+     -o rdldir/Fast_Ln_124_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_124_front \
+     -w Fast_Ln_124_interior \
+     -n Fast_Ln_224_front \
+     -s Fast_Ln_s_end
+echo Fast_Ln_124_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_124_interior.reg -t \
+     -o rdldir/Fast_Ln_124_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_124_interior \
+     -e Fast_Ln_124_front
+echo Fast_Ln_224_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_224_front.reg \
+     -o rdldir/Fast_Ln_224_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_224_front \
+     -w Fast_Ln_224_interior \
+     -n Fast_Ln_324_front \
+     -s Fast_Ln_124_front
+echo Fast_Ln_224_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_224_interior.reg -t \
+     -o rdldir/Fast_Ln_224_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_224_interior \
+     -e Fast_Ln_224_front
+echo Fast_Ln_324_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_324_front.reg \
+     -o rdldir/Fast_Ln_324_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_324_front \
+     -w Fast_Ln_324_interior \
+     -n Fast_Ln_424_front \
+     -s Fast_Ln_224_front
+echo Fast_Ln_324_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_324_interior.reg -t \
+     -o rdldir/Fast_Ln_324_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_324_interior \
+     -e Fast_Ln_324_front
+echo Fast_Ln_424_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_424_front.reg \
+     -o rdldir/Fast_Ln_424_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_424_front \
+     -w Fast_Ln_424_interior \
+     -n Fast_Ln_524_front \
+     -s Fast_Ln_324_front
+echo Fast_Ln_424_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_424_interior.reg -t \
+     -o rdldir/Fast_Ln_424_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_424_interior \
+     -e Fast_Ln_424_front
+echo Fast_Ln_524_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_524_front.reg \
+     -o rdldir/Fast_Ln_524_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_524_front \
+     -w Fast_Ln_524_interior \
+     -n Fast_Ln_cross \
+     -s Fast_Ln_424_front
+echo Fast_Ln_524_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_524_interior.reg -t \
+     -o rdldir/Fast_Ln_524_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_524_interior \
+     -e Fast_Ln_524_front
+echo Fast_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_cross.reg \
+     -o rdldir/Fast_Ln_cross.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_cross \
+     -n Fast_Ln_624_front \
+     -s Fast_Ln_524_front
+echo Fast_Ln_624_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_624_front.reg \
+     -o rdldir/Fast_Ln_624_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_624_front \
+     -w Fast_Ln_624_interior \
+     -n Fast_Ln_724_front \
+     -s Fast_Ln_cross
+echo Fast_Ln_624_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_624_interior.reg -t \
+     -o rdldir/Fast_Ln_624_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_624_interior \
+     -e Fast_Ln_624_front
+echo Fast_Ln_724_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_724_front.reg \
+     -o rdldir/Fast_Ln_724_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_724_front \
+     -w Fast_Ln_724_interior \
+     -n Fast_Ln_824_front \
+     -s Fast_Ln_624_front
+echo Fast_Ln_724_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_724_interior.reg -t \
+     -o rdldir/Fast_Ln_724_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_724_interior \
+     -e Fast_Ln_724_front
+echo Fast_Ln_824_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_824_front.reg \
+     -o rdldir/Fast_Ln_824_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_824_front \
+     -w Fast_Ln_824_interior \
+     -n Fast_Ln_924_front \
+     -s Fast_Ln_724_front
+echo Fast_Ln_824_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_824_interior.reg -t \
+     -o rdldir/Fast_Ln_824_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_824_interior \
+     -e Fast_Ln_824_front
+echo Fast_Ln_924_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_924_front.reg \
+     -o rdldir/Fast_Ln_924_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_924_front \
+     -w Fast_Ln_924_interior \
+     -n Fast_Ln_1024_front \
+     -s Fast_Ln_824_front
+echo Fast_Ln_924_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_924_interior.reg -t \
+     -o rdldir/Fast_Ln_924_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_924_interior \
+     -e Fast_Ln_924_front
+echo Fast_Ln_1024_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_1024_front.reg \
+     -o rdldir/Fast_Ln_1024_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_1024_front \
+     -w Fast_Ln_1024_interior \
+     -n Fast_Ln_n_end \
+     -s Fast_Ln_924_front
+echo Fast_Ln_1024_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_1024_interior.reg -t \
+     -o rdldir/Fast_Ln_1024_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_1024_interior \
+     -e Fast_Ln_1024_front
+echo Fast_Ln_n_end
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_n_end.reg \
+     -o rdldir/Fast_Ln_n_end.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_n_end \
+     -s Fast_Ln_1024_front
+echo IO_e_end
+/u0/chip/microcosm/slur/slur regdir/IO_e_end.reg \
+     -o rdldir/IO_e_end.rdl \
+     -d FACE_SOUTH \
+     -r IO_e_end \
+     -w IO_117_front
+echo IO_117_front
+/u0/chip/microcosm/slur/slur regdir/IO_117_front.reg \
+     -o rdldir/IO_117_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_117_front \
+     -s IO_117_interior \
+     -w IO_217_front \
+     -e IO_e_end
+echo IO_117_interior
+/u0/chip/microcosm/slur/slur regdir/IO_117_interior.reg -t \
+     -o rdldir/IO_117_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_117_interior \
+     -n IO_117_front
+echo IO_217_front
+/u0/chip/microcosm/slur/slur regdir/IO_217_front.reg \
+     -o rdldir/IO_217_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_217_front \
+     -s IO_217_interior \
+     -w IO_317_front \
+     -e IO_117_front
+echo IO_217_interior
+/u0/chip/microcosm/slur/slur regdir/IO_217_interior.reg -t \
+     -o rdldir/IO_217_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_217_interior \
+     -n IO_217_front
+echo IO_317_front
+/u0/chip/microcosm/slur/slur regdir/IO_317_front.reg \
+     -o rdldir/IO_317_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_317_front \
+     -s IO_317_interior \
+     -w IO_417_front \
+     -e IO_217_front
+echo IO_317_interior
+/u0/chip/microcosm/slur/slur regdir/IO_317_interior.reg -t \
+     -o rdldir/IO_317_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_317_interior \
+     -n IO_317_front
+echo IO_417_front
+/u0/chip/microcosm/slur/slur regdir/IO_417_front.reg \
+     -o rdldir/IO_417_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_417_front \
+     -s IO_417_interior \
+     -w IO_517_front \
+     -e IO_317_front
+echo IO_417_interior
+/u0/chip/microcosm/slur/slur regdir/IO_417_interior.reg -t \
+     -o rdldir/IO_417_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_417_interior \
+     -n IO_417_front
+echo IO_517_front
+/u0/chip/microcosm/slur/slur regdir/IO_517_front.reg \
+     -o rdldir/IO_517_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_517_front \
+     -s IO_517_interior \
+     -w IO_cross \
+     -e IO_417_front
+echo IO_517_interior
+/u0/chip/microcosm/slur/slur regdir/IO_517_interior.reg -t \
+     -o rdldir/IO_517_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_517_interior \
+     -n IO_517_front
+echo IO_cross
+/u0/chip/microcosm/slur/slur regdir/IO_cross.reg \
+     -o rdldir/IO_cross.rdl \
+     -d FACE_SOUTH \
+     -r IO_cross \
+     -w IO_617_front \
+     -e IO_517_front
+echo IO_617_front
+/u0/chip/microcosm/slur/slur regdir/IO_617_front.reg \
+     -o rdldir/IO_617_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_617_front \
+     -s IO_617_interior \
+     -w IO_717_front \
+     -e IO_cross
+echo IO_617_interior
+/u0/chip/microcosm/slur/slur regdir/IO_617_interior.reg -t \
+     -o rdldir/IO_617_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_617_interior \
+     -n IO_617_front
+echo IO_717_front
+/u0/chip/microcosm/slur/slur regdir/IO_717_front.reg \
+     -o rdldir/IO_717_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_717_front \
+     -s IO_717_interior \
+     -w IO_817_front \
+     -e IO_617_front
+echo IO_717_interior
+/u0/chip/microcosm/slur/slur regdir/IO_717_interior.reg -t \
+     -o rdldir/IO_717_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_717_interior \
+     -n IO_717_front
+echo IO_817_front
+/u0/chip/microcosm/slur/slur regdir/IO_817_front.reg \
+     -o rdldir/IO_817_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_817_front \
+     -s IO_817_interior \
+     -w IO_917_front \
+     -e IO_717_front
+echo IO_817_interior
+/u0/chip/microcosm/slur/slur regdir/IO_817_interior.reg -t \
+     -o rdldir/IO_817_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_817_interior \
+     -n IO_817_front
+echo IO_917_front
+/u0/chip/microcosm/slur/slur regdir/IO_917_front.reg \
+     -o rdldir/IO_917_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_917_front \
+     -s IO_917_interior \
+     -w IO_1017_front \
+     -e IO_817_front
+echo IO_917_interior
+/u0/chip/microcosm/slur/slur regdir/IO_917_interior.reg -t \
+     -o rdldir/IO_917_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_917_interior \
+     -n IO_917_front
+echo IO_1017_front
+/u0/chip/microcosm/slur/slur regdir/IO_1017_front.reg \
+     -o rdldir/IO_1017_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_1017_front \
+     -s IO_1017_interior \
+     -w IO_w_end \
+     -e IO_917_front
+echo IO_1017_interior
+/u0/chip/microcosm/slur/slur regdir/IO_1017_interior.reg -t \
+     -o rdldir/IO_1017_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_1017_interior \
+     -n IO_1017_front
+echo IO_w_end
+/u0/chip/microcosm/slur/slur regdir/IO_w_end.reg \
+     -o rdldir/IO_w_end.rdl \
+     -d FACE_SOUTH \
+     -r IO_w_end \
+     -e IO_1017_front
+echo Janice_Ln_s_end
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_s_end.reg \
+     -o rdldir/Janice_Ln_s_end.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_s_end \
+     -n Janice_Ln_125_front
+echo Janice_Ln_125_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_125_front.reg \
+     -o rdldir/Janice_Ln_125_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_125_front \
+     -w Janice_Ln_125_interior \
+     -n Janice_Ln_225_front \
+     -s Janice_Ln_s_end
+echo Janice_Ln_125_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_125_interior.reg -t \
+     -o rdldir/Janice_Ln_125_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_125_interior \
+     -e Janice_Ln_125_front
+echo Janice_Ln_225_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_225_front.reg \
+     -o rdldir/Janice_Ln_225_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_225_front \
+     -w Janice_Ln_225_interior \
+     -n Janice_Ln_325_front \
+     -s Janice_Ln_125_front
+echo Janice_Ln_225_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_225_interior.reg -t \
+     -o rdldir/Janice_Ln_225_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_225_interior \
+     -e Janice_Ln_225_front
+echo Janice_Ln_325_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_325_front.reg \
+     -o rdldir/Janice_Ln_325_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_325_front \
+     -w Janice_Ln_325_interior \
+     -n Janice_Ln_425_front \
+     -s Janice_Ln_225_front
+echo Janice_Ln_325_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_325_interior.reg -t \
+     -o rdldir/Janice_Ln_325_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_325_interior \
+     -e Janice_Ln_325_front
+echo Janice_Ln_425_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_425_front.reg \
+     -o rdldir/Janice_Ln_425_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_425_front \
+     -w Janice_Ln_425_interior \
+     -n Janice_Ln_525_front \
+     -s Janice_Ln_325_front
+echo Janice_Ln_425_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_425_interior.reg -t \
+     -o rdldir/Janice_Ln_425_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_425_interior \
+     -e Janice_Ln_425_front
+echo Janice_Ln_525_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_525_front.reg \
+     -o rdldir/Janice_Ln_525_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_525_front \
+     -w Janice_Ln_525_interior \
+     -n Janice_Ln_cross \
+     -s Janice_Ln_425_front
+echo Janice_Ln_525_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_525_interior.reg -t \
+     -o rdldir/Janice_Ln_525_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_525_interior \
+     -e Janice_Ln_525_front
+echo Janice_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_cross.reg \
+     -o rdldir/Janice_Ln_cross.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_cross \
+     -n Janice_Ln_625_front \
+     -s Janice_Ln_525_front
+echo Janice_Ln_625_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_625_front.reg \
+     -o rdldir/Janice_Ln_625_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_625_front \
+     -w Janice_Ln_625_interior \
+     -n Janice_Ln_725_front \
+     -s Janice_Ln_cross
+echo Janice_Ln_625_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_625_interior.reg -t \
+     -o rdldir/Janice_Ln_625_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_625_interior \
+     -e Janice_Ln_625_front
+echo Janice_Ln_725_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_725_front.reg \
+     -o rdldir/Janice_Ln_725_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_725_front \
+     -w Janice_Ln_725_interior \
+     -n Janice_Ln_825_front \
+     -s Janice_Ln_625_front
+echo Janice_Ln_725_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_725_interior.reg -t \
+     -o rdldir/Janice_Ln_725_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_725_interior \
+     -e Janice_Ln_725_front
+echo Janice_Ln_825_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_825_front.reg \
+     -o rdldir/Janice_Ln_825_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_825_front \
+     -w Janice_Ln_825_interior \
+     -n Janice_Ln_925_front \
+     -s Janice_Ln_725_front
+echo Janice_Ln_825_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_825_interior.reg -t \
+     -o rdldir/Janice_Ln_825_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_825_interior \
+     -e Janice_Ln_825_front
+echo Janice_Ln_925_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_925_front.reg \
+     -o rdldir/Janice_Ln_925_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_925_front \
+     -w Janice_Ln_925_interior \
+     -n Janice_Ln_1025_front \
+     -s Janice_Ln_825_front
+echo Janice_Ln_925_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_925_interior.reg -t \
+     -o rdldir/Janice_Ln_925_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_925_interior \
+     -e Janice_Ln_925_front
+echo Janice_Ln_1025_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_1025_front.reg \
+     -o rdldir/Janice_Ln_1025_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_1025_front \
+     -w Janice_Ln_1025_interior \
+     -n Janice_Ln_n_end \
+     -s Janice_Ln_925_front
+echo Janice_Ln_1025_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_1025_interior.reg -t \
+     -o rdldir/Janice_Ln_1025_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_1025_interior \
+     -e Janice_Ln_1025_front
+echo Janice_Ln_n_end
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_n_end.reg \
+     -o rdldir/Janice_Ln_n_end.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_n_end \
+     -s Janice_Ln_1025_front
+echo Kerner_s_end
+/u0/chip/microcosm/slur/slur regdir/Kerner_s_end.reg \
+     -o rdldir/Kerner_s_end.rdl \
+     -d FACE_WEST \
+     -r Kerner_s_end \
+     -n Kerner_116_front
+echo Kerner_116_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_116_front.reg \
+     -o rdldir/Kerner_116_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_116_front \
+     -w Kerner_116_interior \
+     -n Kerner_216_front \
+     -s Kerner_s_end
+echo Kerner_116_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_116_interior.reg -t \
+     -o rdldir/Kerner_116_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_116_interior \
+     -e Kerner_116_front
+echo Kerner_216_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_216_front.reg \
+     -o rdldir/Kerner_216_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_216_front \
+     -w Kerner_216_interior \
+     -n Kerner_316_front \
+     -s Kerner_116_front
+echo Kerner_216_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_216_interior.reg -t \
+     -o rdldir/Kerner_216_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_216_interior \
+     -e Kerner_216_front
+echo Kerner_316_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_316_front.reg \
+     -o rdldir/Kerner_316_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_316_front \
+     -w Kerner_316_interior \
+     -n Kerner_416_front \
+     -s Kerner_216_front
+echo Kerner_316_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_316_interior.reg -t \
+     -o rdldir/Kerner_316_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_316_interior \
+     -e Kerner_316_front
+echo Kerner_416_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_416_front.reg \
+     -o rdldir/Kerner_416_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_416_front \
+     -w Kerner_416_interior \
+     -n Kerner_516_front \
+     -s Kerner_316_front
+echo Kerner_416_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_416_interior.reg -t \
+     -o rdldir/Kerner_416_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_416_interior \
+     -e Kerner_416_front
+echo Kerner_516_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_516_front.reg \
+     -o rdldir/Kerner_516_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_516_front \
+     -w Kerner_516_interior \
+     -n Kerner_cross \
+     -s Kerner_416_front
+echo Kerner_516_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_516_interior.reg -t \
+     -o rdldir/Kerner_516_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_516_interior \
+     -e Kerner_516_front
+echo Kerner_cross
+/u0/chip/microcosm/slur/slur regdir/Kerner_cross.reg \
+     -o rdldir/Kerner_cross.rdl \
+     -d FACE_WEST \
+     -r Kerner_cross \
+     -n Kerner_616_front \
+     -s Kerner_516_front
+echo Kerner_616_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_616_front.reg \
+     -o rdldir/Kerner_616_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_616_front \
+     -w Kerner_616_interior \
+     -n Kerner_716_front \
+     -s Kerner_cross
+echo Kerner_616_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_616_interior.reg -t \
+     -o rdldir/Kerner_616_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_616_interior \
+     -e Kerner_616_front
+echo Kerner_716_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_716_front.reg \
+     -o rdldir/Kerner_716_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_716_front \
+     -w Kerner_716_interior \
+     -n Kerner_816_front \
+     -s Kerner_616_front
+echo Kerner_716_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_716_interior.reg -t \
+     -o rdldir/Kerner_716_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_716_interior \
+     -e Kerner_716_front
+echo Kerner_816_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_816_front.reg \
+     -o rdldir/Kerner_816_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_816_front \
+     -w Kerner_816_interior \
+     -n Kerner_916_front \
+     -s Kerner_716_front
+echo Kerner_816_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_816_interior.reg -t \
+     -o rdldir/Kerner_816_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_816_interior \
+     -e Kerner_816_front
+echo Kerner_916_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_916_front.reg \
+     -o rdldir/Kerner_916_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_916_front \
+     -w Kerner_916_interior \
+     -n Kerner_1016_front \
+     -s Kerner_816_front
+echo Kerner_916_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_916_interior.reg -t \
+     -o rdldir/Kerner_916_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_916_interior \
+     -e Kerner_916_front
+echo Kerner_1016_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_1016_front.reg \
+     -o rdldir/Kerner_1016_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_1016_front \
+     -w Kerner_1016_interior \
+     -n Kerner_n_end \
+     -s Kerner_916_front
+echo Kerner_1016_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_1016_interior.reg -t \
+     -o rdldir/Kerner_1016_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_1016_interior \
+     -e Kerner_1016_front
+echo Kerner_n_end
+/u0/chip/microcosm/slur/slur regdir/Kerner_n_end.reg \
+     -o rdldir/Kerner_n_end.rdl \
+     -d FACE_WEST \
+     -r Kerner_n_end \
+     -s Kerner_1016_front
+echo Kludge_Ct_s_end
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_s_end.reg \
+     -o rdldir/Kludge_Ct_s_end.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_s_end \
+     -n Kludge_Ct_118_front
+echo Kludge_Ct_118_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_118_front.reg \
+     -o rdldir/Kludge_Ct_118_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_118_front \
+     -w Kludge_Ct_118_interior \
+     -n Kludge_Ct_218_front \
+     -s Kludge_Ct_s_end
+echo Kludge_Ct_118_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_118_interior.reg -t \
+     -o rdldir/Kludge_Ct_118_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_118_interior \
+     -e Kludge_Ct_118_front
+echo Kludge_Ct_218_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_218_front.reg \
+     -o rdldir/Kludge_Ct_218_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_218_front \
+     -w Kludge_Ct_218_interior \
+     -n Kludge_Ct_318_front \
+     -s Kludge_Ct_118_front
+echo Kludge_Ct_218_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_218_interior.reg -t \
+     -o rdldir/Kludge_Ct_218_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_218_interior \
+     -e Kludge_Ct_218_front
+echo Kludge_Ct_318_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_318_front.reg \
+     -o rdldir/Kludge_Ct_318_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_318_front \
+     -w Kludge_Ct_318_interior \
+     -n Kludge_Ct_418_front \
+     -s Kludge_Ct_218_front
+echo Kludge_Ct_318_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_318_interior.reg -t \
+     -o rdldir/Kludge_Ct_318_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_318_interior \
+     -e Kludge_Ct_318_front
+echo Kludge_Ct_418_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_418_front.reg \
+     -o rdldir/Kludge_Ct_418_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_418_front \
+     -w Kludge_Ct_418_interior \
+     -n Kludge_Ct_518_front \
+     -s Kludge_Ct_318_front
+echo Kludge_Ct_418_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_418_interior.reg -t \
+     -o rdldir/Kludge_Ct_418_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_418_interior \
+     -e Kludge_Ct_418_front
+echo Kludge_Ct_518_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_518_front.reg \
+     -o rdldir/Kludge_Ct_518_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_518_front \
+     -w Kludge_Ct_518_interior \
+     -n Kludge_Ct_cross \
+     -s Kludge_Ct_418_front
+echo Kludge_Ct_518_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_518_interior.reg -t \
+     -o rdldir/Kludge_Ct_518_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_518_interior \
+     -e Kludge_Ct_518_front
+echo Kludge_Ct_cross
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_cross.reg \
+     -o rdldir/Kludge_Ct_cross.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_cross \
+     -n Kludge_Ct_618_front \
+     -s Kludge_Ct_518_front
+echo Kludge_Ct_618_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_618_front.reg \
+     -o rdldir/Kludge_Ct_618_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_618_front \
+     -w Kludge_Ct_618_interior \
+     -n Kludge_Ct_718_front \
+     -s Kludge_Ct_cross
+echo Kludge_Ct_618_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_618_interior.reg -t \
+     -o rdldir/Kludge_Ct_618_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_618_interior \
+     -e Kludge_Ct_618_front
+echo Kludge_Ct_718_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_718_front.reg \
+     -o rdldir/Kludge_Ct_718_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_718_front \
+     -w Kludge_Ct_718_interior \
+     -n Kludge_Ct_818_front \
+     -s Kludge_Ct_618_front
+echo Kludge_Ct_718_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_718_interior.reg -t \
+     -o rdldir/Kludge_Ct_718_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_718_interior \
+     -e Kludge_Ct_718_front
+echo Kludge_Ct_818_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_818_front.reg \
+     -o rdldir/Kludge_Ct_818_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_818_front \
+     -w Kludge_Ct_818_interior \
+     -n Kludge_Ct_918_front \
+     -s Kludge_Ct_718_front
+echo Kludge_Ct_818_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_818_interior.reg -t \
+     -o rdldir/Kludge_Ct_818_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_818_interior \
+     -e Kludge_Ct_818_front
+echo Kludge_Ct_918_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_918_front.reg \
+     -o rdldir/Kludge_Ct_918_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_918_front \
+     -w Kludge_Ct_918_interior \
+     -n Kludge_Ct_1018_front \
+     -s Kludge_Ct_818_front
+echo Kludge_Ct_918_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_918_interior.reg -t \
+     -o rdldir/Kludge_Ct_918_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_918_interior \
+     -e Kludge_Ct_918_front
+echo Kludge_Ct_1018_front
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_1018_front.reg \
+     -o rdldir/Kludge_Ct_1018_front.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_1018_front \
+     -w Kludge_Ct_1018_interior \
+     -n Kludge_Ct_n_end \
+     -s Kludge_Ct_918_front
+echo Kludge_Ct_1018_interior
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_1018_interior.reg -t \
+     -o rdldir/Kludge_Ct_1018_interior.rdl \
+     -d FACE_EAST \
+     -r Kludge_Ct_1018_interior \
+     -e Kludge_Ct_1018_front
+echo Kludge_Ct_n_end
+/u0/chip/microcosm/slur/slur regdir/Kludge_Ct_n_end.reg \
+     -o rdldir/Kludge_Ct_n_end.rdl \
+     -d FACE_WEST \
+     -r Kludge_Ct_n_end \
+     -s Kludge_Ct_1018_front
+echo Lori_Ln_w_end
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_w_end.reg \
+     -o rdldir/Lori_Ln_w_end.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_w_end \
+     -e Lori_Ln_113_front
+echo Lori_Ln_113_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_113_front.reg \
+     -o rdldir/Lori_Ln_113_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_113_front \
+     -n Lori_Ln_113_interior \
+     -e Lori_Ln_213_front \
+     -w Lori_Ln_w_end
+echo Lori_Ln_113_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_113_interior.reg -t \
+     -o rdldir/Lori_Ln_113_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_113_interior \
+     -s Lori_Ln_113_front
+echo Lori_Ln_213_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_213_front.reg \
+     -o rdldir/Lori_Ln_213_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_213_front \
+     -n Lori_Ln_213_interior \
+     -e Lori_Ln_313_front \
+     -w Lori_Ln_113_front
+echo Lori_Ln_213_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_213_interior.reg -t \
+     -o rdldir/Lori_Ln_213_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_213_interior \
+     -s Lori_Ln_213_front
+echo Lori_Ln_313_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_313_front.reg \
+     -o rdldir/Lori_Ln_313_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_313_front \
+     -n Lori_Ln_313_interior \
+     -e Lori_Ln_413_front \
+     -w Lori_Ln_213_front
+echo Lori_Ln_313_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_313_interior.reg -t \
+     -o rdldir/Lori_Ln_313_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_313_interior \
+     -s Lori_Ln_313_front
+echo Lori_Ln_413_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_413_front.reg \
+     -o rdldir/Lori_Ln_413_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_413_front \
+     -n Lori_Ln_413_interior \
+     -e Lori_Ln_513_front \
+     -w Lori_Ln_313_front
+echo Lori_Ln_413_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_413_interior.reg -t \
+     -o rdldir/Lori_Ln_413_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_413_interior \
+     -s Lori_Ln_413_front
+echo Lori_Ln_513_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_513_front.reg \
+     -o rdldir/Lori_Ln_513_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_513_front \
+     -n Lori_Ln_513_interior \
+     -e Lori_Ln_cross \
+     -w Lori_Ln_413_front
+echo Lori_Ln_513_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_513_interior.reg -t \
+     -o rdldir/Lori_Ln_513_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_513_interior \
+     -s Lori_Ln_513_front
+echo Lori_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_cross.reg \
+     -o rdldir/Lori_Ln_cross.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_cross \
+     -e Lori_Ln_613_front \
+     -w Lori_Ln_513_front
+echo Lori_Ln_613_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_613_front.reg \
+     -o rdldir/Lori_Ln_613_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_613_front \
+     -n Lori_Ln_613_interior \
+     -e Lori_Ln_713_front \
+     -w Lori_Ln_cross
+echo Lori_Ln_613_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_613_interior.reg -t \
+     -o rdldir/Lori_Ln_613_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_613_interior \
+     -s Lori_Ln_613_front
+echo Lori_Ln_713_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_713_front.reg \
+     -o rdldir/Lori_Ln_713_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_713_front \
+     -n Lori_Ln_713_interior \
+     -e Lori_Ln_813_front \
+     -w Lori_Ln_613_front
+echo Lori_Ln_713_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_713_interior.reg -t \
+     -o rdldir/Lori_Ln_713_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_713_interior \
+     -s Lori_Ln_713_front
+echo Lori_Ln_813_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_813_front.reg \
+     -o rdldir/Lori_Ln_813_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_813_front \
+     -n Lori_Ln_813_interior \
+     -e Lori_Ln_913_front \
+     -w Lori_Ln_713_front
+echo Lori_Ln_813_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_813_interior.reg -t \
+     -o rdldir/Lori_Ln_813_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_813_interior \
+     -s Lori_Ln_813_front
+echo Lori_Ln_913_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_913_front.reg \
+     -o rdldir/Lori_Ln_913_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_913_front \
+     -n Lori_Ln_913_interior \
+     -e Lori_Ln_1013_front \
+     -w Lori_Ln_813_front
+echo Lori_Ln_913_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_913_interior.reg -t \
+     -o rdldir/Lori_Ln_913_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_913_interior \
+     -s Lori_Ln_913_front
+echo Lori_Ln_1013_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_1013_front.reg \
+     -o rdldir/Lori_Ln_1013_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_1013_front \
+     -n Lori_Ln_1013_interior \
+     -e Lori_Ln_e_end \
+     -w Lori_Ln_913_front
+echo Lori_Ln_1013_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_1013_interior.reg -t \
+     -o rdldir/Lori_Ln_1013_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_1013_interior \
+     -s Lori_Ln_1013_front
+echo Lori_Ln_e_end
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_e_end.reg \
+     -o rdldir/Lori_Ln_e_end.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_e_end \
+     -w Lori_Ln_1013_front
+echo Milky_Wy_s_end
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_s_end.reg \
+     -o rdldir/Milky_Wy_s_end.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_s_end \
+     -n Milky_Wy_128_front
+echo Milky_Wy_128_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_128_front.reg \
+     -o rdldir/Milky_Wy_128_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_128_front \
+     -w Milky_Wy_128_interior \
+     -n Milky_Wy_228_front \
+     -s Milky_Wy_s_end
+echo Milky_Wy_128_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_128_interior.reg -t \
+     -o rdldir/Milky_Wy_128_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_128_interior \
+     -e Milky_Wy_128_front
+echo Milky_Wy_228_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_228_front.reg \
+     -o rdldir/Milky_Wy_228_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_228_front \
+     -w Milky_Wy_228_interior \
+     -n Milky_Wy_328_front \
+     -s Milky_Wy_128_front
+echo Milky_Wy_228_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_228_interior.reg -t \
+     -o rdldir/Milky_Wy_228_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_228_interior \
+     -e Milky_Wy_228_front
+echo Milky_Wy_328_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_328_front.reg \
+     -o rdldir/Milky_Wy_328_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_328_front \
+     -w Milky_Wy_328_interior \
+     -n Milky_Wy_428_front \
+     -s Milky_Wy_228_front
+echo Milky_Wy_328_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_328_interior.reg -t \
+     -o rdldir/Milky_Wy_328_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_328_interior \
+     -e Milky_Wy_328_front
+echo Milky_Wy_428_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_428_front.reg \
+     -o rdldir/Milky_Wy_428_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_428_front \
+     -w Milky_Wy_428_interior \
+     -n Milky_Wy_528_front \
+     -s Milky_Wy_328_front
+echo Milky_Wy_428_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_428_interior.reg -t \
+     -o rdldir/Milky_Wy_428_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_428_interior \
+     -e Milky_Wy_428_front
+echo Milky_Wy_528_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_528_front.reg \
+     -o rdldir/Milky_Wy_528_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_528_front \
+     -w Milky_Wy_528_interior \
+     -n Milky_Wy_cross \
+     -s Milky_Wy_428_front
+echo Milky_Wy_528_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_528_interior.reg -t \
+     -o rdldir/Milky_Wy_528_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_528_interior \
+     -e Milky_Wy_528_front
+echo Milky_Wy_cross
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_cross.reg \
+     -o rdldir/Milky_Wy_cross.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_cross \
+     -n Milky_Wy_628_front \
+     -s Milky_Wy_528_front
+echo Milky_Wy_628_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_628_front.reg \
+     -o rdldir/Milky_Wy_628_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_628_front \
+     -w Milky_Wy_628_interior \
+     -n Milky_Wy_728_front \
+     -s Milky_Wy_cross
+echo Milky_Wy_628_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_628_interior.reg -t \
+     -o rdldir/Milky_Wy_628_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_628_interior \
+     -e Milky_Wy_628_front
+echo Milky_Wy_728_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_728_front.reg \
+     -o rdldir/Milky_Wy_728_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_728_front \
+     -w Milky_Wy_728_interior \
+     -n Milky_Wy_828_front \
+     -s Milky_Wy_628_front
+echo Milky_Wy_728_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_728_interior.reg -t \
+     -o rdldir/Milky_Wy_728_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_728_interior \
+     -e Milky_Wy_728_front
+echo Milky_Wy_828_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_828_front.reg \
+     -o rdldir/Milky_Wy_828_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_828_front \
+     -w Milky_Wy_828_interior \
+     -n Milky_Wy_928_front \
+     -s Milky_Wy_728_front
+echo Milky_Wy_828_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_828_interior.reg -t \
+     -o rdldir/Milky_Wy_828_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_828_interior \
+     -e Milky_Wy_828_front
+echo Milky_Wy_928_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_928_front.reg \
+     -o rdldir/Milky_Wy_928_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_928_front \
+     -w Milky_Wy_928_interior \
+     -n Milky_Wy_1028_front \
+     -s Milky_Wy_828_front
+echo Milky_Wy_928_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_928_interior.reg -t \
+     -o rdldir/Milky_Wy_928_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_928_interior \
+     -e Milky_Wy_928_front
+echo Milky_Wy_1028_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_1028_front.reg \
+     -o rdldir/Milky_Wy_1028_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_1028_front \
+     -w Milky_Wy_1028_interior \
+     -n Milky_Wy_n_end \
+     -s Milky_Wy_928_front
+echo Milky_Wy_1028_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_1028_interior.reg -t \
+     -o rdldir/Milky_Wy_1028_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_1028_interior \
+     -e Milky_Wy_1028_front
+echo Milky_Wy_n_end
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_n_end.reg \
+     -o rdldir/Milky_Wy_n_end.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_n_end \
+     -s Milky_Wy_1028_front
+echo Pam_Pl_w_end
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_w_end.reg \
+     -o rdldir/Pam_Pl_w_end.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_w_end \
+     -e Pam_Pl_114_front
+echo Pam_Pl_114_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_114_front.reg \
+     -o rdldir/Pam_Pl_114_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_114_front \
+     -n Pam_Pl_114_interior \
+     -e Pam_Pl_214_front \
+     -w Pam_Pl_w_end
+echo Pam_Pl_114_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_114_interior.reg -t \
+     -o rdldir/Pam_Pl_114_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_114_interior \
+     -s Pam_Pl_114_front
+echo Pam_Pl_214_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_214_front.reg \
+     -o rdldir/Pam_Pl_214_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_214_front \
+     -n Pam_Pl_214_interior \
+     -e Pam_Pl_314_front \
+     -w Pam_Pl_114_front
+echo Pam_Pl_214_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_214_interior.reg -t \
+     -o rdldir/Pam_Pl_214_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_214_interior \
+     -s Pam_Pl_214_front
+echo Pam_Pl_314_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_314_front.reg \
+     -o rdldir/Pam_Pl_314_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_314_front \
+     -n Pam_Pl_314_interior \
+     -e Pam_Pl_414_front \
+     -w Pam_Pl_214_front
+echo Pam_Pl_314_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_314_interior.reg -t \
+     -o rdldir/Pam_Pl_314_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_314_interior \
+     -s Pam_Pl_314_front
+echo Pam_Pl_414_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_414_front.reg \
+     -o rdldir/Pam_Pl_414_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_414_front \
+     -n Pam_Pl_414_interior \
+     -e Pam_Pl_514_front \
+     -w Pam_Pl_314_front
+echo Pam_Pl_414_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_414_interior.reg -t \
+     -o rdldir/Pam_Pl_414_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_414_interior \
+     -s Pam_Pl_414_front
+echo Pam_Pl_514_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_514_front.reg \
+     -o rdldir/Pam_Pl_514_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_514_front \
+     -n Pam_Pl_514_interior \
+     -e Pam_Pl_cross \
+     -w Pam_Pl_414_front
+echo Pam_Pl_514_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_514_interior.reg -t \
+     -o rdldir/Pam_Pl_514_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_514_interior \
+     -s Pam_Pl_514_front
+echo Pam_Pl_cross
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_cross.reg \
+     -o rdldir/Pam_Pl_cross.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_cross \
+     -e Pam_Pl_614_front \
+     -w Pam_Pl_514_front
+echo Pam_Pl_614_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_614_front.reg \
+     -o rdldir/Pam_Pl_614_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_614_front \
+     -n Pam_Pl_614_interior \
+     -e Pam_Pl_714_front \
+     -w Pam_Pl_cross
+echo Pam_Pl_614_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_614_interior.reg -t \
+     -o rdldir/Pam_Pl_614_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_614_interior \
+     -s Pam_Pl_614_front
+echo Pam_Pl_714_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_714_front.reg \
+     -o rdldir/Pam_Pl_714_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_714_front \
+     -n Pam_Pl_714_interior \
+     -e Pam_Pl_814_front \
+     -w Pam_Pl_614_front
+echo Pam_Pl_714_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_714_interior.reg -t \
+     -o rdldir/Pam_Pl_714_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_714_interior \
+     -s Pam_Pl_714_front
+echo Pam_Pl_814_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_814_front.reg \
+     -o rdldir/Pam_Pl_814_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_814_front \
+     -n Pam_Pl_814_interior \
+     -e Pam_Pl_914_front \
+     -w Pam_Pl_714_front
+echo Pam_Pl_814_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_814_interior.reg -t \
+     -o rdldir/Pam_Pl_814_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_814_interior \
+     -s Pam_Pl_814_front
+echo Pam_Pl_914_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_914_front.reg \
+     -o rdldir/Pam_Pl_914_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_914_front \
+     -n Pam_Pl_914_interior \
+     -e Pam_Pl_1014_front \
+     -w Pam_Pl_814_front
+echo Pam_Pl_914_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_914_interior.reg -t \
+     -o rdldir/Pam_Pl_914_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_914_interior \
+     -s Pam_Pl_914_front
+echo Pam_Pl_1014_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_1014_front.reg \
+     -o rdldir/Pam_Pl_1014_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_1014_front \
+     -n Pam_Pl_1014_interior \
+     -e Pam_Pl_e_end \
+     -w Pam_Pl_914_front
+echo Pam_Pl_1014_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_1014_interior.reg -t \
+     -o rdldir/Pam_Pl_1014_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_1014_interior \
+     -s Pam_Pl_1014_front
+echo Pam_Pl_e_end
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_e_end.reg \
+     -o rdldir/Pam_Pl_e_end.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_e_end \
+     -w Pam_Pl_1014_front
+echo Pokey_Pl_w_end
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_w_end.reg \
+     -o rdldir/Pokey_Pl_w_end.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_w_end \
+     -e Pokey_Pl_122_front
+echo Pokey_Pl_122_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_122_front.reg \
+     -o rdldir/Pokey_Pl_122_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_122_front \
+     -n Pokey_Pl_122_interior \
+     -e Pokey_Pl_222_front \
+     -w Pokey_Pl_w_end
+echo Pokey_Pl_122_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_122_interior.reg -t \
+     -o rdldir/Pokey_Pl_122_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_122_interior \
+     -s Pokey_Pl_122_front
+echo Pokey_Pl_222_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_222_front.reg \
+     -o rdldir/Pokey_Pl_222_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_222_front \
+     -n Pokey_Pl_222_interior \
+     -e Pokey_Pl_322_front \
+     -w Pokey_Pl_122_front
+echo Pokey_Pl_222_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_222_interior.reg -t \
+     -o rdldir/Pokey_Pl_222_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_222_interior \
+     -s Pokey_Pl_222_front
+echo Pokey_Pl_322_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_322_front.reg \
+     -o rdldir/Pokey_Pl_322_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_322_front \
+     -n Pokey_Pl_322_interior \
+     -e Pokey_Pl_422_front \
+     -w Pokey_Pl_222_front
+echo Pokey_Pl_322_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_322_interior.reg -t \
+     -o rdldir/Pokey_Pl_322_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_322_interior \
+     -s Pokey_Pl_322_front
+echo Pokey_Pl_422_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_422_front.reg \
+     -o rdldir/Pokey_Pl_422_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_422_front \
+     -n Pokey_Pl_422_interior \
+     -e Pokey_Pl_522_front \
+     -w Pokey_Pl_322_front
+echo Pokey_Pl_422_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_422_interior.reg -t \
+     -o rdldir/Pokey_Pl_422_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_422_interior \
+     -s Pokey_Pl_422_front
+echo Pokey_Pl_522_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_522_front.reg \
+     -o rdldir/Pokey_Pl_522_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_522_front \
+     -n Pokey_Pl_522_interior \
+     -e Pokey_Pl_cross \
+     -w Pokey_Pl_422_front
+echo Pokey_Pl_522_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_522_interior.reg -t \
+     -o rdldir/Pokey_Pl_522_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_522_interior \
+     -s Pokey_Pl_522_front
+echo Pokey_Pl_cross
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_cross.reg \
+     -o rdldir/Pokey_Pl_cross.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_cross \
+     -e Pokey_Pl_622_front \
+     -w Pokey_Pl_522_front
+echo Pokey_Pl_622_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_622_front.reg \
+     -o rdldir/Pokey_Pl_622_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_622_front \
+     -n Pokey_Pl_622_interior \
+     -e Pokey_Pl_722_front \
+     -w Pokey_Pl_cross
+echo Pokey_Pl_622_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_622_interior.reg -t \
+     -o rdldir/Pokey_Pl_622_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_622_interior \
+     -s Pokey_Pl_622_front
+echo Pokey_Pl_722_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_722_front.reg \
+     -o rdldir/Pokey_Pl_722_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_722_front \
+     -n Pokey_Pl_722_interior \
+     -e Pokey_Pl_822_front \
+     -w Pokey_Pl_622_front
+echo Pokey_Pl_722_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_722_interior.reg -t \
+     -o rdldir/Pokey_Pl_722_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_722_interior \
+     -s Pokey_Pl_722_front
+echo Pokey_Pl_822_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_822_front.reg \
+     -o rdldir/Pokey_Pl_822_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_822_front \
+     -n Pokey_Pl_822_interior \
+     -e Pokey_Pl_922_front \
+     -w Pokey_Pl_722_front
+echo Pokey_Pl_822_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_822_interior.reg -t \
+     -o rdldir/Pokey_Pl_822_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_822_interior \
+     -s Pokey_Pl_822_front
+echo Pokey_Pl_922_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_922_front.reg \
+     -o rdldir/Pokey_Pl_922_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_922_front \
+     -n Pokey_Pl_922_interior \
+     -e Pokey_Pl_1022_front \
+     -w Pokey_Pl_822_front
+echo Pokey_Pl_922_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_922_interior.reg -t \
+     -o rdldir/Pokey_Pl_922_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_922_interior \
+     -s Pokey_Pl_922_front
+echo Pokey_Pl_1022_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_1022_front.reg \
+     -o rdldir/Pokey_Pl_1022_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_1022_front \
+     -n Pokey_Pl_1022_interior \
+     -e Pokey_Pl_e_end \
+     -w Pokey_Pl_922_front
+echo Pokey_Pl_1022_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_1022_interior.reg -t \
+     -o rdldir/Pokey_Pl_1022_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_1022_interior \
+     -s Pokey_Pl_1022_front
+echo Pokey_Pl_e_end
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_e_end.reg \
+     -o rdldir/Pokey_Pl_e_end.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_e_end \
+     -w Pokey_Pl_1022_front
+echo Rocky_Rd_e_end
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_e_end.reg \
+     -o rdldir/Rocky_Rd_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_e_end \
+     -w Rocky_Rd_115_front
+echo Rocky_Rd_115_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_115_front.reg \
+     -o rdldir/Rocky_Rd_115_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_115_front \
+     -s Rocky_Rd_115_interior \
+     -w Rocky_Rd_215_front \
+     -e Rocky_Rd_e_end
+echo Rocky_Rd_115_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_115_interior.reg -t \
+     -o rdldir/Rocky_Rd_115_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_115_interior \
+     -n Rocky_Rd_115_front
+echo Rocky_Rd_215_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_215_front.reg \
+     -o rdldir/Rocky_Rd_215_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_215_front \
+     -s Rocky_Rd_215_interior \
+     -w Rocky_Rd_315_front \
+     -e Rocky_Rd_115_front
+echo Rocky_Rd_215_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_215_interior.reg -t \
+     -o rdldir/Rocky_Rd_215_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_215_interior \
+     -n Rocky_Rd_215_front
+echo Rocky_Rd_315_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_315_front.reg \
+     -o rdldir/Rocky_Rd_315_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_315_front \
+     -s Rocky_Rd_315_interior \
+     -w Rocky_Rd_415_front \
+     -e Rocky_Rd_215_front
+echo Rocky_Rd_315_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_315_interior.reg -t \
+     -o rdldir/Rocky_Rd_315_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_315_interior \
+     -n Rocky_Rd_315_front
+echo Rocky_Rd_415_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_415_front.reg \
+     -o rdldir/Rocky_Rd_415_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_415_front \
+     -s Rocky_Rd_415_interior \
+     -w Rocky_Rd_515_front \
+     -e Rocky_Rd_315_front
+echo Rocky_Rd_415_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_415_interior.reg -t \
+     -o rdldir/Rocky_Rd_415_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_415_interior \
+     -n Rocky_Rd_415_front
+echo Rocky_Rd_515_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_515_front.reg \
+     -o rdldir/Rocky_Rd_515_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_515_front \
+     -s Rocky_Rd_515_interior \
+     -w Rocky_Rd_cross \
+     -e Rocky_Rd_415_front
+echo Rocky_Rd_515_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_515_interior.reg -t \
+     -o rdldir/Rocky_Rd_515_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_515_interior \
+     -n Rocky_Rd_515_front
+echo Rocky_Rd_cross
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_cross.reg \
+     -o rdldir/Rocky_Rd_cross.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_cross \
+     -w Rocky_Rd_615_front \
+     -e Rocky_Rd_515_front
+echo Rocky_Rd_615_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_615_front.reg \
+     -o rdldir/Rocky_Rd_615_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_615_front \
+     -s Rocky_Rd_615_interior \
+     -w Rocky_Rd_715_front \
+     -e Rocky_Rd_cross
+echo Rocky_Rd_615_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_615_interior.reg -t \
+     -o rdldir/Rocky_Rd_615_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_615_interior \
+     -n Rocky_Rd_615_front
+echo Rocky_Rd_715_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_715_front.reg \
+     -o rdldir/Rocky_Rd_715_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_715_front \
+     -s Rocky_Rd_715_interior \
+     -w Rocky_Rd_815_front \
+     -e Rocky_Rd_615_front
+echo Rocky_Rd_715_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_715_interior.reg -t \
+     -o rdldir/Rocky_Rd_715_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_715_interior \
+     -n Rocky_Rd_715_front
+echo Rocky_Rd_815_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_815_front.reg \
+     -o rdldir/Rocky_Rd_815_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_815_front \
+     -s Rocky_Rd_815_interior \
+     -w Rocky_Rd_915_front \
+     -e Rocky_Rd_715_front
+echo Rocky_Rd_815_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_815_interior.reg -t \
+     -o rdldir/Rocky_Rd_815_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_815_interior \
+     -n Rocky_Rd_815_front
+echo Rocky_Rd_915_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_915_front.reg \
+     -o rdldir/Rocky_Rd_915_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_915_front \
+     -s Rocky_Rd_915_interior \
+     -w Rocky_Rd_1015_front \
+     -e Rocky_Rd_815_front
+echo Rocky_Rd_915_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_915_interior.reg -t \
+     -o rdldir/Rocky_Rd_915_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_915_interior \
+     -n Rocky_Rd_915_front
+echo Rocky_Rd_1015_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_1015_front.reg \
+     -o rdldir/Rocky_Rd_1015_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_1015_front \
+     -s Rocky_Rd_1015_interior \
+     -w Rocky_Rd_w_end \
+     -e Rocky_Rd_915_front
+echo Rocky_Rd_1015_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_1015_interior.reg -t \
+     -o rdldir/Rocky_Rd_1015_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_1015_interior \
+     -n Rocky_Rd_1015_front
+echo Rocky_Rd_w_end
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_w_end.reg \
+     -o rdldir/Rocky_Rd_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_w_end \
+     -e Rocky_Rd_1015_front
+echo Saint_St_e_end
+/u0/chip/microcosm/slur/slur regdir/Saint_St_e_end.reg \
+     -o rdldir/Saint_St_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_e_end \
+     -w Saint_St_119_front
+echo Saint_St_119_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_119_front.reg \
+     -o rdldir/Saint_St_119_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_119_front \
+     -s Saint_St_119_interior \
+     -w Saint_St_219_front \
+     -e Saint_St_e_end
+echo Saint_St_119_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_119_interior.reg -t \
+     -o rdldir/Saint_St_119_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_119_interior \
+     -n Saint_St_119_front
+echo Saint_St_219_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_219_front.reg \
+     -o rdldir/Saint_St_219_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_219_front \
+     -s Saint_St_219_interior \
+     -w Saint_St_319_front \
+     -e Saint_St_119_front
+echo Saint_St_219_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_219_interior.reg -t \
+     -o rdldir/Saint_St_219_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_219_interior \
+     -n Saint_St_219_front
+echo Saint_St_319_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_319_front.reg \
+     -o rdldir/Saint_St_319_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_319_front \
+     -s Saint_St_319_interior \
+     -w Saint_St_419_front \
+     -e Saint_St_219_front
+echo Saint_St_319_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_319_interior.reg -t \
+     -o rdldir/Saint_St_319_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_319_interior \
+     -n Saint_St_319_front
+echo Saint_St_419_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_419_front.reg \
+     -o rdldir/Saint_St_419_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_419_front \
+     -s Saint_St_419_interior \
+     -w Saint_St_519_front \
+     -e Saint_St_319_front
+echo Saint_St_419_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_419_interior.reg -t \
+     -o rdldir/Saint_St_419_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_419_interior \
+     -n Saint_St_419_front
+echo Saint_St_519_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_519_front.reg \
+     -o rdldir/Saint_St_519_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_519_front \
+     -s Saint_St_519_interior \
+     -w Saint_St_cross \
+     -e Saint_St_419_front
+echo Saint_St_519_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_519_interior.reg -t \
+     -o rdldir/Saint_St_519_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_519_interior \
+     -n Saint_St_519_front
+echo Saint_St_cross
+/u0/chip/microcosm/slur/slur regdir/Saint_St_cross.reg \
+     -o rdldir/Saint_St_cross.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_cross \
+     -w Saint_St_619_front \
+     -e Saint_St_519_front
+echo Saint_St_619_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_619_front.reg \
+     -o rdldir/Saint_St_619_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_619_front \
+     -s Saint_St_619_interior \
+     -w Saint_St_719_front \
+     -e Saint_St_cross
+echo Saint_St_619_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_619_interior.reg -t \
+     -o rdldir/Saint_St_619_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_619_interior \
+     -n Saint_St_619_front
+echo Saint_St_719_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_719_front.reg \
+     -o rdldir/Saint_St_719_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_719_front \
+     -s Saint_St_719_interior \
+     -w Saint_St_819_front \
+     -e Saint_St_619_front
+echo Saint_St_719_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_719_interior.reg -t \
+     -o rdldir/Saint_St_719_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_719_interior \
+     -n Saint_St_719_front
+echo Saint_St_819_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_819_front.reg \
+     -o rdldir/Saint_St_819_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_819_front \
+     -s Saint_St_819_interior \
+     -w Saint_St_919_front \
+     -e Saint_St_719_front
+echo Saint_St_819_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_819_interior.reg -t \
+     -o rdldir/Saint_St_819_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_819_interior \
+     -n Saint_St_819_front
+echo Saint_St_919_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_919_front.reg \
+     -o rdldir/Saint_St_919_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_919_front \
+     -s Saint_St_919_interior \
+     -w Saint_St_1019_front \
+     -e Saint_St_819_front
+echo Saint_St_919_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_919_interior.reg -t \
+     -o rdldir/Saint_St_919_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_919_interior \
+     -n Saint_St_919_front
+echo Saint_St_1019_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_1019_front.reg \
+     -o rdldir/Saint_St_1019_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_1019_front \
+     -s Saint_St_1019_interior \
+     -w Saint_St_w_end \
+     -e Saint_St_919_front
+echo Saint_St_1019_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_1019_interior.reg -t \
+     -o rdldir/Saint_St_1019_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_1019_interior \
+     -n Saint_St_1019_front
+echo Saint_St_w_end
+/u0/chip/microcosm/slur/slur regdir/Saint_St_w_end.reg \
+     -o rdldir/Saint_St_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_w_end \
+     -e Saint_St_1019_front
+echo Sunday_Dr_e_end
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_e_end.reg \
+     -o rdldir/Sunday_Dr_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_e_end \
+     -w Sunday_Dr_120_front
+echo Sunday_Dr_120_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_120_front.reg \
+     -o rdldir/Sunday_Dr_120_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_120_front \
+     -s Sunday_Dr_120_interior \
+     -w Sunday_Dr_220_front \
+     -e Sunday_Dr_e_end
+echo Sunday_Dr_120_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_120_interior.reg -t \
+     -o rdldir/Sunday_Dr_120_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_120_interior \
+     -n Sunday_Dr_120_front
+echo Sunday_Dr_220_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_220_front.reg \
+     -o rdldir/Sunday_Dr_220_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_220_front \
+     -s Sunday_Dr_220_interior \
+     -w Sunday_Dr_320_front \
+     -e Sunday_Dr_120_front
+echo Sunday_Dr_220_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_220_interior.reg -t \
+     -o rdldir/Sunday_Dr_220_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_220_interior \
+     -n Sunday_Dr_220_front
+echo Sunday_Dr_320_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_320_front.reg \
+     -o rdldir/Sunday_Dr_320_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_320_front \
+     -s Sunday_Dr_320_interior \
+     -w Sunday_Dr_420_front \
+     -e Sunday_Dr_220_front
+echo Sunday_Dr_320_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_320_interior.reg -t \
+     -o rdldir/Sunday_Dr_320_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_320_interior \
+     -n Sunday_Dr_320_front
+echo Sunday_Dr_420_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_420_front.reg \
+     -o rdldir/Sunday_Dr_420_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_420_front \
+     -s Sunday_Dr_420_interior \
+     -w Sunday_Dr_520_front \
+     -e Sunday_Dr_320_front
+echo Sunday_Dr_420_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_420_interior.reg -t \
+     -o rdldir/Sunday_Dr_420_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_420_interior \
+     -n Sunday_Dr_420_front
+echo Sunday_Dr_520_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_520_front.reg \
+     -o rdldir/Sunday_Dr_520_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_520_front \
+     -s Sunday_Dr_520_interior \
+     -w Sunday_Dr_cross \
+     -e Sunday_Dr_420_front
+echo Sunday_Dr_520_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_520_interior.reg -t \
+     -o rdldir/Sunday_Dr_520_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_520_interior \
+     -n Sunday_Dr_520_front
+echo Sunday_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_cross.reg \
+     -o rdldir/Sunday_Dr_cross.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_cross \
+     -w Sunday_Dr_620_front \
+     -e Sunday_Dr_520_front
+echo Sunday_Dr_620_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_620_front.reg \
+     -o rdldir/Sunday_Dr_620_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_620_front \
+     -s Sunday_Dr_620_interior \
+     -w Sunday_Dr_720_front \
+     -e Sunday_Dr_cross
+echo Sunday_Dr_620_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_620_interior.reg -t \
+     -o rdldir/Sunday_Dr_620_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_620_interior \
+     -n Sunday_Dr_620_front
+echo Sunday_Dr_720_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_720_front.reg \
+     -o rdldir/Sunday_Dr_720_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_720_front \
+     -s Sunday_Dr_720_interior \
+     -w Sunday_Dr_820_front \
+     -e Sunday_Dr_620_front
+echo Sunday_Dr_720_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_720_interior.reg -t \
+     -o rdldir/Sunday_Dr_720_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_720_interior \
+     -n Sunday_Dr_720_front
+echo Sunday_Dr_820_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_820_front.reg \
+     -o rdldir/Sunday_Dr_820_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_820_front \
+     -s Sunday_Dr_820_interior \
+     -w Sunday_Dr_920_front \
+     -e Sunday_Dr_720_front
+echo Sunday_Dr_820_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_820_interior.reg -t \
+     -o rdldir/Sunday_Dr_820_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_820_interior \
+     -n Sunday_Dr_820_front
+echo Sunday_Dr_920_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_920_front.reg \
+     -o rdldir/Sunday_Dr_920_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_920_front \
+     -s Sunday_Dr_920_interior \
+     -w Sunday_Dr_1020_front \
+     -e Sunday_Dr_820_front
+echo Sunday_Dr_920_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_920_interior.reg -t \
+     -o rdldir/Sunday_Dr_920_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_920_interior \
+     -n Sunday_Dr_920_front
+echo Sunday_Dr_1020_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_1020_front.reg \
+     -o rdldir/Sunday_Dr_1020_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_1020_front \
+     -s Sunday_Dr_1020_interior \
+     -w Sunday_Dr_w_end \
+     -e Sunday_Dr_920_front
+echo Sunday_Dr_1020_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_1020_interior.reg -t \
+     -o rdldir/Sunday_Dr_1020_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_1020_interior \
+     -n Sunday_Dr_1020_front
+echo Sunday_Dr_w_end
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_w_end.reg \
+     -o rdldir/Sunday_Dr_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_w_end \
+     -e Sunday_Dr_1020_front
+echo Warp_Dr_s_end
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_s_end.reg \
+     -o rdldir/Warp_Dr_s_end.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_s_end \
+     -n Warp_Dr_123_front
+echo Warp_Dr_123_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_123_front.reg \
+     -o rdldir/Warp_Dr_123_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_123_front \
+     -w Warp_Dr_123_interior \
+     -n Warp_Dr_223_front \
+     -s Warp_Dr_s_end
+echo Warp_Dr_123_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_123_interior.reg -t \
+     -o rdldir/Warp_Dr_123_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_123_interior \
+     -e Warp_Dr_123_front
+echo Warp_Dr_223_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_223_front.reg \
+     -o rdldir/Warp_Dr_223_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_223_front \
+     -w Warp_Dr_223_interior \
+     -n Warp_Dr_323_front \
+     -s Warp_Dr_123_front
+echo Warp_Dr_223_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_223_interior.reg -t \
+     -o rdldir/Warp_Dr_223_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_223_interior \
+     -e Warp_Dr_223_front
+echo Warp_Dr_323_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_323_front.reg \
+     -o rdldir/Warp_Dr_323_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_323_front \
+     -w Warp_Dr_323_interior \
+     -n Warp_Dr_423_front \
+     -s Warp_Dr_223_front
+echo Warp_Dr_323_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_323_interior.reg -t \
+     -o rdldir/Warp_Dr_323_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_323_interior \
+     -e Warp_Dr_323_front
+echo Warp_Dr_423_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_423_front.reg \
+     -o rdldir/Warp_Dr_423_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_423_front \
+     -w Warp_Dr_423_interior \
+     -n Warp_Dr_523_front \
+     -s Warp_Dr_323_front
+echo Warp_Dr_423_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_423_interior.reg -t \
+     -o rdldir/Warp_Dr_423_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_423_interior \
+     -e Warp_Dr_423_front
+echo Warp_Dr_523_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_523_front.reg \
+     -o rdldir/Warp_Dr_523_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_523_front \
+     -w Warp_Dr_523_interior \
+     -n Warp_Dr_cross \
+     -s Warp_Dr_423_front
+echo Warp_Dr_523_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_523_interior.reg -t \
+     -o rdldir/Warp_Dr_523_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_523_interior \
+     -e Warp_Dr_523_front
+echo Warp_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_cross.reg \
+     -o rdldir/Warp_Dr_cross.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_cross \
+     -n Warp_Dr_623_front \
+     -s Warp_Dr_523_front
+echo Warp_Dr_623_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_623_front.reg \
+     -o rdldir/Warp_Dr_623_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_623_front \
+     -w Warp_Dr_623_interior \
+     -n Warp_Dr_723_front \
+     -s Warp_Dr_cross
+echo Warp_Dr_623_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_623_interior.reg -t \
+     -o rdldir/Warp_Dr_623_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_623_interior \
+     -e Warp_Dr_623_front
+echo Warp_Dr_723_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_723_front.reg \
+     -o rdldir/Warp_Dr_723_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_723_front \
+     -w Warp_Dr_723_interior \
+     -n Warp_Dr_823_front \
+     -s Warp_Dr_623_front
+echo Warp_Dr_723_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_723_interior.reg -t \
+     -o rdldir/Warp_Dr_723_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_723_interior \
+     -e Warp_Dr_723_front
+echo Warp_Dr_823_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_823_front.reg \
+     -o rdldir/Warp_Dr_823_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_823_front \
+     -w Warp_Dr_823_interior \
+     -n Warp_Dr_923_front \
+     -s Warp_Dr_723_front
+echo Warp_Dr_823_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_823_interior.reg -t \
+     -o rdldir/Warp_Dr_823_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_823_interior \
+     -e Warp_Dr_823_front
+echo Warp_Dr_923_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_923_front.reg \
+     -o rdldir/Warp_Dr_923_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_923_front \
+     -w Warp_Dr_923_interior \
+     -n Warp_Dr_1023_front \
+     -s Warp_Dr_823_front
+echo Warp_Dr_923_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_923_interior.reg -t \
+     -o rdldir/Warp_Dr_923_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_923_interior \
+     -e Warp_Dr_923_front
+echo Warp_Dr_1023_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_1023_front.reg \
+     -o rdldir/Warp_Dr_1023_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_1023_front \
+     -w Warp_Dr_1023_interior \
+     -n Warp_Dr_n_end \
+     -s Warp_Dr_923_front
+echo Warp_Dr_1023_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_1023_interior.reg -t \
+     -o rdldir/Warp_Dr_1023_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_1023_interior \
+     -e Warp_Dr_1023_front
+echo Warp_Dr_n_end
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_n_end.reg \
+     -o rdldir/Warp_Dr_n_end.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_n_end \
+     -s Warp_Dr_1023_front

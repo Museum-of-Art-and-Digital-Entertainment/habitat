@@ -1,0 +1,86 @@
+/*
+ *   class_stereo.pl1
+ *
+ *   Object behavior module for class stereo.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_stereo: procedure;
+
+     %replace STEREO_REQUESTS by 7;
+
+     declare a(0:STEREO_REQUESTS) entry based;
+     declare class_stereo_actions pointer;
+     declare 1 stereo based %include struct_stereo;
+
+     %replace I by CLASS_STEREO;
+
+     Class_Table(I).capacity = 1;
+     Class_Table(I).max_requests = STEREO_REQUESTS;
+     Class_Table(I).alloc_size = size(stereo);
+/*   Class_Table(I).pc_state_bytes = 1;      chg 5/12/86  per Chip */
+     Class_Table(I).pc_state_bytes = 2;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_stereo_actions);
+     Class_Table(I).actions = class_stereo_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)       = generic_GET;         /* 1 */
+     Class_Table(I).actions->a(PUT)       = generic_PUT;         /* 2 */
+     Class_Table(I).actions->a(THROW)     = generic_THROW;       /* 3 */
+     Class_Table(I).actions->a(OFFPLAYER) = generic_OFF;   /* 4 */
+     Class_Table(I).actions->a(ONPLAYER)  = generic_ON;    /* 5 */
+     Class_Table(I).actions->a(LOAD)      = stereo_LOAD;         /* 6 */
+     Class_Table(I).actions->a(UNLOAD)    = stereo_UNLOAD;       /* 7 */
+
+end initialize_class_stereo;
+
+%replace TAPE_POS by 1;
+
+stereo_LOAD: procedure;
+     declare tape_id binary(15);
+     declare 1 self based(selfptr) %include struct_stereo;
+     declare tapeptr pointer;
+     declare 1 tape based(tapeptr) %include struct_tape;
+     declare success binary(15);
+
+     tape_id = rank(request(FIRST));
+     tapeptr = ObjList(tape_id);
+     success = FALSE;
+     if (holding(tapeptr) & tape.class = CLASS_TAPE & adjacent(selfptr) &
+          self.on = FALSE & self.tape = NULL) then
+          if (change_containers(tape_id, self.noid, TAPE_POS, false)) then do;
+               self.tape = tape_id;
+               self.gen_flags(MODIFIED) = true;
+               call checkpoint_object (0, self.noid);
+               success = TRUE;
+               call n_msg_2(tapeptr, LOAD$, avatar.noid, self.noid);
+          end;
+     call r_msg_1(success);
+end stereo_LOAD;
+
+stereo_UNLOAD: procedure;
+     declare 1 self based(selfptr) %include struct_stereo;
+
+     if (empty_handed(avatarptr) & self.on = FALSE & self.tape ^= NULL &
+               adjacent(selfptr)) then do;
+          if (^ change_containers(self.tape, avatar.noid, HANDS, false)) then r
++eturn;
+          self.tape = NULL;
+          self.gen_flags(MODIFIED) = true;
+          call checkpoint_object (0, self.noid);
+          call n_msg_1(selfptr, UNLOAD$, avatar.noid);
+     end;
+     call r_msg_1(TRUE);
+end stereo_UNLOAD;

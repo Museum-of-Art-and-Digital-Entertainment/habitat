@@ -1,0 +1,42 @@
+/u0/chip/habitat/doc/system:
+	This directory contains most of the original Habitat system design
+documents.  Here you will find:
+
+DOC		- this file
+adventures.itr	- doc #13 first pass at defining activities and things to do
+animation.itr	- doc #18 original spec for avatar animation cels
+coming.itr	- doc #27 discussion of realms and regions for beta world
+coord.itr	- doc #4 coordinate systems and topology
+databases.itr	- doc #19 host database requirements
+death.itr	- doc #37 how avatar death works
+definition.itr	- dictionary definition of "microcosm"
+drop.itr	- document on minor design problem
+enddef.itr	- doc #28 early definition of release system
+extensions.itr	- doc #25 possible extensions to Habitat
+features.itr	- system components description (very early)
+firstMagic.itr	- doc #30 spec for preliminary magic stuff
+funativity.itr	- doc #22 more on stuff to do in Habitat
+gateway.itr	- doc #24 commentary on realm-oriented extensions
+graphics.itr	- doc #15 spec for C64 graphics implementation
+homearch.itr	- doc #12 spec for C64 general system architecture
+hostarch.itr	- doc #8 spec for host general system architecture
+iface.itr	- doc #6 spec for user interface
+intomic.itr	- doc #10 comments on 3rd party software inside Habitat
+looi.itr	- doc #2 spec for LOOI
+machiavelli.itr	- doc #24 design for Machiavelli sub-game
+mail.itr	- doc #33 spec for Habitat mail
+maps.itr	- doc #17 early guidelines for world layout
+memload.itr	- doc #40 analysis of C64 memory usage
+microcosm.itr	- doc #1 original proposal
+minobs.itr	- doc #16 minimal object set spec
+noodl.itr	- doc #3 spec for NOODL
+noodl.y		- file included in NOODL spec
+objectform.itr	- doc #47b object test checklist
+obman.tbl	- doc #20 exhaustive object manual
+oracle.itr	- doc #31 oracle capabilities design
+portmic.itr	- doc #9 considerations about alternative hosts
+protocols.tbl	- doc #14 object message protocol description
+rantads.itr	- doc #36 policy on advertizing in the Rant
+reno.itr	- doc #29 proposal for RENO
+scenarios.itr	- doc #23 more things to do in Habitat
+shortwh.itr	- doc #5 sample Habitat interaction writeup (promo doc)

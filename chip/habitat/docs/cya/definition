@@ -1,0 +1,15 @@
+
+From chip Wed Oct 30 13:38:14 1985
+Received: by kessel; 30 OCT 85 13:38:14 PST
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: chip, rlc, sda
+Subject: Definition of "system manager's package"
+Status: RO
+
+As we discussed, for section 1-"Definitions" paragraph H:
+
+The term "system manager's package" shall refer to the software developed by
+Quantum under this Agreement which shall reside in the Q-Link host computer
+system to permit Q-Link operations personnel to make such additions, deletions
+and modifications to the host database as are needed for day-to-day operation
+of the system.

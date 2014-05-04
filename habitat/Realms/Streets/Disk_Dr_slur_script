@@ -1,0 +1,159 @@
+echo Disk_Dr_s_end
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_s_end.reg \
+     -o rdldir/Disk_Dr_s_end.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_s_end \
+     -n Disk_Dr_127_front
+echo Disk_Dr_127_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_127_front.reg \
+     -o rdldir/Disk_Dr_127_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_127_front \
+     -w Disk_Dr_127_interior \
+     -n Disk_Dr_227_front \
+     -s Disk_Dr_s_end
+echo Disk_Dr_127_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_127_interior.reg \
+     -o rdldir/Disk_Dr_127_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_127_interior \
+     -e Disk_Dr_127_front
+echo Disk_Dr_227_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_227_front.reg \
+     -o rdldir/Disk_Dr_227_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_227_front \
+     -w Disk_Dr_227_interior \
+     -n Disk_Dr_327_front \
+     -s Disk_Dr_127_front
+echo Disk_Dr_227_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_227_interior.reg \
+     -o rdldir/Disk_Dr_227_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_227_interior \
+     -e Disk_Dr_227_front
+echo Disk_Dr_327_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_327_front.reg \
+     -o rdldir/Disk_Dr_327_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_327_front \
+     -w Disk_Dr_327_interior \
+     -n Disk_Dr_427_front \
+     -s Disk_Dr_227_front
+echo Disk_Dr_327_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_327_interior.reg \
+     -o rdldir/Disk_Dr_327_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_327_interior \
+     -e Disk_Dr_327_front
+echo Disk_Dr_427_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_427_front.reg \
+     -o rdldir/Disk_Dr_427_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_427_front \
+     -w Disk_Dr_427_interior \
+     -n Disk_Dr_527_front \
+     -s Disk_Dr_327_front
+echo Disk_Dr_427_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_427_interior.reg \
+     -o rdldir/Disk_Dr_427_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_427_interior \
+     -e Disk_Dr_427_front
+echo Disk_Dr_527_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_527_front.reg \
+     -o rdldir/Disk_Dr_527_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_527_front \
+     -w Disk_Dr_527_interior \
+     -n Disk_Dr_cross \
+     -s Disk_Dr_427_front
+echo Disk_Dr_527_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_527_interior.reg \
+     -o rdldir/Disk_Dr_527_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_527_interior \
+     -e Disk_Dr_527_front
+echo Disk_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_cross.reg \
+     -o rdldir/Disk_Dr_cross.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_cross \
+     -n Disk_Dr_627_front \
+     -s Disk_Dr_527_front
+echo Disk_Dr_627_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_627_front.reg \
+     -o rdldir/Disk_Dr_627_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_627_front \
+     -w Disk_Dr_627_interior \
+     -n Disk_Dr_727_front \
+     -s Disk_Dr_cross
+echo Disk_Dr_627_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_627_interior.reg \
+     -o rdldir/Disk_Dr_627_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_627_interior \
+     -e Disk_Dr_627_front
+echo Disk_Dr_727_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_727_front.reg \
+     -o rdldir/Disk_Dr_727_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_727_front \
+     -w Disk_Dr_727_interior \
+     -n Disk_Dr_827_front \
+     -s Disk_Dr_627_front
+echo Disk_Dr_727_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_727_interior.reg \
+     -o rdldir/Disk_Dr_727_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_727_interior \
+     -e Disk_Dr_727_front
+echo Disk_Dr_827_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_827_front.reg \
+     -o rdldir/Disk_Dr_827_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_827_front \
+     -w Disk_Dr_827_interior \
+     -n Disk_Dr_927_front \
+     -s Disk_Dr_727_front
+echo Disk_Dr_827_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_827_interior.reg \
+     -o rdldir/Disk_Dr_827_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_827_interior \
+     -e Disk_Dr_827_front
+echo Disk_Dr_927_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_927_front.reg \
+     -o rdldir/Disk_Dr_927_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_927_front \
+     -w Disk_Dr_927_interior \
+     -n Disk_Dr_1027_front \
+     -s Disk_Dr_827_front
+echo Disk_Dr_927_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_927_interior.reg \
+     -o rdldir/Disk_Dr_927_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_927_interior \
+     -e Disk_Dr_927_front
+echo Disk_Dr_1027_front
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_1027_front.reg \
+     -o rdldir/Disk_Dr_1027_front.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_1027_front \
+     -w Disk_Dr_1027_interior \
+     -n Disk_Dr_n_end \
+     -s Disk_Dr_927_front
+echo Disk_Dr_1027_interior
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_1027_interior.reg \
+     -o rdldir/Disk_Dr_1027_interior.rdl \
+     -d FACE_EAST \
+     -r Disk_Dr_1027_interior \
+     -e Disk_Dr_1027_front
+echo Disk_Dr_n_end
+/u0/chip/microcosm/slur/slur regdir/Disk_Dr_n_end.reg \
+     -o rdldir/Disk_Dr_n_end.rdl \
+     -d FACE_WEST \
+     -r Disk_Dr_n_end \
+     -s Disk_Dr_1027_front

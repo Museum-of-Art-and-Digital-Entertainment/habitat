@@ -1,0 +1,37 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Marc Seriff
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Marc Seriff
+Dear Marc,
+
+Here is the third monthly progress report for the MicroCosm project, detailing
+work during January, 1986, as called for in the contract.  We have not yet
+received the Quantum progress report for December.  Please follow up on this
+and let us know when we may expect it.
+
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+Project Leader
+
+encl: Progress report document
+
+cc:	Steve Arnold
+	Jim Kimsey
+	Janet Hunter
+

@@ -1,0 +1,152 @@
+use region r_9124 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r r_9123
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6869 {
+  container: r r_9124
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use wall o_6870 {
+  container: r r_9124
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_6871 {
+  container: r r_9124
+  x: 48
+  y: 59
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\d \ FIAT\R LUCRE                          "
+}
+use sign o_6872 {
+  container: r r_9124
+  x: 84
+  y: 74
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\ \h Q\R\h\ \h &\R\h\ \h Z                        "
+}
+use sign o_6873 {
+  container: r r_9124
+  x: 120
+  y: 59
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\R DELOS                                 "
+}
+use coke_machine o_6874 {
+  container: r r_9124
+  x: 12
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 110
+}
+use glue o_6875 {
+  container: r r_9124
+  x: 88
+  y: 144
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 254
+  y_offset_1: 0
+  x_offset_2: 0
+  y_offset_2: 217
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use trapezoid o_6876 {
+  container: o o_6875
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 173
+}
+use knick_knack o_6877 {
+  container: o o_6875
+  x: 1
+  y: 1
+  style: 11
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}

@@ -1,0 +1,5 @@
+alias r run
+alias c cont
+alias n next
+alias s step
+alias p print

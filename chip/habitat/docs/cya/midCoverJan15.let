@@ -1,0 +1,53 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Marc Seriff
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Marc Seriff
+Dear Marc,
+
+The milestones and deliverables schedule described in Exhibit B of the
+MicroCosm contract calls for us to make two deliveries for mid-January.
+
+This morning we successfully exchanged message packets between our Commodore
+64 MicroCosm prototype-system-under-development here in San Rafael and the
+Q-Link Stratus in Virginia.  This exchange meets our first delivery obligation
+as described in the contract.  This is two days late, I'm afraid, due to some
+unexpected confusion about how the various pieces of Quantum's C64
+communications software fit together (especially the chunks of BASIC code) and
+due to testing delays resulting from unrelated system problems at your end.
+Nevertheless, the communications software is now operational and we expect to
+proceed without further delays.
+
+Enclosed you will find the working draft of the MicroCosm Minimal Object Set
+definition document.  Delivery of this document meets our other delivery
+obligation.  Realistically speaking, we expect that the object set design will
+continue to evolve right up until the release date, since that is the nature
+of the business.  However, such evolutionary changes will effect only details
+and not the big picture.
+
+As we discussed in our face-to-face meeting earlier this month, the next step
+is to begin work on the host database system.  I am now working on the
+database definitions and hope to have some material in the mail to you early
+next week.
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+ENC. MicroCosm Minimal Object Set definition document
+
+cc:  Steve Arnold, Jim Kimsey

@@ -1,0 +1,212 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r 9153
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Greg P:Priest       "
+  avatars: 6
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid {
+  container: r -1001
+  x: 8
+  y: 30
+  style: 0
+  gr_state: 0
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use glue {
+  container: r -1001
+  x: 44
+  y: 70
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 245
+  y_offset_1: 0
+  x_offset_2: 20
+  y_offset_2: 0
+  x_offset_3: 5
+  y_offset_3: 227
+  x_offset_4: 4
+  y_offset_4: 239
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use chair {
+  container: r -1001
+  x: 132
+  y: 128
+  style: 1
+  gr_state: 0
+  orient: 245
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 104
+  y: 135
+  style: 1
+  gr_state: 0
+  orient: 17
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 8
+  y: 128
+  style: 1
+  gr_state: 0
+  orient: 244
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair {
+  container: r -1001
+  x: 36
+  y: 134
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use trapezoid {
+  container: r -1001
+  x: 132
+  y: 30
+  style: 0
+  gr_state: 0
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use knick_knack {
+  container: o -1005
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack {
+  container: o -1005
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use trapezoid {
+  container: r -1001
+  x: 68
+  y: 144
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use short_sign {
+  container: r -1001
+  x: 72
+  y: 122
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\34       "
+}

@@ -1,0 +1,20 @@
+/*
+ *   struct_display_case.incl.pl1
+ *
+ *   Struct stub for display case instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *   revised 12-March-1987 CM
+ *
+ */
+,    2    common_head         like instance_head,
+     2    contents            pointer,
+     2    class_specific      ,
+           3   open_flags     binary(15),
+           3   key_hi         binary(15),
+           3   key_lo         binary(15),
+           3   owner          binary(31),
+           3   locked(5)      bit(1),     /* 5 = DISPLAY_CASE_CAPACITY */
+           3   filler(11)     bit(1);

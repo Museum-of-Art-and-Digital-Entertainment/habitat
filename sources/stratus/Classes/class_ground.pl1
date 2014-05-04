@@ -1,0 +1,60 @@
+/*
+ *   class_ground.pl1
+ *
+ *   Ground object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+initialize_class_ground: procedure;
+
+     declare a(0:0) entry based;
+     declare 1 ground based %include struct_ground;
+     declare class_ground_actions pointer;
+
+     %replace GROUND_REQUESTS by 0;
+
+     %replace I by CLASS_GROUND;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_ground_actions);
+     Class_Table(I).actions = class_ground_actions;
+     Class_Table(I).max_requests = GROUND_REQUESTS;
+     Class_Table(I).alloc_size = size(ground);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = ground_HELP;
+end initialize_class_ground;
+
+ground_HELP: procedure;
+     declare name_str character(20) varying;
+     declare help_str character(114) varying;
+
+/*     call r_msg_s('You are in region ' || ltrim(Region)|| '. Space usage: ' ||
+          ltrim(C64_HEAP_SIZE) || '-' || ltrim(space_usage) || '=' ||
+          ltrim(C64_HEAP_SIZE - space_usage));*/
+
+     name_str = rtrim(Region_name);
+     if (name_str = '') then
+          help_str = 'This region has no name';
+     else
+          help_str = 'This region is ' || name_str;
+     if (current_region.town_dir ^= byte(0) &
+               current_region.town_dir ^= ' ') then
+          help_str = help_str || '.  The nearest town is ' ||
+               current_region.town_dir;
+     if (current_region.port_dir ^= byte(0) &
+               current_region.port_dir ^= ' ') then
+          help_str = help_str || '.  The nearest teleport booth is ' ||
+               current_region.port_dir;
+     help_str = help_str || '.';
+     call r_msg_s(help_str);
+end ground_HELP;

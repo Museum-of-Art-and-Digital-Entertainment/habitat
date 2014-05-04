@@ -1,0 +1,74 @@
+I spent a few hours now exploring Q-Link and CompuServe.  I think I pretty
+much understand what they're all about and have a clear model of their full
+virtuality.
+
+Q-Link you've seen.  Basically, you have a tree structured network of
+services, most of which consist of the computer typing stuff at you.  Each
+node in the tree has a menu and something that happens there.  Mostly though,
+you just have the menu, wherein you select some specialization of the thing
+that the node corresponds to.  For example, selecting the "Customer Service
+Department" from the top level menu leads you to another menu wherein you
+select what function you want wherein you select some sub-function wherein it
+displays some information or asks you for some information.  That's basically
+it.  Some of the bottom levels of the tree hand you over to an interactive
+module of some sort.  The prime example of this is "chat".  I didn't get much
+of a chance to play with chat because there weren't really enough people on.
+
+Compuserve is much more complex, but the complexity comes from the age,
+maturity and range of services offered rather than from the design itself.
+The design is basically the same -- you have a tree of screens.  Each screen
+consists of some stuff that it types at you (filling one screen's worth on
+your terminal), followed a menu of choices from which you pick.  Often, this
+menu consists of one item, like "press return for more text".  It's a REALLY
+stupid system.  Most everything is shoehorned into this screen structure.
+Their CB facility interacts somewhat differently -- once you select CB (after
+about 5 levels of menus) it pauses and appears to actually hand you over to
+another CPU, which processes CB stuff.  In CB everything you type gets
+broadcast, unless you precede it with a "/" in which case it gets interpreted
+as a command of some sort (e.g., to change the CB channel).  It continually
+fills the screen with stuff other people are typing at CB.  Each person's
+stuff is prefixed with their "handle".
+
+
+CB is *bizarre*.  Basically, there are 72 channels, divided into 2 bands of
+36, and each band seems to be on a separate machine.  Both times I looked
+(9pm-ish Friday and Sunday nights) there were 5-6 channels in use on each
+band, each channel with typically 2-4 people on it, except for channel #1 on
+Band A which had about 70 people on it.  These people all had handles that
+ranged from the merely odd to the almost obscene (some samples: "Manda Lynne",
+"Group Sex!", "horny hon", "big Dick", etc.  Use your imagination.).  The
+primary topic of conversation did indeed seem to be sex, with people basically
+trying to pick each other up.  Picking someone up in this context means making
+a direct person-to-person private connection with them via the "/talk"
+command.  What most people do via such connections I can only guess.  I have
+two sample data points: two people who decided to "/talk" to me.  Being in
+exploration mode I complied.  (BTW, I was using the handle "Fnordly", that
+being obscure but not too obscure and relatively neutral in the suggestive
+innuendo dept.)  Friday I had an interesting conversation with "Group Sex!"
+who turned out to be a bunch of people gathered around a terminal in
+Washington D.C.  Whether or not they were actually having an orgy on the other
+end was difficult to determine.  In any case we had an interesting
+conversation about the goddess Eris and Discordian philosophy.  This
+discussion was triggered by my handle  (Have you read "Illuminatus!"?  No?  Do
+so.)  Sunday I somehow got into a conversation with "lust crazed couple" (I'm
+serious, that was really their handle) who merely wished to give me a
+play-by-play (or perhaps blow-by-blow would be more appropriate) narration of
+what they said they were doing, which you can no doubt imagine for yourself.
+It was, shall we say, different from the sort of thing you read on "msgs".
+
+I'm now going to go explore the games on CompuServe.  They have on-line
+versions of all the traditional on-line sorts of games (Adventure, lunar
+lander, etc.) plus the conventional boring stuff (checkers, chess) that you
+can do with another person plus some more interesing things that look rather
+involved.  The most significant of these seems to be "MegaWars" of which there
+are 2 versions.  "MegaWars I" seems to be 2-10 player real-time fly-thru-space
+shoot-em-up, though not graphic because it has to talk to dumb terminals.
+"MegaWars III" (I don't know what happened to "MegaWars II") seems to be more
+like "Empire" among the stars.  They give you some brief instructions, but
+these games seem to be VERY complicated, with lots of commands and syntax and
+so on (lots of geek appeal here).  CompuServe recommends that one buy a
+"CompuServe Games Manual" that documents the rules and commands in detail.
+I'm not sure how much this costs, but we might want to get one just for
+reference.
+
+More to follow as I explore...

@@ -1,0 +1,53 @@
+/*
+ *   class_floor_lamp.pl1
+ *
+ *   Object behavior module for class floor_lamp.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_floor_lamp: procedure;
+
+     %replace FLOOR_LAMP_REQUESTS by 5;
+
+     declare a(0:FLOOR_LAMP_REQUESTS) entry based;
+     declare class_floor_lamp_actions pointer;
+     declare 1 floor_lamp based %include struct_floor_lamp;
+
+     %replace I by CLASS_FLOOR_LAMP;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = FLOOR_LAMP_REQUESTS;
+     Class_Table(I).alloc_size = size(floor_lamp);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_floor_lamp_actions);
+     Class_Table(I).actions = class_floor_lamp_actions;
+
+     Class_Table(I).actions->a(HELP) = floor_lamp_HELP; /* 0 */
+     Class_Table(I).actions->a(1)   = illegal;         /* 1 */
+     Class_Table(I).actions->a(2)   = illegal;         /* 2 */
+     Class_Table(I).actions->a(3)   = illegal;         /* 3 */
+     Class_Table(I).actions->a(OFF) = generic_OFF;     /* 4 */
+     Class_Table(I).actions->a(ON)  = generic_ON;      /* 5 */
+
+end initialize_class_floor_lamp;
+
+floor_lamp_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_floor_lamp;
+
+     if (self.on = 0) then
+          call r_msg_s('LAMP: DO turns lamp on or off.  This lamp is now off.');
+     else
+          call r_msg_s('LAMP: DO turns lamp on or off.  This lamp is now on.');
+end floor_lamp_HELP;

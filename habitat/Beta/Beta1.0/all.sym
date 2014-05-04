@@ -1,0 +1,2076 @@
+
+$supress             0x0000 abs      
+_0_supress           0x12dd rel      
+a1                   0x0000 abs      
+a2                   0x0000 abs      
+a_read_byte          0x05e9 abs      
+ACK                  0x0024 abs      
+ACKNED               0x8c97 rel      
+ACKNUM               0x0008 abs      
+action_file          0x0200 abs      
+action_table_hi      0xa400 rel ext  
+action_table_lo      0xa500 rel ext  
+action_table_ref     0xa900 rel ext  
+actor_class          0x0029 abs      
+actor_NOID           0x0026 abs      
+actor_object         0x0027 abs      
+actor_variables_offset 0x002b abs      
+add_h                0x161a rel      
+add_w                0x15f8 rel      
+addr                 0x0000 abs      
+Address              0x0000 abs      
+adj_save_y           0x001e abs      
+adjacency_check      0x3970 rel ext  
+aexit                0x1eed rel      
+all_sfx_off          0x3a60 rel ext  
+allocate_mem         0x94ce rel ext  
+and_pattern          0x11f3 rel      
+and_pattern_a        0x19e4 rel      
+and_pattern_b        0x19e1 rel      
+and_pattern_c        0x19e8 rel      
+animation_init_flag  0x0010 abs      
+animation_type       0x001f abs      
+animation_wait_bit   0x0040 abs      
+animexit             0x5fd0 rel      
+AQUARIUM_state       0x000f abs      
+arguments            0x0400 abs ext  
+Arrow_D              0x007d abs      
+Arrow_L              0x007e abs      
+Arrow_R              0x007f abs      
+Arrow_U              0x007c abs      
+ascii_table          0x8494 rel      
+ask_host_for_help    0x8c6a rel ext  
+ASYNC_animation_wait 0x32ce rel ext  
+async_entry          0x00ff abs      
+async_noid           0x2fa9 rel      
+ASYNC_object         0x00ee abs      
+async_workspace      0x0813 abs ext  
+attack_decay         0x99ff rel ext  
+AV_ACT_arm_back      0x0099 abs      
+AV_ACT_arm_get       0x0096 abs      
+AV_ACT_bend_back     0x0087 abs      
+AV_ACT_bend_over     0x0086 abs      
+AV_ACT_face_left     0x00fe abs      
+AV_ACT_face_right    0x00ff abs      
+AV_ACT_hand_back     0x0083 abs      
+AV_ACT_nop           0x009c abs      
+AV_ACT_operate       0x0098 abs      
+AV_ACT_sit_front     0x009d abs      
+AV_ACT_stand         0x0081 abs      
+AV_ACT_stand_back    0x008f abs      
+AV_ACT_stand_front   0x0092 abs      
+AV_ACT_stand_left    0x00fb abs      
+AV_ACT_stand_right   0x00fc abs      
+AV_ACT_walk          0x0082 abs      
+AV_ACT_walk_back     0x0091 abs      
+AV_ACT_walk_front    0x0090 abs      
+av_orient            0x0000 abs      
+AVATAR_action        0x0017 abs      
+avatar_animating     0x20e0 rel      
+AVATAR_ARM_LIMB      0x0002 abs      
+AVATAR_background_activity 0x0016 abs      
+AVATAR_cel_4_state_table 0x0000 abs      
+AVATAR_cel_state     0x001e abs      
+AVATAR_cel_state_end 0x002a abs      
+AVATAR_cel_state_start 0x0024 abs      
+AVATAR_contents      0x000f abs      
+avatar_count         0x9d7e rel ext  
+AVATAR_customize     0x001a abs      
+AVATAR_destination_x 0x001c abs      
+AVATAR_destination_y 0x001d abs      
+AVATAR_FACE_LIMB     0x0003 abs      
+AVATAR_HAND          0x0005 abs      
+AVATAR_HEAD          0x0006 abs      
+avatar_head_object   0x20df rel ext  
+Avatar_header_bytes  0x0003 abs      
+AVATAR_health        0x0018 abs      
+avatar_height        0x20e2 rel      
+avatar_held_object   0x20de rel ext  
+AVATAR_LEG_LIMB      0x0000 abs      
+AVATAR_limb_activity 0x0030 abs      
+avatar_on_hold       0x0040 abs      
+avatar_orientation   0x0018 abs      
+avatar_orientation   0x001b abs      
+AVATAR_restrainer    0x0019 abs      
+avatar_style         0x20e1 rel ext  
+AVATAR_TORSO_LIMB    0x0001 abs      
+avatar_x             0x0014 abs      
+avatar_y             0x0015 abs      
+awaiting_text_input  0x9a05 rel ext  
+b_pattern            0x0015 abs      
+back_drop            0xeb40 abs      
+backcnt              0x2b88 rel      
+background_color     0xd021 abs      
+background_color_1   0xd022 abs      
+background_color_2   0xd023 abs      
+background_color_3   0xd024 abs      
+background_render    0x008e abs      
+bad_link_attempt     0x000c abs      
+Ball                 0x001c abs      
+Ball_alternate       0x001e abs      
+Ball_filled          0x001d abs      
+balloon_border       0x92eb rel      
+balloon_flag         0x2fa5 rel      
+balloon_line_used_flag 0x9dbd rel ext  
+balloon_offset       0x00a0 abs      
+balloon_printf       0x3780 rel ext  
+balloon_quip         0x91c2 rel ext  
+balloon_work_area    0x0700 abs ext  
+balloon_work_area_2  0x0780 abs ext  
+balloon_work_line    0x0000 abs      
+balloon_work_line2   0x0000 abs      
+balloonMessage       0x3423 rel ext  
+bandwidth_factor     0x08da rel ext  
+bandwidth_reduction  0x0001 abs      
+bank_account_balance 0x0805 abs ext  
+BASIC_end            0x99f0 rel      
+BASIC_start          0x99de rel      
+baud_300             0x0006 abs      
+beep                 0x35ac rel ext  
+beep_or_boing        0x35a1 rel ext  
+begin                0x0800 rel ext  
+best_fit_location    0x0b3b rel      
+best_fit_size        0x0b3d rel      
+bitmap_colr          0xd968 abs      
+bitmap_off_IRQ       0x8151 rel      
+bitmap_off_start     0x8169 rel ext  
+bitmap_offset        0x0b40 abs      
+bitmap_on_flag       0x9dd6 rel ext  
+bitmap_on_IRQ        0x80f2 rel      
+bitmap_on_start      0x8108 rel ext  
+Bitmap_screen_1      0x4b40 abs      
+Bitmap_screen_2      0x6b40 abs      
+bitmap_text          0x4568 abs      
+bits                 0x1832 rel      
+black                0x0000 abs      
+black_border         0x0011 abs      
+Black_char           0x0060 abs      
+black_out_bitmap     0x8c4b rel ext  
+blank_char           0x0000 abs      
+blank_IRQ            0x8210 rel ext  
+BLD_HDR              0x900b rel      
+blk_all_done         0x8291 rel      
+BLOCK_data_offset    0x0005 abs      
+BLOCK_lrc            0x0004 abs      
+Block_move           0x826c rel ext  
+BLOCK_number         0x0003 abs      
+block_size           0x09ee rel      
+BLOCK_type           0x0002 abs      
+blockToRepeat        0x0000 abs      
+blue                 0x0006 abs      
+blues                0x0062 abs      
+bluescreen           0x6500 rel ext  
+boing                0x35a5 rel ext  
+BOOK_BACK_PAGE_BIT   0x0040 abs      
+Book_Menu            0x2ee6 rel      
+Book_Menu_List       0x2f16 rel      
+BOOK_NEXT_PAGE_BIT   0x0020 abs      
+BOOK_pageNumber      0x000f abs      
+BOOK_RANDOM_ACCESS_BIT 0x0080 abs      
+border_color         0xd020 abs      
+BOTTLE_filled        0x000f abs      
+BOTTOM_legPattern    0x000f abs      
+boundary_check       0x1107 rel ext  
+box                  0x143e rel ext  
+Box_C                0x0019 abs      
+Box_CD               0x0018 abs      
+Box_CL               0x0016 abs      
+Box_CR               0x0015 abs      
+Box_CU               0x0017 abs      
+Box_DL               0x000e abs      
+Box_DR               0x000d abs      
+Box_UL               0x000f abs      
+Box_UR               0x0010 abs      
+box_x1               0x0085 abs      
+box_x2               0x0086 abs      
+box_y1               0x0083 abs      
+box_y2               0x0084 abs      
+BRK_routine          0xfffc abs      
+brown                0x0009 abs      
+buff                 0x0000 abs      
+buffer_base          0x0000 abs      
+buffer_end           0x0000 abs      
+buffer_index         0x9dcc rel ext  
+buffer_number        0x9ddb rel ext  
+buffer_offset        0x9ddc rel ext  
+buffer_pointer       0x9df8 rel ext  
+buffer_size          0x0100 abs      
+BUFFS                0x8c9c rel      
+BUFPNT               0x8c9f rel      
+bump_vector          0x89ff rel ext  
+bv_cels              0x20d0 rel      
+byte_to_bit          0x20e7 rel      
+c3                   0x0030 abs      
+c5                   0x0050 abs      
+c5a                  0x0060 abs      
+c_value              0x1222 rel      
+c_value_ptr          0x00ec abs      
+cache_a              0xf340 abs      
+cache_a_ts           0x9dcf rel ext  
+cache_b              0xf440 abs      
+cache_b_ts           0x9dd1 rel ext  
+cache_number         0x9dd3 rel ext  
+calc_LRC             0x86e0 rel ext  
+caller               0x3215 rel ext  
+caller_save_x        0x99f2 rel ext  
+caller_save_y        0x99f3 rel ext  
+cartoon_buffer       0x0061 abs      
+catalog              0x0424 abs      
+cc                   0x00fd abs      
+ccont                0x2a24 rel      
+cd_exit              0x132e rel      
+cel_address          0x003c abs      
+cel_box              0x0080 abs      
+cel_count            0x20dc rel      
+cel_dx               0x0040 abs      
+cel_dx_mask          0x0001 abs      
+cel_height           0x0045 abs      
+cel_index            0x0058 abs      
+cel_mask             0x00c0 abs      
+cel_number           0x0043 abs      
+cel_patterns         0x2970 rel ext  
+cel_state_table      0x005d abs      
+cel_text             0x0020 abs      
+cel_trap             0x0040 abs      
+cel_wid_mask         0x000f abs      
+cel_width            0x0044 abs      
+cel_x                0x003e abs      
+cel_x_offset         0x0046 abs      
+cel_x_origin         0x0041 abs      
+cel_x_rel            0x0048 abs      
+cel_y                0x003f abs      
+cel_y_offset         0x0047 abs      
+cel_y_origin         0x0042 abs      
+cel_y_rel            0x0049 abs      
+cels_affected_by_height 0x20d6 rel      
+cels_to_draw         0x001c abs      
+cels_to_draw2        0x001d abs      
+cexit                0x2a43 rel      
+ch_tab               0x9a11 rel ext  
+chain_sound_effect   0x3d19 rel      
+chainto_filename     0x2f1f rel ext  
+change_background_object 0x0812 abs ext  
+change_characteristics 0xe3d3 abs      
+change_color_ram     0x2413 rel ext  
+change_containers    0x350e rel ext  
+change_cursor        0x2e11 rel      
+change_facing        0x09c4 rel ext  
+change_light_level   0x3a3a rel ext  
+change_lighting      0x3a36 rel ext  
+change_orient        0x29ff rel      
+change_player_color  0x092d rel ext  
+change_sex           0x2ae6 rel      
+change_voice         0x3f5c rel      
+change_y             0x3b60 rel      
+char_height          0x0019 abs      
+char_pos             0x0014 abs      
+char_space           0x0020 abs      
+char_to_write        0x2b89 rel      
+char_width           0x0018 abs      
+chars_at_top         0x0009 abs      
+charset              0x6000 abs ext  
+charset_at           0x6000 abs      
+charset_file         0x1208 abs      
+check_exit           0x86df rel      
+check_for_new_response 0x8967 rel ext  
+check_one_resource   0x86a2 rel ext  
+chg_bits             0x16dd rel      
+chkout               0xffc9 abs      
+chore_at_end         0x3b7f rel      
+chore_table          0x3bd1 rel      
+chore_test           0x3bc8 rel      
+choreography_index   0x0010 abs      
+choreography_tables  0x0012 abs      
+chrout               0xffd2 abs      
+Circ_DL              0x0012 abs      
+Circ_DR              0x0011 abs      
+Circ_UL              0x0013 abs      
+Circ_UR              0x0014 abs      
+cl_tab               0x9a0b rel ext  
+clamp_save           0x001e abs      
+clamp_x              0x3c71 rel      
+class                0x9de7 rel ext  
+CLASS_action_count   0x0007 abs      
+CLASS_action_offset  0x000a abs      
+class_address        0x00e1 abs      
+class_avatar         0x0001 abs      
+class_bed            0x0082 abs      
+CLASS_block_info     0x0002 abs      
+CLASS_capacity       0x000d abs      
+CLASS_class_length   0x0000 abs      
+class_couch          0x0089 abs      
+class_file           0x0100 abs      
+CLASS_flags          0x000c abs      
+class_glue           0x0062 abs      
+class_head           0x007f abs      
+CLASS_image_count    0x0005 abs      
+CLASS_image_offset   0x0008 abs      
+CLASS_init_count     0x000c abs      
+CLASS_object_length  0x000b abs      
+class_ptr1           0x0096 abs      
+class_region         0x0000 abs      
+CLASS_sound_count    0x0006 abs      
+CLASS_sound_offset   0x0009 abs      
+CLASS_start_images   0x000e abs      
+class_super_trapezoid 0x005c abs      
+class_table_hi       0x0200 abs ext  
+class_table_lo       0x0300 abs ext  
+class_table_ref      0xa600 rel ext  
+class_trapezoid      0x0057 abs      
+clear_back_drop      0x3aed rel ext  
+clear_balloon        0x9339 rel      
+clear_cache          0x1dad rel ext  
+clear_full_sheet     0x2dc7 rel      
+clear_key            0x008c abs      
+clear_region_cl      0x26b8 rel      
+clear_run            0x287c rel      
+clear_sheet          0x2dde rel      
+clear_text_line      0x103c rel ext  
+clear_wait           0x1ed5 rel      
+clear_zpage          0x7124 rel ext  
+clock                0x9daa rel ext  
+close                0xffc3 abs      
+close_chan           0x6ba4 rel      
+clr_key              0x00fd abs      
+clr_skip             0x104e rel      
+clrchn               0xffcc abs      
+cnext                0x0ee2 rel      
+code                 0x0000 abs      
+color                0x00ae abs      
+color_black          0x0000 abs      
+color_control        0x2414 rel ext  
+color_cyan           0x0003 abs      
+color_debounce_line  0x2dfd rel      
+color_map_addr_1     0x0072 abs      
+color_map_addr_2     0x0074 abs      
+color_mask           0x00f8 abs      
+color_pink           0x000a abs      
+Color_RAM            0xd800 abs      
+color_ram_destination 0x001a abs      
+color_ram_source     0x0018 abs      
+color_sky            0x000e abs      
+color_this_cel       0x001e abs      
+color_which_cels     0x001a abs      
+color_window         0xd828 abs      
+colormap_offset      0x0168 abs      
+colors_8             0x93d2 rel      
+comet_start_y        0x0094 abs      
+comet_x_inc          0x713f rel      
+comet_x_pos          0x713c rel      
+comet_y_inc          0x713e rel      
+comet_y_pos          0x713d rel      
+command_DO           0x0000 abs      
+command_entry        0x0000 abs      
+command_finished     0x04a6 abs      
+command_GET          0x0004 abs      
+command_GO           0x0002 abs      
+command_PUT          0x0005 abs      
+command_selected     0x1a16 rel ext  
+command_STOP         0x0003 abs      
+command_TALK         0x0006 abs      
+configure_filter_stuff 0x3d4d rel      
+consolidate_delete_blocks 0x09f0 rel ext  
+cont_repeat_value    0x0003 abs      
+cont_x_pos           0x8836 rel      
+cont_y_pos           0x883a rel      
+contained_object     0x20dd rel ext  
+container            0x0400 abs ext  
+CONTAINER_flags      0x0000 abs      
+CONTAINER_key_hi     0x0001 abs      
+CONTAINER_key_lo     0x0002 abs      
+container_noid       0x350d rel      
+container_object     0x0010 abs      
+container_type       0x2417 rel ext  
+container_x          0x0401 abs ext  
+container_y          0x0402 abs ext  
+contents_counter     0x2416 rel      
+contents_list        0x00df abs      
+contents_list_pointer 0x9d7b rel ext  
+control_key          0x0082 abs      
+convert_decimal      0x12e4 rel ext  
+copy_back_to_screen  0x3ac5 rel ext  
+count                0x0000 abs      
+count                0x1da9 rel      
+count                0x8c99 rel      
+count_max_a          0x0081 abs      
+count_max_b          0x0082 abs      
+count_temp           0x0068 abs      
+counter              0x0000 abs      
+counter              0x2418 rel      
+counter              0x2faa rel      
+counter              0x6dd8 rel      
+counter              0x90fc rel      
+CRC                  0x00be abs      
+CRC16                0x8eeb rel      
+CRCLP                0x8ef1 rel      
+CRCLP1               0x8f07 rel      
+create_and_link_delete_block 0x0c3c rel ext  
+Create_object        0x93da rel ext  
+create_sort_table    0x0eb2 rel ext  
+crun                 0x287f rel      
+CRUNCH               0x0cba rel ext  
+crunch_end           0x0cb6 rel      
+cur_buff_tracksec    0x9dca rel ext  
+current_action_number 0x00fa abs      
+current_screen       0x3b03 rel ext  
+current_state        0x001a abs      
+current_state        0x001b abs      
+cursor               0x1a19 rel ext  
+cursor_bottom_bound  0x00f0 abs      
+cursor_down          0x008a abs      
+cursor_icon          0x4080 abs      
+cursor_left          0x0088 abs      
+cursor_left_bound    0x0006 abs      
+cursor_lock          0x9a41 rel ext  
+cursor_point_table   0x1b8d rel      
+cursor_position      0xd00a abs      
+cursor_right         0x0087 abs      
+cursor_right_bound   0x00a6 abs      
+cursor_screen_x      0x11c4 rel ext  
+cursor_screen_y      0x11c5 rel ext  
+cursor_shadow        0x4200 abs      
+cursor_sprite        0x0005 abs      
+cursor_state         0x9a40 rel ext  
+cursor_top_bound     0x0071 abs      
+cursor_up            0x0089 abs      
+cursor_x             0x00f4 abs      
+cursor_y             0x00f5 abs      
+custom1              0x0000 abs      
+custom2              0x0000 abs      
+custom_frame         0xe340 abs ext  
+custom_running       0x99f5 rel ext  
+customize            0xe3c2 abs      
+customize_done       0xe564 abs      
+customize_hold_area  0x7800 abs      
+customize_reply      0xe3c1 abs ext  
+customize_target     0xe340 abs      
+cx_tab               0x9a17 rel ext  
+cy_tab               0x9a1d rel ext  
+cyan                 0x0003 abs      
+cycle1               0x861a rel      
+cycle2               0x863f rel      
+cycle_mask           0x0080 abs      
+d                    0x0000 abs      
+d_black              0x8606 rel      
+d_open_file          0x1bb8 rel ext  
+d_read_byte          0x1cb5 rel ext  
+d_read_segment       0x1c62 rel ext  
+d_seek_record        0x1bc3 rel ext  
+d_start              0x0000 abs      
+d_wild               0x0056 abs      
+d_write_segment      0x1c84 rel ext  
+DATA                 0x0020 abs      
+data_block           0x0018 abs      
+data_direction       0x0000 abs      
+data_port_a          0xdd00 abs      
+data_port_b          0xdd01 abs      
+dc_temp              0x9449 rel      
+dc_temp_ptr          0x944a rel      
+dchar                0x1588 rel      
+dead_animation       0x3310 rel      
+deallocate_mem       0x94ed rel ext  
+debounce_color_ram   0xd940 abs      
+debug_mode           0x0000 abs      
+dec_panel            0xe580 abs      
+decimal              0x1252 rel ext  
+decrement_LRUs       0x0e6b rel ext  
+Default_Throttle_Decrement 0xfffffff1 abs      
+Default_Throttle_Increment 0x000f abs      
+delete               0x6a56 rel      
+delete_block         0x0010 abs      
+delete_key           0x00fe abs      
+delete_object        0x3607 rel ext  
+delete_object_noid   0x2faf rel      
+delete_save          0x2fae rel      
+delta_x_a            0x007f abs      
+delta_x_b            0x0080 abs      
+delta_y              0x007e abs      
+depends              0x35b2 rel ext  
+desired_disk         0x7434 abs ext  
+desired_size         0x00fb abs      
+desired_x            0x0400 abs ext  
+desired_y            0x0401 abs ext  
+dest_addr            0x00fc abs      
+dest_loc             0xe566 abs      
+dest_x               0xe515 abs      
+dest_y               0xe51d abs      
+destin_class         0x0012 abs      
+destination          0x00a9 abs      
+destination_x        0x0012 abs      
+destination_y        0x0013 abs      
+detach_from_stick    0x9a3d rel ext  
+develop              0x0000 abs      
+dexit                0x21a4 rel      
+Diag_DL              0x001f abs      
+Diag_DR              0x0009 abs      
+Diag_UL              0x000b abs      
+Diag_UR              0x000c abs      
+DIE_state            0x000f abs      
+digit                0x1221 rel      
+direction_down       0x0003 abs      
+direction_left       0x0000 abs      
+direction_right      0x0002 abs      
+direction_up         0x0001 abs      
+directory_start      0x9d74 rel ext  
+disk_buffer          0x0700 abs ext  
+disk_code_start      0x0400 abs      
+disk_face            0x20e3 rel      
+disk_number          0x08d6 rel ext  
+disk_quit            0x1711 rel ext  
+disk_sector          0x000f abs      
+disk_sector_LRC      0x9de5 rel ext  
+disk_track           0x000e abs      
+disp_head            0xe3f7 abs      
+display_a_panel      0xe59a abs      
+display_and_wait_for_key 0x2f7a rel ext  
+display_avatar       0x1e29 rel ext  
+display_contents_noid 0x8842 rel ext  
+display_contents_screen 0x87d7 rel ext  
+display_mem_usage    0x2fa4 rel ext  
+display_menu         0x2e6a rel      
+display_page         0x0057 abs      
+display_panels       0xe569 abs      
+display_qlink_message 0x8be5 rel      
+display_some_contents 0x36ee rel      
+display_text_line    0x1010 rel ext  
+display_window       0x0071 abs      
+dline                0x1836 rel ext  
+do_a_complex_sound   0x3403 rel ext  
+do_a_sound           0x33c0 rel ext  
+do_cursor            0x0001 abs      
+do_icon              0x4140 abs      
+do_nothing           0x336e rel      
+do_reply             0x8957 rel      
+do_shadow            0x42c0 abs      
+do_ss                0x721c abs      
+do_what_I_want       0x8944 rel ext  
+DoFill               0x0922 rel ext  
+DOINIT               0x8f35 rel      
+DOOR_flags           0x000f abs      
+DOOR_key_hi          0x0010 abs      
+DOOR_key_lo          0x0011 abs      
+down                 0x0003 abs      
+draw_a_limb          0x1eee rel      
+draw_any_object      0x0f4a rel ext  
+draw_balloon         0x9105 rel ext  
+draw_balloon_2       0x910f rel ext  
+draw_balloon_quip    0xe6b9 abs      
+draw_contained_object 0x23d5 rel ext  
+draw_contained_object_and_clear 0x23d0 rel ext  
+draw_contents        0x233b rel      
+draw_line            0x85cc rel      
+draw_object_x        0x0f1d rel ext  
+draw_primitive       0x21ed rel      
+draw_prop            0x20f1 rel ext  
+draw_this_cel        0x21a5 rel      
+drawing_which_object 0x0055 abs      
+DRUGS_count          0x000f abs      
+ds                   0x0000 abs      
+dst                  0x0000 abs      
+dump_enabled         0x0000 abs      
+dump_key             0x00b0 abs      
+dump_text            0x7464 abs      
+duration_hi          0xffce rel ext  
+duration_lo          0xffd5 rel ext  
+emergency_exit       0x32ba rel      
+enable_event_processor 0x08d9 rel ext  
+end_arguments        0x0480 abs      
+end_dest             0x060c abs      
+end_file_name        0x6a04 rel      
+end_holder           0x5ff6 rel ext  
+end_of_everything    0x99f1 rel ext  
+end_of_loader        0x7784 abs ext  
+end_of_message       0x000d abs      
+end_of_packet_stream 0x9d78 rel ext  
+end_of_program       0x99d9 rel ext  
+end_of_request_bit   0x0080 abs      
+end_of_standard_init 0x0006 abs      
+end_source           0x6dd8 rel      
+end_variables        0x9dfe rel ext  
+end_zpage            0x0100 abs      
+ENTER_TEXT_MODE_COMMAND 0x0000 abs      
+entry                0x920d4 abs      
+eor_self_mod         0x0ed3 rel      
+errnum               0x0000 abs      
+error_number         0x9dc0 rel ext  
+error_regs_a         0x9dc4 rel ext  
+error_regs_stack     0x9dc7 rel ext  
+error_regs_x         0x9dc6 rel ext  
+error_regs_y         0x9dc5 rel ext  
+escape_char          0x005d abs      
+ESCAPE_DEVICE_charge 0x000f abs      
+ESP_talk             0x346b rel ext  
+even_bottoms         0x22ee rel      
+event_handler        0x88d2 rel ext  
+execute_command      0x3187 rel ext  
+exit_check           0x89d1 rel      
+exit_get_key         0x0f97 rel      
+exit_text_mode       0x2c6c rel ext  
+EXIT_TEXT_MODE_COMMAND 0x0001 abs      
+EXNO                 0x8f8a rel      
+expand_sprite_x      0xd01d abs      
+expand_sprite_y      0xd017 abs      
+extend_command       0x99fb rel ext  
+EXYES                0x8f87 rel      
+face_cursor          0x38fe rel ext  
+face_cursor_x        0x9a2f rel ext  
+facing               0x20e4 rel      
+FAKE_GUN_safetyOn    0x0010 abs      
+FAKE_GUN_state       0x000f abs      
+FALSE                0x0000 abs      
+farmers_init         0x6dd9 rel ext  
+fastlink_on          0x82ed rel ext  
+fexit                0x14cd rel      
+fexit                0x19e0 rel      
+ff_loop              0x0473 abs      
+fGet_Action          0x82a8 rel ext  
+fGet_Class           0x82c0 rel ext  
+fGet_Image           0x82b0 rel ext  
+fGet_Object          0x82a0 rel ext  
+fGet_Sound           0x82b8 rel ext  
+fiddle_count         0x0014 abs      
+fiddle_exit          0x3a31 rel      
+fiddle_object        0x0012 abs      
+fiddle_offset        0x0010 abs      
+fiddle_save_y        0x0016 abs      
+fiddle_with_object   0x39e9 rel ext  
+field_update         0x72b1 abs ext  
+file_name            0x6a00 rel      
+file_name_length     0x6a36 rel      
+file_name_length2    0x6a85 rel      
+file_offset          0x9dcd rel ext  
+fill_back            0x19af rel ext  
+fill_to_end_of_line  0x9273 rel      
+fill_wid             0x1a15 rel ext  
+fillbuff             0x1c28 rel      
+fillchar             0x0000 abs      
+filter_voice         0x0003 abs      
+find_a_class_to_remove 0x0de9 rel      
+find_cel_xy          0x23ab rel ext  
+find_goto_alt_entry  0x39d2 rel ext  
+find_goto_coords     0x39c7 rel ext  
+find_head_slot       0x993f rel      
+find_talker_exit     0x3a85 rel      
+find_talker_number   0x3a77 rel ext  
+find_value           0x0014 abs      
+find_where_on_page   0x2e23 rel ext  
+fine_cel_point       0x119b rel      
+first_delete_block   0x09e8 rel ext  
+first_head           0x0004 abs      
+first_pointed_noid   0x99f6 rel ext  
+fix_proper_table     0x0d83 rel      
+fixed_on_bits        0x0040 abs      
+FLAG_state           0x000f abs      
+flash_count          0x9a3f rel ext  
+flash_rate           0x0010 abs      
+flashing             0x9a3e rel ext  
+FLASHLIGHT_on        0x000f abs      
+fline                0x14ce rel      
+flip_xtemp           0x3c58 rel      
+flipped              0x001a abs      
+FLOOR_LAMP_on        0x000f abs      
+fnam                 0x0000 abs      
+fopen                0xffc0 abs      
+fopen_chan           0x6b17 rel ext  
+Forbidden            0x8ab6 rel      
+force_line_fill      0x9280 rel      
+force_set_chore      0x29f2 rel ext  
+forced_render_region 0x88bb rel ext  
+found_file           0x0469 abs      
+fred                 0x0910 rel      
+freq_hi              0xffc0 rel ext  
+freq_lo              0xffc7 rel ext  
+frozen               0x216f rel      
+frozen_when_stands   0x20c3 rel      
+function_key_1       0x0092 abs      
+function_key_2       0x0093 abs      
+function_key_3       0x0094 abs      
+function_key_4       0x0095 abs      
+function_key_5       0x0096 abs      
+function_key_6       0x0097 abs      
+function_key_7       0x0098 abs      
+function_key_8       0x0099 abs      
+fv_cels              0x20ca rel      
+gate_bit             0x0001 abs      
+GEMSTONE_isMagic     0x000f abs      
+GENERIC_isMagic      0x000f abs      
+GENERIC_mass         0x000f abs      
+generic_object_end   0x000f abs      
+GENERIC_on           0x000f abs      
+GENERIC_state        0x000f abs      
+gesture_key_0        0x00a4 abs      
+gesture_key_1        0x009a abs      
+gesture_key_2        0x009b abs      
+gesture_key_3        0x009c abs      
+gesture_key_4        0x009d abs      
+gesture_key_5        0x009e abs      
+gesture_key_6        0x009f abs      
+gesture_key_7        0x00a1 abs      
+gesture_key_8        0x00a2 abs      
+gesture_key_9        0x00a3 abs      
+gesture_max          0x00a4 abs      
+get_av_coords        0x3bd5 rel      
+get_av_prop_address  0x2071 rel ext  
+get_cel_loc_addr     0x2044 rel      
+get_cel_xy           0x2312 rel ext  
+get_class_address    0x0912 rel ext  
+get_command          0x0561 abs      
+get_command_key_exit 0x10ac rel      
+get_cursor           0x0004 abs      
+get_ESP_text         0x38aa rel ext  
+get_furniture_xy     0x39c9 rel ext  
+Get_good_stuff       0x266f rel ext  
+get_icon             0x4180 abs      
+get_image_address    0x08e8 rel ext  
+get_images           0x268b rel ext  
+get_images_failed    0x3765 rel ext  
+Get_ISA_addr         0x9580 rel ext  
+get_key              0x105f rel ext  
+get_limb_cel_pattern 0x208e rel      
+get_limb_coords      0x1f8e rel      
+get_loader           0x2f33 rel      
+get_loader_from_disk 0x2f28 rel ext  
+get_next_delete_block 0x0c32 rel      
+Get_next_packet_stream_byte 0x89d7 rel ext  
+get_object_address   0x08dd rel ext  
+get_object_class     0x95d8 rel ext  
+get_object_walk_xy   0x3bf0 rel ext  
+Get_packet_stream_byte 0x89fa rel ext  
+get_parameters       0x383d rel      
+get_QLINK_disk       0x7235 abs ext  
+get_resource_from_disk 0x9732 rel ext  
+get_screen_address   0x11fb rel ext  
+get_shadow           0x4300 abs      
+get_state_variables  0x24b9 rel      
+get_states           0x5fd1 rel ext  
+get_subject_object   0x34e3 rel ext  
+GetAction            0x9566 rel ext  
+GetImage             0x9538 rel ext  
+GETSEQ               0x906e rel      
+GetSound             0x951e rel ext  
+ghost_noid           0x00ff abs      
+give_memory          0x08db rel ext  
+glass                0x0012 abs      
+GNPROC               0x904b rel      
+go_cursor            0x0002 abs      
+go_fail              0x33b8 rel ext  
+go_icon              0x4100 abs      
+go_shadow            0x4280 abs      
+go_success           0x0404 abs ext  
+got_nak_exit         0x9069 rel      
+got_ss_packet        0x9a2c rel ext  
+GOTACK               0x902f rel      
+GOTHB                0x9085 rel      
+GOTNAK               0x9032 rel      
+goto_screen_2        0x8849 rel ext  
+GoToNewRegion        0x366d rel ext  
+GOTSSR               0x902f rel      
+goXY                 0x332d rel ext  
+graphics_mode        0x809f rel ext  
+gray_2               0x000c abs      
+gray_3               0x000f abs      
+green                0x0005 abs      
+greetings            0x7036 rel      
+GRENADE_pinPulled    0x000f abs      
+GSEXIT               0x902f rel      
+GUN_safetyOn         0x000f abs      
+h_count              0x008b abs      
+hair_add             0xe467 abs      
+hair_pattern         0x0000 abs      
+half_size            0x0083 abs      
+HAMING               0x8f24 rel      
+HAND_OF_GOD_state    0x000f abs      
+handle_qlink_message 0x8b57 rel      
+handle_response      0x8af6 rel ext  
+have_been_ported     0x9de6 rel ext  
+HDRPFX               0x9de1 rel ext  
+head_cel_number      0x20c2 rel      
+head_file            0x1600 abs      
+head_found_at        0x999a rel      
+HEAD_init_state      0x000f abs      
+head_number          0xe561 abs      
+head_open_slot       0x999b rel      
+head_pattern         0x20e5 rel      
+head_style           0x0000 abs      
+head_style_list      0x9d87 rel ext  
+Header_total         0x0007 abs      
+HEARTB               0x0026 abs      
+heartbeat_counter    0x8ca4 rel ext  
+heartbeat_value      0x0002 abs      
+heartbeat_wait       0x8ca5 rel      
+hello                0x6a53 rel      
+here_I_am            0x30cc rel ext  
+here_I_am_part2      0x30e6 rel      
+here_is              0x2459 rel ext  
+here_is2             0x245b rel ext  
+here_is_someone      0x30ee rel      
+here_ok              0x1871 rel      
+hereis_flag          0x9d85 rel ext  
+hi_copy              0x3ada rel      
+highest_to_display   0x87a2 rel ext  
+history              0x7fc0 abs      
+History_Size         0x0040 abs      
+History_Size_Bits    0x0006 abs      
+history_sum          0x86fa rel      
+hold                 0x9100 rel      
+hold_ASYNC_subject   0x2fad rel      
+hold_capacity        0x9d7d rel ext  
+hold_class           0x9d7c rel ext  
+hold_container       0x241a rel      
+hold_desire          0x0bf5 rel      
+hold_interrupt       0x9d73 rel ext  
+hold_mask            0x00c0 abs      
+hold_noid            0x9db4 rel ext  
+hold_out             0x2af4 rel      
+hold_page_2          0x0000 abs      
+hold_page_2          0x7581 abs      
+hold_page_3          0x0000 abs      
+hold_page_3          0x7681 abs      
+hold_subject_noid    0x2fac rel      
+hold_subject_object  0x9a31 rel ext  
+hold_zpage           0x0000 abs      
+hold_zpage           0x7481 abs      
+home_key             0x008b abs      
+horiz_and_mask       0x00e7 abs      
+horiz_hold           0x0064 abs      
+horiz_pos            0x121f rel      
+horz_run_index       0x0014 abs      
+host_init            0x6bac rel      
+host_name_a          0x1834 rel      
+host_name_b          0x1835 rel      
+host_o_o_read_byte   0x17c5 rel      
+host_read_bit        0x17d5 rel      
+host_requested_dump  0x002f abs      
+host_save_reg        0x1833 rel      
+host_send_bit        0x17fe rel      
+host_send_byte       0x17ee rel      
+i                    0x0004 abs      
+i                    0x0100 abs      
+i_temp               0x0015 abs      
+icon_colors          0x1ba3 rel      
+icon_table           0x43c0 abs ext  
+id_file              0x1200 abs      
+IGNORE               0x90c7 rel      
+Im_alive             0x310c rel ext  
+Im_dead              0x73e1 abs ext  
+Im_sitting           0x0810 abs ext  
+image                0x9deb rel ext  
+image_control        0x0044 abs      
+image_file           0x0700 abs      
+image_table_hi       0xa200 rel ext  
+image_table_lo       0xa300 rel ext  
+image_table_ref      0xa800 rel ext  
+image_walk_offset    0x0004 abs      
+in_cache             0x1c32 rel      
+in_counter           0x2fa6 rel      
+in_face_cursor       0x99f1 rel ext  
+in_hand_class        0x0035 abs      
+in_hand_NOID         0x0032 abs      
+in_hand_object       0x0033 abs      
+in_hand_variables_offset 0x0037 abs      
+in_line              0x11c9 rel ext  
+INBUFF               0x8f5f rel      
+inc_dec1             0x8626 rel      
+inc_dec2             0x864b rel      
+increment_TS         0x1cda rel      
+index                0x0000 abs      
+indirect_address_jmp 0x0007 abs      
+indirect_address_rts 0x0008 abs      
+indirect_jump        0x0869 rel ext  
+INDPTR               0x00b8 abs      
+init_avatar_chores   0x2b5c rel      
+init_count           0xe562 abs      
+init_cust            0xe525 abs ext  
+init_disk            0x6a97 rel ext  
+init_keyboard        0x6f84 rel ext  
+init_pat             0x0013 abs      
+init_state_animation 0x5f40 rel ext  
+INIT_THE_DISK        0x6b74 rel ext  
+init_vblank          0x80a1 rel ext  
+init_voice_exit      0x3d3d rel      
+init_x               0x0090 abs      
+INITST               0x8c98 rel ext  
+INLOOP               0x8f6d rel      
+inner_set_chore      0x29e8 rel ext  
+input_text_length    0x00e4 abs      
+insert_disk_message  0x705e rel      
+insert_key           0x008e abs      
+insert_number_here   0x3813 rel      
+insert_string_here   0x37f6 rel      
+instructions         0x7432 abs ext  
+instructs            0xe6c5 abs      
+interrupt_control    0xdc0d abs      
+interrupt_delay      0x8162 rel ext  
+intro_0              0xe6fa abs      
+intro_0b             0xe763 abs      
+intro_1              0xe79b abs      
+intro_1b             0xe7e2 abs      
+intro_2              0xe827 abs      
+intro_2b             0xe87f abs      
+intro_3              0xe8b9 abs      
+intro_3b             0xe8df abs      
+intro_3c             0xe905 abs      
+intro_3d             0xe92b abs      
+intro_3e             0xe951 abs      
+intro_4              0xe977 abs      
+intro_5              0xe9b4 abs      
+intro_5b             0xe9c5 abs      
+intro_5c             0xe9ec abs      
+intro_5d             0xea13 abs      
+invert_byte          0x0084 abs      
+INWIND               0x8f8c rel      
+IO_reg               0x0001 abs      
+IRQ_flag             0xd019 abs      
+IRQ_interrupt        0xdc0d abs      
+IRQ_mask             0xd01a abs      
+IRQ_routine          0xfffe abs      
+IRQ_scanline         0xd012 abs      
+IRQ_timer_a          0xdc0e abs      
+IRQ_timer_b          0xdc0f abs      
+is_object_in_opaque_container 0x0e84 rel ext  
+is_there_space       0x8b6d rel ext  
+ISA_flag             0x9def rel ext  
+ISA_number           0x9df0 rel ext  
+issue_nested_command 0x31fd rel ext  
+j                    0x0003 abs      
+job                  0x0009 abs      
+joystick_1_active    0x8554 rel      
+joystick_1_latch     0x8555 rel      
+joystick_state       0x9a6a rel ext  
+jsr_place            0x323c rel      
+JUKEBOX_playsToGo    0x000f abs      
+just_deleted         0x00c0 abs      
+justify_balloon      0x928d rel      
+kb_buffer            0x9a48 rel ext  
+kb_buffer_end        0x9a47 rel ext  
+kb_buffer_length     0x0020 abs      
+kb_buffer_pointer    0x9a46 rel ext  
+kb_counter           0x9a06 rel ext  
+Kernal_control_reg   0x0293 abs      
+Kernal_half_time     0x0295 abs      
+Kernal_timing        0x0299 abs      
+key_buffer           0x0000 abs      
+key_buffer_end       0x0000 abs      
+key_buffer_length    0x0020 abs      
+key_buffer_pointer   0x0000 abs      
+key_count            0x856d rel      
+key_ctrl             0x0017 abs      
+key_data_bits        0x8567 rel      
+key_detected         0x856c rel      
+key_difference_bits  0x8568 rel      
+key_input_data       0x855f rel      
+KEY_key_number_hi    0x000f abs      
+KEY_key_number_lo    0x0010 abs      
+key_left_shift       0x0039 abs      
+key_repeat_char      0x856e rel      
+key_repeat_timer     0x856f rel      
+key_right_shift      0x0026 abs      
+key_shift_count      0x856b rel      
+key_shift_flag       0x856a rel ext  
+key_y_index          0x8569 rel      
+keyboard_image       0x8557 rel      
+keyboard_latch       0x9a09 rel ext  
+keys_Data_Direction_A 0xdc02 abs      
+keys_Data_Direction_B 0xdc03 abs      
+keys_Data_Port_A     0xdc00 abs      
+keys_Data_Port_B     0xdc01 abs      
+kill_quip            0x1a30 rel ext  
+largest_object       0x00a6 abs      
+last_cel_x_rel       0x20ef rel      
+last_cel_y_rel       0x20f0 rel      
+last_command_selected 0x0403 abs ext  
+last_icon            0x9a43 rel ext  
+last_link            0x09ec rel ext  
+last_panel           0xe568 abs      
+last_response_processed 0x9a72 rel ext  
+latch                0x9dd8 rel ext  
+left                 0x0000 abs      
+left_char            0x0007 abs      
+left_down_char       0x0003 abs      
+left_facing          0x0001 abs      
+left_side_char       0x0002 abs      
+left_up_char         0x0001 abs      
+leg_add              0xe496 abs      
+len_of_last_packet   0x8966 rel      
+length               0x00ab abs      
+let_user_pick        0x36fd rel      
+light_blue           0x000e abs      
+light_green          0x000d abs      
+light_level          0x0801 abs ext  
+light_red            0x000a abs      
+limb_state           0x0015 abs      
+limb_to_init         0x0017 abs      
+limits_fail          0x0993 rel      
+line_count           0x90fd rel      
+line_length          0x90fe rel      
+Line_LR              0x001b abs      
+Line_UD              0x001a abs      
+link_offset          0x0002 abs      
+load_action          0x962d rel ext  
+load_address         0x9dfc rel ext  
+load_all_resources   0x95f0 rel ext  
+load_cache           0x1dbc rel ext  
+load_class           0x95ac rel      
+load_file            0x1736 rel ext  
+load_flag            0x99a1 rel ext  
+load_image           0x9637 rel ext  
+load_loop            0x1758 rel      
+load_loop_a          0x1778 rel      
+load_loop_b          0x1786 rel      
+load_loop_c          0x1784 rel      
+load_or_unload_resource 0x9679 rel ext  
+load_sector          0x1717 rel ext  
+load_sound           0x9632 rel ext  
+load_stuff           0x2532 rel ext  
+load_this_object     0x9dbb rel ext  
+loader_file          0x1201 abs      
+loader_is_in_memory  0x2f8a rel ext  
+loader_start         0x7200 abs ext  
+Local_TEMP           0x8c9d rel      
+Local_TEMP2          0x8c9e rel      
+long_async_frames    0x0038 abs      
+loop_count           0xffea rel ext  
+loop_counter         0x2fa7 rel      
+lost_carrier_HB_count 0x000c abs      
+lowest_to_display    0x87a1 rel ext  
+lpats                0x18d6 rel      
+lr_bord              0x0020 abs      
+LRC_selfmod          0x86e7 rel ext  
+LRU_bits             0x00c0 abs      
+lru_selfmod          0x0df0 rel      
+LSTOUT               0x8ca0 rel      
+LSTSEQ               0x8c94 rel ext  
+LSTSQO               0x8c96 rel ext  
+ltemp                0x0010 abs      
+MAGIC_LAMP_state     0x000f abs      
+MAGIC_LAMP_wisher    0x0010 abs      
+MAILBOX_mailArrived  0x000f abs      
+main_loop            0x082b rel      
+maintain_flashing    0x1b2b rel      
+maintain_frame       0x0893 rel ext  
+maintain_rs232       0x8cb4 rel ext  
+maintain_sounds      0x3cb8 rel ext  
+make_a_sound         0x33f5 rel ext  
+make_object_speak    0x3410 rel ext  
+mask                 0x0000 abs      
+mask_b               0x0061 abs      
+mask_blue            0x6700 rel ext  
+max_balloon_size     0x0003 abs      
+max_BUFFS            0x0004 abs      
+max_number_of_heads  0x001f abs      
+max_req_buffers      0x0002 abs      
+max_text_display_length 0x0028 abs      
+max_text_line_length 0x0064 abs      
+maxprecision         0x0004 abs      
+me_noid              0x0038 abs      
+mem_ptr1             0x009c abs      
+memory_corrupt       0x0003 abs      
+memory_execute       0x6b2c rel      
+memory_fault         0x0002 abs      
+memory_full          0x0001 abs      
+memory_write         0x6b50 rel      
+menu_color_ram       0xdbc0 abs      
+menu_line_address    0x47c0 abs      
+Menu_List            0x007a abs      
+MESSAGE_APPEAR       0x0012 abs      
+MESSAGE_BEEN_MOVED   0x0015 abs      
+MESSAGE_CAUGHT_UP    0x0011 abs      
+MESSAGE_CHANGE_CONT  0x0013 abs      
+MESSAGE_customize    0x0004 abs      
+MESSAGE_describe     0x0001 abs      
+MESSAGE_esp_speak    0x000b abs      
+MESSAGE_FIDDLE       0x000c abs      
+MESSAGE_FINGER_IN_QUE 0x0005 abs      
+MESSAGE_GOAWAY       0x0009 abs      
+MESSAGE_HERE_I_AM    0x0006 abs      
+MESSAGE_HEREIS       0x0008 abs      
+message_hold         0x9103 rel      
+MESSAGE_HOST_DUMP    0x0016 abs      
+MESSAGE_I_quit       0x0002 abs      
+MESSAGE_Im_alive     0x0003 abs      
+MESSAGE_LIGHTING     0x000d abs      
+MESSAGE_MUSIC        0x000e abs      
+MESSAGE_newregion    0x0009 abs      
+MESSAGE_OBJECT_TALKS 0x000f abs      
+message_pointer      0x0016 abs      
+MESSAGE_PORT         0x000a abs      
+MESSAGE_posture      0x0006 abs      
+MESSAGE_PROMPT_REPLY 0x0007 abs      
+MESSAGE_PROMPT_USER  0x0014 abs      
+MESSAGE_put          0x0002 abs      
+MESSAGE_speak        0x0007 abs      
+MESSAGE_UPDATE_DISK  0x000b abs      
+MESSAGE_WAIT_FOR_ANI 0x0010 abs      
+MESSAGE_walk         0x0008 abs      
+MESSAGE_write        0x0005 abs      
+MESSSZ               0x9de0 rel ext  
+mid_byte             0x0055 abs      
+mid_header           0x0008 abs      
+Min_Throttle_Duration 0x0001 abs      
+minimum_size         0x0b41 rel      
+missing_object       0x000b abs      
+moonwalk_bit         0x0001 abs      
+more_fiddle          0x39eb rel      
+move_comet           0x7185 rel      
+move_data_blocks     0x0cf5 rel      
+move_line_to_balloon 0x9216 rel      
+move_text_to_balloon 0x91f3 rel      
+MOVIE_CAMERA_on      0x000f abs      
+moving_memory        0x9df3 rel ext  
+MSGPNT               0x9de3 rel ext  
+multicolor_0         0xd025 abs      
+multicolor_1         0xd026 abs      
+multicolor_sprite    0xd01c abs      
+n                    0x0000 abs      
+NAK                  0x0025 abs      
+NAKSND               0x9017 rel      
+NAKSNT               0x8c9b rel      
+name_a               0x0007 abs      
+name_b               0x0008 abs      
+nbytes               0x0000 abs      
+new_block            0x0016 abs      
+new_chore            0x2a44 rel ext  
+new_command          0x99fa rel ext  
+new_container_x      0x3509 rel      
+new_container_y      0x350a rel      
+new_region_flag      0x0811 abs ext  
+newest_pack          0x906c rel      
+NewRegionDirection   0x0400 abs ext  
+next_1               0x863a rel      
+next_2               0x865f rel      
+next_avail_byte      0x8846 rel ext  
+next_cont            0x882c rel      
+next_digit           0x12eb rel      
+next_line            0x16b7 rel      
+next_line            0x8615 rel      
+next_objects_sv      0x24bf rel      
+next_packet          0x8844 rel ext  
+next_panel           0xe596 abs      
+next_ramp            0x3dce rel      
+nill                 0x9df1 rel ext  
+NMI_interrupt        0xdd0d abs      
+NMI_routine          0xfffa abs      
+NMI_save_IO          0x9dd7 rel ext  
+NMI_timer_a          0xdd0e abs      
+NMI_timer_b          0xdd0f abs      
+no_go                0x31d5 rel      
+no_special_cases     0x2b08 rel      
+no_text_on_this_line 0x2cae rel      
+nop1                 0x2863 rel      
+nop2                 0x28de rel      
+Normal_BRK           0x8251 rel      
+normal_cursor        0x0000 abs      
+normal_NMI           0x8252 rel ext  
+not_adjacent         0x398a rel      
+not_enuf_room        0x0bcb rel      
+not_enuf_space       0x8be1 rel      
+now_flag             0x99fc rel ext  
+NOWRAP               0x9079 rel      
+null_key             0x008f abs      
+num                  0x0000 abs      
+num_of_chars         0x0015 abs      
+number_of_bytes      0x9df6 rel ext  
+number_to_init       0x2419 rel      
+numbytes             0x0000 abs      
+NXTBUF               0x907d rel      
+NXTSEQ               0x8c93 rel ext  
+ny                   0x21fc rel      
+obj_header           0x000a abs      
+obj_orient           0x0403 abs ext  
+object               0x9de9 rel ext  
+object_address       0x0051 abs      
+OBJECT_animation_end 0x000e abs      
+OBJECT_animation_frame 0x000c abs      
+OBJECT_animation_start 0x000d abs      
+OBJECT_animation_state 0x000a abs      
+OBJECT_block_info    0x0002 abs      
+object_class         0x999e rel      
+OBJECT_class_pointer 0x0005 abs      
+OBJECT_contained_by  0x000b abs      
+OBJECT_container_offset 0x0008 abs      
+OBJECT_contents      0x000f abs      
+object_count         0x008f abs      
+object_init_offset   0x0006 abs      
+object_list          0x0480 abs ext  
+object_list_pointer  0x00a5 abs      
+object_noid          0x00ff abs      
+object_num           0x999d rel      
+OBJECT_object_length 0x0000 abs      
+OBJECT_orientation   0x0009 abs      
+object_ptr1          0x0098 abs      
+object_resource_offset 0x9db6 rel ext  
+OBJECT_resources     0x0004 abs      
+OBJECT_style_pointer 0x0006 abs      
+object_table_hi      0x9e00 rel ext  
+object_table_lo      0x9f00 rel ext  
+OBJECT_text_start    0x000f abs      
+OBJECT_wait_state    0x0004 abs      
+object_x             0x001b abs      
+OBJECT_x_position    0x0007 abs      
+OBJECT_y_position    0x0008 abs      
+OBUFFS               0x4800 abs      
+OFF_CRC              0x0001 abs      
+OFF_DATA             0x0008 abs      
+OFF_PCRC             0x0005 abs      
+OFF_SYNC             0x0000 abs      
+OFF_TXSQ             0x0005 abs      
+OFF_TYPE             0x0007 abs      
+ok_to_execute        0x31e9 rel      
+old_joystick_state   0x1a17 rel      
+old_light_level      0x9a30 rel ext  
+old_LRU              0x0080 abs      
+old_strobe           0x9a42 rel ext  
+oldest_LRU           0x0040 abs      
+on_my_way            0x0008 abs      
+one_black_line       0xe6d9 abs      
+one_minute           0x0e10 abs      
+one_more_try         0x8985 rel      
+OPAQUE               0x0080 abs      
+open                 0xffc0 abs      
+operand              0x0000 abs      
+option_selected      0x2d5c rel      
+or_value             0x0079 abs      
+ora_mask_a           0x19ee rel      
+ora_mask_b           0x19eb rel      
+ora_mask_c           0x19f2 rel      
+ora_pattern_mask     0x11f7 rel      
+ora_t                0x0063 abs      
+ora_table            0x6600 rel ext  
+orange               0x0008 abs      
+orient_left          0x0001 abs      
+orientation_byte     0x00e5 abs      
+original_size        0x0cb2 rel      
+out_counter          0x9a37 rel ext  
+p                    0x00fb abs      
+p_add_header         0x8ea4 rel      
+p_bad_packet         0x8dcc rel ext  
+p_calc_buffer_address 0x8e90 rel      
+p_calc_crc_and_copy  0x8eb3 rel      
+p_character_timer    0x8cb2 rel      
+p_end_of_message     0x8dd2 rel      
+p_get_byte           0x8d7d rel      
+p_get_next_buffer_number 0x8e78 rel      
+p_get_next_seq_number 0x8e69 rel      
+p_output_buffer      0x00bc abs      
+p_packet_length      0x8cb1 rel      
+p_packet_type        0x8cb3 rel      
+p_prepare_packet_for_send 0x8d04 rel      
+p_send_a_buffer      0x8d17 rel      
+p_send_numbered_packet 0x8ccb rel      
+p_send_packet_lock   0x9a2d rel ext  
+p_throw_away_input   0x90c7 rel      
+p_transmit_buffer    0x8d44 rel      
+p_unham              0x8f0f rel      
+p_wait_for_a_free_buffer 0x8e5e rel      
+pack_offset          0x8c2f rel      
+packet               0x00ba abs      
+packet_stream_seq_header 0x9d7a rel ext  
+page_line_counter    0x2b8b rel      
+page_line_delimiter  0x000a abs      
+paint                0x26cd rel ext  
+paint_1              0x26dd rel ext  
+paint_2              0x2745 rel ext  
+paint_cel            0x2853 rel      
+paint_limb           0x1f67 rel      
+paint_run            0x28cc rel      
+panel_0              0xe5cb abs      
+panel_1              0xe5e7 abs      
+panel_2              0xe606 abs      
+panel_3              0xe622 abs      
+panel_4              0xe670 abs      
+panel_5              0xe68a abs      
+panel_jmp            0xe5bc abs      
+panel_number         0xe567 abs      
+panel_table          0xe5bf abs      
+Paper_Menu           0x2ebe rel      
+Paper_Menu_List      0x2f0e rel      
+paper_window_size    0x0010 abs      
+paper_window_start   0x4540 abs      
+parameter_counter    0x2fa8 rel      
+PARKING_METER_state  0x000f abs      
+pass                 0x001d abs      
+pat                  0x0010 abs      
+pat_black            0x00aa abs      
+pat_line             0x0016 abs      
+pat_temp2            0x0017 abs      
+pat_wild             0x0055 abs      
+pattern              0x0012 abs      
+pattern_for_limb     0x20c4 rel      
+pattern_pointer      0x0012 abs      
+pattern_table        0x0061 abs      
+patterns             0x0065 abs      
+pen_cursor           0x0006 abs      
+pen_icon             0x4380 abs      
+pen_x_offset         0x0004 abs      
+pen_y_offset         0x0070 abs      
+pexit                0x1104 rel      
+pexit                0x2744 rel      
+phantom_request      0x005a abs      
+pick                 0x87a3 rel ext  
+pick_from_container  0x36ad rel ext  
+pick_pattern         0x2953 rel ext  
+pixel_hcount         0x0091 abs      
+pixel_height         0x0017 abs      
+pixel_width          0x0016 abs      
+play_music           0x3a76 rel ext  
+player_color         0x0964 rel ext  
+please_wait          0xea83 abs      
+plot                 0x11ca rel      
+plot_color           0x007c abs      
+pnt_tmp              0x007a abs      
+pointed_at           0x118d rel      
+pointed_at_cel_number 0x00e6 abs      
+pointed_at_limb      0x00e9 abs      
+pointed_class        0x0023 abs      
+pointed_latch        0x8848 rel      
+pointed_NOID         0x0020 abs      
+pointed_object       0x0021 abs      
+pointed_variables_offset 0x0025 abs      
+pointer              0x0000 abs      
+poly_high            0x0001 abs      
+poly_low             0x00a0 abs      
+pout                 0x2743 rel      
+precision            0x1220 rel ext  
+prepare_to_send_request 0x8a2d rel ext  
+press_return         0xe6ea abs      
+pretend_its_open     0x3542 rel      
+prevent_region_trans 0x0405 abs ext  
+previous_block       0x0012 abs      
+print_any_qlink_messages 0x8c0d rel ext  
+print_mode           0x2b8c rel      
+print_ptr            0x00ea abs      
+print_to_page        0x2ba8 rel      
+printf_parameters    0x0809 abs ext  
+printf_ready         0x37d3 rel      
+printf_start         0x378d rel      
+process_error        0x8669 rel ext  
+program_disk_number  0x08d5 rel ext  
+prop_address         0x0053 abs      
+prop_cel_index       0x001d abs      
+prop_cel_index       0x001e abs      
+prun                 0x28f0 rel      
+punt_if_not_adjacent 0x3965 rel ext  
+purge_contents       0x25f7 rel ext  
+purge_NOID           0x25f6 rel      
+purple               0x0004 abs      
+put_address          0x1c65 rel ext  
+put_cursor           0x0005 abs      
+put_delim_here       0x2b8a rel      
+put_fail             0x34d3 rel      
+put_icon             0x41c0 abs      
+put_request_byte     0x8ac0 rel      
+put_shadow           0x4340 abs      
+put_that_back        0x2f8c rel      
+putInto              0x34a0 rel ext  
+qlink_message_text   0xff40 rel ext  
+qlink_message_waiting 0x9dbc rel ext  
+qlink_msg_1          0x8c27 rel      
+qlink_msg_2          0x8c2b rel      
+Qlink_packet         0x8ca6 rel ext  
+quarter_bound        0x0029 abs      
+que_gesture          0x0995 rel ext  
+que_sound_effect     0x3cb1 rel ext  
+quip_on              0x8c71 rel ext  
+quip_position        0xd00e abs      
+quip_shadow          0x0006 abs      
+quip_shadow          0x4040 abs      
+quip_shadow_position 0xd00c abs      
+quip_sprite          0x0007 abs      
+quip_timeout         0x9d76 rel ext  
+quip_y               0x0072 abs      
+quit_color           0x2f8b rel ext  
+quit_flag            0x9a3c rel ext  
+quit_key             0x0091 abs      
+quit_to_talk         0x2f22 rel ext  
+r0                   0x0000 abs      
+r1                   0x0000 abs      
+r2                   0x0000 abs      
+r3                   0x0000 abs      
+ram_pointer          0x0010 abs      
+ramp_increment_hi    0xffdc rel ext  
+ramp_increment_lo    0xffe3 rel ext  
+random               0xe563 abs      
+random_access_page   0x2e33 rel      
+rb_y_save            0x1cd9 rel      
+read_bit             0x05ed abs      
+read_into_cache      0x82c8 rel ext  
+read_joystick        0x82ee rel ext  
+read_keyboard        0x8328 rel ext  
+read_keyboard_y_save 0x8556 rel      
+read_structure       0x9848 rel      
+read_TS              0x1d21 rel      
+ready_next_ramp      0x3d6d rel      
+really_too_full      0x3754 rel      
+RECEIVE_PAGE_COMMAND 0x0002 abs      
+record               0x0000 abs      
+recover_stuff        0x32c3 rel ext  
+red                  0x0002 abs      
+ref_bits             0x003f abs      
+region_change        0x3629 rel ext  
+region_class         0x0803 abs ext  
+region_contents_list 0x6900 abs      
+region_depth         0x0802 abs ext  
+region_is_ready      0x9d86 rel ext  
+region_max_capacity  0x0080 abs      
+region_special_case  0x2fb0 rel ext  
+region_trans_sound   0x8c63 rel ext  
+region_trans_sound_toggle 0x99f4 rel ext  
+region_trans_type    0x080d abs ext  
+regionproc_crash_timer 0x8ca2 rel ext  
+regionproc_crash_timer_value 0x0438 abs      
+remove_head_image    0x9906 rel      
+remove_resource_from_memory 0x979d rel ext  
+remove_stuff_from_memory 0x0dd0 rel ext  
+remove_unreffed_actions 0x0e3e rel ext  
+remove_unreffed_heads 0x0e29 rel ext  
+remove_unreffed_images 0x0e34 rel ext  
+remove_unreffed_resources 0x0e40 rel ext  
+remove_unreffed_resources_alt 0x0e45 rel      
+remove_unreffed_sounds 0x0e39 rel ext  
+render               0x0ea1 rel ext  
+render_region        0x88a2 rel ext  
+Reply_Text           0x2eae rel      
+reply_wait_bit       0x0080 abs      
+req_header           0x000b abs      
+request_buffer       0x00b0 abs      
+request_buffers      0x6800 abs      
+request_byte         0x9ddd rel ext  
+request_number       0x9a70 rel ext  
+request_OID          0x9a6f rel ext  
+requested_chore      0x0016 abs      
+resend_everything    0x906d rel      
+reset_to_icon        0x9a44 rel ext  
+resonance_and_flags  0x99f8 rel ext  
+resource_address     0x003c abs      
+resource_bits        0x99d4 rel ext  
+resource_count       0x9daf rel ext  
+resource_count_table 0x99a2 rel      
+resource_counter     0x9db7 rel ext  
+resource_file        0x9db2 rel ext  
+resource_files_hi    0x99cf rel      
+resource_files_lo    0x99ca rel      
+resource_number      0x9db5 rel ext  
+resource_offset      0x9db1 rel ext  
+resource_offset_table 0x99a7 rel      
+resource_table_hi    0x00f6 abs      
+resource_table_lo    0x00f8 abs      
+resource_table_ref   0x00fd abs      
+resource_tables_hi_hi 0x99b1 rel      
+resource_tables_hi_lo 0x99ac rel      
+resource_tables_lo_hi 0x99bb rel      
+resource_tables_lo_lo 0x99b6 rel      
+resource_tables_ref_hi 0x99c5 rel      
+resource_tables_ref_lo 0x99c0 rel      
+resource_type        0x9db0 rel ext  
+response             0x00b2 abs      
+response_buffer_number 0x9a71 rel ext  
+response_buffers     0x9a73 rel ext  
+response_data        0x00dd abs      
+response_free_space  0x0300 abs      
+response_length      0x9ddf rel ext  
+response_sequence_number 0x9dde rel ext  
+restore_stuff_after_alloc 0x9817 rel ext  
+result               0x0000 abs      
+result               0x001a abs      
+resume_communications 0x71ed rel ext  
+retry                0x000a abs      
+retry_sector         0x1d27 rel      
+retry_write          0x1c98 rel      
+return_bits          0x9da8 rel ext  
+return_key           0x0081 abs      
+rev_number           0x08d1 rel ext  
+rev_number_end       0x08d9 rel ext  
+reverse_pixels       0x6400 rel ext  
+rexit                0x28cb rel      
+RIBTM                0x8cb4 rel      
+right                0x0001 abs      
+right_char           0x0008 abs      
+right_down_char      0x0006 abs      
+right_facing         0x0000 abs      
+right_side_char      0x0005 abs      
+right_up_char        0x0004 abs      
+rowhi                0x29b0 rel ext  
+rowlo                0x29c0 rel ext  
+rs232_bit_count      0x00cd abs      
+rs232_command        0x00cb abs      
+rs232_control        0x00ca abs      
+rs232_enable         0x00d2 abs      
+rs232_exit           0x13f8 rel ext  
+rs232_half_time      0x00d9 abs      
+rs232_init_port      0x1430 rel ext  
+rs232_input          0x0500 abs ext  
+rs232_input_bit      0x00c1 abs      
+rs232_input_bit_count 0x00c2 abs      
+rs232_input_buffer   0x00d3 abs      
+rs232_input_byte     0x00c4 abs      
+rs232_input_parity   0x00c5 abs      
+rs232_NMI            0x1331 rel ext  
+rs232_open           0x7082 rel ext  
+rs232_output         0x0600 abs ext  
+rs232_output_bit     0x00c7 abs      
+rs232_output_bit_count 0x00c6 abs      
+rs232_output_buffer  0x00d5 abs      
+rs232_output_byte    0x00c8 abs      
+rs232_output_parity  0x00c9 abs      
+rs232_put            0x1400 rel ext  
+rs232_rcv_buffer_end 0x00ce abs      
+rs232_rcv_buffer_start 0x00cf abs      
+rs232_save_rcv_buffer_end 0x1330 rel      
+rs232_send_buffer_end 0x00d1 abs      
+rs232_send_buffer_start 0x00d0 abs      
+rs232_start_bit_flag 0x00c3 abs      
+rs232_status         0x00cc abs      
+rs232_store_bit      0x138f rel ext  
+rs232_timeout_counter 0x132f rel      
+rs232_timing         0x00d7 abs      
+rs232_transmitting   0x143d rel ext  
+RS232I               0x8d6d rel      
+RS232O               0x8ccb rel ext  
+rs_temp_ptr1         0x9842 rel      
+rs_temp_ptr2         0x9844 rel      
+rs_temp_ptr3         0x9846 rel      
+RSINBF               0x7f40 abs      
+run_0                0x04c8 abs      
+run_4                0x04c4 abs      
+run_job              0x04be abs      
+run_length           0x0013 abs      
+s0                   0x0000 abs      
+s1                   0x0000 abs      
+s2                   0x0000 abs      
+s_temp               0x0018 abs      
+salvage_subject_noid 0x2f1e rel      
+sample_counter       0x86f9 rel ext  
+sample_counter_expired 0x8700 rel ext  
+Sample_Duration      0x003c abs      
+sample_pointer       0x9a38 rel ext  
+Sample_Size          0x0002 abs      
+Sample_Size_Bits     0x0001 abs      
+sample_sum           0x86fc rel      
+save_a               0x00ad abs      
+save_accumulator     0x00f2 abs      
+save_block_offset    0x0cb9 rel      
+save_block_type      0x0cb8 rel ext  
+save_file            0x6a04 rel ext  
+save_from_where      0x08dc rel      
+save_lda             0x1703 rel      
+save_noid            0x9a08 rel ext  
+save_object_pointer  0x9a35 rel ext  
+save_previous_block  0x0b3f rel      
+save_real_container  0x241c rel      
+save_reg             0x0006 abs      
+save_sector          0x16e3 rel ext  
+save_size            0x0cb4 rel      
+save_sound           0x712f rel      
+save_status          0x00f3 abs      
+save_stuff           0x983d rel      
+save_stuff_before_alloc 0x97f8 rel ext  
+save_which_cels      0x1fdb rel      
+save_x               0x9dfa rel ext  
+save_y               0x9dfb rel ext  
+save_zpage           0x70f4 rel ext  
+saved_stack_position 0x9db8 rel ext  
+screen               0x3b02 rel ext  
+Screen_1             0x4000 abs      
+Screen_2             0x6000 abs      
+screen_address       0x005f abs      
+Screen_height        0x0080 abs      
+screen_index         0x0010 abs      
+screen_index_hold    0x0011 abs      
+screen_is_off        0x9dd9 rel ext  
+screen_pointer       0x0012 abs      
+Screen_width         0x0028 abs      
+screen_x             0x0059 abs      
+screen_x_limit       0x005b abs      
+screen_x_temp        0x0016 abs      
+screen_y             0x005a abs      
+screen_y_limit       0x005c abs      
+screen_y_temp        0x0017 abs      
+scroll_balloon       0x931d rel      
+scroll_text_window   0x9369 rel      
+search_for_best_block 0x0b43 rel ext  
+sector               0x0000 abs      
+sector_LRC           0x060b abs      
+seeked               0x0011 abs      
+select_denomination  0x3850 rel ext  
+select_value         0x080e abs ext  
+self_mod1            0x19d9 rel      
+send_ack             0x8fd0 rel      
+send_arguments       0x8a0b rel ext  
+send_bad_packet      0x90b8 rel ext  
+send_bit             0x05c8 abs      
+send_byte            0x05bb abs      
+send_command         0x1794 rel      
+send_continued_request 0x8acb rel      
+send_data            0x053f abs      
+send_disk_bits       0x1817 rel      
+send_flow_control    0x90e2 rel      
+send_heartbeat       0x90a8 rel      
+send_region_message  0x8c33 rel ext  
+send_request         0x8aca rel ext  
+send_request_byte    0x8a75 rel ext  
+send_SG              0x90d7 rel ext  
+send_SS              0x90db rel ext  
+send_SS_and_wait     0x3a86 rel ext  
+send_string          0x8a15 rel ext  
+separator_byte       0x0000 abs      
+seq_header           0x0009 abs      
+SEQOUT               0x8c95 rel ext  
+sequence_number      0x9dda rel ext  
+serious_disk_error   0x178e rel      
+set_actor_chore      0x359e rel ext  
+set_back             0x2b47 rel      
+set_bitmap_on_vector 0x8241 rel      
+set_chore            0x29e0 rel ext  
+set_cursor_state     0x1b47 rel ext  
+set_front            0x2b35 rel      
+set_hair             0xe473 abs      
+set_player_color     0x0933 rel ext  
+set_resource_bit     0x971b rel      
+set_switch           0x8c81 rel      
+set_trap_vals        0x220b rel      
+set_up_actor_pointers 0x3116 rel ext  
+set_up_pointed_pointers 0x3163 rel ext  
+set_voice_control    0x3f85 rel      
+setlfs               0xffba abs      
+setnam               0xffbd abs      
+setup_for_region_contents_vector 0x241d rel ext  
+setup_reply          0x2da7 rel      
+sexit                0x0f1c rel      
+sexit                0x2a23 rel      
+sexit                0x3bef rel      
+sfx_address_hi       0xffab rel ext  
+sfx_address_lo       0xffa4 rel ext  
+sfx_exit             0x3d09 rel      
+sfx_number           0xfff1 rel ext  
+sfx_sound            0x00db abs      
+sfx_voices_active    0x99fe rel ext  
+shadow_position      0xd008 abs      
+shadow_sprite        0x0004 abs      
+shadow_table         0x43c7 abs ext  
+shape_pattern        0x004a abs      
+shexit               0xe514 abs      
+shift_0              0x0080 abs      
+shift_asterisk       0x0083 abs      
+shift_at             0x0084 abs      
+shift_british_pound  0x008f abs      
+shift_equal          0x0085 abs      
+shift_left           0x0084 abs      
+shift_minus          0x0082 abs      
+shift_plus           0x0081 abs      
+shift_right          0x0083 abs      
+short_async_frames   0x0005 abs      
+show_off             0xe4dd abs      
+SID                  0xd400 abs      
+SID_attack_decay     0xd405 abs      
+SID_filter_freq      0xd415 abs      
+SID_freq             0xd400 abs      
+SID_resonance        0xd417 abs      
+SID_sustain_release  0xd406 abs      
+SID_voice_control    0xd404 abs      
+SID_volume_and_filter 0xd418 abs      
+sign_char_cursor_down 0x008a abs      
+sign_char_cursor_left 0x0088 abs      
+sign_char_cursor_up  0x0089 abs      
+sign_char_dec_height 0x0084 abs      
+sign_char_dec_width  0x0082 abs      
+sign_char_double_space 0x008f abs      
+sign_char_half_char_down 0x008b abs      
+sign_char_half_size  0x0085 abs      
+sign_char_half_space 0x0080 abs      
+sign_char_inc_height 0x0083 abs      
+sign_char_inc_width  0x0081 abs      
+sign_char_inverse_video 0x008c abs      
+sign_char_return_key 0x0086 abs      
+size_offset          0x0000 abs      
+skip_clear_sheet     0x2df2 rel      
+skip_facing          0x31ec rel      
+skip_fillbuff        0x1c2b rel      
+skip_key_read        0x08c8 rel      
+skip_loading_resources 0x2571 rel ext  
+skip_normal_load     0x977b rel      
+skip_trigger_check   0x1abd rel ext  
+skip_write           0x721f abs      
+skip_x_check         0x912d rel      
+slave_error          0x0457 abs      
+slave_init           0x0598 abs      
+slave_load_sector    0x0526 abs      
+slave_save_sector    0x04f9 abs      
+sleeve_add           0xe4ca abs      
+small_block_move     0x8292 rel ext  
+SND_UNUM             0x8ff5 rel      
+SNDNAK               0x8fd6 rel      
+SNDSSR               0x8fa3 rel      
+soft_disk_error      0x1d73 rel      
+soft_error_count     0x1d72 rel      
+sort_delete_blocks   0x0a74 rel ext  
+sort_end             0x0b30 rel      
+sort_exit            0x0f18 rel      
+sort_y               0x0700 abs ext  
+sorting_block        0x0012 abs      
+sound                0x9ded rel ext  
+sound_effect_number  0x3ca9 rel      
+sound_file           0x0600 abs      
+sound_started        0x9dac rel ext  
+sound_table_hi       0xa000 rel ext  
+sound_table_lo       0xa100 rel ext  
+sound_table_ref      0xa700 rel ext  
+sound_timer          0x9dab rel ext  
+source               0x00a7 abs      
+source_addr          0x00fe abs      
+space_at             0x9102 rel      
+space_key            0x0020 abs      
+space_selfmod        0x8bb0 rel      
+space_workvar        0x8b6b rel      
+special_command      0x0008 abs      
+special_hold         0x0019 abs      
+special_limitations  0x0965 rel ext  
+special_limitations2 0x096a rel ext  
+special_mode         0x0001 abs      
+spend                0x398c rel ext  
+sprite               0x4000 abs ext  
+sprite_colors        0xd027 abs      
+sprite_enable        0xd015 abs      
+sprite_pointers      0x47f8 abs      
+sprite_position      0xd000 abs      
+sprite_priority      0xd01b abs      
+sprite_x_msb         0xd010 abs      
+sprites_at           0x4000 abs      
+sprites_enabled      0x80a0 rel ext  
+sprites_off          0x8c7d rel ext  
+sprites_on           0x8c77 rel ext  
+squeeze_memory       0x0bf7 rel ext  
+Squiggle             0x007b abs      
+src                  0x0000 abs      
+src0                 0x0000 abs      
+src1                 0x0000 abs      
+SS                   0x0021 abs      
+SSR                  0x0022 abs      
+stack_before_execution 0x9a2e rel ext  
+stand_alone          0x2412 rel ext  
+standard_interrupt_exit 0x8148 rel ext  
+start_address        0x0018 abs      
+start_animation      0x25d3 rel ext  
+start_cursor_flashing 0x1b7a rel ext  
+start_dest           0x0400 abs      
+start_of_program     0x0816 rel      
+start_of_request_bit 0x0020 abs      
+start_pos            0x9101 rel      
+start_repeat_value   0x003c abs      
+start_sound_effect   0x3d0e rel      
+start_source         0x6bcc rel      
+start_tracksector    0x9df4 rel ext  
+start_variables      0x99f1 rel ext  
+start_walk           0x3b04 rel ext  
+start_zpage          0x0010 abs      
+state_mask           0x003f abs      
+state_to_command     0x1b9d rel      
+state_variables_offset 0x00e3 abs      
+static_end_of_heap   0xaa00 rel ext  
+STEREO_tape          0x000f abs      
+stick_is_down        0x9a6e rel ext  
+stick_is_left        0x9a6b rel ext  
+stick_is_right       0x9a6c rel ext  
+stick_is_up          0x9a6d rel ext  
+sticky_time          0x1a18 rel      
+sticky_time_limit    0x0078 abs      
+stop_cursor          0x0003 abs      
+stop_icon            0x40c0 abs      
+stop_shadow          0x4240 abs      
+structure_number     0x999f rel      
+structure_ptr        0x009e abs      
+structure_type       0x99a0 rel      
+style                0x999c rel      
+subject_class        0x002f abs      
+subject_NOID         0x002c abs      
+subject_object       0x002d abs      
+subject_variables_offset 0x0031 abs      
+SUCCESS_VALUE        0x0001 abs      
+super_buffer_full    0x8843 rel      
+sustain_release      0x9a02 rel ext  
+swap_disk            0x72e5 abs ext  
+swap_pat             0x006d abs      
+swap_please          0x7441 abs      
+switch_pages         0x3a9b rel ext  
+switcher             0x00a4 abs      
+SYNC                 0x005a abs      
+SYNCD_UP             0x8c9a rel      
+talk                 0x346f rel ext  
+talker_color_table   0x9d7f rel ext  
+target_routine       0x00f0 abs      
+tb_bord              0x0010 abs      
+tbl_ptr1             0x0092 abs      
+tbl_ptr2             0x0094 abs      
+TELEPORT_state       0x000f abs      
+temp2                0x00a0 abs      
+temp3                0x00a2 abs      
+temp_address         0x0090 abs      
+temp_cel_dx          0x2415 rel      
+temp_cursor_x        0x11c6 rel ext  
+temp_cursor_y        0x11c7 rel ext  
+temp_gr_state        0x5ff4 rel ext  
+temp_line            0x0f07 abs      
+temp_new             0x1daa rel      
+temp_object          0x5ff5 rel      
+temp_or              0x0018 abs      
+temp_ptr1            0x009a abs      
+temp_scrn_addr       0x0018 abs      
+temp_var_1           0x0010 abs      
+temp_var_2           0x0012 abs      
+temp_var_3           0x0014 abs      
+temp_var_4           0x0016 abs      
+temp_var_5           0x0018 abs      
+temp_var_6           0x001a abs      
+temp_var_7           0x001c abs      
+temp_var_8           0x001e abs      
+temp_word            0x9a33 rel ext  
+temp_y               0x3cb0 rel      
+tempoff              0x1dab rel      
+tens                 0x1226 rel      
+tens_pointers        0x124e rel      
+terminate_voice      0x3f9c rel      
+terrain_type         0x0800 abs ext  
+test_habitat_disk    0x73f4 abs      
+test_if_face         0x1f2b rel      
+test_pointed_at      0x11c8 rel ext  
+texit                0x1874 rel      
+text                 0x1554 rel ext  
+text_addr            0x03e8 abs      
+text_adr             0x0088 abs      
+text_char            0xe560 abs      
+text_cursor          0x9a07 rel ext  
+TEXT_ERASE_BIT       0x0040 abs      
+TEXT_EXITED_BIT      0x0010 abs      
+text_handler         0x2c3a rel ext  
+text_hi              0x19f5 rel      
+text_left_hand_bound 0x9a0a rel ext  
+text_line            0x6980 abs      
+text_line_length     0x00af abs      
+text_line_prestart   0x9a45 rel ext  
+text_lo              0x1a05 rel      
+TEXT_MAIL_BIT        0x0020 abs      
+text_mode_command    0x9da7 rel ext  
+TEXT_MULTIPAGE_MODE  0x0008 abs      
+text_pointer         0x0014 abs      
+Text_RAM_1           0x4400 abs      
+TEXT_REPLY_BIT       0x0080 abs      
+text_screen_address  0x4400 abs      
+text_window          0x4428 abs      
+text_window_size     0x0007 abs      
+text_window_width    0x0028 abs      
+TEXT_WRITEABLE_MODE  0x0004 abs      
+TEXT_WRITTEN_BIT     0x0004 abs      
+textline_printf      0x3770 rel ext  
+thank_you            0x7435 abs      
+throttle_count       0x9a3a rel ext  
+throttle_duration    0x86fe rel ext  
+throttle_running     0x9a39 rel ext  
+throttle_selfmod     0x8769 rel ext  
+throttle_selfmod2    0x8775 rel ext  
+throttle_table       0x1baa rel ext  
+throttle_table_lo    0x1bb1 rel ext  
+throw                0x2b87 rel ext  
+throw_it_away        0x2b87 rel ext  
+timer_a              0xdd04 abs      
+timer_b              0xdd06 abs      
+times_40             0x93b0 rel ext  
+times_40_hi          0x93c1 rel ext  
+title_music_end      0x7784 abs ext  
+title_music_start    0x7481 abs ext  
+title_music_v0       0x7481 abs ext  
+title_music_v0_pw    0x758a abs ext  
+title_music_v1       0x759b abs ext  
+title_music_v1_pw    0x7698 abs ext  
+title_music_v2       0x76b0 abs ext  
+title_music_v2_pw    0x7773 abs ext  
+TMPPNT               0x00b4 abs      
+TMPPNT_2             0x00b6 abs      
+toggle_walking_music 0x3a8f rel ext  
+TOKENS_denomination  0x000f abs      
+TOP_armPattern       0x0010 abs      
+top_clip             0x007a abs      
+top_clip_hold        0x007b abs      
+top_interrupt_delay  0x8101 rel ext  
+top_of_heap          0xeb40 abs      
+TOP_torsoPattern     0x000f abs      
+torso_add            0xe4aa abs      
+track                0x0000 abs      
+track_map            0x1cfd rel      
+tracksector          0x9dc8 rel ext  
+trail                0x1998 rel      
+translate            0x22b3 rel      
+TRANSMIT_PAGE_COMMAND 0x0003 abs      
+trap                 0x8570 rel ext  
+trap_border          0x0019 abs      
+TRAP_parameters      0x0010 abs      
+TRAP_pattern_stuff   0x0017 abs      
+TRAP_pattern_x_size  0x0015 abs      
+TRAP_pattern_y_size  0x0016 abs      
+TRAP_type            0x000f abs      
+trigger_is_pressed   0x9a68 rel ext  
+trigger_pulse        0x9a69 rel ext  
+TRUE                 0x0001 abs      
+try_other_side       0x3bfc rel      
+try_side             0x001c abs      
+tryagain             0x1bdb rel      
+ts_x_save            0x1da8 rel      
+ts_y_save            0x1da7 rel      
+turn_screen_off      0x81f1 rel      
+turn_to_side         0x2a0f rel      
+type_action          0x0003 abs      
+type_class           0x0001 abs      
+type_image           0x0002 abs      
+type_object          0x0000 abs      
+type_of_walk         0x332c rel      
+type_sound           0x0004 abs      
+Uncreate_object      0x944c rel ext  
+unload_action        0x962d rel ext  
+unload_and_fix_stack 0x0df8 rel ext  
+unload_class_number  0x0e28 rel      
+unload_image         0x963a rel ext  
+unload_resources     0x9616 rel ext  
+unload_sound         0x9632 rel ext  
+unpack_and_cleanup   0x2453 rel ext  
+unpack_contents_vector 0x2464 rel ext  
+unpack_objects       0x2497 rel ext  
+unpack_region        0x242b rel ext  
+unpack_resource_type 0x963f rel ext  
+unpack_some_more     0x2472 rel      
+unreference_resource 0x97cd rel ext  
+Unreff_resources     0x9492 rel ext  
+UNUMB                0x9a23 rel ext  
+update_buffer_pointer 0x0010 abs      
+update_cursor        0x10b2 rel ext  
+update_locations     0x6b89 rel      
+update_ramps         0x3d7f rel      
+update_ramps_exit    0x3dbb rel      
+used_wait_bits       0x00e0 abs      
+user_requested_dump  0x0000 abs      
+v                    0x0000 abs      
+v_count              0x008a abs      
+val                  0x0000 abs      
+VALUE                0x00c0 abs      
+var0                 0x0003 abs      
+var1                 0x0003 abs      
+var2                 0x0003 abs      
+var3                 0x0003 abs      
+vblank_get_key       0x0f73 rel ext  
+vblank_keys          0x8348 rel ext  
+vblank_keys_changed  0x8424 rel      
+vblank_keys_changed_nr 0x848e rel      
+vblank_keys_debounce 0x8383 rel      
+vblank_keys_exit     0x83f8 rel      
+vblank_keys_exit_jmp 0x83aa rel      
+vblank_keys_insert   0x840c rel      
+vblank_keys_repeat   0x8402 rel      
+vblank_timer         0x9db9 rel ext  
+vcount               0x007d abs      
+vectors              0x8000 rel      
+VENDO_FRONT_contents 0x000f abs      
+VENDO_FRONT_displaySlot 0x001d abs      
+VENDO_FRONT_junk     0x0019 abs      
+VENDO_FRONT_price    0x001c abs      
+VENDO_INSIDE_junk    0x0011 abs      
+VENDO_INSIDE_productOnDisplay 0x0010 abs      
+VENDO_INSIDE_vendoFront 0x000f abs      
+version_number       0x08d7 rel ext  
+vert_and_mask        0x00e8 abs      
+vert_pat             0x1553 rel      
+vert_run_index       0x0015 abs      
+vic_bank_bits        0x0002 abs      
+vic_bank_start       0x4000 abs      
+VIC_control          0xd011 abs      
+VIC_control_2        0xd016 abs      
+VIC_memory_control   0xd018 abs      
+voice                0x99f9 rel ext  
+voice_bit            0x3fca rel ext  
+voice_bit_mask       0x3fd1 rel      
+voice_command        0xffb2 rel ext  
+voice_control        0xffb9 rel ext  
+voice_flag           0x99fd rel ext  
+voice_offset         0x3fc3 rel      
+volume_and_filter    0x99f7 rel ext  
+w                    0x0000 abs      
+wait                 0x71dd rel ext  
+wait_around          0x2d27 rel      
+wait_for_command     0x0403 abs      
+wait_for_region      0x8852 rel ext  
+wait_for_something   0x3278 rel ext  
+wait_for_text_string 0x38b5 rel ext  
+wait_ready           0x17ae rel      
+waitfor_counter      0x2fab rel      
+waitfor_noid         0x0039 abs      
+waitfor_object       0x003a abs      
+walk_around          0xe565 abs      
+walk_end_chore       0x0003 abs      
+walk_how             0x0402 abs ext  
+walk_to_cursor       0x3b2c rel ext  
+walk_tree            0x0a7c rel      
+walk_type            0x0019 abs      
+was_contained_by     0x350b rel      
+was_container_y      0x350c rel      
+wexit                0x3b7e rel      
+Where_best_points    0x0a72 rel      
+where_music_goes     0x0000 abs      
+where_music_goes_1   0x0000 abs      
+where_music_goes_2   0x0000 abs      
+where_music_goes_3   0x0000 abs      
+where_on_page        0x0012 abs      
+where_this_points    0x0a70 rel      
+which_bit            0x16d5 rel      
+which_limb           0x20e6 rel ext  
+white                0x0001 abs      
+Who_am_I             0x0804 abs ext  
+Who_is_best          0x0016 abs      
+Who_points_to_best   0x0018 abs      
+who_points_to_this   0x0a6e rel      
+WINACK               0x8fab rel      
+WINADJ               0x8fcb rel      
+WINDUP_TOY_windLevel 0x000f abs      
+WINEXT               0x8fd5 rel      
+WINNO                0x8f9f rel      
+WINYES               0x8fa1 rel      
+word_wrap_flag       0x90ff rel      
+write_enabled        0x9da9 rel ext  
+write_to_page        0x2b8d rel ext  
+write_to_paper_mode  0x9dd5 rel ext  
+wtp_exit             0x2b90 rel      
+x1a                  0x004b abs      
+x1a_and_3            0x0077 abs      
+x1a_div_4            0x0087 abs      
+x1a_lo               0x0085 abs      
+x1a_save             0x0016 abs      
+x1a_temp             0x0011 abs      
+x1b                  0x004c abs      
+x1b_and_3            0x0078 abs      
+x1b_lo               0x0086 abs      
+x2a                  0x004d abs      
+x2b                  0x004e abs      
+x_change             0x3bb8 rel      
+x_index              0x0076 abs      
+x_temp               0x008c abs      
+xpos                 0x9d77 rel ext  
+xtra                 0x0010 abs      
+y1                   0x004f abs      
+y1_save              0x0010 abs      
+y1_save              0x0014 abs      
+y1a_lo               0x0083 abs      
+y1b_lo               0x0084 abs      
+y2                   0x0050 abs      
+y_holder             0x0014 abs      
+y_offset             0x241b rel      
+y_temp               0x008d abs      
+yellow               0x0007 abs      
+YINDEX               0x8ca1 rel      
+zap_duration         0x3dbf rel      
+zero_bias            0x0030 abs      
+ZONE_ClassGroup      0x0021 abs      
+ZONE_east            0x001b abs      
+ZONE_horizon         0x0020 abs      
+ZONE_light_level     0x001f abs      
+ZONE_name            0x000f abs      
+ZONE_north           0x001a abs      
+ZONE_orientation     0x001d abs      
+ZONE_south           0x001c abs      
+ZONE_style           0x001e abs      
+ZONE_west            0x0019 abs      
+zoom                 0x7140 rel      

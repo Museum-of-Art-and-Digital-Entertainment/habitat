@@ -1,0 +1,4 @@
+declare 1 expr_struct based,
+     2 eval_func     entry(bin(31), bin(31)) returns(pointer) variable,
+     2 arg1          binary(31),
+     2 arg2          binary(31);

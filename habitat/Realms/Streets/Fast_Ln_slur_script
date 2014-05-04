@@ -1,0 +1,159 @@
+echo Fast_Ln_s_end
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_s_end.reg \
+     -o rdldir/Fast_Ln_s_end.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_s_end \
+     -n Fast_Ln_124_front
+echo Fast_Ln_124_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_124_front.reg \
+     -o rdldir/Fast_Ln_124_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_124_front \
+     -w Fast_Ln_124_interior \
+     -n Fast_Ln_224_front \
+     -s Fast_Ln_s_end
+echo Fast_Ln_124_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_124_interior.reg \
+     -o rdldir/Fast_Ln_124_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_124_interior \
+     -e Fast_Ln_124_front
+echo Fast_Ln_224_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_224_front.reg \
+     -o rdldir/Fast_Ln_224_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_224_front \
+     -w Fast_Ln_224_interior \
+     -n Fast_Ln_324_front \
+     -s Fast_Ln_124_front
+echo Fast_Ln_224_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_224_interior.reg \
+     -o rdldir/Fast_Ln_224_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_224_interior \
+     -e Fast_Ln_224_front
+echo Fast_Ln_324_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_324_front.reg \
+     -o rdldir/Fast_Ln_324_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_324_front \
+     -w Fast_Ln_324_interior \
+     -n Fast_Ln_424_front \
+     -s Fast_Ln_224_front
+echo Fast_Ln_324_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_324_interior.reg \
+     -o rdldir/Fast_Ln_324_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_324_interior \
+     -e Fast_Ln_324_front
+echo Fast_Ln_424_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_424_front.reg \
+     -o rdldir/Fast_Ln_424_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_424_front \
+     -w Fast_Ln_424_interior \
+     -n Fast_Ln_524_front \
+     -s Fast_Ln_324_front
+echo Fast_Ln_424_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_424_interior.reg \
+     -o rdldir/Fast_Ln_424_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_424_interior \
+     -e Fast_Ln_424_front
+echo Fast_Ln_524_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_524_front.reg \
+     -o rdldir/Fast_Ln_524_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_524_front \
+     -w Fast_Ln_524_interior \
+     -n Fast_Ln_cross \
+     -s Fast_Ln_424_front
+echo Fast_Ln_524_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_524_interior.reg \
+     -o rdldir/Fast_Ln_524_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_524_interior \
+     -e Fast_Ln_524_front
+echo Fast_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_cross.reg \
+     -o rdldir/Fast_Ln_cross.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_cross \
+     -n Fast_Ln_624_front \
+     -s Fast_Ln_524_front
+echo Fast_Ln_624_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_624_front.reg \
+     -o rdldir/Fast_Ln_624_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_624_front \
+     -w Fast_Ln_624_interior \
+     -n Fast_Ln_724_front \
+     -s Fast_Ln_cross
+echo Fast_Ln_624_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_624_interior.reg \
+     -o rdldir/Fast_Ln_624_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_624_interior \
+     -e Fast_Ln_624_front
+echo Fast_Ln_724_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_724_front.reg \
+     -o rdldir/Fast_Ln_724_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_724_front \
+     -w Fast_Ln_724_interior \
+     -n Fast_Ln_824_front \
+     -s Fast_Ln_624_front
+echo Fast_Ln_724_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_724_interior.reg \
+     -o rdldir/Fast_Ln_724_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_724_interior \
+     -e Fast_Ln_724_front
+echo Fast_Ln_824_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_824_front.reg \
+     -o rdldir/Fast_Ln_824_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_824_front \
+     -w Fast_Ln_824_interior \
+     -n Fast_Ln_924_front \
+     -s Fast_Ln_724_front
+echo Fast_Ln_824_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_824_interior.reg \
+     -o rdldir/Fast_Ln_824_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_824_interior \
+     -e Fast_Ln_824_front
+echo Fast_Ln_924_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_924_front.reg \
+     -o rdldir/Fast_Ln_924_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_924_front \
+     -w Fast_Ln_924_interior \
+     -n Fast_Ln_1024_front \
+     -s Fast_Ln_824_front
+echo Fast_Ln_924_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_924_interior.reg \
+     -o rdldir/Fast_Ln_924_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_924_interior \
+     -e Fast_Ln_924_front
+echo Fast_Ln_1024_front
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_1024_front.reg \
+     -o rdldir/Fast_Ln_1024_front.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_1024_front \
+     -w Fast_Ln_1024_interior \
+     -n Fast_Ln_n_end \
+     -s Fast_Ln_924_front
+echo Fast_Ln_1024_interior
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_1024_interior.reg \
+     -o rdldir/Fast_Ln_1024_interior.rdl \
+     -d FACE_EAST \
+     -r Fast_Ln_1024_interior \
+     -e Fast_Ln_1024_front
+echo Fast_Ln_n_end
+/u0/chip/microcosm/slur/slur regdir/Fast_Ln_n_end.reg \
+     -o rdldir/Fast_Ln_n_end.rdl \
+     -d FACE_WEST \
+     -r Fast_Ln_n_end \
+     -s Fast_Ln_1024_front

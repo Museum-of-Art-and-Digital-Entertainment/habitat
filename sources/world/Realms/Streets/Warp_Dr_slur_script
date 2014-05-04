@@ -1,0 +1,159 @@
+echo Warp_Dr_s_end
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_s_end.reg \
+     -o rdldir/Warp_Dr_s_end.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_s_end \
+     -n Warp_Dr_123_front
+echo Warp_Dr_123_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_123_front.reg \
+     -o rdldir/Warp_Dr_123_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_123_front \
+     -w Warp_Dr_123_interior \
+     -n Warp_Dr_223_front \
+     -s Warp_Dr_s_end
+echo Warp_Dr_123_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_123_interior.reg \
+     -o rdldir/Warp_Dr_123_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_123_interior \
+     -e Warp_Dr_123_front
+echo Warp_Dr_223_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_223_front.reg \
+     -o rdldir/Warp_Dr_223_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_223_front \
+     -w Warp_Dr_223_interior \
+     -n Warp_Dr_323_front \
+     -s Warp_Dr_123_front
+echo Warp_Dr_223_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_223_interior.reg \
+     -o rdldir/Warp_Dr_223_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_223_interior \
+     -e Warp_Dr_223_front
+echo Warp_Dr_323_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_323_front.reg \
+     -o rdldir/Warp_Dr_323_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_323_front \
+     -w Warp_Dr_323_interior \
+     -n Warp_Dr_423_front \
+     -s Warp_Dr_223_front
+echo Warp_Dr_323_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_323_interior.reg \
+     -o rdldir/Warp_Dr_323_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_323_interior \
+     -e Warp_Dr_323_front
+echo Warp_Dr_423_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_423_front.reg \
+     -o rdldir/Warp_Dr_423_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_423_front \
+     -w Warp_Dr_423_interior \
+     -n Warp_Dr_523_front \
+     -s Warp_Dr_323_front
+echo Warp_Dr_423_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_423_interior.reg \
+     -o rdldir/Warp_Dr_423_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_423_interior \
+     -e Warp_Dr_423_front
+echo Warp_Dr_523_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_523_front.reg \
+     -o rdldir/Warp_Dr_523_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_523_front \
+     -w Warp_Dr_523_interior \
+     -n Warp_Dr_cross \
+     -s Warp_Dr_423_front
+echo Warp_Dr_523_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_523_interior.reg \
+     -o rdldir/Warp_Dr_523_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_523_interior \
+     -e Warp_Dr_523_front
+echo Warp_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_cross.reg \
+     -o rdldir/Warp_Dr_cross.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_cross \
+     -n Warp_Dr_623_front \
+     -s Warp_Dr_523_front
+echo Warp_Dr_623_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_623_front.reg \
+     -o rdldir/Warp_Dr_623_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_623_front \
+     -w Warp_Dr_623_interior \
+     -n Warp_Dr_723_front \
+     -s Warp_Dr_cross
+echo Warp_Dr_623_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_623_interior.reg \
+     -o rdldir/Warp_Dr_623_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_623_interior \
+     -e Warp_Dr_623_front
+echo Warp_Dr_723_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_723_front.reg \
+     -o rdldir/Warp_Dr_723_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_723_front \
+     -w Warp_Dr_723_interior \
+     -n Warp_Dr_823_front \
+     -s Warp_Dr_623_front
+echo Warp_Dr_723_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_723_interior.reg \
+     -o rdldir/Warp_Dr_723_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_723_interior \
+     -e Warp_Dr_723_front
+echo Warp_Dr_823_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_823_front.reg \
+     -o rdldir/Warp_Dr_823_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_823_front \
+     -w Warp_Dr_823_interior \
+     -n Warp_Dr_923_front \
+     -s Warp_Dr_723_front
+echo Warp_Dr_823_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_823_interior.reg \
+     -o rdldir/Warp_Dr_823_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_823_interior \
+     -e Warp_Dr_823_front
+echo Warp_Dr_923_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_923_front.reg \
+     -o rdldir/Warp_Dr_923_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_923_front \
+     -w Warp_Dr_923_interior \
+     -n Warp_Dr_1023_front \
+     -s Warp_Dr_823_front
+echo Warp_Dr_923_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_923_interior.reg \
+     -o rdldir/Warp_Dr_923_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_923_interior \
+     -e Warp_Dr_923_front
+echo Warp_Dr_1023_front
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_1023_front.reg \
+     -o rdldir/Warp_Dr_1023_front.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_1023_front \
+     -w Warp_Dr_1023_interior \
+     -n Warp_Dr_n_end \
+     -s Warp_Dr_923_front
+echo Warp_Dr_1023_interior
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_1023_interior.reg \
+     -o rdldir/Warp_Dr_1023_interior.rdl \
+     -d FACE_EAST \
+     -r Warp_Dr_1023_interior \
+     -e Warp_Dr_1023_front
+echo Warp_Dr_n_end
+/u0/chip/microcosm/slur/slur regdir/Warp_Dr_n_end.reg \
+     -o rdldir/Warp_Dr_n_end.rdl \
+     -d FACE_WEST \
+     -r Warp_Dr_n_end \
+     -s Warp_Dr_1023_front

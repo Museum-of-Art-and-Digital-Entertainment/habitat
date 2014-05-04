@@ -1,0 +1,89 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "You are in Jail!    "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 6
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 40
+  y: 77
+  style: 3
+  gr_state: 0
+  orient: 120
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use bed {
+  container: r -1001
+  x: 80
+  y: 28
+  style: 0
+  gr_state: 0
+  orient: 113
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use bed {
+  container: r -1001
+  x: 80
+  y: 69
+  style: 0
+  gr_state: 0
+  orient: 113
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}

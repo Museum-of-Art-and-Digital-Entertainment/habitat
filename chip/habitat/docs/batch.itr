@@ -1,0 +1,142 @@
+.AM
+.ds Dq March 19, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Batch Processes\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH BATCH STUFF
+.ds CH \\*(Dq
+.ds RH Habitat Document # 41
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes various batch programs that we will to run regularly
+in order to maintain the Habitat world.  As with several other Habitat
+definition documents, this is not intended to be the final word on its
+subject.  Each of the processes here should be run periodically, during
+off-hours, with the frequency depending on what is being done.  (We are
+curious what is done on the weekends with processes that want to run daily,
+since there are no weekend off-hours.)
+.IP "\ \ \ \(bu\ "
+\fIHall Of Records\fR \(em sifts through the region, avatar and records
+databases and produces updated text for the Book of Records document.  Run
+daily.
+.IP "\ \ \ \(bu\ "
+\fIGarbage Collection\fR \(em cleans up debris left scattered about the world
+by the activities of the players.  Run daily.
+.IP "\ \ \ \(bu\ "
+\fIStock Market\fR \(em adjusts the buying and selling prices of stocks and
+other securities in the Habitat Stock Market game.  Run daily.
+.IP "\ \ \ \(bu\ "
+\fIRent Collection\fR \(em collects rents for commercial property from the
+renting Avatars' bank accounts.  Run weekly.
+.IP "\ \ \ \(bu\ "
+\fIInternal Stats Summary\fR \(em collects various pieces of information about
+the world and produces a summary printout.  It is a management tool for the
+maintainence of the world.  Run daily.
+.IP "\ \ \ \(bu\ "
+\fICat Mover\fR \(em moves the various house cats around.  It is a minor bit
+of silliness to liven up the world.  Run daily.
+.SH
+\s+3Hall Of Records\s-3
+.PP
+The Hall of Records process must assemble the text for the most up to date
+edition of the Book of Records.  This text is associated with the plaques in
+the Hall of Records as well as with any copies of the Book of Records that may
+be in the hands of individual Avatars.  The records themselves are described
+in more detail in the document \fIHall of Records\fR (Habitat document #32).
+The Book of Records is assembled from information in the records and avatar
+databases.
+.PP
+The Book of Records consists of one page per record category, plus a table of
+contents and an introduction page.  Each record page consists of a paragraph
+describing the record category and then the record information itself.  For
+some categories we post the name of an individual record holder, while with
+others we give a list of the top N record holders.  The format of each page is
+fixed.  All that is updated by the Hall of Records process is the names and
+scores of the various record holders.  The specific text for each page and the
+formula for computing the record holders will be provided in a separate
+document (a revision of document #32).
+.SH
+\s+3Garbage Collection\s-3
+.PP
+This process is described in the document \fIGarbage Collection for Habitat\fR
+(Habitat document #39).  Please refer to that document for the gory details.
+.SH
+\s+3Stock Market\s-3
+.PP
+This process manages the market fluctuations for the Habitat Stock Market
+game.  The game works as follows:  We have created a special style of book
+object that looks like a stock certificate.  These objects will represent the
+securities themselves (and will contain text describing which fictitious
+company they represent shares in and how many shares they represent).  In
+downtown Populopolis there is a Stock Exchange, which is a series of regions
+containing vending machines and pawn machines.  These machines provide for
+buying and selling, respectively.  At any given time, the vendos will sell a
+given security for a particular price and the pawn machines will buy it back
+for that price minus a certain percentage representing the ``broker's
+commission''.  However, these prices will fluctuate with time.  In order to
+``play the market'', players must make guesses as to the chances that a given
+security's price will go up or down, and bet accordingly.
+.PP
+Initially, the Stock Market game will be a purely statistical gambling game
+\(em the prices fluctuations of the various securities will be random.  As we
+have the time and player interest, we can start introducting non-random
+elements, such as tying the values of stocks to particular events in the
+habitat world, and allowing players to incorporate their own companies and
+sell their stock on the Exchange.  To begin with, however, it's going to be
+rolling dice all the way.
+.PP
+The way it will work is as follows: the host will keep a table with an entry
+for each stock.  This table associates with each stock a probability that it
+will go up or down and probabilities that will determine the amount of change
+in each direction.  The table also contains the current price of the stock and
+tells which entries in which vendos and pawn machines should be updated when
+the price changes.  The probabilities should be adjusted from time to time to
+prevent the simulated market from becoming too predictable.  For each entry in
+the stock table, the Stock Market process should generate a new value for the
+stock on the basis of the probability entries, updating the appropriate vendos
+and pawn machines to match.
+.SH
+\s+3Rent Collection\s-3
+.PP
+Certain regions in the downtown areas will be set aside as player-operated
+businesses.  These regions are ``rented'' to the players on a week-to-week
+basis.  The host will keep a table of information about each of these, telling
+the region number, tenant Avatar and rent.  Once a week, the amount of the
+rent is deducted from the Avatar's bank account.  If there is not enough
+money, the Avatar is evicted.  Eviction simply consists of returning the
+region to the list of regions available for rental \(em we can worry about
+removing the contents later.
+.SH
+\s+3Internal Stats Summary\s-3
+.PP
+The Internal Stats Summary is a maintainence tool for the system operators.
+It is similar to the Hall of Records process, except that it gathers
+additional information and generates a summary file rather than a Habitat text
+database entry.  The specifics will be described together with the Hall of
+Records in a forthcoming document.
+.SH
+\s+3Cat Mover\s-3
+.PP
+The Cat Mover is a little bit of silliness.  Priority for implementation can
+be relatively low.  The idea is that we move all the house cats around on a
+regular basis.  For each cat in the object database, we compute a new position
+based on some random numbers.  Typically there will be a small number of
+places in any given turf where a cat can go (i.e., on a couch, in a chair, in
+the chest of drawers, certain positions on the floor).  One of these is
+selected at random with an equal probability for each.  In addition, each time
+a cat is moved there is a small chance that it will seek a new owner.  If this
+happens, we pick a turf at random from the entire set of turves in the world,
+subject only to the condition that there is not already a cat there.

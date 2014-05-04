@@ -1,0 +1,2962 @@
+.de Ob
+.IP "\\fHObject:\\fP "
+.nr PD 0
+..
+.de De
+.IP "    \\fHDescription:\\fP "
+..
+.de Fu
+.IP "    \\fHFunction:\\fP "
+..
+.de Co
+.IP "    \\fHCommand Behavior:\\fP "
+..
+.de Do
+.IP "        \\fHDo:\\fP "
+..
+.de Go
+.IP "        \\fHGo:\\fP "
+..
+.de St
+.IP "        \\fHStop:\\fP "
+..
+.de Ge
+.IP "        \\fHGet:\\fP "
+..
+.de Pu
+.IP "        \\fHPut:\\fP "
+..
+.de Ta
+.IP "        \\fHTalk:\\fP "
+..
+.de Re
+.IP "        \\fHReversed Do:\\fP "
+..
+.de Ot
+.IP "    \\fHOther Behavior:\\fP "
+..
+.de Gr
+.IP "    \\fHGraphics:\\fP "
+..
+.de Pr
+.IP "    \\fHProperties:\\fP "
+..
+.de No
+.IP "    \\fHNotes:\\fP "
+..
+.de En
+.nr PD 3.6p
+.sp
+..
+.ds Da January 15, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M
+
+Minimal Object Set\s-9
+.AU
+the basic set of objects from which the MicroCosm fantasy world is built
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH MINIMAL OBJECT SET
+.ds CH \\*(Da
+.ds RH MicroCosm Document # 16
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the basic set of objects from which the
+\fBMicroCosm\fP fantasy world is constructed.  In addition to functional
+objects which the players manipulate, this set also includes scenic objects
+and objects which are solely internal to the simulation.  It is the
+constitution of this object set which defines the fantasy.
+.SH
+\s+3Standard Actions\s-3
+.PP
+In the object descriptions which follow, the following phrases are used to
+describe standard actions for object behaviors.  These standard actions are
+provided because the objects share a common underlying world model and there
+is much redundancy in the user interface.  Standard actions provide
+consistency.
+.LP
+\fIBroadcast\fR \(em typed text message is to be broadcast to everyone in the
+region.
+.LP
+\fICease\fR \(em cease any ongoing activities if possible.
+.LP
+\fIDepends\fR \(em the action to be taken depends on the contents of the
+avatar's hand(s).  In other words, the action becomes a \fHReversed Do\fR on
+the object in the avatar's hand(s) instead of a \fHDo\fR on the object pointed
+at.
+.LP
+\fIGo if necessary\fR \(em if not already at the object's location, go there.
+.LP
+\fIGo and drop\fR \(em go if necessary.  Deposit any item(s) in the avatar's
+hand(s) at that the object's location.
+.LP
+\fIGo and get\fR \(em go if necessary.  Pick the object up and put it in the
+avatar's hand(s), if that is possible.
+.LP
+\fIGo and fill\fR \(em go if necessary.  If carrying a potential water
+container, fill the container from the object.
+.LP
+\fIGoto\fR \(em walk to the object's location if it is possible to do so.
+.LP
+\fINo effect\fR \(em nothing happens as a result of doing this.
+.LP
+\fIThrow\fR \(em throw the object at the indicated spot.
+.LP
+\fIWear\fR \(em if wearing, no effect.  Otherwise, go if necessary, put on.
+.LP
+\fIWear or unpocket\fR \(em if wearing, remove item(s) from pockets.
+Otherwise, go if necessary, put on.
+.LP
+\fIRemove\fR \(em if wearing, take off.  Otherwise, go and drop.
+.SH
+\s+3Miscellaneous Comments\s-3
+.SH
+\s+2Day and Night\s-2
+.PP
+In the world we have a concept of day and night.  Time passes.  The time of
+day is determined by the host, and probably follows a fast clock (e.g., six
+hour days instead of 24).  When it is night, it is dark throughout the world
+(though if the world is cylindrical we might want to implement actual time
+zones with moving dark and light areas).  Darkness is indicated by setting the
+color map so all the colors are dark and contrast is poor.  Various means of
+artificial illumination can light up a region as if it were daytime.  Dark and
+light is determined on a whole-region basis.
+.SH
+\s+2Containers\s-2
+.PP
+Many objects are \fIcontainers\fP.  That is, they can carry or hold some
+number of other objects.  Each container has a list of its \fIcontents\fP as
+one of its properties.  The most important characteristic of a container, from
+a functional standpoint, is that when you move a container from one location
+to another you also automatically move all of its contents.
+.PP
+All containers have a notion of whether they are \fIopen\fP or \fIclosed\fP.
+Some containers can be opened or closed on command, while others are just
+permanently open.  The distinction is that a closed container is a black box:
+all that you see is the container itself and you have no information about its
+contents.  The contents of an open container, on the other hand, are visible
+to any observer.
+.PP
+Some objects are obviously containers, such as boxes or backpacks.  However,
+there are other objects which are containers of a more subtle type.  For
+example, avatars are containers of the permanently open variety.  Anything
+that an avatar is wearing or carrying is said to be contained by the avatar
+object.  This means that whenever the avatar walks around or teleports to
+another region, his clothing and possessions go with him.
+.PP
+Performing a \fHGet\fR action on some kinds of containers while you are
+holding them activates a menu display mechanism that lets you select from and
+examine the contents.  This typically happens with containers whose screen
+images are too small to allow any plausible display of the contents without
+``zooming in'' for a close-up look.  The screen is replaced with a stylized
+view of the container's contents: a grid of icons each representing one item.
+These icons are simply the canonical images that would be used to display the
+objects were they not inside the container.  You can then further select items
+or return to the main display using a \fHPut\fR action.
+.SH
+\s+2Transportation\s-2
+.PP
+The \fBMicroCosm\fP transportation system is what allows an avatar to get from
+place to place in the wide, wide world.  There are basically four ways of
+getting around: walking, driving a vehicle, using the teleport booth network,
+or taking the bus.  Except for walking, these all hinge on objects of one sort
+or another to work.
+.PP
+Teleport booths, from the player's point of view, are actually the simplest
+way to get around.  You just drop a coin in the slot, dial a number and
+\fI*poof*\fR, there you are.  It's just like making a phone call (though more
+expensive).  Use of the teleport system does presume that you know the
+teleport number of your destination.  We will need some sort of mechanism to
+distribute this information (a guidebook, perhaps).
+.PP
+Vehicles are a special class of container objects.  When an avatar is seated
+in the driver's seat of a vehicle, the motion control commands that would
+ordinarily direct walking now direct the movement of the vehicle (and all its
+contents).
+.PP
+Busses are implemented as a kind of region whose connectivity with the rest of
+the world varies with time in an orderly way.  Thus, you enter the bus region
+from a bus stop region, spend some time aboard the bus, then get off someplace
+else.  To use the bus you have to pay bus fare, so the bus interior region
+contains a fare box object.  You have to drop money in the fare box or you
+will be left behind when the bus leaves.
+.SH
+\s+2Communications\s-2
+.PP
+There are several ways of communicating with other players and with the system
+operators.  These include broadcast and point-to-point talking, the mail
+system, and the telephone system.  There is an analogy to the transportation
+systems in that all but the most elementary communications system (talking)
+require one or more objects to make them work.  Several different kinds of
+objects are used to implement the communications facilities.  A variety of
+other kinds of objects add features and capabilities to the basic systems for
+the convenience of the player.
+.PP
+The mail system uses the paper, pencil and mailbox objects.  Messages are
+written on pieces of paper using a pencil (and need not be mailed, actually,
+but can be left around as notes or stored away for future reference, just like
+real paper).  Each player has a mail address.  You address a message to a
+player and then drop it in a mailbox \(em either a public mail drop box or
+your personal household mailbox.  Mail arrives for you in your personal
+household mailbox, from which you extract pieces of paper whose contents you
+can read.
+.PP
+The telephone system is much more sophisticated.  The basic object is the
+telephone.  There are two types of phones: home phones and pay phones.  Each
+phone has a phone number, which you use to connect to it from another phone.
+Phones in \fBMicroCosm\fP work pretty much like they do in the real world.
+You pick up a phone, dial somebody's phone number, the phone rings at the
+other end and if they are home they answer and then you talk to each other.
+Everyone has a home phone on their turf which they can use free of charge.
+Pay phones are scattered throughout the world and may be used by anyone with a
+token.  Embellishments include portable phones, which work like home phones
+except that you can carry them around with you; answering machines, which
+answer the phone when you are not home, deliver a message from you and collect
+a response; and beepers, which let you know when somebody is trying to call
+you.
+.SH
+\s+2Addressing\s-2
+.PP
+From the above discussion you should realize that, as in the real world, there
+are a number of parallel, partially redundant addressing schemes for referring
+to people and places in the world:
+.IP "  \(bu"
+Physical coordinates (region number + \fC(x,y)\fR within region)
+.IP "  \(bu"
+Residence address (region of your turf)
+.IP "  \(bu"
+Mail address
+.IP "  \(bu"
+Phone number
+.IP "  \(bu"
+Teleport number
+.IP "  \(bu"
+Name
+.LP
+Oddly, the only one of these whose function is unclear is the player's name.
+.SH
+\s+3The Objects\s-3
+.nr PS +2
+.NH 1
+Pseudo-Objects
+.nr PS -2
+.LP
+These are present because the player interface requires them but they are not
+really objects.
+.Ob
+\s+1\fBground\fP\s-1
+.De
+The basic background below the horizon.
+.Fu
+Can be walked on.  Can be pointed at, returning a location.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Absolute blank, single color background from bottom of graphics window up to
+the horizon line.  Drawn by background rendering initialization routines.
+.Pr
+\fCcolor\fP,
+\fChorizon\fP
+.No
+.En
+.Ob
+\s+1\fBsky\fP\s-1
+.De
+The basic background above the horizon.
+.Fu
+Can be pointed at, returning a location.
+.Co
+.Do
+Depends.
+.Go
+No effect.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+No effect.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Blue from top of graphics window to the scenic horizon.  Scenic background
+color from scenic horizon down to the true horizon.  Scenic background horizon
+line is a jaggy line procedurally determined from the terrain type.  Drawn by
+the background rendering initialization routines.
+.Pr
+\fCcolor\fR
+.No
+.En
+.nr PS +2
+.NH 1
+Scenic Objects
+.nr PS -2
+.LP
+These are always part of the background.
+.RS
+.nr PS +2
+.NH 2
+Inert Scenic Objects
+.nr PS -2
+.LP
+These just sit there, though they may modify the effect or behavior of other
+objects.
+.Ob
+\s+1\fBbridge\fR\s-1
+.De
+Your basic small foot or highway bridge.
+.Fu
+Provides pathway across water.
+.Co
+.Do
+Depends.
+.Go
+Go to part of bridge indicated.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two static images: side view and end view.
+.Pr
+\fCorientation\fR
+.No
+.En
+.Ob
+\s+1\fBbush\fR\s-1
+.De
+Your basic bushy plant.
+.Fu
+Scenic element.  Obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image.  Variations possible.
+.Pr
+\fCbush-type\fR
+.No
+.En
+.Ob
+\s+1\fBfence\fR\s-1
+.De
+A section of an impassable, man-made barrier.
+.Fu
+Linear obstruction.
+.Do
+Depends.
+.Go
+Goto.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two static images, side view and end view, of fence section.  Variations
+possible (picket fence, wooden fence, chain-link fence, barbed wire fence,
+brick wall, stone wall, etc.).
+.Pr
+\fCpath\fR,
+\fCfence-type\fR
+.No
+.En
+.Ob
+\s+1\fBplant\fR\s-1
+.De
+Your basic generic plant.
+.Fu
+Scenic element.  Obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Uproot plant and get it into two hands, if possible.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image.  Variations possible.
+.Pr
+\fCsize\fR, \fCplant-type\fR
+.No
+.En
+.Ob
+\s+1\fBpond\fR\s-1
+.De
+A small (within the region) body of water.
+.Fu
+Water source.  Water obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and fill.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Pond image on ground, rendered during background processing.
+.Pr
+\fCcoverage\fR
+.No
+.En
+.Ob
+\s+1\fBriver\fR\s-1
+.De
+Body of water flowing through a region.
+.Fu
+Water source.  Linear water obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.Stop
+Cease.
+.Ge
+Go and fill.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+River image on ground, rendered during background processing.
+.Pr
+\fCpath\fR
+.No
+.En
+.Ob
+\s+1\fBsidewalk\fR\s-1
+.De
+Your basic suburban sidewalk.
+.Fu
+Scenic element.  Can be walked on (keeps feet off the lawn!).
+.Co
+.Do
+Depends.
+.Go
+Go to nearest part of sidewalk if not already on it.  Once on, follow along it
+to point designated.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Sidewalk image on ground, rendered during background processing.
+.Pr
+\fCpath\fR
+.No
+.En
+.Ob
+\s+1\fBstreet\fR\s-1
+.De
+Your basic roadway.
+.Fu
+Can be walked on.  Carries ground vehicles.
+.Co
+.Do
+Depends
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Road image on ground, rendered during background processing.
+.Pr
+\fCpath\fR
+.No
+.En
+.Ob
+\s+1\fBtree\fR\s-1
+.De
+Your basic tree.
+.Fu
+Scenic element.  Obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image.  Variations possible.
+.Pr
+\fCtree-type\fR
+.No
+.En
+.nr PS +2
+.NH 2
+Functional Scenic Objects
+.nr PS -2
+.LP
+These can actually do something.
+.Ob
+\s+1\fBatm\fR\s-1
+.De
+\fBA\fPutomatic \fBT\fPoken \fBM\fPachine.
+.Fu
+Dispenses tokens.
+.Co
+.Do
+Causes machine to tell you how many tokens are in your bank account.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Takes 50 tokens or your entire balance, whichever is less, from your account
+and puts them in your avatar's hand.
+.Pu
+Go if necessary.  If item in hand is tokens, these are deposited in your
+account and disappear from hand, otherwise item is dropped in front of
+machine.
+.Ta
+Broadcast
+.Ot
+None.
+.Gr
+Single static image of machine.  Sound effect of money being withdrawn.  Sound
+effect of money being deposited.
+.Pr
+.No
+We may wish to add some sort of dialogue that lets you select the amount you
+wish to withdraw.
+.En
+.Ob
+\s+1\fBfare box\fR\s-1
+.De
+Mass transit fare collection box.
+.Fu
+Controls access to the bus system.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go if necessary.  If item in hand is a token, drop in fare box, otherwise drop
+at foot of box.
+.Ta
+Broadcast.
+.Ot
+The fare box is found in regions which represent the interior of busses.  If
+you drop a token in the fare box you will be carried with the bus when it
+moves, otherwise you will be left behind.
+.Gr
+Single static image of fare box.  Sound of coin dropping in box.
+.Pr
+.No
+.En
+.Ob
+\s+1\fBfountain\fR\s-1
+.De
+Generic looking tacky town square fountain.
+.Fu
+Scenic element.  Water source.  Oracle.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and fill.
+.Pu
+Go and drop.
+.Ta
+Typed text message is sent to host as a question for the oracle.  Also
+broadcast.
+.Ot
+The oracle answers questions, makes predictions, and generally does all of the
+things that oracles are supposed to do.  However, it is, by tradition, subtle
+and not completely reliable.  Sometimes it answers your questions immediately.
+Sometimes it even carries on a conversation with you.  Most of the time
+though, it takes quite a while to get an answer:  you have to come back
+several days later.  Occasionally it says things spontaneously.  Such things
+are usually important.  Anyone in the region with the oracle can hear what it
+says.
+.Gr
+Single static image of fountain.  Possible animation of water spurting up.
+.Pr
+.No
+Of course, the minds behind the oracle are our own.  Somebody has to respond,
+but the nature of the oracle business is such that a response need not be
+timely, nor need all questions be answered.
+.En
+.Ob
+\s+1\fBgate\fR\s-1
+.De
+A gate in a fence or wall.
+.Fu
+Provides a way to put a passageway through a fence.
+.Co
+.Do
+If adjacent, open if closed (only openable if gate is unlocked or if avatar
+has the key), close if open.  Otherwise, depends.
+.Go
+If adjacent, go through (opening and closing as needed), otherwise goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two state image: open gate and closed gate.  Variations possible due to
+fence/wall type.
+.Pr
+\fCopen-or-closed\fP,
+\fCgate-type\fP,
+\fClocked-or-unlocked\fP,
+\fCkey\fP
+.No
+.En
+.Ob
+\s+1\fBmailbox\fR\s-1
+.De
+A conventional household roadside mailbox.
+.Fu
+Interface to mail system.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  If there is mail for you, it is taken out of the mailbox and
+placed in your avatar's hand.  Note that only the mailbox's owner can take
+mail out of it.
+.Pu
+Go if necessary.  If your avatar is carrying a letter (i.e., a piece of paper
+with and address and a message on it) it is taken from your avatar's hand and
+mailed away.  If you are carrying anything else, it is dropped in front of the
+mailbox.
+.Ta
+Broadcast.
+.Ot
+Mailbox has a little red flag on it that is up if mail is waiting and down
+otherwise.
+.Gr
+Two state image of mailbox (flag up and flag down).
+.Pr
+\fCmail-arrived\fP
+.No
+A variant object would be a standard post-office style letter drop-box (like
+the one outside Z Building along Bellam), which would, of course, be a
+send-only device.
+.En
+.Ob
+\s+1\fBphone booth\fR\s-1
+.De
+The traditional walk-in phone booth with real-live working pay phone (which
+are getting rarer and rarer these days).
+.Fu
+Interface to the telephone system for avatars away from home.
+.Co
+.Do
+If in booth, hang up phone if not already hung up.  Deactivates phone.  Answer
+if ringing.  Otherwise, depends.
+.Go
+If not adjacent to the phone booth, go to it.  If adjacent, enter it.  If
+inside, exit it.
+.St
+Cease.
+.Ge
+Go if necessary.  Answer the phone if it is ringing, otherwise do nothing.
+.Pu
+Go if necessary.  If avatar has a token in hand, activate the phone, otherwise
+drop whatever is in hand next to the phone booth.
+.Ta
+If the phone is activated (by dropping a token in it), interpret text as a
+phone call: first text message is phone number, further messages are
+conversation with the person at the other end.  When you enter the number, the
+phone dials.  If there is an answer, you can talk.  If not, you get your token
+back (into avatar's hand) and the phone is deactivated.  If the phone is not
+activated, broadcast.
+.Ot
+The pay phone in the booth may be called from other phones.  When this happens
+it rings.  If you answer it you are connected to the other caller.
+.Gr
+Single static image of phone booth.  Sound of phone in booth ringing.  Sound
+of phone ringing at other end of phone line.  Busy signal sound.  Dial tone.
+Dialing sounds (touch tones).  Click when somebody answers.
+.Pr
+\fCphone-number\fP
+.No
+.En
+.Ob
+\s+1\fBrock\fR\s-1
+.De
+Your basic rock.
+.Fu
+Scenic element.  If small can be picked up, thrown.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and pick up. (If not too heavy).
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Static image of rock.  Possible variations depending on the size of the rock.
+Sound of rock hitting something.
+.Pr
+\fCweight\fP
+.No
+.En
+.Ob
+\s+1\fBstreetlamp\fR\s-1
+.De
+Conventional streetlamp.
+.Fu
+Scenic element.  Provides light at night.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+If it is night time, the region in which the streetlamp is found will be
+illuminated as if it were daytime.
+.Gr
+Single static image of streetlamp.  Possible stylistic variations (modern,
+old-fashioned, etc.).
+.Pr
+.No
+.En
+.RE
+.nr PS +2
+.NH 1
+Structural Objects
+.nr PS -2
+.LP
+These are used to create buildings and other structures.
+.RS
+.nr PS +2
+.NH 2
+Component Structural Objects
+.nr PS -2
+.LP
+These are the building blocks.
+.Ob
+\s+1\fBdoor\fR\s-1
+.De
+The conventional door.
+.Fu
+Graphic element in buildings.  Passageway through wall.
+.Co
+.Do
+If adjacent, open if closed (only openable if door is unlocked or if avatar
+has key), close if open.  Otherwise depends.
+.Go
+If adjacent, go through (opening and closing as needed), otherwise goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two state image: open door and closed door.  Variations possible due to style.
+.Pr
+\fCopen-or-closed\fP, \fCdoor-type\fP, \fClocked-or-unlocked\fR, \fCkey\fP
+.No
+.En
+.Ob
+\s+1\fBroof\fR\s-1
+.De
+The roof of a building.
+.Fu
+Graphic element in buildings.
+.Co
+.Do
+Depends.
+.Go
+No effect.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+No effect.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Roof image, rendered by background processor.
+.Pr
+\fCdimensions\fP, \fCroof-type\fP, \fCcolor\fP
+.No
+.En
+.Ob
+\s+1\fBwall\fR\s-1
+.De
+An interior or exterior wall section.
+.Fu
+Graphic element in buildings.  Obstruction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Wall image, rendered by background processor.
+.Pr
+\fCcolor\fP, \fCdimensions\fP
+.No
+.En
+.Ob
+\s+1\fBwindow\fR\s-1
+.De
+A conventional house window.
+.Fu
+Graphic element in buildings.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image.  Variations possible due to window style.
+.Pr
+\fCwindow-type\fP
+.No
+.En
+.nr PS +2
+.NH 2
+Composite Structural Objects
+.nr PS -2
+.LP
+These are what hold the components together.
+.Ob
+\s+1\fBbuilding\fR\s-1
+.De
+Any sort of building.
+.Fu
+A ``glue'' object to organize building parts into a single entity.
+.Co
+Not a selectable object on the screen.
+.Ot
+None.
+.Gr
+The sum of its parts.
+.Pr
+\fCroof\fP, \fCwalls\fP, \fCdoors\fP, \fCwindows\fP
+.No
+This is a higher-level data structure that organizes all of the building
+components into a single unit for reference purposes.  It provides a base
+location for all the pieces and an organizing framework.
+.En
+.RE
+.nr PS +2
+.NH 1
+Furniture Objects
+.nr PS -2
+.LP
+These are things found usually, but not always, \fIinside\fP buildings.
+.Ob
+\s+1\fBbed\fR\s-1
+.De
+An ordinary bed.
+.Fu
+Can be laid upon (for lower energy expenditure?)
+.Co
+.Do
+If adjacent, lay down.  If laying down, get up.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Three static images: side view, foot view and head view.  Stylistic variations
+possible.
+.Pr
+\fCorientation\fP, \fCbed-type\fP
+.No
+.En
+.Ob
+\s+1\fBchair\fR\s-1
+.De
+An ordinary chair.
+.Fu
+Can be sat in (for lower energy expenditure?)
+.Co
+.Do
+If adjacent, sit (if not occupied already).  If sitting, stand.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Three static images: side view, front view, back view.  Stylistic variations
+possible.
+.Pr
+\fCorientation\fP, \fCchair-type\fP
+.No
+.En
+.Ob
+\s+1\fBchest\fR\s-1
+.De
+A chest of drawers.
+.Fu
+Can hold stuff.
+.Co
+.Do
+If adjacent and open, close.  If adjacent and closed, open.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  If open, pick up contents (menu).  If closed, no effect.
+.Pu
+Go if necessary. If open, put contents of hands in drawers (if fits).  If
+closed, drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two state image: open and closed chest.
+.Pr
+\fCopen-or-closed\fP, \fCcontents\fP
+.No
+.En
+.Ob
+\s+1\fBcouch\fR\s-1
+.De
+Your basic living room couch.
+.Fu
+Like chair, but can be sat in by multiple avatars.
+.Co
+.Do
+If adjacent and standing sit (if not full).  If sitting, stand.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Three static images: side view, front view, back view.  Possible stylistic
+variations.
+.Pr
+\fCorientation\fP, \fCcouch-type\fP, \fCinhabitants\fP
+.No
+.En
+.Ob
+\s+1\fBcountertop\fR\s-1
+.De
+Store counter.
+.Fu
+Can support things.  Mediates transactions.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+Objects placed on the counter behave differently.  If you place an object on
+the counter, you can pick it up again.  However, if somebody else places an
+object on the counter, you can only pick it up if you already have an item of
+your own on the counter.  After you have picked up the other person's item,
+the ownership of the two items reverses.
+.Gr
+Single static image of counter.
+.Pr
+\fCcontents\fP
+.No
+.En
+.Ob
+\s+1\fBdisplay case\fR\s-1
+.De
+Store display case.
+.Fu
+Can hold things visibly but safely, even if unattended.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+If you put an item in (or on) a display case, only you can pick it up again.
+Nobody else can.
+.Gr
+Single static image of display case.
+.Pr
+\fCcontents\fP
+.No
+.En
+.Ob
+\s+1\fBfloor lamp\fR\s-1
+.De
+A household floor lamp.
+.Fu
+Provides light at night.
+.Co
+.Do
+If adjacent and lamp is off, turn it on.  If adjacent and lamp is on, turn it
+off.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+If it is night time and the lamp is turned on, the region in which the lamp is
+located will be illuminated as if it were daytime.
+.Gr
+Single static image of floor lamp.
+.Pr
+\fCon-or-off\fP
+.No
+.En
+.Ob
+\s+1\fBgarbage can\fR\s-1
+.De
+Conventional garbage can or wastebasket.
+.Fu
+Makes things disappear.
+.Co
+.Do
+If adjacent, make contents of garbage can disappear (permanently).  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  Pick up contents of garbage can if there are any (menu).
+.Pu
+Go if necessary.  Put contents of hands into garbage can (if will fit).
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image of garbage can.  Possible stylistic variations (garbage
+can, wastebasket).
+.Pr
+\fCcontents\fP, \fCgarbage-can-type\fP
+.No
+.En
+.Ob
+\s+1\fBhot tub\fR\s-1
+.De
+A touch of Marin.
+.Fu
+A place to hang out.
+.Co
+.Do
+If adjacent and not in tub, climb in (if it's not full).  If in, climb out.
+Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image of hot tub.
+.Pr
+\fCinhabitants\fP
+.No
+.En
+.Ob
+\s+1\fBsign/billboard/painting\fR\s-1
+.De
+A picture to display.
+.Fu
+Displays artwork or text on wall or in space.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  Grab the item, if it is small enough.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+A single static image of a rectangular frame.  Size is parameterized.  Filled
+in with contents which is an image that is part of the object state.
+.Pr
+\fCsize\fP, \fCpicture\fP
+.No
+Due to the large overhead associated with such objects, we will guarantee that
+no picture will ever change.  Rather, if a change is necessary a new picture
+will be substituted.  This allows us to download the image once and save it,
+and then use it over time without worrying if it has changed when we were not
+looking.
+.En
+.Ob
+\s+1\fBtable\fR\s-1
+.De
+A common table.
+.Fu
+Can support things (hold them off the floor).
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+A single static image of a table.  Possible stylistic variations.
+.Pr
+\fCcontents\fP, \fCtable-type\fP
+.No
+.En
+.nr PS +2
+.NH 1
+Implement Objects
+.nr PS -2
+.LP
+These are small, often handheld, things that can be manipulated to do
+something.
+.Ob
+\s+1\fBanswering machine\fR\s-1
+.De
+A telephone answering machine.
+.Fu
+Handle your phone calls when you're not at home.
+.Co
+.Do
+If adjacent, plays back the next un-played-back message.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Typed text message becomes new answer message on machine.
+.Ot
+The answering machine functions when it is placed at the same location as a
+private phone (i.e., not a pay phone).  Whenever someone calls that phone,
+if it is not answered after the fourth ring the answering machine goes to
+work.  The caller is sent the message that you have provided on the machine,
+and then has the opportunity to enter a response.  The answering machine has a
+light on it that goes on whenever there are messages waiting.
+.Gr
+Two state image: machine with light off and machine with light on.
+.Pr
+\fCwaiting-messages\fP, \fCanswer-message\fP
+.No
+.En
+.Ob
+\s+1\fBbeeper\fR\s-1
+.De
+One of those annoying little devices that disrupts movie theaters.
+.Fu
+Alerts you that messages are awaiting.
+.Co
+.Do
+If you are holding it and it is beeping, it shuts up; if it is not beeping, no
+effect.  Otherwise depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+No effect.
+.Ot
+If a phone call arrives at your home phone when you are not there, and you are
+carrying the beeper, it beeps until you either shut it up, go home and answer
+the phone, or the caller hangs up.
+.Gr
+Single static image of beeper.  Sound of beeper beeping.
+.Pr
+\fCbeeping\fP
+.No
+.En
+.Ob
+\s+1\fBbook/newspaper/map\fR\s-1
+.De
+A readable document.
+.Fu
+Displays text or artwork on paper.
+.Co
+.Do
+If holding document, read it: fill graphics window with contents of document.
+If already reading it, stop.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+If holding, start reading.  Otherwise, go and get.
+.Pu
+If reading, stop reading.  Otherwise, go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Single static image of document.  Stylistic variations due to document type
+(book, magazine, newspaper, flyer, etc.).  Text or picture display of contents
+of document.
+.Pr
+\fCreading\fP, \fCtext\fP, \fCpicture\fP
+.No
+Due to the large overhead associated with such objects, we will guarantee that
+no document will ever change.  Rather, if a change is necessary a new document
+will be substituted.  This allows us to download the text or image once and
+save it, and then use it over time without worrying if it has changed when we
+were not looking.
+.En
+.Ob
+\s+1\fBbottle\fR\s-1
+.De
+A glass bottle.
+.Fu
+Holds water, other liquids.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Go if necessary.  Pour the contents of the bottle on the indicated spot.
+.Ot
+None.
+.Gr
+Two state image: bottle empty and bottle full.
+.Pr
+\fCcontents\fP, \fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBcredit card\fR\s-1
+.De
+Your basic plastic money.
+.Fu
+Can be used at participating businesses to pay for purchases.  Don't leave
+home without it.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Purchase the indicated object with your card.  If the indicated object is for
+sale and you have enought money in your bank account, then the indicated
+object becomes yours and the asking price for the object is deducted from your
+balance.
+.Ot
+None.
+.Gr
+Single static image of card.
+.Pr
+.No
+.En
+.Ob
+\s+1\fBcompass\fR\s-1
+.De
+Your basic pointer to the West Pole.
+.Fu
+Tells absolute direction.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+The image chosen to display the compass in any given region reflects the
+orientation of that region's viewpoint with respect to true west.  The
+compass appears as an arrow pointing towards whichever edge of the region is
+west.
+.Gr
+Four state image of compass with arrow: pointing left, pointing right,
+pointing towards viewpoint, pointing away from viewpoint.
+.Pr
+\fCorientation\fP
+.No
+This may not be needed.
+.En
+.Ob
+\s+1\fBdie\fR\s-1
+.De
+A six-sided die.
+.Fu
+For gambling, games.
+.Co
+.Do
+If holding the die, roll it.  It is thrown to the ground and displayed in a
+new state.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+6-state image showing the various possible die rolls.
+.Pr
+\fCstate\fP
+.No
+This probably won't work.
+.En
+.Ob
+\s+1\fBescape device\fR\s-1
+.De
+Your basic panic button.
+.Fu
+Gets you out of a jam, fast.
+.Co
+.Do
+If holding the device, teleport your and your possessions back to your home
+turf.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of device.  Sound effect when device is activated.
+.Pr
+.No
+Very rare and expensive.
+.En
+.Ob
+\s+1\fBflashlight\fR\s-1
+.De
+Your basic hand torch.
+.Fu
+Portable light source at night.
+.Co
+.Do
+If holding, turn on if off, off if on.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+If it is night time and the flashlight is turned on, the region will be
+illuminated as if it were daytime.
+.Gr
+Single static image of flashlight.
+.Pr
+\fCon-or-off\fP
+.No
+We may wish to consider requiring batteries.
+.En
+.Ob
+\s+1\fBgemstone\fR\s-1
+.De
+Like a rock, only worth more.
+.Fu
+Valuable.  May contain magic.
+.Co
+.Do
+If magic, activate magical function.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of gemstone.  Stylistic variations possible due to stone
+type.
+.Pr
+\fCmagic\fP, \fCgemstone-type\fP
+.No
+Magical function may vary.  Set of magical functions needs thought.
+.En
+.Ob
+\s+1\fBhandcuffs\fR\s-1
+.De
+Police-style wrist-or-ankle-cuffs.
+.Fu
+Restrain another avatar's hands or feet.
+.Co
+.Do
+If adjacent, unlock cuffs (if you have the key).  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+If restrained by them, no effect.  Otherwise, go and get.
+.Pu
+If restrained by them, no effect.  Otherwise, go and drop.
+.Ta
+Broadcast.
+.Re
+If restrained by them, no effect.  If adjacent to object and object is an
+avatar, bind the specified site (wrists or angles) with the cuffs.  Otherwise,
+throw.
+.Ot
+When wrists are restrained by cuffs, certain \fBdo\fP actions are not
+possible.  When ankles are restrained, walking is not possible.
+.Gr
+Single static image of cuffs.  Sound of cuffs clicking shut, clanking open.
+.Pr
+\fCbinding\fP, \fCkey\fP
+.No
+The effect of wrist restraint needs further thought.
+.En
+.Ob
+\s+1\fBkey\fR\s-1
+.De
+An unpickable lock key.
+.Fu
+Opens locked doors, handcuffs.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+If object is lock for which this key fits, unlock or lock the lock.  If object
+is lock for which key does not fit, no effect.  Otherwise, throw.
+.Ot
+None.
+.Gr
+Single static image of key.  Sound of key turning in lock.
+.Pr
+\fClock\fP
+.No
+.En
+.Ob
+\s+1\fBknick knack\fR\s-1
+.De
+Your basic gewgaw.
+.Fu
+Scenic element.  Possibly magical.
+.Co
+.Do
+If magic, activate magical function.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of knick-knack.  Stylistic variations possible.
+.Pr
+\fCmagic\fP, \fCknick-knack-type\fP
+.No
+Set of gewgaws needs thought.
+.En
+.Ob
+\s+1\fBpaper\fR\s-1
+.De
+A piece of paper.
+.Fu
+Can be written upon and then retrieved.
+.Co
+.Do
+If holding, read.  If reading, hold.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+If holding paper and also holding pencil, text message typed is written onto
+paper for future reference.  Otherwise, no effect.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of piece of paper.  Large format display of text on page.
+.Pr
+\fCtext\fP
+.No
+Any piece of paper whose text begins ``to \fIname\fR'' can be sent as a mail
+message.
+.En
+.Ob
+\s+1\fBpencil\fR\s-1
+.De
+Your basic pencil.
+.Fu
+Writes on paper.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+If holding both pencil and piece of paper, text message entered is written
+onto the paper.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of pencil.
+.Pr
+.No
+It's a magic pencil: it never needs sharpening.
+.En
+.Ob
+\s+1\fBproperty changer\fR\s-1
+.De
+Miscellaneous gadget.
+.Fu
+Changes some property of another object or avatar.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Activate property changing function against target object.
+.Ot
+None.
+.Gr
+Single static image of gadget.  Stylistic variations possible.  Sound of
+gadget working.
+.Pr
+\fCeffect\fP, \fCproperty-changer-type\fP
+.No
+The set of possible property changes needs lots of thought.
+.En
+.Ob
+\s+1\fBsecurity device\fR\s-1
+.De
+Another miscellaneous gadget.
+.Fu
+Provides a way to make a region safe from intrusion.
+.Co
+.Do
+If device is in hand, turn it off if it's on, or on if it's off.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+When device is on, an indicator light is lit.  When the device is activated no
+one else can enter the region it is in.
+.Gr
+Two-state image of device: on and off.  Also, sound when it is turned on or
+off.
+.Pr
+\fCon-or-off\fP
+.No
+Only works in selected regions (like hotel rooms).
+.En
+.Ob
+\s+1\fBsensor\fR\s-1
+.De
+Another miscellaneous gadget.
+.Fu
+Tells some property of a region, object or avatar.
+.Co
+.Do
+If sensor is in hand, turn it off if it's on, or on if it's off.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Direct attention of sensor towards target object.
+.Ot
+While sensor is on, it periodically changes its sound or appearance according
+to what it is sensing.
+.Gr
+Multi-state image of sensor: sensor off, sensor on but not sensing anything,
+sensor sensing something, etc.  Also, sound of detector in action.
+.Pr
+\fCsensor-type\fP, \fCdetects\fP
+.No
+The set of things that sensors sense needs further thought.
+.En
+.Ob
+\s+1\fBtelephone\fR\s-1
+.De
+The household telephone.
+.Fu
+Remote communications with other players on-line.
+.Co
+.Do
+If adjacent, hang up if not already hung up, answer if ringing.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  Answer the phone if it is ringing, otherwise get.
+.Pu
+Hang up if holding and not hung up.  Otherwise, go and drop.
+.Ta
+If adjacent, interpret text as a phone call: first text message is phone
+number, further messages are conversation with the person at the other end.
+When you enter the number, the phone dials.  If there is an answer, you can
+talk.  If not adjacent, broadcast.
+.Re
+Throw.
+.Ot
+The phone may be called from other phones.  When this happens it rings.  If
+you answer it you are connected to the other caller.
+.Gr
+Single static image of phone.  Sound of phone ringing.  Sound of phone ringing
+at other end of phone line.  Busy signal sound.
+.Pr
+\fCphone-number\fP
+.No
+.En
+.Ob
+\s+1\fBtowel\fR\s-1
+.De
+Your basic towel.
+.Fu
+Necessary for every traveler.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of towel.
+.Pr
+.No
+Everyone knows that this is the single most useful object you can have.
+.En
+.Ob
+\s+1\fBwalkie-talkie\fR\s-1
+.De
+A radio telephone.
+.Fu
+Like a telephone, but portable.
+.Co
+.Do
+If adjacent, hang up if not already hung up, answer if ringing.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go if necessary.  Answer if it is ringing, otherwise get.
+.Pu
+Hang up if holding and not hung up.  Otherwise, go and drop.
+.Ta
+If holding, interpret text as a phone call: first text message is phone
+number, further messages are conversation with the person at the other end.
+When you enter the number, it is dialed.  If there is an answer, you can
+talk.  If not holding, broadcast.
+.Re
+Throw.
+.Ot
+The walkie-talkie may be called from other phones.  When this happens it
+rings.  If you answer it you are connected to the other caller.
+.Gr
+Single static image of walkie-talkie.  Sound of phone ringing.  Sound of phone
+ringing at other end of phone line.  Busy signal sound.
+.Pr
+\fCphone-number\fP
+.No
+.En
+.nr PS +2
+.NH 1
+Substance Objects
+.nr PS -2
+.LP
+These are things which are reckoned in terms of their quantity.
+.Ob
+\s+1\fBdrugs\fR\s-1
+.De
+Little pills.
+.Fu
+Temporarily changes an avatar's properties.
+.Co
+.Do
+If holding, take one of the pills.  Drug immediately effects relevant
+property.  Otherwise depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+When quantity reaches zero, it's all gone and disappears.
+.Gr
+Single static image of pill.
+.Pr
+\fCcount\fP, \fCeffect\fP
+.No
+The set of possible effects needs thought.
+.En
+.Ob
+\s+1\fBtokens\fR\s-1
+.De
+Filthy lucre.
+.Fu
+Money in the MicroCosm.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.  Possible menu interaction to determine quantity given.
+.Ot
+None.
+.Gr
+Single static image of a coin.  On one side it says \fIGood For One Fare\fR.
+On the other side it says \fIFiat Lucre\fR.  Sound of coins jingling.
+.Pr
+\fCquantity\fP
+.No
+Handling of varying of quantities of loose change needs further thought.
+.En
+.Ob
+\s+1\fBwater\fR\s-1
+.De
+You know what water is.
+.Fu
+A useful fluid.
+.Co
+Must be in a container.  Manipulated indirectly.
+.Ot
+None.
+.Gr
+None.
+.Pr
+\fCquantity\fP
+.No
+What good is it?
+.En
+.bp
+.nr PS +2
+.NH 1
+Clothing Objects
+.nr PS -2
+.LP
+Clothing makes the avatar, as they say.
+.Ob
+\s+1\fBdiving suit(?)\fR\s-1
+.De
+Wetsuit and scuba gear.
+.Fu
+Lets an avatar travel through water.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+If an avatar is wearing this, he can travel as if walking through ponds and
+rivers.
+.Gr
+Single static image of suit in a heap.  Additional avatar animation frames
+showing avatar in suit.
+.Pr
+.No
+Is this really a good idea?
+.En
+.Ob
+\s+1\fBhat\fR\s-1
+.De
+Your basic hat.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of hat.  Possible stylistic variations.  Additional avatar
+animation frames of hat on head.
+.Pr
+\fChat-type\fP
+.No
+.En
+.Ob
+\s+1\fBjacket\fR\s-1
+.De
+Your basic jacket.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear or unpocket.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of jacket in heap.  Additional avatar animation frames of
+torso wearing jacket.
+.Pr
+\fCcontents\fP, \fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBpants\fR\s-1
+.De
+A pair of pants.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear or unpocket.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of pants in heap.  Additional avatar animation frames of
+legs wearing pants.  Possible stylistic variations.
+.Pr
+\fCpants-type\fP, \fCcontents\fP, \fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBshirt\fR\s-1
+.De
+Your basic shirt.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of shirt in heap.  Additional avatar animation frames of
+torso wearing shirt.  Possible stylistic variations.
+.Pr
+\fCshirt-type\fP
+.No
+.En
+.Ob
+\s+1\fBshoes\fR\s-1
+.De
+A pair of shoes.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of shoes.  Additional avatar animation frames of feet
+wearing shoes.  Possible stylistic variations.
+.Pr
+\fCshoe-type\fP
+.No
+.En
+.Ob
+\s+1\fBskirt\fR\s-1
+.De
+Your basic skirt.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear or unpocket.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of skirt in heap.  Additional avatar animation frames of
+legs wearing skirt.  Possible stylistic variations.
+.Pr
+\fCskirt-type\fP, \fCcontents\fP, \fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBswim suit\fR\s-1
+.De
+Swim trunks.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of swim suit in heap.  Additional avatar animation frames
+of legs wearing swim suit.
+.Pr
+.No
+.En
+.nr PS +2
+.NH 1
+Container Objects
+.nr PS -2
+.LP
+These are objects which can hold other objects.
+.Ob
+\s+1\fBbackpack\fR\s-1
+.De
+Your basic backpack.
+.Fu
+Can carry multiple items without use of hands to hold them all.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Wear or unpocket.
+.Pu
+Remove.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static frame of lone backpack.  Possible additional animation frames of
+pack on torso of avatar.
+.Pr
+\fCcontents\fP, \fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBbag\fR\s-1
+.De
+The sack.
+.Fu
+Can carry multiple items using only one hand.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+If holding, get stuff out of it.  Otherwise, go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Two state image of bag: full and empty.
+.Pr
+\fCcontents\fP,
+\fCcapacity\fP
+.No
+.En
+.Ob
+\s+1\fBbox\fR\s-1
+.De
+Your basic box.
+.Fu
+Can carry more than two items using only two hands.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+If holding, get stuff out of it.  Otherwise, go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Two state image of box: full and empty.  Possible stylistic variations
+(cardboard box, wooden crate, treasure chest).
+.Pr
+\fCcontents\fP,
+\fCcapacity\fP
+.No
+We may want to consider making boxes open/close -able.
+.En
+.Ob
+\s+1\fBcage\fR\s-1
+.De
+A cage with bars and everything.
+.Fu
+Can contain an avatar (and hold him against his will).
+.Co
+.Do
+If adjacent or inside, unlock cage (if you have the key).  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+None.
+.Gr
+Two state image of cage: open (unlocked) and closed (locked).
+.Pr
+\fClocked\fP, \fCcontents\fP
+.No
+.En
+.nr PS +2
+.NH 1
+Weapon Objects
+.nr PS -2
+.LP
+These are things which can adversely effect other avatars and objects.
+.Ob
+\s+1\fBclub\fR\s-1
+.De
+The most basic weapon.
+.Fu
+Pain and injury at close range.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+If the target is adjacent, hit it with the club.  Otherwise, no effect.
+.Ot
+None.
+.Gr
+Single static image of club.
+.Pr
+.No
+We need to consider what the damage effects will be.
+.En
+.Ob
+\s+1\fBgrenade\fR\s-1
+.De
+A little bomb that goes boom.
+.Fu
+Death and mayhem tossed into another region.
+.Co
+.Do
+If holding, pulls pin on grenade.  Several seconds later it will explode.
+Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.  Grenade can be tossed into an adjoining region.
+.Ot
+If the pin is pulled, the timer is set.  The timer counts down each second.
+When it reaches zero the grenade explodes, doing damage to avatars and objects
+in the region it exploded in.
+.Gr
+Two state image of grenade: static state and pin pulled.  Animation of
+explosion.  Sound of pin being pulled.  Sound of explosion.
+.Pr
+\fCtimer\fP, \fCpin-pulled\fP
+.No
+We need to consider what the damage effects will be.  We need to think about
+how you indicate that you wish to toss it into another region.
+.En
+.Ob
+\s+1\fBgun\fR\s-1
+.De
+A pistol.
+.Fu
+Death and destruction from a distance.
+.Co
+.Do
+If holding, toggles safety switch.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Shoot at designated object.  In order to shoot, the safety must be off.
+.Ot
+None.
+.Gr
+Two state image: static gun and gun shooting.  Sound of shot.
+.Pr
+\fCsafety-setting\fP
+.No
+We need to consider what the damage effects will be.  We should decide if
+requiring ammunition would be a good idea.
+.En
+.Ob
+\s+1\fBknife\fR\s-1
+.De
+Sharp pointy thing.
+.Fu
+Death and injury at close range.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+If the target is adjacent, stab it with the knife.  Otherwise, no effect.
+.Ot
+None.
+.Gr
+Single static image of knife.
+.Pr
+.No
+We need to consider what the damage effects will be.
+.En
+.nr PS +2
+.NH 1
+Vehicle Objects
+.nr PS -2
+.LP
+These take things from place to place.
+.Ob
+\s+1\fBboat\fR\s-1
+.De
+A nice little runabout.
+.Fu
+Carries avatars and their possessions across water.
+.Co
+.Do
+Depends.
+.Go
+If adjacent, get in.  Otherwise, goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+The boat can travel across water.  An avatar operates it by sitting at the
+controls and then executing movement commands as if he were walking.
+.Gr
+Three static images of boat: side view, front view, back view.  Sound of boat
+driving.
+.Pr
+\fCcontents\fP, \fCcapacity\fP, \fCspeed\fP
+.No
+.En
+.Ob
+\s+1\fBbus\fR\s-1
+.De
+Mass transit.
+.Fu
+Carries many avatars and their possessions along roads.
+.Co
+A bus is just a special kind of region.  It is not a selectable object on the
+screen.
+.Ot
+A bus is a special region whose connection to other regions changes with time.
+Busses follow predetermined paths.  You board a bus by entering its region
+when it is at an adjacent bus stop.  You get off by leaving its region when it
+is stopped.  It costs money to ride the bus.  Bus fare is collected by a fare
+box object \(em each bus region contains one.
+.Gr
+Background image of bus from the outside.  Background image of the bus from
+the inside.  These are rendered by the background processor.
+.Pr
+\fCroute\fP
+.No
+A mechanism for collecting the fare is still needed.
+.En
+.Ob
+\s+1\fBcar\fR\s-1
+.De
+The great American automobile.
+.Fu
+Carries avatars and their possessions along roads.
+.Co
+.Do
+If adjacent to the car or inside it, opens the car door if it is closed or
+closes it if it is open.  Otherwise, depends.
+.Go
+If adjacent and door is open, get in.  If inside and door is open, get out.
+Otherwise, goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Ot
+The car can travel along roads (only).  An avatar operates it by sitting in
+the driver's seat and then executing movement commands as if he were walking.
+.Gr
+Three static images of car: side view, front view, back view.  Sound of car
+driving.
+.Pr
+\fCcontents\fP, \fCcapacity\fP, \fCspeed\fP
+.No
+.En
+.Ob
+\s+1\fBteleport booth\fR\s-1
+.De
+Like a phone booth, but it carries all of you instead of just your voice.
+.Fu
+Zaps avatars and their possessions elsewhere instantaneously.
+.Co
+.Do
+Depends.
+.Go
+If not adjacent to the booth, go to it.  If adjacent, enter it.  If inside,
+exit it.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go if necessary.  If avatar has a token in hand, activate the teleporter,
+otherwise drop whatever is in hand next to the phone booth.
+.Ta
+If the teleporter is activated (by dropping a token in it), interpret text as
+a teleport booth number, and teleport the avatar and everything he is carrying
+to the teleport booth dialed.  If the other teleport booth already has an
+avatar in it, you get a busy signal and then you get your token back (into
+avatar's hand) and the booth is deactivated.  If the booth is not activated,
+broadcast.
+.Ot
+The booth may be called from other booths.  When this happens an avatar
+materializes from someplace else, unless the booth is occupied already.
+.Gr
+Single static image of teleport booth.  Sound of busy signal.  Sound of
+yourself zapping from one place to another.  Sound of somebody else zapping in
+from elsewhere.
+.Pr
+\fCbooth-number\fP
+.No
+.En
+.Ob
+\s+1\fBtruck\fR\s-1
+.De
+A big truck.
+.Fu
+Carries lots of objects along roads.
+.Co
+.Do
+Depends.
+.Go
+If adjacent, get in.  If inside, get out.  Otherwise, goto.
+.St
+Cease.
+.Ge
+No effect.
+.Pu
+Go into truck and drop.
+.Ta
+Broadcast.
+.Ot
+The truck can travel along roads (only).  An avatar operates it by sitting in
+the driver's seat and then executing movement commands as if he were walking.
+.Gr
+Three static images of truck: side view, front view, back view.  Sound of
+truck driving.
+.Pr
+\fCcontents\fP, \fCcapacity\fP, \fCspeed\fP
+.No
+.En
+.bp
+.nr PS +2
+.NH 1
+Magical Objects
+.nr PS -2
+.LP
+These can do any number of things...
+.Ob
+\s+1\fBamulet\fR\s-1
+.De
+A hang-around-the neck type amulet.
+.Fu
+Generic magic talisman.
+.Co
+.Do
+If holding or wearing, activate magical function, if there is one.  Otherwise,
+depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of amulet.  Stylistic variations possible.
+.Pr
+\fCeffect\fP, \fCamulet-type\fP
+.No
+Magical functions need to be more carefully considered.
+.En
+.Ob
+\s+1\fBinstant object pill\fR\s-1
+.De
+A little pill, until you use it.
+.Fu
+Add water, it turns into some object.
+.Co
+.Do
+Depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+If you pour water on it, it turns into something else.
+.Gr
+Single static image of pill.  Sound of metamorphosis.
+.Pr
+\fCinstant-what\fP
+.No
+.En
+.Ob
+\s+1\fBmagic lamp\fR\s-1
+.De
+Just like Aladdin had...
+.Fu
+Rub it and a genie appears to grant a wish.
+.Co
+.Do
+A genie appears to grant you a wish.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of lamp.  Sound of genie appearing.
+.Pr
+.No
+Need to define a genie object!  Genie himself works like the oracle.
+.En
+.Ob
+\s+1\fBmagic staff\fR\s-1
+.De
+A stick about as tall as an avatar.
+.Fu
+Generic magic talisman.
+.Co
+.Do
+If holding, activate magical function, if there is one.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+If target is adjacent, hit with staff, unless magical function is projectile
+in nature, in which case activate the magical function.
+.Ot
+None.
+.Gr
+Single static image of staff.  Sound of staff operating.
+.Pr
+\fCeffect\fP, \fCstaff-type\fP
+.No
+Magical functions need to be figured out.
+.En
+.Ob
+\s+1\fBmagic wand\fR\s-1
+.De
+Just like your fairy godmother has.
+.Fu
+Generic magic talisman.
+.Co
+.Do
+If holding, activate magical function, if there is one.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+Go and get.
+.Pu
+Go and drop.
+.Ta
+Broadcast.
+.Re
+If target is adjacent, hit with wand, unless magical function is projectile
+in nature, in which case activate the magical function.
+.Ot
+None.
+.Gr
+Single static image of wand.  Sound of wand operating.
+.Pr
+\fCeffect\fP, \fCwand-type\fP
+.No
+Need to think out magical functions.
+.En
+.Ob
+\s+1\fBring\fR\s-1
+.De
+Your basic magic ring.
+.Fu
+Generic magic talisman.
+.Co
+.Do
+If wearing, activate magical function, if there is one.  Otherwise, depends.
+.Go
+Goto.
+.St
+Cease.
+.Ge
+If not wearing, put it on.  Otherwise, go and get.
+.Pu
+If wearing, take it off.  Otherwise, go and drop.
+.Ta
+Broadcast.
+.Re
+Throw.
+.Ot
+None.
+.Gr
+Single static image of ring.  Sound of ring operating (maybe).
+.Pr
+\fCeffect\fP, \fCring-type\fP
+.No
+Magical functions need more definition.
+.En
+.nr PS +2
+.NH 1
+Avatar Objects
+.nr PS -2
+.LP
+These are the people themselves.
+.Ob
+\s+1\fBavatar\fR\s-1
+.De
+You or somebody else.
+.Fu
+The animated figure.
+.Co
+.Do
+If adjacent, strike the avatar with your fists.  If self, ??.
+Otherwise, depends.
+.Go
+If self, change posture: standing, sitting, or lying.  Otherwise, goto.
+.St
+Cease.
+.Ge
+If not self, go if necessary and receive an object from the other avatar.  If
+self, ??.
+.Pu
+If not self, go if necessary and give whatever is in your avatar's hands to
+the other avatar.  If self ??.
+.Ta
+If not self, text message is sent to other avatar as a person-to-person
+message.  If self ??.
+.Ot
+None.
+.Gr
+Complex set of animation images expressing a wide range of motions and
+actions.
+.Pr
+\fCposition\fP, \fCorientation\fP, \fCweight\fP, \fChealth\fP
+.No
+There are undoubtedly lots of properties not touched on here.  What to various
+actions taken with respect to one's self mean?  We need to define the
+animation very rigorously.
+.En

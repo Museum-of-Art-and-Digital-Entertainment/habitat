@@ -1,0 +1,4 @@
+declare c$add_prompt entry(binary(31), binary(31));
+declare c$add entry(binary(31), binary(31));
+declare c$cook entry(binary(31), binary(31));
+declare relative_id_limit binary(31) static external;

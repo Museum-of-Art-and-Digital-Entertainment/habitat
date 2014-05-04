@@ -1,0 +1,51 @@
+/*
+ *   defs_action.incl.pl1
+ *
+ *   Entry declarations for generic action behavior functions.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+
+declare illegal entry;
+
+/* The following are in actions_gpt.pl1 */
+declare generic_GET entry;
+declare generic_PUT entry;
+declare generic_THROW entry;
+
+/* The following are in actions_magic.pl1 */
+declare generic_MAGIC entry;
+declare generic_HELP_MAGIC entry;
+
+/* The following are in actions_container.pl1 */
+declare generic_CLOSECONTAINER entry;
+declare generic_OPENCONTAINER entry;
+declare lock_HELP entry(character(*) varying, binary(31), binary(15));
+
+/* The following are in actions_weapon.pl1 */
+declare generic_ATTACK entry;
+
+/* The following are in actions_door.pl1 */
+declare generic_CLOSE entry;
+declare generic_OPEN entry;
+
+/* The following are in actions_music.pl1 */
+declare generic_OFFPLAYER entry;
+declare generic_ONPLAYER entry;
+
+/* The following are in actions_switch.pl1 */
+declare generic_OFF entry;
+declare generic_ON entry;
+
+/* The following are in actions_mail.pl1 */
+declare generic_READMAIL entry;
+declare generic_SENDMAIL entry;
+
+/* The following are in actions_oracle.pl1 */
+declare generic_ASK entry;
+
+/* The following are in actions_help.pl1 */
+declare generic_HELP entry;

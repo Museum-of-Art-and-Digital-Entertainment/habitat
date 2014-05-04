@@ -1,0 +1,1267 @@
+
+state 0
+	$accept : _statementList $end 
+
+	Name  shift 8
+	Rawline  shift 12
+	INCLUDE  shift 9
+	DEFINE  shift 10
+	USE  shift 11
+	.  error
+
+	statementList  goto 1
+	statement  goto 2
+	assignmentStatement  goto 3
+	includeStatement  goto 4
+	defineStatement  goto 5
+	objectUseStatement  goto 6
+	rawStatement  goto 7
+
+state 1
+	$accept :  statementList_$end 
+	statementList :  statementList_statement 
+
+	$end  accept
+	Name  shift 8
+	Rawline  shift 12
+	INCLUDE  shift 9
+	DEFINE  shift 10
+	USE  shift 11
+	.  error
+
+	statement  goto 13
+	assignmentStatement  goto 3
+	includeStatement  goto 4
+	defineStatement  goto 5
+	objectUseStatement  goto 6
+	rawStatement  goto 7
+
+state 2
+	statementList :  statement_    (1)
+
+	.  reduce 1
+
+
+state 3
+	statement :  assignmentStatement_    (3)
+
+	.  reduce 3
+
+
+state 4
+	statement :  includeStatement_    (4)
+
+	.  reduce 4
+
+
+state 5
+	statement :  defineStatement_    (5)
+
+	.  reduce 5
+
+
+state 6
+	statement :  objectUseStatement_    (6)
+
+	.  reduce 6
+
+
+state 7
+	statement :  rawStatement_    (7)
+
+	.  reduce 7
+
+
+state 8
+	assignmentStatement :  Name_= expr 
+
+	=  shift 14
+	.  error
+
+
+state 9
+	includeStatement :  INCLUDE_String 
+
+	String  shift 15
+	.  error
+
+
+state 10
+	defineStatement :  DEFINE_expr String fieldList ENDDEFINE 
+	defineStatement :  DEFINE_expr String ENDDEFINE 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 16
+
+state 11
+	objectUseStatement :  USE_Name Name objectTail 
+	objectUseStatement :  USE_Name objectTail 
+
+	Name  shift 27
+	.  error
+
+
+state 12
+	rawStatement :  Rawline_    (8)
+
+	.  reduce 8
+
+
+state 13
+	statementList :  statementList statement_    (2)
+
+	.  reduce 2
+
+
+state 14
+	assignmentStatement :  Name =_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 28
+
+state 15
+	includeStatement :  INCLUDE String_    (10)
+
+	.  reduce 10
+
+
+state 16
+	defineStatement :  DEFINE expr_String fieldList ENDDEFINE 
+	defineStatement :  DEFINE expr_String ENDDEFINE 
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	String  shift 29
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  error
+
+
+state 17
+	expr :  Name_    (42)
+
+	.  reduce 42
+
+
+state 18
+	expr :  Number_    (43)
+
+	.  reduce 43
+
+
+state 19
+	expr :  String_    (44)
+
+	.  reduce 44
+
+
+state 20
+	expr :  BitString_    (45)
+
+	.  reduce 45
+
+
+state 21
+	expr :  (_expr ) 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 38
+
+state 22
+	expr :  SUB_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 39
+
+state 23
+	expr :  NOT_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 40
+
+state 24
+	expr :  A_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 41
+
+state 25
+	expr :  O_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 42
+
+state 26
+	expr :  R_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 43
+
+state 27
+	objectUseStatement :  USE Name_Name objectTail 
+	objectUseStatement :  USE Name_objectTail 
+
+	Name  shift 44
+	=  shift 46
+	{  shift 47
+	.  error
+
+	objectTail  goto 45
+
+state 28
+	assignmentStatement :  Name = expr_    (9)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 9
+
+
+state 29
+	defineStatement :  DEFINE expr String_fieldList ENDDEFINE 
+	defineStatement :  DEFINE expr String_ENDDEFINE 
+
+	Name  shift 53
+	ENDDEFINE  shift 49
+	#  shift 52
+	.  error
+
+	fieldList  goto 48
+	field  goto 50
+	basicField  goto 51
+
+state 30
+	expr :  expr ADD_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 54
+
+state 31
+	expr :  expr SUB_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 55
+
+state 32
+	expr :  expr MUL_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 56
+
+state 33
+	expr :  expr DIV_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 57
+
+state 34
+	expr :  expr MOD_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 58
+
+state 35
+	expr :  expr AND_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 59
+
+state 36
+	expr :  expr OR_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 60
+
+state 37
+	expr :  expr XOR_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 61
+
+state 38
+	expr :  ( expr_) 
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	)  shift 62
+	.  error
+
+
+state 39
+	expr :  SUB expr_    (47)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	.  reduce 47
+
+
+state 40
+	expr :  NOT expr_    (48)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	.  reduce 48
+
+
+state 41
+	expr :  A expr_    (49)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 49
+
+
+state 42
+	expr :  O expr_    (50)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 50
+
+
+state 43
+	expr :  R expr_    (51)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 51
+
+
+state 44
+	objectUseStatement :  USE Name Name_objectTail 
+
+	=  shift 46
+	{  shift 47
+	.  error
+
+	objectTail  goto 63
+
+state 45
+	objectUseStatement :  USE Name objectTail_    (34)
+
+	.  reduce 34
+
+
+state 46
+	objectTail :  =_expr { properties } 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 64
+
+state 47
+	objectTail :  {_properties } 
+
+	Name  shift 67
+	.  error
+
+	properties  goto 65
+	property  goto 66
+
+state 48
+	defineStatement :  DEFINE expr String fieldList_ENDDEFINE 
+	fieldList :  fieldList_field 
+
+	Name  shift 53
+	ENDDEFINE  shift 68
+	#  shift 52
+	.  error
+
+	field  goto 69
+	basicField  goto 51
+
+state 49
+	defineStatement :  DEFINE expr String ENDDEFINE_    (12)
+
+	.  reduce 12
+
+
+state 50
+	fieldList :  field_    (13)
+
+	.  reduce 13
+
+
+state 51
+	field :  basicField_    (15)
+
+	.  reduce 15
+
+
+state 52
+	field :  #_basicField 
+
+	Name  shift 53
+	.  error
+
+	basicField  goto 70
+
+state 53
+	basicField :  Name_: fieldType 
+	basicField :  Name_( expr ) : fieldType 
+	basicField :  Name_: fieldType = exprList 
+	basicField :  Name_( expr ) : fieldType = exprList 
+
+	:  shift 71
+	(  shift 72
+	.  error
+
+
+state 54
+	expr :  expr_ADD expr 
+	expr :  expr ADD expr_    (52)
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 52
+
+
+state 55
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr SUB expr_    (53)
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 53
+
+
+state 56
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr MUL expr_    (54)
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	.  reduce 54
+
+
+state 57
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr DIV expr_    (55)
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	.  reduce 55
+
+
+state 58
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr MOD expr_    (56)
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	.  reduce 56
+
+
+state 59
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr AND expr_    (57)
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 57
+
+
+state 60
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr OR expr_    (58)
+	expr :  expr_XOR expr 
+
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 58
+
+
+state 61
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+	expr :  expr XOR expr_    (59)
+
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 59
+
+
+state 62
+	expr :  ( expr )_    (46)
+
+	.  reduce 46
+
+
+state 63
+	objectUseStatement :  USE Name Name objectTail_    (33)
+
+	.  reduce 33
+
+
+state 64
+	objectTail :  = expr_{ properties } 
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	{  shift 73
+	.  error
+
+
+state 65
+	objectTail :  { properties_} 
+	properties :  properties_property 
+
+	Name  shift 67
+	}  shift 74
+	.  error
+
+	property  goto 75
+
+state 66
+	properties :  property_    (37)
+
+	.  reduce 37
+
+
+state 67
+	property :  Name_: exprList 
+
+	:  shift 76
+	.  error
+
+
+state 68
+	defineStatement :  DEFINE expr String fieldList ENDDEFINE_    (11)
+
+	.  reduce 11
+
+
+state 69
+	fieldList :  fieldList field_    (14)
+
+	.  reduce 14
+
+
+state 70
+	field :  # basicField_    (16)
+
+	.  reduce 16
+
+
+state 71
+	basicField :  Name :_fieldType 
+	basicField :  Name :_fieldType = exprList 
+
+	AVAID  shift 85
+	BIN15  shift 79
+	BIN31  shift 80
+	BIT  shift 81
+	BYTE  shift 88
+	CHARACTER  shift 78
+	ENTITY  shift 87
+	FATWORD  shift 86
+	OBJID  shift 84
+	REGID  shift 83
+	VARSTRING  shift 89
+	WORDS  shift 82
+	.  error
+
+	fieldType  goto 77
+
+state 72
+	basicField :  Name (_expr ) : fieldType 
+	basicField :  Name (_expr ) : fieldType = exprList 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 90
+
+state 73
+	objectTail :  = expr {_properties } 
+
+	Name  shift 67
+	.  error
+
+	properties  goto 91
+	property  goto 66
+
+state 74
+	objectTail :  { properties }_    (36)
+
+	.  reduce 36
+
+
+state 75
+	properties :  properties property_    (38)
+
+	.  reduce 38
+
+
+state 76
+	property :  Name :_exprList 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 93
+	exprList  goto 92
+
+state 77
+	basicField :  Name : fieldType_    (17)
+	basicField :  Name : fieldType_= exprList 
+
+	=  shift 94
+	.  reduce 17
+
+
+state 78
+	fieldType :  CHARACTER_    (21)
+
+	.  reduce 21
+
+
+state 79
+	fieldType :  BIN15_    (22)
+
+	.  reduce 22
+
+
+state 80
+	fieldType :  BIN31_    (23)
+
+	.  reduce 23
+
+
+state 81
+	fieldType :  BIT_    (24)
+
+	.  reduce 24
+
+
+state 82
+	fieldType :  WORDS_    (25)
+
+	.  reduce 25
+
+
+state 83
+	fieldType :  REGID_    (26)
+
+	.  reduce 26
+
+
+state 84
+	fieldType :  OBJID_    (27)
+
+	.  reduce 27
+
+
+state 85
+	fieldType :  AVAID_    (28)
+
+	.  reduce 28
+
+
+state 86
+	fieldType :  FATWORD_    (29)
+
+	.  reduce 29
+
+
+state 87
+	fieldType :  ENTITY_    (30)
+
+	.  reduce 30
+
+
+state 88
+	fieldType :  BYTE_    (31)
+
+	.  reduce 31
+
+
+state 89
+	fieldType :  VARSTRING_    (32)
+
+	.  reduce 32
+
+
+state 90
+	basicField :  Name ( expr_) : fieldType 
+	basicField :  Name ( expr_) : fieldType = exprList 
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	)  shift 95
+	.  error
+
+
+state 91
+	objectTail :  = expr { properties_} 
+	properties :  properties_property 
+
+	Name  shift 67
+	}  shift 96
+	.  error
+
+	property  goto 75
+
+state 92
+	property :  Name : exprList_    (39)
+	exprList :  exprList_, expr 
+
+	,  shift 97
+	.  reduce 39
+
+
+state 93
+	exprList :  expr_    (40)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 40
+
+
+state 94
+	basicField :  Name : fieldType =_exprList 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 93
+	exprList  goto 98
+
+state 95
+	basicField :  Name ( expr )_: fieldType 
+	basicField :  Name ( expr )_: fieldType = exprList 
+
+	:  shift 99
+	.  error
+
+
+state 96
+	objectTail :  = expr { properties }_    (35)
+
+	.  reduce 35
+
+
+state 97
+	exprList :  exprList ,_expr 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 100
+
+state 98
+	basicField :  Name : fieldType = exprList_    (19)
+	exprList :  exprList_, expr 
+
+	,  shift 97
+	.  reduce 19
+
+
+state 99
+	basicField :  Name ( expr ) :_fieldType 
+	basicField :  Name ( expr ) :_fieldType = exprList 
+
+	AVAID  shift 85
+	BIN15  shift 79
+	BIN31  shift 80
+	BIT  shift 81
+	BYTE  shift 88
+	CHARACTER  shift 78
+	ENTITY  shift 87
+	FATWORD  shift 86
+	OBJID  shift 84
+	REGID  shift 83
+	VARSTRING  shift 89
+	WORDS  shift 82
+	.  error
+
+	fieldType  goto 101
+
+state 100
+	exprList :  exprList , expr_    (41)
+	expr :  expr_ADD expr 
+	expr :  expr_SUB expr 
+	expr :  expr_MUL expr 
+	expr :  expr_DIV expr 
+	expr :  expr_MOD expr 
+	expr :  expr_AND expr 
+	expr :  expr_OR expr 
+	expr :  expr_XOR expr 
+
+	OR  shift 36
+	XOR  shift 37
+	AND  shift 35
+	ADD  shift 30
+	SUB  shift 31
+	MUL  shift 32
+	DIV  shift 33
+	MOD  shift 34
+	.  reduce 41
+
+
+state 101
+	basicField :  Name ( expr ) : fieldType_    (18)
+	basicField :  Name ( expr ) : fieldType_= exprList 
+
+	=  shift 102
+	.  reduce 18
+
+
+state 102
+	basicField :  Name ( expr ) : fieldType =_exprList 
+
+	Name  shift 17
+	Number  shift 18
+	String  shift 19
+	BitString  shift 20
+	A  shift 24
+	O  shift 25
+	R  shift 26
+	SUB  shift 22
+	NOT  shift 23
+	(  shift 21
+	.  error
+
+	expr  goto 93
+	exprList  goto 103
+
+state 103
+	basicField :  Name ( expr ) : fieldType = exprList_    (20)
+	exprList :  exprList_, expr 
+
+	,  shift 97
+	.  reduce 20
+
+
+44/200 terminals, 16/300 nonterminals
+60/600 grammar rules, 104/750 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+21/350 working sets used
+memory: states,etc. 841/20000, parser 54/12000
+30/600 distinct lookahead sets
+105 extra closures
+392 shift entries, 1 exceptions
+45 goto entries
+9 entries saved by goto default
+Optimizer space used: input 860/20000, output 287/12000
+287 table entries, 123 zero
+maximum spread: 290, maximum offset: 286

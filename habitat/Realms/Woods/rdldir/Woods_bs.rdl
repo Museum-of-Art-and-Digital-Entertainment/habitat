@@ -1,0 +1,43 @@
+@region $ Woods_bs {
+    south: Woods_br.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @vendo_inside { x:72; y:32; or:236; 
+            8:0;
+            9:0;
+            10:0;
+
+            [
+                @vendo_front { x:0; y:0; or:120; 
+                    8:0;
+                    9:0;
+                    10:0;
+                    11:0;
+                    12:0;
+
+                    [
+                        @head { x:4; y:4; or:0; style:10; }
+                        @head { x:0; y:0; or:16; style:10; }
+                        @head { x:5; y:5; or:56; style:12; gr_state:1; }
+                        @head { x:1; y:1; or:0; style:8; }
+                        @head { x:3; y:3; or:16; style:8; }
+                        @head { x:2; y:2; or:0; style:24; }
+                        @head { x:6; y:6; or:8; style:24; }
+                    ]
+                }
+                @head { x:1; y:1; or:0; style:12; gr_state:1; }
+            ]
+        }
+        @bush { x:24; y:31; or:0; style:3; gr_state:1; }
+        @tree { x:52; y:33; or:64; style:1; }
+        @tree { x:132; y:42; or:188; style:1; }
+        @tree { x:20; y:131; or:148; style:10; }
+        @bush { x:4; y:153; or:16; style:3; gr_state:1; }
+        @bush { x:104; y:131; or:32; style:3; gr_state:1; }
+        @tree { x:124; y:138; or:56; style:10; }
+        @bush { x:36; y:37; or:0; style:3; gr_state:1; }
+        @tree { x:0; y:104; or:140; style:9; }
+    ]
+}

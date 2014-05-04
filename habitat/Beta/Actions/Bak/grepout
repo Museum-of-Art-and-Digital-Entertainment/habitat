@@ -1,0 +1,10 @@
+avatar_talk.m:	jsr	v_talk			; (Sends off a message & waits)
+elevator_talk.m:	chainTo v_talk			; Else talk to everybody about it
+generic_broadcast.m:	jsr	v_talk
+head_talk.m:	chainTo	v_talk
+magic_lamp_talk.m:	chainTo v_talk
+phone_booth_talk.m:	chainTo v_talk
+telephone_talk.m:	chainTo v_talk
+teleport_talk.m:	chainTo v_talk			; Else talk to everybody about it
+vectors.m:v_talk:				block	3
+walkie_talkie_talk.m:	chainTo v_talk

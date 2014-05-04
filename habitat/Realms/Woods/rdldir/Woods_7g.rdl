@@ -1,0 +1,29 @@
+@region $ Woods_7g {
+    north: Woods_7h.l;
+    south: Woods_7f.l;
+    east: Woods_8g.l;
+    west: Woods_6g.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @ground { x:64; y:4; or:172; }
+        @short_sign { x:108; y:141; or:16; style:5; gr_state:7; 
+            8:75;
+            9:69;
+            10:69;
+            11:80;
+            12:32;
+            13:79;
+            14:70;
+            15:70;
+            16:32;
+            17:32;
+        }
+        @garbage_can { x:44; y:144; or:220; 
+            8:3;
+            9:0;
+            10:0;
+        }
+    ]
+}

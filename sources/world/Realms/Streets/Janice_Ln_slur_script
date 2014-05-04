@@ -1,0 +1,159 @@
+echo Janice_Ln_s_end
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_s_end.reg \
+     -o rdldir/Janice_Ln_s_end.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_s_end \
+     -n Janice_Ln_125_front
+echo Janice_Ln_125_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_125_front.reg \
+     -o rdldir/Janice_Ln_125_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_125_front \
+     -w Janice_Ln_125_interior \
+     -n Janice_Ln_225_front \
+     -s Janice_Ln_s_end
+echo Janice_Ln_125_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_125_interior.reg \
+     -o rdldir/Janice_Ln_125_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_125_interior \
+     -e Janice_Ln_125_front
+echo Janice_Ln_225_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_225_front.reg \
+     -o rdldir/Janice_Ln_225_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_225_front \
+     -w Janice_Ln_225_interior \
+     -n Janice_Ln_325_front \
+     -s Janice_Ln_125_front
+echo Janice_Ln_225_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_225_interior.reg \
+     -o rdldir/Janice_Ln_225_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_225_interior \
+     -e Janice_Ln_225_front
+echo Janice_Ln_325_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_325_front.reg \
+     -o rdldir/Janice_Ln_325_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_325_front \
+     -w Janice_Ln_325_interior \
+     -n Janice_Ln_425_front \
+     -s Janice_Ln_225_front
+echo Janice_Ln_325_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_325_interior.reg \
+     -o rdldir/Janice_Ln_325_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_325_interior \
+     -e Janice_Ln_325_front
+echo Janice_Ln_425_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_425_front.reg \
+     -o rdldir/Janice_Ln_425_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_425_front \
+     -w Janice_Ln_425_interior \
+     -n Janice_Ln_525_front \
+     -s Janice_Ln_325_front
+echo Janice_Ln_425_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_425_interior.reg \
+     -o rdldir/Janice_Ln_425_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_425_interior \
+     -e Janice_Ln_425_front
+echo Janice_Ln_525_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_525_front.reg \
+     -o rdldir/Janice_Ln_525_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_525_front \
+     -w Janice_Ln_525_interior \
+     -n Janice_Ln_cross \
+     -s Janice_Ln_425_front
+echo Janice_Ln_525_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_525_interior.reg \
+     -o rdldir/Janice_Ln_525_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_525_interior \
+     -e Janice_Ln_525_front
+echo Janice_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_cross.reg \
+     -o rdldir/Janice_Ln_cross.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_cross \
+     -n Janice_Ln_625_front \
+     -s Janice_Ln_525_front
+echo Janice_Ln_625_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_625_front.reg \
+     -o rdldir/Janice_Ln_625_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_625_front \
+     -w Janice_Ln_625_interior \
+     -n Janice_Ln_725_front \
+     -s Janice_Ln_cross
+echo Janice_Ln_625_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_625_interior.reg \
+     -o rdldir/Janice_Ln_625_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_625_interior \
+     -e Janice_Ln_625_front
+echo Janice_Ln_725_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_725_front.reg \
+     -o rdldir/Janice_Ln_725_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_725_front \
+     -w Janice_Ln_725_interior \
+     -n Janice_Ln_825_front \
+     -s Janice_Ln_625_front
+echo Janice_Ln_725_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_725_interior.reg \
+     -o rdldir/Janice_Ln_725_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_725_interior \
+     -e Janice_Ln_725_front
+echo Janice_Ln_825_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_825_front.reg \
+     -o rdldir/Janice_Ln_825_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_825_front \
+     -w Janice_Ln_825_interior \
+     -n Janice_Ln_925_front \
+     -s Janice_Ln_725_front
+echo Janice_Ln_825_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_825_interior.reg \
+     -o rdldir/Janice_Ln_825_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_825_interior \
+     -e Janice_Ln_825_front
+echo Janice_Ln_925_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_925_front.reg \
+     -o rdldir/Janice_Ln_925_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_925_front \
+     -w Janice_Ln_925_interior \
+     -n Janice_Ln_1025_front \
+     -s Janice_Ln_825_front
+echo Janice_Ln_925_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_925_interior.reg \
+     -o rdldir/Janice_Ln_925_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_925_interior \
+     -e Janice_Ln_925_front
+echo Janice_Ln_1025_front
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_1025_front.reg \
+     -o rdldir/Janice_Ln_1025_front.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_1025_front \
+     -w Janice_Ln_1025_interior \
+     -n Janice_Ln_n_end \
+     -s Janice_Ln_925_front
+echo Janice_Ln_1025_interior
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_1025_interior.reg \
+     -o rdldir/Janice_Ln_1025_interior.rdl \
+     -d FACE_EAST \
+     -r Janice_Ln_1025_interior \
+     -e Janice_Ln_1025_front
+echo Janice_Ln_n_end
+/u0/chip/microcosm/slur/slur regdir/Janice_Ln_n_end.reg \
+     -o rdldir/Janice_Ln_n_end.rdl \
+     -d FACE_WEST \
+     -r Janice_Ln_n_end \
+     -s Janice_Ln_1025_front

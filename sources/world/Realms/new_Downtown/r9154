@@ -1,0 +1,150 @@
+use region r_9154 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9162
+  west_neighbor: r r_9143
+  north_neighbor: r r_9155
+  south_neighbor: r r_9153
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7218 {
+  container: r r_9154
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_7219 {
+  container: r r_9154
+  x: 160
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 112
+  pattern_x_size: 1
+  pattern_y_size: 7
+  pattern: 86, 149, 89, 101, 101, 89, 149, 86, 149, 86, 101, 89, 89, 101, 86, 1
+49, 89, 89, 105, 101, 89, 89, 101, 101, 86, 165, 101, 101, 85, 85, 85, 85
+}
+use sign o_7220 {
+  container: r r_9154
+  x: 0
+  y: 127
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\(good-times\R \ theater                 "
+}
+use trapezoid o_7221 {
+  container: r r_9154
+  x: 84
+  y: 80
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 172
+  upper_right_x: 3
+  lower_left_x: 172
+  lower_right_x: 3
+  height: 58
+}
+use window o_7222 {
+  container: r r_9154
+  x: 72
+  y: 184
+  style: 0
+  gr_state: 1
+  orient: 140
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_7223 {
+  container: r r_9154
+  x: 108
+  y: 32
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r 0
+}
+use door o_7224 {
+  container: r r_9154
+  x: 148
+  y: 32
+  style: 1
+  gr_state: 0
+  orient: 57
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r 0
+}
+use short_sign o_7225 {
+  container: r r_9154
+  x: 64
+  y: 46
+  style: 5
+  gr_state: 9
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\ tickets  "
+}
+use street o_7226 {
+  container: r r_9154
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

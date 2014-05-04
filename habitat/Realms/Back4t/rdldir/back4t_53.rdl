@@ -1,0 +1,23 @@
+@region $ back4t_53 {
+    north: back4t_63.l;
+    south: back4t_43.l;
+    east: back4t_54.l;
+    west: back4t_52.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; style:1; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @tree { x:104; y:29; or:1; style:3; gr_state:1; }
+        @tree { x:88; y:131; or:0; style:3; }
+        @tree { x:116; y:49; or:0; style:3; gr_state:3; }
+        @tree { x:56; y:132; or:1; style:3; }
+        @tree { x:20; y:72; or:1; style:3; gr_state:3; }
+        @tree { x:140; y:76; or:0; style:3; gr_state:2; }
+        @tree { x:36; y:136; or:9; style:11; gr_state:2; }
+        @tree { x:36; y:136; or:8; style:11; gr_state:2; }
+        @tree { x:128; y:138; or:9; style:11; gr_state:2; }
+        @tree { x:24; y:43; or:1; style:3; gr_state:2; }
+        @tree { x:156; y:29; or:1; style:6; gr_state:1; }
+        @tree { x:40; y:31; or:0; style:3; }
+    ]
+}

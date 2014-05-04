@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+down -a start_cv_data < $1.reg
+sb	key_override 3

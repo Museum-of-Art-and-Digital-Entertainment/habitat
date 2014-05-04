@@ -1,0 +1,18 @@
+@region $ Desert_5d {
+    north: Desert_5f.l;
+    south: Desert_5c.l;
+    west: Desert_4d.l;
+    region_orientation: FACE_WEST;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @tree { x:48; y:60; or:8; style:5; gr_state:2; }
+        @tree { x:48; y:29; or:8; style:5; gr_state:1; }
+        @tree { x:44; y:53; or:9; style:5; gr_state:2; }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+    ]
+}

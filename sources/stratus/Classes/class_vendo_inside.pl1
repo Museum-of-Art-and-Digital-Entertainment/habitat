@@ -1,0 +1,50 @@
+/*
+ *   class_vendo_inside.pl1
+ *
+ *   Vendo inside object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   20-June-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+initialize_class_vendo_inside: procedure;
+
+     declare a(0:0) entry based;
+     declare 1 vendo_inside based %include struct_vendo_inside;
+     declare class_vendo_inside_actions pointer;
+
+     %replace VENDO_INSIDE_REQUESTS by 0;
+
+     %replace I by CLASS_VENDO_INSIDE;
+
+     Class_Table(I).capacity = 2;
+     allocate a set(class_vendo_inside_actions);
+     Class_Table(I).actions = class_vendo_inside_actions;
+     Class_Table(I).max_requests = VENDO_INSIDE_REQUESTS;
+     Class_Table(I).alloc_size = size(vendo_inside);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = vendo_inside_HELP;
+end initialize_class_vendo_inside;
+
+vendo_inside_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_vendo_inside;
+     declare front_noid binary(15);
+     declare vendo_HELP entry(pointer);
+     %replace VENDO_FRONT by 0;
+
+     front_noid = self.contents->c(VENDO_FRONT);
+     if (front_noid ^= NULL) then do;
+          call vendo_HELP(ObjList(front_noid));
+          return;
+     end;
+     call r_msg_s('This VenDroid is out of order.');
+end vendo_inside_HELP;

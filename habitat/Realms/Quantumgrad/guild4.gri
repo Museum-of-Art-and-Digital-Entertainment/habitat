@@ -1,0 +1,172 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '0'b
+  theft_free: '0'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Wizard's Study      "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 6
+  gr_state: 0
+  orient: 132
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use chair {
+  container: r -1001
+  x: 60
+  y: 146
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use countertop {
+  container: o -1007
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a 0, a 0, a 0, a 0, a 0
+}
+use display_case {
+  container: r -1001
+  x: 0
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use glue {
+  container: r -1001
+  x: 44
+  y: 144
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 0
+  y_offset_1: 0
+  x_offset_2: 0
+  y_offset_2: 224
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use crystal_ball {
+  container: o -1007
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  live: '0'b
+}
+use super_trapezoid {
+  container: r -1001
+  x: 112
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 7
+  lower_left_x: 0
+  lower_right_x: 7
+  height: 112
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 185, 85, 185, 85, 185, 85, 185, 85, 185, 85, 185, 85, 185, 85, 186, 170, 186, 170, 185, 85, 185, 85, 185, 85, 185, 85, 185, 85, 185, 85, 185, 85
+}
+use super_trapezoid {
+  container: r -1001
+  x: 120
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 7
+  lower_left_x: 0
+  lower_right_x: 7
+  height: 112
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 85, 110, 85, 110, 85, 110, 85, 110, 85, 110, 85, 110, 85, 110, 170, 174, 170, 174, 85, 110, 85, 110, 85, 110, 85, 110, 85, 110, 85, 110, 85, 110
+}

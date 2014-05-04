@@ -1,0 +1,7 @@
+     2 count        binary(15),
+     2 entry        (21),
+       3 userid     binary(31),
+       3 action     binary(15),
+       3 stat_id    binary(15),
+       3 stat_value binary(31);
+

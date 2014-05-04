@@ -1,0 +1,8 @@
+; joke gunshot.pw:
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0x80,0x1,0x80,0x0,0xff,0xf	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x7	; next_sfx_number
+

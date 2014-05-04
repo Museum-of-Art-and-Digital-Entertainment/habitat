@@ -1,0 +1,211 @@
+.lg 1
+.ds D November 10, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Looi\*M\s-9
+.AU
+a low-overhead object interpreter for MicroCosm\*T
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*D
+.ds LH LOOI
+.ds CH \\*D
+.ds RH MicroCosm Document #2
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1INTRODUCTION\s-1
+.PP
+This document describes the design of \fBLooi\*T\fR, the \fBL\fRow
+\fBO\fRverhead \fBO\fRbject \fBI\fRnterpreter, which forms the heart of the
+\fBMicroCosm\*T\fR host database system.  The purpose of this document is to
+try to get it all straight before we get bogged down in implementation.
+.PP
+A note on notation: things in \fIitalics\fR are new terms being introduced for
+the first time.  The italics mean, ``Pay attention, this is a new term.  Don't
+panic if you don't quite understand it.  We are either just now explaining it
+or will explain it real soon.''  Things in \fBboldface\fR are proper names or
+symbolic identifiers for entities in the system.
+.SH
+\s+1OBJECTS\s-1
+.PP
+The host database is constructed out of \fIobjects\fR.  Objects are simply
+things with \fIproperties\fR.  Objects' behavior, use, and implementation are
+described below.
+.SH
+\s+1PROPERTIES\s-1
+.PP
+All objects have \fIproperties\fR.  An object's properties are simply a set of
+values that have meaning in the context of what sort of thing the object is
+supposed to be.  These values may be integers, booleans, pointers to other
+objects, or more complicated structures, such as bitmaps or lists of things.
+.SH
+\s+1NOIDS\s-1
+.PP
+Each object is referenced by a \fInoid\fR, which stands for \fBN\fRumeric
+\fBO\fRbject \fBID\fRentifier.  Every object in existence has a unique noid.
+Noids are integers, but what precision integer remains undetermined.  The
+constraint is that we may never be able to re-use a noid because we have no
+way to ever garbage collect them once they make their way into the outside
+world (well, perhaps we'll have a disintegrator object that causes other
+objects to cease existence, thus freeing their noids for re-use).  It may be
+that the best way to do this is to simply use a big number (64 bits maybe),
+though that's hard on bandwidth.  Perhaps variable-length humbers are the way
+to go.  It doesn't really matter, as long as they are 1) compact in
+representation, and 2) can point at a lot of objects.
+.SH
+\s+1PROPERTY VECTORS\s-1
+.PP
+The database uses an object's noid to look up its \fIproperty vector\fR.  This
+is an array of variable length (the length depends on what sort of object it
+is) that contains the information about the current state of the object's
+properties.  Each element in this array is either the immediate value of a
+property (if the property is a simple integer or boolean value) or a pointer
+to a more complicated structure containing the relevant data in all its parts.
+What these elements are, what they mean, and how they are interpreted is all
+up to the software that actually uses the object.
+.SH
+\s+1ESSENTIAL PROPERTIES\s-1
+.PP
+The length of an object's property vector varies, depending upon the type of
+object it is.  However, at a minimum all objects have the \fIessential
+properties\fR which are so called because they are essential to the basic
+operation of the object system.  The first few entries in the property vector
+are the essential properties.  The property vector always contains at least
+these.  There are currently four essential properties, though this may change
+as the design evolves.  These four are \fIclass\fR, \fIlocation\fR,
+\fIowner\fR, and \fIimage\fR.
+.SH
+\s+1CLASS\s-1
+.PP
+An object's \fIclass\fR says what kind of object it is.  The \fBclass\fR
+property contains a pointer to a \fIclass descriptor\fR, which is a data
+structure describing objects of a given type.  In particular, this structure
+tells the number of properties that objects of the given type possess (i.e.,
+how long the property vector is) and gives the object's \fIcapabilities\fR.
+The \fBclass\fR property is so important that we may deem it necessary to
+encode an object's class in the object's noid, and thereby avoid one level of
+pointer chasing in \fBLooi\fR's inner loop.
+.SH
+\s+1LOCATION\s-1
+.PP
+An object's \fIlocation\fR says where in the world it is.  The \fBlocation\fR
+property contains a set of coordinates in the \fBMicroCosm\fR coordinate
+system.  See the document \fBMicroCosm Coordinate Systems and Topology\fR.
+.SH
+\s+1OWNER\s-1
+.PP
+An object's \fIowner\fR is the player entitled to manipulate it.  The
+\fBowner\fR property contains a player account number.
+.SH
+\s+1IMAGE\s-1
+.PP
+An object's \fIimage\fR is the way it appears when displayed graphically on a
+player's home computer.  The \fBimage\fR property contains a pointer to an
+\fIimage descriptor\fR, which is a data structure describing an image, set of
+images, or animation sequence, in a reasonably display-device-independent
+fashion.  See the document \fBMicroCosm Graphics\fR.
+.SH
+\s+1CAPABILITIES\s-1
+.PP
+An object may have \fIcapabilities\fR which the player can exercise.
+Capabilities are things that the player can do with the object, such as move
+it, change its appearance, find out how much it weighs, etc.  Capabilities are
+the means by which the home computers interrogate and manipulate the contents
+of the host database.
+.SH
+\s+1CAPABILITY PROCEDURES\s-1
+.PP
+The active part of a capability \(em the code which computes things and
+actually alters the contents of the database \(em is implemented by a
+\fIcapability procedure\fR.  This is a compiled procedure that runs on the
+host system.  It takes a number of parameters which depend on the action that
+it is implementing.  In any case it takes two parameters: the object whose
+capability is being exercised and the \fIcapability number\fR.  Any additional
+parameters are supplied by the entity requesting exercise of the capability.
+.SH
+\s+1CAPABILITY REFERENCE\s-1
+.PP
+A capability is referenced by specifying an object's noid together with a
+\fIcapability number\fR.  The noid is used to look up the object's property
+vector, from which is obtained the object's class descriptor.  In the class
+descriptor is a pointer to a \fIcapability vector\fR.  The capability number
+is then used as an index into this vector to retrieve a pointer to the
+capability procedure.  Depending on the architecture of the host processor, we
+may want to make the capability vector pointer the very first entry in the
+class descriptor, so that it will have a zero offset from the class descriptor
+address and thereby enable us to avoid adding the structure offset in the
+inner loop (in some processors we get this offset addition for free in the
+instruction operand fetch, so it won't matter, but in some it does not).  The
+capability procedure is then invoked like any other procedure would be.  Such
+a procedure lookup-and-invocation action is called a \fIcapability
+reference\fR.  The act of requesting a capability reference is called
+\fIexercising a capability\fR.
+.SH
+\s+1CAPABILITY PROCEDURE DEFINITION\s-1
+.PP
+Capability procedures are compiled in the native programming language of the
+host system.  For purposes of discussion, I am assuming that this is \fBC\fR,
+but any other reasonably structured language (\fBPascal\fR, \fBPL/1\fR,
+\fBAda\fR, \fBLisp\fR, etc.) will serve equally well.  We will design a very
+simple specification language that we can implement (using \fByacc\fR or a
+similar utility) as an equally simple \fBC\fR preprocessor that will let us
+lay out the object property vectors, class definitions and capability
+procedures in a tidy, compact form.  Of course, we have come up with a
+terribly clever name for this language: \fBNoodl\fR, \fBN\fRegligable
+\fBO\fRverhead \fBO\fRbject \fBD\fRefinition \fBL\fRanguage.  See the document
+also entitled \fBNoodl\fR for a complete description.
+.SH
+\s+1TRANSACTION STRUCTURE\s-1
+.PP
+The \fBMicroCosm\fR database access control structure is built around the
+concept of \fItransactions\fR.  A transaction is an ``atomic'' exchange
+between \fBLooi\fR and the \fBTransaction Monitor\fR (see the \fBMicroCosm\fR
+system architecture block diagram).  A transaction is basically a single
+capability reference.  The \fBTransaction Monitor\fR is continually receiving
+requests from all the various remotes that are hooked into the host system at
+any given time.  Its responsibility is to break these requests into individual
+transactions, serially feed these to \fBLooi\fR, and then route \fBLooi\fR's
+responses back to the requesters.  The mechanism by which is does this is
+beyond the scope of this document.  See the companion document entitled
+\fBMicroCosm Host System Architecture\fR for details.  The fact that
+transactions are fed to \fBLooi\fR serially is very important.  The system
+never processes more than one operation on the database at a time.  This is
+the means by which we avoid complicated locking, unlocking, and process
+synchronization procedures.
+.SH
+\s+1MAIN CONTROL LOOP\s-1
+.PP
+The main control loop of \fBLooi\fR is therefore simply a procedure which
+accepts a stream of incoming requests that are packaged as capability
+references.  For each request, it looks up the appropriate capability
+procedure, calls it with the appropriate parameters, and returns whatever the
+capability procedure returned.  It also must handle certain error checking
+(e.g., capability number out of bounds, etc.) and error response functions.
+.SH
+\s+1RIPPLE TRANSACTIONS\s-1
+.PP
+One of the things that a capability procedure can do is request further host
+system activity in the form of additional transactions with the database.
+Such transactions are called \fIripple transactions\fR from the obvious image
+of transactions spreading out from one another like ripples in a pond.  The
+most common use of ripple transactions is to cause players other than the one
+exercising a particular capability to be told about the result of the
+operation.  This is done by initiating ``inquiry'' transactions on behalf of
+the players to be informed.  
+.SH
+\s+1THE ASYNCHRONOUS NOTIFIER\s-1
+.PP
+Ripple transactions are fed to the \fBTransaction Monitor\fR by the
+\fBAsynchronous Notifier\fR (again, refer to the \fBMicroCosm\fR system
+architecture block diagram).  It collects transactions being requested by
+capability procedures along with the identities of the players who should be
+notified of the results.  In essence, it acts like another player talking to
+the \fBTransaction Monitor\fR, except that the responses go to a destination
+different from the source of the input.  The detailed structure of the
+\fBAsynchronous Notifier\fR is described in the \fBMicroCosm Host System
+Architecture\fR document.

@@ -1,0 +1,28 @@
+@region $ dnalsi_5b {
+    north: dnalsi_5c.l;
+    south: dnalsi_5a.l;
+    east: dnalsi_6b.l;
+    west: dnalsi_4b.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:2;
+        }
+        @bush { x:72; y:45; or:25; style:4; gr_state:2; }
+        @bush { x:8; y:45; or:56; style:4; gr_state:2; }
+        @bush { x:76; y:45; or:24; style:4; gr_state:2; }
+        @pond { x:40; y:16; or:0; gr_state:1; }
+        @pond { x:60; y:16; or:0; gr_state:1; }
+        @pond { x:52; y:26; or:0; gr_state:1; }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:120; y:45; or:24; style:4; gr_state:2; }
+        @pond { x:60; y:9; or:0; gr_state:1; }
+        @bridge { x:32; y:146; or:80; 
+            8:0;
+            9:0;
+        }
+    ]
+}

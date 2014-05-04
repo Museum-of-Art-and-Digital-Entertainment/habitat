@@ -1,0 +1,36 @@
+/*
+ *   class_bush.pl1
+ *
+ *   Bush object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_bush: procedure;
+
+     %replace BUSH_REQUESTS by 0;
+
+     declare a(0:0) entry based;
+     declare 1 bush based %include struct_bush;
+     declare class_bush_actions pointer;
+
+     %replace I by CLASS_BUSH;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = BUSH_REQUESTS;
+     Class_Table(I).alloc_size = size(bush);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_bush_actions);
+     Class_Table(I).actions = class_bush_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;
+end initialize_class_bush;

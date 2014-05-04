@@ -1,0 +1,155 @@
+/*
+ *   class_tokens.pl1
+ *
+ *   Tokens object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_tokens: procedure;
+
+     %replace TOKENS_REQUESTS by 5;
+
+     declare a(0:TOKENS_REQUESTS) entry based;
+     declare class_tokens_actions pointer;
+     declare 1 tokens based %include struct_tokens;
+
+     %replace I by CLASS_TOKENS;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = TOKENS_REQUESTS;
+     Class_Table(I).alloc_size = size(tokens);
+     Class_Table(I).pc_state_bytes = 2;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_tokens_actions);
+     Class_Table(I).actions = class_tokens_actions;
+
+     Class_Table(I).actions->a(HELP)  = tokens_HELP;   /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(PAY)   = tokens_PAY;    /* 4 */
+     Class_Table(I).actions->a(5)     = tokens_SPLIT;
+
+end initialize_class_tokens;
+
+
+tokens_PAY: procedure;
+     declare target_id binary(15);
+     declare amount_lo binary(15);
+     declare amount_hi binary(15);
+     declare amount binary(31);
+     declare old_amount binary(31);
+     declare old_noid binary(15);
+     declare 1 target based(targetptr) %include struct_avatar;
+     declare targetptr pointer;
+     declare 1 token based(tokenptr) %include struct_tokens;
+     declare tokenptr pointer;
+
+     target_id = rank(request(FIRST));
+     amount_lo = rank(request(SECOND));
+     amount_hi = rank(request(THIRD));
+     amount = amount_lo + 256*amount_hi;
+     old_amount = tget(selfptr);
+     old_noid = self.noid;
+     targetptr = ObjList(target_id);
+     if (target.class = CLASS_AVATAR) then do;
+          if (empty_handed(targetptr)) then do;
+               if (spend(amount) = TRUE) then do;
+                    tokenptr = create_object(CLASS_TOKENS, 0, 0, 0, HANDS, 0,
+                         0, target.noid);
+                    if (tokenptr = null()) then do;
+                         call r_msg_1(BOING_FAILURE);
+                         return;
+                    end;
+                    call tset(tokenptr, amount);
+                    call n_msg_3_s(targetptr, PAID$, avatar.noid, amount_lo,
+                         amount_hi, vectorize(tokenptr));
+                    call r_msg_3_s(TRUE, amount_lo, amount_hi,
+                         vectorize(tokenptr));
+                    if (old_amount = amount) then 
+                         call n_msg_1(null(), GOAWAY_$, old_noid);
+                    return;
+               end; 
+          end;
+     end;
+     call r_msg_1(FALSE);
+end tokens_PAY;
+tokens_SPLIT : procedure;
+     declare pos_y binary(15);
+     declare i binary(15);
+     declare j binary(15);
+     declare token_at binary(15);
+     declare obj_noid binary(15);
+     declare amount_lo binary(15);
+     declare amount_hi binary(15);
+     declare amount binary(31);
+     declare 1 token based(tokenptr) %include struct_tokens;
+     declare tokenptr pointer;
+     declare 1 selft based(selfptr) %include struct_tokens;
+     declare big_denom binary(31);
+ 
+     amount_lo = rank(request(FIRST));
+     amount_hi = rank(request(SECOND));
+     amount = amount_lo + 256*amount_hi;
+     if (amount >= tget(selfptr) | amount = 0) then
+          goto SPLIT_fail;
+     pos_y = -1;
+     token_at = -1;
+     j = Class_Table(CLASS_AVATAR).capacity - 1 - 3;
+     do i=0 to j;
+          obj_noid = avatar.contents->c(i);
+          if (obj_noid = NULL) then do;
+               if (pos_y = -1) then pos_y = i;
+          end; else do;
+               tokenptr = ObjList(obj_noid);
+               if (token.class = CLASS_TOKENS) then token_at = i;
+          end;
+     end;
+     if (token_at ^= -1) then do;
+          pos_y = token_at;
+          tokenptr = ObjList(avatar.contents->c(pos_y));
+          big_denom = tget(tokenptr) + tget(selfptr) - amount;
+          if (big_denom > 65536) then
+               goto SPLIT_fail;
+          call tset(tokenptr, big_denom);
+          token.gen_flags(MODIFIED) = true;
+          call b_msg_5(null(), FIDDLE_$, token.noid, C64_TOKEN_denom_offset,
+               2, token.denom_lo, token.denom_hi);
+     end; else do;
+          big_denom = tget(selfptr) - amount;
+          if (big_denom > 65536 | pos_y = -1) then
+               goto SPLIT_fail;
+          tokenptr = create_object(CLASS_TOKENS,0,0,0, pos_y,0,0,avatar.noid);
+          if (tokenptr = null()) then
+               goto SPLIT_fail;
+          call tset(tokenptr, big_denom);
+          call announce_object(tokenptr);
+     end;
+     call tset(selfptr, amount);
+     selft.gen_flags(MODIFIED) = true;
+     call b_msg_5(null(), FIDDLE_$, selft.noid, C64_TOKEN_denom_offset, 2,
+          amount_lo, amount_hi);
+     call r_msg_1(TRUE);
+     return;
+
+SPLIT_fail:
+     call r_msg_1(FALSE);
+     return;
+
+end tokens_SPLIT;
+
+tokens_HELP: procedure;
+     call r_msg_s('$' || ltrim(tget(selfptr)) ||
+          ' token.  Choose DO to make change (remainder will be put back in you
++r pocket).');
+end tokens_HELP;

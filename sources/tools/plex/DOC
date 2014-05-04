@@ -1,0 +1,14 @@
+/u0/chip/habitat/plex:
+
+	This directory contains the Plex utility.  Plex is a 2-dimensional
+programming language for laying out collections of Habitat regions.  It is
+documented in detail elsewhere.
+ 
+The files here are:
+
+DOC		- This file
+Makefile	- Makefile to compile Plex
+*.c, *.y, *.l, *.h - Sources for Plex
+plex		- Executable for Plex
+plex.t		- Short documentation for the Plex command (command line
+			parameter info, not detailed use documentation)

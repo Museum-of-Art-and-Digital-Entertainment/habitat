@@ -1,0 +1,119 @@
+include "../../riddle/beta_objects.rdl";
+include "dnalsi_regions.rdl";
+
+include "rdldir/dnalsi_02.rdl";
+include "rdldir/dnalsi_03.rdl";
+include "rdldir/dnalsi_04.rdl";
+include "rdldir/dnalsi_05.rdl";
+include "rdldir/dnalsi_08.rdl";
+include "rdldir/dnalsi_09.rdl";
+include "rdldir/dnalsi_0a.rdl";
+
+include "rdldir/dnalsi_11.rdl";
+include "rdldir/dnalsi_12.rdl";
+include "rdldir/dnalsi_15.rdl";
+include "rdldir/dnalsi_18.rdl";
+include "rdldir/dnalsi_19.rdl";
+include "rdldir/dnalsi_1a.rdl";
+include "rdldir/dnalsi_1b.rdl";
+include "rdldir/dnalsi_1c.rdl";
+include "rdldir/dnalsi_1d.rdl";
+
+include "rdldir/dnalsi_21.rdl";
+include "rdldir/dnalsi_25.rdl";
+include "rdldir/dnalsi_26.rdl";
+include "rdldir/dnalsi_28.rdl";
+include "rdldir/dnalsi_29.rdl";
+include "rdldir/dnalsi_2a.rdl";
+include "rdldir/dnalsi_2b.rdl";
+include "rdldir/dnalsi_2c.rdl";
+include "rdldir/dnalsi_2d.rdl";
+
+include "rdldir/dnalsi_30.rdl";
+include "rdldir/dnalsi_31.rdl";
+include "rdldir/dnalsi_36.rdl";
+include "rdldir/dnalsi_37.rdl";
+include "rdldir/dnalsi_38.rdl";
+include "rdldir/dnalsi_39.rdl";
+include "rdldir/dnalsi_3a.rdl";
+include "rdldir/dnalsi_3b.rdl";
+include "rdldir/dnalsi_3c.rdl";
+include "rdldir/dnalsi_3d.rdl";
+
+include "rdldir/dnalsi_40.rdl";
+include "rdldir/dnalsi_47.rdl";
+include "rdldir/dnalsi_48.rdl";
+include "rdldir/dnalsi_49.rdl";
+include "rdldir/dnalsi_4a.rdl";
+include "rdldir/dnalsi_4b.rdl";
+include "rdldir/dnalsi_4c.rdl";
+
+include "rdldir/dnalsi_50.rdl";
+include "rdldir/dnalsi_57.rdl";
+include "rdldir/dnalsi_58.rdl";
+include "rdldir/dnalsi_59.rdl";
+include "rdldir/dnalsi_5a.rdl";
+include "rdldir/dnalsi_5b.rdl";
+include "rdldir/dnalsi_5c.rdl";
+
+include "rdldir/dnalsi_60.rdl";
+include "rdldir/dnalsi_61.rdl";
+include "rdldir/dnalsi_63.rdl";
+include "rdldir/dnalsi_62.rdl";
+include "rdldir/dnalsi_64.rdl";
+include "rdldir/dnalsi_65.rdl";
+include "rdldir/dnalsi_66.rdl";
+include "rdldir/dnalsi_67.rdl";
+include "rdldir/dnalsi_68.rdl";
+include "rdldir/dnalsi_69.rdl";
+include "rdldir/dnalsi_6a.rdl";
+include "rdldir/dnalsi_6b.rdl";
+include "rdldir/dnalsi_6c.rdl";
+
+include "rdldir/dnalsi_71.rdl";
+include "rdldir/dnalsi_72.rdl";
+include "rdldir/dnalsi_73.rdl";
+include "rdldir/dnalsi_74.rdl";
+include "rdldir/dnalsi_75.rdl";
+include "rdldir/dnalsi_76.rdl";
+include "rdldir/dnalsi_78.rdl";
+include "rdldir/dnalsi_79.rdl";
+include "rdldir/dnalsi_7a.rdl";
+include "rdldir/dnalsi_7b.rdl";
+include "rdldir/dnalsi_7c.rdl";
+
+include "rdldir/dnalsi_82.rdl";
+include "rdldir/dnalsi_83.rdl";
+include "rdldir/dnalsi_84.rdl";
+include "rdldir/dnalsi_85.rdl";
+include "rdldir/dnalsi_92.rdl";
+include "rdldir/dnalsi_93.rdl";
+include "rdldir/dnalsi_94.rdl";
+
+
+include "rdldir/dnalsi_cave1_0a.rdl";
+include "rdldir/dnalsi_cave1_0b.rdl";
+include "rdldir/dnalsi_cave1_1a.rdl";
+include "rdldir/dnalsi_cave1_1b.rdl";
+
+include "rdldir/dnalsi_cave2_0c.rdl";
+include "rdldir/dnalsi_cave2_0d.rdl";
+include "rdldir/dnalsi_cave2_1a.rdl";
+include "rdldir/dnalsi_cave2_1b.rdl";
+include "rdldir/dnalsi_cave2_1c.rdl";
+include "rdldir/dnalsi_cave2_1d.rdl";
+include "rdldir/dnalsi_cave2_1e.rdl";
+include "rdldir/dnalsi_cave2_2a.rdl";
+include "rdldir/dnalsi_cave2_2b.rdl";
+include "rdldir/dnalsi_cave2_2c.rdl";
+include "rdldir/dnalsi_cave2_2d.rdl";
+include "rdldir/dnalsi_cave2_2e.rdl";
+include "rdldir/dnalsi_cave2_3a.rdl";
+
+include "rdldir/dnalsi_cave3_0c.rdl";
+include "rdldir/dnalsi_cave3_1a.rdl";
+include "rdldir/dnalsi_cave3_1c.rdl";
+include "rdldir/dnalsi_cave3_2a.rdl";
+include "rdldir/dnalsi_cave3_2b.rdl";
+include "rdldir/dnalsi_cave3_2c.rdl";
+include "rdldir/dnalsi_cave3_3c.rdl";

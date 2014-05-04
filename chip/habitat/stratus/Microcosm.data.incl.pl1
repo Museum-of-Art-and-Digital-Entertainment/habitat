@@ -1,0 +1,117 @@
+%page ;
+  
+declare 1            room_process_info        based      ,
+         2           rp_process_id            binary(31) ,
+         2           rp_number                binary(15) ,
+         2           rp_process_name          character(32) varying ,
+         2           rp_active_room_count     binary(15) ,
+         2           rp_active_room_list      pointer    ,
+         2           rp_inactive_room_list    pointer    ,
+         2           rp_pointer               pointer    ;
+
+declare 1 room_info           based,
+          2 ri_region_id             binary(31) ,
+          2 ri_poppa                 pointer    ,      /* Process holding room */
+          2 ri_q_pointer             pointer    ,      /* Queue of process holding room */
+          2 ri_q_id                  binary(31) ,
+          2 ri_players_online        binary(15) ,      /* connected NOW        */
+          2 ri_number_objects        binary(15) ,      /* includes occupants   */
+          2 ri_user_list             pointer,
+          2 ri_private               binary(15) ,      /* PUBLIC = 1, PRIVATE = 2 */
+          2 ri_room_id               binary(31) ,      /* THIS room's slot in RoomFile */
+          2 ri_flags,
+            3 ri_initialized         bit(1),
+            3 ri_filler              bit(15),
+          2 ri_enter_list            pointer,          /* Waiting to login     */
+          2 ri_chg_list              pointer;          /* Waiting to come in   */
+
+declare 1            user_info                based,
+         2           ui_uid                   binary(31),
+         2           ui_qid                   binary(31),
+         2           ui_scr_name              character(10) varying,
+         2           ui_account_num           character(10),
+         2           ui_version               binary(15),
+         2           ui_room_pointer          pointer,      /* Ptr to THIS user's room_info struct */
+         2           ui_room_id               binary(31),
+         2           ui_process_pointer       pointer,
+         2           ui_chg_room_ptr          pointer,
+         2           ui_login_time            binary(31),
+         2           ui_mail                  ,
+             3          status                binary(15),
+             3          arrived               binary(31),
+         2           ui_make_null             bit(1),
+         2           ui_unused_flags          bit(15),
+         2           ui_scr_compname          character(10) varying;
+
+%replace user_blk_size by 25;
+declare 1 user_block                          based,
+         2 blk_cnt                            binary(15),
+         2 user_id(user_blk_size)             binary(31);
+
+
+declare 1  new_user  based,
+         2 uid           bin(31),
+         2 qid           bin(31),
+         2 region_id     bin(31),
+         2 attempts      bin(15),
+         2 qc_name       char(10) var,
+         2 qc_hold_area  char(28),
+         2 user_data     char(50) var;
+
+%replace hash_value by 1027 ;     /* size of user_list hash table */
+
+declare how_many_room_prox          external binary(15) initial(0) ;
+declare how_many_rooms_used         external binary(15) initial(0) ;
+declare waiting_for_count           external binary(15) initial(0) ;
+
+declare room_process_list      external pointer initial (null()) ;
+declare linear_user_list       external pointer initial (null()) ;
+declare user_list(hash_value)  external pointer initial ((hash_value)null()) ;
+declare room_list              external pointer initial (null()) ;
+declare incipient_room_process_list external pointer initial (null()) ;   
+
+declare 1 last_login          external static,
+          2 pos               binary(15)     initial(0),
+          2 name(12)          char(10)       initial('','','','','','',
+                                                     '','','','','','');
+
+declare TimeEventID       binary(31) external ;  
+declare TimeEventCount    binary(31) external ;  
+declare TimerSet          bit(1)     external initial (false) ;
+
+declare RoomFilePort  binary(15) external ;
+declare UserFilePort  binary(15) external ;
+declare UserSize      binary(15) external initial (0) ;
+declare RoomSize      binary(15) external ;
+
+/*
+ * the next is not used... but i hate to just delete it.
+ * can be used either linearly or as a tree.  Im using this since there 
+ * doesnt seem to be a pl1 version of realloc that will grow the space
+ * allocated and move all the data.
+ */
+%replace Big_Tree_Size by 1 ;
+declare 1            big_tree                 based      , 
+         2           bt_high                  binary(15) ,
+                             /* leaves are bt_high = 0 */
+         2           bt_next_big_tree         pointer    ,
+         2           bt_array (Big_Tree_Size) pointer    ;
+
+%replace public$room  by 1;
+%replace private$room by 2 ;
+
+/*  Constants used in communicating with SuperProcess to get info about */
+/*  Current users and rooms                                             */
+
+%replace InfoCommand$next_user     by 1;
+%replace InfoCommand$next_room     by 2;
+%replace InfoCommand$count_users   by 3;
+
+%replace room_area$null            by 20000;
+%replace room_area$unknown         by 20001;
+%replace room_area$public          by 20002;
+%replace room_area$auditorium      by 20003;
+%replace room_area$conf_center     by 20004;
+%replace room_area$private         by 20005;
+
+%replace level_count_base          by 10000;

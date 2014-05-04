@@ -1,0 +1,26 @@
+@region $ dnalsi_2c {
+    north: dnalsi_2d.l;
+    south: dnalsi_2b.l;
+    east: dnalsi_3c.l;
+    west: dnalsi_1c.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:2;
+        }
+        @bush { x:72; y:45; or:9; style:4; gr_state:2; }
+        @bush { x:24; y:45; or:8; style:4; gr_state:2; }
+        @bush { x:76; y:45; or:8; style:4; gr_state:2; }
+        @rock { x:108; y:148; or:8; 
+            8:1;
+        }
+        @rock { x:96; y:149; or:16; 
+            8:1;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:100; y:45; or:8; style:4; gr_state:2; }
+    ]
+}

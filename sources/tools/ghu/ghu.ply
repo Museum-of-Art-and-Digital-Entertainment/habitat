@@ -1,0 +1,1323 @@
+%{
+     %include 'parser.incl.pl1';
+%}
+
+%token ADD ALIAS ALLMACROS ALLNAMES BREAK CLASS CONTENTS COOK DEFINE DISPLAY
+%token ELSE ELSEIF ENDDEFINE ENDFOR ENDIF ENDMACRO EXECUTE FIND FOR GET
+%token GRIDDLE HELP IF KILL LIST MACRO NAME NEWTURF NUKE ORACLE PAGES PLAYERS
+%token PROCESSES QUIT RAW READ READMAIL REMOVE REMTURF SENDMAIL SET
+%token START_LOGGING STOP_LOGGING TELEPORT TITLES TURFS UNNAME UPDATE VALUE
+%token VOICE WATCH WRITE
+
+%token AVAID BIN15 BIN31 BIT BYTE CHARACTER ENTITY FATWORD OBJID REGID
+%token VARSTRING WORDS
+
+%token ACTIVE ALL APPEND CONTINUE DASH DUMP FILE FROM FULL IN INTO NEW OFF
+%token OLD TO SINCE
+
+%token Filename Name Number Bitstring String
+
+%token NEWLINE 10   A 65   O 79   R 82   S 83   U 85
+
+%left LOGOR
+%left LOGAND
+%right ULOGNOT
+%left '<' '>' EQ GEQ LEQ NEQ
+%left '|'
+%left '^'
+%left '&'
+%left '+' '-'
+%left '*' '/' '%'
+%right UMINUS UBITNOT
+%left '.'
+%right A O R S U
+%right '?'
+
+%%
+commandStream:
+            NEWLINE
+{
+     /* &&&1 first production &&& */
+     $$ = $1;
+}
+ |          commandLine NEWLINE
+{
+     $$ = $1;
+}
+ |          commandStream NEWLINE
+{
+     $$ = $1;
+}
+ |          commandStream commandLine NEWLINE
+{
+     $$ = $1;
+}
+ ;
+
+commandLine:
+            command
+{
+     $$ = $1;
+}
+ |          error
+{
+     call abort_nesting;
+     $$ = $1;
+}
+ |          commandLine ';' command
+{
+     $$ = $1;
+}
+ ;
+
+command:
+            ghuCommand
+{
+     call execute_command($1, NULL, false, true);
+}
+ |          ghuCommand INTO Filename
+{
+     call execute_command($1, $3, false, true);
+}
+ |          ghuCommand APPEND Filename
+{
+     call execute_command($1, $3, true, true);
+}
+ ;
+
+ghuCommand:
+            addCommand
+{
+     $$ = $1;
+}
+ |          aliasCommand
+{
+     $$ = $1;
+}
+ |          allmacrosCommand
+{
+     $$ = $1;
+}
+ |          allnamesCommand
+{
+     $$ = $1;
+}
+ |          breakCommand
+{
+     $$ = $1;
+}
+ |          classCommand
+{
+     $$ = $1;
+}
+ |          contentsCommand
+{
+     $$ = $1;
+}
+ |          cookCommand
+{
+     $$ = $1;
+}
+ |          defineCommand
+{
+     $$ = $1;
+}
+ |          displayCommand
+{
+     $$ = $1;
+}
+ |          elseCommand
+{
+     $$ = $1;
+}
+ |          elseIfCommand
+{
+     $$ = $1;
+}
+ |          endForCommand
+{
+     $$ = $1;
+}
+ |          endIfCommand
+{
+     $$ = $1;
+}
+ |          endMacroCommand
+{
+     $$ = $1;
+}
+ |          executeCommand
+{
+     $$ = $1;
+}
+ |          findCommand
+{
+     $$ = $1;
+}
+ |          forCommand
+{
+     $$ = $1;
+}
+ |          getCommand
+{
+     $$ = $1;
+}
+ |          griddleCommand
+{
+     $$ = $1;
+}
+ |          helpCommand
+{
+     $$ = $1;
+}
+ |          ifCommand
+{
+     $$ = $1;
+}
+ |          killCommand
+{
+     $$ = $1;
+}
+ |          listCommand
+{
+     $$ = $1;
+}
+ |          macroCommand
+{
+     $$ = $1;
+}
+ |          macroCallCommand
+{
+     $$ = $1;
+}
+ |          nameCommand
+{
+     $$ = $1;
+}
+ |          newturfCommand
+{
+     $$ = $1;
+}
+ |          nukeCommand
+{
+     $$ = $1;
+}
+ |          oracleCommand
+{
+     $$ = $1;
+}
+ |          pagesCommand
+{
+     $$ = $1;
+}
+ |          playersCommand
+{
+     $$ = $1;
+}
+ |          processesCommand
+{
+     $$ = $1;
+}
+ |          quitCommand
+{
+     $$ = $1;
+}
+ |          rawCommand
+{
+     $$ = $1;
+}
+ |          readCommand
+{
+     $$ = $1;
+}
+ |          readmailCommand
+{
+     $$ = $1;
+}
+ |          removeCommand
+{
+     $$ = $1;
+}
+ |          remturfCommand
+{
+     $$ = $1;
+}
+ |          sendmailCommand
+{
+     $$ = $1;
+}
+ |          setCommand
+{
+     $$ = $1;
+}
+ |          start_loggingCommand
+{
+     $$ = $1;
+}
+ |          stop_loggingCommand
+{
+     $$ = $1;
+}
+ |          teleportCommand
+{
+     $$ = $1;
+}
+ |          writeCommand
+{
+     $$ = $1;
+}
+ |          titlesCommand
+{
+     $$ = $1;
+}
+ |          turfsCommand
+{
+     $$ = $1;
+}
+ |          unnameCommand
+{
+     $$ = $1;
+}
+ |          updateCommand
+{
+     $$ = $1;
+}
+ |          valueCommand
+{
+     $$ = $1;
+}
+ |          voiceCommand
+{
+     $$ = $1;
+}
+ |          watchCommand
+{
+     $$ = $1;
+}
+ ;
+
+value:
+            Number
+{
+     $$ = unop(eval_number_value, $1);
+}
+ |          String
+{
+     $$ = unop(eval_string_value, $1);
+}
+ |          Bitstring
+{
+     $$ = unop(eval_bitstring_value, $1);
+}
+ |          lvalue
+{
+     $$ = unop(value_from_lvalue, $1);
+}
+ |          '?' value
+{
+     $$ = unop(objtype, $2);
+}
+ |          '-' value          %prec UMINUS
+{
+     $$ = unop(anegate, $2);
+}
+ |          '^' value          %prec UBITNOT
+{
+     $$ = unop(bnegate, $2);
+}
+ |          '~' value          %prec UBITNOT
+{
+     $$ = unop(bnegate, $2);
+}
+ |          '!' value          %prec ULOGNOT
+{
+     $$ = unop(lnegate, $2);
+}
+ |          '(' value ')'
+{
+     $$ = $2;
+}
+ |          value '+' value
+{
+     $$ = binop(add, $1, $3);
+}
+ |          value '-' value
+{
+     $$ = binop(sub, $1, $3);
+}
+ |          value '/' value
+{
+     $$ = binop(div, $1, $3);
+}
+ |          value '*' value
+{
+     $$ = binop(mul, $1, $3);
+}
+/* |          value '%' value
+{
+     $$ = binop(amod, $1, $3);
+}*/
+ |          value '&' value
+{
+     $$ = binop(band, $1, $3);
+}
+ |          value '|' value
+{
+     $$ = binop(bor, $1, $3);
+}
+ |          value '^' value
+{
+     $$ = binop(bxor, $1, $3);
+}
+ |          value '<' value
+{
+     $$ = binop(cmp_lt, $1, $3);
+}
+ |          value LEQ value
+{
+     $$ = binop(cmp_leq, $1, $3);
+}
+ |          value EQ value
+{
+     $$ = binop(cmp_eq, $1, $3);
+}
+ |          value NEQ value
+{
+     $$ = binop(cmp_neq, $1, $3);
+}
+ |          value GEQ value
+{
+     $$ = binop(cmp_geq, $1, $3);
+}
+ |          value '>' value
+{
+     $$ = binop(cmp_gt, $1, $3);
+}
+ |          value LOGAND value
+{
+     $$ = binop(land, $1, $3);
+}
+ |          value LOGOR value
+{
+     $$ = binop(lor, $1, $3);
+}
+ |          A value
+{
+     $$ = binop(attach_type, SYM$AVATAR, $2);
+}
+ |          O value
+{
+     $$ = binop(attach_type, SYM$OBJECT, $2);
+}
+ |          R value
+{
+     $$ = binop(attach_type, SYM$REGION, $2);
+}
+ |          S value
+{
+     $$ = binop(attach_type, SYM$STRING, $2);
+}
+ |          U value
+{
+     $$ = binop(attach_type, SYM$INTEGER, $2);
+}
+ ;
+
+lvalue:
+            Name
+{
+     $$ = unop(eval_name_value, $1);
+}
+ |          value '.' Name
+{
+     $$ = binop(lookup_field, $1, $3);
+}
+ |          lvalue '(' value ')'
+{
+     $$ = binop(lookup_array, $1, $3);
+}
+ ;
+
+macroCallCommand:
+            Name valueList
+{
+     $$ = build_command(CMD$MACRO_CALL, $1, $2);
+}
+ |          Name
+{
+     $$ = build_command(CMD$MACRO_CALL, $1, p2i(null()));
+}
+ ;
+
+addCommand:
+            ADD
+{
+     $$ = build_command(CMD$ADD_PROMPT, 0, 0);
+}
+ |          ADD value
+{
+     $$ = build_command(CMD$ADD, $2, p2i(null()));
+}
+ |          ADD value '=' valueList
+{
+     $$ = build_command(CMD$ADD, $2, $4);
+}
+ ;
+
+aliasCommand:
+            ALIAS Name '=' String
+{
+     $$ = build_command(CMD$ALIAS, $2, $4);
+}
+ |          ALIAS Name
+{
+     $$ = build_command(CMD$ALIAS_PRINT, $2, 0);
+}
+ |          ALIAS
+{
+     $$ = build_command(CMD$ALIAS_LIST, 0, 0);
+}
+ ;
+
+allmacrosCommand:
+            ALLMACROS
+{
+     $$ = build_command(CMD$ALLMACROS, 0, 0);
+}
+ ;
+
+allnamesCommand:
+            ALLNAMES
+{
+     $$ = build_command(CMD$ALLNAMES, 0, 0);
+}
+ ;
+
+breakCommand:
+            BREAK
+{
+     $$ = build_command(CMD$BREAK, 0, 0);
+}
+ ;
+
+classCommand:
+            CLASS value
+{
+     $$ = build_command(CMD$CLASS, $2, 0);
+}
+ ;
+
+contentsCommand:
+            CONTENTS value
+{
+     $$ = build_command(CMD$CONTENTS, $2, 0);
+}
+ |          CONTENTS value FULL
+{
+     $$ = build_command(CMD$CONTENTS_FULL, $2, 0);
+}
+ ;
+
+cookCommand:
+            COOK Filename
+{
+     $$ = build_command(CMD$COOK, $2, 0);
+}
+ ;
+
+defineCommand:
+            defineHead NEWLINE fieldList ENDDEFINE
+{
+     inside_define = false;
+     $$ = build_command(CMD$DEFINE, $1, $3);
+}
+ |          defineHead NEWLINE ENDDEFINE
+{
+     inside_define = false;
+     $$ = build_command(CMD$DEFINE, $1, p2i(null()));
+}
+ ;
+
+defineHead:
+            DEFINE value String
+{
+     inside_define = true;
+     $$ = build_define_tag($2, $3);
+}
+ ;
+
+displayCommand:
+            DISPLAY value
+{
+     $$ = build_command(CMD$DISPLAY, $2, 0);
+}
+ |          DISPLAY value '.'
+{
+     $$ = build_command(CMD$DISPLAY, $2, 1);
+}
+ |          DISPLAY
+{
+     $$ = build_command(CMD$DISPLAY_DEFAULT, 0, 0);
+}
+ ;
+
+elseCommand:
+            ELSE
+{
+     $$ = build_command(CMD$ELSE, 0, 0);
+}
+ ;
+
+elseIfCommand:
+            ELSEIF value
+{
+     $$ = build_command(CMD$ELSEIF, $2, 0);
+}
+ ;
+
+endForCommand:
+            ENDFOR
+{
+     $$ = build_command(CMD$ENDFOR, 0, 0);
+}
+ ;
+
+endIfCommand:
+            ENDIF
+{
+     $$ = build_command(CMD$ENDIF, 0, 0);
+}
+ ;
+
+endMacroCommand:
+            ENDMACRO
+{
+     $$ = build_command(CMD$ENDMACRO, 0, 0);
+}
+ ;
+
+executeCommand:
+            EXECUTE Filename
+{
+     $$ = build_command(CMD$EXECUTE, $2, 0);
+}
+ ;
+
+findCommand:
+            FIND value
+{
+     $$ = build_command(CMD$FIND, $2, 0);
+}
+ ;
+
+forCommand:
+            FOR ALL A
+{
+     $$ = build_command(CMD$FOR_ALL_A, 0, 0);
+}
+ |          FOR ALL O
+{
+     $$ = build_command(CMD$FOR_ALL_O, 0, 0);
+}
+ |          FOR ALL R
+{
+     $$ = build_command(CMD$FOR_ALL_R, 0, 0);
+}
+ |          FOR ALL A IN value
+{
+     $$ = build_command(CMD$FOR_ALL_A_IN, $5, 0);
+}
+ |          FOR ALL O IN value
+{
+     $$ = build_command(CMD$FOR_ALL_O_IN, $5, 0);
+}
+ |          FOR value TO value
+{
+     $$ = build_command(CMD$FOR_RANGE, $2, $4);
+}
+ ;
+
+getCommand:
+            GET value
+{
+     $$ = build_command(CMD$GET, $2, 0);
+}
+ ;
+
+griddleCommand:
+            GRIDDLE value
+{
+     $$ = build_command(CMD$GRIDDLE, $2, 0);
+}
+ |          GRIDDLE value FULL
+{
+     $$ = build_command(CMD$GRIDDLE_FULL, $2, 0);
+}
+ ;
+
+helpCommand:
+            HELP
+{
+     $$ = build_command(CMD$HELP_GENERAL, 0, 0);
+}
+ |          HELP keyword
+{
+     $$ = build_command(CMD$HELP, $2, 0);
+}
+ ;
+
+ifCommand:
+            IF value
+{
+     $$ = build_command(CMD$IF, $2, 0);
+}
+ ;
+
+killCommand:
+            KILL value
+{
+     $$ = build_command(CMD$KILL, $2, 0);
+}
+ ;
+
+listCommand:
+            LIST value DASH value ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, $2, $4);
+}
+ |          LIST value DASH value
+{
+     $$ = build_command(CMD$LIST, $2, $4);
+}
+ |          LIST DASH value ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0), $3);
+}
+ |          LIST DASH value
+{
+     $$ = build_command(CMD$LIST, unop(eval_number_value, 0), $3);
+}
+ |          LIST value DASH ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, $2,
+                        unop(eval_number_value, MAXINT));
+}
+ |          LIST value DASH
+{
+     $$ = build_command(CMD$LIST, $2, unop(eval_number_value, MAXINT));
+}
+ |          LIST value ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, $2, unop(eval_number_value, -1));
+}
+ |          LIST value
+{
+     $$ = build_command(CMD$LIST, $2, unop(eval_number_value, -1));
+}
+ |          LIST DASH ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+}
+ |          LIST DASH
+{
+     $$ = build_command(CMD$LIST, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+}
+ |          LIST ACTIVE
+{
+     $$ = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+}
+ |          LIST
+{
+     $$ = build_command(CMD$LIST, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+}
+ ;
+
+macroCommand:
+            MACRO Name
+{
+     $$ = build_command(CMD$MACRO, $2, 0);
+}
+ ;
+
+nameCommand:
+            NAME Name '=' value
+{
+     $$ = build_command(CMD$NAME, $2, $4);
+}
+ ;
+
+newturfCommand:
+            NEWTURF value
+{
+     $$ = build_command(CMD$NEWTURF, $2, 0);
+}
+ ;
+
+nukeCommand:
+            NUKE value
+{
+     $$ = build_command(CMD$NUKE, $2, p2i(null()));
+}
+ |          NUKE value DASH value
+{
+     $$ = build_command(CMD$NUKE, $2, $4);
+}
+ ;
+
+oracleCommand:
+            ORACLE value
+{
+     $$ = build_command(CMD$ORACLE, $2, p2i(null()));
+}
+ |          ORACLE ALL
+{
+     $$ = build_command(CMD$ORACLE, p2i(null()), p2i(null()));
+}
+ |          ORACLE value DUMP
+{
+     $$ = build_command(CMD$ORACLE_DUMP, $2, p2i(null()));
+}
+ |          ORACLE ALL DUMP
+{
+     $$ = build_command(CMD$ORACLE_DUMP, p2i(null()), p2i(null()));
+}
+ |          ORACLE value SINCE value
+{
+     $$ = build_command(CMD$ORACLE, $2, $4);
+}
+ |          ORACLE ALL SINCE value
+{
+     $$ = build_command(CMD$ORACLE, p2i(null()), $4);
+}
+ |          ORACLE value SINCE value DUMP
+{
+     $$ = build_command(CMD$ORACLE_DUMP, $2, $4);
+}
+ |          ORACLE ALL SINCE value DUMP
+{
+     $$ = build_command(CMD$ORACLE_DUMP, p2i(null()), $4);
+}
+ ;
+
+pagesCommand:
+            PAGES value
+{
+     $$ = build_command(CMD$PAGES_LOOKUP, $2, 0);
+}
+ |          PAGES value '=' value
+{
+     $$ = build_command(CMD$PAGES, $2, $4);
+}
+ ;
+
+playersCommand:
+            PLAYERS
+{
+     $$ = build_command(CMD$PLAYERS, 0, 0);
+}
+ ;
+
+processesCommand:
+            PROCESSES
+{
+     $$ = build_command(CMD$PROCESSES, 0, 0);
+}
+ ;
+
+quitCommand:
+            QUIT
+{
+     $$ = build_command(CMD$QUIT, 0, 0);
+}
+ ;
+
+rawCommand:
+            RAW value
+{
+     $$ = build_command(CMD$RAW, $2, 0);
+}
+ |          RAW value FULL
+{
+     $$ = build_command(CMD$RAW_FULL, $2, 0);
+}
+ ;
+
+readCommand:
+            READ
+{
+     $$ = build_command(CMD$READ_IMPLICIT, 0, 0);
+}
+ |          READ value
+{
+     $$ = build_command(CMD$READ, $2, p2i(null()));
+}
+ |          READ value ',' value
+{
+     $$ = build_command(CMD$READ, $2, $4);
+}
+ ;
+
+readmailCommand:
+            READMAIL value
+{
+     $$ = build_command(CMD$READMAIL, $2, 0);
+}
+ ;
+
+removeCommand:
+            REMOVE value
+{
+     $$ = build_command(CMD$REMOVE, $2, 0);
+}
+ ;
+
+remturfCommand:
+            REMTURF value
+{
+     $$ = build_command(CMD$REMTURF, $2, 0);
+}
+ ;
+
+sendmailCommand:
+            SENDMAIL value
+{
+     $$ = build_command(CMD$SENDMAIL, build_value_list($2,NULL), p2i(null()));
+}
+ |          SENDMAIL value FILE Filename
+{
+     $$ = build_command(CMD$SENDMAIL, build_value_list($2, NULL), $4);
+}
+ |          SENDMAIL value FROM value
+{
+     $$ = build_command(CMD$SENDMAIL, build_value_list($2,
+               build_value_list($4, NULL)), p2i(null()));
+}
+ |          SENDMAIL value FROM value FILE Filename
+{
+     $$ = build_command(CMD$SENDMAIL, build_value_list($2,
+               build_value_list($4, NULL)), $6);
+}
+ ;
+
+setCommand:
+            SET lvalue '=' value
+{
+     $$ = build_command(CMD$SET, $2, $4);
+}
+ |          SET lvalue '=' value '!'
+{
+     $$ = build_command(CMD$SET_UPDATE, $2, $4);
+}
+ ;
+
+start_loggingCommand:
+            START_LOGGING Filename
+{
+     $$ = build_command(CMD$START_LOGGING, $2, 0);
+}
+ |          START_LOGGING Filename CONTINUE
+{
+     $$ = build_command(CMD$START_LOGGING, $2, 1);
+}
+ ;
+
+stop_loggingCommand:
+            STOP_LOGGING
+{
+     $$ = build_command(CMD$STOP_LOGGING, 0, 0);
+}
+ ;
+
+teleportCommand:
+            TELEPORT value
+{
+     $$ = build_command(CMD$TELEPORT_LOOKUP, $2, 0);
+}
+ |          TELEPORT value '=' value
+{
+     $$ = build_command(CMD$TELEPORT_SET, $2, $4);
+}
+ ;
+
+titlesCommand:
+            TITLES
+{
+     $$ = build_command(CMD$TITLES, unop(eval_number_value, 0),
+               unop(eval_number_value, TEXTID_LIMIT));
+}
+ |          TITLES DASH
+{
+     $$ = build_command(CMD$TITLES, unop(eval_number_value, 0),
+               unop(eval_number_value, TEXTID_LIMIT));
+}
+ |          TITLES value
+{
+     $$ = build_command(CMD$TITLES, $2, unop(eval_number_value, -1));
+}
+ |          TITLES value DASH value
+{
+     $$ = build_command(CMD$TITLES, $2, $4);
+}
+ |          TITLES value DASH
+{
+     $$ = build_command(CMD$TITLES, $2,
+               unop(eval_number_value, TEXTID_LIMIT));
+}
+ |          TITLES DASH value
+{
+     $$ = build_command(CMD$TITLES, unop(eval_number_value, 0), $3);
+}
+ ;
+
+turfsCommand:
+            TURFS
+{
+     $$ = build_command(CMD$TURFS, 0, 0);
+}
+ ;
+
+unnameCommand:
+            UNNAME Name
+{
+     $$ = build_command(CMD$UNNAME, $2, 0);
+}
+ ;
+
+updateCommand:
+            UPDATE
+{
+     $$ = build_command(CMD$UPDATE, 0, 0);
+}
+ |          UPDATE value
+{
+     $$ = build_command(CMD$UPDATE_EXPLICIT, $2, 0);
+}
+ ;
+
+valueCommand:
+            VALUE value
+{
+     $$ = build_command(CMD$VALUE, $2, 0);
+}
+ |          VALUE value '.'
+{
+     $$ = build_command(CMD$VALUE, $2, 1);
+}
+
+voiceCommand:
+            VOICE
+{
+     $$ = build_command(CMD$VOICE_IMPLICIT_PROMPT, 0, 0);
+}
+ |          VOICE value
+{
+     $$ = build_command(CMD$VOICE_PROMPT, $2, 0);
+}
+ |          VOICE '#' value
+{
+     $$ = build_command(CMD$VOICE_IMPLICIT, $2, 0);
+}
+ |          VOICE value '#' value
+{
+     $$ = build_command(CMD$VOICE, $2, $4);
+}
+ ;
+
+watchCommand:
+            WATCH
+{
+     $$ = build_command(CMD$WATCH_IMPLICIT, 0, 0);
+}
+ |          WATCH value
+{
+     $$ = build_command(CMD$WATCH, $2, 0);
+}
+ |          WATCH OFF
+{
+     $$ = build_command(CMD$WATCH_OFF, 0, 0);
+}
+ ;
+
+writeCommand:
+            WRITE valueList
+{
+     $$ = build_command(CMD$WRITE, $2, p2i(null()));
+}
+ |          WRITE valueList FILE Filename
+{
+     $$ = build_command(CMD$WRITE, $2, $4);
+}
+ |          WRITE
+{
+     $$ = build_command(CMD$WRITE_NEW, p2i(null()), 0);
+}
+ |          WRITE FILE Filename
+{
+     $$ = build_command(CMD$WRITE_NEW, $3, 0);
+}
+ ;
+
+fieldList:
+            field NEWLINE
+{
+     $$ = build_field_list($1, NULL);
+}
+ |          fieldList field NEWLINE
+{
+     $$ = build_field_list($2, $1);
+}
+ ;
+
+field:
+            '#' basicField
+{
+     $$ = invisify($2);
+}
+ |          basicField
+{
+     $$ = $1;
+}
+ ;
+
+basicField:
+            Name ':' fieldType
+{
+     $$ = build_field($1, unop(eval_number_value, 1), $3, p2i(null()));
+}
+ |          Name '(' value ')' ':' fieldType
+{
+     $$ = build_field($1, $3, $6, p2i(null()));
+}
+ |          Name ':' fieldType '=' valueList
+{
+     $$ = build_field($1, unop(eval_number_value, 1), $3, $5);
+}
+ |          Name '(' value ')' ':' fieldType '=' valueList
+{
+     $$ = build_field($1, $3, $6, $8);
+}
+ ;
+
+fieldType:
+            CHARACTER
+{
+     $$ = FIELD$CHARACTER;
+}
+ |          BIN15
+{
+     $$ = FIELD$BIN15;
+}
+ |          BIN31
+{
+     $$ = FIELD$BIN31;
+}
+ |          BIT
+{
+     $$ = FIELD$BIT;
+}
+ |          WORDS
+{
+     $$ = FIELD$WORDS;
+}
+ |          REGID
+{
+     $$ = FIELD$REGID;
+}
+ |          OBJID
+{
+     $$ = FIELD$OBJID;
+}
+ |          AVAID
+{
+     $$ = FIELD$AVAID;
+}
+ |          FATWORD
+{
+     $$ = FIELD$FATWORD;
+}
+ |          ENTITY
+{
+     $$ = FIELD$ENTITY;
+}
+ |          VARSTRING
+{
+     $$ = FIELD$VARSTRING;
+}
+ |          BYTE
+{
+     $$ = FIELD$BYTE;
+}
+ ;
+
+valueList:
+            value
+{
+     $$ = build_value_list($1, NULL);
+}
+ |          valueList ',' value
+{
+     $$ = build_value_list($3, $1);
+}
+
+keyword:
+          ADD
+{
+     $$ = $1;
+}
+ |        ALIAS
+{
+     $$ = $1;
+}
+ |        ALLMACROS
+{
+     $$ = $1;
+}
+ |        ALLNAMES
+{
+     $$ = $1;
+}
+ |        CLASS
+{
+     $$ = $1;
+}
+ |        CONTENTS
+{
+     $$ = $1;
+}
+ |        COOK
+{
+     $$ = $1;
+}
+ |        DEFINE
+{
+     $$ = $1;
+}
+ |        DISPLAY
+{
+     $$ = $1;
+}
+ |        EXECUTE
+{
+     $$ = $1;
+}
+ |        FIND
+{
+     $$ = $1;
+}
+ |        FOR
+{
+     $$ = $1;
+}
+ |        GET
+{
+     $$ = $1;
+}
+ |        GRIDDLE
+{
+     $$ = $1;
+}
+ |        HELP
+{
+     $$ = $1;
+}
+ |        IF
+{
+     $$ = $1;
+}
+ |        KILL
+{
+     $$ = $1;
+}
+ |        LIST
+{
+     $$ = $1;
+}
+ |        MACRO
+{
+     $$ = $1;
+}
+ |        NAME
+{
+     $$ = $1;
+}
+ |        NUKE
+{
+     $$ = $1;
+}
+ |        ORACLE
+{
+     $$ = $1;
+}
+ |        PLAYERS
+{
+     $$ = $1;
+}
+ |        PROCESSES
+{
+     $$ = $1;
+}
+ |        QUIT
+{
+     $$ = $1;
+}
+ |        RAW
+{
+     $$ = $1;
+}
+ |        READ
+{
+     $$ = $1;
+}
+ |        READMAIL
+{
+     $$ = $1;
+}
+ |        REMOVE
+{
+     $$ = $1;
+}
+ |        SENDMAIL
+{
+     $$ = $1;
+}
+ |        SET
+{
+     $$ = $1;
+}
+ |        TELEPORT
+{
+     $$ = $1;
+}
+ |        UPDATE
+{
+     $$ = $1;
+}
+ |        VOICE
+{
+     $$ = $1;
+}
+ |        WATCH
+{
+     $$ = $1;
+}
+ |        WRITE
+{
+     $$ = $1;
+     /* &&&2 last production &&& */
+}
+ ;
+
+%%
+
+/* &&&3 start of embedded routines &&& */
+yyerror: procedure(s);
+     declare s character(*) varying;
+
+     call error(s);
+end yyerror;
+/* &&&4 end of embedded routines &&& */
+

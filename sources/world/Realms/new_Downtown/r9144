@@ -1,0 +1,89 @@
+use region r_9144 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9155
+  west_neighbor: r r_9132
+  north_neighbor: r r_9145
+  south_neighbor: r r_9143
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use flat o_7119 {
+  container: r r_9144
+  x: 0
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  flat_type: 2
+}
+use sky o_7120 {
+  container: r r_9144
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid o_7121 {
+  container: r r_9144
+  x: 4
+  y: 27
+  style: 0
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 249
+  upper_right_x: 155
+  lower_left_x: 248
+  lower_right_x: 155
+  height: 21
+}
+use streetlamp o_7122 {
+  container: r r_9144
+  x: 72
+  y: 160
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use street o_7123 {
+  container: r r_9144
+  x: 68
+  y: 12
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

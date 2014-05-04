@@ -1,0 +1,38 @@
+/*
+ *   actions_oracle.pl1
+ *
+ *   Behavior routines for the oracular protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   13-April-1986
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+generic_ASK: procedure;
+     declare question character(TEXT_LENGTH) varying;
+
+/*   question = substr(request_string, FIRST);    */
+     question = request_string;
+     if (index(question, 'TO:') = 1 | index(question, 'To:') = 1 |
+               index(question, 'to:') = 1) then do;
+          call object_say(self.noid, 'I don''t do ESP.  Point somewhere else.');
+     end; else do;
+          if (length(question) < 4) then question = ' ' || question || ' ';
+          call object_say(avatar.noid, question);
+          call message_to_god(selfptr, avatarptr, question);
+          if (self.class = CLASS_FOUNTAIN) then do;
+               call object_say(self.noid,'I''ll see what I can do.');
+               if (question = 'Willy Willy Nilly Billy') then do;
+                    call object_say(self.noid,'That IS the correct phrase.');
+               end;
+               if (avatar.curse_type > 0) then do;
+                    call object_say(self.noid,'By the way, to remove the curse you must give it to someone else.');
+               end;
+          end;
+     end;
+end generic_ASK;

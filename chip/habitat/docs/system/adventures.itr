@@ -1,0 +1,401 @@
+.AM
+.ds Dq October 17, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Adventures in The
+
+MicroCosm\s-9
+.AU
+strategies for making the universe an interesting place
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH ADVENTURES
+.ds CH \\*(Dq
+.ds RH MicroCosm Document # 13
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes various strategies and subterfuges for creating
+adventures in the \fBMicroCosm\*T\fR universe and for generally stirring
+things up to make the world an interesting place to visit.  This is basically
+just a collection of ideas, which will undoubtedly grow as the conception of
+the universe becomes more mature.  Unlike the bulk of \fBMicroCosm\fP
+documentary material, this is a statement of possibilities rather than of
+definite plans.  The exposition is deliberately informal.  One of the purposes
+of this document is to get people thinking about the issues raised here so
+they will generate more ideas about things to do.
+.SH
+\s+3The MicroCosm Daily Rant\s-3
+.PP
+The \fIDaily Rant\fR is the \fBMicroCosm\fP newspaper.  It's probably
+published on-line, but maybe it comes through the mail.  And maybe it's not
+the \fIDaily Rant\fR but the \fIWeekly Rant\fR.  In any case it's the major
+source of news and information in our little world.  Most of its contents are
+mundane: messages from the system administrators (that's us) about changes in
+the system, pending down-time, and so on; all the usual little things that the
+operators of on-line systems everywhere have to tell their subscribers about.
+.PP
+The interesting part of the \fIRant\fP though, is the ads.  For a fee (which
+could be a real charge that shows up on your bill at the end of the month or
+it could be something your avatar pays with ``money'' found in the universe
+itself) you can place an ad.  The ad can say pretty much whatever you like
+(subject to the usual limitations about libel and so on) and everyone in the
+universe will get a chance to read it.
+.PP
+With an ad in the \fIRant\fP you can offer the services of your avatar to
+others, locate like-minded players to go on adventures with you, sell your
+possessions, and so on.  It also provides a medium for the introduction of
+information of information into the world that shields the players from
+knowledge about whether the information is coming from us or from other
+players.
+.SH
+\s+3Quests For Hire\*T\s-3
+.PP
+\fIQuests For Hire\fR is a company that does business inside the
+\fBMicroCosm\fP.  Maybe we run it.  Maybe it's run by some dedicated players
+to whom we delegate the authority and responsibility.  Maybe it just emerges
+on its own from the player community.  In any case, it is the local equivalent
+of Marin Discoveries or Thomas Cook Ltd.  Its job is organizing adventures for
+people to go on.  Some of these adventures are simple jaunts: guided tours to
+familiarize the unfamiliar player with parts of the world.  Others are epic
+quests to find all manner of holy grails, rescue the imprisoned, liberate the
+oppressed, save the weak, etc.  Such quests can involve many players operating
+in concert with each other.
+.PP
+Typically, Quests For Hire places an ad in the \fIDaily Rant\fR, something
+like:
+.nf
+
+.B1
+
+                                               \s+3\fHBORED?\fR\s-3
+
+      \f(CBVolunteers sought for expedition now organizing to explore the Outer
+  Reaches.  Great rewards possible for motivated individuals.  Contact Quests
+For Hire, Inc., Daily Rant Box 47 or come to the organizing meeting, Tuesday,
+   9:00PM EST at the Fnork Fountain in Strackhenville.  Orphans preferred.\fR
+
+.B2
+.fi
+.PP
+The resourceful folks at Quests For Hire set everything up for you.  They map
+out the route of travel.  They arrange for someone to lead the expedition.  If
+you join the expedition they'll provide you with equipment and any necessary
+information.  Depending on the adventure, you may have to pay them or they may
+pay you.  For example, if you're just going on a guided tour with them,
+they'll want to be compensated.  On the other hand, if you're signing on as a
+mercenary in somebody else's quest for the holy grail, then you'll get paid
+the prevailing rate for such work.  Presumably that somebody else is putting
+up the bucks to finance the expedition.  They also do behind-the-scenes
+wheeling and dealing to place interesting artifacts in your path, set up
+situations for you to encounter, arrange for foes to appear and oppose you,
+and so on.  Quests For Hire is really a rather slippery organization, since
+you're never quite sure whose side they're really on.  In reality they're on
+the side of making the experience as interesting as possible.
+.SH
+\s+3Buried Treasure\s-3
+.PP
+Organized quests are really just one end of a continuum of planned
+opportunities for people to get involved in an adventure.  At the other end of
+this continuum is what I call \fIburied treasure\fR.   Buried treasure is just
+that.  We hide interesting or valuable artifacts somewhere in the world.  Some
+of them are minor and easy to find, like a dime you would find on the
+sidewalk.  Others are substantial and well hidden, requiring cleverness and
+perseverance to seek them out.  For many of these treasures we also plant
+clues, resulting in an ongoing series of puzzles for the amusement of the
+players.  For example, we could place an ad in the \fIRant\fP:
+.nf
+
+.B1
+
+\f(HDIn the place of the powerless lies the most powerful thing
+                  Six great circles surround the ring
+                              But beware the lurk\fR
+
+.B2
+.fi
+which is obviously a riddle whose answer will lead you towards some goodie.
+.PP
+We can also leave treasure maps and other clues lying around.  Some will be
+red herrings that lead you haplessly on the most bizarre wild goose chases.
+Others will be genuine and take you to an honest reward.
+.SH
+\s+3The Hand Of God\s-3
+.PP
+Setting up quests and burying treasure involve manipulations to the state of
+the world that are usually within the power of ordinary players.
+Extraordinary manipulations of the world are conceivable, however, that can be
+used to intervene in various ways to add spice and to keep things moving
+forward.  Such manipulations require special, privileged access to the host's
+internal representation of the world.  In other words, they must be acts of
+God.
+.PP
+Godly interventions can take many forms.  They can be the traditional
+miracles: healing grievous wounds, raising the dead, providing food in the
+desert, turning water into wine, making a silk purse out of a sow's ear, and
+so on.  They can involve throwing obstacles in the path of the overly
+ambitious, granting extraordinary powers to special individuals, zapping
+litterbugs, etc.  God (that's us, really) can do pretty much anything to
+anybody as long as the effect is consistent with the underlying world model.
+.PP
+One of the more important things God can do is send people messages that will
+carry with them the weight of substantial authority.  These can range from the
+vaguely unsettling
+.nf
+
+.B1
+\f(CB
+You better watch your step, honey.
+
+                \(em God\fR
+
+.B2
+
+.fi
+to the disconcertingly specific
+.nf
+
+.B1
+\f(CB
+Be at the front door of your house at 10:00PM tonight, or else.
+
+                \(em God\fR
+
+.B2
+
+.fi
+to the reassuringly supportive
+.nf
+
+.B1
+\f(CB
+Congratulations!  You have just been granted the boon of invincibility.
+For the next 24 hours, nobody can do anything to injure you.  Have a
+good time, and try real hard not to do anything *stupid*.
+
+                \(em God\fR
+
+.B2
+.fi
+.PP
+Obviously, being God will be a big responsibility.  We will need to decide
+whether the \fBMicroCosm\fP God will be capricious and arbitrary, just to stir
+things up, or whether He (She?) will attempt to enforce some standard of
+behavior among the inhabitants of the world.  Also, we must choose what degree
+of interventionism is most appropriate.  Should God intervene only rarely or
+will miracles happen to folks every day?  There is an issue of privacy here,
+in the degree of monitoring of worldly events that will be required.  There is
+also an issue of cost and efficiency, in the amount of time and effort that
+will be needed on our behalf to fulfill deific responsibilities.  We also need
+to decide if we even want to have our interventions in the proceedings of the
+universe couched in any sort of religious imagery, be it either serious or
+frivolous.
+.SH
+\s+3Start A War, Get A Check\s-3
+.PP
+Whenever you get a group of people together, they spontaneously form higher
+level social structures.  These structures depend on the circumstances the
+people gather under, the purposes they gather for, and how many of them that
+there are.  People can form cliques, clubs, committees, associations,
+corporations, families, gangs, tribes, towns, and nations, to name but a few
+things.  Assuming the population of the \fBMicroCosm\fP gets sufficiently
+large, I think we can expect analogs of all of these to arise in one form or
+another.
+.PP
+Once higher levels of social organization develop, the social model of the
+world becomes much more complex.  This is because now, in addition to the
+interactions between individuals, we have interactions between the various
+groups to contend with also.  Two of the most interesting interactions between
+social groups are conflict and commerce.  I think we will experience both of
+these in \fBMicroCosm\fP.
+.PP
+Technical constraints will limit the degree of open armed conflict between
+groups.  Because the home computers that will be animating the players'
+displays are only so fast, we must restrict the number of avatars that can
+appear on a player's screen at any one time.  There are several schemes for
+doing this, the most promising being a sort of social adaptation of the Pauli
+Exclusion Principle, but the technicalities are outside the scope of this
+document.  However it is accomplished, this limitation will in turn mean that
+battles in the classic sense, where large groups of people openly confront
+each other, will not be possible.  This does not mean that nations of avatars
+cannot have wars with each other (though we would hope that the players will
+have the sense not to), but it does mean that such conflicts will happen on a
+fairly personal level.  There are also constraints on the tempo of combat,
+imposed by the slow speed of the typical communications link to the host
+(usually 300 baud) and the delays that result from the packet switching
+network that we use.  Again, this means that while interpersonal combat is
+possible, it will not be the fast-action shoot'em-up that we associate with
+traditional video games.   Combat will, in fact, be tedious and nerve
+wracking.  The result, I believe, will be that struggles between groups will
+be more political than military.  This, I think, is just as well.
+.SH
+\s+3Money\s-3
+.PP
+It is pretty clear that the \fBMicroCosm\fP universe should have money in it.
+The big question, though, is what is the unit of currency?
+.PP
+I rather like \fItokens\fP because of the historic association of tokens with
+video games and also because of my long time association with members of the
+Manhattan Nationalist Party who advocate, among other things, that the
+monetary system of New York City should be based on the subway token.
+.PP
+Somebody else recently suggested that \fIcookies\fP would be a good choice.
+Obviously they come in a range of denominations with chocolate chip cookies
+being the most valuable and coconut macaroons (or, as some say, fig newtons)
+being the least valuable.  Cookies are also consumable, which has interesting
+ramifications on the underlying monetary system.  But maybe they're a little
+too cute.
+.PP
+My completely naive notions of economics tell me that the value inherent in
+money, since money is simply a convenient symbolic representation for value,
+comes from two directions.  The first is the inherent utility of things in the
+world.  Obviously a swiss army knife is more valuable than a random lump of
+equivalent quantities of metal and plastic, because the materials are
+organized in a fashion that is simply more useful.  This is why barter makes
+sense: people have an idea of the relative worth of various goods and
+services.  The second direction is the idea of conserved quantities.  This is
+the idea behind the old gold standard \(em there is only so much gold in the
+world, so the value of all the world's gold must remain more or less constant.
+Thus, a certain quantity of gold can represent a certain quantity of value,
+and you know that it is safe to trade your goods and services for gold because
+its intrinsic value is conserved.  There isn't going to be more of it
+appearing suddenly, because it just can't be mined that fast.  There isn't
+going to be less of it either (not that anyone would really care) because it's
+not really useful for anything except being money (actually, gold is quite a
+useful material, but the relative scarcity that makes it a good currency also
+makes it too expensive to use in quantity).  Nowadays the conserved quantity
+is just a number set by various governments on the basis of prevailing
+economic theory, but the principle is the same.
+.PP
+In any case, the fundamental question at hand is: what is the basis of the
+value of \fBMicroCosm\fP's standard currency.  In other words, why would
+someone choose to exchange, say, \fIa car\fR for \fI5000 tokens\fR?  The
+answer is that he knows that he can in turn exchange the 5000 tokens for
+something else of equivalent value.  My intuition, then, is that we can simply
+introduce tokens as objects whose properties (lightweight, compact, not useful
+for anything else) make them convenient for representing money, and so long as
+the quantity available is conserved (or at least controlled \(em perhaps we
+will have something that functions as the \fBMicroCosm\fP equivalent of the
+Federal Reserve Board) it will work.
+.SH
+\s+3Real Money\s-3
+.PP
+An interesting possibility is somehow tying the value of \fBMicroCosm\fP
+tokens (or some other object or service available in the universe) to \fIreal
+money\fR or at least to something with real value in the real world.  For
+example, we might allow players to cash in some of their tokens to pay their
+on-line services bills.  This opens up the obvious possibility of letting a
+player create tokens in the \fBMicroCosm\fP by charging it to his account.
+Allowing free exchange between the currency of the real world and that of the
+fantasy world would probably open too many regulatory cans of worms with all
+sorts of nasty governmental entanglements, but a limited form of exchange may
+still be beneficial.  For example, the hero of a quest returns home with an
+enormous jewel as part of his booty.  What's he going to do with it?  Perhaps
+we can let him trade it in on some prize that recognizes his achievement.
+This could be an hour's free use of the system (something with small but real
+value), a chocolate dragon (something with real but still mostly symbolic
+value) or a trophy, plaque, or certificate proclaiming his heroism (a thing of
+almost entirely symbolic value).
+.SH
+\s+3Quantum Tunneling\*T\s-3
+.PP
+The topology of the universe does not have to be as constrained as it is in
+the real world.  The basic geometry of the \fBMicroCosm\fP is that it is a
+great plain.  Avatars move about by walking around on its surface, or by
+traveling in vehicles, which is like walking only faster.  This simple
+surface, however, is just a convenient fiction for helping us visualize the
+geography.  There is no reason why regions of the world have to maintain the
+same spatial connectivity with one another that this model implies.  The
+geometry may, in fact, be highly non-Euclidean, with essentially no additional
+overhead on the part of any of the computers involved (though perhaps with
+considerable overhead in the player's mind, depending upon how truly bizarre
+we make it).
+.PP
+The simplest non-Euclidean element to introduce into the world is the
+\fIteleport booth\fR.  This is simply an object that zaps your avatar to some
+distant locale, just like a telephone except that you get to send your whole
+body rather than just your voice \(em step in, press a button and
+\fI*POOF!*\fR, you're someplace else.  Teleport booths are an easy way to make
+the world's geometry highly non-Euclidean without forcing the players into
+contorting their minds to visualize weird spaces.
+.PP
+A more subtle violation of the conventional rules of geometry would be a
+portal linking two disparate pieces of the world.  This could be a cavern or a
+doorway that your avatar walks through or simply a magic place on the ground
+that your avatar walks over.  It would be like having a street where one end
+of a particular block is in San Francisco and the other end is in New York.
+Walk down the street one block and you wind up on the opposite coast.
+.PP
+Such connections between places do not have to be passive.  For example, a
+portal could take different player's avatars to different places depending on
+some condition.  For example, everyone passing through the portal who is
+wearing green goes to place A while everyone wearing blue goes to place B.  A
+trap portal could transport everyone with lots of money on their person to a
+villain's lair while letting others pass normally.
+.PP
+We could make the geometry vary in time in interesting ways.  For example,
+there could be a magical wishing well that only appears on the night of a full
+moon.  However, it wouldn't be the well itself that comes and goes, but the
+very \fIplace\fP in which it is found.  When it's gone, it isn't just that
+there is an empty piece of ground where the well should be, rather, the whole
+place simply isn't there.  All the places that are next to it when it is there
+are just next to one another when it's not.
+.PP
+All the pieces of territory that make up the world could be connected together
+in very strange ways.  However, we probably don't wish to deviate from the
+Euclidean model too drastically, or the players may become disoriented.
+.SH
+\s+3The Universe Next Door\s-3
+.PP
+With this ability to link disparate parts of the world together, we can just
+as easily link separate universes.  Separate universes are obviously desirable
+because of the storage and communications limitations of our machines.  We can
+only store so many objects and so much graphics code in the typical home
+computer's memory and disk capacity.  This limits the degree of visual and
+functional diversity of the elements found in the universe.  However, we can
+easily build separate universes with completely different graphical styles and
+completely different collections of functional objects.  The host, however,
+remains the same, as does the underlying modeling software that the host is
+running.  Thus, to the host, it's all one big collection of data, and it is
+as easy to connect one universe to another as it is to connect one part of a
+single universe to another.  With a simple transition sequence for the
+player's benefit (in which he is prompted to replace his ABC Universe diskette
+with his XYZ Universe diskette) we can still let the player travel from one
+world to the other.
+.PP
+With such a capability we can support multiple fantasies and multiple visual
+styles.  For example, the first universe will probably be the stark flat plain
+with cars and houses that has been illustrated in all the storyboards.
+However, we could later add another universe that looked like outer space,
+with orbiting space stations and spaceships and avatars in spacesuits.  This
+would require a whole new set of objects and imagery that would have to be
+distributed to the players as a whole new disk of software, but once a player
+has established an existence in both universes he can easily hop between them.
+.SH
+\s+3Vest Pocket Realities\*T\s-3
+.PP
+The partitioning between universes described above is primarily a
+technicality.  If two universes share the same family of images and objects,
+the distinction between them \(em whether it is one universe or two \(em is
+very blurry indeed.  We can create little pockets of world that are in one
+sense part of the whole and in another sense separate places of their own.
+Thus we can make offshoots of a given reality for specialized purposes.  For
+example, let's say that Quests For Hire wants to lead a quest to the magical
+kingdom of Graustark.  The folks operating the quest don't want everybody in
+the world to be able to step in and mess up the fantasy, just as film makers
+shooting on location don't want just anyone to be able to walk in front of the
+camera even though they're in a public place.  So, the magical kingdom of
+Graustark is a special place, set up (by us) solely for the benefit of Quests
+For Hire.  Its only connection to the mainstream universe is a special portal
+that only people authorized by Quests For Hire can pass through.  The only
+avatars who get in, therefore, are the people on the quest and ``actors''
+working on Quests For Hire's behalf to play out the fantasy for them.

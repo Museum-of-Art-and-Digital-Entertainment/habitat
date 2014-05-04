@@ -1,0 +1,105 @@
+.TL
+\s+9The Lucasfilm Universe\s-9
+.AU
+a proposal for a new form of interactive entertainment
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(DY
+.ds LH THE LUCASFILM UNIVERSE
+.ds CH \\*(DY
+.ds RH Concept Document
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AB no
+Picture, if you will, a network, an intricate web of knots and threads
+spanning thousands of miles.  The knots are machines, made of silicon, metal,
+and plastic.  The threads are metal wires.  It is a computer network.  The
+machines are computers, sitting in homes, schools and offices across the
+continent.  The wires are telephone lines, tying the hundreds upon hundreds of
+individual processors into a single, unified whole.  At each of these machines
+sit people.  People of all kinds and all ages, adults and children, students
+and teachers, the rich, the poor, wise men and fools.  They experience the
+sights and sounds of that which exists only in the wholeness of the web, and
+in their own minds.  Their machines have carried them to another place:  The
+Lucasfilm Universe.
+.AE
+.SH
+\s+3Introduction\s-3
+.PP
+The Lucasfilm Universe will be a multi-user interactive simulation of an
+imaginary alternate reality.  Distributed processing techniques will enable a
+large number of people to become vicarious inhabitants of this other place.
+Their home computers, tapping into the network using low-cost modems and the
+household telephone, will be their windows into it.
+.PP
+The theme of the Lucasfilm Universe will be science-fictional.  The setting is
+that of an expanding frontier society in the age of interstellar travel. It is
+an era when the universe beyond human space seems wide-open and limitless.
+Even so, the realm that has been settled is vast: a region of space scores of
+light years across.  Within this immense volume are thousands of star systems,
+most of them yet unexplored.  There are hundreds of inhabited worlds: populous
+industrial planets, sleepy backwater colonies, remote mining stations,
+enormous artificial habitats, and everything in between.  There are dozens of
+alien races.  Some are friendly to human kind.  Some are hostile.  Some are
+just, well, \fIalien\fR.
+.PP
+Starships powered by Hyperdryve ply the void between worlds carrying merchants
+with the goods that make the galactic economy run, messengers bearing the news
+of the day that would otherwise be limited to the speed of light, ambassadors
+on obscure missions of statecraft, spies involved in innumerable interstellar
+intrigues both petty and severe, explorers seeking to find new worlds and new
+resources, colonists seeking to exploit these new worlds and make them their
+homes, soldiers, both patriotic and mercenary, on their way to greater
+battlefields, religeous zealots of every stamp bent on saving (or enslaving)
+the souls of a thousand worlds, pilgrims of a hundred obscure sects on the way
+to a hundred obscure Mecas, refugees fleeing the carnage of war or the
+oppression of tyrants, criminals fleeing justice, tradesmen seeking their
+fortune, students on their way to the great Universities or home again with
+fresh, hard-won knowledge, scientists exploring the uncountable mysteries of
+the age, actors, musicians, artists and artisans seeking inspiration or just a
+job, wealthy dilletants on endless holidays, hard-working executives on
+well-deserved vacations, con artists looking for prey, and all the other
+myriad folk engaged in the complicated business of life.  Each of these people
+is a player in the game and each player in the game is one of these people.
+.SH
+\s+3The way things work\s-3
+.PP
+The Lucasfilm Universe is, in some sense, a role-playing game.  Each player
+takes the part of a character in the vast, on-going drama.  Running on each
+player's home computer is a piece of software that acts as that player's
+window into the Universe.  This program presents to the player the sights and
+sounds that his or her character would be experiencing in the situations that
+the character encounters, together with interactive controls to direct the
+character's actions and movements within the simulation.  The home computer
+connects the character to the goings on in the rest of the Universe by means
+of data communications over the telephone.  This connection is routed through
+the Commodore network host to the other players' home computers and to a
+a central coordinating process, Universe Central, that resides within the
+centralized network host itself.
+.PP
+Directly simulating the experiences of thousands of players in this large and
+complex universe would swamp the capacity of any practically conceivable
+centralized host.  For this reason, Universe Central performs very little
+actual simulation of the goings on in the Universe.  Instead, it acts as a
+transaction coordinator and database server for the community of home machines
+running the Lucasfilm Universe software package.  The bulk of the actual
+simulation is performed in the home computers themselves.
+.PP
+For example, Universe Central does not store detailed maps of all of the
+worlds.  Instead, it stores ``seed'' data to procedural models that run inside
+the home computers.  Not only does this enable the central host to forego the
+maintenance of a detailed geographic database, but also cuts down on the
+communications bandwidth necessary to transmit the description of a world to
+an outlying player.  Much of the business of Universe simulation is handled by
+simply routing the appropriate messages from one player's home computer to
+another.
+.PP
+Of course, an important function which Universe Central plays is to perform
+consistency checks and transaction verification procedures on the messages it
+handle.  This is to insure that unscrupulous hackers don't gain undue power or
+influence in the fantasy by tampering with the ``real'' world (e.g., by
+altering the software in their own machines or by sending bogus communications
+to the central host).

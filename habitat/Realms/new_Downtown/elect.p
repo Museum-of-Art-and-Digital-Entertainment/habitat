@@ -1,0 +1,4 @@
+elect:
+	election
+
+start elect

@@ -1,0 +1,42 @@
+;
+;	head_put.m
+;
+;	Action code for the head 'put' operation.
+;
+;	This file should be assembled as position independent code.
+;
+;	Chip Morningstar
+;	Lucasfilm Ltd.
+;	18-June-1986
+;
+	include	"action_head.i"
+	include "class_equates.m"
+
+	actionStart
+
+	getProp pointed, OBJECT_contained_by	; Is head on body?
+	jsr v_get_subject_object
+	getProp subject, OBJECT_class_pointer
+	cmp #CLASS_AVATAR
+	if (equal) {				; Yes, is on body
+		lda actor_noid			; Ah, but is it *my* body?
+		cmp subject_noid
+		if (equal) {			; Yes, it's my head alright
+			lda	in_hand_noid
+			if (zero) {
+				; Take head off (!) and put in hands
+				sendMsgN pointed_noid, MSG_REMOVE, 0
+				newImage pointed_noid, HEAD_OFF
+				moveOb pointed, subject
+				changeContainers 0, AVATAR_HAND, actor_noid
+				lda	#0
+				putProp	actor, AVATAR_background_actitviy
+				rts
+			}
+		}
+		chainTo	v_beep		; hands full or NOT MY HEAD!
+	}
+	doMyAction	HEAD_INTERNAL_PUT	; otherwise normal drop
+	rts
+
+	actionEnd

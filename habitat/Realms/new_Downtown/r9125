@@ -1,0 +1,163 @@
+use region r_9125 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9136
+  west_neighbor: r r_9115
+  north_neighbor: r r_9126
+  south_neighbor: r -1
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6878 {
+  container: r r_9125
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6879 {
+  container: r r_9125
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_6880 {
+  container: r r_9125
+  x: 20
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use street o_6881 {
+  container: r r_9125
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use garbage_can o_6882 {
+  container: r r_9125
+  x: 132
+  y: 155
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use glue o_6883 {
+  container: r r_9125
+  x: 56
+  y: 54
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 7
+  y_offset_1: 254
+  x_offset_2: 4
+  y_offset_2: 253
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use paper o_1009665 {
+  container: o o_6882
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1001432
+}
+use sign o_6884 {
+  container: o o_6883
+  x: 2
+  y: 2
+  style: 6
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hP\v\>A\v\>W\v\>N    P\>\^O\^\>H\^\>S               "
+}
+use knick_knack o_6885 {
+  container: o o_6883
+  x: 1
+  y: 1
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6886 {
+  container: o o_6883
+  x: 0
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}

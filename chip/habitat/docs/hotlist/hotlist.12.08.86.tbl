@@ -1,0 +1,340 @@
+.ds Dq December 8, 1986
+.LP
+This page intentionally bogus.
+.ds LH HABITAT
+.ds CH \\*(Dq
+.ds RH HOT LIST
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.pn 1
+.bp
+.CD
+\fB\s+8Habitat Task List \(em \*(Dq\s-8\fR
+.DE
+.sp 2
+.SH
+\s+3Beta-test Prequisite Implementation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+0:1200 baud communications fix:1:done:p:r cj:\(em:11/12:\(em
+
+1:Add BOING! sound effect for capacity overflow:1:done:ph:cr:\(em:11/24:\(em
+
+6:Implement host memory capacity monitor phase II:1:75%:h:j c:2 dy:12/2:12/3
+
+7:Make sure we can rebind and reboot regionproc:1:done:h:jc:\(em:11/11:\(em
+
+8:Upload and install new downtown:1:done:w:ra:\(em:11/17:\(em
+
+9:Test avatar point-to-point talk echo:1:done:h:r:\(em:11/12:\(em
+
+10:Test glue object:1:done:h:r:\(em:11/19:\(em
+
+18:Implement text to paper/book conversion utility:1:done:u:j:\(em:11/19:\(em
+
+41:Create general purpose database filter:1:done:u:jc:\(em:11/19:\(em
+
+79:Make \fIGenesis\fP handle containers correctly:1:done:u:j:\(em:11/17:\(em
+
+98:Region NUKE utility:1:working on:u:j:.5 dy:12/8:12/??
+
+11:Change magic protocol to send object pointed noid:2:done:ih:rc:\(em:11/19:\(em
+
+12:Cleanup existing world database:2:95%:w:ar:\(em:11/13:ongoing
+
+15:Implement Oracle logging and response capability:2:now logs:h:j:1 dy:12/2:12/9
+
+16:Implement bank acc. deduction util. for Rant ads:2:pending:u:j:1 dy:12/2:12/5
+
+17:Implement home vendo:2:done:i:ga:\(em:11/5:\(em
+
+19:Install D'nalsi Island adventure:2:pending:w:r:1 dy:12/2:12/?
+
+20:Install region rally:2:pending:w:r c:1 dy:12/2:12/?
+
+21:Install software to keep records for Hall Of Records:2:pending:h:jc:3 dy:12/2:12/12
+
+22:Make compass work on host:2:done:h:c r:\(em:11/19:\(em
+
+23:Make teleport HELP give teleport address:2:done:h:cj:\(em:12/3:\(em
+
+24:Reset database for beta release:2:pending:w:cr:.5 hr:12/2:beta
+
+25:Test pawnshop-machine object:2:done:h:r:\(em:11/13:\(em
+
+26:Test switch (stationary magic) object:2:done:h:r c:\(em:11/18:\(em
+
+27:Upload and install Forest Road:2:done:w:a rc:\(em:11/24:\(em
+
+67:Implement turn avatar to ghost on logout:2:done:h:j:\(em:11/11:\(em
+
+68:Make ghost appear only if ghosts online:2:done:h:j:\(em:11/11:\(em
+
+69:Exclude non-beta-testers from system:2:done:h:j:\(em:11/11:\(em
+
+82:Canned messages from Oracle:2:pending:h:j c:2 dy:12/2:12/15
+
+86:Modifications to paper on C64 for new mail:2:pending:ip:rac:4 dy:12/2:12/?
+
+87:Modifications to paper on host for new mail:2:pending:h:cr:2 dy:12/2:12/?
+
+88:New paper artwork and animation:2:pending:i:ag:2 hr:12/2:12/?
+
+89:Alter mailer for new mail system:2:pending:h:j:3 dy:12/2:12/11
+
+39:Implement initial magical powers:3:done:h:cr:\(em:11/19:\(em
+
+40:Make host send motd on bootup:3:pending:h:cj:1 dy:12/2:12/17
+
+72:Create avatars with token in pocket:3:pending:h:j:.5 dy:12/2:12/3
+
+81:Invisible avatars for Oracle login:3:done:hip:aj:\(em:12/3:\(em
+
+83:Genie timer:3:pending:h:jc:1 dy:12/2:12/16
+
+90:Give mail to hatched avatars:3:pending:w:jc:.5 dy:12/2:12/3
+
+97:Define and test avatar death:3:pending:hd:cr:.5 dy:12/2:12/4
+
+91:Turn on bandwidth reduction:4:pending:hp:j:.5 dy:12/2:??
+
+94:Install Mike's new NMI routines:4:done:p:r:\(em:12/2:\(em
+.TE
+.sp
+.SH
+\s+3Current bugs\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l
+n l n l l l l n .
+#:Bug:Prio:Status:Eff:Who:Updated:In rev
+_:_:_:_:_:_:_:_
+-:1200 baud protocol problems:1:fixed:p:r:11/17:3.0
+
+-:double token value on ATM get:2:fixed:i:r:11/17:3.0
+
+-:mysterious hang during talk/get collision:1:fixed?:p:r:11/17:3.0
+
+-:chairs in background:1:fixed:w:a:11/17:3.0
+
+80:"I'm alive" failure failure:1:test it:h:j:12/2:??
+
+35:light handling with region changes wrong:2:fixed:h:r c:11/19:3.0
+
+-:bank switch glitch:1:fixed:p:r:11/24:3.0
+
+-:host/c64 memory capacity discrepancy:1:searching:h:r:12/2:??
+
+-:host narcolepsy on logon:1:working on it:p:r:12/2:??
+
+-:empty vendo infinite loop:1:pending:h:cr:12/8:??
+.TE
+.sp
+.SH
+\s+3Beta-test Prequisite Design & Documentation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+2:Choose set of records for Hall Of Records:1:done:d:c ra:\(em:11/12:\(em
+
+3:Create user map of downtown:1:redo:d:c g:??:12/2:??
+
+4:Draft Geographic Master Plan:1:done:d:c ra:\(em:12/8:\(em
+
+5:Finish players' manual (add illustrations):1:95%:d:c ga:1 hr:11/19:11/18
+
+5a:Revise manual text for release:1:95%:d:c:\(em:11/7:ongoing
+
+75:Specify Oracle functions on host:1:done:d:c:\(em:11/11:\(em
+
+13:Define initial magical powers:2:done:d:car:\(em:11/11:\(em
+
+14:Draft economic policy:2:done:d:c ra:\(em:12/1:\(em
+
+34:Talk to Tom Canaday about operations and Weekly Rant:2:pending:d:cr:2 hr:11/25:12/5
+
+78:Complete specification of adventures and activities:2:pending:d:c:1 dy:12/2:12/8
+
+37:Draft Rant advertisement policy and procedure:3:done:d:c:\(em:12/2:\(em
+
+95:Specify fix for ``drop behind object'' problem:3:done:d:cra:\(em:12/5:\(em
+.TE
+.sp
+.SH
+\s+3Implementation Tasks To Be Completed During Beta-Test\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+29:Generate, upload and install Capture-The-Flag regions:2:design:w:r:3 dy:11/17:12/5
+
+30:Implement bureaucrat-in-a-box:2:pending:ih:r c:1 dy:11/17:12/2
+
+31:Implement die object:2:50%:ih:r c:2 hr:11/17:11/20
+
+32:Implement elevator object:2:50%:ih:rg c:2 hr:11/17:12/1
+
+33:Implement game piece object:2:50%:ih:r c:2 hr:11/17:12/1
+
+84:Puddle (post-muddle C64 database tool):2:pending:u:c:2 dy:11/25:??
+
+43:Implement Capture-The-Flag entry and exit daemons:3:pending:h:r c:1 dy:11/17:12/2
+
+44:Implement database fragment copy function:3:pending:u:j:2 dy:11/12:12/3
+
+45:Implement game show:3:pending:wh:a r:1 dy:11/17:11/24
+
+46:Install Cooties game:3:pending:wh:a rc:1 dy:11/17:11/24
+
+47:Install Quest For Tome Of Wealth And Fame:3:design:wh:r c:.5 dy:11/17:11/21
+
+74:Implement countertop transactions:3:pending:h:r cj:1 dy:11/17:11/26
+
+77:Make book HELP give title:3:pending:h:c j:1 dy:11/17:11/26
+
+93:Add widths and activate collision detect:3:pending:wh:rc:1 dy:11/25:??
+
+96:Implement weapons-free zones:3:pending:h:rc:.5 dy:11/25:??
+
+56:Implement teleport entry database utility:4:pending:u:j:2 hr:11/12:12/4
+
+57:Install board games:4:design:w:a rc:.5 dy:11/17:11/26
+
+58:Setup talk show:4:pending:w:a r:2 hr:11/17:12/1
+
+59:Setup theaters:4:pending:w:a r:2 hr:11/17:12/1
+.TE
+.sp
+.SH
+\s+3Design & Documentation Tasks To Be Completed During Beta-Test\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+28:Determine powers and privileges of Adventure Masters:2:pending:d:rca:2 dy:11/17:12/5
+
+42:Draft final specification for Ghu:3:50%:d:c:1 dy:11/17:12/1
+
+48:Write Guidebook To The Oracle:3:pending:d:c:3 dy:11/17:12/10
+
+70:Define garbage collector:3:pending:dh:cj:.5 dy:11/17:12/2
+
+71:Design batch transactions:3:pending:dh:cj:1 dy:11/17:12/3
+.TE
+.sp
+.SH
+\s+3Public Release Prequisite Implementation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+50:Design and implement stock market game:3:50%:dwh:r:??:11/3:
+
+53:Generate first 20K turves and related infrastructure:3:pending:w:acr:5 dy:11/3:
+
+54:Implement Ghu:3:pending:u:j c:5 dy:11/12:12/11
+
+55:Implement apartment generator:3:pending:u:c:1 dy:11/3:
+
+62:Add connecting region number to sky, door and building:4:pending:h:c:1 dy:11/3:
+
+63:Implement Adventure Master support software:4:pending:h:j c:??:11/3:
+
+64:Start Machiavelli:4:pending:w:cra:??:11/3:
+.TE
+.sp
+.SH
+\s+3Public Release Prequisite Design & Documentation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+49:Design Machiavelli:3:50%:d:c:2 dy:11/3:
+
+51:Design quest for product launch:3:pending:dw:rca n:??:11/3:
+
+52:Draft Adventure Masters' manual:3:pending:d:cr:5 dy:11/3:
+
+85:Re-evaluate online text based on beta feedback:3:pending:hd:c:??:11/19:
+.TE
+.sp
+.SH
+\s+3Optional Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+36:Make vendo HELP describe item on display:2:pending:h:c:.5 dy:11/3:
+
+60:Change changomatic to alter houses outside turf:4:pending:h:c:1 hr:11/3:
+
+61:Make magic HELP give little rhyme about magic item:4:pending:h:c:.5 dy:11/3:
+
+92:Turn off video during region disk load:4:pending:p:r:??:11/19:
+
+65:Create Auto-Oracle:5:pending:hu:c:5 dy:11/5:
+
+66:Implement stochastic region generator:5:pending:u:c:3 dy:11/3:
+
+73:Add vendos outside of downtown:3:pending:w:ac:2 hr:11/4:11/17
+
+76:Make book interface random-access:5:pending:i:r c:1 dy:11/7:
+.TE
+.sp
+.SH
+\s+3Key\s-3
+.LP
+\fI#\fR \(em Task number \(em an arbitrary number assigned for tracking
+purposes.
+.LP
+\fITask\fR \(em a short description of the task.
+.LP
+\fIPrio\fR \(em relative priority of task in the range 1 to 5:
+1\(rhimmediately vital, 2\(rhessential but not immediately so, 3\(rhimportant,
+4\(rhwill have to wait for more important items first, 5\(rhdesirable someday
+if we have the time.
+.LP
+\fIStatus\fR \(em current status of task.
+.LP
+\fIEff\fR \(em which portions of the system this task effects:
+p\(rhCommodore 64 program disk, i\(rhCommodore 64 image disk, h\(rhhost
+system, d\(rhdesign or documentation, w\(rhworld database, u\(rhStratus or
+Unix based utilities.
+.LP
+\fIWho\fR \(em who is responsible for performing this task: c\(rhChip
+Morningstar, r\(rhRandy Farmer, a\(rhAric Wilmunder, j\(rhJanet Hunter,
+g\(rhGary Winnick, n\(rhNoah Falstein.  Names are listed in order of
+importance to task.  Names after a space are secondary personnel for task.
+.LP
+\fITime \fR \(em how much time this task should take to complete, once
+started.
+.LP
+\fIUpdat\fR \(em date that this task's entry in this list was last updated.
+.LP
+\fITarget\fR \(em target date for completion of this task.

@@ -1,0 +1,1246 @@
+
+state 0
+	$accept : _specification $end 
+
+	Identifier  shift 9
+	START  shift 10
+	INCLUDE  shift 11
+	.  error
+
+	specification  goto 1
+	statementList  goto 2
+	statement  goto 3
+	productionStatement  goto 4
+	nameStatement  goto 5
+	startStatement  goto 6
+	includeStatement  goto 7
+	label  goto 8
+
+state 1
+	$accept :  specification_$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	specification :  statementList_    (1)
+	statementList :  statementList__ statement 
+	_ : _    (5)
+
+	$end  reduce 1
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 12
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 3
+	statementList :  statement_    (2)
+
+	.  reduce 2
+
+
+state 4
+	statement :  productionStatement_    (16)
+
+	.  reduce 16
+
+
+state 5
+	statement :  nameStatement_    (17)
+
+	.  reduce 17
+
+
+state 6
+	statement :  startStatement_    (18)
+
+	.  reduce 18
+
+
+state 7
+	statement :  includeStatement_    (19)
+
+	.  reduce 19
+
+
+state 8
+	productionStatement :  label_productionBody EOL 
+
+	EOL  shift 21
+	(  shift 25
+	[  shift 26
+	{  shift 24
+	.  error
+
+	productionBody  goto 19
+	productionPreamble  goto 20
+	setDeclaration  goto 22
+	arrayDeclaration  goto 23
+
+state 9
+	nameStatement :  Identifier__ = _ expr __ EOL 
+	label :  Identifier__ : __ 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 27
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 10
+	startStatement :  START__ Identifier __ EOL 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 28
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 11
+	includeStatement :  INCLUDE__ String __ EOL 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 29
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 12
+	statementList :  statementList __statement 
+
+	Identifier  shift 9
+	START  shift 10
+	INCLUDE  shift 11
+	.  error
+
+	statement  goto 30
+	productionStatement  goto 4
+	nameStatement  goto 5
+	startStatement  goto 6
+	includeStatement  goto 7
+	label  goto 8
+
+state 13
+	_ :  whitespaceList_    (4)
+	whitespaceList :  whitespaceList_whitespaceChar 
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 4
+
+	whitespaceChar  goto 31
+	fillerChar  goto 16
+
+state 14
+	whitespaceList :  whitespaceChar_    (8)
+
+	.  reduce 8
+
+
+state 15
+	whitespaceChar :  EOL_    (12)
+
+	.  reduce 12
+
+
+state 16
+	whitespaceChar :  fillerChar_    (13)
+
+	.  reduce 13
+
+
+state 17
+	fillerChar :   _    (14)
+
+	.  reduce 14
+
+
+state 18
+	fillerChar :  \t_    (15)
+
+	.  reduce 15
+
+
+state 19
+	productionStatement :  label productionBody_EOL 
+
+	EOL  shift 32
+	.  error
+
+
+state 20
+	productionBody :  productionPreamble_EOL spanList EOL 
+
+	EOL  shift 33
+	.  error
+
+
+state 21
+	productionBody :  EOL_spanList EOL 
+
+	\t  shift 36
+	.  error
+
+	spanList  goto 34
+	spanLine  goto 35
+
+state 22
+	productionBody :  setDeclaration_    (27)
+
+	.  reduce 27
+
+
+state 23
+	productionBody :  arrayDeclaration_    (28)
+
+	.  reduce 28
+
+
+state 24
+	productionPreamble :  {__ preambleStatementList _ } 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 37
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 25
+	setDeclaration :  (__ identifierList _ ) 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 38
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 26
+	arrayDeclaration :  [__ exprList _ ] 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 39
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 27
+	nameStatement :  Identifier __= _ expr __ EOL 
+	label :  Identifier __: __ 
+
+	=  shift 40
+	:  shift 41
+	.  error
+
+
+state 28
+	startStatement :  START __Identifier __ EOL 
+
+	Identifier  shift 42
+	.  error
+
+
+state 29
+	includeStatement :  INCLUDE __String __ EOL 
+
+	String  shift 43
+	.  error
+
+
+state 30
+	statementList :  statementList _ statement_    (3)
+
+	.  reduce 3
+
+
+state 31
+	whitespaceList :  whitespaceList whitespaceChar_    (9)
+
+	.  reduce 9
+
+
+state 32
+	productionStatement :  label productionBody EOL_    (22)
+
+	.  reduce 22
+
+
+state 33
+	productionBody :  productionPreamble EOL_spanList EOL 
+
+	\t  shift 36
+	.  error
+
+	spanList  goto 44
+	spanLine  goto 35
+
+state 34
+	productionBody :  EOL spanList_EOL 
+	spanList :  spanList_EOL spanLine 
+
+	EOL  shift 45
+	.  error
+
+
+state 35
+	spanList :  spanLine_    (29)
+
+	.  reduce 29
+
+
+state 36
+	spanLine :  \t_spanLineBody 
+
+	Identifier  shift 64
+	+  shift 61
+	-  shift 57
+	/  shift 59
+	   shift 56
+	|  shift 58
+	\\  shift 60
+	#  shift 62
+	^  shift 63
+	.  error
+
+	spanLineBody  goto 46
+	span  goto 47
+	node  goto 48
+	whiteSpan  goto 49
+	hLine  goto 50
+	vLine  goto 51
+	xLine  goto 52
+	filler  goto 53
+	endMark  goto 54
+	primNode  goto 55
+
+state 37
+	productionPreamble :  { __preambleStatementList _ } 
+
+	SHUFFLE  shift 67
+	.  error
+
+	preambleStatementList  goto 65
+	preambleStatement  goto 66
+
+state 38
+	setDeclaration :  ( __identifierList _ ) 
+
+	Identifier  shift 69
+	.  error
+
+	identifierList  goto 68
+
+state 39
+	arrayDeclaration :  [ __exprList _ ] 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 71
+	exprList  goto 70
+
+state 40
+	nameStatement :  Identifier _ =__ expr __ EOL 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 78
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 41
+	label :  Identifier _ :___ 
+	__ : _    (7)
+
+	   shift 17
+	\t  shift 18
+	.  reduce 7
+
+	__  goto 79
+	fillerList  goto 80
+	fillerChar  goto 81
+
+state 42
+	startStatement :  START _ Identifier___ EOL 
+	__ : _    (7)
+
+	   shift 17
+	\t  shift 18
+	.  reduce 7
+
+	__  goto 82
+	fillerList  goto 80
+	fillerChar  goto 81
+
+state 43
+	includeStatement :  INCLUDE _ String___ EOL 
+	__ : _    (7)
+
+	   shift 17
+	\t  shift 18
+	.  reduce 7
+
+	__  goto 83
+	fillerList  goto 80
+	fillerChar  goto 81
+
+state 44
+	productionBody :  productionPreamble EOL spanList_EOL 
+	spanList :  spanList_EOL spanLine 
+
+	EOL  shift 84
+	.  error
+
+
+state 45
+	productionBody :  EOL spanList EOL_    (26)
+	spanList :  spanList EOL_spanLine 
+
+	\t  shift 36
+	.  reduce 26
+
+	spanLine  goto 85
+
+state 46
+	spanLine :  \t spanLineBody_    (31)
+	spanLineBody :  spanLineBody_span 
+
+	Identifier  shift 64
+	+  shift 61
+	-  shift 57
+	/  shift 59
+	   shift 56
+	|  shift 58
+	\\  shift 60
+	#  shift 62
+	^  shift 63
+	.  reduce 31
+
+	span  goto 86
+	node  goto 48
+	whiteSpan  goto 49
+	hLine  goto 50
+	vLine  goto 51
+	xLine  goto 52
+	filler  goto 53
+	endMark  goto 54
+	primNode  goto 55
+
+state 47
+	spanLineBody :  span_    (32)
+
+	.  reduce 32
+
+
+state 48
+	span :  node_    (34)
+
+	.  reduce 34
+
+
+49: shift/reduce conflict (shift 87, red'n 35) on  
+state 49
+	span :  whiteSpan_    (35)
+	whiteSpan :  whiteSpan_  
+
+	   shift 87
+	.  reduce 35
+
+
+50: shift/reduce conflict (shift 88, red'n 36) on -
+state 50
+	span :  hLine_    (36)
+	hLine :  hLine_- 
+
+	-  shift 88
+	.  reduce 36
+
+
+state 51
+	span :  vLine_    (37)
+
+	.  reduce 37
+
+
+state 52
+	span :  xLine_    (38)
+
+	.  reduce 38
+
+
+53: shift/reduce conflict (shift 89, red'n 39) on #
+state 53
+	span :  filler_    (39)
+	filler :  filler_# 
+
+	#  shift 89
+	.  reduce 39
+
+
+state 54
+	span :  endMark_    (40)
+
+	.  reduce 40
+
+
+state 55
+	node :  primNode_    (52)
+	node :  primNode_( exprList ) 
+	primNode :  primNode_operator 
+
+	*  shift 96
+	(  shift 90
+	!  shift 92
+	<  shift 93
+	>  shift 94
+	?  shift 95
+	.  reduce 52
+
+	operator  goto 91
+
+state 56
+	whiteSpan :   _    (41)
+
+	.  reduce 41
+
+
+state 57
+	hLine :  -_    (43)
+
+	.  reduce 43
+
+
+state 58
+	vLine :  |_    (45)
+
+	.  reduce 45
+
+
+state 59
+	vLine :  /_    (46)
+
+	.  reduce 46
+
+
+state 60
+	vLine :  \\_    (47)
+
+	.  reduce 47
+
+
+state 61
+	xLine :  +_    (48)
+
+	.  reduce 48
+
+
+state 62
+	filler :  #_    (49)
+
+	.  reduce 49
+
+
+state 63
+	endMark :  ^_    (51)
+
+	.  reduce 51
+
+
+state 64
+	primNode :  Identifier_    (54)
+
+	.  reduce 54
+
+
+state 65
+	productionPreamble :  { _ preambleStatementList__ } 
+	preambleStatementList :  preambleStatementList__ preambleStatement 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 97
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 66
+	preambleStatementList :  preambleStatement_    (64)
+
+	.  reduce 64
+
+
+state 67
+	preambleStatement :  SHUFFLE_Identifier 
+
+	Identifier  shift 98
+	.  error
+
+
+state 68
+	setDeclaration :  ( _ identifierList__ ) 
+	identifierList :  identifierList__ , _ Identifier 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 99
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 69
+	identifierList :  Identifier_    (67)
+
+	.  reduce 67
+
+
+state 70
+	arrayDeclaration :  [ _ exprList__ ] 
+	exprList :  exprList__ , _ expr 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 100
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 71
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+	exprList :  expr_    (81)
+
+	+  shift 101
+	-  shift 102
+	*  shift 104
+	/  shift 103
+	.  reduce 81
+
+
+state 72
+	expr :  String_    (69)
+
+	.  reduce 69
+
+
+state 73
+	expr :  Number_    (70)
+
+	.  reduce 70
+
+
+state 74
+	expr :  ._    (71)
+
+	.  reduce 71
+
+
+state 75
+	expr :  $_Number 
+
+	Number  shift 105
+	.  error
+
+
+state 76
+	expr :  Identifier_[ expr ] 
+	expr :  Identifier_? 
+	expr :  Identifier_    (75)
+
+	?  shift 107
+	[  shift 106
+	.  reduce 75
+
+
+state 77
+	expr :  (_expr ) 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 108
+
+state 78
+	nameStatement :  Identifier _ = __expr __ EOL 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 109
+
+state 79
+	label :  Identifier _ : ___    (24)
+
+	.  reduce 24
+
+
+state 80
+	__ :  fillerList_    (6)
+	fillerList :  fillerList_fillerChar 
+
+	   shift 17
+	\t  shift 18
+	.  reduce 6
+
+	fillerChar  goto 110
+
+state 81
+	fillerList :  fillerChar_    (10)
+
+	.  reduce 10
+
+
+state 82
+	startStatement :  START _ Identifier ___EOL 
+
+	EOL  shift 111
+	.  error
+
+
+state 83
+	includeStatement :  INCLUDE _ String ___EOL 
+
+	EOL  shift 112
+	.  error
+
+
+state 84
+	productionBody :  productionPreamble EOL spanList EOL_    (25)
+	spanList :  spanList EOL_spanLine 
+
+	\t  shift 36
+	.  reduce 25
+
+	spanLine  goto 85
+
+state 85
+	spanList :  spanList EOL spanLine_    (30)
+
+	.  reduce 30
+
+
+state 86
+	spanLineBody :  spanLineBody span_    (33)
+
+	.  reduce 33
+
+
+state 87
+	whiteSpan :  whiteSpan  _    (42)
+
+	.  reduce 42
+
+
+state 88
+	hLine :  hLine -_    (44)
+
+	.  reduce 44
+
+
+state 89
+	filler :  filler #_    (50)
+
+	.  reduce 50
+
+
+state 90
+	node :  primNode (_exprList ) 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 71
+	exprList  goto 113
+
+state 91
+	primNode :  primNode operator_    (55)
+
+	.  reduce 55
+
+
+state 92
+	operator :  !_    (56)
+
+	.  reduce 56
+
+
+state 93
+	operator :  <_    (57)
+
+	.  reduce 57
+
+
+state 94
+	operator :  >_    (58)
+
+	.  reduce 58
+
+
+state 95
+	operator :  ?_    (59)
+
+	.  reduce 59
+
+
+state 96
+	operator :  *_    (60)
+
+	.  reduce 60
+
+
+state 97
+	productionPreamble :  { _ preambleStatementList __} 
+	preambleStatementList :  preambleStatementList __preambleStatement 
+
+	SHUFFLE  shift 67
+	}  shift 114
+	.  error
+
+	preambleStatement  goto 115
+
+state 98
+	preambleStatement :  SHUFFLE Identifier_    (66)
+
+	.  reduce 66
+
+
+state 99
+	setDeclaration :  ( _ identifierList __) 
+	identifierList :  identifierList __, _ Identifier 
+
+	)  shift 116
+	,  shift 117
+	.  error
+
+
+state 100
+	arrayDeclaration :  [ _ exprList __] 
+	exprList :  exprList __, _ expr 
+
+	]  shift 118
+	,  shift 119
+	.  error
+
+
+state 101
+	expr :  expr +_expr 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 120
+
+state 102
+	expr :  expr -_expr 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 121
+
+state 103
+	expr :  expr /_expr 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 122
+
+state 104
+	expr :  expr *_expr 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 123
+
+state 105
+	expr :  $ Number_    (72)
+
+	.  reduce 72
+
+
+state 106
+	expr :  Identifier [_expr ] 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 124
+
+state 107
+	expr :  Identifier ?_    (74)
+
+	.  reduce 74
+
+
+state 108
+	expr :  ( expr_) 
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+
+	+  shift 101
+	-  shift 102
+	*  shift 104
+	/  shift 103
+	)  shift 125
+	.  error
+
+
+state 109
+	nameStatement :  Identifier _ = _ expr___ EOL 
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+	__ : _    (7)
+
+	+  shift 101
+	-  shift 102
+	*  shift 104
+	/  shift 103
+	   shift 17
+	\t  shift 18
+	.  reduce 7
+
+	__  goto 126
+	fillerList  goto 80
+	fillerChar  goto 81
+
+state 110
+	fillerList :  fillerList fillerChar_    (11)
+
+	.  reduce 11
+
+
+state 111
+	startStatement :  START _ Identifier __ EOL_    (20)
+
+	.  reduce 20
+
+
+state 112
+	includeStatement :  INCLUDE _ String __ EOL_    (21)
+
+	.  reduce 21
+
+
+state 113
+	node :  primNode ( exprList_) 
+	exprList :  exprList__ , _ expr 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	)  shift 127
+	.  reduce 5
+
+	_  goto 128
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 114
+	productionPreamble :  { _ preambleStatementList _ }_    (63)
+
+	.  reduce 63
+
+
+state 115
+	preambleStatementList :  preambleStatementList _ preambleStatement_    (65)
+
+	.  reduce 65
+
+
+state 116
+	setDeclaration :  ( _ identifierList _ )_    (61)
+
+	.  reduce 61
+
+
+state 117
+	identifierList :  identifierList _ ,__ Identifier 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 129
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 118
+	arrayDeclaration :  [ _ exprList _ ]_    (62)
+
+	.  reduce 62
+
+
+state 119
+	exprList :  exprList _ ,__ expr 
+	_ : _    (5)
+
+	EOL  shift 15
+	   shift 17
+	\t  shift 18
+	.  reduce 5
+
+	_  goto 130
+	whitespaceList  goto 13
+	whitespaceChar  goto 14
+	fillerChar  goto 16
+
+state 120
+	expr :  expr_+ expr 
+	expr :  expr + expr_    (77)
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+
+	*  shift 104
+	/  shift 103
+	.  reduce 77
+
+
+state 121
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr - expr_    (78)
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+
+	*  shift 104
+	/  shift 103
+	.  reduce 78
+
+
+state 122
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr / expr_    (79)
+	expr :  expr_* expr 
+
+	.  reduce 79
+
+
+state 123
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+	expr :  expr * expr_    (80)
+
+	.  reduce 80
+
+
+state 124
+	expr :  Identifier [ expr_] 
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+
+	+  shift 101
+	-  shift 102
+	*  shift 104
+	/  shift 103
+	]  shift 131
+	.  error
+
+
+state 125
+	expr :  ( expr )_    (76)
+
+	.  reduce 76
+
+
+state 126
+	nameStatement :  Identifier _ = _ expr ___EOL 
+
+	EOL  shift 132
+	.  error
+
+
+state 127
+	node :  primNode ( exprList )_    (53)
+
+	.  reduce 53
+
+
+state 128
+	exprList :  exprList __, _ expr 
+
+	,  shift 119
+	.  error
+
+
+state 129
+	identifierList :  identifierList _ , __Identifier 
+
+	Identifier  shift 133
+	.  error
+
+
+state 130
+	exprList :  exprList _ , __expr 
+
+	Identifier  shift 76
+	Number  shift 73
+	String  shift 72
+	(  shift 77
+	.  shift 74
+	$  shift 75
+	.  error
+
+	expr  goto 134
+
+state 131
+	expr :  Identifier [ expr ]_    (73)
+
+	.  reduce 73
+
+
+state 132
+	nameStatement :  Identifier _ = _ expr __ EOL_    (23)
+
+	.  reduce 23
+
+
+state 133
+	identifierList :  identifierList _ , _ Identifier_    (68)
+
+	.  reduce 68
+
+
+state 134
+	expr :  expr_+ expr 
+	expr :  expr_- expr 
+	expr :  expr_/ expr 
+	expr :  expr_* expr 
+	exprList :  exprList _ , _ expr_    (82)
+
+	+  shift 101
+	-  shift 102
+	*  shift 104
+	/  shift 103
+	.  reduce 82
+
+
+34/200 terminals, 36/300 nonterminals
+83/600 grammar rules, 135/750 states
+3 shift/reduce, 0 reduce/reduce conflicts reported
+36/350 working sets used
+memory: states,etc. 721/20000, parser 132/12000
+69/600 distinct lookahead sets
+43 extra closures
+208 shift entries, 2 exceptions
+73 goto entries
+58 entries saved by goto default
+Optimizer space used: input 528/20000, output 261/12000
+261 table entries, 100 zero
+maximum spread: 263, maximum offset: 263

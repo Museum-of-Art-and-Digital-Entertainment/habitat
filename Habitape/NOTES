@@ -1,0 +1,120 @@
+Nobuo san,
+
+I have looked into the list of missing files that you sent to Randy.  Here is
+the story:
+
+Some of the files are QuantumLink proprietary, and I can't give them to you (I
+can't even read them myself any more).  They relate to aspects of the
+QuantumLink system itself, not to Habitat, so the fact that you don't have them
+should not prove to be a problem.
+
+Some of the files are PL/1 "include" files.  The Stratus PL/1 compiler enforces
+the convention that all include files have names that end in ".incl.pl1".  It
+will add this extension to any include name that doesn't already have it.  Thus
+if you see the line
+
+	%include 'foo';
+
+in one place and then
+
+	%include 'foo.incl.pl1';
+
+in another, they refer to the same file.  Several of the files on the list fall
+into this category, where you thought you were missing the 'foo' file, but you
+actually have the 'foo.incl.pl1' file on the original tape.
+
+Some of the files are ones that we gave you listings for but were not on the
+tape because they were simply example that we did not think you would need them
+in machine-readable form.  However, if you want them, you've got them.
+
+Finally, some files were really missing.
+
+As you requested, I will have a tape for you at our meeting at Skywalker on
+November 10.
+
+Here is the complete run down on a file-by-file basis (taken from your list):
+
+1.  Debug			- same as Debug.incl.pl1
+2.  Debug.incl.pl1		- QuantumLink proprietary
+3.  Lists.incl.pl1		- QuantumLink proprietary
+4.  Lists.strux.incl.pl1	- QuantumLink proprietary
+5.  Messages			- same as Messages.incl.pl1
+6.  Messages.incl.pl1		- QuantumLink proprietary
+7.  Queues			- same as Queues.incl.pl1
+8.  Queues.incl.pl1		- QuantumLink proprietary
+9.  Stat.strux			- same as Stat.strux.incl.pl1
+10. Stat.strux.incl.pl1		- QuantumLink proprietary
+11. TimeAfterTime		- same as TimeAfterTime.incl.pl1
+12. TimeAfterTime.incl.pl1	- QuantumLink proprietary
+13. avatar			- same as avatar.incl.pl1
+14. avatar_props.incl.pl1	- obsolete: see note #1 below
+15. class_avatar.incl.pl1	- same as class_avatar.pl1, see note #2 below
+16. class_ground.incl.pl1	- same as class_ground.pl1, see note #2 below
+17. class_paper.incl.pl1	- same as class_paper.pl1, see note #2 below
+18. class_region.incl.pl1	- same as class_region.pl1, see note #2 below
+19. containment			- same as containment.incl.pl1, on the tape
+20. defs_class			- on the tape
+21. defs_message.incl.pl1	- on the tape
+22. initialize_resources.incl.pl1 - on the tape
+23. instance_head		- same as instance_head.def.incl.pl1
+24. mail_info			- same as mail_info.incl.pl1
+25. new_textdb			- same as text_db.incl.pl1
+26. object			- same as object.incl.pl1
+27. parser.incl.pl1		- mystery file, see note #3 below
+28. process_control.incl.pl1	- QuantumLink proprietary
+29. question			- same as question.incl.pl1
+30. region			- same as region.incl.pl1
+31. region.defs			- same as region.defs.incl.pl1, on the tape
+32. struct_avatar		- same as struct_avatar.incl.pl1
+33. struct_book			- same as struct_book.incl.pl1
+34. struct_class		- same as struct_class.incl.pl1, on the tape
+35. system_io_constants		- QuantumLink proprietary
+36. teleport			- same as teleport.incl.pl1, on the tape
+37. textdb			- same as textdb.incl.pl1
+38. turf			- same as turf.incl.pl1, on the tape
+39. y.tab.incl.pl1		- unnecessary file, see note #4 below
+40. makeshape4.c		- on the tape
+41. face.c			- on the tape
+42. struct_user.incl.pl1	- on the tape
+43. struct_jukebox.catalog.incl.pl1 - obsolete file, see note #1 below
+44. width.incl.pl1		- on the tape
+45. yaccpar.pl1			- on the tape
+46. ply-convert.ml		- on the tape
+47. source code to  sun.o	- Lucasfilm proprietary non-Habitat file
+48. source code to  map.o 	- Lucasfilm proprietary non-Habitat file
+49. chiproof.gri		- on the tape
+50. sheriffoffice.gri		- on the tape
+51. turf3.gri			- on the tape
+52. general_store_ext.gri	- on the tape
+53. defines.ghu			- on the tape
+54. popustop.p			- on the tape
+55. frontage.p			- on the tape
+56. equates.p			- on the tape
+57. apartments.p		- on the tape
+58. qgrad.p			- on the tape
+59. stores.p			- on the tape
+60. lottery.p			- on the tape
+
+Notes:
+
+#1: A couple of files are quite obsolete.  Nothing in them is ever referred to
+by the software, and references to them may be safely deleted.
+
+#2: Janet rearranged some of the files on the host between the time we printed
+out the listing and the time the original tape was made.  Several of the class
+files were incorporated into a single file, with the previously
+separately-compiled files being included in a single compilation unit.
+However, there are no structural differences between the contents of the source
+files in the two different versions.
+
+#3: We can find no reference to a file called 'parser.incl.pl1' in any of our
+files nor can anyone remember there ever being such a file.  Perhaps this is a
+mistake?
+
+#4: 'y.tab.incl.pl1' is simply a definition file generated by the Unix 'yacc'
+utility from 'ghu.ply', after massaging by our Emacs macros.  See the Unix
+documentation on 'yacc' for the description of the file 'y.tab.h'.
+
+I look forward to seeing you on Thursday!
+
+Chip

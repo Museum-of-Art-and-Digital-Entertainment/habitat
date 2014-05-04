@@ -1,0 +1,229 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r 9109
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Vote Early!"
+  avatars: 6
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 91
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h READ\R\d THIS\177\R\dFIRST                   "
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use plaque {
+  container: r -1001
+  x: 64
+  y: 68
+  style: 2
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 1
+  text_id: 16
+  last_page: 1
+}
+use switch {
+  container: r -1001
+  x: 94
+  y: 93
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 16
+  magic_data: 0
+}
+use short_sign {
+  container: r -1001
+  x: 108
+  y: 102
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Gary  M   "
+}
+use short_sign {
+  container: r -1001
+  x: 108
+  y: 79
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Celebrindl"
+}
+use short_sign {
+  container: r -1001
+  x: 108
+  y: 55
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Lord Bolan"
+}
+use switch {
+  container: r -1001
+  x: 94
+  y: 70
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 16
+  magic_data: 0
+}
+use switch {
+  container: r -1001
+  x: 94
+  y: 46
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 16
+  magic_data: 0
+}
+use sign {
+  container: r -1001
+  x: 0
+  y: 122
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hElection\ For\ Sheriff                   "
+}
+use trapezoid {
+  container: r -1001
+  x: 104
+  y: 88
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 240
+  upper_right_x: 51
+  lower_left_x: 240
+  lower_right_x: 51
+  height: 152
+}
+use trapezoid {
+  container: r -1001
+  x: 104
+  y: 64
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 240
+  upper_right_x: 51
+  lower_left_x: 240
+  lower_right_x: 51
+  height: 152
+}
+use trapezoid {
+  container: r -1001
+  x: 104
+  y: 40
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 240
+  upper_right_x: 51
+  lower_left_x: 240
+  lower_right_x: 51
+  height: 152
+}
+use street {
+  container: r -1001
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 13
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

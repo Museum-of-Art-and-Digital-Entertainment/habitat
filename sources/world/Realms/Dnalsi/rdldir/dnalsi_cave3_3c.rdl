@@ -1,0 +1,66 @@
+@region $ dnalsi_cave3_3c {
+    west: dnalsi_cave3_3c.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:192; y:4; or:8; style:1; }
+        @trapezoid { x:36; y:63; or:8; 
+            8:1;
+            9:240;
+            10:0;
+            11:248;
+            12:248;
+            13:193;
+        }
+        @wall { x:0; y:0; or:228; style:6; }
+        @trapezoid { x:88; y:86; or:8; 
+            8:1;
+            9:244;
+            10:15;
+            11:6;
+            12:10;
+            13:170;
+        }
+        @trapezoid { x:48; y:90; or:8; 
+            8:1;
+            9:0;
+            10:17;
+            11:5;
+            12:7;
+            13:166;
+        }
+        @rock { x:28; y:141; or:220; style:1; 
+            8:1;
+        }
+        @trapezoid { x:12; y:98; or:8; 
+            8:1;
+            9:245;
+            10:6;
+            11:253;
+            12:0;
+            13:158;
+        }
+        @wall { x:96; y:0; or:8; style:4; }
+        @rock { x:0; y:133; or:16; style:2; 
+            8:1;
+        }
+        @trapezoid { x:88; y:4; or:8; 
+            8:1;
+            9:6;
+            10:12;
+            11:247;
+            12:8;
+            13:70;
+        }
+        @rock { x:76; y:139; or:220; style:1; 
+            8:1;
+        }
+        @trapezoid { x:52; y:129; or:220; 
+            8:2;
+            9:0;
+            10:0;
+            11:251;
+            12:10;
+            13:26;
+        }
+    ]
+}

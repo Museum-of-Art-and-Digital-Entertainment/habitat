@@ -1,0 +1,65 @@
+/*
+ *   actions_door.pl1
+ *
+ *   Behavior routines for the door protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+generic_CLOSE: procedure;
+     declare success binary(15);
+     declare have_key bit(1);
+     declare 1 key based %include struct_key;
+     declare 1 self based(selfptr) %include struct_gen_door;
+
+     have_key = (holding_class(CLASS_KEY) &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_hi = self.key_hi &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_lo = self.key_lo);
+     if (/*^elsewhere(selfptr) &*/ test_bit(self.open_flags, OPEN_BIT)) then do;
+          call clear_bit(self.open_flags, OPEN_BIT);
+          self.gr_state = 0;
+          if (have_key) then
+               call clear_bit(self.open_flags, UNLOCKED_BIT);
+/*        else
+               call set_bit(self.open_flags, UNLOCKED_BIT) 2-2-88 FRF */
+          call n_msg_2(avatarptr, CLOSE$, self.noid, self.open_flags);
+          self.gen_flags(MODIFIED) = true;
+          success = TRUE;
+     end; else
+          success = FALSE;
+     call r_msg_1(NORM, success);
+end generic_CLOSE;
+
+generic_OPEN: procedure;
+     declare have_key bit(1);
+     declare success binary(15);
+     declare 1 self based(selfptr) %include struct_gen_door;
+     declare 1 key based %include struct_key;
+     declare msg_type bin(15);
+
+     have_key = (holding_class(CLASS_KEY) &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_hi = self.key_hi &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_lo = self.key_lo);
+     if (/*^elsewhere(selfptr) &*/ ^test_bit(self.open_flags, OPEN_BIT) &
+               (have_key | test_bit(self.open_flags, UNLOCKED_BIT))) then do;
+          call set_bit(self.open_flags, OPEN_BIT);
+          call set_bit(self.open_flags, UNLOCKED_BIT);
+          self.gr_state = 1;
+          self.gen_flags(MODIFIED) = true;
+          success = TRUE;
+          call n_msg_1(avatarptr, OPEN$, self.noid);
+          msg_type = NORM;
+     end; else do;
+          success = FALSE;
+          call object_say(S_PAC, self.noid, 'It is locked.');
+          msg_type = E_PAC;
+     end;
+     call r_msg_1(msg_type, success);
+end generic_OPEN;

@@ -1,0 +1,48 @@
+/*
+ *   class_shovel.pl1
+ *
+ *   Shovel object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   27-July-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_shovel: procedure;
+
+     %replace SHOVEL_REQUESTS by 4;
+
+     declare a(0:SHOVEL_REQUESTS) entry based;
+     declare class_shovel_actions pointer;
+     declare 1 shovel based %include struct_shovel;
+
+     %replace I by CLASS_SHOVEL;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = SHOVEL_REQUESTS;
+     Class_Table(I).alloc_size = size(shovel);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_shovel_actions);
+     Class_Table(I).actions = class_shovel_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;       /* 3 */
+     Class_Table(I).actions->a(DIG)   = shovel_DIG;    /* 4 */
+
+end initialize_class_shovel;
+
+shovel_DIG: procedure;
+     if (holding(selfptr)) then
+          call n_msg_1(selfptr, DIG$, avatar.noid);
+     call r_msg_1(TRUE);
+end shovel_DIG;

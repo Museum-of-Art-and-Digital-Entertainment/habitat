@@ -1,0 +1,451 @@
+.AM
+.ds Dq September 14, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Palladium Demo\s-9
+.AU
+how we hope to show off to best effect...
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH PALLADIUM DEMO
+.ds CH \\*(Dq
+.ds RH
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Rationale\s-3
+.PP
+The following plan is being crafted to avoid that glaring demonstrative
+\fIfaux pas\fR, ``\fBMEM FAULT\fR''.  This occurs when the Commodore 64 runs
+out of memory, which in turn occurs when there is too much stuff in a region
+for it to hold.  There is a feature to prevent this that will eventually be
+installed in the host system, but this feature is not yet working.
+.PP
+We have altered the Commodore 64 software so that if it runs out of memory,
+instead of printing \fBMEM FAULT\fR and dying it will automagically dump you
+back into People Connection, whence you can re-enter Habitat.  Your Avatar
+will have been quietly teleported back to your turf (the presumption is that
+you haven't \fBMEM FAULT\fRed from within your turf; if you have then we're
+screwed).  This is not the fatal event in front of the audience that a
+full-blown crash would be, but it is still to be avoided since it will be
+obvious to the audience that Something Didn't Work Right.
+.PP
+What we want to do therefor, is avoid \fBMEM FAULT\fRs altogether.  The key to
+this is to avoid doing anything that would cause one.  This requires 1)
+knowing what not to do, and 2) not doing it.  Easy, no?
+.PP
+We will try to achieve this by planning how the demonstrations are to be
+executed, by rehearsing to make sure we all understand the plan, and by being
+very careful in our conduct of the presentation.
+.SH
+\s+3Avoiding MEM FAULTs\s-3
+.PP
+In practice, \fBMEM FAULT\fRs most commonly occur when entering a new region.
+What generally happens is that a region gets filled with stuff, but not
+\fItoo\fP filled, and then somebody tries to enter it carrying enough things
+to push the poor little machine over the edge.
+.PP
+Most of the regions in the world will fit in the Commodore 64's memory with
+room to spare for their full load of Avatars plus several additional objects.
+Most of the problems we have had have been the result of everyone filling
+their pockets with as many random, miscellaneous items as they can carry, and
+then moving about the world.  Since every Avatar can carry five things in his
+pouch plus a sixth thing in his hands, one or two fully laden Avatars can
+overflow an only moderately full region quite readily.  The main tactic for
+avoiding \fBMEM FAULT\fRs is therefor to avoid filling your Avatar's pockets
+with stuff.
+.PP
+Many of the demo situations will be set up in advance, with the necessary
+props pre-positioned in the regions where they will be used.  You will enter
+these regions, pick up and interact with the objects you find there, and then
+(this is the important part) put the objects down again before you leave.  For
+objects that are planned, as part of the presentation, to be carried between
+regions, we will test in advance to be certain that they will fit without
+difficulty.  We also will build in as much margin for safety as we can with
+the props, so that if you accidently carry off an object that you shouldn't
+have, usually nothing bad will happen.  However, this safety margin cannot be
+guaranteed.  \fIFor our presentation, you should not carry around anything
+that is not intended as a portable prop for some planned part of the demo.\fR
+.SH
+\s+3The Plan\s-3
+.PP
+This plan was designed to avoid \fIopportunities\fP to create \fBMEM FAULT\fR
+situations, even by accident.  The two most likely accidents, in our
+estimation, are memory lapse (``Oops!'') or ``audience intervention''.  This
+plan is therefor \fIvery\fP conservative and may not necessarily show off all
+the features of the system in the flashiest manner.  You may be tempted by the
+pressures of the moment to violate the plan.  Avoid this temptation!
+Remember: \fIif the system crashes, we all die.\fR
+.SH
+Setup
+.PP
+We are currently planning on 12 online Avatars: 8 being run from stations at
+the Palladium and 4 being run by people back in Virginia.
+.PP
+The Commodore 64s at the Palladium will be teamed into four pairs, chosen so
+that each machine is paired with another in a different part of the building.
+Each pair will operate together, using the medium of Habitat itself to
+coordinate their activities.
+.PP
+For each of couple of stations at the Palladium, it would be nice to have an
+extra person to act as relief for the demonstrators and as a runner to carry
+messages to the other demo stations and to other Quantum, Lucasfilm, or
+Commodore people who might need to be communicated with.
+.PP
+It will also be preferable to have the Commodore 64s equipped with 300 baud
+modems, even though Commodore will probably want to show off by using 1200
+baud modems.  300 baud means that the animation will be a lot smoother and so
+the overall effect will be more pleasing, especially when there are multiple
+Avatars in a region all doing things simultaneously.
+.SH
+Virginia Players
+.PP
+The players in Virginia will have fixed region assignments: they will login in
+a particular region and they should not leave that region for the duration of
+the session.  Other Avatars will visit them, not vice-versa.  These
+fixed-position players' primary role will be to demonstrate the social aspects
+of the system: showing off \fBTALK\fP and letting the audience see multiple
+Avatars all wandering around in the same place at the same time.  These
+players are free, within the constraints of the role they are playing, to move
+around within the region, pick up and manipulate the objects that are there,
+and carry on conversations.  \fIUnder no circumstances should these players
+attempt to leave their assigned region.\fR
+.PP
+Somebody should also be standing by in Virginia with a conventional terminal
+logged in to the Stratus to run Twiddle or otherwise intervene as may be
+required by minor emergencies.
+.SH
+Palladium Players
+.PP
+As mentioned above, the Commodore 64s at the Palladium will operate in pairs.
+The Avatars in each pair will move around the world more-or-less together (to
+demonstrate social interaction).  The more experienced of the two players in
+each pair will be designated the ``leader'' and will direct where they are to
+go and what they are to do.  The other player should follow along with this.
+.PP
+Each pair will be assigned to a particular portion of the world which they
+should not stray from.  This is to prevent unplanned encounters with other
+players that might result in the dreaded \fBMEM FAULT\fPs.  The assignments of
+pairs to sections of the world will be thematic: each pair will show off a
+different aspect of the existing universe.  Each pair will have a prepared
+sequence of activities to demonstrate.  As the needs of the moment dictate,
+they are free to repeat things, skip things, rearrange the order in which they
+do things, and move around within the confines of their designated area.
+However, \fIthese players should never attempt to do anything that is not on
+the list of ``demonstrable activities''.\fR
+.SH
+Demonstrable Activities
+.LP
+The following may be done with impunity:
+.RS
+.nf
+\(sq Walking around (including walking between regions)
+\(sq Talking to other Avatars
+\(sq Identifying other Avatars or objects with the HELP key
+\(sq Hitting the color-change key
+\(sq Making gestures with the gesture keys
+\(sq Sending ESP messages to other Avatars
+\(sq Picking things up and putting things down again
+\(sq Opening and closing containers
+\(sq Putting things in containers (including pockets and garbage cans)
+\(sq Taking things out of containers (including pockets and garbage cans)
+\(sq Teleporting
+\(sq Reading mail or other documents
+\(sq Digging with the shovel
+\(sq Changing body color/pattern with the spray bottle
+\(sq Changing sex with the sex change machine
+\(sq Depositing money in the ATM
+\(sq Operating the Choke Machine or the parking meters (requires tokens)
+\(sq ``Shooting'' somebody with a fake gun
+\(sq Turning lights on and off (including the flashlight)
+\(sq Operating a sensor
+\(sq Digging with a shovel (including opening or closing a hole)
+\(sq Taking off your head or putting on another head
+\(sq Sitting in a chair or couch
+\(sq Mailing a letter
+\(sq Filling or emptying a water bottle
+\(sq Handing something to another Avatar (other than tokens)
+\(sq Stealing something from another Avatar
+
+.fi
+.RE
+.LP
+The following may be done with caution:
+.RS
+.nf
+\(sq Throwing things (be careful not to throw one thing \fIbehind\fP another, as you'll never be able to pick it up again)
+\(sq Operating an escape device (it'll take you back to your Turf, possibly disrupting your presentation)
+\(sq Flushing the garbage can (it'll make the contents of the garbage can disappear irretrievably)
+\(sq Zapping somebody with a stun gun (they'll be stunned, of course)
+\(sq Writing on a piece of paper (flakey?)
+\(sq Receiving mail (flakey?)
+
+.fi
+.RE
+.LP
+The following should only be done under controlled circumstances, as they will
+create new objects that could fill up memory.
+.RS
+.nf
+\(sq Withdrawing money from the ATM (be sure there is room for a new token object)
+\(sq Paying tokens to somebody (be sure there is room for a new token object)
+\(sq Purchasing something from a vendo (be sure there is room for the object you are purchasing)
+
+.fi
+.RE
+.SH
+\s+3``The Script''\s-3
+.PP
+This ``script'' is not a word-for-word canned presentation.  Instead it is a
+sequence of possible demonstration activities that covers the basic concepts
+of Habitat.
+.SH
+\s+1Fixed-position (Virginia) Avatars\s-1
+.PP
+There will be four fixed-position Avatars run by people in Virginia.  Each of
+these will have an assigned role to play and an assigned region to play it in.
+The four are:
+.SH
+\fRCONSTRUCTION WORKER
+.PP
+The construction worker will be an Avatar with the hard-hat head.  He'll be
+positioned in one of the construction zone regions off the end of one of the
+roads.  His schtick is to act like an enraged union worker, chasing away
+anyone who doesn't belong in the construction area, saying things like ``Hey!
+You're not supposed to be in here!  This is a construction zone!  You could
+get hurt!  Can't you read?  It says `KEEP OUT'!  This part of the world isn't
+finished yet!  Go away!''  If people talk to him nicely he'll cool off and
+explain that this is a new section of the world that they're working on here
+that should be opening soon.  If anybody asks what they're building, it's a
+secret and shame on them for prying!
+.SH
+\fRTREASURE HUNTER
+.PP
+The treasure hunter will be Swelldrela from the video.  She'll be out on
+D'nalsi Island somewhere where there's a hole.  She'll have a shovel and the
+hole will have some goodie (like a gemstone) buried in it.  When people arrive
+she'll gossip about treasure hunting and explain that she's searching for the
+Jewelled Horn of The Green Bleem which she's sure is around here somewhere...
+Then she'll start digging in various places until she finds the hole,
+whereupon she'll put down the shovel, reach into the hole, and extract the
+treasure \(em which will be a gemstone or whatever, not the Jewelled Horn.
+She'll make snide comments to the effect of ``Another stupid gem!  I'll
+probably only get 20 or 30 thousand tokens for it, hurrumph!'' and so on.
+When the visiting Avatars leave, she should re-bury the treasure to get ready
+for the next round of demonstration.
+.SH
+\fRBOGUS BANDIT
+.PP
+The bogus bandit will be the Mung The Mellifluous character from the video.
+He'll be standing on a street corner with the fake gun.  He'll make a show of
+trying to rob people, then fire the gun with the flag popping out that says
+``BANG!'' and, ha, ha, it's only a joke.  His ``victims'' can either react
+with amusement, in which case he'll banter with them jovially, or with
+irritation, in which case he'll get defensive and childish.  When the visiting
+Avatars leave, he needs to reset the fake gun so that the BANG! flag is no
+longer showing.
+.SH
+\fRBARTENDER
+.PP
+The bartender will be the Valentino character from the video.  He'll be
+standing behind the bar in Kelly's Bar & Grill.  When people come in he'll
+tell jokes and try to get them to tell their troubles.  If somebody tries to
+order a drink he'll do a schtick like the Monty Python cheese shop bit.
+.SH
+\s+1Mobile (Palladium) Avatars Common Actions\s-1
+.PP
+There will be eight mobile Avatars run by people in the Palladium.  They will
+be grouped into pairs who will travel around the world together.  Each pair
+will run together through a the same rough sequence, starting out in their
+turves, stepping out into the world, meeting up with each other, and then
+going off to see what's to see.  There will then be four separate thematic
+areas to be visited, one assigned to each pair.  This assignment, by the way,
+is to try to ensure that we never have people meeting up in an unplanned
+manner.  The common starting routine for each pair is as follows:
+.SH
+\fR1. AVATAR STANDING IN TURF
+.LP
+\fIWe start out with two Avatars inside adjacent turves.  Minimal props for
+each turf region include a couple of different body sprayers, a
+Change-O-Matic, and a chest of drawers.  The Avatars should each have a token
+object in their pockets of some large denomination (large enough that it won't
+be all used up over two and a half hours of demonstrations).  Each does the
+following:\fR
+.ID
+Make introductory remarks. 
+Explain that it's an imaginary world that you visit using your Commodore 64 or
+	128 computer, your telephone, and a modem.
+Explain that the character on the screen is an Avatar and that you control him.
+Describe customization. 
+Explain the basic commands \fBGO\fP, \fBGET\fP, \fBPUT\fP, and \fBDO\fP.
+Demonstrate commands and some Avatar customization by picking up body sprayer,
+	changing the color of a body part, and then putting the sprayer down again.
+Sit in chair.
+Explain about turf.
+Stand up from chair.
+Demonstrate some turf customization by picking up Change-O-Matic and changing
+	the walls and furniture.
+Demonstrate containers by putting Change-O-Matic or a sprayer into the chest
+	of drawers (opening and closing the chest, of course).
+Walk to door, open it, and go out.
+.DE
+.SH
+\fR2. AVATAR STANDING IN FRONT OF HOUSE
+.ID
+Talk about turf some more, this time emphasizing relationship to rest of world.
+Explain about regions.
+.DE
+\fIOnly one of the two Avatars in the pair:\fR
+.ID
+Demonstrate walking from one region to another by walking next door.
+.DE
+.SH
+\fR3. NEXT REGION, NEIGHBOR AVATAR APPEARS
+.LP
+\fIThe two Avatars are now in the same region, the first one having walked
+next door to the front of the other one's turf, where the other one is waiting
+as the result of Scene 1.\fR
+.ID
+Explain that you aren't alone in this world, that everyone else who is
+	connected to Habitat at the same time is also there with you.
+Demonstrate asynchronous activities by each moving around so that the other can see.
+Explain the \fBTALK\fP command.
+Carry on a conversation with each other (``Hello'' etc.) that eventually leads
+	to the two of you deciding to go downtown (or wherever) together.
+Both walk next door to the region with the TelePort booth in it.
+.DE
+.SH
+\fR4. BOTH AVATARS IN TELEPORT BOOTH REGION
+.ID
+Explain tokens as the form of money in Habitat.
+Explain Trust Funds.
+Possibly tell anecdote about the National Leisure Act.
+Show off token object and demonstrate the operation of pockets by getting
+	token out of pockets.
+Explain about TelePorts as an alternative to walking. 
+Converse to decide where to Port to, settling on the Port address of wherever
+	you want to show off next.
+Each in turn should get in booth, put in their money, and Port away to the
+	agreed upon address (upon arrival they should put their remaining
+	tokens back in their pockets).
+.DE
+.SH
+\s+1Mobile (Palladium) Avatars Individual Actions\s-1
+.PP
+In addition the above routine which everybody runs through, each pair of
+mobile Avatars visits a particular part of the world and does things there.
+Each pair also has a ``rendezvous point'' where they can bump into one of the
+other pairs for a four-Avatar \fItete-a-tete\fR.
+.SH
+\fRUPTOWN PAIR
+.PP
+The Uptown Pair start out at turves on Bleem St., in numbers 18 and 28.  This
+provides convenient access to the TelePort booth at the North end of the
+street (which is to the left as you face towards their houses).  They are free
+to wander Bleem St. and also Foon Ave. to the east (see map), though, of
+course, residential neighborhoods all pretty much look alike.  They will nose
+around the north half of the business district (they should get there by
+TelePort).  Valid regions for them visit in the business district include the
+north side Plazas, the north side streets, the Bank, the Bar, the Pawnshop and
+the Head Shop.  They won't be able to go into the Hall of Records (we'll lock
+the door).  They shouldn't try to purchase anything from the vending machines
+nor carry off any of the loose objects laying about in any of the buildings.
+They should not pick up \fIanything\fR in the Pawnshop.  They can also visit
+the east and west Plazas and the Fountain of the Oracle, where they may
+encounter the Downtown Pair.  They should not attempt to communicate with the
+Oracle.  If they go into the Bar they'll meet the Bartender with whom they can
+banter.  If they want to play around with the TelePort system, valid TelePort
+addresses for them to try are:
+.ID
+\fBFoon Ave Cross
+Bleem St Cross
+Bleem St N End\fI (this is the booth near their turves)
+\fBPlaza NE\fI (this is the canonical business district address)
+\fBPlaza NW\fR
+.DE
+.SH
+\fRDOWNTOWN PAIR
+.PP
+The Downtown Pair start out at turves on Dice Ave., in numbers 11 and 21.
+This provides convenient access to the TelePort booth at the south end of the
+street (which is to the left as you face towards their houses).  They are free
+to wander Dice Ave. and also Mince St. to the east (see map), though, of
+course, residential neighborhoods all pretty much look alike.  They will nose
+around the south half of the business district (they should get there by
+TelePort).  Valid regions for them visit in the business district include the
+south side Plazas, the south side streets, the News Stand, the General Store,
+and the Meeting Hall.  They won't be able to go into the Clothes Store or the
+Furniture Store (we'll lock the doors).  They shouldn't try to purchase
+anything from the vending machines nor carry off any of the loose objects
+laying about.  They can also visit the east and west Plazas and the Fountain
+of the Oracle, where they may encounter the Uptown Pair.  They should not
+attempt to communicate with the Oracle.  If they go left from the south-east
+corner of downtown (Rodeo Dr. on the map) they'll go into the Construction
+Zone, where they'll meet the Construction Worker who will yell at them for
+getting into mischief.  If they want to play around with the TelePort system,
+valid TelePort addresses for them to try are:
+.ID
+\fBDice Ave Cross
+Dice Ave S End\fI (this is the booth near their turves)
+\fBDice Ave N End
+Plaza SE
+Plaza SW\fI (this is the canonical downtown address)\fR
+.DE
+.SH
+\fRD'NALSI ISLAND PAIR
+.PP
+The D'nalsi Island Pair start out at turves on Wacka Rd., in numbers 19 and
+29.  This provides convenient access to the TelePort booth at the east end of
+the street (which is to the left as you face towards their houses).  They are
+free to wander Wacka Rd. and also Kings Rd., Cross Rd., Wazoo St. and Spiff
+Ln. to the north (see map), though, of course, residential neighborhoods all
+pretty much look alike.  They will nose around D'nalsi Island (they should get
+there by TelePort) and the Desert.  They can go anywhere on D'nalsi Island or
+the Desert (though they should be careful in the Desert as they might get
+lost).  At the location on D'nalsi Island designated on the map, they'll meet
+the Treasure Hunter who will stage a treasure finding for them.  If they want
+to play around with the TelePort system, valid TelePort addresses for them to
+try are:
+.ID
+\fBWacka Rd Cross
+Wacka Rd E End\fI (this is the booth near their turves)
+\fBWacka Rd W End
+Spiff Ln Cross
+Spiff Ln W End
+Dnalsi Island\fI (this is the ideal way to reach the island)\fR
+Desert Heart\fI (this is the ideal way to reach the desert)\fR
+.DE
+.LP
+They can also get to the Desert and D'nalsi Island by walking.  D'nalsi Island
+is south (upward) from Wacka Rd. Cross and the Desert is north (upward) from
+Spiff Ln. Cross.  (See the map.)
+.SH
+\fRFOREST PAIR
+.PP
+The Forest Pair start out at turves on Randy Rd., in numbers 13 and 23.  This
+provides convenient access to the TelePort booth at the east end of the street
+(which is to the left as you face towards their houses).  They are free to
+wander Randy Rd. and also Aric Ave., Over Ave., Wrong Wy. and This Way. to the
+north (see map), though, of course, residential neighborhoods all pretty much
+look alike.  They will nose around the Forest (``The Back 40'') and the Beach
+(they should get there by TelePort and walking).  They can go anywhere in
+these realms.  At the location in the Forest designated on the map, they'll
+meet the Bogus Bandit who will stage a mock holdup.  If they want to play
+around with the TelePort system, valid TelePort addresses for them to try are:
+.ID
+\fBRandy Rd Cross
+Randy Rd E End\fI (this is the booth near their turves)
+\fBRandy Rd W End
+This Way Cross
+This Way W End
+This Way E End
+.DE
+.LP
+To get to the Forest they should walk south (upwards) from Randy Rd Cross.  To
+get to the Beach they should walk north (upwards) from This Way Cross.  (See
+the map.)

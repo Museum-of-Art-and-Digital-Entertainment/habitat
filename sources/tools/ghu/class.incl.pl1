@@ -1,0 +1,18 @@
+declare build_field_list entry(binary(31), binary(31)) returns(binary(31));
+declare build_field entry(binary(31), binary(31), binary(31), binary(31)) returns(binary(31));
+declare invisify entry(binary(31)) returns(binary(31));
+declare build_define_tag entry(binary(31), binary(31)) returns(binary(31));
+declare read_class_info entry returns(bit(1));
+declare write_class_info entry;
+declare c$class entry(binary(31), binary(31));
+declare c$define entry(binary(31), binary(31));
+
+%replace CLASS_OBJECT by -1;
+%replace CLASS_REGION by 0;
+%replace CLASS_AVATAR by 1;
+declare class_fields(CLASS_OBJECT:MAX_CLASS) pointer static external;
+declare class_field_count(CLASS_OBJECT:MAX_CLASS) binary(15) static external;
+declare class_size(CLASS_OBJECT:MAX_CLASS) binary(15) static external;
+
+%replace OBJECT_OFFSET_TAG by 10000;
+declare object_base_offset binary(15) static external init(0);

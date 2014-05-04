@@ -1,0 +1,8 @@
+error.m:define	somewhere	=	cel_x		; borrow some zpage
+error.m:	sty	somewhere
+error.m:	    ldy	somewhere
+error.m:	    dec	somewhere
+error.m:	movew	last_link, somewhere
+error.m:	lda	y[@somewhere]
+error.m:	lda	y[@somewhere]
+error.m:	lda	y[@somewhere]

@@ -1,0 +1,82 @@
+@region $ Downtown_4k {
+    south: Downtown_4j.l;
+    region_orientation: FACE_NORTH;
+    [
+        @wall { x:0; y:0; or:252; style:5; }
+        @ground { x:0; y:4; or:164; style:1; }
+        @display_case { x:16; y:32; or:0; gr_state:3; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @display_case { x:16; y:70; or:0; gr_state:3; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @knick_knack { x:136; y:75; or:16; style:1; 
+            8:0;
+        }
+        @knick_knack { x:112; y:60; or:0; style:2; 
+            8:0;
+        }
+        @display_case { x:60; y:32; or:0; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @display_case { x:60; y:70; or:0; gr_state:3; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @display_case { x:104; y:32; or:0; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @knick_knack { x:124; y:59; or:0; style:2; 
+            8:0;
+        }
+        @knick_knack { x:128; y:41; or:0; style:2; 
+            8:0;
+        }
+        @knick_knack { x:108; y:73; or:16; style:5; 
+            8:0;
+        }
+        @knick_knack { x:16; y:161; or:0; 
+            8:0;
+        }
+        @knick_knack { x:48; y:160; or:0; 
+            8:0;
+        }
+        @knick_knack { x:28; y:42; or:16; style:3; 
+            8:0;
+        }
+        @knick_knack { x:36; y:41; or:24; style:3; 
+            8:0;
+        }
+        @knick_knack { x:68; y:40; or:16; style:4; 
+            8:0;
+        }
+        @knick_knack { x:84; y:40; or:48; style:4; 
+            8:0;
+        }
+        @knick_knack { x:20; y:78; or:0; style:3; gr_state:2; 
+            8:0;
+        }
+        @knick_knack { x:32; y:77; or:16; style:3; gr_state:2; 
+            8:0;
+        }
+        @wall { x:0; y:160; or:0; style:4; gr_state:1; }
+        @pawn_machine { x:124; y:138; or:1; 
+            8:0;
+            9:0;
+            10:0;
+        }
+        @stereo { x:68; y:77; or:0; 
+            8:0;
+            9:0;
+        }
+    ]
+}

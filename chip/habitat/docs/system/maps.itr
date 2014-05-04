@@ -1,0 +1,96 @@
+.lg 1
+.ds D December 9, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9A Mapmaker's Guide to the
+
+MicroCosm\*M\s-9
+.AU
+Rules and Regs for laying out the world
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*D
+.ds LH MAPMAKERS GUIDE
+.ds CH \\*D
+.ds RH MicroCosm Document # 17
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This document is a guide for people creating the \fBMicroCosm\*T\fP world map.
+It describes the underlying physical organization of the world as it relates
+to the art of creative cartography.
+.SH
+\s+1Regions\s-1
+.PP
+The basic building block of \fBMicroCosm\fP geography is a thing called the
+\fIregion\fP.  A region is a flat rectangular area with the sides oriented
+east-west and north-south.  Its dimensions can vary from 1 foot to 255 feet.
+The east-west and north-south dimensions can be different, i.e., it does not
+have to be a square.
+.SH
+\s+1Connectivity\s-1
+.PP
+Each edge of a region may be connected to one edge of another region.  It need
+not connect to an adjacent region; it can connect to any region at all or to
+no region.  It need not connect to an oppositely facing edge, e.g., the east
+edge of one region does not have to be connected to the west edge of another
+region.  A region \fIcan\fP be connected to itself.  Connections need not be
+bidirectional, e.g., if the east edge of region A is connected to the west
+edge of region B, there is no requirement that the west edge of region B be
+connected to the east edge of region A.  In general, the connectivity of
+regions does not have to obey the restrictions of Euclidean geometry, though
+for stylistic reasons it \fIusually\fP should.
+.SH
+\s+1Viewpoints\s-1
+.PP
+Each region has exactly one \fIviewpoint\fP.  The viewpoint is the position
+from which the graphic display of the region is rendered.  It is located a few
+feet back from the center of one of the edges, looking in towards the region's
+center.  There are no exceptions.  Designating the viewpoint for a region
+consists of indicating which edge the region is to be viewed from.
+.SH
+\s+1Backdrops\s-1
+.PP
+Each region has a \fIterrain type\fR associated with it that is used to
+generate a \fIbackdrop\fP.  A backdrop is simply a flat image that is used as
+the base for rendering the scene.  Backdrops are generated stochastically
+whenever the viewpoint (i.e., the region being displayed) shifts.  There are a
+variety of possible backdrops reflecting a variety of possible terrain types:
+mountains, hills, forest, desert, swamp, seascape, cityscape, suburbia, and,
+of course, blank.
+.SH
+\s+1Buildings\s-1
+.PP
+A building is a region (or regions) surrounded by walls.  The walls coincide
+exactly with the edges of the region making up the building.  Other regions
+that connect to the building region are displayed with images of the walls as
+their backdrops.  A building can be constructed out of multiple regions, in
+which case each region constitutes a ``room''.  Each room has its own interior
+wall images that are used as the backdrop when displaying indoor scenes.
+.SH
+\s+1Turf\s-1
+.PP
+A player's \fIturf\fP is one or more regions that he ``owns''.  Ownership in
+this case means that the player is the one entitled to determine the region's
+interior.  Generally speaking, we do not simply create new regions for turf as
+people join the game.  Rather, regions are treated like real estate \(em an
+area is set aside for ``development'' and the regions in it are allocated as
+needed.  Presumably the area will be laid out in a manner that will help us do
+this.  Also, a player's turf is inaccessible to any avatar except for its
+owner's, unless the owner's avatar is present to let other avatars in.  What
+this means to the world builder is that regions set aside to become people's
+turf should never be located in such a fashion that they would create
+obstructions should they become uncrossable.
+.SH
+\s+1Scenic Objects\s-1
+.PP
+Various sorts of object may be placed in a region as scenic or structural
+features of the region itself.  This includes such things as trees, bushes,
+roads, rivers, ponds, fountains, fences, and so on.  Within reason you are
+free to make up new such object types as needed.

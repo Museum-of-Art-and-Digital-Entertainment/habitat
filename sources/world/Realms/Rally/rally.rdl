@@ -1,0 +1,8 @@
+include "/u0/chip/microcosm/riddle/beta_objects.rdl";
+include "rally_regions.rdl";
+
+include "rdldir/region_rally.rdl";
+include "rdldir/victory_region.rdl";
+include "rdldir/fail_region.rdl";
+
+

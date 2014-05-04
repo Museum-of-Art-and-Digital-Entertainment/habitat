@@ -1,0 +1,139 @@
+use region r_9157 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9146
+  north_neighbor: r r_9158
+  south_neighbor: r r_9156
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7246 {
+  container: r r_9157
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_7247 {
+  container: r r_9157
+  x: 160
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 127
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 85, 85, 85, 85, 85, 85, 86, 149, 89, 101, 89, 101, 101, 89, 101, 89,
+ 101, 89, 101, 89, 89, 101, 89, 101, 86, 149, 85, 85, 85, 85, 85, 85
+}
+use atm o_7248 {
+  container: r r_9157
+  x: 104
+  y: 54
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use atm o_7249 {
+  container: r r_9157
+  x: 36
+  y: 54
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use streetlamp o_7250 {
+  container: r r_9157
+  x: 124
+  y: 130
+  style: 0
+  gr_state: 1
+  orient: 24
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use street o_7251 {
+  container: r r_9157
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 13
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use sign o_7252 {
+  container: r r_9157
+  x: 8
+  y: 119
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(Broadway\Ra\Rn\Rk                        "
+}
+use short_sign o_7253 {
+  container: r r_9157
+  x: 8
+  y: 247
+  style: 0
+  gr_state: 9
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(Broadway"
+}
+use short_sign o_7254 {
+  container: r r_9157
+  x: 8
+  y: 247
+  style: 0
+  gr_state: 14
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(B\Ra\Rn\Rk "
+}

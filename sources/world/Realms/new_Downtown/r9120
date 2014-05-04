@@ -1,0 +1,115 @@
+use region r_9120 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9131
+  west_neighbor: r r_9110
+  north_neighbor: r r_9121
+  south_neighbor: r r_9119
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6839 {
+  container: r r_9120
+  x: 72
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sky o_6840 {
+  container: r r_9120
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use teleport o_6841 {
+  container: r r_9120
+  x: 24
+  y: 143
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+  take: 1700
+  address: "Pop-Plaza SW        "
+}
+use sky o_6842 {
+  container: r r_9120
+  x: 0
+  y: 0
+  style: 7
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid o_6843 {
+  container: r r_9120
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 160
+  lower_left_x: 0
+  lower_right_x: 160
+  height: 50
+}
+use street o_6844 {
+  container: r r_9120
+  x: 64
+  y: 4
+  style: 0
+  gr_state: 5
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use street o_6845 {
+  container: r r_9120
+  x: 68
+  y: 24
+  style: 0
+  gr_state: 4
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

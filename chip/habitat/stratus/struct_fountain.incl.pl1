@@ -1,0 +1,14 @@
+/*
+ *   struct_fountain.incl.pl1
+ *
+ *   Struct stub for fountain instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   13-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+/* Host private: */
+           3   live           bit(1);

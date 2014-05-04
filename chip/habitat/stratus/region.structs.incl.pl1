@@ -1,0 +1,102 @@
+%page;
+
+declare RoomNumber                      binary(15) external initial(0);
+declare RoomPtr                         pointer external; 
+declare RoomPtrs(regions_per_process)   pointer external;
+declare CapMonPtr                       pointer external; 
+declare CapMonPtrs(regions_per_process) pointer external;
+
+declare 1 RoomDBank                     based (RoomPtr),
+          2  Region                     binary(31),
+          2  Region_name                character(20),
+          2  RoomQId                    binary(31),
+          2  RoomBQId                   binary(31),
+          2  last_noid                  binary(15),
+          2  total_ghosts               binary(15),
+          2  Pending                    pointer,
+          2  flags,
+             3 private                  bit(1),
+             3 owner_here               bit(1),
+             3 initialized              bit(1),
+             3 filler_flags             bit(13),
+          2  current_region,
+             3 lighting                 binary(15),
+             3 depth                    binary(15),
+             3 neighbor(4)              binary(31),
+             3 exit_type(4)             binary(15),
+             3 restriction(4)           bit(1),
+             3 nitty_bits(28)           bit(1),
+             3 max_avatars              binary(15),
+             3 owner                    binary(31),
+             3 entry_proc               binary(15),
+             3 exit_proc                binary(15),
+             3 class_group              binary(15),
+             3 orientation              binary(15),
+             3 object_count             binary(15),
+             3 space_usage              binary(15),
+             3 town_dir                 character(1),
+             3 port_dir                 character(1),
+          2  oracle,
+             3 object                   binary(15),
+             3 person                   binary(15),
+             3 control                  pointer,
+          2  UserList(UsersPerRegion)   pointer,
+          2  ObjList(0:ObjectsPerRegion) pointer,
+          2  GhostList                  pointer,
+          2  Block_addr                 pointer;
+
+declare 1 RoomCMon                      based (CapMonPtr),
+          2  class_ref_count(0:MAX_CLASS_NUMBER)      binary(15),
+          2  resource_ref_count(NUMBER_OF_RESOURCES)  binary(15);
+
+declare 1 Memory_Block                  based,
+          2  free                       bit(64),
+          2  entry(64)                  char(40);
+
+declare  DayNight   bin(15) external initial(0);
+
+declare 1         player    based                   /* entry for avatar    */ 
+%include 'struct_user.incl.pl1';
+
+declare 1         object    based                   /* entry for object    */ 
+%include 'instance_head.incl.pl1';,
+         2        param1    pointer,                /* to contents list    */
+         2        param2    char(1);                /* depends on class    */
+
+
+declare  current_noid                   binary (15) external;
+declare  current_request                binary (15) external;
+declare  current_header                 char(1) external;
+declare  current_qid                    binary (31) external;
+declare  selfptr                        pointer external initial(null());
+declare  avatarptr                      pointer external initial(null());
+declare  userptr                        pointer external initial(null());
+
+declare  request_string char(646) var external;
+
+declare fan_cnt                         binary(15) external;
+declare fan_list(UsersPerRegion+200)    pointer external;  /* + 200 ghosts */
+
+declare 1 now_in    external,
+          2 last    bin(31)        initial(0),
+          2 count   bin(15)        initial(0),
+          2 line    (4) char(40) var;
+
+declare 1 enter_info  based,              /* remember info for later retry */
+          2 room         binary(31),
+          2 user         binary(31),
+          2 que          binary(31),
+          2 attempts     binary(15),
+          2 params       char(254) var;
+
+declare 1 fountain  based,
+          2 type         binary(15),
+          2 which_room   binary(15),
+          2 start_time   binary(31),
+          2 end_time     binary(31),
+          2 interval     binary(31),
+          2 msg_text     char(100) var;
+       
+declare bit_mask(UsersPerRegion)   bit(32) external;   /* user index bit mask */
+       
+%replace Separation_Char by 144;

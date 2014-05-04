@@ -1,0 +1,755 @@
+.AM
+.ds Dq December 15, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Stuff To Do\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH STUFF
+.ds CH \\*(Dq
+.ds RH Habitat Document # 38
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+The purpose of this document is to describe in technical detail the first few
+adventures and activities we intend to install in \fIHabitat\fP.  These
+include: the D'nalsi Island adventure, Randy's Region Rally, the game of
+Capture-The-Flag, ``Cooties'', The Quest For The Tome Of Wealth And Fame,
+theaters, talk shows, and arcades.  The emphasis of these descriptions will be
+on specific implementation details.  We will also discuss a few additional
+activities that have not yet been designed in enough detail to provide a
+complete technical specification.  These are game shows, the \fIHabitat\fP
+Stock Market, and the Machiavelli game.
+.PP
+Please note that some these games and activities involve a process of
+exploration and discovery by the players and therefore rely on a certain
+degree of secrecy.  However, to describe the implementation, some of these
+secrets will by necessity be revealed here.  \fIPlease regard this document as
+somewhat more confidential than usual and in particular avoid allowing it to
+fall into the hands of users.\fR  We don't want to spoil the surprise.
+.SH
+\s+3D'nalsi Island\s-3
+.PP
+The D'nalsi Island Adventure is a simple quest.  The object of the hunt is a
+stolen magical amulet.  The amulet has no intrinsic powers or value that would
+be of particular interest to players, but there is a reward offered for its
+recovery, and that is the motivating hook to get the players going.
+.PP
+The quest begins with an article in the \fIWeekly Rant\fR announcing that the
+Great Amulet of Wondrous Worth has been stolen from the Back-Forty home of
+the wizard Dada Salesh.  The copy of the \fIRant\fP containing this article
+also holds a few other indirect clues.  These are advertisements for the
+Populopolis Public Library, Lefty's Locksmithery, and Randy's Adventure
+Ymporium.
+.PP
+Those who pick up on the main clue will go to the Back-Forty and find the
+house of the Not-So-Wise-Man, Dada Salesh.  In front they will find a sign
+that says ``Not in right now.  Buy notes & map.'' and vending machine.  The
+vending machine will sell copies of the notes and map for the puzzle (map,
+T10; notes, T1).  The notes give additional clues and offer a reward for the
+return of the Amulet.  The map provides the general layout of D'nalsi Island
+itself.  In addition, Randy Farmer has volunteered to play the role of Salesh,
+so that, when he is on the system, players visiting the wizard's house will be
+greeted in person and actually be able to ask questions.  However, this merely
+enriches the experience rather than being an essential part of it.
+.PP
+Since it \fIis\fP an island, the only way to get to D'nalsi is by TelePort.
+The next step of the puzzle is to figure out the TelePort address.  This is
+actually given on the map, but in a way that is not immediately obvious.  We
+expect, however, that the clever will figure it out, and travel to the island.
+.PP
+D'nalsi Island itself is fairly desolate place.  There is a TelePort booth in
+the middle that is the way on and off the island, though this booth has an
+unlisted address.  The island also contains a several holes filled with minor,
+insignificant artifacts.  The first adventurers who come prepared with shovels
+will be able to obtain these items (shovels may be obtained at Randy's
+Adventure Ymporium or at the General Store downtown).  There are a few red
+herrings, but the main locations of interest are three caves.  The caves are
+dark, so the players will need to come with torches or flashlights (like
+shovels, lights may be purchased downtown).
+.PP
+The cave regions are connected normally, but the orientation changes with
+almost every region, so that without a compass it could be hard to find your
+way around.
+.PP
+The first two caves are empty.  The third, however, contains a few items of
+note: besides some small rocks scattered around, in one chamber there are
+three rocks (two large, one medium) that form a triangle with its apex against
+the back wall.  In the center of the triangle is a hole.  The hole contains a
+note that says ``WRONG'' (the note, of course, will be rigged so that people
+can't take it out of the cave).  The back wall, however, has an invisible
+opening just above the apex of the triangle.  \fBGO\fP here and you will enter
+the Secret Chamber!
+.PP
+In the Secret Chamber there are no rocks, just a hole.  The hole contains a
+locked chest that cannot be removed from the region.  The chest has lock
+#2000.  A key #2000 can be obtained at Lefty's Locksmithery.  Inside the chest
+is the Amulet.  The player, of course, has to figure out that key #2000 is
+what is required to open the chest.  The clue for this can be found in the
+Library.
+.PP
+The Library contains numerous of books, some of which contain significant
+clues and others of which serve simply to fill out the collection so that clue
+books are not the only things there.  The most significant clue in the Library
+is contained in a history of organized crime in \fIHabitat\fP.  The note from
+Salesh contains a hint that this is subject you should be researching.  With
+the clues collected so far, this book makes it clear that the thieves who took
+the Amulet belong to ``The Mob''.  It also explains that The Mob uses a few
+standard key numbers in its locks, and gives the numbers.  One of these
+numbers is #2000, which opens the chest in the cave.
+.SH
+\s+3Randy's Region Rally\s-3
+.PP
+Randy's Region Rally is a variation on the ever popular road rally game,
+played in the \fIHabitat\fP world.  It begins with an announcement from the
+Oracle, broadcast every few minutes from the fountain at the center of town:
+.RS
+.LD
+Attention!
+
+Attention!
+
+Ahem-----
+
+Welcome to:
+The First Habitat Region Rally!
+
+First find the tracks of a silly YikYak.
+It lives in the 40,
+that we call 'The Back'.
+
+It wears pointy shoes, 
+and walks very strange.
+Not forward nor sideways,
+when it roams on it's range.
+
+To find The Back-40,
+(If you are new),
+find Randy Rd cross.
+Walk into the blue.
+
+The first part of the clue
+to the answer, you'll find,
+If you read off the digits
+and divide it by nine.
+
+Good Luck
+.DE
+.RE
+Solving the puzzle of these clues leads the player on a path through the
+``Back Forty'', where a ``Burma Shave'' style sign provides an additional
+clue.  Following the clues properly leads the player to #47 Foon Ave.  The
+most obvious mis-step leads to #36 Wrong Way.  At each location will be a
+vending machine selling the next clue, a note on a piece of paper.
+.PP
+The false clue at #36 Wrong Way reads:
+.RS
+.LD
+Welcome to my humble home,
+Want some clues?  I'll give you some:
+
+The street you're on now gives you a clue,
+Where to go next, and what you should do.
+
+You you feel glad?
+Should you rejoice?
+Does it help you to know?
+That others made this choice?
+.DE
+.RE
+.PP
+The real clue at #47 Foon Ave. reads:
+.RS
+.LD
+How about a picnic at 'The Beach'?
+It'll put those riches in your reach.
+
+'The Beach' can be found This Way...
+Look for the place where stars shine.
+and go to a star, just yours, not mine.
+
+Find the Hut of the Yabba-Dabba-Flit
+Once for each rock in its pit,
+Count to the Left as you flee.
+Write this down, 'tis confusing you see.
+
+Down then, and Right for each blade
+Count them, don't rest in their shade.
+Number the trees, both dead & alive.
+The Sign in the sky is really no jive.
+.DE
+.RE
+This clue should lead the player to the beach, where a sign written in the sky
+provides the next clue.  This clue in turn leads the player to the Desert (via
+TelePort) where they will find yet another vending machine dispensing clues.
+This machine sells two ``books''.  One is a warning that says:
+.RS
+.LD
+Welcome to the Really Quite Confusing Desert.
+
+ENTER AT YOUR OWN RISK.
+
+No known maps exist.
+
+Avatars that have weak hearts or get
+disoriented easily should not enter
+without proper equipment.
+.DE
+.RE
+The other is a fragment of a manuscript:
+.RS
+.LD
+STARE WARS: act IV page 99
+
+LUNK: "In the name of all that's RIGHT,
+the rebellion shall win"
+
+DIRTH: "I will put DOWN your puny
+'rebellion' with the wave of my hand!"
+
+(DIRTH gestures, and LUNK starts grasping
+his throat with his RIGHT hand then falls
+DOWN to the ground writhing in pain.)
+
+LUNK, gestures with his LEFT hand and
+sends a sofa flying into DIRTH, thus
+releasing LUNK.
+
+LUNK:"UP with the rebellion!"
+
+LUNK escapes by using his laser-
+chainsaw to cut the power.
+
+note to the scriptwriter: is this
+the RIGHT way to get out of this
+scene?  Fondly: the producers.
+.DE
+.RE
+Embedded in this bit of silliness are instructions for navigating through the
+Desert to a region containing a large sign.  The sign says:
+.RS
+.LD
+\fC	D i g i t s   A r e
+	 a  T e l e p o r t
+	     N u m b e r\fR
+.DE
+.RE
+The region also contains a lamp.  The lamp is on.  Turning off the lamp
+reveals hidden text in the sign interspersed with the letters of the other
+message.  This says:
+.RS
+.LD
+\fC	 T W O   M O R E :
+	         2 3
+	F O R   9   d i g i t s\fR
+.DE
+.RE
+The various clues that have been followed so far have all contained numbers.
+Stringing these numbers together in order, including the last two digits
+hidden in the sign, yields a TelePort address.  If the player misses the last
+two digits, he will wind up TelePorting to a false endgame region.  This
+region contains a TelePort booth and a sign that says:
+.RS
+.LD
+\fCAbandon Hope.
+      ^
+     <?>
+      v\fR
+.DE
+.RE
+This region points to itself in \fIall\fP directions.  The only way out is by
+TelePort.  The \fIreal\fP endgame region contains a TelePort booth, a magic
+button, and a sign that says:
+.RS
+.LD
+\fCPush button!
+     v
+     v
+     v
+     v\fR
+.DE
+.RE
+Pressing the button wins the game.  It comes back with a balloon message that
+says ``Congratulations, you have won Txxxx Tokens!''  The first Avatar to
+press the button wins a big prize (say T1,000).  The prize decreases with each
+winner, until it reaches some minimum (say T10).  If a player presses the
+button more than once it says ``Sorry, you can only win once.''
+.PP
+The main thing that needs to be implemented to make the rally possible is the
+button that wins the game.  This will simply be a type of magic that checks a
+bit in the Avatar record on the host.  If the bit is clear it sets it and does
+the things needed to register a winner.  If the bit is set it sends the
+``sorry'' message.  Of course, we will need a scratch bit in the Avatar record
+to use for this purpose, so we will have to add a field.  However, we want to
+add a field of several scratch values that can be put to various uses as
+activities come and go in the world.
+.PP
+Also required is the mechanism that will allow the Oracle to broadcast the
+starting message.  This is being worked on.
+.PP
+The two special endgame regions have been created and are ready to upload.
+The special objects required to place the clues (signs, vending machines and
+so on) have all been created in a special ``holding pen'' region.  We will
+write a simple Stratus command script that will use Twiddle to place these
+objects at the appointed time and another to remove them when the rally is
+over.  In addition, the text for the various books/papers that hold clues
+needs to be placed in the text database (some of it is actually already in).
+As you can see, however, the text \fIhas\fP been written.
+.SH
+\s+3Capture-The-Flag\s-3
+.PP
+Capture-The-Flag is the first Avatar sport.  It is played on a field
+consisting of several interconnected regions and is modeled on the human sport
+of the same name.
+.PP
+\fIHabitat\fP Capture-The-Flag is played by equal-sized teams of up to five
+Avatar players apiece.  This limit is deliberately set at the region occupancy
+limit minus one, so that a team cannot block a region simply by filling it.
+Each team has a goal region that is at that team's end of the field.  Each
+team also has a flag that starts the game in the team's goal region.  Each
+goal region also contains a special magic button whose role will be explained
+shortly.
+.PP
+There are three sizes of play field, small, medium and large consisting of
+five regions, 12 regions and 30 regions (are these the right numbers?)
+respectively.  The different sizes of field have been designed because we are
+not yet sure how the play will work out and we want to experiment.  It may
+turn out that each provides a unique experience and we will want to keep all
+three, or it may turn out that one size is ideal, in which case we will
+eliminate the others.
+.PP
+The playing area has an entrance region that directs passers-through to one of
+three exits which lead to the entrances to each of the three different fields.
+Each field in turn has a special entrance region with three exits.  The three
+exits are for the blue team, the black team and spectators respectively.  Each
+of the team entrances connects to that team's goal region, while the spectator
+entrance connects to the middle of the field.  The special entrance region has
+a fairly sophisticated exit daemon that handles the various exits.
+.PP
+The spectator exit will only allow the passage of ghosts, and sets a bit in
+the record of each player passing through that will be checked by the
+de-ghosting code to prohibit de-ghosting inside the playfield.  Of course,
+passing through in the other direction clears the bit so that the spectators
+can resume normal behavior off the field.
+.PP
+The team exits will not allow the passage of any Avatar who is carrying
+anything in his hands or pockets.  This is to prevent cheating by carrying
+weapons or magic items onto the field or by carrying large objects that will
+block field regions by filling memory.  This prohibition is bi-directional so
+that players can't steal the flags from the field either.  In addition, each
+team exit keeps a count of the number of players who are on the field and will
+not allow more than five on a side.  The daemon also changes the Avatars who
+pass through to the team colors (and changes them back when they leave).
+Finally, it sets a bit in the Avatar record that prevents players from turning
+into ghosts while they are on the field.
+.PP
+To make this game possible we will need to add a few more fields to the Avatar
+struct.  The bit to prohibit ghosting/de-ghosting is one, but one of the
+scratch bits discussed previously can be used for this purpose.  The major
+addition will be a place to save the Avatar's ``natural'' color/pattern
+information when on the play field.  However, such a storage area is desirable
+anyway because enables a variety of possible game elements that involve
+temporary changes to an Avatar's appearance.
+.PP
+Play is quite simple.  The object is to grab the other team's flag, bring it
+back to your team's goal, and push the button.  Pushing the button in the goal
+region while the other team's flag is present in the region scores a point.
+We can tinker with the rules about what constitutes winning.  It may be that,
+as in real Capture-The-Flag, scoring once wins the game.  Depending on how
+difficult it turns out to actually be to score, we may wish to play to some
+higher number of points.  This is a subject for experimentation during
+beta-test.
+.PP
+There are two unresolved design issues, one major and the other minor.  The
+minor issue pertains to starting or resetting the game: we don't want the game
+to start until each team is present in full and the two flags are in their
+proper starting locations.  This is a minor issue, however, because although
+we would like to automate this process, it \fIcan\fP be handled by the
+cooperation of the players themselves using ESP.  The major issue pertains to
+score keeping: how do we announce to all the players when a team scores and,
+if more than one point is needed to win, where do we actually store the score
+of a game in progress?  Announcement can probably be handled using some form
+of synthetic ESP message.  Score keeping will require a special mechanism of
+as yet unknown nature.  However, we do expect it to be possible without undue
+difficulty.
+.SH
+\s+3Cooties\s-3
+.PP
+``Cooties'' is our name for one of a class of games that includes a form of
+Tag.  The mechanism that we will use also leads to the possibility of Avatar
+diseases.
+.PP
+``Cooties'' begins with the appearance in some public place of a magic button
+accompanied by a sign that says ``DO NOT PRESS THIS BUTTON!!!''  An Avatar who
+disobeys the sign and presses the button anyway has his head replaced with a
+``cootie'' head.  All the Avatar needs to do is ``tag'' another Avatar,
+whereupon he gets his old head back and the tagged victim acquires the cootie
+head.  One Avatar can tag another simply by walking up to him and \fBDO\fPing
+him empty handed.  Once you have had the cootie head you are immune to having
+it again.  The head continues to go from Avatar to Avatar until everyone has
+had it or we decide the game is over (probably it runs for a day or two).
+.PP
+The mechanism underlying this is relatively simple.  In the Avatar record we
+need a place to keep the identity of the Avatar's ``normal'' head and a bit
+showing whether an Avatar has had the cootie head in this game or not.  The
+normal head number can be kept in the ``natural appearance'' fields discussed
+above, while the ``had the head'' bit can be one of the previously mentioned
+scratch bits.  We will also require a ``tag'' routine and a special magic
+button.  These are both quite simple to implement.
+.PP
+Several variations on this theme are possible.
+.PP
+By keeping a ``tag'' \fIcounter\fP, instead of a bit, we can have a spreading
+plague: instead of requiring one ``tag'' to get rid of the undesirable head we
+require two.  This causes the number of Avatars with the head to increase
+exponentially.  Setting this counter to an arbitrarily large number makes
+infections relatively permanent.
+.PP
+The ``tag'' mechanism can be different:  If, instead of having to explicitly
+tag someone, the region entry handler randomly tagged someone every time you
+entered a region, we would have an actual plague.  Similarly, the mechanism by
+which the first player becomes infected could also be involuntary \(em there
+could be a special region that is the source of the trouble.  Or it could be
+started by random TelePort ``malfunctions''.
+.PP
+The infection itself need not be a cootie head.  For example, it could be a
+``smiley face'' head \(em of course, we would modify the SPEAK routines so
+that anything anyone said while wearing this head would be translated into
+``Have a nice day!''.  Similarly, a fly head might result in having every
+utterance turned into ``Bzzz Bzzzzz Bzzz.''  The infection need not take the
+form of a head at all.  We may wish to add a general purpose ``curse'' field
+to the Avatar record that can be a hook for all manner of devious things.
+.PP
+By the way, we can warn players in advance that shenanigans like this are
+going on with a special message of the day: ``Beware of the deadly Mutant-Head
+Plague.''
+.SH
+\s+3Quest For The Tome Of Wealth And Fame\s-3
+.PP
+The ``Quest For The Tome Of Wealth And Fame'' is a simple ongoing activity
+that pits a series of individual players against the world.  The Tome itself
+is a special book (it looks like a stone tablet) that is at once the
+instructions for the players and the object of the Quest.  The Quest is an
+ongoing activity that will be moderated through announcements published in the
+\fIWeekly Rant\fR.
+.PP
+We begin by hiding the Tome somewhere in the world and publishing an
+announcement containing a clue to its whereabouts in the \fIRant\fP.  We then
+wait for somebody to find it.  The Tome has special READ code on the host that
+takes note any time it is read of who the reader was and where.  When the
+finder reads it he will discover it contains instructions.  These tell him to
+hide it again (with certain constraints on where it may not be hidden) and
+report to the Oracle.  It also promises a reward of T10 for each day that it
+goes undiscovered.  In addition, the Tome contains a list of the top N prize
+winners so far.  Whenever the Tome is found and a player is rewarded, we
+publish an announcement in the \fIRant\fP telling the name of the prize
+winner, the name of the finder, and the location where it was found.  Every
+time we pay a new prize that is in the top N, we update the Tome text
+accordingly.
+.SH
+\s+3Theaters and Talk Shows\s-3
+.PP
+It is a relatively simple matter to set up online theaters in \fIHabitat\fP.
+All that is really required is one or more regions to act as the stage(s) and
+willing groups of Avatars to act as the cast and audience.  Several
+establishments in downtown Populopolis have been designed with the idea that
+they will be used as theaters.  Some are general purpose stages that may be
+used for anything.  Others have been decorated for particular purposes.  For
+example, there is Costello's Comedy Club that has been set up to look like a
+sleazy New York City night club.  Another stage is set up for conducting a
+television-style talk show.
+.PP
+These facilities can be used as is.  However, there are a few additional
+devices that we can add to make them more convenient and attractive to
+players who might be interested.
+.IP "\ \ \ \(bu\ "
+\fIUsher's Wand\fR \(em This device enables the holder to turn other Avatars
+into ghosts, in order to clear out stray audience members who may be blocking
+the show from beginning.
+.IP "\ \ \ \(bu\ "
+\fIDummy Actor\fR \(em When activated it lowers the number of Avatars allowed
+in the room by one.  These devices can be used to reduce the occupancy limit
+of the stage to the cast size when the cast is less than six.  This is another
+aid to keep the audience out of the show.
+.IP "\ \ \ \(bu\ "
+\fIAudience Gage\fR \(em When you press the button on this device, it displays
+a balloon message to the Avatars in the room (but not to the ghosts) that
+tells the number of ghosts in the audience.
+.IP "\ \ \ \(bu\ "
+\fIVolunteer Grabber\fR \(em When you press the button on this device, it
+picks a random ghost and turns him back into an Avatar.
+.IP "\ \ \ \(bu\ "
+\fIStagehand's Helper\fR \(em When activated this device makes the activator
+invisible.  It only works in stage regions \fIand\fP the invisibility is only
+temporary.  If the invisible Avatar leaves the region or turns into a ghost
+and then back into an Avatar, the invisibility effect ends.  The purpose of
+this is to allow Avatars to temporarily become invisible on stage in order to
+act as stage hands.
+.LP
+All the above items are special purpose magic wands.  They will be
+``permanent'' equipment in stage regions, set up so that they cannot be
+removed.  Stages should also contain a box for keeping all this junk in when
+it is not needed so that it doesn't clutter up the place.
+.PP
+Scheduling the use of the stage facilities is the responsibility of the sysop
+handling the Bureau Of Scheduling Bureaucrat-In-A-Box.  Avatars who wish to
+reserve the facilities may do so simply by speaking their request to the
+appropriate Bureaucrat in City Hall.  Space will be scheduled on a first-come
+first-served basis initially.  However, if regular theatrical groups form we
+may wish to semi-permanently assign particular time slots to them to use as
+they wish.
+.PP
+Encouraging use of these facilities will be the job of the Oracular operators.
+Notices will be published in the \fIRant\fP announcing the availability of the
+stage space and setting forth the procedures for using it.  We will also want
+to publish a brief \fIHabitat\fP book on the use of stages and the various
+devices that they are equipped with.
+.SH
+\s+3The Arcade\s-3
+.PP
+It is possible to play certain types of board games in \fIHabitat\fP using a
+few simple types of objects and specially designed ``board'' regions.  The
+special objects are the game-piece and the die.
+.PP
+The die object functions just like its real-world counterpart.  It displays a
+pattern of dots representing a number from one to six.  \fBDO\fPing it
+``rolls'' the die and causes it to change to one of the six possible states at
+random.
+.PP
+The game-piece object is a simple marker whose various states represent the
+two colors of checker, the various different chess pieces, and so on.  Avatars
+can \fBGET\fP and \fBPUT\fP it remotely.  That is, it isn't necessary to walk
+to a piece to manipulate it.  When an Avatar \fBGET\fPs a game-piece it
+transports itself automagically into his hands.  Similarly, an Avatar
+\fBPUT\fPs a piece it flys to the location indicated.  This means that the
+pieces can be manipulated on a board without requiring the Avatars to move
+themselves around also.
+.PP
+The game boards are simply bare regions with geometric backgrounds constructed
+using the ordinary graphics primitives that the system already supports.  A
+region for playing a game has an appropriate background together with the
+appropriate number and types of pieces for a particular game.  As a
+convenience, we will also add a magic button that ``resets'' the board to a
+standard starting configuration.
+.PP
+Using the above building blocks, we can readily support Checkers, Chess and
+Backgammon.  With a little cleverness we can probably also support Go-moku
+(``Pente'').  We \fIcannot\fP support Go or Othello because of the number of
+pieces required.  Other games may be possible, however we are only going to go
+for the ``big three'' to start with.
+.PP
+The Arcade is organized into a series of playing areas, one for each type of
+game.  Marked hallways lead the ``board rooms'' themselves.  Each playing area
+has several board rooms that are available to anyone who cares to use them.
+.SH
+\s+3Game Shows\s-3
+.PP
+Game shows are a special variation on the theater theme that appear to be a
+good match for the \fIHabitat\fP environment.  However, current design has
+only extended as far as the definition of some general mechanisms.  There are
+not yet any designs for specific game shows, thought this will come given
+time.  What we have devised so far are designs for some simple props that seem
+to cover most of what we might want to do with the game show format.  These
+props include:
+.IP "\ \ \ \(bu\ "
+\fISpinning Wheel\fR \(em This is a ``Wheel-Of-Fortune'' style parimutuel
+wheel.  Functionally, it is like a die except that it has more states, one of
+which is animated.
+.IP "\ \ \ \(bu\ "
+\fIContestant Booths\fR \(em This is a set of two or three (or however many
+contestants there are) special magic buttons.  Each looks like a podium.
+Pressing one of these buttons causes the booth to light up (change color
+really) and rings a bell or sounds a buzzer of some kind.  For some games,
+the booths in a room can be made interdependent, so that if one is lit, the
+others will refuse to work.  For other games they will operate independently.
+.IP "\ \ \ \(bu\ "
+\fIEmcee Booth\fR \(em This is another podium-like magic button.  When
+activated it clears all the contestant booths in the region.
+.IP "\ \ \ \(bu\ "
+\fIFlip Cards\fR \(em These are a special style of sign.  Each is a sign
+containing a letter or word that can be flipped (using the \fBDO\fP command)
+between two states.  One state displays the text.  The other shows a plain
+(i.e., colored or patterned) surface.
+.LP
+With these objects, it should be possible to readily simulate the play of a
+broad spectrum of television game show -style games.  However, if there is
+game show format that we cannot support that we decide we wish to have, it
+should be a relatively straightforward procedure to devise other props in a
+similar vein that will do the job.
+.SH
+\s+3Stock Market\s-3
+.PP
+The \fIHabitat\fP Stock Market is a design now under development.  The idea is
+to start with a simple, statistical pseudo-business game that is really just a
+pari-mutuel gambling game in disguise and force its evolution into a simulated
+but functional mock-securities industry operating within \fIHabitat\fP for the
+entertainment of the subscribers.
+.PP
+The initial mechanism is the same as other forms of commerce in \fIHabitat\fP:
+vending machines and pawnshop machines.  Stocks and bonds will be represented
+by special styles of book that we have created for the purpose.  In the Stock
+Exchange there are vending machines selling these ``securities'' and a pawn
+machine that buys them back.  The prices fluctuate up and down according to
+some internal model that we maintain.
+.PP
+This mechanism serves the basic needs of the game.  However, there are a few
+details that remain to be worked out.  One is that we'd like there to be
+something analagous to a ticker tape that announces the rises and falls of the
+prices of the securities as they change.  The main thing that we need to
+design, however, is the mechanism that will actually regulate the prices.  The
+simplest idea is to simply use the prices of real stocks in the world,
+possibly scaled by varying ``fudge factors'' to conceal the source.  It is
+unclear if this is legal, however.  If it is, it is the approach we would
+prefer.  If not, a more complicated statistical simulation will need to be
+created.
+.PP
+Ultimately, we would like to add a means whereby Avatars can issue stock of
+their own and place it on the market for sale.  Player stock brokers would
+regulate the values based on supply and demand, just as the market does in the
+real world.  These internal stocks would represent shares of ownership of
+internal corporations whose assets (Tokens, goods and ``real estate'') would
+have value within the context of \fIHabitat\fP.  Thus, there would be some
+basis for valuation of these stocks.  We would therefore have all the makings
+of a true market.  However, significant details about the mechanisms required
+to manage such a market remain to be worked out.
+.SH
+\s+3Machiavelli\s-3
+.PP
+\fIMachiavelli\fP is our working title for a sort of game-within-a-game that
+we are developing.  \fIMachiavelli\fP is a socio-political game that requires
+no technical implementation whatsoever.  It involves the inner machinations of
+a secret society whose ostensible purpose is to ``rule \fIHabitat\fP''.  Just
+what ``ruling'' means is deliberately vague, as are many other specifics.  The
+object of the game itself is to become the head of the secret society.  Unlike
+the other activities described here, putting \fIMachiavelli\fP into operation
+is a pure design and organization problem.  The basic idea has been described
+in greater detail elsewhere and will be refined further in future documents.
+We mention it here for mostly for the sake of completeness.
+.bp
+.CD
+\s+2Appendix A \(em Text of note from Dada Salesh\s-2
+.DE
+.LP
+I am the Powerful Wizard ``Salesh''!  (Really, I am!)  I will pay the sum of
+XYZ Tokens to the first Avatar or team to find my Amulet and return it to me.
+.LP
+The following information about thieves/scumm that I 'ported back to my house
+(with my WONDROUS powers) may be helpful to you:
+.LP
+1) They had a map of D'nalsi Island with them.  (I have taken the liberty of
+making copies of the map for you, available for a small fee...)
+.LP
+2) As I snatched the map away, the uglier of the two said, ``You'll never find
+it!  HA!  HA!  HA!'' and flashed a sign of some sort: he formed a triangle
+with the thumbs and index fingers of each hand, palms forward.
+.PP
+The only advice I can think of to get you on you way is this: there is no form
+of water transportation in the world, so they must have 'ported to the island.
+.LP
+Equip well & Good Luck.
+.LP
+Dada Salesh, big bucks wizard for hire.
+.bp
+.CD
+\s+2Appendix B \(em Library Book: The History of TelePort\s-2
+.DE
+.PP
+The TelePort was invented by the great tinkerer Avatar, Foontrafian Subtrax.
+It took many years to perfect the technique, and many a test animal was lost
+to the void.  It is still rumored to this day that, when the conditions are
+JUST RIGHT, a TelePorting Avatar may end up with animal parts in place of his
+normal limbs and/or head.  Rest assured that this is ONLY a rumor.  Regardless
+of the rumored risks, the TelePort has become the single most valued addition
+to the universe, opening whole new realms for exploration.  Socially the
+``'Port'', as it is called by most everyone, has restructured the world
+forever.  Thank You, Foontrafian!
+.LP
+How a Port address is chosen:
+.PP
+TelePort booths are generally registered in the TelePort Book, published in
+every major city.  There are some standards, loosely adhered to, when
+assigning a 'Port address: major intersections are usually "<Majorstreetname>
+Cross", cul-de-sacs are usually "<Streetname> <Compassdirection> End", Oracle
+fountain plazas are usually "Plaza <Compassdirection>", and so on.  For
+example, "Bleem St Cross", "Foon Ave N End" and "Plaza SW" are all typical
+Port addresses.  However, people have been known to spend large amounts of
+money to buy personal booths and NOT register them.  These booths usually have
+customized addresses that have personal meaning to the owner, so the address
+is not forgotten.
+.bp
+.CD
+\s+2Appendix C \(em Library Book: The History of Organized Crime in Habitat\s-2
+.DE
+.PP
+Organized crime has never really been a big problem in Habitat.  There is only
+one major gang, and it is now almost extinct.  If it has a name, none of its
+members have ever spoken it publicly.  The only way they can identify each
+other is by some secret hand signal.
+.PP
+The Mob (as they are colloquially known) was formed by a small number of
+Avatars bent on self destruction.  All but a few members have been caught,
+(easily) tried, and sent into the void.  Their crimes are nearly always
+mis-handled or bungled in some major way.
+.PP
+One good example of their foolhardiness is reflected in their security
+control: they have consistently used only 2 styles of locks & keys, styles
+#2000 and #4747.  As is widely known, these are the two most common locks in
+the known world.  You can see why they would have financial problems...
+.bp
+.CD
+\s+2Appendix D \(em Other library books that ought to be written\s-2
+.DE
+.nf
+
+	History of Avatars
+	History of The Oracle
+	History of History
+	Head Fever
+	Avatar Life
+	Atlas of the World
+	Avatars I Have Known
+	Tuff Turf
+
+.fi
+.bp
+.CD
+\s+2Appendix E \(em The Tome Of Wealth And Fame\s-2
+.DE
+.LP
+Congratulations!  You have found the Tome Of Wealth And Fame!  YOU are now
+responsible for what happens next.
+.LP
+Upon successful completion of your duties, you may receive a cash reward.
+Also, if you do a really good job, for NO EXTRA CHARGE you will have your name
+engraved on this tablet for all ETERNITY so treasure seekers will know that
+YOU have joined the ranks of Master Adventurers.
+.LP
+.nf
+To collect your prize you must:
+1) READ ALL of this tablet.
+2) HIDE it in a place that will make it hard to find.
+3) SHOW it to NO ONE.
+4) NOT HIDE it in a turf.
+5) NOT HIDE it in a locked container.
+6) When it is hidden, seek an Oracle and speak the magic phrase "Willy Willy
+   Nilly Billy".
+.fi
+.LP
+If you obey these rules correctly, then you are eligible to receive the prize.
+The Oracle will determine whether you have complied with the rules.  The next
+time the Tome is found by another Avatar, you will receive T10 for each day
+between the time you spoke the magic phrase to the Oracle and the time it was
+found.  Good Luck!  Try not to hide it anyplace stupid.
+.LP
+Top Tome Hiders:
+\fI<list of master adventurers>\fR

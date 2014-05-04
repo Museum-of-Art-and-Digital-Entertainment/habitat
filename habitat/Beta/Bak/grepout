@@ -1,0 +1,327 @@
+130c130
+< 	action	generic_broadcast	/* talk */
+---
+> 	action	head_talk		/* talk */
+269c269
+< 	byte	16			/* 16 IS correct instance length */
+---
+> 	byte	16			/* 15 IS correct instance length */
+281c281
+< 	action	generic_broadcast	/* talk */
+---
+> 	action	noEffect		/* talk */
+304c304
+< 	action	noEffect		/* put */
+---
+> 	action	noEffect			/* put */
+728a729,730
+> 	sound	mail_into_mailbox
+> 	sound	mail_into_mailbox_pw
+734c736
+< 	action	noEffect		/* put */
+---
+> 	action	generic_sendMail	/* put */
+2268,2282c2270,2284
+< head_placeholder_1:		"Images/undefined1.bin"		0	-12
+< head_placeholder_2:		"Images/undefined2.bin"		0	-12
+< head_placeholder_3:		"Images/undefined3.bin"		0	-12
+< head_placeholder_4:		"Images/undefined4.bin"		0	-12
+< head_placeholder_5:		"Images/undefined5.bin"		0	-12
+< head_placeholder_6:		"Images/undefined6.bin"		0	-12
+< head_placeholder_7:		"Images/undefined7.bin"		0	-12
+< head_placeholder_8:		"Images/undefined8.bin"		0	-12
+< head_placeholder_9:		"Images/undefined9.bin"		0	-12
+< head_placeholder_10:		"Images/undefined10.bin"	0	-12
+< head_placeholder_11:		"Images/undefined11.bin"	0	-12
+< head_placeholder_12:		"Images/undefined12.bin"	0	-12
+< head_placeholder_13:		"Images/undefined13.bin"	0	-12
+< head_placeholder_14:		"Images/undefined14.bin"	0	-12
+< head_placeholder_15:		"Images/undefined15.bin"	0	-12
+---
+> head_placeholder_1:		"Images/undefined1.bin"		12	-12
+> head_placeholder_2:		"Images/undefined2.bin"		12	-12
+> head_placeholder_3:		"Images/undefined3.bin"		12	-12
+> head_placeholder_4:		"Images/undefined4.bin"		12	-12
+> head_placeholder_5:		"Images/undefined5.bin"		12	-12
+> head_placeholder_6:		"Images/undefined6.bin"		12	-12
+> head_placeholder_7:		"Images/undefined7.bin"		12	-12
+> head_placeholder_8:		"Images/undefined8.bin"		12	-12
+> head_placeholder_9:		"Images/undefined9.bin"		12	-12
+> head_placeholder_10:		"Images/undefined10.bin"	12	-12
+> head_placeholder_11:		"Images/undefined11.bin"	12	-12
+> head_placeholder_12:		"Images/undefined12.bin"	12	-12
+> head_placeholder_13:		"Images/undefined13.bin"	12	-12
+> head_placeholder_14:		"Images/undefined14.bin"	12	-12
+> head_placeholder_15:		"Images/undefined15.bin"	12	-12
+2284,2287c2286,2289
+< avatar_peng_image:		"Images/Peng.bin"	8	0
+< avatar_spid_image:		"Images/Spid.bin"	8	0
+< avatar_gunship_image:		"Images/Gunship.bin"	0	0
+< avatar_tank_image:		"Images/Tank.bin"	8	0
+---
+> avatar_peng_image:		"Images/Peng.bin"		8	0
+> avatar_spid_image:		"Images/Spid.bin"		8	0
+> avatar_gunship_image:		"Images/Gunship.bin"		0	0
+> avatar_tank_image:		"Images/Tank.bin"		8	0
+2290c2292
+< amulet_image:			"Images/amulet.bin"	0	-4
+---
+> amulet_image:			"Images/amulet.bin"	8	-4
+2292c2294
+< answering_machine_image:	"Images/ans.bin"	0	-12
+---
+> answering_machine_image:	"Images/ans.bin"	16	-12
+2298c2300
+< bag_image:			"Images/bag.bin"	0	-4
+---
+> bag_image:			"Images/bag.bin"	8	-4
+2300c2302
+< luggage_side_image:		"Images/luggages.bin"	0	-4
+---
+> luggage_side_image:		"Images/luggages.bin"	16	-4
+2302c2304
+< ball_image:			"Images/ball1.bin"	0	-36
+---
+> ball_image:			"Images/ball1.bin"	8	-36
+2304c2306
+< switches_image:			"Images/switches.bin"	0	4
+---
+> switches_image:			"Images/switches.bin"	8	4
+2306c2308
+< dials_image:			"Images/dials.bin"	0	8
+---
+> dials_image:			"Images/dials.bin"	12	8
+2312,2317c2314,2319
+< book_end_image:			"Images/booke.bin"	0	0
+< book_front_image:		"Images/bookf.bin"	0	-8
+< magazine_image:			"Images/mag.bin"	0	-4
+< newspaper_image:		"Images/news.bin"	0	-16
+< tablets_image:			"Images/tablets.bin"	0	-12
+< stocks_image:			"Images/stock0.bin"	0	-12
+---
+> book_end_image:			"Images/booke.bin"	12	0
+> book_front_image:		"Images/bookf.bin"	12	-8
+> magazine_image:			"Images/mag.bin"	8	-4
+> newspaper_image:		"Images/news.bin"	12	-16
+> tablets_image:			"Images/tablets.bin"	16	-12
+> stocks_image:			"Images/stock0.bin"	16	-12
+2319c2321
+< boomerang_image:		"Images/brang.bin"	0	-8
+---
+> boomerang_image:		"Images/brang.bin"	12	-8
+2321c2323
+< bottle_image:			"Images/bottle.bin"	0	-4
+---
+> bottle_image:			"Images/bottle.bin"	8	-4
+2323c2325
+< cups_image:			"Images/cups0.bin"	0	-4
+---
+> cups_image:			"Images/cups0.bin"	8	-4
+2325c2327
+< box_image:			"Images/box1.bin"	0	-8
+---
+> box_image:			"Images/box1.bin"	20	-8
+2327c2329
+< treasure_chest_image:		"Images/trchest.bin"	0	-8
+---
+> treasure_chest_image:		"Images/trchest.bin"	28	-8
+2343c2345
+< changomatic_image:		"Images/chango.bin"	0	-12
+---
+> changomatic_image:		"Images/chango.bin"	16	-12
+2348c2350
+< club_image:			"Images/club2.bin"	0	-36
+---
+> club_image:			"Images/club2.bin"	24	-36
+2352c2354
+< compass_image:			"Images/compass.bin"	0	-4
+---
+> compass_image:			"Images/compass.bin"	8	-4
+2359c2361
+< crystal_ball_image:		"Images/cball0.bin"	0	-12
+---
+> crystal_ball_image:		"Images/cball0.bin"	8	-12
+2361c2363
+< die_image:			"Images/die.bin"	0	-12
+---
+> die_image:			"Images/die.bin"	8	-12
+2370c2372
+< drugs_image:			"Images/pillbot.bin"	0	-4
+---
+> drugs_image:			"Images/pillbot.bin"	8	-4
+2374c2376
+< escape_device_image:		"Images/escaper.bin"	0	4
+---
+> escape_device_image:		"Images/escaper.bin"	8	4
+2376c2378
+< fake_gun_image:			"Images/fgun1.bin"	0	-12
+---
+> fake_gun_image:			"Images/fgun1.bin"	16	-12
+2380c2382
+< flag_image:			"Images/flag.bin"	0	-8
+---
+> flag_image:			"Images/flag.bin"	4	-8
+2382,2383c2384,2385
+< flashlight_image:		"Images/flite.bin"	0	-8
+< torch_image:			"Images/torch0.bin"	0	-8
+---
+> flashlight_image:		"Images/flite.bin"	12	-8
+> torch_image:			"Images/torch0.bin"	4	-8
+2393c2395
+< frisbee_image:			"Images/fris.bin"	0	-16
+---
+> frisbee_image:			"Images/fris.bin"	12	-16
+2398c2400
+< gemstone_image:			"Images/gem.bin"	0	-8
+---
+> gemstone_image:			"Images/gem.bin"	4	-8
+2400c2402
+< ghost_image:			"Images/eye0.bin"	0	20
+---
+> ghost_image:			"Images/eye0.bin"	16	20
+2402c2404
+< grenade_image:			"Images/gren.bin"	0	-4
+---
+> grenade_image:			"Images/gren.bin"	8	-4
+2407,2410c2409,2412
+< gun_image_0:			"Images/gun1.bin"	0	-8
+< gun_image_1:			"Images/gun2.bin"	0	-8
+< gun_image_2:			"Images/gun3.bin"	0	-8
+< mauser_image:			"Images/maus.bin"	0	-16
+---
+> gun_image_0:			"Images/gun1.bin"	12	-8
+> gun_image_1:			"Images/gun2.bin"	12	-8
+> gun_image_2:			"Images/gun3.bin"	12	-8
+> mauser_image:			"Images/maus.bin"	20	-16
+2413c2415
+< cinder_image:			"Images/cinder.bin"	0	-8
+---
+> cinder_image:			"Images/cinder.bin"	20	-8
+2423c2425
+< instant_object_pill_image:	"Images/mpill.bin"	0	-8
+---
+> instant_object_pill_image:	"Images/mpill.bin"	4	-8
+2427,2428c2429,2430
+< key_image_0:			"Images/key1.bin"	0	-12
+< key_image_1:			"Images/ccard.bin"	0	-4
+---
+> key_image_0:			"Images/key1.bin"	8	-12
+> key_image_1:			"Images/ccard.bin"	8	-4
+2430,2435c2432,2437
+< knick_knack_image_0:		"Images/kk1.bin"	0	-8
+< knick_knack_image_1:		"Images/kk2.bin"	0	-8
+< knick_knack_image_2:		"Images/kk3.bin"	0	-8
+< knick_knack_image_3:		"Images/vase.bin"	0	-4
+< knick_knack_image_4:		"Images/jug0.bin"	0	-8
+< knick_knack_image_5:		"Images/saw.bin"	0	-24
+---
+> knick_knack_image_0:		"Images/kk1.bin"	12	-8
+> knick_knack_image_1:		"Images/kk2.bin"	12	-8
+> knick_knack_image_2:		"Images/kk3.bin"	12	-8
+> knick_knack_image_3:		"Images/vase.bin"	8	-4
+> knick_knack_image_4:		"Images/jug0.bin"	12	-8
+> knick_knack_image_5:		"Images/saw.bin"	28	-24
+2437,2438c2439,2440
+< knife_image_0:			"Images/knife1.bin"	0	-16
+< knife_image_1:			"Images/knife2.bin"	0	-16
+---
+> knife_image_0:			"Images/knife1.bin"	20	-16
+> knife_image_1:			"Images/knife2.bin"	20	-16
+2440c2442
+< magic_lamp_image:		"Images/mlamp2.bin"	0	-20
+---
+> magic_lamp_image:		"Images/mlamp2.bin"	24	-20
+2442,2444c2444,2446
+< magic_staff_image:		"Images/mstaff.bin"	0	-8
+< magic_wand_image_0:		"Images/wand1.bin"	0	-4
+< magic_wand_image_1:		"Images/wand2.bin"	0	-12
+---
+> magic_staff_image:		"Images/mstaff.bin"	4	-8
+> magic_wand_image_0:		"Images/wand1.bin"	8	-4
+> magic_wand_image_1:		"Images/wand2.bin"	8	-12
+2448c2450
+< matchbook_image:		"Images/mbook0.bin"	0	-8
+---
+> matchbook_image:		"Images/mbook0.bin"	4	-8
+2450c2452
+< microphone_image:		"Images/mic0.bin"	0	-8
+---
+> microphone_image:		"Images/mic0.bin"	4	-8
+2452c2454
+< movie_camera_image:		"Images/camera0.bin"	0	0
+---
+> movie_camera_image:		"Images/camera0.bin"	20	0
+2454c2456
+< paper_image:			"Images/paper.bin"	0	-4
+---
+> paper_image:			"Images/paper.bin"	8	-4
+2464c2466
+< ring_image:			"Images/mring.bin"	0	-8
+---
+> ring_image:			"Images/mring.bin"	4	-8
+2466c2468
+< road_pizza_image:		"Images/flat.bin"	0	-8
+---
+> road_pizza_image:		"Images/flat.bin"	12	-8
+2468,2469c2470,2471
+< rock_image_0:			"Images/rock1.bin"	0	-4
+< rock_image_1:			"Images/rock2.bin"	0	-8
+---
+> rock_image_0:			"Images/rock1.bin"	8	-4
+> rock_image_1:			"Images/rock2.bin"	12	-8
+2472c2474
+< rubber_ducky_image:		"Images/rduk.bin"	0	-4
+---
+> rubber_ducky_image:		"Images/rduk.bin"	16	-4
+2474c2476
+< safe_image:			"Images/safe1.bin"	0	-4
+---
+> safe_image:			"Images/safe1.bin"	16	-4
+2476c2478
+< security_device_image:		"Images/security.bin"	0	-8
+---
+> security_device_image:		"Images/security.bin"	12	-8
+2478c2480
+< sensor_image:			"Images/sensor.bin"	0	-12
+---
+> sensor_image:			"Images/sensor.bin"	8	-12
+2482c2484
+< shovel_image:			"Images/shovel0.bin"	0	-4
+---
+> shovel_image:			"Images/shovel0.bin"	16	-4
+2507c2509
+< spray_can_image:		"Images/patgun0.bin"	0	-12
+---
+> spray_can_image:		"Images/patgun0.bin"	16	-12
+2509c2511
+< stereo_image:			"Images/tapep.bin"	0	-8
+---
+> stereo_image:			"Images/tapep.bin"	20	-8
+2518c2520
+< tape_image:			"Images/cassette.bin"	0	-4
+---
+> tape_image:			"Images/cassette.bin"	8	-4
+2520c2522
+< teddy_bear_image:		"Images/tbear.bin"	0	-8
+---
+> teddy_bear_image:		"Images/tbear.bin"	20	-8
+2522c2524
+< telephone_image_0:		"Images/phone1.bin"	0	16
+---
+> telephone_image_0:		"Images/phone1.bin"	12	16
+2530c2532
+< towel_image:			"Images/towel.bin"	0	-8
+---
+> towel_image:			"Images/towel.bin"	12	-8
+2569,2570c2571,2572
+< windup_doll_image:		"Images/doll.bin"	0	-8
+< windup_penguin_image:		"Images/peng.bin"	0	-12
+---
+> windup_doll_image:		"Images/doll.bin"	8	-12
+> windup_penguin_image:		"Images/peng.bin"	12	-8
+2575c2577
+< game_piece_image:		"Images/chess0.bin"	0	-4
+---
+> game_piece_image:		"Images/chess0.bin"	8	-4
+2651a2654
+> head_talk:		"Actions/head_talk.bin"

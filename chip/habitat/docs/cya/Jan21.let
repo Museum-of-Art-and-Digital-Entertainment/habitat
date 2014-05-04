@@ -1,0 +1,45 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+Here is my first crack at a list of the contents of the various databases for
+you to use in defining the databases formally.  I've tried to be obsessively
+complete, so there may be some fields we can do without.
+
+I've given some thought to the set of low-level routines that will be
+required, and it doesn't seem to me that there's anything subtle.  We just
+need to be able to create and destroy records of any given type, modify their
+contents at will, and look them up on demand given some obvious keys.  The
+attached document gives my ideas about what keys will be appropriate.  We
+probably want to at least think about keeping an inverted list based on the
+containment relationship (i.e., who contains object \fIX\fP?), but I am
+beginning to suspect that such an index may not be necessary.
+
+We should probably talk about the next few steps in getting the Quantum end of
+the system working.  Why don't you give me a call when you've had a chance to
+read and digest this stuff.
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+ENC. Database definition document
+
+cc:  Steve Arnold

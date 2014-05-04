@@ -1,0 +1,12 @@
+/*
+ *   struct_sky.incl.pl1
+ *
+ *   Struct stub for sky instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+,    2    common_head         like instance_head
+ ; /* terminates struct header from include file */

@@ -1,0 +1,140 @@
+/*
+ *   class_jukebox.pl1
+ *
+ *   Object behavior module for class jukebox.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_jukebox: procedure;
+
+     %replace JUKEBOX_REQUESTS by 6;
+
+     declare a(0:JUKEBOX_REQUESTS) entry based;
+     declare class_jukebox_actions pointer;
+     declare 1 jukebox based %include struct_jukebox;
+
+     %replace I by CLASS_JUKEBOX;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = JUKEBOX_REQUESTS;
+     Class_Table(I).alloc_size = size(jukebox);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_jukebox_actions);
+     Class_Table(I).actions = class_jukebox_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)       = illegal;         /* 1 */
+     Class_Table(I).actions->a(2)       = illegal;         /* 2 */
+     Class_Table(I).actions->a(3)       = illegal;         /* 3 */
+     Class_Table(I).actions->a(PAY)     = jukebox_PAY;     /* 4 */
+     Class_Table(I).actions->a(CATALOG) = jukebox_CATALOG; /* 5 */
+     Class_Table(I).actions->a(SELECT)  = jukebox_SELECT;  /* 6 */
+
+end initialize_class_jukebox;
+
+%replace JUKEBOX_COST by 25;
+
+jukebox_PAY: procedure;
+     declare success binary(15);
+     declare 1 self based(selfptr) %include struct_jukebox;
+
+     if (self.plays_to_go = 0) then do;
+          success = spend(JUKEBOX_COST);
+          if (success = TRUE) then do;
+               self.take = self.take + JUKEBOX_COST;
+               self.plays_to_go = 1;
+               call n_msg_3(selfptr, PAY$, avatar.noid, JUKEBOX_COST, 0);
+          end;
+     end; else
+          success = FALSE;
+     call r_msg_3(success, JUKEBOX_COST, 0);
+end jukebox_PAY;
+
+jukebox_CATALOG: procedure;
+     declare letter binary(15);
+     declare number binary(15);
+     declare text character(TEXT_LENGTH) varying;
+     declare 1 self based(selfptr) %include struct_jukebox;
+     declare 1 ct based %include struct_jukebox_catalog;
+/*     declare 1 so based %include struct_music;*/
+     declare pa(1) pointer based;
+
+     if (^elsewhere(selfptr)) then do;
+          letter = self.music->pa(self.catalog_pos)->ct.letter;
+          number = self.music->pa(self.catalog_pos)->ct.number;
+/*          text = self.music->pa(self.catalog_pos)->ct.song->so.title;*/
+          self.catalog_pos = self.catalog_pos + 1;
+          if (self.catalog_pos > self.music_count) then
+               self.catalog_pos = 1;
+          call r_msg_2_s(letter, number, text);
+     end; else
+          call r_msg_2_s(0, 0, '');
+end jukebox_CATALOG;
+
+jukebox_SELECT: procedure;
+/*     declare 1 self based(selfptr) %include struct_jukebox;
+     declare choice character(TEXT_LENGTH) varying;
+     declare selection pointer;
+     declare 1 play based(playptr) %include struct_play;
+     declare playptr pointer;
+     declare success binary(15);
+
+     choice = substr(request_string, FIRST);
+     selection = lookup_selection(self.music, self.music_count, choice);
+     if (self.plays_to_go > 0 & selection ^= null()) then do;
+          allocate play set(playptr);
+          play.selection = selection;
+          play.next_play = self.play_list;
+          self.play_list = playptr;
+          if (self.playing = FALSE) then do;
+               self.playing = TRUE;
+               self.play_pointer = self.play_list;
+          end;
+          success = TRUE;
+     end; else
+          success = FALSE;
+     call r_msg_1(success);*/
+end;
+
+lookup_selection: procedure(musicptr, music_max, choice) returns(pointer);
+     declare 1 music(1) based(musicptr) %include struct_jukebox_catalog;
+     declare musicptr pointer;
+     declare music_max binary(15);
+     declare choice character(*) varying;
+     declare letterchar character;
+     declare numberchar character;
+     declare letter binary(15);
+     declare number binary(15);
+     declare i binary(15);
+
+     if (length(choice) = 2 | length(choice) = 3) then do;
+          letterchar = substr(choice, 1, 1);
+          numberchar = substr(choice, 2, 1);
+          if (letterchar > 'Z' | 'A' < letterchar | numberchar > '9' |
+               '0' < numberchar) then return(null());
+          letter = rank(letterchar) - rank('A');
+          number = rank(numberchar) - rank('0');
+          if (length(choice) = 3) then do;
+               numberchar = substr(choice, 3, 1);
+               if (numberchar > '9' | '0' < numberchar) then return(null());
+               number = number * 10 + rank(numberchar) - rank('0');
+          end;
+          do i=1 to music_max;
+               if (music(i).letter = letter & music(i).number = number) then
+                    return(music(i).song);
+          end;
+     end;
+     return(null());
+end lookup_selection;

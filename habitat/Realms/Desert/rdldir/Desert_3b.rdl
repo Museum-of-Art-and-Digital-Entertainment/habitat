@@ -1,0 +1,15 @@
+@region $ Desert_3b {
+    north: Desert_3c.l;
+    east: Desert_2c.l;
+    west: Desert_1b.l;
+    region_orientation: FACE_WEST;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+    ]
+}

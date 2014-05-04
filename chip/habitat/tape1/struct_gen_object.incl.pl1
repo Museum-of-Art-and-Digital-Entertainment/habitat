@@ -1,0 +1,12 @@
+/*
+ *   struct_gen_object.incl.pl1
+ *
+ *   Struct stub for generic object instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ */
+,    2    common_head         like instance_head
+ ; /* terminates generic struct from include file */

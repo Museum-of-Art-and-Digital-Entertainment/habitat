@@ -1,0 +1,378 @@
+.lg 1
+.ds D September 26, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Noodl\*M\s-9
+.AU
+a negligible-overhead object description language for MicroCosm\*T
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*D
+.ds LH NOODL
+.ds CH \\*D
+.ds RH MicroCosm Document #3
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1INTRODUCTION\s-1
+.PP
+This document describes \fBNoodl\*T\fR, the \fBN\fRegligible \fBO\fRverhead
+\fBO\fRbject \fBD\fRescription \fBL\fRanguage, which provides a convenient
+format for defining object class descriptions to be run under \fBLooi\*T\fR,
+the \fBL\fRow \fBO\fRverhead \fBO\fRbject \fBI\fRnterpreter in the
+\fBMicroCosm\*T\fR host database system.  The purpose of this document is to
+try to get it all straight before we get bogged down in implementation.
+.SH
+\s+1WHAT IT IS\s-1
+.PP
+\fBNoodl\fR is a simple \fBC\fR preprocessor that adds an extra layer of
+``syntactic sugar'' for the definition of the arrays, structs and functions
+required to specify \fBLooi\fR objects.
+.SH
+\s+1OBJECT CLASS DEFINITIONS\s-1
+.PP
+Input to \fBNoodl\fR consists of two sorts of things: blocks of \fBC\fR
+statements
+.nf
+
+		\fC{\fR
+			\fIany-C-statements-you-choose\fR
+		\fC}\fR
+
+.fi
+and object class definitions
+.nf
+
+		\fCclass \fIclass-name \fC( \fIproperty-names \fC)\fR
+			\fIcapability-definition\fR
+			\fIcapability-definition\fR
+			\fI...\fR
+			\fIcapability-definition\fR
+		\fC!\fR
+
+.fi
+where \fIclass-name\fR is an identifier to use as the name of the object class
+being defined.  \fIProperty-names\fR is a comma-separated list of identifiers
+to be used as the names of the object's properties (i.e., the elements in the
+object's property vector).  These properties are in addition to the four
+essential properties possessed by all objects: \fIclass\fR, \fIowner\fR,
+\fIlocation\fR, and \fIimage\fR.  The list of property names may be empty, in
+which case no extra properties are defined.  \fICapability-definition\fR is
+(surprise!) a capability definition (described below).
+.SH
+\s+1CAPABILITY DEFINITIONS\s-1
+.PP
+A capability definition specifies one capability of an object.  Its form is
+.nf
+
+	\fIcapability-name \fC( \fIarguments \fC) {\fR
+		\fIany-C-statements-you-choose\fR
+	\fC}\fR
+
+.fi
+where \fIcapability-name\fR is an identifier chosen to be the name of the
+capability.  This need be unique only within the context of the particular
+object definition being given (i.e., different object classes can have
+capabilities with the same name).  \fIArguments\fR is a comma-separated list
+of identifiers to be used as the symbolic names of the arguments to the
+capability procedure that will be generated.  The body of the capability
+definition can be any arbitrary group of \fBC\fR statements, as long as it
+does not include any function definitions (since it will itself become the
+body of a \fBC\fR function).
+.SH
+\s+1WHAT IT DOES\s-1
+.PP
+What \fBNoodl\fR does with all of this is generate some \fCstruct\fR
+declarations and some compilable functions.
+.SH
+\s+1CLASS DESCRIPTOR TYPE\s-1
+.PP
+The ultimate output of \fBNoodl\fR is \fBC\fR code to initialize instances of
+a class descriptor \fCstruct\fR.  For reference, here is this \fCstruct\fR's
+definition:
+.nf
+
+		\fCtypedef struct {
+			capabilityVectorType	*capabilityVector;
+			int					 capabilityCount;
+			int					 propertyCount;
+		} classDescriptorType;\fR
+
+.fi
+.SH
+\s+1CAPABILITY VECTOR TYPE\s-1
+.PP
+The class descriptors are initialized with capability vectors, whose type is
+defined as:
+.nf
+
+		\fCtypedef requestResultType (*capabilityVectorType[])();\fR
+
+.fi
+This peculiar definition translates into english as ``array of pointers to
+functions returning \fCrequestResultType\fRs'', i.e., an array of capability
+procedures. \fCrequestResultType\fR is the data type of all results passed
+back by capability procedures.
+.SH
+\s+1PROPERTY VECTOR TYPES\s-1
+.PP
+\fBNoodl\fR defines a separate property vector data type for each class of
+object.  However, they all have essentially the same form:
+.nf
+
+		\fCtypedef struct {
+			int		class;
+			int		location;
+			int		owner;
+			int		image;
+			\fIother properties as defined
+		\fC} \fIobjectName\fCPropertyVectorType;\fR
+
+.fi
+Yes, we define it internally as a \fCstruct\fR even thought we've been calling
+it a ``vector'' all along.
+.SH
+\s+1PUTTING IT ALL TOGETHER\s-1
+.PP
+The following example illustrates what happens when we put all these
+definitions and so on together and run it through \fBNoodl\fR:
+.nf
+
+		\fC{
+			\fIC-stuff-1
+		\fC}
+
+		class foo (zip, zap, zim, zam)
+			snoz (arg1) {
+				\fIC-stuff-2
+			\fC}
+			sneez () {
+				\fIC-stuff-3
+			\fC}
+			snuuuz (arg1, arg2, arg3) {
+				\fIC-stuff-4
+			\fC}
+		!
+
+		class bar (oop) {
+			wop () {
+				\fIC-stuff-5
+			\fC}
+			bop (foo) {
+				\fIC-stuff-6
+			\fC}
+		!\fR
+
+.fi
+which translates into
+.nf
+
+		\fIC-stuff-1
+
+		\fCtypedef struct {
+			int		class;
+			int		location;
+			int		owner;
+			int		image;
+			int		zip;
+			int		zap;
+			int		zim;
+			int		zam;
+		} fooPropertyVectorType;
+
+		requestResultType foo_snozCapability(object, capabilityNumber, arg1)
+			int		object;
+			int		capabilityNumber;
+			int		arg1;
+		{
+			\fIC-stuff-2\fC
+		}
+
+		requestResultType foo_sneezCapability(object, capabilityNumber)
+			int		object;
+			int		capabilityNumber;
+		{
+			\fIC-stuff-3\fC
+		}
+
+		requestResultType foo_snuuuzCapability(object, capabilityNumber, arg1,
+						arg2, arg3)
+			int		object;
+			int		capabilityNumber;
+			int		arg1;
+			int		arg2;
+			int		arg3;
+		{
+			\fIC-stuff-4\fC
+		}
+
+		capabilityVectorType fooCapabilityVector = {
+			foo_snozCapability,
+			foo_sneezCapability,
+			foo_snuuuzCapability,
+		};
+
+		classDescriptorType fooClass = {
+			fooCapabilityVector,
+			3,
+			4
+		};
+
+		typedef struct {
+			int		class;
+			int		location;
+			int		owner;
+			int		image;
+			int		oop;
+		} barPropertyVectorType;
+
+		requestResultType bar_wopCapability(object, capabilityNumber)
+			int		object;
+			int		capabilityNumber;
+		{
+			\fIC-stuff-5\fC
+		}
+
+		requestResultType bar_bopCapability(object, capabilityNumber, foo)
+			int		object;
+			int		capabilityNumber;
+			int		foo;
+		{
+			\fIC-stuff-6\fC
+		}
+
+		capabilityVectorType barCapabilityVector = {
+			bar_wopCapability,
+			bar_bopCapability,
+		};
+
+		classDescriptorType barClass = {
+			barCapabilityVector,
+			2,
+			1
+		};\fR
+
+.fi
+Clearly, the form before being processed by \fBNoodl\fR is quite a bit more
+concise and expressive than the output.
+.SH
+\s+1CODING OF CAPABILITY PROCEDURES\s-1
+.PP
+In addition to using the preprocessor, coding \fBC\fR functions under
+\fBNoodl\fR requires that you obey certain conventions.  Macros and functions
+to facilitate the coding of capability procedure bodies are defined in an
+``include'' file.  The \fBNoodl\fR preprocessor automatically inserts a
+\fC#include\fR line for this file at the beginning of its output.  Incidently,
+this file also contains the definitions for the various data types required by
+the resulting \fBC\fR code.
+.PP
+The primary thing that a capability procedure will want to do is access (both
+for reading and for writing) the properties of an object.  Since the property
+vector is defined as a \fCstruct\fR, simple references to elements in the
+property vector may be handled by ordinary \fCstruct\fR field selection (i.e.,
+the ``\fC.\fR'' and ``\fC->\fR'' operators in \fBC\fR).  This requires that
+the capability procedure have a pointer to the property vector itself.  What
+the procedure gets passed, however, is the object's noid.  Thus we need a
+means of translating between noids and property vector addresses.  The call
+.nf
+
+	\fCpropertyVector(\fInoid\fC)\fR
+
+.fi
+takes a noid and returns a pointer to the associated property vector, or
+\fCNULL\fR if there is no such object.  One might ask why we perform this
+mapping inside the capability procedure instead of doing at the top level
+(where it only needs to be called from one place) and passing the property
+vector pointer down instead of the noid.  The reason is because the
+translation from one to the other, though we will design it to be fast and
+simple, will still take a certain amount of time.  Some capabilities, however,
+may not require this mapping at all.  By placing the decision to map or not to
+map in the capability procedure we can skip the overhead of mapping whenever
+we don't need it.
+.PP
+An important overhead reducing principle we apply is to minimize the number of
+internal consistency checks and protection barriers maintained by the system.
+This means that capability procedures are responsible for the security of the
+objects they are dealing with \(em nobody is going to stop a capability
+procedure from violating the rules, so it is up to us, the coders of the
+capability procedures, to make sure they work right.  This adds some risk to
+the system from bugs and so on, but also enables us to avoid being bogged down
+in bureaucratic layerings of one protocol on top of another.  In order to make
+this work, however, we must provide an easy means to make various sorts of
+checks when they \fIare\fR required.
+.PP
+There are different ways in which checks can be done, and we will provide
+macros or functions for several of them.  The most elementary of these is a
+simple predicate: a true-false test of some condition.  You merely call the
+predicate and do something conditionally based on the result.  Built on top of
+predicates are some higher level checks that we call \fIgates\fR.  A gate
+consists of a call to a ``pass/fail'' predicate and some canned code to abort
+the capability procedure (with an appropriate error return) if the result is
+not a ``pass''.  Once the flow of control passes through a gate you can safely
+assume that a given condition is satisfied thereafter.  Gates are so useful
+that we have defined one for each predicate that can have a pass/fail
+interpretation.  Another sort of check is implemented through a query function
+which returns the status of some quantity.  The value returned can then be
+tested in any number of ways.
+.PP
+One of the things you might want to check is the class of an object.
+Internally we use the address of a class' class descriptor as the class
+identifier.  We can get away with this because it's completely internal (class
+descriptor address never reaches the outside world).  The function
+.nf
+
+	\fCobjectClass(\fInoid\fC)\fR
+
+.fi
+returns a pointer to the class descriptor associated with the noid.  The
+predicate
+.nf
+
+	\fCisClassMember(\fInoid\fC, \fIclass\fC)\fR
+
+.fi
+returns a boolean value indicating whether or not the particular noid
+represents an object of class \fIclass\fR, where \fIclass\fR is a pointer to a
+class descriptor.  The gate
+.nf
+
+	\fCmustBeClassMember(\fInoid\fC, \fIclass\fC)\fR
+
+.fi
+ensures that the noid belongs to the particular class.
+.PP
+Another thing that needs to be checked frequently is an object's owner.
+Owners are denoted by player account numbers.  The function
+.nf
+
+	\fCobjectOwner(\fInoid\fC)\fR
+
+.fi
+returns the owner of \fInoid\fR.  The predicate
+.nf
+
+	\fCisOwnedBy(\fInoid\fC, \fIaccount\fC)\fR
+
+.fi
+returns a boolean value indicating whether or not \fIaccount\fR is the owner
+of the object denoted by \fInoid\fR.  The gate associated with this is
+.nf
+
+	\fCmustBeOwnedBy(\fInoid\fC, \fIaccount\fC)\fR
+
+.fi
+which ensures that the given player owns the object.
+.bp
+.CD
+\s+5\fBAppendix \(em Yacc Grammar for Noodl\fR\s-5
+.fi
+.LP
+.nf
+\fC
+
+.so noodl.y
+.fi

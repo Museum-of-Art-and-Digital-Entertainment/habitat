@@ -1,0 +1,2 @@
+macross -p elevator_talk.m
+loadrom -q -p 0 -t < m.out > elevator_talk.bin

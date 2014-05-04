@@ -1,0 +1,39 @@
+/u0/chip/habitat/muddle:
+	This directory contains the utilities Muddle and Puddle.  Muddle
+generates the C64 Habitat disk database files (.dat files) from a
+specification file written in the Muddle specification language (a .mud file).
+Puddle is a post-processor that takes an old .dat file and a new one and
+creates a composite .dat file with the same content as the "new" input but
+with the minimum possible number of changes from the "old" input.
+
+	Muddle is described in detail in a document in the documentation
+directory.
+
+These are the files here:
+
+DOC		- This file
+Makefile	- Makefile to compile Muddle and Puddle
+class.t		- Documentation of format of class.dat file
+
+muddle		- Executable for Muddle
+puddle		- Executable for Puddle
+
+*.c, *.h, *.y, *.l - Sources to Muddle and Puddle
+
+Quick documentation for Puddle:
+
+puddle oldfile newfile [ outputfile ]
+
+"oldfile" and "newfile" should both be .dat files of the same type (e.g.,
+head.dat, etc.).  "outputfile" is the optional output file.  If not given the
+output goes to stdout.  Puddle compares the content of both inputs and
+generates a new .dat file that has all the content of the 'new' input with
+minimal changes (in terms of track/sector updates required) from the 'old'
+input.
+
+Once you have the composite .dat file, you can use my deltab utility (located
+in my toolBox directory).  Just type
+
+deltab oldfile compositefile
+
+and it will give you a list of the blocks that differ.

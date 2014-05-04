@@ -1,0 +1,37 @@
+;  auto.m The Habitat exerciser
+;  F Randall Farmer
+
+
+pick_a_command:
+	sei
+	bank_io_in
+	ldx	timer_a
+	bank_io_out
+	stx	rannum
+	txa
+	and	#7
+	tax
+	lda	x[xco]
+	sta	cursor_x
+	lda	y[yco]
+	sta	cursor_y
+	cli
+	lda	rannum
+	and	#0b00011000
+	cmp	#0b00011000
+	if (!equal) {
+	    cmp	#0b00010000
+	    if (!equal) {
+	    } else {
+		lda #command_GO
+	    }
+	} else {
+
+	}
+	rts
+
+		
+xco:
+yco:
+
+		

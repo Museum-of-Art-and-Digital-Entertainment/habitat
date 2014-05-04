@@ -1,0 +1,45 @@
+/*
+ *   class_security_dev.pl1
+ *
+ *   Object behavior module for class security_dev.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_security_dev: procedure;
+
+     %replace SECURITY_DEV_REQUESTS by 5;
+
+     declare a(0:SECURITY_DEV_REQUESTS) entry based;
+     declare class_security_dev_actions pointer;
+     declare 1 security_dev based %include struct_security_dev;
+
+     %replace I by CLASS_SECURITY_DEV;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = SECURITY_DEV_REQUESTS;
+     Class_Table(I).alloc_size = size(security_dev);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_security_dev_actions);
+     Class_Table(I).actions = class_security_dev_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     /* These should be changed to class-specific versions eventually */
+     Class_Table(I).actions->a(OFF)   = generic_OFF;   /* 4 */
+     Class_Table(I).actions->a(ON)    = generic_ON;    /* 5 */
+
+end initialize_class_security_dev;

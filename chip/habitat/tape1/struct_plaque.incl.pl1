@@ -1,0 +1,16 @@
+/*
+ *   struct_plaque.incl.pl1
+ *
+ *   Struct stub for plaque instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   20-January-1987
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   current_page   binary(15),
+/* Host private: */
+           3   text_id        binary(31),
+           3   last_page      binary(15);

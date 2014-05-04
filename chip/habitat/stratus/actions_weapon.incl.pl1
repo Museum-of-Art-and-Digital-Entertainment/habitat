@@ -1,0 +1,143 @@
+/*
+ *   actions_weapon.pl1
+ *
+ *   Behavior routines for the weapon protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *   revised 13-March-1987 CM incorporate weapons-free zones.
+ *   revised 17-March-1987 CM merge ATTACK and BASH primitives.
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+%replace SIT_GROUND by 132;
+
+%replace MISS    by 0; /* no effect, beep at player */
+%replace DESTROY by 1; /* destroy object that is target */
+%replace HIT     by 2; /* keester avatar that is target */
+%replace DEATH   by 3; /* kill avatar that is target */
+
+generic_ATTACK: procedure;
+     declare target_id binary(15);
+     declare 1 target based(targetptr) %include struct_avatar;
+     declare targetptr pointer;
+     declare 1 cont based(contptr) %include struct_gen_container;
+     declare contptr pointer;
+     declare success binary(15);
+
+     target_id = rank(request(FIRST));
+     targetptr = ObjList(target_id);
+     if (targetptr = null()) then do;
+          call r_msg_1(FALSE);
+          return;
+     end;
+     if (avatar.stun_count > 0) then do;
+        success = FALSE;
+        call p_msg_s(avatarptr, avatarptr, SPEAK$,
+               'I can''t attack.  I am stunned.');
+     end; else if (current_region.nitty_bits(WEAPONS_FREE)) then do;
+        success = FALSE;
+        call object_say(self.noid,
+          'This is a weapons-free zone.  Your weapon will not operate here.');
+     end; else if(adjacent(targetptr) | is_ranged_weapon(self.class)) then do;
+          if (target.class = CLASS_HEAD) then do;
+               if (target.container ^= THE_REGION &
+                         target.position = HEAD) then do;
+                    contptr = ObjList(target.container);
+                    if (cont.class = CLASS_AVATAR) then do;
+                         targetptr = contptr;
+                         target_id = cont.noid;
+                    end;
+               end;
+          end;
+          if (target.class = CLASS_AVATAR) then do;
+               success = damage_avatar(targetptr, selfptr);
+               target.activity = SIT_GROUND;
+               call n_msg_2(avatarptr, ATTACK$, target_id, success);
+          end; else do;
+               success = damage_object(targetptr, selfptr);
+               call n_msg_2(avatarptr, BASH$, target_id, success);
+          end;
+     end; else
+          success = FALSE;
+     call r_msg_2(success, target_id);
+
+     /* Important not to kill avatar before response message goes out! */
+     if (success = DEATH) then do;
+          call kill_avatar(targetptr);
+          call inc_record(avatarptr, HS$kills);
+     end;
+end generic_ATTACK;
+
+/*
+ * is_ranged_weapon -- Return true iff the the given class corresponds to a
+ *   ranged weapon.
+ *
+ */
+is_ranged_weapon: procedure(class) returns(bit(1));
+     declare class binary(15);
+
+     return(class = CLASS_GUN);
+end is_ranged_weapon;
+
+/*
+ * damage_avatar -- Apply injury effects to an avatar struck by a weapon.
+ *   Exact effects depend upon the weapon, the range, and whether or not the
+ *   avatar is protected by some artificial means.
+ *
+ */
+damage_avatar: procedure(whoptr, weaponptr) returns(binary(15));
+     declare 1 who based(whoptr) %include struct_avatar;
+     declare whoptr pointer;
+     declare 1 weapon based(weaponptr) %include struct_gen_object;
+     declare weaponptr pointer;
+     declare result binary(15);
+
+     /* For now, just subtract 20 points from the avatar's health.  Later we
+        will substitute a superior scheme. */
+     if (who.health <= 0) then
+          result = HIT;
+     else if (who.health <= 20) then do;
+          result = DEATH;     /* He's dead! */
+          who.health = who.health - 20;
+     end; else do;
+          result = HIT;     /* Naw, he's only wounded */
+          who.health = who.health - 20;
+     end;
+     return(result);
+end damage_avatar;
+
+/*
+ * damage_object -- Destroy or don't destroy an object that has been struck by
+ *   a weapon.  Result ultimately should depend on a combination of weapon's
+ *   destructive power and object's intrinsic resisance to damage, but that's
+ *   for the future.
+ *
+ */
+damage_object: procedure(targetptr, weaponptr) returns(binary(15));
+     declare 1 target based(targetptr) %include struct_gen_object;
+     declare targetptr pointer;
+     declare 1 weapon based(weaponptr) %include struct_gen_object;
+     declare weaponptr pointer;
+     declare result binary(15);
+
+     /* For now, always destroy the target.  A more sophisticated procedure
+        will be substituted later. */
+     if (damageable(target.class)) then do;
+          result = DESTROY;
+          call destroy_object(target.noid);
+     end; else 
+          result = FALSE;
+     return(result);
+end damage_object;
+
+damageable: procedure(class) returns(bit(1) aligned);
+     declare class binary(15);
+
+     return (class = CLASS_MAILBOX);    /* more later as we get fancier */
+end damageable;

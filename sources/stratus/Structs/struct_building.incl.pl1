@@ -1,0 +1,15 @@
+/*
+ *   struct_building.incl.pl1
+ *
+ *   Struct stub for building instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *   revised 12-March-1987 CM
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   filler(3)      binary(15),     /* to match door */
+           3   connection     binary(31);

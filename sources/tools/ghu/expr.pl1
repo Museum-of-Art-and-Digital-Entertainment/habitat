@@ -1,0 +1,1196 @@
+/*
+ * expr.pl1 -- Expression evaluation routines for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 31-March-1987
+ *
+ * These routines are used to evaluate expressions.  They should handle all
+ * the necessary time conversions.  They should also handle all the necessary
+ * storage management for parse-time dynamic structs related to expressions
+ * (i.e., when an expression is completely evaluated, there should be no
+ * intermediate storage left allocated except for the results themselves).
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'class.incl.pl1';
+%include 'database.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'tables.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'array_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'expr_struct.incl.pl1';
+%include 'command.incl.pl1';
+%include 'world.incl.pl1';
+
+declare global_top_level static bit(1) external;
+declare field_mode static binary(15);
+declare set_mode static binary(15) external init(DB$TEMP);
+
+declare now_symbolptr pointer external;
+declare today_symbolptr pointer external;
+declare random_symbolptr pointer external;
+declare last_textid_symbolptr pointer external;
+declare last_textid binary(31) external;
+declare page_count_symbolptr pointer external;
+declare page_count binary(31) external;
+
+declare random_seed binary(31) static;
+
+create_value: procedure(data_type, value) returns(pointer);
+     declare data_type binary(15);
+     declare value binary(31);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like value_descriptor;
+
+     resultptr = alloc(size(value_descriptor), 10);
+     return(setvalue(resultptr, data_type, value));
+end create_value;
+
+eval_number_value: procedure(number, dummy) returns(pointer);
+     declare number binary(31);
+     declare dummy binary(31);
+
+     return(create_value(SYM$INTEGER, number));
+end eval_number_value;
+
+eval_string_value: procedure(stringnum, dummy) returns(pointer);
+     declare stringnum binary(31);
+     declare dummy binary(31);
+
+     return(create_value(SYM$STRING, stringnum));
+end eval_string_value;
+
+eval_bitstring_value: procedure(bitstringnum, dummy) returns(pointer);
+     declare bitstringnum binary(31);
+     declare dummy binary(31);
+
+     return(create_value(SYM$BITSTRING, bitstringnum));
+end eval_bitstring_value;
+
+eval_name_value: procedure(namenum, dummy) returns(pointer);
+     declare namenum binary(31);
+     declare dummy binary(31);
+
+     return(create_name_value(namenum));
+end eval_name_value;
+
+create_name_value: procedure(namenum) returns(pointer);
+     declare namenum binary(31); /* actually pointer to string...*/
+     declare field_resultptr pointer;
+
+     field_resultptr = check_for_field(i2p(namenum));
+     if (field_resultptr ^= null()) then do;
+          field_mode = DB$CURRENT;
+          return(field_resultptr);
+     end;
+     return(create_value(SYM$NAME, namenum));
+end create_name_value;
+
+check_for_field: procedure(symbolptr) returns(pointer);
+     declare symbolptr pointer;
+     declare result pointer;
+
+     result = null();
+     if (info_type(DB$CURRENT) = 'r') then do;
+          result = search_field(class_fields(CLASS_REGION),
+               class_field_count(CLASS_REGION), symbolptr);
+     end; else if (info_type(DB$CURRENT) = 'a') then do;
+          if (symbolptr = contents_symbolptr) then
+               result = create_value(SYM$AVATAR_CONTENTS, cur_avatar.ident);
+          else
+               result = search_field(class_fields(CLASS_AVATAR),
+                    class_field_count(CLASS_AVATAR), symbolptr);
+     end; else if (info_type(DB$CURRENT) = 'o') then do;
+          if (symbolptr = contents_symbolptr) then
+               result = create_value(SYM$OBJECT_CONTENTS, cur_object.ident);
+          else
+               result = search_field(class_fields(CLASS_OBJECT),
+                    class_field_count(CLASS_OBJECT), symbolptr);
+          if (result = null()) then
+               result = search_field(class_fields(cur_object.class),
+                    class_field_count(cur_object.class), symbolptr);
+     end;
+     return(result);
+end check_for_field;
+
+eval: procedure(exprnum) returns(pointer);
+     declare exprnum binary(31);
+     declare exprptr pointer;
+     declare 1 expr based(exprptr) like expr_struct;
+     declare result pointer;
+
+     exprptr = i2p(exprnum);
+     result = expr.eval_func(expr.arg1, expr.arg2);
+     if (global_top_level) then
+          call free(exprptr);
+     return(result);
+end eval;
+
+create_value_from_symbol: procedure(valueptr) returns(pointer);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     symbolptr = i2p(value.value);
+     if (symbol.symbol_type = SYM$PARAMETER) then do;
+          call free(valueptr);
+          return(lookup_macro_parameter(symbol.symbol_value));
+     end;
+     value.data_type = symbol.symbol_type;
+     if (symbolptr = now_symbolptr) then
+          value.value = now();
+     else if (symbolptr = today_symbolptr) then
+          value.value = today();
+     else if (symbolptr = random_symbolptr) then
+          value.value = random();
+     else if (symbolptr = last_textid_symbolptr) then
+          value.value = last_textid;
+     else if (symbolptr = page_count_symbolptr) then
+          value.value = page_count;
+     else if (value.data_type = SYM$STRING) then
+          value.value = symbol.symbol_value;
+     else if (value.data_type = SYM$UNDEFINED) then do;
+          call error('Symbol ' || symbol.symbol_nameptr->symbol_name ||
+               ' value undefined.');
+          value.data_type = SYM$UNDEFINED;
+          value.value = 0;
+     end; else
+          value.value = symbol.symbol_value;
+     return(valueptr);
+end create_value_from_symbol;
+
+create_value_from_field: procedure(valueptr, mode, index) returns(pointer);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare fieldptr pointer;
+     declare 1 field based(fieldptr) like field_descriptor;
+     declare offset binary(15);
+     declare bit_offset binary(15);
+     declare mode binary(15);
+     declare index binary(31);
+     declare iindex binary(31);
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+     declare bitstringptr pointer;
+     declare 1 bitstring based(bitstringptr) like vbit_struct;
+     declare one_bit bit(1);
+     declare dataptr pointer;
+
+     if (value.data_type = SYM$OBJECT_CONTENTS | value.data_type =
+               SYM$AVATAR_CONTENTS) then
+          return(lookup_contents(valueptr, index));
+     else if (value.data_type ^= SYM$FIELD) then do;
+          call error('BOTCH: non-field passed to create_value_from_field');
+          return(setvalue(valueptr, SYM$UNDEFINED, 0));
+     end; else do;
+          fieldptr = i2p(value.value);
+          iindex = setup_index(fieldptr, index);
+          if (iindex = 0) then do;
+               call error('assuming an index value of 1');
+               iindex = 1;
+          end; else if (iindex < 0) then
+               return(setvalue(valueptr, SYM$UNDEFINED, 0));
+          call setup_offsets(field.offset, offset, bit_offset);
+          dataptr = addrel(addr(info_buf(mode)), offset);
+          if (field.data_type = FIELD$CHARACTER) then do;
+               if (index = 0) then do;
+                    value.data_type = SYM$STRING;
+                    stringptr = alloc((field.dimension + 2) * 8, 11);
+                    string = substr(info_buf(mode), offset + 1, field.dimension);
+                    value.value = p2i(stringptr);
+               end; else do;
+                    value.data_type = SYM$INTEGER;
+                    value.value = rank(dataptr->pchar(iindex));
+               end;
+          end; else if (field.data_type = FIELD$BIT) then do;
+               if (index = 0) then do;
+                    value.data_type = SYM$BITSTRING;
+                    bitstringptr = alloc(size(vbit_struct), 12);
+                    bitstring.len = field.dimension;
+                    bitstring.bits = substr(dataptr->pbit, bit_offset + 1,
+                         field.dimension);
+                    value.value = p2i(bitstringptr);
+               end; else do;
+                    value.data_type = SYM$INTEGER;
+                    one_bit = substr(dataptr->pbit, bit_offset + iindex, 1);
+                    if (one_bit) then
+                         value.value = 1;
+                    else
+                         value.value = 0;
+               end;
+          end; else if (field.data_type = FIELD$VARSTRING) then do;
+               if (index = 0) then do;
+                    value.data_type = SYM$STRING;
+                    stringptr = alloc((length(dataptr->pvstring)+2) * 8, 13);
+                    string = dataptr->pvstring;
+                    value.value = p2i(stringptr);
+               end; else do;
+                    value.data_type = SYM$INTEGER;
+                    value.value = rank(substr(dataptr->pvstring, iindex, 1));
+               end;
+          end; else if (field.data_type = FIELD$WORDS) then do;
+               if (index = 0) then do;
+                    value.data_type = SYM$STRING;
+                    stringptr = alloc((field.dimension + 2) * 8, 14);
+                    string = wordstr(info_buf(mode), offset + 1, field.dimension);
+                    value.value = p2i(stringptr);
+               end; else do;
+                    value.data_type = SYM$INTEGER;
+                    value.value = dataptr->pbin15(index);
+               end;
+          end; else if (field.data_type = FIELD$BYTE) then do;
+               value.data_type = SYM$INTEGER;
+               value.value = rank(dataptr->pchar(iindex));
+          end; else if (field.data_type = FIELD$BIN15) then do;
+               value.data_type = SYM$INTEGER;
+               value.value = dataptr->pbin15(iindex);
+          end; else if (field.data_type = FIELD$BIN31) then do;
+               value.data_type = SYM$INTEGER;
+               value.value = dataptr->pbin31(iindex);
+          end; else if (field.data_type = FIELD$AVAID) then do;
+               value.data_type = SYM$AVATAR;
+               value.value = dataptr->pbin31(iindex);
+          end; else if (field.data_type = FIELD$OBJID) then do;
+               value.data_type = SYM$OBJECT;
+               value.value = dataptr->pbin31(iindex);
+          end; else if (field.data_type = FIELD$REGID) then do;
+               value.data_type = SYM$REGION;
+               value.value = dataptr->pbin31(iindex);
+          end; else if (field.data_type = FIELD$ENTITY) then do;
+               value.data_type = dataptr->pentity(iindex).type;
+               value.value = dataptr->pentity(iindex).ident;
+          end; else /* if (field.data_type = FIELD$FATWORD) then */ do;
+               value.data_type = SYM$INTEGER;
+               value.value = dataptr->pbin15((iindex*2) - 1) +
+                       256 * dataptr->pbin15((iindex*2)    );
+          end;
+          return(valueptr);
+     end;
+end create_value_from_field;
+
+wordstr: procedure(buf, offset, length) returns(character(256) varying);
+     declare buf character(*);
+     declare offset binary(15);
+     declare length binary(15);
+     declare result character(256) varying;
+     declare i binary(15);
+
+     result = '';
+     do i = 1 to length;
+          result = result || substr(buf, offset + i*2 - 1, 1);
+     end;
+     return(result);
+end wordstr;
+
+value_from_lvalue: procedure(exprnum, dummy) returns(pointer);
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare arrayptr pointer;
+     declare 1 array based(arrayptr) like array_descriptor;
+     declare result pointer;
+
+     valueptr = eval(exprnum);
+     if (value.data_type = SYM$NAME) then
+          return(create_value_from_symbol(valueptr));
+     else if (value.data_type = SYM$FIELD) then
+          return(create_value_from_field(valueptr, field_mode, 0));
+     else if (value.data_type = SYM$OBJECT_CONTENTS | value.data_type =
+               SYM$AVATAR_CONTENTS) then do;
+          call error('contents array must be indexed');
+          return(setvalue(valueptr, SYM$UNDEFINED, 0));
+     end; else if (value.data_type = SYM$ARRAY) then do;
+          arrayptr = i2p(value.value);
+          result = create_value_from_field(array.fieldptr, field_mode,
+               array.index);
+          call free(arrayptr);
+          return(result);
+     end; else
+          return(valueptr);
+end value_from_lvalue;
+
+avalue: procedure(valueptr, type) returns(binary(31));
+     declare valueptr pointer;
+     declare type binary(15);
+     declare 1 value based(valueptr) like value_descriptor;
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+
+     type = value.data_type;
+     if (type = SYM$UNDEFINED) then do;
+          type = SYM$INTEGER;
+          return(0);
+     end; else if (type = SYM$STRING) then do;
+          type = SYM$INTEGER;
+          stringptr = i2p(value.value);
+          return(s2i(string));
+     end; else if (type = SYM$AVA_NAME) then
+          return(map_avatar_name_to_id(value.value));
+     else if (type = SYM$NAME) then
+          return(avalue(create_value_from_symbol(valueptr), type));
+     else
+          return(value.value);
+end avalue;
+
+if_test: procedure(valueptr) returns(binary(31));
+     declare valueptr pointer;
+     declare result binary(31);
+     declare result_type binary(15);
+
+     result = avalue(valueptr, result_type);
+     if (result_type ^= SYM$INTEGER) then do;
+          call error('invalid data type for conditional');
+          result = 0;
+     end; else if (result ^= 0) then
+          result = 1;
+     call free(valueptr);
+     return(result);
+end if_test;
+
+objtype: procedure(exprnum, dummy) returns(pointer);
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+
+     valueptr = eval(exprnum);
+     if (value.data_type <= SYM$OBJECT) then
+          value.value = value.data_type;
+     else if (value.data_type = SYM$UNDEFINED) then
+          value.value = 4;
+     else if (value.data_type = SYM$AVA_NAME) then
+          value.value = SYM$AVATAR;
+     else
+          value.value = 3;
+     value.data_type = SYM$INTEGER;
+     return(valueptr);
+end objtype;
+
+anegate: procedure(exprnum, dummy) returns(pointer);
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare number binary(31);
+     declare newtype binary(15);
+
+     valueptr = eval(exprnum);
+     number = avalue(valueptr, newtype);
+     return(setvalue(valueptr, newtype, -number));
+end anegate;
+
+bnegate: procedure(exprnum, dummy) returns(pointer);
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare number binary(31);
+     declare newtype binary(15);
+
+     valueptr = eval(exprnum);
+     number = avalue(valueptr, newtype);
+     return(setvalue(valueptr, newtype, binary(^bit(number, 31), 31)));
+end bnegate;
+
+lnegate: procedure(exprnum, dummy) returns(pointer);
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare number binary(31);
+     declare newtype binary(15);
+
+     valueptr = eval(exprnum);
+     number = avalue(valueptr, newtype);
+     if (number = 0) then
+          value.value = 1;
+     else
+          value.value = 0;
+     value.data_type = newtype;
+     return(valueptr);
+end lnegate;
+
+add: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     valueptr2 = eval(exprnum2);
+     if (string_type(value1.data_type) & string_type(value2.data_type)) then do;
+          value1.data_type = SYM$STRING;
+          value1.value = p2i(copy_string(i2p(value1.value)->pvstring ||
+               i2p(value2.value)->pvstring));
+     end; else do;
+          number1 = avalue(valueptr1, newtype1);
+          number2 = avalue(valueptr2, newtype2);
+          value1.value = number1 + number2;
+          value1.data_type = resolve_types(newtype1, newtype2);
+     end;
+     call free(valueptr2);
+     return(valueptr1);
+end add;
+
+sub: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = number1 - number2;
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end sub;
+
+mul: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = number1 * number2;
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end mul;
+
+div: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = divide(number1, number2, 31);
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end div;
+
+amod: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = mod(number1, number2);
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end amod;
+
+band: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = binary(bit(number1, 31) & bit(number2, 31), 31);
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end band;
+
+land: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 ^= 0 & number2 ^= 0) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end land;
+
+bor: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = binary(bit(number1, 31) | bit(number2, 31), 31);
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end bor;
+
+lor: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 ^= 0 | number2 ^= 0) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end lor;
+
+bxor: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     value1.value = binary(bool(bit(number1,31),bit(number2,31), '0110'b),31);
+     value1.data_type = resolve_types(newtype1, newtype2);
+     call free(valueptr2);
+     return(valueptr1);
+end bxor;
+
+cmp_lt: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 < number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_lt;
+
+cmp_leq: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 <= number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_leq;
+
+cmp_gt: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 > number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_gt;
+
+cmp_geq: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 >= number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_geq;
+
+cmp_eq: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 = number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_eq;
+
+cmp_neq: procedure(exprnum1, exprnum2) returns(pointer);
+     declare (exprnum1, exprnum2) binary(31);
+     declare (valueptr1, valueptr2) pointer;
+     declare 1 value1 based(valueptr1) like value_descriptor;
+     declare 1 value2 based(valueptr2) like value_descriptor;
+     declare (number1, number2) binary(31);
+     declare (newtype1, newtype2) binary(15);
+
+     valueptr1 = eval(exprnum1);
+     number1 = avalue(valueptr1, newtype1);
+     valueptr2 = eval(exprnum2);
+     number2 = avalue(valueptr2, newtype2);
+     if (number1 ^= number2) then
+          value1.value = 1;
+     else
+          value1.value = 0;
+     value1.data_type = SYM$INTEGER;
+     call free(valueptr2);
+     return(valueptr1);
+end cmp_neq;
+
+avatar_number: procedure(exprnum) returns(binary(31));
+     declare exprnum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare result binary(31);
+
+     valueptr = eval(exprnum);
+     if (value.data_type = SYM$AVATAR | value.data_type = SYM$INTEGER) then
+          result = pos_avatar(value.value, KEY_EQUAL);
+     else if (value.data_type=SYM$AVA_NAME | value.data_type=SYM$STRING) then
+          result = map_avatar_name_to_id(value.value);
+     else
+          result = -1;
+     if (result = -1) then
+          call error('value is not a valid avatar id');
+     return(result);
+end avatar_number;
+
+default_type: procedure(valueptr, new_type, result);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare new_type binary(15);
+     declare 1 result like value_descriptor;
+
+     if (value.data_type = SYM$INTEGER) then
+          value.data_type = new_type;
+     result = value;
+     call free(valueptr);
+end default_type;
+
+obspec_r: procedure(exprnum, dummy) returns(binary(31));
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare result binary(31);
+
+     valueptr = eval(exprnum);
+     if (value.data_type = SYM$REGION | value.data_type = SYM$INTEGER) then
+          result = value.value;
+     else do;
+          call error('non-region value used where region value required');
+          result = -1;
+     end;
+     call free(valueptr);
+     return(result);
+end obspec_r;
+
+obspec_a: procedure(exprnum, dummy) returns(binary(31));
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare result binary(31);
+
+     valueptr = eval(exprnum);
+     if (value.data_type = SYM$AVATAR | value.data_type = SYM$INTEGER) then
+          result = value.value;
+     else do;
+          call error('non-avatar value used where avatar value required');
+          result = -1;
+     end;
+     call free(valueptr);
+     return(result);
+end obspec_a;
+
+obspec_o: procedure(exprnum, dummy) returns(binary(31));
+     declare exprnum binary(31);
+     declare dummy binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare result binary(31);
+
+     valueptr = eval(exprnum);
+     if (value.data_type = SYM$OBJECT | value.data_type = SYM$INTEGER) then
+          result = value.value;
+     else do;
+          call error('non-object value used where object value required');
+          result = -1;
+     end;
+     call free(valueptr);
+     return(result);
+end obspec_o;
+
+attach_type: procedure(type, exprnum) returns(pointer);
+     declare type binary(31);
+     declare exprnum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+
+     valueptr = eval(exprnum);
+     value.data_type = resolve_types(value.data_type, (type));
+     return(valueptr);
+end attach_type;
+
+resolve_types: procedure(type1, type2) returns(binary(15));
+     declare (type1, type2) binary(15);
+
+     if (type1 = type2) then
+          return(type1);
+     else if (type1 = SYM$INTEGER) then
+          return(type2);
+     else if (type2 = SYM$INTEGER) then
+          return(type1);
+     else if ((type1 = SYM$AVATAR & type2 = SYM$STRING) |
+              (type1 = SYM$STRING & type2 = SYM$AVATAR)) then
+          return(SYM$AVA_NAME);
+     else do;
+          call error('Attempt to combine type ' || type_name(type1) ||
+               ' with type ' || type_name(type2) || '.');
+          return(type1);
+     end;
+end resolve_types;
+
+lookup_field: procedure(exprnum, namenum) returns(pointer);
+     declare exprnum binary(31);
+     declare namenum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare save_set_mode binary(15);
+     declare result pointer;
+
+     save_set_mode = set_mode;
+     set_mode = DB$TEMP;
+     valueptr = eval(exprnum);
+     set_mode = save_set_mode;
+     if (value.data_type = SYM$REGION) then
+          result = lookup_a_field(CLASS_REGION, value.value, i2p(namenum));
+     else if (value.data_type = SYM$OBJECT) then
+          result = lookup_a_field(CLASS_OBJECT, value.value, i2p(namenum));
+     else if (value.data_type = SYM$AVATAR) then
+          result = lookup_a_field(CLASS_AVATAR, value.value, i2p(namenum));
+     else if (value.data_type = SYM$AVA_NAME | value.data_type =
+               SYM$STRING) then
+          result = lookup_avatar_field_by_name(i2p(value.value), i2p(namenum));
+     else if (value.data_type = SYM$UNDEFINED) then
+          return(valueptr);
+     else do;
+          call error('invalid data type for field lookup');
+          return(setvalue(valueptr, SYM$UNDEFINED, 0));
+     end;
+     call free(valueptr);
+     return(result);
+end lookup_field;
+
+search_field: procedure(fieldsptr, field_count, nameptr) returns(pointer);
+     declare fieldsptr pointer;
+     declare 1 fields(1) based(fieldsptr) like field_descriptor;
+     declare field_count binary(15);
+     declare nameptr pointer;
+     declare 1 name based(nameptr) like symbol_table_entry;
+     declare i binary(15);
+
+     if (field_count < 1) then
+          return(null());
+     do i=1 to field_count;
+          if (nameptr = fields(i).name) then
+               return(create_value(SYM$FIELD, p2i(addr(fields(i)))));
+     end;
+     return(null());
+end search_field;
+
+get_data: procedure(class, id, mode) returns(bit(1));
+     declare class binary(15);
+     declare id binary(31);
+     declare mode binary(15);
+
+     if (class = CLASS_REGION) then
+          return(get_region(id, mode));
+     else if (class = CLASS_AVATAR) then
+          return(get_avatar(id, mode));
+     else
+          return(get_object(id, mode));
+end get_data;
+
+lookup_a_field: procedure(class, id, nameptr) returns(pointer);
+     declare class binary(15);
+     declare id binary(31);
+     declare nameptr pointer;
+     declare 1 name based(nameptr) like symbol_table_entry;
+     declare result pointer;
+     declare object_class binary(31);
+
+     if (nameptr = contents_symbolptr) then do;
+          if (class = CLASS_OBJECT) then
+               return(create_value(SYM$OBJECT_CONTENTS, id));
+          else if (class = CLASS_AVATAR) then
+               return(create_value(SYM$AVATAR_CONTENTS, id));
+          else do;
+               call error('can''t index contents of a region');
+               return(create_value(SYM$UNDEFINED, 0));
+          end;
+     end; else if (get_data(class, id, set_mode)) then do;
+          if (class = CLASS_OBJECT) then do;
+               result = search_field(class_fields(CLASS_OBJECT),
+                    class_field_count(CLASS_OBJECT), nameptr);
+               if (result = null()) then do;
+                    if (set_mode = DB$CURRENT) then
+                         object_class = cur_object.class;
+                    else
+                         object_class = temp_object.class;
+                    result = search_field(class_fields(object_class),
+                         class_field_count(object_class), nameptr);
+               end;
+          end; else
+               result = search_field(class_fields(class),
+                    class_field_count(class), nameptr);
+          if (result ^= null()) then do;
+               field_mode = DB$TEMP;
+               return(result);
+          end;
+          call error('there is no field "' || name.symbol_nameptr->
+               symbol_name || '" in class ' || class_name((class)));
+          return(create_value(SYM$UNDEFINED, 0));
+     end; else do;
+          call error('there is no item ' || ltrim(id));
+          return(create_value(SYM$UNDEFINED, 0));
+     end;
+end lookup_a_field;
+
+lookup_avatar_field_by_name: procedure(anameptr, nameptr) returns(pointer);
+     declare anameptr pointer;
+     declare aname character(256) varying based(anameptr);
+     declare nameptr pointer;
+     declare 1 name based(nameptr) like symbol_table_entry;
+     declare result pointer;
+
+     if (get_avatar_by_name(p2i(anameptr), DB$TEMP)) then do;
+          if (nameptr = contents_symbolptr) then
+               return(create_value(SYM$AVATAR_CONTENTS,
+                    map_avatar_name_to_id(p2i(anameptr))));
+          result = search_field(class_fields(CLASS_AVATAR),
+               class_field_count(CLASS_AVATAR), nameptr);
+          if (result ^= null()) then do;
+               field_mode = DB$TEMP;
+               return(result);
+          end;
+          call error('there is no field "' || name.symbol_nameptr->
+               symbol_name || '" in class avatar');
+          return(create_value(SYM$UNDEFINED, 0));
+     end; else do;
+          call error('there is no avatar "' || aname || '"');
+          return(create_value(SYM$UNDEFINED, 0));
+     end;
+end lookup_avatar_field_by_name;
+
+lookup_array: procedure(lvaluenum, valuenum) returns(pointer);
+     declare lvaluenum binary(31);
+     declare lvalueptr pointer;
+     declare 1 lvalue based(lvalueptr) like value_descriptor;
+     declare valuenum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare arrayptr pointer;
+     declare 1 array based(arrayptr) like array_descriptor;
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like value_descriptor;
+
+     lvalueptr = eval(lvaluenum);
+     valueptr = eval(valuenum);
+     if ((lvalue.data_type ^= SYM$FIELD & lvalue.data_type ^=
+               SYM$OBJECT_CONTENTS & lvalue.data_type ^= SYM$AVATAR_CONTENTS)
+               | value.data_type^=SYM$INTEGER) then do;
+          call error('can''t index!');
+          value.data_type = SYM$UNDEFINED;
+          value.value = 0;
+          call free(lvalueptr);
+     end; else do;
+          arrayptr = alloc(size(array_descriptor), 15);
+          array.fieldptr = lvalueptr;
+          array.index = value.value;
+          value.data_type = SYM$ARRAY;
+          value.value = p2i(arrayptr);
+     end;
+     return(valueptr);
+end lookup_array;
+
+build_value_list: procedure(valuenum, listnum) returns(binary(31));
+     declare valuenum binary(31);
+     declare listnum binary(31);
+     declare newlistptr pointer;
+     declare 1 newlist based(newlistptr) like value_list_descriptor;
+     declare chaserptr pointer;
+     declare 1 chaser based(chaserptr) like value_list_descriptor;
+     declare oldchaserptr pointer;
+     declare 1 oldchaser based(oldchaserptr) like value_list_descriptor;
+
+     newlistptr = alloc(size(value_list_descriptor), 16);
+     newlist.value = valuenum;
+     newlist.next = null();
+     if (listnum = NULL) then
+          return(p2i(newlistptr));
+     else do;
+          chaserptr = i2p(listnum);
+          oldchaserptr = null();
+          do while (chaserptr ^= null());
+               oldchaserptr = chaserptr;
+               chaserptr = chaser.next;
+          end;
+          oldchaser.next = newlistptr;
+          return(listnum);
+     end;
+end build_value_list;
+
+build_expr_node: procedure(eval_func, arg1, arg2) returns(binary(31));
+     declare eval_func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like expr_struct;
+
+     resultptr = alloc(size(expr_struct), 17);
+     result.eval_func = eval_func;
+     result.arg1 = arg1;
+     result.arg2 = arg2;
+     return(p2i(resultptr));
+end build_expr_node;
+
+binop: procedure(eval_func, arg1, arg2) returns(binary(31));
+     declare eval_func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     return(build_expr_node(eval_func, arg1, arg2));
+end binop;
+
+unop: procedure(eval_func, arg) returns(binary(31));
+     declare eval_func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg binary(31);
+
+     return(build_expr_node(eval_func, arg, 0));
+end unop;
+
+setup_index: procedure(fieldptr, index) returns(binary(31));
+     declare fieldptr pointer;
+     declare 1 field based(fieldptr) like field_descriptor;
+     declare index binary(31);
+
+     if (index < 1 & field.dimension > 1 & field.data_type ^=
+               FIELD$CHARACTER & field.data_type ^= FIELD$WORDS &
+               field.data_type ^= FIELD$VARSTRING &
+               field.data_type ^= FIELD$BIT) then do;
+          call error('missing index for field "' || field.name->
+               symbol_table_entry.symbol_nameptr->symbol_name || '"');
+          return(0);
+     end; else if (index = 0) then
+          return(1);
+     else if (index > field.dimension) then do;
+          call error('index ' || ltrim(index) ||
+               ' is out of range (max value for field "' || field.name->
+               symbol_table_entry.symbol_nameptr->symbol_name || '" is ' ||
+               ltrim(field.dimension) || ')');
+          return(-1);
+     end; else
+          return(index);
+end setup_index;
+
+setup_offsets: procedure(original, offset, bit_offset);
+     declare original binary(15);
+     declare offset binary(15);
+     declare bit_offset binary(15);
+
+     offset = original;
+     if (offset >= OBJECT_OFFSET_TAG) then
+          offset = offset - OBJECT_OFFSET_TAG + object_base_offset;
+     bit_offset = divide(offset, 256, 15);
+     offset = mod(offset, 256);
+end setup_offsets;
+
+bit_value: procedure(n, result);
+     declare n binary(31);
+     declare 1 result like vbit_struct;
+
+     result.len = 1;
+     if (mod(n, 2) = 0) then
+          substr(result.bits, 1, 1) = '0'b;
+     else
+          substr(result.bits, 1, 1) = '1'b;
+end bit_value;
+
+lookup_contents: procedure(valueptr, index) returns(pointer);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare index binary(31);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare global_id binary(31);
+     declare idstring character(1);
+
+     if (value.data_type = SYM$OBJECT_CONTENTS) then do;
+          idstring = 'o';
+          value.data_type = SYM$OBJECT;
+     end; else if (value.data_type = SYM$AVATAR_CONTENTS) then do;
+          idstring = 'a';
+          value.data_type = SYM$AVATAR;
+     end; else do;
+          call error('BOTCH: bad type to lookup contents');
+          return(setvalue(valueptr, SYM$UNDEFINED, 0));
+     end;
+     if (pos_object_by_cont(value, KEY_EQUAL) ^= -1) then do;
+          global_id = get_next_object(objptr, DB$TEMP);
+          do while (global_id ^= -1 & obj.host = value.value & obj.type =
+                    value.data_type);
+               if (obj.y_pos = index) then
+                    return(setvalue(valueptr, SYM$OBJECT, obj.ident));
+               global_id = get_next_object(objptr, DB$TEMP);
+          end;
+     end;
+     call warning(idstring || ' ' || ltrim(value.value) || ' has no contents('
+          || ltrim(index) || ')');
+     return(setvalue(valueptr, SYM$OBJECT, 0));
+end lookup_contents;
+
+setvalue: procedure(valueptr, new_data_type, new_value) returns(pointer);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare new_data_type binary(15);
+     declare new_value binary(31);
+
+     value.value = new_value;
+     value.data_type = new_data_type;
+     return(valueptr);
+end setvalue;
+
+now: procedure returns(binary(31));
+     declare result binary(31);
+     declare s$int_date_time entry(bin(31));
+
+     call s$int_date_time(result);
+     return(result);
+end now;
+
+today: procedure returns(binary(31));
+     declare result binary(31);
+     declare year binary(15);
+     declare day_of_year binary(15);
+     declare x binary(15);
+     declare z char(3);
+     declare rc binary(15);
+     declare s$decode_date_time entry(bin(31), bin(15), bin(15), bin(15),
+          bin(15), bin(15), bin(15), bin(15), bin(15), char(3));
+     declare s$encode_date_time entry(bin(15), bin(15), bin(15), bin(15),
+          bin(15), bin(15), bin(15), bin(15), bin(31), bin(15));
+
+     result = now();
+     call s$decode_date_time(result, year, x, x, x, day_of_year, x, x, x, z);
+     call s$encode_date_time(year, 0,0, day_of_year, 0,0,0, -300, result, rc);
+     return(result);
+end today;
+
+random: procedure returns(binary(31));
+     declare s$get_random_number entry(binary(31));
+
+     call s$get_random_number(random_seed);
+     return(random_seed);
+end random;
+
+init_random: procedure;
+     random_seed = now();
+end init_random;

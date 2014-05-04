@@ -1,0 +1,212 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Roof                "
+  avatars: 6
+  town_dir: "~"
+  port_dir: "~"
+}
+use trapezoid {
+  container: r -1001
+  x: 141
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 20
+  lower_left_x: 0
+  lower_right_x: 20
+  height: 127
+}
+use trapezoid {
+  container: r -1001
+  x: 0
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 136
+  lower_left_x: 0
+  lower_right_x: 136
+  height: 16
+}
+use trapezoid {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 140
+  lower_left_x: 0
+  lower_right_x: 140
+  height: 127
+}
+use trapezoid {
+  container: r -1001
+  x: 0
+  y: 126
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 160
+  lower_left_x: 0
+  lower_right_x: 160
+  height: 2
+}
+use trapezoid {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 136
+  lower_left_x: 0
+  lower_right_x: 140
+  height: 32
+}
+use trapezoid {
+  container: r -1001
+  x: 134
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 3
+  upper_right_x: 5
+  lower_left_x: 0
+  lower_right_x: 8
+  height: 48
+}
+use sky {
+  container: r -1001
+  x: 20
+  y: 100
+  style: 10
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sky {
+  container: r -1001
+  x: 32
+  y: 100
+  style: 11
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid {
+  container: o -1011
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 7
+  lower_left_x: 0
+  lower_right_x: 7
+  height: 144
+}
+use glue {
+  container: r -1001
+  x: 84
+  y: 130
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 0
+  y_offset_1: 0
+  x_offset_2: 255
+  y_offset_2: 240
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use trapezoid {
+  container: o -1011
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 8
+  upper_right_x: 8
+  lower_left_x: 0
+  lower_right_x: 16
+  height: 152
+}

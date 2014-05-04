@@ -1,0 +1,39 @@
+@region $ Desert_2c {
+    north: Desert_3c.l;
+    region_orientation: FACE_WEST;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @trapezoid { x:52; y:20; or:16; 
+            8:0;
+            9:0;
+            10:0;
+            11:249;
+            12:8;
+            13:21;
+        }
+        @bush { x:24; y:132; or:56; style:4; }
+        @bush { x:132; y:139; or:9; style:4; gr_state:1; }
+        @trapezoid { x:52; y:19; or:8; 
+            8:0;
+            9:2;
+            10:2;
+            11:7;
+            12:15;
+            13:16;
+        }
+        @trapezoid { x:60; y:131; or:8; 
+            8:0;
+            9:0;
+            10:7;
+            11:1;
+            12:1;
+            13:4;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+/* Nonsense object database for testing Looi */
+{
+bool			 done;
+}
+
+class systemJunk (testProperty)
+
+	add(a, b) {
+		return(a+b);
+	}
+
+	print(n) {
+		printf("n = %d\n", n);
+		return(1);
+	}
+
+	set(n) {
+		self->testProperty = n;
+		return(n);
+	}
+
+	get () {
+		return(self->testProperty);
+	}
+
+	foo () getpid
+!
+
+class secondClass (tokenProperty1, tokenProperty2)
+
+	speak () {
+		printf("Hi, I'm a second class class!\n");
+		return(0);
+	}
+
+	finish () {
+		done = 1;
+		return(-1);
+	}
+
+	bar () getpid
+!
+
+objects systemJunk, systemJunk, secondClass, systemJunk !

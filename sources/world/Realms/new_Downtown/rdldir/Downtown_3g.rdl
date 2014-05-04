@@ -1,0 +1,66 @@
+@region $ Downtown_3g {
+    north: Downtown_3h.l;
+    south: Downtown_3f.l;
+    east: Downtown_4g.l;
+    west: Downtown_2g.l;
+    region_orientation: FACE_WEST;
+    [
+        @wall { x:0; y:0; or:148; style:5; }
+        @ground { x:0; y:4; or:228; style:1; }
+        @door { x:64; y:161; or:140; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @window { x:16; y:51; or:0; }
+        @fortune_machine { x:44; y:153; or:0; gr_state:2; }
+        @fortune_machine { x:104; y:153; or:0; gr_state:2; }
+        @street { x:68; y:8; or:8; gr_state:6; 
+            8:0;
+            9:0;
+        }
+        @sign { x:32; y:108; or:0; style:4; gr_state:2; 
+            8:133;
+            9:32;
+            10:32;
+            11:71;
+            12:69;
+            13:78;
+            14:69;
+            15:82;
+            16:65;
+            17:76;
+            18:32;
+            19:32;
+            20:32;
+            21:32;
+            22:32;
+            23:32;
+            24:32;
+            25:32;
+            26:32;
+            27:32;
+            28:32;
+            29:32;
+            30:32;
+            31:32;
+            32:32;
+            33:32;
+            34:32;
+            35:32;
+            36:32;
+            37:32;
+            38:32;
+            39:32;
+            40:32;
+            41:32;
+            42:32;
+            43:32;
+            44:32;
+            45:32;
+            46:32;
+            47:32;
+        }
+        @window { x:124; y:51; or:0; }
+    ]
+}

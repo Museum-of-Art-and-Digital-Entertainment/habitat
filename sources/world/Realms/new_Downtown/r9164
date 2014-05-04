@@ -1,0 +1,236 @@
+use region r_9164 {
+  owner: a -1
+  light_level: 0
+  depth: 28
+  east_neighbor: r -1
+  west_neighbor: r r_9158
+  north_neighbor: r r_9169
+  south_neighbor: r r_9168
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '1'b
+  west_restriction: '1'b
+  north_restriction: '1'b
+  south_restriction: '1'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7303 {
+  container: r r_9164
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use display_case o_7304 {
+  container: r r_9164
+  x: 4
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use display_case o_7309 {
+  container: r r_9164
+  x: 112
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use short_sign o_7314 {
+  container: r r_9164
+  x: 0
+  y: 117
+  style: 5
+  gr_state: 8
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " \h~\h yel  "
+}
+use wall o_7315 {
+  container: r r_9164
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use short_sign o_7316 {
+  container: r r_9164
+  x: 132
+  y: 117
+  style: 5
+  gr_state: 8
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " grn \h\177   "
+}
+use sign o_7317 {
+  container: r r_9164
+  x: 52
+  y: 122
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(RULES:\R\h\)Be quiet\RNo checkout\RBe quiet"
+}
+use short_sign o_7318 {
+  container: r r_9164
+  x: 252
+  y: 114
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " Misc.    "
+}
+use short_sign o_7319 {
+  container: r r_9164
+  x: 128
+  y: 114
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Stories   "
+}
+use short_sign o_7320 {
+  container: r r_9164
+  x: 44
+  y: 106
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "1:\R2:\R3:\R\R"
+}
+use book o_7312 {
+  container: r r_9164
+  x: 14
+  y: 155
+  style: 2
+  gr_state: 0
+  orient: 57
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 2
+  last_page: 2
+}
+use book o_7306 {
+  container: o o_7304
+  x: 127
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 101
+  last_page: 1
+}
+use book o_7313 {
+  container: o o_7304
+  x: 35
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 9
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 4
+  text_id: 9
+  last_page: 3
+}
+use book o_7311 {
+  container: o o_7304
+  x: 90
+  y: 1
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 99
+  last_page: 2
+}
+use book o_7307 {
+  container: o o_7304
+  x: 22
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 9
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 100
+  last_page: 16
+}
+use book o_7308 {
+  container: o o_7309
+  x: 26
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 25
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 97
+  last_page: 1
+}

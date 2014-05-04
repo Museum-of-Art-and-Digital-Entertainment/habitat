@@ -1,0 +1,48 @@
+/*
+ *   class_jacket.pl1
+ *
+ *   Behavior module for object class jacket.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace JACKET_CAPACITY by 5;
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_jacket: procedure;
+
+     %replace JACKET_REQUESTS by 7;
+
+     declare a(0:JACKET_REQUESTS) entry based;
+     declare class_jacket_actions pointer;
+     declare 1 jacket based %include struct_jacket;
+
+     %replace I by CLASS_JACKET;
+
+     Class_Table(I).capacity = JACKET_CAPACITY;
+     Class_Table(I).max_occupants = 0;
+     Class_Table(I).location_to_wear = UNWEARABLE;
+     Class_Table(I).max_requests = JACKET_REQUESTS;
+     Class_Table(I).alloc_size = size(jacket);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_jacket_actions);
+     Class_Table(I).actions = class_jacket_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)            = generic_GET;           /* 1 */
+     Class_Table(I).actions->a(PUT)            = generic_PUT;           /* 2 */
+     Class_Table(I).actions->a(THROW)          = generic_THROW;         /* 3 */
+     Class_Table(I).actions->a(4)              = illegal;               /* 4 */
+     Class_Table(I).actions->a(5)              = illegal;               /* 5 */
+     Class_Table(I).actions->a(WEAR)           = generic_WEAR;          /* 6 */
+     Class_Table(I).actions->a(REMOVE)         = generic_REMOVE;        /* 7 */
+
+end initialize_class_jacket;

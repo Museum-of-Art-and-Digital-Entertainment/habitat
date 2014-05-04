@@ -1,0 +1,182 @@
+echo beach_0a
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0a.reg \
+	-o rdldir/beach_0a.rdl \
+	-d FACE_WEST \
+	-r beach_0a \
+	-s beach_0f \
+	-n beach_0b \
+	-e beach_1a
+
+echo beach_0b
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0b.reg \
+	-o rdldir/beach_0b.rdl \
+	-d FACE_WEST \
+	-r beach_0b \
+	-s beach_0a \
+	-n beach_0c \
+	-e beach_1b
+
+echo beach_0c
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0c.reg \
+	-o rdldir/beach_0c.rdl \
+	-d FACE_WEST \
+	-r beach_0c \
+	-s beach_0b \
+	-n beach_0d \
+	-e beach_1c
+
+echo beach_0d
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0d.reg \
+	-o rdldir/beach_0d.rdl \
+	-d FACE_WEST \
+	-r beach_0d \
+	-s beach_0b \
+	-n beach_0e \
+	-e beach_1d
+
+echo beach_0e
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0e.reg \
+	-o rdldir/beach_0e.rdl \
+	-d FACE_WEST \
+	-r beach_0e \
+	-s beach_0d \
+	-n beach_0f \
+	-e beach_1e
+
+echo beach_0f
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_0f.reg \
+	-o rdldir/beach_0f.rdl \
+	-d FACE_WEST \
+	-r beach_0f \
+	-s beach_0e \
+	-n beach_0a \
+	-e beach_1f
+
+echo beach_1a
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1a.reg \
+	-o rdldir/beach_1a.rdl \
+	-d FACE_WEST \
+	-r beach_1a \
+	-n beach_1b \
+	-e beach_2a \
+	-w beach_0a
+
+echo beach_1b
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1b.reg \
+	-o rdldir/beach_1b.rdl \
+	-d FACE_WEST \
+	-r beach_1b \
+	-s beach_1a \
+	-n beach_1c \
+	-e beach_2b \
+	-w beach_0b
+
+echo beach_1c
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1c.reg \
+	-o rdldir/beach_1c.rdl \
+	-d FACE_WEST \
+	-r beach_1c \
+	-s beach_1b \
+	-n beach_1d \
+	-e beach_2c \
+	-w beach_0c
+
+echo beach_1d
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1d.reg \
+	-o rdldir/beach_1d.rdl \
+	-d FACE_WEST \
+	-r beach_1d \
+	-s beach_1c \
+	-n beach_1e \
+	-e beach_2d \
+	-w beach_0d
+
+echo beach_1e
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1e.reg \
+	-o rdldir/beach_1e.rdl \
+	-d FACE_WEST \
+	-r beach_1e \
+	-s beach_1d \
+	-n beach_1f \
+	-e beach_2e \
+	-w beach_0e
+
+echo beach_1f
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1f.reg \
+	-o rdldir/beach_1f.rdl \
+	-d FACE_WEST \
+	-r beach_1f \
+	-s beach_1e \
+	-n beach_1g \
+	-e beach_2f \
+	-w beach_0f
+
+echo beach_1g
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_1g.reg \
+	-o rdldir/beach_1g.rdl \
+	-d FACE_WEST \
+	-r beach_1g \
+	-s beach_1f
+
+
+echo beach_2a
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2a.reg \
+	-o rdldir/beach_2a.rdl \
+	-d FACE_WEST \
+	-r beach_2a \
+	-s beach_2f \
+	-n beach_2b \
+	-e beach_2b \
+	-w beach_1a
+
+echo beach_2b
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2b.reg \
+	-o rdldir/beach_2b.rdl \
+	-d FACE_WEST \
+	-r beach_2b \
+	-s beach_2a \
+	-n beach_2c \
+	-e beach_2a \
+	-w beach_1b
+
+echo beach_2c
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2c.reg \
+	-o rdldir/beach_2c.rdl \
+	-d FACE_WEST \
+	-r beach_2c \
+	-s beach_2b \
+	-n beach_2d \
+	-e beach_2d \
+	-w beach_1c
+
+echo beach_2d
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2d.reg \
+	-o rdldir/beach_2d.rdl \
+	-d FACE_WEST \
+	-r beach_2d \
+	-s beach_2c \
+	-n beach_2e \
+	-e beach_2c \
+	-w beach_1d
+
+echo beach_2e
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2e.reg \
+	-o rdldir/beach_2e.rdl \
+	-d FACE_WEST \
+	-r beach_2e \
+	-s beach_2d \
+	-n beach_2f \
+	-e beach_2f \
+	-w beach_1e
+
+echo beach_2f
+/net/moth/u0/chip/microcosm/slur/slur regdir/beach_2f.reg \
+	-o rdldir/beach_2f.rdl \
+	-d FACE_WEST \
+	-r beach_2f \
+	-s beach_2e \
+	-n beach_2a \
+	-e beach_2e \
+	-w beach_1f
+
+

@@ -1,0 +1,50 @@
+#! /bin/csh -f
+
+
+set fred = dnalsi_66 ; regwait $fred
+set fred = dnalsi_67 ; regwait $fred
+set fred = dnalsi_68 ; regwait $fred
+set fred = dnalsi_78 ; regwait $fred
+set fred = dnalsi_79 ; regwait $fred
+set fred = dnalsi_7a ; regwait $fred
+set fred = dnalsi_7b ; regwait $fred
+set fred = dnalsi_7c ; regwait $fred
+set fred = dnalsi_6c ; regwait $fred
+set fred = dnalsi_5c ; regwait $fred
+
+set fred = dnalsi_4c ; regwait $fred
+set fred = dnalsi_3c ; regwait $fred
+set fred = dnalsi_3d ; regwait $fred
+set fred = dnalsi_2d ; regwait $fred
+set fred = dnalsi_1d ; regwait $fred
+set fred = dnalsi_1c ; regwait $fred
+set fred = dnalsi_1b ; regwait $fred
+set fred = dnalsi_1a ; regwait $fred
+set fred = dnalsi_0a ; regwait $fred
+set fred = dnalsi_09 ; regwait $fred
+
+set fred = dnalsi_08 ; regwait $fred
+set fred = dnalsi_18 ; regwait $fred
+set fred = dnalsi_28 ; regwait $fred
+set fred = dnalsi_38 ; regwait $fred
+set fred = dnalsi_37 ; regwait $fred
+set fred = dnalsi_36 ; regwait $fred
+set fred = dnalsi_26 ; regwait $fred
+set fred = dnalsi_25 ; regwait $fred
+set fred = dnalsi_15 ; regwait $fred
+set fred = dnalsi_05 ; regwait $fred
+
+set fred = dnalsi_04 ; regwait $fred
+set fred = dnalsi_03 ; regwait $fred
+set fred = dnalsi_02 ; regwait $fred
+set fred = dnalsi_12 ; regwait $fred
+set fred = dnalsi_11 ; regwait $fred
+set fred = dnalsi_21 ; regwait $fred
+set fred = dnalsi_31 ; regwait $fred
+set fred = dnalsi_30 ; regwait $fred
+set fred = dnalsi_40 ; regwait $fred
+set fred = dnalsi_50 ; regwait $fred
+
+set fred = dnalsi_60 ; regwait $fred
+set fred = dnalsi_61 ; regwait $fred
+set fred = dnalsi_71 ; regwait $fred

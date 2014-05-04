@@ -1,0 +1,15 @@
+ /*
+ *   struct_gen_door.incl.pl1
+ *
+ *   Struct stub for generic door instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   open_flags     binary(15),
+           3   key_lo         binary(15),
+           3   key_hi         binary(15);

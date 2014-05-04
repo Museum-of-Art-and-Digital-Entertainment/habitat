@@ -1,0 +1,12 @@
+/*
+ *   struct_fence.incl.pl1
+ *
+ *   Struct stub for fence instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+,    2    common_head         like instance_head
+;

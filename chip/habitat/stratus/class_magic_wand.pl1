@@ -1,0 +1,44 @@
+/*
+ *   class_magic_wand.pl1
+ *
+ *   Magic wand object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_magic_wand: procedure;
+
+     %replace MAGIC_WAND_REQUESTS by 6;
+
+     declare a(0:MAGIC_WAND_REQUESTS) entry based;
+     declare class_magic_wand_actions pointer;
+     declare 1 magic_wand based %include struct_magic_wand;
+
+     %replace I by CLASS_MAGIC_WAND;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = MAGIC_WAND_REQUESTS;
+     Class_Table(I).alloc_size = size(magic_wand);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_magic_wand_actions);
+     Class_Table(I).actions = class_magic_wand_actions;
+
+     Class_Table(I).actions->a(HELP)   = generic_HELP_MAGIC; /* 0 */
+     Class_Table(I).actions->a(GET)    = generic_GET;    /* 1 */
+     Class_Table(I).actions->a(PUT)    = generic_PUT;    /* 2 */
+     Class_Table(I).actions->a(3)      = illegal;        /* 3 */
+     Class_Table(I).actions->a(MAGIC)  = generic_MAGIC;  /* 4 */
+     Class_Table(I).actions->a(5) = illegal; /* 5 */
+     Class_Table(I).actions->a(6)   = illegal;   /* 6 */
+
+end initialize_class_magic_wand;

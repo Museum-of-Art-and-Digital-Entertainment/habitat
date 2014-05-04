@@ -1,0 +1,20 @@
+@region $ dnalsi_94 {
+    south: dnalsi_93.l;
+    west: dnalsi_84.l;
+    region_orientation: FACE_NORTH;
+    [
+        @flat { x:0; y:4; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @tree { x:28; y:150; or:237; style:2; }
+        @tree { x:36; y:138; or:0; style:7; }
+        @tree { x:88; y:27; or:173; style:2; gr_state:1; }
+        @tree { x:112; y:21; or:172; style:2; }
+        @ground { x:224; y:4; or:188; style:1; }
+        @tree { x:96; y:71; or:173; style:2; gr_state:2; }
+        @tree { x:92; y:89; or:173; style:2; gr_state:2; }
+        @tree { x:88; y:106; or:173; style:2; gr_state:2; }
+        @tree { x:72; y:120; or:173; style:2; gr_state:3; }
+    ]
+}

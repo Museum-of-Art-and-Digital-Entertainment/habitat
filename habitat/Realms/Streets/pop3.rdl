@@ -1,0 +1,103 @@
+include "../../riddle/beta_objects.rdl";
+include "pop2_regions.rdl";
+
+include	"rdldir/Outamy_Wy_n_end.rdl";
+include	"rdldir/Outamy_Wy_129_front.rdl";
+include	"rdldir/Outamy_Wy_129_interior.rdl";
+include	"rdldir/Outamy_Wy_229_front.rdl";
+include	"rdldir/Outamy_Wy_229_interior.rdl";
+include	"rdldir/Outamy_Wy_329_front.rdl";
+include	"rdldir/Outamy_Wy_329_interior.rdl";
+include	"rdldir/Outamy_Wy_429_front.rdl";
+include	"rdldir/Outamy_Wy_429_interior.rdl";
+include	"rdldir/Outamy_Wy_529_front.rdl";
+include	"rdldir/Outamy_Wy_529_interior.rdl";
+include	"rdldir/Outamy_Wy_cross.rdl";
+include	"rdldir/Outamy_Wy_629_front.rdl";
+include	"rdldir/Outamy_Wy_629_interior.rdl";
+include	"rdldir/Outamy_Wy_729_front.rdl";
+include	"rdldir/Outamy_Wy_729_interior.rdl";
+include	"rdldir/Outamy_Wy_829_front.rdl";
+include	"rdldir/Outamy_Wy_829_interior.rdl";
+include	"rdldir/Outamy_Wy_929_front.rdl";
+include	"rdldir/Outamy_Wy_929_interior.rdl";
+include	"rdldir/Outamy_Wy_1029_front.rdl";
+include	"rdldir/Outamy_Wy_1029_interior.rdl";
+include	"rdldir/Outamy_Wy_s_end.rdl";
+
+
+
+include	"rdldir/Hyper_Dr_n_end.rdl";
+include	"rdldir/Hyper_Dr_130_front.rdl";
+include	"rdldir/Hyper_Dr_130_interior.rdl";
+include	"rdldir/Hyper_Dr_230_front.rdl";
+include	"rdldir/Hyper_Dr_230_interior.rdl";
+include	"rdldir/Hyper_Dr_330_front.rdl";
+include	"rdldir/Hyper_Dr_330_interior.rdl";
+include	"rdldir/Hyper_Dr_430_front.rdl";
+include	"rdldir/Hyper_Dr_430_interior.rdl";
+include	"rdldir/Hyper_Dr_530_front.rdl";
+include	"rdldir/Hyper_Dr_530_interior.rdl";
+include	"rdldir/Hyper_Dr_cross.rdl";
+include	"rdldir/Hyper_Dr_630_front.rdl";
+include	"rdldir/Hyper_Dr_630_interior.rdl";
+include	"rdldir/Hyper_Dr_730_front.rdl";
+include	"rdldir/Hyper_Dr_730_interior.rdl";
+include	"rdldir/Hyper_Dr_830_front.rdl";
+include	"rdldir/Hyper_Dr_830_interior.rdl";
+include	"rdldir/Hyper_Dr_930_front.rdl";
+include	"rdldir/Hyper_Dr_930_interior.rdl";
+include	"rdldir/Hyper_Dr_1030_front.rdl";
+include	"rdldir/Hyper_Dr_1030_interior.rdl";
+include	"rdldir/Hyper_Dr_s_end.rdl";
+
+
+include	"rdldir/Street_Rd_n_end.rdl";
+include	"rdldir/Street_Rd_131_front.rdl";
+include	"rdldir/Street_Rd_131_interior.rdl";
+include	"rdldir/Street_Rd_231_front.rdl";
+include	"rdldir/Street_Rd_231_interior.rdl";
+include	"rdldir/Street_Rd_331_front.rdl";
+include	"rdldir/Street_Rd_331_interior.rdl";
+include	"rdldir/Street_Rd_431_front.rdl";
+include	"rdldir/Street_Rd_431_interior.rdl";
+include	"rdldir/Street_Rd_531_front.rdl";
+include	"rdldir/Street_Rd_531_interior.rdl";
+include	"rdldir/Street_Rd_cross.rdl";
+include	"rdldir/Street_Rd_631_front.rdl";
+include	"rdldir/Street_Rd_631_interior.rdl";
+include	"rdldir/Street_Rd_731_front.rdl";
+include	"rdldir/Street_Rd_731_interior.rdl";
+include	"rdldir/Street_Rd_831_front.rdl";
+include	"rdldir/Street_Rd_831_interior.rdl";
+include	"rdldir/Street_Rd_931_front.rdl";
+include	"rdldir/Street_Rd_931_interior.rdl";
+include	"rdldir/Street_Rd_1031_front.rdl";
+include	"rdldir/Street_Rd_1031_interior.rdl";
+include	"rdldir/Street_Rd_s_end.rdl";
+
+
+include	"rdldir/Road_St_n_end.rdl";
+include	"rdldir/Road_St_132_front.rdl";
+include	"rdldir/Road_St_132_interior.rdl";
+include	"rdldir/Road_St_232_front.rdl";
+include	"rdldir/Road_St_232_interior.rdl";
+include	"rdldir/Road_St_332_front.rdl";
+include	"rdldir/Road_St_332_interior.rdl";
+include	"rdldir/Road_St_432_front.rdl";
+include	"rdldir/Road_St_432_interior.rdl";
+include	"rdldir/Road_St_532_front.rdl";
+include	"rdldir/Road_St_532_interior.rdl";
+include	"rdldir/Road_St_cross.rdl";
+include	"rdldir/Road_St_632_front.rdl";
+include	"rdldir/Road_St_632_interior.rdl";
+include	"rdldir/Road_St_732_front.rdl";
+include	"rdldir/Road_St_732_interior.rdl";
+include	"rdldir/Road_St_832_front.rdl";
+include	"rdldir/Road_St_832_interior.rdl";
+include	"rdldir/Road_St_932_front.rdl";
+include	"rdldir/Road_St_932_interior.rdl";
+include	"rdldir/Road_St_1032_front.rdl";
+include	"rdldir/Road_St_1032_interior.rdl";
+include	"rdldir/Road_St_s_end.rdl";
+

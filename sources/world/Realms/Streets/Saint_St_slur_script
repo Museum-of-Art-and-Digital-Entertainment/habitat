@@ -1,0 +1,159 @@
+echo Saint_St_e_end
+/u0/chip/microcosm/slur/slur regdir/Saint_St_e_end.reg \
+     -o rdldir/Saint_St_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_e_end \
+     -w Saint_St_119_front
+echo Saint_St_119_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_119_front.reg \
+     -o rdldir/Saint_St_119_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_119_front \
+     -s Saint_St_119_interior \
+     -w Saint_St_219_front \
+     -e Saint_St_e_end
+echo Saint_St_119_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_119_interior.reg \
+     -o rdldir/Saint_St_119_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_119_interior \
+     -n Saint_St_119_front
+echo Saint_St_219_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_219_front.reg \
+     -o rdldir/Saint_St_219_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_219_front \
+     -s Saint_St_219_interior \
+     -w Saint_St_319_front \
+     -e Saint_St_119_front
+echo Saint_St_219_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_219_interior.reg \
+     -o rdldir/Saint_St_219_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_219_interior \
+     -n Saint_St_219_front
+echo Saint_St_319_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_319_front.reg \
+     -o rdldir/Saint_St_319_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_319_front \
+     -s Saint_St_319_interior \
+     -w Saint_St_419_front \
+     -e Saint_St_219_front
+echo Saint_St_319_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_319_interior.reg \
+     -o rdldir/Saint_St_319_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_319_interior \
+     -n Saint_St_319_front
+echo Saint_St_419_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_419_front.reg \
+     -o rdldir/Saint_St_419_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_419_front \
+     -s Saint_St_419_interior \
+     -w Saint_St_519_front \
+     -e Saint_St_319_front
+echo Saint_St_419_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_419_interior.reg \
+     -o rdldir/Saint_St_419_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_419_interior \
+     -n Saint_St_419_front
+echo Saint_St_519_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_519_front.reg \
+     -o rdldir/Saint_St_519_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_519_front \
+     -s Saint_St_519_interior \
+     -w Saint_St_cross \
+     -e Saint_St_419_front
+echo Saint_St_519_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_519_interior.reg \
+     -o rdldir/Saint_St_519_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_519_interior \
+     -n Saint_St_519_front
+echo Saint_St_cross
+/u0/chip/microcosm/slur/slur regdir/Saint_St_cross.reg \
+     -o rdldir/Saint_St_cross.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_cross \
+     -w Saint_St_619_front \
+     -e Saint_St_519_front
+echo Saint_St_619_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_619_front.reg \
+     -o rdldir/Saint_St_619_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_619_front \
+     -s Saint_St_619_interior \
+     -w Saint_St_719_front \
+     -e Saint_St_cross
+echo Saint_St_619_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_619_interior.reg \
+     -o rdldir/Saint_St_619_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_619_interior \
+     -n Saint_St_619_front
+echo Saint_St_719_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_719_front.reg \
+     -o rdldir/Saint_St_719_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_719_front \
+     -s Saint_St_719_interior \
+     -w Saint_St_819_front \
+     -e Saint_St_619_front
+echo Saint_St_719_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_719_interior.reg \
+     -o rdldir/Saint_St_719_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_719_interior \
+     -n Saint_St_719_front
+echo Saint_St_819_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_819_front.reg \
+     -o rdldir/Saint_St_819_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_819_front \
+     -s Saint_St_819_interior \
+     -w Saint_St_919_front \
+     -e Saint_St_719_front
+echo Saint_St_819_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_819_interior.reg \
+     -o rdldir/Saint_St_819_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_819_interior \
+     -n Saint_St_819_front
+echo Saint_St_919_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_919_front.reg \
+     -o rdldir/Saint_St_919_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_919_front \
+     -s Saint_St_919_interior \
+     -w Saint_St_1019_front \
+     -e Saint_St_819_front
+echo Saint_St_919_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_919_interior.reg \
+     -o rdldir/Saint_St_919_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_919_interior \
+     -n Saint_St_919_front
+echo Saint_St_1019_front
+/u0/chip/microcosm/slur/slur regdir/Saint_St_1019_front.reg \
+     -o rdldir/Saint_St_1019_front.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_1019_front \
+     -s Saint_St_1019_interior \
+     -w Saint_St_w_end \
+     -e Saint_St_919_front
+echo Saint_St_1019_interior
+/u0/chip/microcosm/slur/slur regdir/Saint_St_1019_interior.reg \
+     -o rdldir/Saint_St_1019_interior.rdl \
+     -d FACE_NORTH \
+     -r Saint_St_1019_interior \
+     -n Saint_St_1019_front
+echo Saint_St_w_end
+/u0/chip/microcosm/slur/slur regdir/Saint_St_w_end.reg \
+     -o rdldir/Saint_St_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Saint_St_w_end \
+     -e Saint_St_1019_front

@@ -1,0 +1,21 @@
+actions.m:	dec	flashing
+actions.m:	inc	flashing
+comm_control.m:		sta	flashing
+cursor.m:	if (plus) {jmp	maintain_flashing}
+cursor.m:	if (!zero) {jmp	maintain_flashing}
+cursor.m:	lda	flashing
+cursor.m:;	    if (plus) {jmp maintain_flashing}	; user is anticipating
+cursor.m:		    jsr	start_cursor_flashing
+cursor.m:maintain_flashing:
+cursor.m:	lda	flashing
+cursor.m:start_cursor_flashing::
+cursor.m:	dec	flashing
+farmers_variables.m:flashing::			block	1
+gestures.m:		ora	flashing
+gestures.m:	jmp	start_cursor_flashing
+keyboard.m:		    jsr		start_cursor_flashing
+main.m:		jsr	start_cursor_flashing
+text_handler.m:	    sta	flashing
+text_handler.m:	    dec	flashing
+text_handler.m:		dec	flashing
+text_handler.m:	sta	flashing

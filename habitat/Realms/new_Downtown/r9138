@@ -1,0 +1,113 @@
+use region r_9138 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9137
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_7045 {
+  container: r r_9138
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_7046 {
+  container: r r_9138
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_7047 {
+  container: r r_9138
+  x: 32
+  y: 34
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r r_9115
+}
+use door o_7048 {
+  container: r r_9138
+  x: 88
+  y: 34
+  style: 0
+  gr_state: 0
+  orient: 81
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r r_9159
+}
+use short_sign o_7049 {
+  container: r r_9138
+  x: 4
+  y: 80
+  style: 5
+  gr_state: 8
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "  \ MEN    "
+}
+use short_sign o_7050 {
+  container: r r_9138
+  x: 100
+  y: 80
+  style: 5
+  gr_state: 8
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " \ WOMEN   "
+}
+use sex_changer o_7051 {
+  container: r r_9138
+  x: 124
+  y: 138
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

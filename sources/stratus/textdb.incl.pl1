@@ -1,0 +1,12 @@
+
+/*        Habitat Text Database                   */
+
+     10 key              binary(31),
+     10 page             binary(15),
+     10 page_cnt         binary(15),
+     10 flags            ,
+        15 permanent     bit(1),                  /* FALSE = can be deleted */
+                                                  /*   by garbage collector */
+        15 delivered     bit(1),
+        15 unused        bit(14),
+     10 data             character(640) var;

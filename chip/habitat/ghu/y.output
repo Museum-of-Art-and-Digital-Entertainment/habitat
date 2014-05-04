@@ -1,0 +1,6495 @@
+
+state 0
+	$accept : _commandStream $end 
+
+	error  shift 5
+	ADD  shift 59
+	ALIAS  shift 60
+	ALLMACROS  shift 61
+	ALLNAMES  shift 62
+	BREAK  shift 63
+	CLASS  shift 64
+	CONTENTS  shift 65
+	COOK  shift 66
+	DEFINE  shift 111
+	DISPLAY  shift 68
+	ELSE  shift 69
+	ELSEIF  shift 70
+	ENDFOR  shift 71
+	ENDIF  shift 72
+	ENDMACRO  shift 73
+	EXECUTE  shift 74
+	FIND  shift 75
+	FOR  shift 76
+	GET  shift 77
+	GRIDDLE  shift 78
+	HELP  shift 79
+	IF  shift 80
+	KILL  shift 81
+	LIST  shift 82
+	MACRO  shift 83
+	NAME  shift 85
+	NEWTURF  shift 86
+	NUKE  shift 87
+	ORACLE  shift 88
+	PAGES  shift 89
+	PLAYERS  shift 90
+	PROCESSES  shift 91
+	QUIT  shift 92
+	RAW  shift 93
+	READ  shift 94
+	READMAIL  shift 95
+	REMOVE  shift 96
+	REMTURF  shift 97
+	SENDMAIL  shift 98
+	SET  shift 99
+	START_LOGGING  shift 100
+	STOP_LOGGING  shift 101
+	TELEPORT  shift 102
+	TITLES  shift 104
+	TURFS  shift 105
+	UNNAME  shift 106
+	UPDATE  shift 107
+	VALUE  shift 108
+	VOICE  shift 109
+	WATCH  shift 110
+	WRITE  shift 103
+	Name  shift 84
+	NEWLINE  shift 2
+	.  error
+
+	commandStream  goto 1
+	commandLine  goto 3
+	command  goto 4
+	ghuCommand  goto 6
+	addCommand  goto 7
+	aliasCommand  goto 8
+	allmacrosCommand  goto 9
+	allnamesCommand  goto 10
+	breakCommand  goto 11
+	classCommand  goto 12
+	contentsCommand  goto 13
+	cookCommand  goto 14
+	defineCommand  goto 15
+	displayCommand  goto 16
+	elseCommand  goto 17
+	elseIfCommand  goto 18
+	endForCommand  goto 19
+	endIfCommand  goto 20
+	endMacroCommand  goto 21
+	executeCommand  goto 22
+	findCommand  goto 23
+	forCommand  goto 24
+	getCommand  goto 25
+	griddleCommand  goto 26
+	helpCommand  goto 27
+	ifCommand  goto 28
+	killCommand  goto 29
+	listCommand  goto 30
+	macroCommand  goto 31
+	macroCallCommand  goto 32
+	nameCommand  goto 33
+	newturfCommand  goto 34
+	nukeCommand  goto 35
+	oracleCommand  goto 36
+	pagesCommand  goto 37
+	playersCommand  goto 38
+	processesCommand  goto 39
+	quitCommand  goto 40
+	rawCommand  goto 41
+	readCommand  goto 42
+	readmailCommand  goto 43
+	removeCommand  goto 44
+	remturfCommand  goto 45
+	sendmailCommand  goto 46
+	setCommand  goto 47
+	start_loggingCommand  goto 48
+	stop_loggingCommand  goto 49
+	teleportCommand  goto 50
+	writeCommand  goto 51
+	titlesCommand  goto 52
+	turfsCommand  goto 53
+	unnameCommand  goto 54
+	updateCommand  goto 55
+	valueCommand  goto 56
+	voiceCommand  goto 57
+	watchCommand  goto 58
+	defineHead  goto 67
+
+state 1
+	$accept :  commandStream_$end 
+	commandStream :  commandStream_NEWLINE 
+	commandStream :  commandStream_commandLine NEWLINE 
+
+	$end  accept
+	error  shift 5
+	ADD  shift 59
+	ALIAS  shift 60
+	ALLMACROS  shift 61
+	ALLNAMES  shift 62
+	BREAK  shift 63
+	CLASS  shift 64
+	CONTENTS  shift 65
+	COOK  shift 66
+	DEFINE  shift 111
+	DISPLAY  shift 68
+	ELSE  shift 69
+	ELSEIF  shift 70
+	ENDFOR  shift 71
+	ENDIF  shift 72
+	ENDMACRO  shift 73
+	EXECUTE  shift 74
+	FIND  shift 75
+	FOR  shift 76
+	GET  shift 77
+	GRIDDLE  shift 78
+	HELP  shift 79
+	IF  shift 80
+	KILL  shift 81
+	LIST  shift 82
+	MACRO  shift 83
+	NAME  shift 85
+	NEWTURF  shift 86
+	NUKE  shift 87
+	ORACLE  shift 88
+	PAGES  shift 89
+	PLAYERS  shift 90
+	PROCESSES  shift 91
+	QUIT  shift 92
+	RAW  shift 93
+	READ  shift 94
+	READMAIL  shift 95
+	REMOVE  shift 96
+	REMTURF  shift 97
+	SENDMAIL  shift 98
+	SET  shift 99
+	START_LOGGING  shift 100
+	STOP_LOGGING  shift 101
+	TELEPORT  shift 102
+	TITLES  shift 104
+	TURFS  shift 105
+	UNNAME  shift 106
+	UPDATE  shift 107
+	VALUE  shift 108
+	VOICE  shift 109
+	WATCH  shift 110
+	WRITE  shift 103
+	Name  shift 84
+	NEWLINE  shift 112
+	.  error
+
+	commandLine  goto 113
+	command  goto 4
+	ghuCommand  goto 6
+	addCommand  goto 7
+	aliasCommand  goto 8
+	allmacrosCommand  goto 9
+	allnamesCommand  goto 10
+	breakCommand  goto 11
+	classCommand  goto 12
+	contentsCommand  goto 13
+	cookCommand  goto 14
+	defineCommand  goto 15
+	displayCommand  goto 16
+	elseCommand  goto 17
+	elseIfCommand  goto 18
+	endForCommand  goto 19
+	endIfCommand  goto 20
+	endMacroCommand  goto 21
+	executeCommand  goto 22
+	findCommand  goto 23
+	forCommand  goto 24
+	getCommand  goto 25
+	griddleCommand  goto 26
+	helpCommand  goto 27
+	ifCommand  goto 28
+	killCommand  goto 29
+	listCommand  goto 30
+	macroCommand  goto 31
+	macroCallCommand  goto 32
+	nameCommand  goto 33
+	newturfCommand  goto 34
+	nukeCommand  goto 35
+	oracleCommand  goto 36
+	pagesCommand  goto 37
+	playersCommand  goto 38
+	processesCommand  goto 39
+	quitCommand  goto 40
+	rawCommand  goto 41
+	readCommand  goto 42
+	readmailCommand  goto 43
+	removeCommand  goto 44
+	remturfCommand  goto 45
+	sendmailCommand  goto 46
+	setCommand  goto 47
+	start_loggingCommand  goto 48
+	stop_loggingCommand  goto 49
+	teleportCommand  goto 50
+	writeCommand  goto 51
+	titlesCommand  goto 52
+	turfsCommand  goto 53
+	unnameCommand  goto 54
+	updateCommand  goto 55
+	valueCommand  goto 56
+	voiceCommand  goto 57
+	watchCommand  goto 58
+	defineHead  goto 67
+
+state 2
+	commandStream :  NEWLINE_    (1)
+
+	.  reduce 1
+
+
+state 3
+	commandStream :  commandLine_NEWLINE 
+	commandLine :  commandLine_; command 
+
+	NEWLINE  shift 114
+	;  shift 115
+	.  error
+
+
+state 4
+	commandLine :  command_    (5)
+
+	.  reduce 5
+
+
+state 5
+	commandLine :  error_    (6)
+
+	.  reduce 6
+
+
+state 6
+	command :  ghuCommand_    (8)
+	command :  ghuCommand_INTO Filename 
+	command :  ghuCommand_APPEND Filename 
+
+	APPEND  shift 117
+	INTO  shift 116
+	.  reduce 8
+
+
+state 7
+	ghuCommand :  addCommand_    (11)
+
+	.  reduce 11
+
+
+state 8
+	ghuCommand :  aliasCommand_    (12)
+
+	.  reduce 12
+
+
+state 9
+	ghuCommand :  allmacrosCommand_    (13)
+
+	.  reduce 13
+
+
+state 10
+	ghuCommand :  allnamesCommand_    (14)
+
+	.  reduce 14
+
+
+state 11
+	ghuCommand :  breakCommand_    (15)
+
+	.  reduce 15
+
+
+state 12
+	ghuCommand :  classCommand_    (16)
+
+	.  reduce 16
+
+
+state 13
+	ghuCommand :  contentsCommand_    (17)
+
+	.  reduce 17
+
+
+state 14
+	ghuCommand :  cookCommand_    (18)
+
+	.  reduce 18
+
+
+state 15
+	ghuCommand :  defineCommand_    (19)
+
+	.  reduce 19
+
+
+state 16
+	ghuCommand :  displayCommand_    (20)
+
+	.  reduce 20
+
+
+state 17
+	ghuCommand :  elseCommand_    (21)
+
+	.  reduce 21
+
+
+state 18
+	ghuCommand :  elseIfCommand_    (22)
+
+	.  reduce 22
+
+
+state 19
+	ghuCommand :  endForCommand_    (23)
+
+	.  reduce 23
+
+
+state 20
+	ghuCommand :  endIfCommand_    (24)
+
+	.  reduce 24
+
+
+state 21
+	ghuCommand :  endMacroCommand_    (25)
+
+	.  reduce 25
+
+
+state 22
+	ghuCommand :  executeCommand_    (26)
+
+	.  reduce 26
+
+
+state 23
+	ghuCommand :  findCommand_    (27)
+
+	.  reduce 27
+
+
+state 24
+	ghuCommand :  forCommand_    (28)
+
+	.  reduce 28
+
+
+state 25
+	ghuCommand :  getCommand_    (29)
+
+	.  reduce 29
+
+
+state 26
+	ghuCommand :  griddleCommand_    (30)
+
+	.  reduce 30
+
+
+state 27
+	ghuCommand :  helpCommand_    (31)
+
+	.  reduce 31
+
+
+state 28
+	ghuCommand :  ifCommand_    (32)
+
+	.  reduce 32
+
+
+state 29
+	ghuCommand :  killCommand_    (33)
+
+	.  reduce 33
+
+
+state 30
+	ghuCommand :  listCommand_    (34)
+
+	.  reduce 34
+
+
+state 31
+	ghuCommand :  macroCommand_    (35)
+
+	.  reduce 35
+
+
+state 32
+	ghuCommand :  macroCallCommand_    (36)
+
+	.  reduce 36
+
+
+state 33
+	ghuCommand :  nameCommand_    (37)
+
+	.  reduce 37
+
+
+state 34
+	ghuCommand :  newturfCommand_    (38)
+
+	.  reduce 38
+
+
+state 35
+	ghuCommand :  nukeCommand_    (39)
+
+	.  reduce 39
+
+
+state 36
+	ghuCommand :  oracleCommand_    (40)
+
+	.  reduce 40
+
+
+state 37
+	ghuCommand :  pagesCommand_    (41)
+
+	.  reduce 41
+
+
+state 38
+	ghuCommand :  playersCommand_    (42)
+
+	.  reduce 42
+
+
+state 39
+	ghuCommand :  processesCommand_    (43)
+
+	.  reduce 43
+
+
+state 40
+	ghuCommand :  quitCommand_    (44)
+
+	.  reduce 44
+
+
+state 41
+	ghuCommand :  rawCommand_    (45)
+
+	.  reduce 45
+
+
+state 42
+	ghuCommand :  readCommand_    (46)
+
+	.  reduce 46
+
+
+state 43
+	ghuCommand :  readmailCommand_    (47)
+
+	.  reduce 47
+
+
+state 44
+	ghuCommand :  removeCommand_    (48)
+
+	.  reduce 48
+
+
+state 45
+	ghuCommand :  remturfCommand_    (49)
+
+	.  reduce 49
+
+
+state 46
+	ghuCommand :  sendmailCommand_    (50)
+
+	.  reduce 50
+
+
+state 47
+	ghuCommand :  setCommand_    (51)
+
+	.  reduce 51
+
+
+state 48
+	ghuCommand :  start_loggingCommand_    (52)
+
+	.  reduce 52
+
+
+state 49
+	ghuCommand :  stop_loggingCommand_    (53)
+
+	.  reduce 53
+
+
+state 50
+	ghuCommand :  teleportCommand_    (54)
+
+	.  reduce 54
+
+
+state 51
+	ghuCommand :  writeCommand_    (55)
+
+	.  reduce 55
+
+
+state 52
+	ghuCommand :  titlesCommand_    (56)
+
+	.  reduce 56
+
+
+state 53
+	ghuCommand :  turfsCommand_    (57)
+
+	.  reduce 57
+
+
+state 54
+	ghuCommand :  unnameCommand_    (58)
+
+	.  reduce 58
+
+
+state 55
+	ghuCommand :  updateCommand_    (59)
+
+	.  reduce 59
+
+
+state 56
+	ghuCommand :  valueCommand_    (60)
+
+	.  reduce 60
+
+
+state 57
+	ghuCommand :  voiceCommand_    (61)
+
+	.  reduce 61
+
+
+state 58
+	ghuCommand :  watchCommand_    (62)
+
+	.  reduce 62
+
+
+state 59
+	addCommand :  ADD_    (98)
+	addCommand :  ADD_value 
+	addCommand :  ADD_value = valueList 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 98
+
+	value  goto 118
+	lvalue  goto 122
+
+state 60
+	aliasCommand :  ALIAS_Name = String 
+	aliasCommand :  ALIAS_Name 
+	aliasCommand :  ALIAS_    (103)
+
+	Name  shift 135
+	.  reduce 103
+
+
+state 61
+	allmacrosCommand :  ALLMACROS_    (104)
+
+	.  reduce 104
+
+
+state 62
+	allnamesCommand :  ALLNAMES_    (105)
+
+	.  reduce 105
+
+
+state 63
+	breakCommand :  BREAK_    (106)
+
+	.  reduce 106
+
+
+state 64
+	classCommand :  CLASS_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 136
+	lvalue  goto 122
+
+state 65
+	contentsCommand :  CONTENTS_value 
+	contentsCommand :  CONTENTS_value FULL 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 137
+	lvalue  goto 122
+
+state 66
+	cookCommand :  COOK_Filename 
+
+	Filename  shift 138
+	.  error
+
+
+state 67
+	defineCommand :  defineHead_NEWLINE fieldList ENDDEFINE 
+	defineCommand :  defineHead_NEWLINE ENDDEFINE 
+
+	NEWLINE  shift 139
+	.  error
+
+
+state 68
+	displayCommand :  DISPLAY_value 
+	displayCommand :  DISPLAY_value . 
+	displayCommand :  DISPLAY_    (116)
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 116
+
+	value  goto 140
+	lvalue  goto 122
+
+state 69
+	elseCommand :  ELSE_    (117)
+
+	.  reduce 117
+
+
+state 70
+	elseIfCommand :  ELSEIF_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 141
+	lvalue  goto 122
+
+state 71
+	endForCommand :  ENDFOR_    (119)
+
+	.  reduce 119
+
+
+state 72
+	endIfCommand :  ENDIF_    (120)
+
+	.  reduce 120
+
+
+state 73
+	endMacroCommand :  ENDMACRO_    (121)
+
+	.  reduce 121
+
+
+state 74
+	executeCommand :  EXECUTE_Filename 
+
+	Filename  shift 142
+	.  error
+
+
+state 75
+	findCommand :  FIND_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 143
+	lvalue  goto 122
+
+state 76
+	forCommand :  FOR_ALL A 
+	forCommand :  FOR_ALL O 
+	forCommand :  FOR_ALL R 
+	forCommand :  FOR_ALL A IN value 
+	forCommand :  FOR_ALL O IN value 
+	forCommand :  FOR_value TO value 
+
+	ALL  shift 144
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 145
+	lvalue  goto 122
+
+state 77
+	getCommand :  GET_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 146
+	lvalue  goto 122
+
+state 78
+	griddleCommand :  GRIDDLE_value 
+	griddleCommand :  GRIDDLE_value FULL 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 147
+	lvalue  goto 122
+
+state 79
+	helpCommand :  HELP_    (133)
+	helpCommand :  HELP_keyword 
+
+	ADD  shift 149
+	ALIAS  shift 150
+	ALLMACROS  shift 151
+	ALLNAMES  shift 152
+	CLASS  shift 153
+	CONTENTS  shift 154
+	COOK  shift 155
+	DEFINE  shift 156
+	DISPLAY  shift 157
+	EXECUTE  shift 158
+	FIND  shift 159
+	FOR  shift 160
+	GET  shift 161
+	GRIDDLE  shift 162
+	HELP  shift 163
+	IF  shift 164
+	KILL  shift 165
+	LIST  shift 166
+	MACRO  shift 167
+	NAME  shift 168
+	NUKE  shift 169
+	ORACLE  shift 170
+	PLAYERS  shift 171
+	PROCESSES  shift 172
+	QUIT  shift 173
+	RAW  shift 174
+	READ  shift 175
+	READMAIL  shift 176
+	REMOVE  shift 177
+	SENDMAIL  shift 178
+	SET  shift 179
+	TELEPORT  shift 180
+	UPDATE  shift 181
+	VOICE  shift 182
+	WATCH  shift 183
+	WRITE  shift 184
+	.  reduce 133
+
+	keyword  goto 148
+
+state 80
+	ifCommand :  IF_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 185
+	lvalue  goto 122
+
+state 81
+	killCommand :  KILL_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 186
+	lvalue  goto 122
+
+state 82
+	listCommand :  LIST_value DASH value ACTIVE 
+	listCommand :  LIST_value DASH value 
+	listCommand :  LIST_DASH value ACTIVE 
+	listCommand :  LIST_DASH value 
+	listCommand :  LIST_value DASH ACTIVE 
+	listCommand :  LIST_value DASH 
+	listCommand :  LIST_value ACTIVE 
+	listCommand :  LIST_value 
+	listCommand :  LIST_DASH ACTIVE 
+	listCommand :  LIST_DASH 
+	listCommand :  LIST_ACTIVE 
+	listCommand :  LIST_    (148)
+
+	ACTIVE  shift 189
+	DASH  shift 188
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 148
+
+	value  goto 187
+	lvalue  goto 122
+
+state 83
+	macroCommand :  MACRO_Name 
+
+	Name  shift 190
+	.  error
+
+
+state 84
+	macroCallCommand :  Name_valueList 
+	macroCallCommand :  Name_    (97)
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 97
+
+	value  goto 192
+	lvalue  goto 122
+	valueList  goto 191
+
+state 85
+	nameCommand :  NAME_Name = value 
+
+	Name  shift 193
+	.  error
+
+
+state 86
+	newturfCommand :  NEWTURF_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 194
+	lvalue  goto 122
+
+state 87
+	nukeCommand :  NUKE_value 
+	nukeCommand :  NUKE_value DASH value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 195
+	lvalue  goto 122
+
+state 88
+	oracleCommand :  ORACLE_value 
+	oracleCommand :  ORACLE_ALL 
+	oracleCommand :  ORACLE_value DUMP 
+	oracleCommand :  ORACLE_ALL DUMP 
+	oracleCommand :  ORACLE_value SINCE value 
+	oracleCommand :  ORACLE_ALL SINCE value 
+	oracleCommand :  ORACLE_value SINCE value DUMP 
+	oracleCommand :  ORACLE_ALL SINCE value DUMP 
+
+	ALL  shift 197
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 196
+	lvalue  goto 122
+
+state 89
+	pagesCommand :  PAGES_value 
+	pagesCommand :  PAGES_value = value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 198
+	lvalue  goto 122
+
+state 90
+	playersCommand :  PLAYERS_    (164)
+
+	.  reduce 164
+
+
+state 91
+	processesCommand :  PROCESSES_    (165)
+
+	.  reduce 165
+
+
+state 92
+	quitCommand :  QUIT_    (166)
+
+	.  reduce 166
+
+
+state 93
+	rawCommand :  RAW_value 
+	rawCommand :  RAW_value FULL 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 199
+	lvalue  goto 122
+
+state 94
+	readCommand :  READ_    (169)
+	readCommand :  READ_value 
+	readCommand :  READ_value , value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 169
+
+	value  goto 200
+	lvalue  goto 122
+
+state 95
+	readmailCommand :  READMAIL_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 201
+	lvalue  goto 122
+
+state 96
+	removeCommand :  REMOVE_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 202
+	lvalue  goto 122
+
+state 97
+	remturfCommand :  REMTURF_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 203
+	lvalue  goto 122
+
+state 98
+	sendmailCommand :  SENDMAIL_value 
+	sendmailCommand :  SENDMAIL_value FILE Filename 
+	sendmailCommand :  SENDMAIL_value FROM value 
+	sendmailCommand :  SENDMAIL_value FROM value FILE Filename 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 204
+	lvalue  goto 122
+
+state 99
+	setCommand :  SET_lvalue = value 
+	setCommand :  SET_lvalue = value ! 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 206
+	lvalue  goto 205
+
+state 100
+	start_loggingCommand :  START_LOGGING_Filename 
+	start_loggingCommand :  START_LOGGING_Filename CONTINUE 
+
+	Filename  shift 207
+	.  error
+
+
+state 101
+	stop_loggingCommand :  STOP_LOGGING_    (183)
+
+	.  reduce 183
+
+
+state 102
+	teleportCommand :  TELEPORT_value 
+	teleportCommand :  TELEPORT_value = value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 208
+	lvalue  goto 122
+
+state 103
+	writeCommand :  WRITE_valueList 
+	writeCommand :  WRITE_valueList FILE Filename 
+	writeCommand :  WRITE_    (207)
+	writeCommand :  WRITE_FILE Filename 
+
+	FILE  shift 210
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 207
+
+	value  goto 192
+	lvalue  goto 122
+	valueList  goto 209
+
+state 104
+	titlesCommand :  TITLES_    (186)
+	titlesCommand :  TITLES_DASH 
+	titlesCommand :  TITLES_value 
+	titlesCommand :  TITLES_value DASH value 
+	titlesCommand :  TITLES_value DASH 
+	titlesCommand :  TITLES_DASH value 
+
+	DASH  shift 211
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 186
+
+	value  goto 212
+	lvalue  goto 122
+
+state 105
+	turfsCommand :  TURFS_    (192)
+
+	.  reduce 192
+
+
+state 106
+	unnameCommand :  UNNAME_Name 
+
+	Name  shift 213
+	.  error
+
+
+state 107
+	updateCommand :  UPDATE_    (194)
+	updateCommand :  UPDATE_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 194
+
+	value  goto 214
+	lvalue  goto 122
+
+state 108
+	valueCommand :  VALUE_value 
+	valueCommand :  VALUE_value . 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 215
+	lvalue  goto 122
+
+state 109
+	voiceCommand :  VOICE_    (198)
+	voiceCommand :  VOICE_value 
+	voiceCommand :  VOICE_# value 
+	voiceCommand :  VOICE_value # value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	#  shift 217
+	.  reduce 198
+
+	value  goto 216
+	lvalue  goto 122
+
+state 110
+	watchCommand :  WATCH_    (202)
+	watchCommand :  WATCH_value 
+	watchCommand :  WATCH_OFF 
+
+	OFF  shift 219
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 202
+
+	value  goto 218
+	lvalue  goto 122
+
+state 111
+	defineHead :  DEFINE_value String 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 220
+	lvalue  goto 122
+
+state 112
+	commandStream :  commandStream NEWLINE_    (3)
+
+	.  reduce 3
+
+
+state 113
+	commandStream :  commandStream commandLine_NEWLINE 
+	commandLine :  commandLine_; command 
+
+	NEWLINE  shift 221
+	;  shift 115
+	.  error
+
+
+state 114
+	commandStream :  commandLine NEWLINE_    (2)
+
+	.  reduce 2
+
+
+state 115
+	commandLine :  commandLine ;_command 
+
+	ADD  shift 59
+	ALIAS  shift 60
+	ALLMACROS  shift 61
+	ALLNAMES  shift 62
+	BREAK  shift 63
+	CLASS  shift 64
+	CONTENTS  shift 65
+	COOK  shift 66
+	DEFINE  shift 111
+	DISPLAY  shift 68
+	ELSE  shift 69
+	ELSEIF  shift 70
+	ENDFOR  shift 71
+	ENDIF  shift 72
+	ENDMACRO  shift 73
+	EXECUTE  shift 74
+	FIND  shift 75
+	FOR  shift 76
+	GET  shift 77
+	GRIDDLE  shift 78
+	HELP  shift 79
+	IF  shift 80
+	KILL  shift 81
+	LIST  shift 82
+	MACRO  shift 83
+	NAME  shift 85
+	NEWTURF  shift 86
+	NUKE  shift 87
+	ORACLE  shift 88
+	PAGES  shift 89
+	PLAYERS  shift 90
+	PROCESSES  shift 91
+	QUIT  shift 92
+	RAW  shift 93
+	READ  shift 94
+	READMAIL  shift 95
+	REMOVE  shift 96
+	REMTURF  shift 97
+	SENDMAIL  shift 98
+	SET  shift 99
+	START_LOGGING  shift 100
+	STOP_LOGGING  shift 101
+	TELEPORT  shift 102
+	TITLES  shift 104
+	TURFS  shift 105
+	UNNAME  shift 106
+	UPDATE  shift 107
+	VALUE  shift 108
+	VOICE  shift 109
+	WATCH  shift 110
+	WRITE  shift 103
+	Name  shift 84
+	.  error
+
+	command  goto 222
+	ghuCommand  goto 6
+	addCommand  goto 7
+	aliasCommand  goto 8
+	allmacrosCommand  goto 9
+	allnamesCommand  goto 10
+	breakCommand  goto 11
+	classCommand  goto 12
+	contentsCommand  goto 13
+	cookCommand  goto 14
+	defineCommand  goto 15
+	displayCommand  goto 16
+	elseCommand  goto 17
+	elseIfCommand  goto 18
+	endForCommand  goto 19
+	endIfCommand  goto 20
+	endMacroCommand  goto 21
+	executeCommand  goto 22
+	findCommand  goto 23
+	forCommand  goto 24
+	getCommand  goto 25
+	griddleCommand  goto 26
+	helpCommand  goto 27
+	ifCommand  goto 28
+	killCommand  goto 29
+	listCommand  goto 30
+	macroCommand  goto 31
+	macroCallCommand  goto 32
+	nameCommand  goto 33
+	newturfCommand  goto 34
+	nukeCommand  goto 35
+	oracleCommand  goto 36
+	pagesCommand  goto 37
+	playersCommand  goto 38
+	processesCommand  goto 39
+	quitCommand  goto 40
+	rawCommand  goto 41
+	readCommand  goto 42
+	readmailCommand  goto 43
+	removeCommand  goto 44
+	remturfCommand  goto 45
+	sendmailCommand  goto 46
+	setCommand  goto 47
+	start_loggingCommand  goto 48
+	stop_loggingCommand  goto 49
+	teleportCommand  goto 50
+	writeCommand  goto 51
+	titlesCommand  goto 52
+	turfsCommand  goto 53
+	unnameCommand  goto 54
+	updateCommand  goto 55
+	valueCommand  goto 56
+	voiceCommand  goto 57
+	watchCommand  goto 58
+	defineHead  goto 67
+
+state 116
+	command :  ghuCommand INTO_Filename 
+
+	Filename  shift 223
+	.  error
+
+
+state 117
+	command :  ghuCommand APPEND_Filename 
+
+	Filename  shift 224
+	.  error
+
+
+state 118
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	addCommand :  ADD value_    (99)
+	addCommand :  ADD value_= valueList 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	=  shift 241
+	.  reduce 99
+
+
+state 119
+	value :  Number_    (63)
+
+	.  reduce 63
+
+
+state 120
+	value :  String_    (64)
+
+	.  reduce 64
+
+
+state 121
+	value :  Bitstring_    (65)
+
+	.  reduce 65
+
+
+state 122
+	value :  lvalue_    (66)
+	lvalue :  lvalue_( value ) 
+
+	(  shift 242
+	.  reduce 66
+
+
+state 123
+	value :  ?_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 243
+	lvalue  goto 122
+
+state 124
+	value :  -_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 244
+	lvalue  goto 122
+
+state 125
+	value :  ^_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 245
+	lvalue  goto 122
+
+state 126
+	value :  ~_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 246
+	lvalue  goto 122
+
+state 127
+	value :  !_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 247
+	lvalue  goto 122
+
+state 128
+	value :  (_value ) 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 248
+	lvalue  goto 122
+
+state 129
+	value :  A_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 249
+	lvalue  goto 122
+
+state 130
+	value :  O_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 250
+	lvalue  goto 122
+
+state 131
+	value :  R_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 251
+	lvalue  goto 122
+
+state 132
+	value :  S_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 252
+	lvalue  goto 122
+
+state 133
+	value :  U_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 253
+	lvalue  goto 122
+
+state 134
+	lvalue :  Name_    (93)
+
+	.  reduce 93
+
+
+state 135
+	aliasCommand :  ALIAS Name_= String 
+	aliasCommand :  ALIAS Name_    (102)
+
+	=  shift 254
+	.  reduce 102
+
+
+state 136
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	classCommand :  CLASS value_    (107)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 107
+
+
+state 137
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	contentsCommand :  CONTENTS value_    (108)
+	contentsCommand :  CONTENTS value_FULL 
+
+	FULL  shift 255
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 108
+
+
+state 138
+	cookCommand :  COOK Filename_    (110)
+
+	.  reduce 110
+
+
+state 139
+	defineCommand :  defineHead NEWLINE_fieldList ENDDEFINE 
+	defineCommand :  defineHead NEWLINE_ENDDEFINE 
+
+	ENDDEFINE  shift 257
+	Name  shift 261
+	#  shift 259
+	.  error
+
+	fieldList  goto 256
+	field  goto 258
+	basicField  goto 260
+
+state 140
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	displayCommand :  DISPLAY value_    (114)
+	displayCommand :  DISPLAY value_. 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 262
+	.  reduce 114
+
+
+state 141
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	elseIfCommand :  ELSEIF value_    (118)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 118
+
+
+state 142
+	executeCommand :  EXECUTE Filename_    (122)
+
+	.  reduce 122
+
+
+state 143
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	findCommand :  FIND value_    (123)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 123
+
+
+state 144
+	forCommand :  FOR ALL_A 
+	forCommand :  FOR ALL_O 
+	forCommand :  FOR ALL_R 
+	forCommand :  FOR ALL_A IN value 
+	forCommand :  FOR ALL_O IN value 
+
+	A  shift 263
+	O  shift 264
+	R  shift 265
+	.  error
+
+
+state 145
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	forCommand :  FOR value_TO value 
+
+	TO  shift 266
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  error
+
+
+state 146
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	getCommand :  GET value_    (130)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 130
+
+
+state 147
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	griddleCommand :  GRIDDLE value_    (131)
+	griddleCommand :  GRIDDLE value_FULL 
+
+	FULL  shift 267
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 131
+
+
+state 148
+	helpCommand :  HELP keyword_    (134)
+
+	.  reduce 134
+
+
+state 149
+	keyword :  ADD_    (231)
+
+	.  reduce 231
+
+
+state 150
+	keyword :  ALIAS_    (232)
+
+	.  reduce 232
+
+
+state 151
+	keyword :  ALLMACROS_    (233)
+
+	.  reduce 233
+
+
+state 152
+	keyword :  ALLNAMES_    (234)
+
+	.  reduce 234
+
+
+state 153
+	keyword :  CLASS_    (235)
+
+	.  reduce 235
+
+
+state 154
+	keyword :  CONTENTS_    (236)
+
+	.  reduce 236
+
+
+state 155
+	keyword :  COOK_    (237)
+
+	.  reduce 237
+
+
+state 156
+	keyword :  DEFINE_    (238)
+
+	.  reduce 238
+
+
+state 157
+	keyword :  DISPLAY_    (239)
+
+	.  reduce 239
+
+
+state 158
+	keyword :  EXECUTE_    (240)
+
+	.  reduce 240
+
+
+state 159
+	keyword :  FIND_    (241)
+
+	.  reduce 241
+
+
+state 160
+	keyword :  FOR_    (242)
+
+	.  reduce 242
+
+
+state 161
+	keyword :  GET_    (243)
+
+	.  reduce 243
+
+
+state 162
+	keyword :  GRIDDLE_    (244)
+
+	.  reduce 244
+
+
+state 163
+	keyword :  HELP_    (245)
+
+	.  reduce 245
+
+
+state 164
+	keyword :  IF_    (246)
+
+	.  reduce 246
+
+
+state 165
+	keyword :  KILL_    (247)
+
+	.  reduce 247
+
+
+state 166
+	keyword :  LIST_    (248)
+
+	.  reduce 248
+
+
+state 167
+	keyword :  MACRO_    (249)
+
+	.  reduce 249
+
+
+state 168
+	keyword :  NAME_    (250)
+
+	.  reduce 250
+
+
+state 169
+	keyword :  NUKE_    (251)
+
+	.  reduce 251
+
+
+state 170
+	keyword :  ORACLE_    (252)
+
+	.  reduce 252
+
+
+state 171
+	keyword :  PLAYERS_    (253)
+
+	.  reduce 253
+
+
+state 172
+	keyword :  PROCESSES_    (254)
+
+	.  reduce 254
+
+
+state 173
+	keyword :  QUIT_    (255)
+
+	.  reduce 255
+
+
+state 174
+	keyword :  RAW_    (256)
+
+	.  reduce 256
+
+
+state 175
+	keyword :  READ_    (257)
+
+	.  reduce 257
+
+
+state 176
+	keyword :  READMAIL_    (258)
+
+	.  reduce 258
+
+
+state 177
+	keyword :  REMOVE_    (259)
+
+	.  reduce 259
+
+
+state 178
+	keyword :  SENDMAIL_    (260)
+
+	.  reduce 260
+
+
+state 179
+	keyword :  SET_    (261)
+
+	.  reduce 261
+
+
+state 180
+	keyword :  TELEPORT_    (262)
+
+	.  reduce 262
+
+
+state 181
+	keyword :  UPDATE_    (263)
+
+	.  reduce 263
+
+
+state 182
+	keyword :  VOICE_    (264)
+
+	.  reduce 264
+
+
+state 183
+	keyword :  WATCH_    (265)
+
+	.  reduce 265
+
+
+state 184
+	keyword :  WRITE_    (266)
+
+	.  reduce 266
+
+
+state 185
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	ifCommand :  IF value_    (135)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 135
+
+
+state 186
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	killCommand :  KILL value_    (136)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 136
+
+
+state 187
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	listCommand :  LIST value_DASH value ACTIVE 
+	listCommand :  LIST value_DASH value 
+	listCommand :  LIST value_DASH ACTIVE 
+	listCommand :  LIST value_DASH 
+	listCommand :  LIST value_ACTIVE 
+	listCommand :  LIST value_    (144)
+
+	ACTIVE  shift 269
+	DASH  shift 268
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 144
+
+
+state 188
+	listCommand :  LIST DASH_value ACTIVE 
+	listCommand :  LIST DASH_value 
+	listCommand :  LIST DASH_ACTIVE 
+	listCommand :  LIST DASH_    (146)
+
+	ACTIVE  shift 271
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 146
+
+	value  goto 270
+	lvalue  goto 122
+
+state 189
+	listCommand :  LIST ACTIVE_    (147)
+
+	.  reduce 147
+
+
+state 190
+	macroCommand :  MACRO Name_    (149)
+
+	.  reduce 149
+
+
+state 191
+	macroCallCommand :  Name valueList_    (96)
+	valueList :  valueList_, value 
+
+	,  shift 272
+	.  reduce 96
+
+
+state 192
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	valueList :  value_    (229)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 229
+
+
+state 193
+	nameCommand :  NAME Name_= value 
+
+	=  shift 273
+	.  error
+
+
+state 194
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	newturfCommand :  NEWTURF value_    (151)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 151
+
+
+state 195
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	nukeCommand :  NUKE value_    (152)
+	nukeCommand :  NUKE value_DASH value 
+
+	DASH  shift 274
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 152
+
+
+state 196
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	oracleCommand :  ORACLE value_    (154)
+	oracleCommand :  ORACLE value_DUMP 
+	oracleCommand :  ORACLE value_SINCE value 
+	oracleCommand :  ORACLE value_SINCE value DUMP 
+
+	DUMP  shift 275
+	SINCE  shift 276
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 154
+
+
+state 197
+	oracleCommand :  ORACLE ALL_    (155)
+	oracleCommand :  ORACLE ALL_DUMP 
+	oracleCommand :  ORACLE ALL_SINCE value 
+	oracleCommand :  ORACLE ALL_SINCE value DUMP 
+
+	DUMP  shift 277
+	SINCE  shift 278
+	.  reduce 155
+
+
+state 198
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	pagesCommand :  PAGES value_    (162)
+	pagesCommand :  PAGES value_= value 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	=  shift 279
+	.  reduce 162
+
+
+state 199
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	rawCommand :  RAW value_    (167)
+	rawCommand :  RAW value_FULL 
+
+	FULL  shift 280
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 167
+
+
+state 200
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	readCommand :  READ value_    (170)
+	readCommand :  READ value_, value 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	,  shift 281
+	.  reduce 170
+
+
+state 201
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	readmailCommand :  READMAIL value_    (172)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 172
+
+
+state 202
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	removeCommand :  REMOVE value_    (173)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 173
+
+
+state 203
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	remturfCommand :  REMTURF value_    (174)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 174
+
+
+state 204
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	sendmailCommand :  SENDMAIL value_    (175)
+	sendmailCommand :  SENDMAIL value_FILE Filename 
+	sendmailCommand :  SENDMAIL value_FROM value 
+	sendmailCommand :  SENDMAIL value_FROM value FILE Filename 
+
+	FILE  shift 282
+	FROM  shift 283
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 175
+
+
+state 205
+	value :  lvalue_    (66)
+	lvalue :  lvalue_( value ) 
+	setCommand :  SET lvalue_= value 
+	setCommand :  SET lvalue_= value ! 
+
+	(  shift 242
+	=  shift 284
+	.  reduce 66
+
+
+state 206
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  error
+
+
+state 207
+	start_loggingCommand :  START_LOGGING Filename_    (181)
+	start_loggingCommand :  START_LOGGING Filename_CONTINUE 
+
+	CONTINUE  shift 285
+	.  reduce 181
+
+
+state 208
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	teleportCommand :  TELEPORT value_    (184)
+	teleportCommand :  TELEPORT value_= value 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	=  shift 286
+	.  reduce 184
+
+
+state 209
+	writeCommand :  WRITE valueList_    (205)
+	writeCommand :  WRITE valueList_FILE Filename 
+	valueList :  valueList_, value 
+
+	FILE  shift 287
+	,  shift 272
+	.  reduce 205
+
+
+state 210
+	writeCommand :  WRITE FILE_Filename 
+
+	Filename  shift 288
+	.  error
+
+
+state 211
+	titlesCommand :  TITLES DASH_    (187)
+	titlesCommand :  TITLES DASH_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 187
+
+	value  goto 289
+	lvalue  goto 122
+
+state 212
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	titlesCommand :  TITLES value_    (188)
+	titlesCommand :  TITLES value_DASH value 
+	titlesCommand :  TITLES value_DASH 
+
+	DASH  shift 290
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 188
+
+
+state 213
+	unnameCommand :  UNNAME Name_    (193)
+
+	.  reduce 193
+
+
+state 214
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	updateCommand :  UPDATE value_    (195)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 195
+
+
+state 215
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	valueCommand :  VALUE value_    (196)
+	valueCommand :  VALUE value_. 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 291
+	.  reduce 196
+
+
+state 216
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	voiceCommand :  VOICE value_    (199)
+	voiceCommand :  VOICE value_# value 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	#  shift 292
+	.  reduce 199
+
+
+state 217
+	voiceCommand :  VOICE #_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 293
+	lvalue  goto 122
+
+state 218
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	watchCommand :  WATCH value_    (203)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 203
+
+
+state 219
+	watchCommand :  WATCH OFF_    (204)
+
+	.  reduce 204
+
+
+state 220
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	defineHead :  DEFINE value_String 
+
+	String  shift 294
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  error
+
+
+state 221
+	commandStream :  commandStream commandLine NEWLINE_    (4)
+
+	.  reduce 4
+
+
+state 222
+	commandLine :  commandLine ; command_    (7)
+
+	.  reduce 7
+
+
+state 223
+	command :  ghuCommand INTO Filename_    (9)
+
+	.  reduce 9
+
+
+state 224
+	command :  ghuCommand APPEND Filename_    (10)
+
+	.  reduce 10
+
+
+state 225
+	value :  value +_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 295
+	lvalue  goto 122
+
+state 226
+	value :  value -_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 296
+	lvalue  goto 122
+
+state 227
+	value :  value /_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 297
+	lvalue  goto 122
+
+state 228
+	value :  value *_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 298
+	lvalue  goto 122
+
+state 229
+	value :  value &_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 299
+	lvalue  goto 122
+
+state 230
+	value :  value |_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 300
+	lvalue  goto 122
+
+state 231
+	value :  value ^_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 301
+	lvalue  goto 122
+
+state 232
+	value :  value <_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 302
+	lvalue  goto 122
+
+state 233
+	value :  value LEQ_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 303
+	lvalue  goto 122
+
+state 234
+	value :  value EQ_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 304
+	lvalue  goto 122
+
+state 235
+	value :  value NEQ_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 305
+	lvalue  goto 122
+
+state 236
+	value :  value GEQ_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 306
+	lvalue  goto 122
+
+state 237
+	value :  value >_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 307
+	lvalue  goto 122
+
+state 238
+	value :  value LOGAND_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 308
+	lvalue  goto 122
+
+state 239
+	value :  value LOGOR_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 309
+	lvalue  goto 122
+
+state 240
+	lvalue :  value ._Name 
+
+	Name  shift 310
+	.  error
+
+
+state 241
+	addCommand :  ADD value =_valueList 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 192
+	lvalue  goto 122
+	valueList  goto 311
+
+state 242
+	lvalue :  lvalue (_value ) 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 312
+	lvalue  goto 122
+
+state 243
+	value :  ? value_    (67)
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  reduce 67
+
+
+state 244
+	value :  - value_    (68)
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  shift 240
+	.  reduce 68
+
+
+state 245
+	value :  ^ value_    (69)
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  shift 240
+	.  reduce 69
+
+
+state 246
+	value :  ~ value_    (70)
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  shift 240
+	.  reduce 70
+
+
+state 247
+	value :  ! value_    (71)
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 71
+
+
+state 248
+	value :  ( value_) 
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	)  shift 313
+	.  error
+
+
+state 249
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  A value_    (88)
+	lvalue :  value_. Name 
+
+	.  reduce 88
+
+
+state 250
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  O value_    (89)
+	lvalue :  value_. Name 
+
+	.  reduce 89
+
+
+state 251
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  R value_    (90)
+	lvalue :  value_. Name 
+
+	.  reduce 90
+
+
+state 252
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  S value_    (91)
+	lvalue :  value_. Name 
+
+	.  reduce 91
+
+
+state 253
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  U value_    (92)
+	lvalue :  value_. Name 
+
+	.  reduce 92
+
+
+state 254
+	aliasCommand :  ALIAS Name =_String 
+
+	String  shift 314
+	.  error
+
+
+state 255
+	contentsCommand :  CONTENTS value FULL_    (109)
+
+	.  reduce 109
+
+
+state 256
+	defineCommand :  defineHead NEWLINE fieldList_ENDDEFINE 
+	fieldList :  fieldList_field NEWLINE 
+
+	ENDDEFINE  shift 315
+	Name  shift 261
+	#  shift 259
+	.  error
+
+	field  goto 316
+	basicField  goto 260
+
+state 257
+	defineCommand :  defineHead NEWLINE ENDDEFINE_    (112)
+
+	.  reduce 112
+
+
+state 258
+	fieldList :  field_NEWLINE 
+
+	NEWLINE  shift 317
+	.  error
+
+
+state 259
+	field :  #_basicField 
+
+	Name  shift 261
+	.  error
+
+	basicField  goto 318
+
+state 260
+	field :  basicField_    (212)
+
+	.  reduce 212
+
+
+state 261
+	basicField :  Name_: fieldType 
+	basicField :  Name_( value ) : fieldType 
+	basicField :  Name_: fieldType = valueList 
+	basicField :  Name_( value ) : fieldType = valueList 
+
+	(  shift 320
+	:  shift 319
+	.  error
+
+
+state 262
+	lvalue :  value ._Name 
+	displayCommand :  DISPLAY value ._    (115)
+
+	Name  shift 310
+	.  reduce 115
+
+
+state 263
+	forCommand :  FOR ALL A_    (124)
+	forCommand :  FOR ALL A_IN value 
+
+	IN  shift 321
+	.  reduce 124
+
+
+state 264
+	forCommand :  FOR ALL O_    (125)
+	forCommand :  FOR ALL O_IN value 
+
+	IN  shift 322
+	.  reduce 125
+
+
+state 265
+	forCommand :  FOR ALL R_    (126)
+
+	.  reduce 126
+
+
+state 266
+	forCommand :  FOR value TO_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 323
+	lvalue  goto 122
+
+state 267
+	griddleCommand :  GRIDDLE value FULL_    (132)
+
+	.  reduce 132
+
+
+state 268
+	listCommand :  LIST value DASH_value ACTIVE 
+	listCommand :  LIST value DASH_value 
+	listCommand :  LIST value DASH_ACTIVE 
+	listCommand :  LIST value DASH_    (142)
+
+	ACTIVE  shift 325
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 142
+
+	value  goto 324
+	lvalue  goto 122
+
+state 269
+	listCommand :  LIST value ACTIVE_    (143)
+
+	.  reduce 143
+
+
+state 270
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	listCommand :  LIST DASH value_ACTIVE 
+	listCommand :  LIST DASH value_    (140)
+
+	ACTIVE  shift 326
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 140
+
+
+state 271
+	listCommand :  LIST DASH ACTIVE_    (145)
+
+	.  reduce 145
+
+
+state 272
+	valueList :  valueList ,_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 327
+	lvalue  goto 122
+
+state 273
+	nameCommand :  NAME Name =_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 328
+	lvalue  goto 122
+
+state 274
+	nukeCommand :  NUKE value DASH_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 329
+	lvalue  goto 122
+
+state 275
+	oracleCommand :  ORACLE value DUMP_    (156)
+
+	.  reduce 156
+
+
+state 276
+	oracleCommand :  ORACLE value SINCE_value 
+	oracleCommand :  ORACLE value SINCE_value DUMP 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 330
+	lvalue  goto 122
+
+state 277
+	oracleCommand :  ORACLE ALL DUMP_    (157)
+
+	.  reduce 157
+
+
+state 278
+	oracleCommand :  ORACLE ALL SINCE_value 
+	oracleCommand :  ORACLE ALL SINCE_value DUMP 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 331
+	lvalue  goto 122
+
+state 279
+	pagesCommand :  PAGES value =_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 332
+	lvalue  goto 122
+
+state 280
+	rawCommand :  RAW value FULL_    (168)
+
+	.  reduce 168
+
+
+state 281
+	readCommand :  READ value ,_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 333
+	lvalue  goto 122
+
+state 282
+	sendmailCommand :  SENDMAIL value FILE_Filename 
+
+	Filename  shift 334
+	.  error
+
+
+state 283
+	sendmailCommand :  SENDMAIL value FROM_value 
+	sendmailCommand :  SENDMAIL value FROM_value FILE Filename 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 335
+	lvalue  goto 122
+
+state 284
+	setCommand :  SET lvalue =_value 
+	setCommand :  SET lvalue =_value ! 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 336
+	lvalue  goto 122
+
+state 285
+	start_loggingCommand :  START_LOGGING Filename CONTINUE_    (182)
+
+	.  reduce 182
+
+
+state 286
+	teleportCommand :  TELEPORT value =_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 337
+	lvalue  goto 122
+
+state 287
+	writeCommand :  WRITE valueList FILE_Filename 
+
+	Filename  shift 338
+	.  error
+
+
+state 288
+	writeCommand :  WRITE FILE Filename_    (208)
+
+	.  reduce 208
+
+
+state 289
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	titlesCommand :  TITLES DASH value_    (191)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 191
+
+
+state 290
+	titlesCommand :  TITLES value DASH_value 
+	titlesCommand :  TITLES value DASH_    (190)
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  reduce 190
+
+	value  goto 339
+	lvalue  goto 122
+
+state 291
+	lvalue :  value ._Name 
+	valueCommand :  VALUE value ._    (197)
+
+	Name  shift 310
+	.  reduce 197
+
+
+state 292
+	voiceCommand :  VOICE value #_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 340
+	lvalue  goto 122
+
+state 293
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	voiceCommand :  VOICE # value_    (200)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 200
+
+
+state 294
+	defineHead :  DEFINE value String_    (113)
+
+	.  reduce 113
+
+
+state 295
+	value :  value_+ value 
+	value :  value + value_    (73)
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 73
+
+
+state 296
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value - value_    (74)
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 74
+
+
+state 297
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value / value_    (75)
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  shift 240
+	.  reduce 75
+
+
+state 298
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value * value_    (76)
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	.  shift 240
+	.  reduce 76
+
+
+state 299
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value & value_    (77)
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 77
+
+
+state 300
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value | value_    (78)
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 78
+
+
+state 301
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value ^ value_    (79)
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 79
+
+
+state 302
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value < value_    (80)
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 80
+
+
+state 303
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value LEQ value_    (81)
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 81
+
+
+state 304
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value EQ value_    (82)
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 82
+
+
+state 305
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value NEQ value_    (83)
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 83
+
+
+state 306
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value GEQ value_    (84)
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 84
+
+
+state 307
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value > value_    (85)
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 85
+
+
+state 308
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value LOGAND value_    (86)
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 86
+
+
+state 309
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	value :  value LOGOR value_    (87)
+	lvalue :  value_. Name 
+
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 87
+
+
+state 310
+	lvalue :  value . Name_    (94)
+
+	.  reduce 94
+
+
+state 311
+	addCommand :  ADD value = valueList_    (100)
+	valueList :  valueList_, value 
+
+	,  shift 272
+	.  reduce 100
+
+
+state 312
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	lvalue :  lvalue ( value_) 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	)  shift 341
+	.  error
+
+
+state 313
+	value :  ( value )_    (72)
+
+	.  reduce 72
+
+
+state 314
+	aliasCommand :  ALIAS Name = String_    (101)
+
+	.  reduce 101
+
+
+state 315
+	defineCommand :  defineHead NEWLINE fieldList ENDDEFINE_    (111)
+
+	.  reduce 111
+
+
+state 316
+	fieldList :  fieldList field_NEWLINE 
+
+	NEWLINE  shift 342
+	.  error
+
+
+state 317
+	fieldList :  field NEWLINE_    (209)
+
+	.  reduce 209
+
+
+state 318
+	field :  # basicField_    (211)
+
+	.  reduce 211
+
+
+state 319
+	basicField :  Name :_fieldType 
+	basicField :  Name :_fieldType = valueList 
+
+	AVAID  shift 351
+	BIN15  shift 345
+	BIN31  shift 346
+	BIT  shift 347
+	BYTE  shift 355
+	CHARACTER  shift 344
+	ENTITY  shift 353
+	FATWORD  shift 352
+	OBJID  shift 350
+	REGID  shift 349
+	VARSTRING  shift 354
+	WORDS  shift 348
+	.  error
+
+	fieldType  goto 343
+
+state 320
+	basicField :  Name (_value ) : fieldType 
+	basicField :  Name (_value ) : fieldType = valueList 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 356
+	lvalue  goto 122
+
+state 321
+	forCommand :  FOR ALL A IN_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 357
+	lvalue  goto 122
+
+state 322
+	forCommand :  FOR ALL O IN_value 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 358
+	lvalue  goto 122
+
+state 323
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	forCommand :  FOR value TO value_    (129)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 129
+
+
+state 324
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	listCommand :  LIST value DASH value_ACTIVE 
+	listCommand :  LIST value DASH value_    (138)
+
+	ACTIVE  shift 359
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 138
+
+
+state 325
+	listCommand :  LIST value DASH ACTIVE_    (141)
+
+	.  reduce 141
+
+
+state 326
+	listCommand :  LIST DASH value ACTIVE_    (139)
+
+	.  reduce 139
+
+
+state 327
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	valueList :  valueList , value_    (230)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 230
+
+
+state 328
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	nameCommand :  NAME Name = value_    (150)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 150
+
+
+state 329
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	nukeCommand :  NUKE value DASH value_    (153)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 153
+
+
+state 330
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	oracleCommand :  ORACLE value SINCE value_    (158)
+	oracleCommand :  ORACLE value SINCE value_DUMP 
+
+	DUMP  shift 360
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 158
+
+
+state 331
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	oracleCommand :  ORACLE ALL SINCE value_    (159)
+	oracleCommand :  ORACLE ALL SINCE value_DUMP 
+
+	DUMP  shift 361
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 159
+
+
+state 332
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	pagesCommand :  PAGES value = value_    (163)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 163
+
+
+state 333
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	readCommand :  READ value , value_    (171)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 171
+
+
+state 334
+	sendmailCommand :  SENDMAIL value FILE Filename_    (176)
+
+	.  reduce 176
+
+
+state 335
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	sendmailCommand :  SENDMAIL value FROM value_    (177)
+	sendmailCommand :  SENDMAIL value FROM value_FILE Filename 
+
+	FILE  shift 362
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 177
+
+
+state 336
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	setCommand :  SET lvalue = value_    (179)
+	setCommand :  SET lvalue = value_! 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	!  shift 363
+	.  reduce 179
+
+
+state 337
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	teleportCommand :  TELEPORT value = value_    (185)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 185
+
+
+state 338
+	writeCommand :  WRITE valueList FILE Filename_    (206)
+
+	.  reduce 206
+
+
+state 339
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	titlesCommand :  TITLES value DASH value_    (189)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 189
+
+
+state 340
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	voiceCommand :  VOICE value # value_    (201)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 201
+
+
+state 341
+	lvalue :  lvalue ( value )_    (95)
+
+	.  reduce 95
+
+
+state 342
+	fieldList :  fieldList field NEWLINE_    (210)
+
+	.  reduce 210
+
+
+state 343
+	basicField :  Name : fieldType_    (213)
+	basicField :  Name : fieldType_= valueList 
+
+	=  shift 364
+	.  reduce 213
+
+
+state 344
+	fieldType :  CHARACTER_    (217)
+
+	.  reduce 217
+
+
+state 345
+	fieldType :  BIN15_    (218)
+
+	.  reduce 218
+
+
+state 346
+	fieldType :  BIN31_    (219)
+
+	.  reduce 219
+
+
+state 347
+	fieldType :  BIT_    (220)
+
+	.  reduce 220
+
+
+state 348
+	fieldType :  WORDS_    (221)
+
+	.  reduce 221
+
+
+state 349
+	fieldType :  REGID_    (222)
+
+	.  reduce 222
+
+
+state 350
+	fieldType :  OBJID_    (223)
+
+	.  reduce 223
+
+
+state 351
+	fieldType :  AVAID_    (224)
+
+	.  reduce 224
+
+
+state 352
+	fieldType :  FATWORD_    (225)
+
+	.  reduce 225
+
+
+state 353
+	fieldType :  ENTITY_    (226)
+
+	.  reduce 226
+
+
+state 354
+	fieldType :  VARSTRING_    (227)
+
+	.  reduce 227
+
+
+state 355
+	fieldType :  BYTE_    (228)
+
+	.  reduce 228
+
+
+state 356
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	basicField :  Name ( value_) : fieldType 
+	basicField :  Name ( value_) : fieldType = valueList 
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	)  shift 365
+	.  error
+
+
+state 357
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	forCommand :  FOR ALL A IN value_    (127)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 127
+
+
+state 358
+	value :  value_+ value 
+	value :  value_- value 
+	value :  value_/ value 
+	value :  value_* value 
+	value :  value_& value 
+	value :  value_| value 
+	value :  value_^ value 
+	value :  value_< value 
+	value :  value_LEQ value 
+	value :  value_EQ value 
+	value :  value_NEQ value 
+	value :  value_GEQ value 
+	value :  value_> value 
+	value :  value_LOGAND value 
+	value :  value_LOGOR value 
+	lvalue :  value_. Name 
+	forCommand :  FOR ALL O IN value_    (128)
+
+	LOGOR  shift 239
+	LOGAND  shift 238
+	<  shift 232
+	>  shift 237
+	EQ  shift 234
+	GEQ  shift 236
+	LEQ  shift 233
+	NEQ  shift 235
+	|  shift 230
+	^  shift 231
+	&  shift 229
+	+  shift 225
+	-  shift 226
+	*  shift 228
+	/  shift 227
+	.  shift 240
+	.  reduce 128
+
+
+state 359
+	listCommand :  LIST value DASH value ACTIVE_    (137)
+
+	.  reduce 137
+
+
+state 360
+	oracleCommand :  ORACLE value SINCE value DUMP_    (160)
+
+	.  reduce 160
+
+
+state 361
+	oracleCommand :  ORACLE ALL SINCE value DUMP_    (161)
+
+	.  reduce 161
+
+
+state 362
+	sendmailCommand :  SENDMAIL value FROM value FILE_Filename 
+
+	Filename  shift 366
+	.  error
+
+
+state 363
+	setCommand :  SET lvalue = value !_    (180)
+
+	.  reduce 180
+
+
+state 364
+	basicField :  Name : fieldType =_valueList 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 192
+	lvalue  goto 122
+	valueList  goto 367
+
+state 365
+	basicField :  Name ( value )_: fieldType 
+	basicField :  Name ( value )_: fieldType = valueList 
+
+	:  shift 368
+	.  error
+
+
+state 366
+	sendmailCommand :  SENDMAIL value FROM value FILE Filename_    (178)
+
+	.  reduce 178
+
+
+state 367
+	basicField :  Name : fieldType = valueList_    (215)
+	valueList :  valueList_, value 
+
+	,  shift 272
+	.  reduce 215
+
+
+state 368
+	basicField :  Name ( value ) :_fieldType 
+	basicField :  Name ( value ) :_fieldType = valueList 
+
+	AVAID  shift 351
+	BIN15  shift 345
+	BIN31  shift 346
+	BIT  shift 347
+	BYTE  shift 355
+	CHARACTER  shift 344
+	ENTITY  shift 353
+	FATWORD  shift 352
+	OBJID  shift 350
+	REGID  shift 349
+	VARSTRING  shift 354
+	WORDS  shift 348
+	.  error
+
+	fieldType  goto 369
+
+state 369
+	basicField :  Name ( value ) : fieldType_    (214)
+	basicField :  Name ( value ) : fieldType_= valueList 
+
+	=  shift 370
+	.  reduce 214
+
+
+state 370
+	basicField :  Name ( value ) : fieldType =_valueList 
+
+	Name  shift 134
+	Number  shift 119
+	Bitstring  shift 121
+	String  shift 120
+	A  shift 129
+	O  shift 130
+	R  shift 131
+	S  shift 132
+	U  shift 133
+	^  shift 125
+	-  shift 124
+	?  shift 123
+	~  shift 126
+	!  shift 127
+	(  shift 128
+	.  error
+
+	value  goto 192
+	lvalue  goto 122
+	valueList  goto 371
+
+state 371
+	basicField :  Name ( value ) : fieldType = valueList_    (216)
+	valueList :  valueList_, value 
+
+	,  shift 272
+	.  reduce 216
+
+
+123/200 terminals, 65/300 nonterminals
+267/600 grammar rules, 372/1000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+176/350 working sets used
+memory: states,etc. 4613/20000, parser 345/12000
+131/600 distinct lookahead sets
+70 extra closures
+2512 shift entries, 1 exceptions
+152 goto entries
+194 entries saved by goto default
+Optimizer space used: input 5265/20000, output 1983/12000
+1983 table entries, 893 zero
+maximum spread: 354, maximum offset: 370

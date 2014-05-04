@@ -1,0 +1,3 @@
+declare type_name entry(binary(15)) returns(character(9) varying);
+declare container_code entry(binary(15)) returns(character);
+declare class_name entry(binary(31)) returns(character(20) varying);

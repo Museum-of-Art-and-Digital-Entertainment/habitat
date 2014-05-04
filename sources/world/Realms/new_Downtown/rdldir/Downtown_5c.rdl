@@ -1,0 +1,152 @@
+@region $ Downtown_5c {
+    north: Downtown_5d.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @ground { x:0; y:4; or:140; style:1; }
+        @vendo_inside { x:12; y:24; or:80; 
+            8:0;
+            9:0;
+            10:0;
+
+            [
+                @vendo_front { x:184; y:0; or:80; 
+                    8:0;
+                    9:0;
+                    10:0;
+                    11:0;
+                    12:0;
+
+                    [
+                        @knick_knack { x:0; y:0; or:0; style:1; 
+                            8:0;
+                        }
+                        @knick_knack { x:1; y:1; or:0; style:2; 
+                            8:0;
+                        }
+                        @knick_knack { x:2; y:2; or:0; style:8; 
+                            8:0;
+                        }
+                        @knick_knack { x:3; y:3; or:0; style:9; 
+                            8:0;
+                        }
+                    ]
+                }
+                @knick_knack { x:1; y:1; or:0; 
+                    8:0;
+                }
+            ]
+        }
+        @vendo_inside { x:60; y:24; or:112; 
+            8:0;
+            9:0;
+            10:0;
+
+            [
+                @vendo_front { x:181; y:0; or:112; 
+                    8:0;
+                    9:0;
+                    10:0;
+                    11:0;
+                    12:0;
+
+                    [
+                        @knick_knack { x:0; y:0; or:0; style:7; 
+                            8:0;
+                        }
+                        @knick_knack { x:1; y:1; or:80; style:10; 
+                            8:0;
+                        }
+                        @knick_knack { x:2; y:2; or:16; style:7; 
+                            8:0;
+                        }
+                        @knick_knack { x:3; y:3; or:0; style:6; 
+                            8:0;
+                        }
+                        @knick_knack { x:4; y:4; or:56; style:10; 
+                            8:0;
+                        }
+                    ]
+                }
+                @knick_knack { x:1; y:1; or:16; style:6; 
+                    8:0;
+                }
+            ]
+        }
+        @vendo_inside { x:108; y:24; or:88; 
+            8:0;
+            9:0;
+            10:0;
+
+            [
+                @vendo_front { x:0; y:0; or:88; 
+                    8:0;
+                    9:0;
+                    10:0;
+                    11:0;
+                    12:0;
+
+                    [
+                        @knick_knack { x:0; y:0; or:0; style:3; gr_state:2; 
+                            8:0;
+                        }
+                        @knick_knack { x:1; y:1; or:8; style:3; gr_state:3; 
+                            8:0;
+                        }
+                        @knick_knack { x:2; y:2; or:56; style:3; 
+                            8:0;
+                        }
+                        @knick_knack { x:3; y:3; or:0; style:3; gr_state:3; 
+                            8:0;
+                        }
+                    ]
+                }
+                @knick_knack { x:1; y:1; or:56; style:4; gr_state:1; 
+                    8:0;
+                }
+            ]
+        }
+        @wall { x:0; y:0; or:252; style:4; }
+        @sign { x:12; y:104; or:0; gr_state:1; 
+            8:128;
+            9:32;
+            10:83;
+            11:116;
+            12:121;
+            13:108;
+            14:101;
+            15:32;
+            16:32;
+            17:32;
+            18:32;
+            19:32;
+            20:32;
+            21:32;
+            22:87;
+            23:97;
+            24:114;
+            25:109;
+            26:116;
+            27:104;
+            28:32;
+            29:32;
+            30:32;
+            31:32;
+            32:32;
+            33:32;
+            34:85;
+            35:115;
+            36:101;
+            37:102;
+            38:117;
+            39:108;
+            40:32;
+            41:32;
+            42:32;
+            43:32;
+            44:32;
+            45:32;
+            46:32;
+            47:32;
+        }
+    ]
+}

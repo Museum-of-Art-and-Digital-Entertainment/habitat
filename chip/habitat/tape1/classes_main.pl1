@@ -1,0 +1,31 @@
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+declare god_tool_revisited         entry;
+declare handle_internal_trace      entry (char(*) var);
+declare identify_players_here      entry returns(bit(1) aligned);
+declare lottery_revisited          entry;
+declare magic_opener_revisited     entry;
+declare process_messager_name      entry;
+declare process_messager_msg       entry;
+declare request_player_list        entry;
+declare set_offline                entry (binary(15));
+declare update_object_disk         entry;
+
+%replace NUMBER_OF_REPLYS by 3; /*This should GROW*/
+declare reply_actions(NUMBER_OF_REPLYS) entry variable external;
+declare reply_strings(NUMBER_OF_REPLYS) character(114) varying static init(
+          'Edit:',
+               /* 1 = God Tool */
+          'Yes?',
+               /* 2 = Magic Opener */
+          'Enter your 3 digit number:'
+               /* 3 = Lottery */
+);
+
+%include 'class_avatar.incl.pl1';
+%include 'class_region.incl.pl1';
+%include 'class_paper.incl.pl1';
+%include 'class_ground.incl.pl1';
+

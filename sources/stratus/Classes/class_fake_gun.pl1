@@ -1,0 +1,77 @@
+/*
+ *   class_fake_gun.pl1
+ *
+ *   Object behavior module for class fake_gun.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_fake_gun: procedure;
+
+     %replace FAKE_GUN_REQUESTS by 5;
+
+     declare a(0:FAKE_GUN_REQUESTS) entry based;
+     declare class_fake_gun_actions pointer;
+     declare 1 fake_gun based %include struct_fake_gun;
+
+     %replace I by CLASS_FAKE_GUN;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = FAKE_GUN_REQUESTS;
+     Class_Table(I).alloc_size = size(fake_gun);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_fake_gun_actions);
+     Class_Table(I).actions = class_fake_gun_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)       = generic_GET;        /* 1 */
+     Class_Table(I).actions->a(PUT)       = generic_PUT;        /* 2 */
+     Class_Table(I).actions->a(THROW)     = generic_THROW;      /* 3 */
+     Class_Table(I).actions->a(FAKESHOOT) = fake_gun_FAKESHOOT; /* 4 */
+     Class_Table(I).actions->a(RESET)     = fake_gun_RESET;     /* 5 */
+
+end initialize_class_fake_gun;
+
+%replace FAKE_GUN_READY by 0;
+%replace FAKE_GUN_FIRED by 1;
+
+fake_gun_FAKESHOOT: procedure;
+     declare 1 self based(selfptr) %include struct_fake_gun;
+     declare success binary(15);
+
+     if (holding(selfptr) & self.state = FAKE_GUN_READY) then do;
+          self.state = FAKE_GUN_FIRED;
+          self.gr_state = FAKE_GUN_FIRED;
+          self.gen_flags(MODIFIED) = true;
+          call n_msg_0(selfptr, FAKESHOOT$);
+          success = TRUE;
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+end fake_gun_FAKESHOOT;
+
+fake_gun_RESET: procedure;
+     declare 1 self based(selfptr) %include struct_fake_gun;
+     declare success binary(15);
+
+     if (holding(selfptr) & self.state = FAKE_GUN_FIRED) then do;
+          self.state = FAKE_GUN_READY;
+          self.gr_state = FAKE_GUN_READY;
+          self.gen_flags(MODIFIED) = true;
+          call n_msg_0(selfptr, RESET$);
+          success = TRUE;
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+end fake_gun_RESET;

@@ -1,0 +1,721 @@
+use region r_9139 {
+  owner: a -1
+  light_level: 0
+  depth: 50
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9140
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use avatar a_867864053 {
+  region: r r_9139
+  container: o 0
+  x: -1
+  y: 129
+  gr_state: 0
+  gr_width: 8
+  genl_flags: '00000000000000000000000000000000'b
+  orient: 0
+  style: 6
+  name: "renfield  "
+  screen_name: "Renfield  "
+  activity: 143
+  action: 0
+  health: 155
+  restrainer: 0
+  custom: 135, 127, 0
+  bank_balance: 33358
+  turf: r r_9139
+  stun_count: 0
+  nitty_bits: '0000000000000000000000000000000'b
+  curse_immune: '0'b
+  true_orient: 0
+  true_head_style: 141
+  true_custom: 39, 224, 0
+  curse_type: 0
+  curse_counter: 0
+}
+use wall o_7052 {
+  container: r r_9139
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use trapezoid o_7053 {
+  container: r r_9139
+  x: 24
+  y: 46
+  style: 0
+  gr_state: 0
+  orient: 53
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 16
+  upper_right_x: 83
+  lower_left_x: 0
+  lower_right_x: 109
+  height: 17
+}
+use trapezoid o_7054 {
+  container: r r_9139
+  x: 24
+  y: 33
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 109
+  lower_left_x: 0
+  lower_right_x: 109
+  height: 13
+}
+use super_trapezoid o_7055 {
+  container: r r_9139
+  x: 160
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 225
+  upper_right_x: 0
+  lower_left_x: 246
+  lower_right_x: 0
+  height: 224
+  pattern_x_size: 3
+  pattern_y_size: 7
+  pattern: 149, 85, 149, 85, 165, 86, 165, 86, 153, 89, 153, 89, 150, 165, 150,
+ 165, 149, 85, 149, 85, 165, 86, 165, 86, 153, 89, 153, 89, 150, 165, 150, 165
+}
+use ground o_7056 {
+  container: r r_9139
+  x: 0
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use glue o_7057 {
+  container: r r_9139
+  x: 36
+  y: 176
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 255
+  y_offset_1: 0
+  x_offset_2: 0
+  y_offset_2: 253
+  x_offset_3: 0
+  y_offset_3: 219
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use trapezoid o_7061 {
+  container: r r_9139
+  x: 8
+  y: 115
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 9
+  lower_left_x: 0
+  lower_right_x: 6
+  height: 138
+}
+use trapezoid o_7062 {
+  container: r r_9139
+  x: 136
+  y: 115
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 254
+  upper_right_x: 7
+  lower_left_x: 1
+  lower_right_x: 8
+  height: 138
+}
+use super_trapezoid o_7065 {
+  container: r r_9139
+  x: 0
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 28
+  lower_left_x: 0
+  lower_right_x: 13
+  height: 224
+  pattern_x_size: 3
+  pattern_y_size: 7
+  pattern: 149, 85, 149, 85, 165, 86, 165, 86, 153, 89, 153, 89, 150, 165, 150,
+ 165, 149, 85, 149, 85, 165, 86, 165, 86, 153, 89, 153, 89, 150, 165, 150, 165
+}
+use chair o_7063 {
+  container: r r_9139
+  x: 8
+  y: 135
+  style: 1
+  gr_state: 0
+  orient: 40
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7064 {
+  container: r r_9139
+  x: 28
+  y: 129
+  style: 1
+  gr_state: 0
+  orient: 72
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7066 {
+  container: r r_9139
+  x: 116
+  y: 135
+  style: 3
+  gr_state: 0
+  orient: 1
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7067 {
+  container: r r_9139
+  x: 136
+  y: 129
+  style: 3
+  gr_state: 0
+  orient: 1
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use amulet o_995 {
+  container: a a_867864053
+  x: 78
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 9
+  magic_data: 6
+}
+use head o_17715 {
+  container: a a_867864053
+  x: 73
+  y: 6
+  style: 141
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use box o_1001477 {
+  container: a a_867864053
+  x: 102
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use spray_can o_1001318 {
+  container: a a_867864053
+  x: 145
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 64
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use tokens o_1002353 {
+  container: a a_867864053
+  x: 0
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  denom: 990
+}
+use paper o_1006666 {
+  container: a a_867864053
+  x: 0
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 0
+}
+use trapezoid o_7058 {
+  container: o o_7057
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 2
+  upper_right_x: 5
+  lower_left_x: 0
+  lower_right_x: 7
+  height: 3
+}
+use trapezoid o_7059 {
+  container: o o_7057
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 255
+  upper_right_x: 0
+  lower_left_x: 255
+  lower_right_x: 0
+  height: 44
+}
+use knick_knack o_7060 {
+  container: o o_7057
+  x: 2
+  y: 2
+  style: 11
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use escape_dev o_999 {
+  container: o o_1001477
+  x: 107
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 1
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  charge: 1900
+}
+use bag o_1001711 {
+  container: o o_1001477
+  x: 65
+  y: 1
+  style: 1
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use box o_17686 {
+  container: o o_1001477
+  x: 64
+  y: 6
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use head o_17682 {
+  container: o o_1001477
+  x: 121
+  y: 2
+  style: 114
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_1001012 {
+  container: o o_1001477
+  x: 51
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use box o_17685 {
+  container: o o_1001477
+  x: 48
+  y: 8
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use head o_17687 {
+  container: o o_1001477
+  x: 144
+  y: 5
+  style: 148
+  gr_state: 2
+  orient: 64
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use paper o_1001325 {
+  container: o o_1001711
+  x: 72
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000111110100'b
+  text_id: 1000203
+}
+use paper o_1001460 {
+  container: o o_1001711
+  x: 0
+  y: 1
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000001'b
+  text_id: 1000238
+}
+use paper o_1001482 {
+  container: o o_1001711
+  x: 0
+  y: 2
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000001000100010101000101010'b
+  text_id: 1000240
+}
+use paper o_1001393 {
+  container: o o_1001711
+  x: 52
+  y: 3
+  style: 0
+  gr_state: 1
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000001000'b
+  text_id: 1000230
+}
+use paper o_1001518 {
+  container: o o_1001711
+  x: 58
+  y: 4
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000001'b
+  text_id: 1000249
+}
+use head o_17681 {
+  container: o o_17686
+  x: 140
+  y: 0
+  style: 113
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17679 {
+  container: o o_17686
+  x: 120
+  y: 1
+  style: 111
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17678 {
+  container: o o_17686
+  x: 108
+  y: 2
+  style: 110
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17688 {
+  container: o o_17686
+  x: 10
+  y: 4
+  style: 126
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17689 {
+  container: o o_17686
+  x: 20
+  y: 5
+  style: 127
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17690 {
+  container: o o_17686
+  x: 32
+  y: 6
+  style: 128
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17691 {
+  container: o o_17686
+  x: 40
+  y: 7
+  style: 129
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17692 {
+  container: o o_17686
+  x: 52
+  y: 8
+  style: 130
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17693 {
+  container: o o_17686
+  x: 64
+  y: 9
+  style: 131
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17668 {
+  container: o o_17685
+  x: 10
+  y: 0
+  style: 100
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17670 {
+  container: o o_17685
+  x: 39
+  y: 2
+  style: 102
+  gr_state: 2
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17673 {
+  container: o o_17685
+  x: 60
+  y: 5
+  style: 105
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17675 {
+  container: o o_17685
+  x: 80
+  y: 7
+  style: 107
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17674 {
+  container: o o_17685
+  x: 70
+  y: 6
+  style: 106
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17680 {
+  container: o o_17685
+  x: 133
+  y: 9
+  style: 112
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17694 {
+  container: o o_17685
+  x: 29
+  y: 3
+  style: 132
+  gr_state: 2
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_1001047 {
+  container: o o_17685
+  x: 75
+  y: 8
+  style: 32
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_17672 {
+  container: o o_17685
+  x: 50
+  y: 4
+  style: 104
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

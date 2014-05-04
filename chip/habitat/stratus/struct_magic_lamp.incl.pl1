@@ -1,0 +1,17 @@
+/*
+ *   struct_magic_lamp.incl.pl1
+ *
+ *   Struct stub for magic_lamp instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   13-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   lamp_state     binary(15),
+           3   wisher         binary(15),
+/* Host private: */
+           3   timeout        pointer,
+           3   live           bit(1);

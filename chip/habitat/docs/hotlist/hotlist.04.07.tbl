@@ -1,0 +1,212 @@
+.ds Dq April 7, 1987
+.LP
+This page intentionally bogus.
+.ds LH HABITAT
+.ds CH \\*(Dq
+.ds RH HOT LIST
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.pn 1
+.bp
+.CD
+\fB\s+8Habitat Task List \(em \*(Dq\s-8\fR
+.DE
+.sp 2
+.SH
+\s+3Beta-test Prequisite Implementation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+119:Regionproc process error recovery:1:work:h:j:3 dy:3/13:??
+
+12:Cleanup existing world database:2:96%:w:ar:\(em:11/13:ongoing
+
+24:Reset database for beta release:2:pending:w:cr:.5 hr:12/2:beta
+
+91:Turn on bandwidth reduction:4:works:hp:j:\(em:3/13:beta
+.TE
+.sp
+.SH
+\s+3Current bugs\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l
+l n l l l l n .
+Bug:Prio:Status:Eff:Who:Updated:In rev
+_:_:_:_:_:_:_
+Premature host hangup on CRC errors:\(em:fixed:h:j:4/7:4.5
+
+C64 dropping packets during heavy traffic:\(em:fixed:p:r:4/7:4.5
+.TE
+.sp
+.SH
+\s+3Beta-test Prequisite Design & Documentation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+5:Finish players' manual (add illustrations):1:95%:d:c ga:??:2/2:??
+
+5a:Revise manual text for release:1:ver 4.3:d:c:\(em:3/13:ongoing
+.TE
+.sp
+.SH
+\s+3Implementation Tasks To Be Completed During Beta-Test\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+109:Synchronize Avatar appearance in region among players:2:done:pih:rc:\(em:3/26:\(em
+
+46:Install Cooties game:2:done:wh:ca r:\(em:4/7:\(em
+
+77:Make book HELP give title:2:pending:h:c j:1 dy:2/19:**
+
+45:Implement game show:3:designed:wh:a r:1 dy:2/19:**
+
+29:Generate, upload and install Capture-The-Flag regions:4:50%:w:ra:3 dy:3/2:**
+
+43:Implement Capture-The-Flag entry and exit daemons:4:pretest:h:a rc:1 dy:3/13:**
+
+47:Install Quest For Tome Of Wealth And Fame:4:design:wh:r c:.5 dy:2/19:**
+
+44:Implement database fragment copy function:2:pending:u:j:2 dy:2/19:??
+
+56:Implement teleport entry database utility:2:pending:u:j:1 dy:2/19:??
+
+19a:Run D'nalsi Island adventure:2:ready:w:r:??:2/2:??
+
+20a:Run Region Rally:2:ready:w:r:??:2/2:??
+
+21a:Create program to generate Book Of Records:2:pending:h:jc:??:3/13:??
+
+58a:Run talk show:3:ready:w:a r:??:3/13:??
+
+59a:Run theaters:3:ready:w:a r:??:3/13:??
+
+120:Tune communications throttle:2:95%:p:r:\(em:3/2:ongoing
+.TE
+.sp
+.SH
+\s+3Design & Documentation Tasks To Be Completed During Beta-Test\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+28:Determine powers and privileges of Adventure Masters:2:\(*b-input:d:rca:2 dy:3/13:??
+
+48:Write Guidebook To The Oracle:3:\(*b-input:d:c:3 dy:3/13:??
+.TE
+.sp
+.SH
+\s+3Public Release Prequisite Implementation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+50:Design and implement stock market game:3:50%:dwh:r:2 dy:1/29:**
+
+53:Generate first 20K turves and related infrastructure:3:pending:w:acr:5 dy:3/17:3/27
+
+54:Implement Ghu:3:20%:u:j c:5 dy:4/7:??
+
+55:Implement apartment generator:3:use:u:c:3 dy:3/17:3/27
+
+63:Implement Adventure Master support software:4:pending:h:j c:??:1/29:??
+
+64:Start Machiavelli:4:pending:w:cra:??:3/17:4/3
+.TE
+.sp
+.SH
+\s+3Public Release Prequisite Design & Documentation Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+49:Design Machiavelli:3:50%:d:c:2 dy:1/29:**
+
+51:Design quest for product launch:3:pending:dw:rca n:??:1/29:4/3
+
+52:Draft Adventure Masters' manual:3:pending:d:cr:5 dy:1/29:3/27
+
+85:Re-evaluate online text based on beta feedback:3:pending:hd:c:??:1/29:4/3
+.TE
+.sp
+.SH
+\s+3Optional Tasks\s-3
+.LP
+.TS
+tab (:) ;
+l l l l l l l l l
+n l n l l l l l l .
+#:Task:Prio:Status:Eff:Who:Time:Updat:Target
+_:_:_:_:_:_:_:_:_
+125:Make file upload to host automatic:2:pending:u:rc:??:3/13:??
+
+3:Create user map of downtown:1:QL input:d:c g:1 dy:12/19:??
+
+36:Make vendo HELP describe item on display:2:testing:h:c:.5 dy:3/26:??
+
+113:Add repeat-delete, graphics chars to text input handler:4:done:p:r:\(em:4/7:\(em
+
+114:Make GO from chair work without pointing to chair:4:done:pi:ar:\(em:4/7:\(em
+
+60:Change changomatic to alter houses outside turf:4:test:h:c:1 hr:2/11:??
+
+65:Create Auto-Oracle:5:pending:hu:c:5 dy:11/5:??
+
+66:Implement stochastic region generator:5:pending:u:c:3 dy:11/3:??
+.TE
+.sp
+.SH
+\s+3Key\s-3
+.LP
+\fI#\fR \(em Task number \(em an arbitrary number assigned for tracking
+purposes.
+.LP
+\fITask\fR \(em a short description of the task.
+.LP
+\fIPrio\fR \(em relative priority of task in the range 1 to 5:
+1\(rhimmediately vital, 2\(rhessential but not immediately so, 3\(rhimportant,
+4\(rhwill have to wait for more important items first, 5\(rhdesirable someday
+if we have the time.
+.LP
+\fIStatus\fR \(em current status of task.
+.LP
+\fIEff\fR \(em which portions of the system this task effects:
+p\(rhCommodore 64 program disk, i\(rhCommodore 64 image disk, h\(rhhost
+system, d\(rhdesign or documentation, w\(rhworld database, u\(rhStratus or
+Unix based utilities.
+.LP
+\fIWho\fR \(em who is responsible for performing this task: c\(rhChip
+Morningstar, r\(rhRandy Farmer, a\(rhAric Wilmunder, j\(rhJanet Hunter,
+g\(rhGary Winnick, n\(rhNoah Falstein.  Names are listed in order of
+importance to task.  Names after a space are secondary personnel for task.
+.LP
+\fITime \fR \(em how much time this task should take to complete, once
+started.
+.LP
+\fIUpdat\fR \(em date that this task's entry in this list was last updated.
+.LP
+\fITarget\fR \(em target date for completion of this task.

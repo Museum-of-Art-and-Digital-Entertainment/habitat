@@ -1,0 +1,470 @@
+/*
+ * class.pl1 -- Routines to handle class definitions for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 12-May-1987
+ *
+ * These routines handle the description of classes.  These descriptions
+ * control the names, dimensions and data types of the various fields of
+ * class descriptors.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'tables.incl.pl1';
+%include 'display.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'world.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'value_struct.incl.pl1';
+
+%replace CLASS_OBJECT by -1;
+%replace CLASS_REGION by 0;
+%replace CLASS_AVATAR by 1;
+declare class_fields(CLASS_OBJECT:MAX_CLASS) pointer static init((257) null()) external;
+declare class_field_count(CLASS_OBJECT:MAX_CLASS) binary(15) static init((257) 0) external;
+declare class_strings(CLASS_OBJECT:MAX_CLASS) character(20) varying static external;
+declare class_size(CLASS_OBJECT:MAX_CLASS) binary(15) static init((257) 0) external;
+
+%replace OBJECT_OFFSET_TAG by 10000;
+declare object_base_offset binary(15) static external init(0);
+
+declare class_info_changed bit(1) static external;
+
+declare 1 class_io static,
+          2 name        character(20) varying,
+          2 field_count binary(15);
+
+declare 1 define_tag_descriptor based,
+          2 class     binary(31),
+          2 name      binary(31);
+
+read_class_info: procedure returns(bit(1));
+     declare info_fyle file;
+     declare field binary(15);
+     declare class binary(15);
+     declare 1 field_io like field_io_descriptor;
+     declare 1 in_field like field_descriptor;
+     declare i binary(15);
+     declare length binary(15);
+     declare dummyptr pointer;
+
+     on undefinedfile(info_fyle) goto info_read_failure;
+     open file(info_fyle) title('#d010>lucas>toolbox>ghu_class_info.dat')
+          record input sequential;
+     on endfile(info_fyle) goto info_read_failure;
+     do class = CLASS_OBJECT to MAX_CLASS;
+          read file(info_fyle) into(class_io);
+          class_field_count(class) = class_io.field_count;
+          class_strings(class) = class_io.name;
+          if (class_io.name ^= '?????') then do;
+               dummyptr = define_symbol(translate(class_io.name, '_', ' '),
+                    SYM$INTEGER, (class), false);
+          end;
+          if (class_io.field_count < 1) then do;
+               class_fields(class) = null();
+               class_size(class) = object_base_offset;
+          end; else do;
+               class_fields(class) = alloc(size(field_descriptor) *
+                    class_io.field_count, 1);
+               do field = 1 to class_io.field_count;
+                    read file(info_fyle) into(field_io);
+                    in_field.name = lookup_or_install_symbol(field_io.name);
+                    in_field.dimension = field_io.dimension;
+                    in_field.data_type = field_io.data_type;
+                    in_field.offset = field_io.offset;
+                    in_field.invisible = field_io.invisible;
+                    if (class > CLASS_AVATAR) then
+                         in_field.offset = in_field.offset + OBJECT_OFFSET_TAG;
+                    else if (class = CLASS_OBJECT) then
+                         object_base_offset = in_field.offset;
+                    length = byte_size(in_field.data_type,in_field.dimension);
+                    if (mod(length, 2) = 1) then length = length + 1;
+                    in_field.init_value = alloc(length * 8, 2);
+                    do i = 1 to divide(length, 2, 15);
+                         read file(info_fyle) into(in_field.init_value->
+                              pbin15(i));
+                    end;
+                    class_fields(class)->pfield_descriptor(field) = in_field;
+               end;
+               if (class > CLASS_AVATAR) then do;
+                    class_size(class) =
+                         mod(in_field.offset - OBJECT_OFFSET_TAG, 256) +
+                         byte_size(in_field.data_type, in_field.dimension) +
+                         object_base_offset;
+               end; else
+                    class_size(class) = mod(in_field.offset, 256) +
+                         byte_size(in_field.data_type, in_field.dimension);
+          end;
+     end;
+     close file(info_fyle);
+     return(true);
+
+info_read_failure:
+     call error('reading class info file');
+     return(false);
+end read_class_info;
+
+write_class_info: procedure;
+     declare info_fyle file;
+     declare field binary(15);
+     declare class binary(15);
+     declare 1 field_io like field_io_descriptor;
+     declare 1 out_field like field_descriptor;
+     declare i binary(15);
+     declare length binary(15);
+     declare zero binary(15) static init(0);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     on undefinedfile(info_fyle) goto info_write_failure;
+     open file(info_fyle) title('#d010>lucas>toolbox>ghu_class_info.dat')
+          record output sequential;
+     do class = CLASS_OBJECT to MAX_CLASS;
+          class_io.field_count = class_field_count(class);
+          class_io.name = class_strings(class);
+          write file(info_fyle) from(class_io);
+          if (class_io.field_count > 0) then do;
+               do field = 1 to class_io.field_count;
+                    out_field = class_fields(class)->pfield_descriptor(field);
+                    symbolptr = out_field.name;
+                    field_io.name = symbol.symbol_nameptr->symbol_name;
+                    field_io.dimension = out_field.dimension;
+                    field_io.data_type = out_field.data_type;
+                    field_io.offset = out_field.offset;
+                    field_io.invisible = out_field.invisible;
+                    if (class > CLASS_AVATAR) then
+                        field_io.offset = field_io.offset - OBJECT_OFFSET_TAG;
+                    write file(info_fyle) from(field_io);
+                    length = byte_size(out_field.data_type, out_field.dimension);
+                    if (mod(length, 2) = 1) then length = length + 1;
+                    do i = 1 to divide(length, 2, 15);
+                         if (out_field.init_value = null()) then
+                              write file(info_fyle) from(zero);
+                         else
+                              write file(info_fyle) from(out_field.
+                                   init_value->pbin15(i));
+                    end;
+               end;
+          end;
+     end;
+     close file(info_fyle);
+     return;
+
+info_write_failure:
+     call error('writing class info file');
+end write_class_info;
+
+build_define_tag: procedure(classnum, namenum) returns(binary(31));
+     declare classnum binary(31);
+     declare namenum binary(31);
+     declare newtagptr pointer;
+     declare 1 newtag based(newtagptr) like define_tag_descriptor;
+
+     newtagptr = alloc(size(define_tag_descriptor), 3);
+     newtag.class = classnum;
+     newtag.name = namenum;
+     return(p2i(newtagptr));
+end build_define_tag;
+
+build_field_list: procedure(fieldnum, listnum) returns(binary(31));
+     declare fieldnum binary(31);
+     declare listnum binary(31);
+     declare newlistptr pointer;
+     declare 1 newlist based(newlistptr) like field_list_descriptor;
+     declare chaserptr pointer;
+     declare 1 chaser based(chaserptr) like field_list_descriptor;
+     declare oldchaserptr pointer;
+     declare 1 oldchaser based(oldchaserptr) like field_list_descriptor;
+
+     newlistptr = alloc(size(field_list_descriptor), 4);
+     newlist.field = fieldnum;
+     newlist.next = null();
+     if (listnum = NULL) then
+          return(p2i(newlistptr));
+     else do;
+          chaserptr = i2p(listnum);
+          oldchaserptr = null();
+          do while (chaserptr ^= null());
+               oldchaserptr = chaserptr;
+               chaserptr = chaser.next;
+          end;
+          oldchaser.next = newlistptr;
+          return(listnum);
+     end;
+end build_field_list;
+
+build_field: procedure(namenum, dimensionnum, data_type, initnum) returns(binary(31));
+     declare namenum binary(31);
+     declare dimensionnum binary(31);
+     declare data_type binary(31);
+     declare initnum binary(31);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like input_field_descriptor;
+
+     resultptr = alloc(size(field_descriptor), 5);
+     result.name = i2p(namenum);
+     result.dimension = dimensionnum;
+     result.data_type = data_type;
+     result.initial_value = initnum;
+     result.invisible = 0;
+     return(p2i(resultptr));
+end build_field;
+
+invisify: procedure(fieldnum) returns(binary(31));
+     declare fieldnum binary(31);
+
+     i2p(fieldnum)->input_field_descriptor.invisible = 1;
+     return(fieldnum);
+end invisify;
+
+c$class: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare class binary(31);
+     declare i binary(15);
+     declare fieldptr pointer;
+     declare 1 field(1) based(fieldptr) like field_descriptor;
+     declare field_type_strings(12) character(9) varying static init(
+          'character', 'bin15', 'bin31', 'bit', 'words', 'avaid', 'objid',
+          'regid', 'fatword', 'entity', 'byte', 'varstring');
+
+     valueptr = eval(arg1);
+     class = value.value;
+     if (value.data_type = SYM$UNDEFINED) then
+          call error('undefined value');
+     else if (value.data_type ^= SYM$INTEGER) then
+          call error('improper data type for class number');
+     else if (class < CLASS_OBJECT | MAX_CLASS < class) then
+          call error('class number out of range');
+     else do;
+          call putchar(NEWLINE);
+          call putline('---- Class ' || ltrim(class) || ' (' ||
+               class_name(class) || ') ----');
+          if (class_field_count(class) > 0) then do;
+               fieldptr = class_fields(class);
+               do i = 1 to class_field_count(class);
+                    if (field(i).invisible = 1) then
+                         call putstr('# ');
+                    else
+                         call putstr('  ');
+                    call putstr(field(i).name->symbol_table_entry.
+                         symbol_nameptr->symbol_name);
+                    if (field(i).dimension > 1) then
+                         call putstr('(' || ltrim(field(i).dimension) ||
+                              ')');
+                    call putcol(':', 27);
+                    call putstr(field_type_strings(field(i).data_type));
+                    if (field(i).init_value ^= null()) then do;
+                         call putstr(' = ');
+                         call output_field_values(field(i).init_value,
+                              field(i).dimension, field(i).data_type, 0);
+                    end;
+                    call putchar(NEWLINE);
+               end;
+          end;
+          call putchar(NEWLINE);
+     end;
+     call free(valueptr);
+end c$class;
+
+c$define: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare tagptr pointer;
+     declare 1 tag based(tagptr) like define_tag_descriptor;
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare stringptr pointer;
+     declare string character(256) varying based(stringptr);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare class binary(15);
+     declare class_data_type binary(15);
+     declare field_count binary(15);
+     declare field_listptr pointer;
+     declare 1 field_list based(field_listptr) like field_list_descriptor;
+     declare new_fieldsptr pointer;
+     declare 1 new_fields(1) based(new_fieldsptr) like field_descriptor;
+     declare infieldptr pointer;
+     declare 1 infield based(infieldptr) like input_field_descriptor;
+     declare byte_offset binary(15);
+     declare bit_offset binary(15);
+     declare dimension binary(15);
+     declare intype binary(15);
+
+     tagptr = i2p(arg1);
+     valueptr = eval(tag.class);
+     class = value.value;
+     class_data_type = value.data_type;
+     call free(valueptr);
+     if (class_data_type = SYM$UNDEFINED) then
+          call error('undefined value');
+     else if (class_data_type ^= SYM$INTEGER) then
+          call error('improper data type for class number');
+     else if (class < -1 | MAX_CLASS < class) then
+          call error('class number out of range');
+     else do;
+          field_listptr = i2p(arg2);
+          field_count = 0;
+          do while (field_listptr ^= null());
+               field_count = field_count + 1;
+               field_listptr = field_list.next;
+          end;
+          if (field_count > 0) then
+               new_fieldsptr = alloc(size(field_descriptor) * field_count, 6);
+          else
+               new_fieldsptr = null();
+
+          field_listptr = i2p(arg2);
+          field_count = 0;
+          if (class > CLASS_AVATAR) then
+               byte_offset = OBJECT_OFFSET_TAG;
+          else
+               byte_offset = 0;
+          bit_offset = 0;
+          do while (field_listptr ^= null());
+               field_count = field_count + 1;
+               infieldptr = i2p(field_list.field);
+               valueptr = eval(infield.dimension);
+               if (value.data_type ^= SYM$INTEGER) then do;
+                    call error('improper data type for field dimension');
+                    call free(valueptr);
+                    call free(new_fieldsptr);
+                    return;
+               end;
+               dimension = value.value;
+               call free(valueptr);
+               intype = infield.data_type;
+               new_fields(field_count).name = infield.name;
+               new_fields(field_count).dimension = dimension;
+               new_fields(field_count).data_type = intype;
+               new_fields(field_count).invisible = infield.invisible;
+               if (intype ^= FIELD$BIT & bit_offset > 0) then do;
+                    byte_offset = byte_offset + 2;
+                    bit_offset = 0;
+               end;
+               new_fields(field_count).offset = byte_offset + 256*bit_offset;
+               new_fields(field_count).init_value = fill_in_init(intype,
+                    dimension, infield.initial_value);
+               if (class = CLASS_OBJECT) then
+                    object_base_offset = byte_offset;
+               if (intype = FIELD$BIT) then do;
+                    bit_offset = bit_offset + dimension;
+                    do while (bit_offset > 16);
+                         bit_offset = bit_offset - 16;
+                         byte_offset = byte_offset + 2;
+                    end;
+               end; else do;
+                    if (intype ^= FIELD$CHARACTER & intype ^= FIELD$BYTE) then
+                         if (mod(byte_offset, 2) ^= 0) then
+                              byte_offset = byte_offset + 1;
+                    byte_offset = byte_offset + byte_size(intype, dimension);
+               end;
+               field_listptr = field_list.next;
+          end;
+          class_size(class) = byte_offset;
+          if (class > 1) then
+               class_size(class) = class_size(class) + object_base_offset;
+          if (class_fields(class) ^= null()) then
+               call free(class_fields(class));
+          class_fields(class) = new_fieldsptr;
+          class_field_count(class) = field_count;
+          stringptr = i2p(tag.name);
+          class_strings(class) = substr(string, 1, length(string));
+          symbolptr = lookup_or_install_symbol(translate(class_strings(class),
+               '_', ' '));
+          symbol.symbol_type = SYM$INTEGER;
+          symbol.symbol_value = class;
+          class_info_changed = true;
+     end;
+end c$define;
+
+fill_in_init: procedure(intype, dimension, init_valuenum) returns(pointer);
+     declare intype binary(15);
+     declare dimension binary(15);
+     declare init_valuenum binary(31);
+     declare init_valueptr pointer;
+     declare 1 init_value based(init_valueptr) like value_list_descriptor;
+     declare valueptr pointer;
+     declare size binary(15);
+     declare result pointer;
+     declare dummy bit(1);
+     declare i binary(15);
+
+     init_valueptr = i2p(init_valuenum);
+     size = byte_size(intype, dimension);
+     result = alloc(size * 8, 7);
+     if (intype = FIELD$CHARACTER | intype = FIELD$WORDS) then do;
+          if (init_valueptr = null()) then do;
+               valueptr = null_value(intype);
+               dummy = assign_field(result, 1, 0, true, intype, dimension,
+                    valueptr);
+               call free(valueptr);
+               return(result);
+          end; else if (init_value.next = null()) then do;
+               valueptr = eval(init_value.value);
+               dummy = assign_field(result, 1, 0, true, intype, dimension,
+                    valueptr);
+               call free(valueptr);
+               return(result);
+          end;
+     end;
+     i = 1;
+     do while (i <= dimension & init_valueptr ^= null());
+          valueptr = eval(init_value.value);
+          dummy = assign_field(result, i, 0, false, intype, dimension,
+               valueptr);
+          call free(valueptr);
+          init_valueptr = init_value.next;
+          i = i + 1;
+     end;
+     do while (i <= dimension);
+          valueptr = null_value(intype);
+          dummy = assign_field(result, i, 0, false, intype, dimension,
+               valueptr);
+          call free(valueptr);
+          i = i + 1;
+     end;
+     if (init_valueptr ^= null()) then
+          call error('too many initial values supplied');
+     return(result);
+end fill_in_init;
+
+byte_size: procedure(type, dimension) returns(binary(15));
+     declare type binary(15);
+     declare dimension binary(15);
+     declare result binary(15);
+
+     if (type = FIELD$CHARACTER | type = FIELD$BYTE) then
+          result = dimension;
+     else if (type = FIELD$BIN15 | type = FIELD$WORDS) then
+          result = dimension * 2;
+     else if (type = FIELD$BIT) then
+          result = divide(dimension+15, 16, 15) * 2;
+     else if (type = FIELD$ENTITY) then
+          result = dimension * 6;
+     else
+          result = dimension * 4;
+     return(result);
+end byte_size;
+
+null_value: procedure(type) returns(pointer);
+     declare type binary(15);
+     declare empty_string character(1) varying static init('');
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like value_descriptor;
+
+     resultptr = create_value(SYM$INTEGER, 0);
+     if (type = FIELD$WORDS | type = FIELD$CHARACTER) then do;
+          result.data_type = SYM$STRING;
+          result.value = p2i(addr(empty_string));
+     end;
+     return(resultptr);
+end null_value;

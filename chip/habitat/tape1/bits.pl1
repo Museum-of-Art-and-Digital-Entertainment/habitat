@@ -1,0 +1,62 @@
+/*
+ *   bits.pl1
+ *
+ *   Bit twiddling routines for PL/1.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+
+declare bits(15) bit(15) static init(
+          '000000000000001'b,
+          '000000000000010'b,
+          '000000000000100'b,
+          '000000000001000'b,
+          '000000000010000'b,
+          '000000000100000'b,
+          '000000001000000'b,
+          '000000010000000'b,
+          '000000100000000'b,
+          '000001000000000'b,
+          '000010000000000'b,
+          '000100000000000'b,
+          '001000000000000'b,
+          '010000000000000'b,
+          '100000000000000'b);
+
+clear_bit: procedure(num, the_bit);
+     declare num binary(15);
+     declare the_bit binary(15);
+
+     num = bool(bit(num), bits(the_bit), '0010'b);
+end clear_bit;
+
+set_bit: procedure(num, the_bit);
+     declare num binary(15);
+     declare the_bit binary(15);
+
+     num = bool(bit(num), bits(the_bit), '0111'b);
+end set_bit;
+
+test_bit: procedure(num, the_bit) returns(bit(1) aligned);
+     declare num binary(15);
+     declare the_bit binary(15);
+
+     return (bool(bit(num), bits(the_bit), '0001'b) ^= '000000000000000'b);
+end test_bit;
+
+and_bit: procedure(num1, num2) returns(binary(15));
+     declare num1 binary(15);
+     declare num2 binary(15);
+
+     return(bool(bit(num1), bit(num2), '0001'b));
+end and_bit;
+
+or_bit: procedure(num1, num2) returns(binary(15));
+     declare num1 binary(15);
+     declare num2 binary(15);
+
+     return(bool(bit(num1), bit(num2), '0111'b));
+end or_bit;

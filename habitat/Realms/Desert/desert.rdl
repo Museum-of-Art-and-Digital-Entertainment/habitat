@@ -1,0 +1,34 @@
+include "../../riddle/beta_objects.rdl";
+include "desert_regions.rdl";
+
+
+include "rdldir/Desert_1a.rdl";
+include "rdldir/Desert_1b.rdl";
+include "rdldir/Desert_1c.rdl";
+include "rdldir/Desert_1d.rdl";
+include "rdldir/Desert_1e.rdl";
+include "rdldir/Desert_1f.rdl";
+include "rdldir/Desert_2a.rdl";
+include "rdldir/Desert_2b.rdl";
+include "rdldir/Desert_2c.rdl";
+include "rdldir/Desert_2d.rdl";
+include "rdldir/Desert_2e.rdl";
+include "rdldir/Desert_2f.rdl";
+include "rdldir/Desert_3a.rdl";
+include "rdldir/Desert_3b.rdl";
+include "rdldir/Desert_3c.rdl";
+include "rdldir/Desert_3d.rdl";
+include "rdldir/Desert_3e.rdl";
+include "rdldir/Desert_3f.rdl";
+include "rdldir/Desert_4a.rdl";
+include "rdldir/Desert_4b.rdl";
+include "rdldir/Desert_4c.rdl";
+include "rdldir/Desert_4d.rdl";
+include "rdldir/Desert_4e.rdl";
+include "rdldir/Desert_4f.rdl";
+include "rdldir/Desert_5a.rdl";
+include "rdldir/Desert_5b.rdl";
+include "rdldir/Desert_5c.rdl";
+include "rdldir/Desert_5d.rdl";
+include "rdldir/Desert_5e.rdl";
+include "rdldir/Desert_5f.rdl";

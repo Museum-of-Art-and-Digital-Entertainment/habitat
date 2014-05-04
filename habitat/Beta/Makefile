@@ -1,0 +1,12 @@
+
+muddle:
+	/u0/chip/habitat/muddle/muddle < beta.mud > beta.list
+	getpic 0 7800 <image.dat >image1.dat
+	getpic 7800 7800 <image.dat >image2.dat
+	getpic 0 7800 <head.dat >head1.dat
+	getpic 7800 6500 <head.dat >head2.dat
+
+charset:
+	macross -p on_disk_charset.m
+	loadrom -q -p 0 -t < m.out > on_disk_charset.dat
+	

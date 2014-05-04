@@ -1,0 +1,379 @@
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      5024    98 (glue)          32  41     0     0     1   0              
+      5032    98 (glue)          32  41     0     0     1   0              
+      5039    86 (vendo inside)  28 146     1   252     1   0              
+      5042    82 (windup toy)     0   0     0    16     0   0              
+   1000415    43 (knick knack)   74 146    10    80     0   3              
+      5025    43 (knick knack)    0   0    12    88     0   3        5024/o
+      5026    43 (knick knack)    2   2    12    80     0   3        5024/o
+      5027    43 (knick knack)    1   1    12    96     0   3        5024/o
+      5028    43 (knick knack)    3   3    12    48     0   3        5024/o
+      5029    43 (knick knack)    4   4    12    64     0   3        5024/o
+      5030    43 (knick knack)    5   5    12    16     0   3        5024/o
+      5033     7 (ball)           0   0     1     0     0   0        5032/o
+      5034     7 (ball)           1   1     1     0     0   0        5032/o
+      5035     7 (ball)           2   2     1     0     0   0        5032/o
+      5036    44 (knife)          3   3     0    16     0  24        5032/o
+      5037    44 (knife)          4   4     0    48     0  24        5032/o
+      5038    44 (knife)          5   5     0     0     0  24        5032/o
+      5040    85 (vendo front)    0   0     1     0     0   0        5039/o
+      5041    82 (windup toy)     1   1     0     8     0   0        5039/o
+      5043    82 (windup toy)     1   0     0     0     1   0        5040/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      5046    98 (glue)          32  41     0     0     1   0              
+      5054    98 (glue)          32  41     0     0     1   0              
+      5061    86 (vendo inside) 108 146     1   252     1   0              
+      5069    43 (knick knack)    0   0    10    48     0   3              
+      5047    43 (knick knack)    0   0    12   236     0   3        5046/o
+      5048    43 (knick knack)    2   2    12     0     0   3        5046/o
+      5049    43 (knick knack)    1   1    12    16     0   3        5046/o
+      5050    43 (knick knack)    3   3    12    32     0   3        5046/o
+      5051    43 (knick knack)    4   4    12    56     0   3        5046/o
+      5052    43 (knick knack)    5   5    12    80     0   3        5046/o
+      5055     7 (ball)           0   0     1     0     0   0        5054/o
+      5056     7 (ball)           1   1     1     0     0   0        5054/o
+      5057     7 (ball)           2   2     1     0     0   0        5054/o
+      5058    44 (knife)          3   3     0    16     0  24        5054/o
+      5059    44 (knife)          4   4     0    48     0  24        5054/o
+      5060    44 (knife)          5   5     0     0     0  24        5054/o
+      5062    85 (vendo front)    0   0     1     0     0   0        5061/o
+      5070    43 (knick knack)    1   1     2     0     0   3        5061/o
+      5065    43 (knick knack)    1   1     2    48     0   3        5062/o
+      5064    43 (knick knack)    2   2     2    16     0   3        5062/o
+      5068    43 (knick knack)    3   3    10    40     0   3        5062/o
+      5067    43 (knick knack)    4   4    10    16     0   3        5062/o
+      5063    43 (knick knack)    5   5     2     8     0   3        5062/o
+      5066    43 (knick knack)    6   6    10     0     0   3        5062/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      6292    69 (sky)            0   0     4     0     0   0              
+      6293    86 (vendo inside)  72  32     0   236     0   0              
+      6296   127 (head)           0   0    10    16     0   0              
+      6303   133 (bush)          24  31     3     0     1  12              
+      6307   133 (bush)           4 153     3    16     1  12              
+      6308   133 (bush)         104 131     3    32     1  12              
+      6310   133 (bush)          36  37     3     0     1  12              
+      6294    85 (vendo front)    0   0     0   236     0   0        6293/o
+      6300   127 (head)           2   1    24     0     0   0        6293/o
+      6299   127 (head)           3   3    14    16     0   0        6294/o
+      6295   127 (head)           4   4    19     0     0   0        6294/o
+      6297   127 (head)           5   5    72    56     1   0        6294/o
+      6301   127 (head)           6   6   102     8     0   0        6294/o
+      6302   127 (head)           1   0    12     0     1   0        6294/o
+      6298   127 (head)           1   1     8     0     0   0        6294/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+ 139423239     1 (avatar)        -1 145     0     5     0   8              
+ 791103546     1 (avatar)        76 129     0    51    64   8              
+      6616    86 (vendo inside)  48  19     0     0     1   0              
+      6621    86 (vendo inside)  88  19     0     0     1   0              
+   1001122    47 (magic wand)    85   3     0     0     0   0   139423239/a
+   1002421    54 (paper)          0   4     0    16     0   0   139423239/a
+      1735    44 (knife)         72   1     0     8     0  24   139423239/a
+   1000060   127 (head)          57   6     4     0     0   0   139423239/a
+   1002397    47 (magic wand)    67   2     1     1     0   0   139423239/a
+   1002468    76 (tokens)         0   0     0     0     0   0   139423239/a
+   1002706    76 (tokens)         0   0     0     0     0   0   791103546/a
+   1002707    54 (paper)          0   4     0    16     0   0   791103546/a
+   1002683    13 (box)           30   1     0   112     0  20   791103546/a
+      6617    85 (vendo front)    0   0     0     0     2   0        6616/o
+      6619    43 (knick knack)    1   1    10    24     0   3        6616/o
+      6622    85 (vendo front)    0   0     0     0     2   0        6621/o
+      6624    95 (spray can)      1   1     0    16     0   0        6621/o
+   1002688    47 (magic wand)   120   0     0    16     0   0     1002683/o
+   1002635   127 (head)           0   1     4     8     2   0     1002683/o
+      6618    43 (knick knack)    1   1    10     0     0   3        6617/o
+      6623    43 (knick knack)    2   2    10    40     0   3        6622/o
+      6625    43 (knick knack)    1   0    10    48     0   3        6622/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+ 823679481     1 (avatar)        -1 150     0    51     0   8              
+ 346175660     1 (avatar)        -1 129     6     3     0   8              
+      6640    86 (vendo inside)  12  24     0   148     0   0              
+      6649    86 (vendo inside)  60  24     0   252     0   0              
+   1001930    10 (book)          20   0     4    16     1   0              
+   1001879     6 (bag)           71   1     0    40     0   2   823679481/a
+   1001678   127 (head)         104   6    32     0     0   0   823679481/a
+   1001929    76 (tokens)        47   0     0     1     0   0   823679481/a
+   1002561    54 (paper)          0   4     0    16     0   0   823679481/a
+   1002556    13 (box)           62   2     0     1     0  20   823679481/a
+   1002101   127 (head)           0   6     3    40     0   0   346175660/a
+       993    47 (magic wand)   128   1     0     0     0   0   346175660/a
+   1002329   127 (head)          99   2    89     9     2   0   346175660/a
+   1002255    42 (key)           76   3     0     9     1   8   346175660/a
+   1002377    76 (tokens)         0   0     0     0     0   0   346175660/a
+   1002644    54 (paper)          0   5     0    16     0   0   346175660/a
+   1002666    54 (paper)          0   4     0    16     2   0   346175660/a
+      6641    85 (vendo front)    0   0     0   148     1   0        6640/o
+      6642     7 (ball)           6   1     0    24     0   0        6640/o
+      6650    85 (vendo front)    0   0     0   252     1   0        6649/o
+      6652    27 (fake gun)       1   1     0     0     0   0        6649/o
+   1001144    37 (gun)          116   1     0     0     0  12     1001879/o
+   1001864    54 (paper)          0   3     0    16     1   0     1001879/o
+   1001881    54 (paper)          0   4     0    16     1   0     1001879/o
+   1001808    47 (magic wand)   120   0     0     0     0   0     1001879/o
+   1001583    10 (book)          37   2     3    17     0   0     1002556/o
+   1002566    10 (book)          16   4     3    16     0   0     1002556/o
+   1002558    10 (book)          48   0     3    16     0   0     1002556/o
+      6648     6 (bag)            1   0     0    40     0   2        6641/o
+      6643    13 (box)            2   2     0    80     0  20        6641/o
+      6647    43 (knick knack)    5   5    10     0     0   3        6641/o
+      6644    13 (box)            1   1     0     0     0  20        6641/o
+      6645    52 (movie camera)   3   3     0     0     0   0        6641/o
+      6655     6 (bag)            1   0     0    48     0   2        6650/o
+      6651    12 (bottle)         5   5     0     0     1  12        6650/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+ 106915086     1 (avatar)        -1 150     0   178     0   8              
+      6656    86 (vendo inside) 100  24     0     0     0   0              
+   1002462    54 (paper)          0   4     0     0     0   0   106915086/a
+   1002703    76 (tokens)         0   0     0     0     0   0   106915086/a
+   1002476   127 (head)         104   6   113     0     0   0   106915086/a
+   1002460    13 (box)           71   1     0   113     0  20   106915086/a
+      6657    85 (vendo front)    0   0     0     0     1   0        6656/o
+      6659    26 (escape dev)     1   1     0     0     0  12        6656/o
+   1002461    47 (magic wand)   120   2     0    16     0   0     1002460/o
+   1002463   127 (head)           0   0     2     8     2   0     1002460/o
+      6660    30 (flashlight)     2   2     0     0     0  16        6657/o
+      1054    84 (changomatic)   55   3     0     0     0   0        6657/o
+      6662    82 (windup toy)     4   4     0     0     1   0        6657/o
+      6663    43 (knick knack)    5   5    11     0     0   3        6657/o
+      6658    17 (compass)        7   7     0     0     0  12        6657/o
+      6665     6 (bag)            1   0     0    56     0   2        6657/o
+      6664    43 (knick knack)    6   6     5     0     0   3        6657/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      6669    86 (vendo inside)   8  24     0   164     0   0              
+      6672    33 (gemstone)       2   0     0     0     1   0              
+      6677    86 (vendo inside) 112  24     0   188     0   0              
+      6670    85 (vendo front)  184   0     0   164     1   0        6669/o
+      6671     2 (amulet)         5   1     0     0     0   0        6669/o
+      6678    85 (vendo front)  181   0     0   188     1   0        6677/o
+      6679    20 (crystal ball)   1   1     0     0     1   0        6677/o
+      6676    33 (gemstone)       1   0     0   252     1   0        6670/o
+      6673    26 (escape dev)     1   1     0     0     0  12        6670/o
+      6674    60 (ring)           3   3     0     0     0   0        6670/o
+      6675    33 (gemstone)       4   4     0     8     1   0        6670/o
+     15501    47 (magic wand)     0   2     0    16     0   0        6678/o
+     15876    47 (magic wand)     0   3     1     0     0   0        6678/o
+      6681    47 (magic wand)     1   0     0     0     0   0        6678/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      6756    86 (vendo inside)  12  27     1   228     0   0              
+      6762    86 (vendo inside)  44  27     1   172     0   0              
+      6767    12 (bottle)       117 145     0     0     0  12              
+      6757    85 (vendo front)    0   0     1   228     0   0        6756/o
+      6758    10 (book)           1   1     2     8     0   0        6756/o
+      6763    85 (vendo front)    0   0     1   172     0   0        6762/o
+      6765    10 (book)           1   1     3    16     0   0        6762/o
+      6759    10 (book)           1   0     2     0     0   0        6757/o
+      6764    10 (book)           1   1     3    16     0   0        6763/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      6771    86 (vendo inside)  12  24     0   172     0   0              
+      6778    86 (vendo inside)  60  24     0   156     0   0              
+      6786    86 (vendo inside) 108  24     0   188     0   0              
+      6772    85 (vendo front)  184   0     0   172     1   0        6771/o
+      6774    26 (escape dev)     1   1     0     0     0  12        6771/o
+      6779    85 (vendo front)  181   0     0   156     1   0        6778/o
+      6783    13 (box)            3   1     0    40     0  20        6778/o
+      6787    85 (vendo front)    0   0     0   188     1   0        6786/o
+      6790    37 (gun)            2   1     0     0     0  12        6786/o
+      6775    17 (compass)        2   2     0     0     0  12        6772/o
+      6776    89 (shovel)         4   4     0     0     0   0        6772/o
+      6777    30 (flashlight)     1   0     1     0     0  16        6772/o
+      6782    13 (box)            4   4     0    80     0  20        6779/o
+      6781     6 (bag)            5   5     0     0     0   2        6779/o
+     17658     6 (bag)            0   8     1     0     0   0        6779/o
+      6785     6 (bag)            1   0     0    56     0   2        6779/o
+      6780     6 (bag)            1   1     0    16     0   2        6779/o
+      6784    13 (box)            2   2     0     0     0  20        6779/o
+      6791    37 (gun)            3   3     1     0     0  12        6787/o
+      6788    44 (knife)          4   4     1    16     0  24        6787/o
+      6792    44 (knife)          1   0     0    16     0  24        6787/o
+      6789    16 (club)           1   1     0     0     1   0        6787/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+ 363577180     1 (avatar)        -1 146     0   147     0   8              
+      6798    23 (door)         124  32     1   148     0   0              
+      6799    86 (vendo inside)  12  30     1   188     2   0              
+   1002621   127 (head)           0   6    21     8     0   0   363577180/a
+   1002648    76 (tokens)         0   0     0     0     0   0   363577180/a
+   1000802    82 (windup toy)    21   2     0     1     1   0   363577180/a
+   1002680    54 (paper)          0   4     0    16     0   0   363577180/a
+   1002699    95 (spray can)     16   3     0   112     0   0   363577180/a
+   1002623    13 (box)           82   1     0   112     0  20   363577180/a
+      6800    85 (vendo front)    0   0     1   188     2   0        6799/o
+   1001402    10 (book)          95   1     4    16     1   0        6799/o
+   1002435    95 (spray can)     28   0     0    33     0   0     1002623/o
+   1002611    10 (book)          54   1     3    16     0   0     1002623/o
+   1002608    10 (book)          39   2     3    17     0   0     1002623/o
+      6801    10 (book)           1   0     4    16     1   0        6800/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+ 494994358     1 (avatar)        -1 151     0   130     0   8              
+      6806    86 (vendo inside)  52  24     0   236     0   0              
+      6816    86 (vendo inside)  96  24     0   188     0   0              
+   1002350   127 (head)           0   6    30   112     0   0   494994358/a
+   1002352    54 (paper)          0   4     0    16     0   0   494994358/a
+   1002363    76 (tokens)         0   0     0     0     0   0   494994358/a
+   1002354    10 (book)         106   1     4    16     1   0   494994358/a
+   1002368     6 (bag)          103   2     0    56     0   2   494994358/a
+      6807    85 (vendo front)    0   0     0   236     0   0        6806/o
+      6810   127 (head)           6   1    87    32     1   0        6806/o
+      6817    85 (vendo front)    0   0     0   188     0   0        6816/o
+      6819   127 (head)           3   1    45     0     0   0        6816/o
+   1002366    82 (windup toy)    76   0     0     1     1   0     1002368/o
+      6814   127 (head)           1   0    80     1     1   0        6807/o
+      6809   127 (head)           1   1    65     8     0   0        6807/o
+      6811   127 (head)           2   2    39    24     0   0        6807/o
+      6812   127 (head)           3   3    49     8     0   0        6807/o
+      6808   127 (head)           4   4    84     0     1   0        6807/o
+      6813   127 (head)           5   5    56    40     1   0        6807/o
+      6818   127 (head)           4   4    41     0     0   0        6817/o
+      6824   127 (head)           5   5    32     0     1   0        6817/o
+      6820   127 (head)           6   6   112    80     0   0        6817/o
+      6822   127 (head)           7   7   113     0     1   0        6817/o
+      6825   127 (head)           1   0     5    16     0   0        6817/o
+      6821   127 (head)           1   1    89   112     0   0        6817/o
+      6823   127 (head)           2   2    65     0     1   0        6817/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      6952    86 (vendo inside)  12  24     0    80     0   0              
+      6959    86 (vendo inside)  60  24     0   112     0   0              
+      6967    86 (vendo inside) 108  24     0    88     0   0              
+      6953    85 (vendo front)  184   0     0    80     0   0        6952/o
+      6956    43 (knick knack)    2   1     8     0     0   3        6952/o
+      6960    85 (vendo front)  181   0     0   112     0   0        6959/o
+      6964    43 (knick knack)    3   1     6     0     0   3        6959/o
+      6968    85 (vendo front)    0   0     0    88     0   0        6967/o
+      6970    43 (knick knack)    1   1     3     8     3   3        6967/o
+      6957    43 (knick knack)    3   3     9     0     0   3        6953/o
+      6954    43 (knick knack)    0   4     1     0     0   3        6953/o
+      6955    43 (knick knack)    1   1     2     0     0   3        6953/o
+      6965    43 (knick knack)    4   4    10    56     0   3        6960/o
+      6961    43 (knick knack)    0   5     7     0     0   3        6960/o
+      6966    43 (knick knack)    1   0     6    16     0   3        6960/o
+      6962    43 (knick knack)    1   1    10    80     0   3        6960/o
+      6963    43 (knick knack)    2   2     7    16     0   3        6960/o
+      6971    43 (knick knack)    2   2     3    56     0   3        6968/o
+      6972    43 (knick knack)    3   3     3     0     3   3        6968/o
+      6969    43 (knick knack)    0   4     3     0     2   3        6968/o
+      6973    43 (knick knack)    1   0     4    56     1   3        6968/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      7033    18 (countertop)    60 144     0   252     0   0              
+      7034    86 (vendo inside) 116  32     0     0     1   0              
+      7036    22 (display case)  24  43     0    16     0   0              
+      7038    98 (glue)          44  53     0     0     1   0              
+     15884   155 (table)         20 144     1   252     0   0              
+     15885   155 (table)         60 144     1   252     0   0              
+     15886   155 (table)         24  43     2    16     0   0              
+      7035    85 (vendo front)    0   0     0     0     2   0        7034/o
+      7672    43 (knick knack)    0   1    13     8     2   0        7034/o
+      7043    12 (bottle)         4   4     0     8     1  12        7038/o
+      7044    12 (bottle)         5   5     0     0     1  12        7038/o
+      7673    43 (knick knack)    0   7    13     8     1   0        7035/o
+      7674    43 (knick knack)    0   8    13     0     3   0        7035/o
+      7675    43 (knick knack)    0   9    13     0     1   0        7035/o
+      7666    43 (knick knack)    0   0    13     0     0   0        7035/o
+      7667    12 (bottle)         0   1     0     8     1   0        7035/o
+      7668    43 (knick knack)    0   2    13    16     0   0        7035/o
+      7669    43 (knick knack)    0   3    13    16     2   0        7035/o
+      7670    43 (knick knack)    0   4    13     0     4   0        7035/o
+      7671    43 (knick knack)    0   5    13    56     1   0        7035/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      7082    86 (vendo inside)   8  26     0   112     0   0              
+      7091    86 (vendo inside) 112  26     0    88     0   0              
+      7083    85 (vendo front)  184   0     0   112     1   0        7082/o
+      7089    95 (spray can)      2   1     0   112     0   0        7082/o
+      7092    85 (vendo front)    0   0     0    88     1   0        7091/o
+      7097    95 (spray can)      4   1     0   104     0   0        7091/o
+      7084    95 (spray can)      3   3     0    56     0   0        7083/o
+      7088    95 (spray can)      4   4     0    80     0   0        7083/o
+      7085    95 (spray can)      5   5     0    40     0   0        7083/o
+      7086    95 (spray can)      6   6     0     8     0   0        7083/o
+      7090    95 (spray can)      1   0     0    16     0   0        7083/o
+      7087    95 (spray can)      1   1     0     0     0   0        7083/o
+      7099    95 (spray can)      5   5     0    88     0   0        7092/o
+      7094    95 (spray can)      6   6     0    48     0   0        7092/o
+      7095    95 (spray can)      7   7     0    32     0   0        7092/o
+      7100    95 (spray can)      1   0     0    72     0   0        7092/o
+      7096    95 (spray can)      1   1     0    24     0   0        7092/o
+      7093    95 (spray can)      2   2     0    64     0   0        7092/o
+      7098    95 (spray can)      3   3     0    96     0   0        7092/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      7148    18 (countertop)   108 144     0   244     0   0              
+      7149    86 (vendo inside)  12  24     0   228     0   0              
+      7163    86 (vendo inside)  68  29     1    16     2   0              
+      7150    85 (vendo front)    0   0     0   228     0   0        7149/o
+      7155    13 (box)            2   1     0   112     0  20        7149/o
+      7164    85 (vendo front)    0   0     1     0     2   0        7163/o
+      7170    42 (key)            1   1     0     0     0   8        7163/o
+      7158    64 (sensor)         4   4     0     0     0   8        7150/o
+      7151    13 (box)            5   5     1     8     0  20        7150/o
+      7153    13 (box)            1   1     0   104     0  20        7150/o
+      7165    42 (key)            1   1     1    64     0   8        7164/o
+      7167    42 (key)            2   2     0     0     1   8        7164/o
+      7166    42 (key)            3   3     0     8     0   8        7164/o
+      7169    42 (key)            4   4     1    32     0   8        7164/o
+      7168    42 (key)            5   5     0     8     1   8        7164/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      7173    86 (vendo inside)  12  24     0   140     0   0              
+      7178    86 (vendo inside)  60  24     0   140     0   0              
+      7183    86 (vendo inside) 108  24     0   140     0   0              
+      7174    85 (vendo front)  184   0     0   140     0   0        7173/o
+      7176    10 (book)           1   1     8    16     0   0        7173/o
+      7179    85 (vendo front)  181   0     0   140     0   0        7178/o
+      7181    10 (book)           1   1     8    32     0   0        7178/o
+      7184    85 (vendo front)    0   0     0   140     0   0        7183/o
+      7185    10 (book)           3   1     8    48     0   0        7183/o
+      7177    10 (book)           1   1     8     8     0   0        7174/o
+      7175    10 (book)           2   2     8     0     0   0        7174/o
+      7182    10 (book)           1   1     8    32     0   0        7179/o
+      7180    10 (book)           2   2     8    24     0   0        7179/o
+      7187    10 (book)           2   0     8    32     0   0        7184/o
+      7188    10 (book)           1   1     8    40     0   0        7184/o
+      7186    10 (book)           1   2     8    56     0   0        7184/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+      7194    23 (door)          68  34     0   140     0   0              
+      7197    86 (vendo inside)  40  27     1   196     0   0              
+      7200    86 (vendo inside)   8  27     1   244     0   0              
+      7198    85 (vendo front)    0   0     1   120     0   0        7197/o
+      7199    10 (book)           1   1     3    16     0   0        7197/o
+      7201    85 (vendo front)    0   0     1   244     0   0        7200/o
+      7202    10 (book)           1   1     3    16     0   0        7200/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+     13859    69 (sky)            0   0     4   244     0   0              
+     13860    93 (flat)           0   4     0   188     0   0              
+     13861   133 (bush)          72  45     4    25     2  12              
+     13862    86 (vendo inside)  12  27     1   236     3   0              
+     13866    10 (book)         115 138     4     0     0   0              
+     13867   133 (bush)          88  45     4    24     2  12              
+     13868    93 (flat)           0   4     1   188     0   0              
+     13869   133 (bush)         120  45     4    24     2  12              
+     13870    24 (dropbox)      124 138     0     0     0  16              
+     13871    61 (rock)          88 137     0    16     0   8              
+     13863    85 (vendo front)    0   0     1     0     0   0       13862/o
+     13865    10 (book)           1   1     4     0     0   0       13862/o
+     13864    10 (book)           0   2     4     0     0   0       13863/o
+
+Global ID        Class            X   Y   Style Orient GSt GWd   Container
+     14588    85 (vendo front)   24  64     1     0     0   0              
+     14598    85 (vendo front)   44  64     1     0     0   0              
+     14599    85 (vendo front)   60  64     1     0     0   0              
+     14600    86 (vendo inside)  24  20     1     0     1   0              
+     14601    86 (vendo inside)  32  20     1     0     1   0              
+     14602    86 (vendo inside)  40  20     1     0     1   0              
+     14603    10 (book)          24  60     4     0     1   0              
+     14604    10 (book)          32  60     4     0     1   0              
+     14605    10 (book)          40  60     4     0     1   0              
+     14606    10 (book)          48  60     4     0     1   0              
+     14607   139 (floor lamp)     4 148     0    80     0   0              
+     14610    10 (book)         120 138     7     0     0   0              

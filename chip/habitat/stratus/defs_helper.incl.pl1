@@ -1,0 +1,137 @@
+/*
+ *   defs_helper.incl.pl1
+ *
+ *   Entry definitions for the helper functions.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ */
+
+declare accessable entry(pointer) returns(bit(1) aligned);
+declare activate_head_curse entry(pointer, binary(15)) returns(bit(1) aligned);
+declare getable entry(pointer) returns(bit(1) aligned);
+declare get_title_page entry(binary(31), binary(15));
+declare grabable entry(pointer) returns(bit(1) aligned);
+declare adjacent entry(pointer) returns(bit(1) aligned);
+declare announce_object entry(pointer);
+declare auto_teleport entry(pointer, binary(31), binary(15));
+declare available entry(binary(15), binary(15), binary(15)) returns(bit(1) aligned);
+declare at_water entry returns(bit(1) aligned);
+declare cancel_event entry(pointer);
+declare change_containers entry(binary(15), binary(15), binary(15), bit(1) aligned) 
+                                            returns(bit(1) aligned);
+declare check_path entry(binary(15), binary(15), binary(15), binary(15),
+                                            binary(15), bit(1) aligned);
+declare checkpoint_object entry(binary(31), binary(15));
+declare checkpoint_text entry(binary(31), character(*) varying);
+declare close_container entry(binary(15));
+declare container_is_opaque entry(binary(15), binary(15)) returns(bit(1) aligned);
+declare create_object entry(binary(15), binary(15), binary(15), binary(15), binary(15), binary(15), binary(15), binary(15)) returns(pointer);
+declare curse_touch entry(pointer, pointer);
+declare dequeue_player entry(pointer);
+declare destroy_contents entry(pointer);
+declare destroy_object entry(binary(15));
+declare disappear_object entry(binary(15));
+declare drop_object_in_hand entry(pointer);
+declare elsewhere entry(pointer) returns(bit(1) aligned);
+declare empty_handed entry(pointer) returns(bit(1) aligned);
+declare enqueue_player entry(pointer);
+declare get_container_contents entry(binary(15));
+declare get_mail_message entry(pointer);
+declare global_id entry(binary(15)) returns(binary(31));
+declare goto_new_region entry(pointer, binary(31),binary(15),binary(15));
+declare here entry(pointer) returns(bit(1) aligned);
+declare holding entry(pointer) returns(bit(1) aligned);
+declare wearing entry(pointer) returns(bit(1) aligned);
+declare holding_class entry(binary(15)) returns(bit(1) aligned);
+declare identify_teleport entry(character(20) varying);
+declare inc_record entry(pointer, binary(15));
+declare item_value entry(pointer) returns(binary(15));
+declare kill_avatar entry(pointer);
+declare lights_off entry(pointer);
+declare lights_on entry(pointer);
+declare lookfor_string entry(character(*) varying,character(*) varying) returns (binary(15));
+declare max_record entry(pointer, binary(15), binary(31));
+declare message_to_god entry(pointer, pointer, character(*) varying);
+declare pay_to entry(pointer, binary(31)) returns(bit(1) aligned);
+declare random entry(binary(15)) returns(binary(15));
+declare random_time_in_the_future entry returns(binary(31));
+declare record_collection entry (binary(31), binary(15), binary(15), binary(31));
+declare schedule_event entry(pointer, entry, binary(31)) returns(pointer);
+declare send_mail_message entry(pointer, binary(31)) returns(binary(15));
+declare set_record entry(pointer, binary(15), binary(31));
+declare show_text_page entry(binary(31), binary(15), binary(15));
+declare spend entry(binary(31)) returns(binary(15));
+declare switch_from_ghost entry;
+declare switch_to_ghost entry;
+declare spend_check entry (binary(31)) returns(bit(1) aligned);
+
+declare clear_bit entry(binary(15), binary(15));
+declare set_bit entry(binary(15), binary(15));
+declare Tact entry(entry(pointer), pointer, binary(31));
+declare ClearTactByValue entry(entry(pointer), pointer);
+declare test_bit entry(binary(15), binary(15)) returns(bit(1) aligned);
+declare tget entry(pointer) returns(binary(31));
+declare tset entry(pointer, binary(31));
+declare trace_msg entry(character(*) varying);
+declare object_broadcast entry(binary(15), character(*) varying);
+declare object_say entry(binary(15), character(*) varying);
+declare ghost_say entry(binary(15), character(*) varying);
+declare or_bit entry(binary(15), binary(15)) returns(binary(15));
+declare and_bit entry(binary(15), binary(15)) returns(binary(15));
+
+declare n_msg_0 entry(pointer, binary(15));
+declare n_msg_1 entry(pointer, binary(15), binary(15));
+declare n_msg_1_s entry(pointer, binary(15), binary(15), character(*) varying);
+declare n_msg_2_s entry(pointer, binary(15), binary(15), binary(15), character(*) varying);
+declare n_msg_3_s entry(pointer, binary(15), binary(15), binary(15), binary(15), character(*) varying);
+declare n_msg_2 entry(pointer, binary(15), binary(15), binary(15));
+declare n_msg_3 entry(pointer, binary(15), binary(15), binary(15), binary(15));
+declare n_msg_4 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                                           binary(15));
+declare n_msg_5 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                                           binary(15), binary(15));
+declare n_msg_6 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                               binary(15), binary(15), binary(15));
+declare n_msg_s entry(pointer, binary(15), character(*) varying);
+
+declare b_msg_0 entry(pointer, binary(15));
+declare b_msg_1 entry(pointer, binary(15), binary(15));
+declare b_msg_1_s entry(pointer, binary(15), binary(15), character(*) varying);
+declare b_msg_2 entry(pointer, binary(15), binary(15), binary(15));
+declare b_msg_3 entry(pointer, binary(15), binary(15), binary(15), binary(15));
+declare b_msg_4 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                                           binary(15));
+declare b_msg_5 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                                           binary(15), binary(15));
+declare b_msg_7 entry(pointer, binary(15), binary(15), binary(15), binary(15),
+                       binary(15), binary(15), binary(15), binary(15));
+declare b_msg_s entry(pointer, binary(15), character(*) varying);
+
+declare p_msg_0 entry(pointer, pointer, binary(15));
+declare p_msg_1 entry(pointer, pointer, binary(15), binary(15));
+declare e_msg_1 entry(pointer, pointer, binary(15), binary(15));
+declare p_msg_1_s entry(pointer, pointer, binary(15), binary(15), character(*) varying);
+declare p_msg_s entry(pointer, pointer, binary(15), character(*) varying);
+declare e_msg_s entry(pointer, pointer, binary(15), character(*) varying);
+
+declare r_msg_1 entry(binary(15));
+declare r_msg_2 entry(binary(15), binary(15));
+declare r_msg_3 entry(binary(15), binary(15), binary(15));
+declare r_msg_4 entry(binary(15), binary(15), binary(15), binary(15));
+declare r_msg_5 entry(binary(15), binary(15), binary(15), binary(15), binary(15));
+declare r_msg_1_s entry(binary(15), character(*) varying);
+declare r_msg_2_s entry(binary(15), binary(15), character(*) varying);
+declare r_msg_3_s entry(binary(15), binary(15), binary(15), character(*) varying);
+declare r_msg_s entry(character(*) varying);
+
+declare send_region_contents entry;
+declare change_regions entry(binary(15), binary(31), binary(15), binary(15));
+declare vectorize entry(pointer) returns(character(256) varying);
+
+declare note_object_deletion entry(binary(15), binary(15));
+declare note_object_creation entry(binary(15), binary(15));
+declare mem_checks_ok entry(binary(15)) returns(bit(1) aligned);
+declare unescape_string entry(character(*) varying);

@@ -1,0 +1,246 @@
+actions.m
+all.m
+animate.m
+471c471
+< 	byte	0,1,3,4,2,5
+---
+> 	byte	0,1,3,4,2,5			; imported from avatar image!
+actions.m
+all.m
+animate.m
+471c471
+< 	byte	0,1,3,4,2,5
+---
+> 	byte	0,1,3,4,2,5			; imported from avatar image!
+animinit.m
+auto.m
+balloons.m
+basic_loader.m
+box.m
+charset.m
+chore.m
+circle.m
+comet.m
+comm_control.m
+contents_vector.m
+cursor.m
+custom.m
+19c19
+< 	sta	custom_running
+---
+> 
+55d54
+< 	sta	custom_running
+121c120
+< 	cmp	#function_key_1
+---
+> 	cmp	#gesture_key_1
+134c133
+< 	cmp	#function_key_2			; select head
+---
+> 	cmp	#gesture_key_2			; select head
+156c155
+< 	cmp	#function_key_3			; change height
+---
+> 	cmp	#gesture_key_3			; change height
+172c171
+< 	cmp	#function_key_4			; walk avatar around
+---
+> 	cmp	#gesture_key_4			; walk avatar around
+203c202
+< 	cmp	#function_key_5			; change hair
+---
+> 	cmp	#gesture_key_5			; change hair
+231c230
+< 	cmp	#function_key_6			; change leg pattern
+---
+> 	cmp	#gesture_key_6			; change leg pattern
+244c243
+< 	cmp	#function_key_7			; change torso pattern
+---
+> 	cmp	#gesture_key_7			; change torso pattern
+262c261
+< 	cmp	#function_key_8			; change sleeve pattern
+---
+> 	cmp	#gesture_key_8			; change sleeve pattern
+336c335
+< 			adc	#function_key_1
+---
+> 			adc	#gesture_key_1
+453c452
+< ;	jsr	one_black_line
+---
+> 	jsr	one_black_line
+506,507c505,506
+< ;	movew	#intro_5c,	source
+< ;	jsr	draw_balloon_quip
+---
+> 	movew	#intro_5c,	source
+> 	jsr	draw_balloon_quip
+540c539
+< 	jmp	draw_balloon_2
+---
+> 	jmp	draw_balloon
+545d543
+< 
+547c545
+< 	string	"[Press space bar]"
+---
+> 	string	"Press space bar"
+550,552c548,550
+< 	byte	"Welcome to Q-Link's Club Caribe! You  "
+< 	byte	"are about to enter a vaction world    "
+< 	string	"full of entertainment, prizes and fun!"
+---
+> 	byte	"   Welcome to Lucasfilm's Habitat!    "
+> 	byte	"You are about to enter an exciting new "
+> 	string	"world of fun and adventure!"
+554,555c552,553
+< 	byte	"Here on our island, escape in ways "
+< 	string	"never before possible."
+---
+> 	byte	" In Habitat, you will be represented by "
+> 	string	" me, your Avatar."
+557a556
+> 
+559,561c558,560
+< 	byte	"Before you begin your vacation, you can "
+< 	byte	"customize your appearance so that you "
+< 	string	"look like YOU want to."
+---
+> 	byte	"Before you begin  your adventures, you get "
+> 	string	"to customize my appearance."
+> 
+563,564c562,563
+< 	byte	"Here in Club Caribe, how you look says "
+< 	string	"as much about you as what you say!"
+---
+> 	byte	"You can select my sex, height, "
+> 	string	"head style, and hair and body colors."
+565a565
+> 
+567,568c567,568
+< 	byte	"In a moment, you will use the function keys to "
+< 	string	"alter your appearance until you're just right."
+---
+> 	byte	" In a moment, you will use the function keys to "
+> 	string	"alter my appearance until it suits you."
+571,572c571,572
+< 	byte	"You can change your sex, height, head style, "
+< 	string	"and hair and body colors."
+---
+> 	byte	" You will then be prepared to enter the "
+> 	string	"world of Habitat."
+576c576
+< 	string	"F1 changes sex, F2 changes head"
+---
+> 	string	"F1 changes my sex, F2 changes my head"
+578c578
+< 	string	"F3 changes height, F4 walks around"
+---
+> 	string	"F3 changes height, F4 walks me around"
+582c582
+< 	string	"F7 changes torso,  F8 changes arms"
+---
+> 	string	"F7 changes my torso,  F8 changes arms"
+584c584
+< 	string	"[When finished, press the space bar.]"
+---
+> 	string	" When finished, press the space bar. "
+588,589c588,589
+< 	byte	"Are you happy with the way you look now? "
+< 	string	"(Type Y or N)"
+---
+> 	byte	"Am I now customized the way "
+> 	string	"you want me to be? (Type Y or N)"
+595,597c595,597
+< 	byte	"You'll first go to the registration desk, "
+< 	string	"for directions and maps."
+< ;intro_5c:
+---
+> 	string	" I will first appear inside our Turf. "
+> intro_5c:
+> 	string	" This is our home within the Habitat. "
+599,601c599,602
+< 	byte	"Relax by the hot tub! Sip Pina Coladas "
+< 	string	"on the beach! Above all, have fun!"
+<   
+---
+> 	byte	" Practice with the controls a bit,    then "
+> 	byte	"head out into the world. Explore! "
+> 	string	"Meet people!  Above all, have fun!"
+> 
+603c604
+< 	string	"(Please wait a few moments...)"
+---
+> 	string	"Please wait a few moments..."
+cv.m
+database.m
+databse.m
+datacrunch.m
+dataequates.m
+dataextern.m
+dataheap.m
+datainit.m
+datamacros.m
+datavars.m
+datazpage.m
+decimal.m
+diskdos.m
+diskdriver.m
+diskinit.m
+diskmacros.m
+dl_macros.m
+dline.m
+equates.m
+130,131c130,131
+< 	define	up		= 0x02
+< 	define	down		= 0x03
+---
+> 	define	up		= 0x02		; back
+> 	define	down		= 0x03		; front
+188a189,193
+> 
+> ;	define	AVATAR_SEX	= 0b10000000		; 0 male 1 female
+> ;	define	AVATAR_height	= 0b01111000		; 0000 tall 1111 short
+> ;	define	AVATAR_facing	= 0b00000001		; 0 = right, 1 = left
+> ;	define	AVATAR_facefront= 0b00000010		; 1 = facing front
+error.m
+fake_region.m
+farmers_equates.m
+farmers_variables.m
+fastlink.m
+field_update.m
+frf_equates.m
+general.m
+83c83
+< 		sta	y[bitmap_colr]		; get pink back
+---
+> 		sta	y[bitmap_colr]			; get pink back
+87,90c87,88
+< 		ldx	graphics_mode		; 6.3
+< 		if (zero) {			; 0 bitmap 1 text
+< 		    bit	light_level
+< 		    if (minus) {
+---
+> 		bit	light_level
+> 		if (minus) {
+94,96d91
+< 		    }
+< 		} else {				; 6.3
+< 		    sta	y[bitmap_colr-40]		; top line
+98d92
+< 
+gestures.m
+getdrop.m
+2c2
+< ;	Kludged trigger routines
+---
+> ;	RENO joystick routines
+habsill3.m
+init.m
+keyboard.m
+keys.m
+loader.m
+macros.m
+main.m

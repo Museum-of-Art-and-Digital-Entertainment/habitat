@@ -1,0 +1,895 @@
+/*
+ * command.pl1 -- Command processor for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 31-March-1987
+ *
+ * These routines handle the actual execution of the various commands.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+
+%include 'command_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+
+%include 'database.incl.pl1';
+%include 'add.incl.pl1';
+%include 'class.incl.pl1';
+%include 'display.incl.pl1';
+%include 'environ.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'help.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'macprint.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'tables.incl.pl1';
+%include 'world.incl.pl1';
+
+%include 'y.tab.incl.pl1';
+
+declare command_save_ptr pointer static init(null());
+declare global_top_level bit(1) static external;
+
+declare macro_under_construction pointer static;
+
+declare current_commandptr pointer static;
+declare 1 current_command based(current_commandptr) like command_list_descriptor;
+
+declare for_level binary(15) static init(0);
+
+%replace MAX_IF_DEPTH by 20;
+declare if_level binary(15) static init(0);
+declare if_condition(MAX_IF_DEPTH) binary(15) static;
+%replace IF$PRE_SKIP  by  0;
+%replace IF$EXECUTE   by  1;
+%replace IF$POST_SKIP by -1;
+
+declare macro_level binary(15) static init(0);
+%replace MAX_MACRO_DEPTH by 20;
+declare parameter_count(MAX_MACRO_DEPTH) binary(15) static;
+declare parameter_base(MAX_MACRO_DEPTH) binary(15) static;
+%replace MAX_PARAMETER_STACK by 100;
+declare 1 parameter_list(MAX_PARAMETER_STACK) like value_descriptor static;
+
+declare save_depth binary(15) static init(0);
+declare break_flag bit(1) static init(false);
+declare user_break_flag bit(1) external init(false);
+
+declare loop_startptr pointer static;
+declare 1 loop_start based(loop_startptr) like value_descriptor;
+declare loop_endptr pointer static;
+declare 1 loop_end based(loop_endptr) like value_descriptor;
+declare loop_type binary(15) static;
+
+declare command_table(CMD_MAX) entry(bin(31), bin(31)) variable static;
+
+declare class_info_changed bit(1) static external init(false);
+declare environ_changed bit(1) static external init(false);
+
+init_command_table: procedure;
+     /* These commands are in this file */
+     command_table(CMD$ALIAS) = c$alias;
+     command_table(CMD$ALIAS_PRINT) = c$alias_print;
+     command_table(CMD$ALIAS_LIST) = c$alias_list;
+     command_table(CMD$ALLMACROS) = c$allmacros;
+     command_table(CMD$ALLNAMES) = c$allnames;
+     command_table(CMD$BREAK) = c$break;
+     command_table(CMD$ELSE) = c$else;
+     command_table(CMD$ELSEIF) = c$elseif;
+     command_table(CMD$ENDFOR) = c$endfor;
+     command_table(CMD$ENDIF) = c$endif;
+     command_table(CMD$ENDMACRO) = c$endmacro;
+     command_table(CMD$EXECUTE) = c$execute;
+     command_table(CMD$FOR_ALL_A) = c$for_all_a;
+     command_table(CMD$FOR_ALL_O) = c$for_all_o;
+     command_table(CMD$FOR_ALL_R) = c$for_all_r;
+     command_table(CMD$FOR_ALL_A_IN) = c$for_all_a_in;
+     command_table(CMD$FOR_ALL_O_IN) = c$for_all_o_in;
+     command_table(CMD$FOR_RANGE) = c$for_range;
+     command_table(CMD$IF) = c$if;
+     command_table(CMD$MACRO) = c$macro;
+     command_table(CMD$MACRO_CALL) = c$macro_call;
+     command_table(CMD$NAME) = c$name;
+     command_table(CMD$QUIT) = c$quit;
+     command_table(CMD$UNNAME) = c$unname;
+     command_table(CMD$VALUE) = c$value;
+
+     /* These commands are in 'stdio.pl1' */
+     command_table(CMD$START_LOGGING) = c$start_logging;
+     command_table(CMD$STOP_LOGGING) = c$stop_logging;
+
+     /* These commands are in 'add.pl1' */
+     command_table(CMD$ADD_PROMPT) = c$add_prompt;
+     command_table(CMD$ADD) = c$add;
+     command_table(CMD$COOK) = c$cook;
+
+     /* These commands are in 'class.pl1' */
+     command_table(CMD$CLASS) = c$class;
+     command_table(CMD$DEFINE) = c$define;
+
+     /* These commands are in 'help.pl1' */
+     command_table(CMD$HELP_GENERAL) = c$help_general;
+     command_table(CMD$HELP) = c$help;
+
+     /* These commands are in 'display.pl1' */
+     command_table(CMD$CONTENTS) = c$contents;
+     command_table(CMD$CONTENTS_FULL) = c$contents_full;
+     command_table(CMD$DISPLAY) = c$display;
+     command_table(CMD$DISPLAY_DEFAULT) = c$display_default;
+     command_table(CMD$FIND) = c$find;
+     command_table(CMD$GET) = c$get;
+     command_table(CMD$GRIDDLE) = c$griddle;
+     command_table(CMD$GRIDDLE_FULL) = c$griddle_full;
+     command_table(CMD$LIST_ACTIVE) = c$list_active;
+     command_table(CMD$LIST) = c$list;
+     command_table(CMD$ORACLE) = c$oracle;
+     command_table(CMD$ORACLE_DUMP) = c$oracle_dump;
+     command_table(CMD$RAW) = c$raw;
+     command_table(CMD$RAW_FULL) = c$raw_full;
+     command_table(CMD$READ_IMPLICIT) = c$read_implicit;
+     command_table(CMD$READ) = c$read;
+     command_table(CMD$TELEPORT_LOOKUP) = c$teleport_lookup;
+     command_table(CMD$WRITE) = c$write;
+     command_table(CMD$WRITE_NEW) = c$write_new;
+     command_table(CMD$TITLES) = c$titles;
+     command_table(CMD$TURFS) = c$turfs;
+
+     /* These commands are in 'world.pl1' */
+     command_table(CMD$KILL) = c$kill;
+     command_table(CMD$NEWTURF) = c$newturf;
+     command_table(CMD$NUKE) = c$nuke;
+     command_table(CMD$PAGES) = c$pages;
+     command_table(CMD$PAGES_LOOKUP) = c$pages_lookup;
+     command_table(CMD$PLAYERS) = c$players;
+     command_table(CMD$PROCESSES) = c$processes;
+     command_table(CMD$READMAIL) = c$readmail;
+     command_table(CMD$REMOVE) = c$remove;
+     command_table(CMD$REMTURF) = c$remturf;
+     command_table(CMD$SENDMAIL) = c$sendmail;
+     command_table(CMD$SET) = c$set;
+     command_table(CMD$SET_UPDATE) = c$set_update;
+     command_table(CMD$TELEPORT_SET) = c$teleport_set;
+     command_table(CMD$UPDATE) = c$update;
+     command_table(CMD$UPDATE_EXPLICIT) = c$update_explicit;
+     command_table(CMD$VOICE_IMPLICIT_PROMPT) = c$voice_implicit_prompt;
+     command_table(CMD$VOICE_PROMPT) = c$voice_prompt;
+     command_table(CMD$VOICE_IMPLICIT) = c$voice_implicit;
+     command_table(CMD$VOICE) = c$voice;
+     command_table(CMD$WATCH_IMPLICIT) = c$watch_implicit;
+     command_table(CMD$WATCH) = c$watch;
+     command_table(CMD$WATCH_OFF) = c$watch_off;
+end init_command_table;
+
+build_command: procedure(command_function, arg1, arg2) returns(binary(31));
+     declare command_function binary(15);
+     declare (arg1, arg2) binary(31);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like command_descriptor;
+
+     resultptr = alloc(size(command_descriptor), 8);
+     result.command_function = command_function;
+     result.arg1 = arg1;
+     result.arg2 = arg2;
+     return(p2i(resultptr));
+end build_command;
+
+save_command: procedure(commandnum, filenamenum, append_flag);
+     declare commandnum binary(31);
+     declare filenamenum binary(31);
+     declare append_flag bit(1);
+     declare newlistptr pointer;
+     declare 1 newlist based(newlistptr) like command_list_descriptor;
+     declare chaserptr pointer;
+     declare 1 chaser based(chaserptr) like command_list_descriptor;
+     declare oldchaserptr pointer;
+     declare 1 oldchaser based(oldchaserptr) like command_list_descriptor;
+
+     newlistptr = alloc(size(command_list_descriptor), 9);
+     newlist.command = commandnum;
+     newlist.filenamenum = filenamenum;
+     newlist.append_flag = append_flag;
+     newlist.next = null();
+     if (command_save_ptr = null()) then
+          command_save_ptr = newlistptr;
+     else do;
+          chaserptr = command_save_ptr;
+          oldchaserptr = null();
+          do while (chaserptr ^= null());
+               oldchaserptr = chaserptr;
+               chaserptr = chaser.next;
+          end;
+          oldchaser.next = newlistptr;
+     end;
+end save_command;
+
+execute_nested_code: procedure(original_codeptr) recursive returns(bit(1));
+     declare original_codeptr pointer;
+     declare codeptr pointer;
+     declare 1 code based(codeptr) like command_list_descriptor;
+     declare skipping_for_loop bit(1);
+     declare commandptr pointer;
+     declare 1 command based(commandptr) like command_descriptor;
+     declare command_func binary(15);
+     declare result bit(1);
+
+     codeptr = original_codeptr;
+     skipping_for_loop = false;
+     call push_output;
+     do while (codeptr ^= null() & ^break_flag & ^user_break_flag);
+          commandptr = i2p(code.command);
+          command_func = command.command_function;
+          if (command_func = CMD$ENDFOR) then
+               if (skipping_for_loop) then
+                    skipping_for_loop = false;
+               else do;
+                    call pop_output;
+                    return(true);
+               end;
+          current_commandptr = codeptr;
+          if (^skipping_for_loop) then
+               call execute_command(code.command, code.filenamenum,
+                    code.append_flag, false);
+          if (command_func = CMD$FOR_ALL_A | command_func = CMD$FOR_ALL_O |
+                    command_func = CMD$FOR_ALL_R | command_func =
+                    CMD$FOR_RANGE) then
+               skipping_for_loop = true;
+          codeptr = code.next;
+     end;
+     call pop_output;
+     result = ^break_flag & ^user_break_flag;
+     break_flag = false;
+     return(result);
+end execute_nested_code;
+
+free_nested_code: procedure(codeptr) recursive;
+     declare codeptr pointer;
+     declare 1 code based(codeptr) like command_list_descriptor;
+
+     if (codeptr ^= null()) then do;
+          if (code.next ^= null()) then
+               call free_nested_code(code.next);
+          call free(i2p(code.command));
+          call free(codeptr);
+     end;
+end free_nested_code;
+
+abort_nesting: procedure;
+     if (if_level > 0 | save_depth > 0) then do;
+          if_level = 0;
+          global_top_level = true;
+          for_level = 0;
+          if (save_depth > 0) then do;
+               save_depth = 0;
+               if (command_save_ptr ^= null()) then do;
+                    call free_nested_code(command_save_ptr);
+                    command_save_ptr = null();
+               end;
+          end;
+          call putline('nested statements aborted');
+     end;
+end abort_nesting;
+
+execute_command: procedure(commandnum, filenamenum, append_flag, top_level)
+          recursive;
+     declare commandnum binary(31);
+     declare commandptr pointer;
+     declare 1 command based(commandptr) like command_descriptor;
+     declare filenamenum binary(31);
+     declare append_flag bit(1);
+     declare top_level bit(1);
+     declare command_func binary(15);
+     declare executing bit(1);
+
+     commandptr = i2p(commandnum);
+     command_func = command.command_function;
+     if (top_level & ^general_access & command_func ^= CMD$MACRO_CALL &
+               command_func ^= CMD$QUIT) then do;
+          call error('You are not authorized to execute non-macro commands');
+          return;
+     end;
+     if (command_func = CMD$ENDMACRO | command_func = CMD$ENDFOR) then
+          save_depth = save_depth - 1;
+     if (save_depth > 0) then do;
+          if (command_func = CMD$FOR_ALL_A | command_func = CMD$FOR_ALL_O |
+                 command_func = CMD$FOR_ALL_R | command_func = CMD$FOR_RANGE |
+                 command_func = CMD$MACRO) then
+               save_depth = save_depth + 1;
+          call save_command(commandnum, filenamenum, append_flag);
+     end; else do;
+          global_top_level = top_level;
+          call setup_output(filenamenum, append_flag);
+          if (command_func < 1 | command_func > CMD_MAX) then
+               call error('BOTCH! bad command number: '||ltrim(command_func));
+          else do;
+             if (if_level > 0) then
+                  executing = if_condition(if_level) = IF$EXECUTE |
+                       command_func = CMD$IF | command_func = CMD$ELSE |
+                       command_func = CMD$ELSEIF | command_func = CMD$ENDIF;
+             else
+                 executing = true;
+             if (executing) then do;
+                 break_flag = false;
+                 call command_table(command_func)(command.arg1, command.arg2);
+             end;
+          end;
+          if (top_level) then do;
+               user_break_flag = false;
+               call free(commandptr);
+          end;
+     end;
+end execute_command;
+
+/* These commands are concerned with Ghu itself: flow of control, macros,
+   symbol definitions, and so on.  Commands relating to class definitions are
+   in 'class.pl1'.  Commands relating to help info are in 'help.pl1'.
+   Commands relating to the display of database information are in
+   'display.pl1'.  Commands relating to the world databases are in
+   'world.pl1'. */
+
+c$alias: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     symbolptr = i2p(arg1);
+     if (symbol.symbol_type ^= SYM$UNDEFINED) then
+          call error('symbol ' || symbol.symbol_nameptr->symbol_name ||
+               ' is already defined');
+     else do;
+          symbol.symbol_type = SYM$ALIAS;
+          symbol.symbol_value = arg2;
+     end;
+end c$alias;
+
+c$alias_print: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_an_alias(i2p(arg1), true);
+end c$alias_print;
+
+c$alias_list: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_aliases;
+end c$alias_list;
+
+c$allmacros: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_macros;
+end c$allmacros;
+
+c$allnames: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_names;
+end c$allnames;
+
+c$break: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     break_flag = true;
+end c$break;
+
+c$execute: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare filenameptr pointer;
+     declare filename based(filenameptr) character(256) varying;
+
+     filenameptr = i2p(arg1);
+     error_flag = false;
+     call push_input(filename);
+     call push_output;
+end c$execute;
+
+c$for_all_a: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call setup_for_range(create_value(SYM$AVATAR, 0),
+                          create_value(SYM$AVATAR, MAXINT));
+end c$for_all_a;
+
+c$for_all_o: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call setup_for_range(create_value(SYM$OBJECT, 1),
+                          create_value(SYM$OBJECT, MAXINT));
+end c$for_all_o;
+
+c$for_all_r: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call setup_for_range(create_value(SYM$REGION, 0),
+                          create_value(SYM$REGION, MAXINT));
+end c$for_all_r;
+
+setup_for_range: procedure(arg1, arg2);
+     declare arg1 pointer;
+     declare arg2 pointer;
+
+     if (for_level ^= 0) then
+          call error('nested FOR loop');
+     else do;
+          if_level = if_level + 1;
+          for_level = if_level;
+          if (if_level = 1) then
+               if_condition(if_level) = IF$EXECUTE;
+          else
+               if_condition(if_level) = if_condition(if_level - 1);          
+          loop_startptr = arg1;
+          if (loop_start.data_type = SYM$AVA_NAME | loop_start.data_type =
+                    SYM$STRING) then do;
+               loop_start.data_type = SYM$AVATAR;
+               loop_start.value = map_avatar_name_to_id(loop_start.value);
+          end;
+          loop_endptr = arg2;
+          if (loop_end.data_type = SYM$AVA_NAME | loop_end.data_type =
+                    SYM$STRING) then do;
+               loop_end.data_type = SYM$AVATAR;
+               loop_end.value = map_avatar_name_to_id(loop_end.value);
+          end;
+          loop_type = resolve_types(loop_start.data_type, loop_end.data_type);
+          if (loop_type ^= SYM$AVATAR & loop_type ^= SYM$OBJECT & loop_type ^=
+                    SYM$REGION & loop_type ^= SYM$INTEGER) then do;
+               call error('Invalid data types for loop bounds');
+               return;
+          end;
+          if (global_top_level) then
+               save_depth = 1;
+          else
+               command_save_ptr = current_command.next;
+     end;
+end setup_for_range;
+
+c$for_range: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     call setup_for_range(eval(arg1), eval(arg2));
+end c$for_range;
+
+c$for_all_o_in: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call setup_for_range(eval(arg1), create_value(SYM$INTEGER, -1));
+end c$for_all_o_in;
+
+c$for_all_a_in: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call setup_for_range(eval(arg1), create_value(SYM$INTEGER, -2));
+end c$for_all_a_in;
+
+c$endfor: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare loop_variable binary(31);
+     declare dummyptr pointer;
+     declare 1 index_symbol based(index_symbolptr) like symbol_table_entry;
+
+     if (for_level ^= if_level) then do;
+          call error('ENDFOR at wrong nesting level');
+          return;
+     end; else if (for_level = 0) then do;
+          call error('ENDFOR without matching FOR');
+          return;
+     end;
+     if_level = if_level - 1;
+     for_level = 0;
+     error_flag = false;
+     loop_variable = loop_start.value;
+     if (command_save_ptr ^= null()) then do;
+          if (loop_end.value = -1) then do;
+               call loop_objects_in(loop_start);
+          end; else if (loop_end.value = -2) then do;
+               call loop_avatars_in(loop_start);
+          end; else do;
+               if (loop_type = SYM$AVATAR) then do;
+                    loop_variable = pos_avatar(loop_variable, KEY_GTEQ);
+                    if (loop_variable ^= -1) then
+                         loop_variable = get_next_avatar(dummyptr,DB$CURRENT);
+               end; else if (loop_type = SYM$OBJECT) then do;
+                    loop_variable = pos_object(loop_variable, KEY_GTEQ);
+                    if (loop_variable ^= -1) then
+                         loop_variable = get_next_object(dummyptr,DB$CURRENT);
+               end; else if (loop_type = SYM$REGION) then do;
+                    loop_variable = pos_region(loop_variable, KEY_GTEQ);
+                    if (loop_variable ^= -1) then
+                         loop_variable = get_next_region(dummyptr,DB$CURRENT);
+               end; else /* if (loop_type = SYM$INTEGER) then */ do;
+                    index_symbol.symbol_type = SYM$INTEGER;
+                    index_symbol.symbol_value = loop_variable;
+               end;
+               do while (loop_variable <= loop_end.value & ^error_flag &
+                         loop_variable ^= -1);
+                    if (execute_nested_code(command_save_ptr)) then do;
+                         loop_variable = loop_variable + 1;
+                         if (loop_type = SYM$AVATAR) then do;
+                              loop_variable = pos_avatar(loop_variable,
+                                   KEY_GTEQ);
+                              if (loop_variable ^= -1) then
+                                   loop_variable = get_next_avatar(dummyptr,
+                                        DB$CURRENT);
+                         end; else if (loop_type = SYM$OBJECT) then do;
+                              loop_variable = pos_object(loop_variable,
+                                   KEY_GTEQ);
+                              if (loop_variable ^= -1) then
+                                   loop_variable = get_next_object(dummyptr,
+                                        DB$CURRENT);
+                         end; else if (loop_type = SYM$REGION) then do;
+                              loop_variable = pos_region(loop_variable,
+                                   KEY_GTEQ);
+                              if (loop_variable ^= -1) then
+                                   loop_variable = get_next_region(dummyptr,
+                                        DB$CURRENT);
+                         end; else /* if (loop_type = SYM$INTEGER) then */ do;
+                              index_symbol.symbol_type = SYM$INTEGER;
+                              index_symbol.symbol_value = loop_variable;
+                         end;
+                    end; else
+                         loop_variable = -1;
+               end;
+          end;
+     end;
+     call free(loop_startptr);
+     call free(loop_endptr);
+     if (global_top_level) then
+          call free_nested_code(command_save_ptr);
+     command_save_ptr = null();
+end c$endfor;
+
+c$if: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     if_level = if_level + 1;
+     if (if_level = 1) then
+          if_condition(if_level) = if_test(eval(arg1));
+     else if (if_condition(if_level - 1) ^= IF$EXECUTE) then
+          if_condition(if_level) = if_condition(if_level - 1);
+     else
+          if_condition(if_level) = if_test(eval(arg1));
+end c$if;
+
+c$else: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     if (if_condition(if_level) = IF$PRE_SKIP) then
+          if_condition(if_level) = IF$EXECUTE;
+     else
+          if_condition(if_level) = IF$POST_SKIP;
+end c$else;
+
+c$elseif: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     if (if_condition(if_level) = IF$PRE_SKIP) then do;
+          if (if_condition(if_level - 1) = IF$EXECUTE) then
+               if_condition(if_level) = if_test(eval(arg1));
+     end; else if (if_condition(if_level) = IF$EXECUTE) then
+          if_condition(if_level) = IF$POST_SKIP;
+end c$elseif;
+
+c$endif: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     if (if_level < 1) then
+          call error('dangling endif');
+     else
+          if_level = if_level - 1;
+end c$endif;
+
+c$macro: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     symbolptr = i2p(arg1);
+     if (^global_top_level) then
+          call error('macro definition inside macro definition or FOR loop');
+     else do;
+          if (symbol.symbol_type ^= SYM$UNDEFINED) then
+               call warning('symbol ' || symbol.symbol_nameptr->symbol_name ||
+                    ' redefined');
+          save_depth = 1;
+          macro_under_construction = symbolptr;
+          symbol.symbol_type = SYM$MACRO;
+          symbol.symbol_value = p2i(null());
+     end;
+end c$macro;
+
+c$endmacro: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare 1 symbol based(macro_under_construction) like symbol_table_entry;
+
+     if (macro_under_construction = null()) then
+          call error('dangling ENDMACRO command');
+     else if (if_level > 0) then
+          call error('ENDMACRO at wrong nesting level');
+     else do;
+          symbol.symbol_value = p2i(command_save_ptr);
+          symbol.symbol_persistent = true;
+          environ_changed = true;
+          macro_under_construction = null();
+          command_save_ptr = null();
+     end;
+end c$endmacro;
+
+c$macro_call: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare value_listptr pointer;
+     declare old_value_listptr pointer;
+     declare 1 value_list based(value_listptr) like value_list_descriptor;
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare p_count binary(15);
+     declare p_base binary(15);
+     declare dummy bit(1);
+
+     symbolptr = i2p(arg1);
+     if (symbol.symbol_type ^= SYM$MACRO) then
+          call error(symbol.symbol_nameptr->symbol_name || ' is neither a ghu command nor a macro');
+     else if (macro_level >= MAX_MACRO_DEPTH) then
+          call error('maximum macro nesting depth (' ||
+               ltrim(MAX_MACRO_DEPTH) || ') exceeded');
+     else do;
+          macro_level = macro_level + 1;
+          if (macro_level = 1) then
+               parameter_base(macro_level) = 0;
+          else
+               parameter_base(macro_level) = parameter_base(macro_level - 1) +
+                    parameter_count(macro_level - 1);
+          p_count = 0;
+          p_base = parameter_base(macro_level);
+          value_listptr = i2p(arg2);
+          do while (value_listptr ^= null());
+               if (p_count + p_base >= MAX_PARAMETER_STACK) then do;
+                    call error('macro parameter stack overflow');
+                    value_listptr = null();
+               end; else do;
+                    p_count = p_count + 1;
+                    macro_level = macro_level - 1;
+                    valueptr = eval(value_list.value);
+                    macro_level = macro_level + 1;
+                    parameter_list(p_base + p_count) = value;
+                    call free(valueptr);
+                    old_value_listptr = value_listptr;
+                    value_listptr = value_list.next;
+/*                    call free(old_value_listptr);*/
+               end;
+          end;
+          parameter_count(macro_level) = p_count;
+          dummy = execute_nested_code(i2p(symbol.symbol_value));
+          macro_level = macro_level - 1;
+     end;
+end c$macro_call;
+
+execute_automacro: procedure;
+     declare dummy bit(1);
+
+     if (automacro_codeptr ^= null()) then
+          dummy = execute_nested_code(automacro_codeptr);
+end execute_automacro;
+
+lookup_macro_parameter: procedure(number) returns(pointer);
+     declare number binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+
+     valueptr = create_value(SYM$UNDEFINED, 0);
+     if (macro_level < 1) then
+          call error('use of macro parameter $' || ltrim(number) ||
+               ' outside of macro');
+     else if (number > parameter_count(macro_level)) then
+          call error('undefined macro parameter $' || ltrim(number));
+     else
+          value = parameter_list(parameter_base(macro_level) + number);
+     return(valueptr);
+end lookup_macro_parameter;
+
+c$name: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+
+     symbolptr = i2p(arg1);
+     valueptr = eval(arg2);
+     if (value.data_type = SYM$UNDEFINED) then
+          call error('undefined value');
+     else do;
+          if (symbol.symbol_type ^= SYM$UNDEFINED) then
+               call warning('symbol ' || symbol.symbol_nameptr->symbol_name ||
+                    ' redefined');
+          symbol.symbol_type = value.data_type;
+          symbol.symbol_value = value.value;
+          symbol.symbol_persistent = true;
+          environ_changed = true;
+     end;
+     call free(valueptr);
+end c$name;
+
+c$quit: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare exit_ghu entry;
+
+     if (class_info_changed) then
+          call write_class_info;
+     if (environ_changed) then
+          call save_environ;
+     call exit_ghu;
+end c$quit;
+
+c$unname: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+
+     symbolptr = i2p(arg1);
+     symbol.symbol_type = SYM$UNDEFINED;
+     symbol.symbol_value = 0;
+     symbol.symbol_persistent = false;
+     environ_changed = true;
+end c$unname;
+
+c$value: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare valueptr pointer;
+
+     valueptr = eval(arg1);
+     call putval(valueptr);
+     call free(valueptr);
+     if (arg2 = 0) then
+          call putchar(NEWLINE);
+end c$value;
+
+putval: procedure(valueptr);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+     declare bitstringptr pointer;
+     declare 1 bitstring based(bitstringptr) like vbit_struct;
+     declare i binary(15);
+
+     if (value.data_type = SYM$UNDEFINED) then
+          call putstr('undefined value');
+     else if (value.data_type = SYM$NAME) then do;
+          symbolptr = i2p(value.value);
+          call putstr('symbol: ' || symbol.symbol_nameptr->symbol_name);
+     end; else if (value.data_type = SYM$STRING) then do;
+          stringptr = i2p(value.value);
+          do i = 1 to length(string);
+               call putstr(unescape(substr(string, i, 1)));
+          end;
+     end; else if (value.data_type = SYM$BITSTRING) then do;
+          bitstringptr = i2p(value.value);
+          call putstr('''');
+          do i = 1 to bitstring.len;
+               if (substr(bitstring.bits, i, 1)) then
+                    call putstr('1');
+               else
+                    call putstr('0');
+          end;
+          call putstr('''b');
+     end; else if (value.data_type = SYM$ALIAS) then
+          call error('BOTCH: alias value crept into expression somehow!');
+     else if (value.data_type = SYM$FIELD) then
+          call error('BOTCH: field value crept into expression somehow!');
+     else if (value.data_type = SYM$ARRAY) then
+          call error('BOTCH: array value crept into expression somehow!');
+     else if (value.data_type = SYM$OBJECT_CONTENTS) then
+          call error('BOTCH: object contents value crept into expression somehow!');
+     else if (value.data_type = SYM$AVATAR_CONTENTS) then
+          call error('BOTCH: avatar contents value crept into expression somehow!');
+     else if (value.data_type = SYM$MACRO) then do;
+          call putline('macro');
+          call print_code(i2p(value.value));
+          call putstr('endmacro');
+     end; else if (value.data_type = SYM$AVATAR) then
+          call putstr('a ' || ltrim(value.value));
+     else if (value.data_type = SYM$AVA_NAME) then do;
+          stringptr = i2p(value.value);
+          call putstr('a "' || string || '"');
+     end; else if (value.data_type = SYM$REGION) then
+          call putstr('r ' || ltrim(value.value));
+     else if (value.data_type = SYM$OBJECT) then
+          call putstr('o ' || ltrim(value.value));
+     else /* if (value.data_type = SYM$INTEGER) then */
+          call putstr(ltrim(value.value));
+end putval;
+
+intercept_break: procedure;
+     call putline('GHU BREAK!');
+     call abort_nesting;
+     call set_prompt('ghu? ');
+     user_break_flag = true;
+end intercept_break;
+
+loop_objects_in: procedure(loop_container);
+     declare 1 loop_container like value_descriptor;
+     declare global_id binary(31);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare count binary(31);
+
+     if (pos_object_by_cont(loop_container, KEY_EQUAL) ^= -1) then do;
+          count = 1;
+          global_id = get_next_object(objptr, DB$CURRENT);
+          do while (global_id ^= -1 & obj.host = loop_container.value &
+                         obj.type = loop_container.data_type & ^error_flag);
+               if (execute_nested_code(command_save_ptr)) then do;
+                    global_id = pos_object_by_cont(loop_container, KEY_EQUAL);
+                    if (global_id ^= -1) then
+                         if (^advance_object(count)) then
+                              global_id = -1;
+                    count = count + 1;
+                    if (global_id ^= -1) then
+                         global_id = get_next_object(objptr, DB$CURRENT);
+               end;
+          end;
+     end;
+end loop_objects_in;
+
+loop_avatars_in: procedure(loop_container);
+     declare 1 loop_container like value_descriptor;
+     declare global_id binary(31);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare count binary(31);
+
+     if (loop_container.data_type ^= SYM$REGION & loop_container.data_type ^=
+               SYM$INTEGER) then do;
+          call error('invalid container type for avatar loop');
+          return;
+     end;
+     if (pos_avatar_by_region(loop_container.value, KEY_EQUAL) ^= -1) then do;
+          count = 1;
+          global_id = get_next_avatar(avaptr, DB$CURRENT);
+          do while (global_id ^= -1 & ava.region = loop_container.value &
+                         ^error_flag);
+               if (execute_nested_code(command_save_ptr)) then do;
+                    global_id = pos_avatar_by_region(loop_container.value,
+                         KEY_EQUAL);
+                    if (global_id ^= -1) then
+                         if (^advance_avatar(count)) then
+                              global_id = -1;
+                    count = count + 1;
+                    if (global_id ^= -1) then
+                         global_id = get_next_avatar(avaptr, DB$CURRENT);
+               end;
+          end;
+     end;
+end loop_avatars_in;

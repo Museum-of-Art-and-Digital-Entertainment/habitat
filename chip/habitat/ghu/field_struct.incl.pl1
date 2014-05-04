@@ -1,0 +1,49 @@
+%replace FIELD$CHARACTER by 1;
+%replace FIELD$BIN15     by 2;
+%replace FIELD$BIN31     by 3;
+%replace FIELD$BIT       by 4;
+%replace FIELD$WORDS     by 5;
+%replace FIELD$AVAID     by 6;
+%replace FIELD$OBJID     by 7;
+%replace FIELD$REGID     by 8;
+%replace FIELD$FATWORD   by 9;
+%replace FIELD$ENTITY    by 10;
+%replace FIELD$BYTE      by 11;
+%replace FIELD$VARSTRING by 12;
+
+declare 1 field_descriptor based,
+          2 name pointer,
+          2 dimension binary(15),
+          2 data_type binary(15),
+          2 offset binary(15),
+          2 init_value pointer,
+          2 invisible binary(15);
+declare 1 field_io_descriptor based,
+          2 name character(20) varying,
+          2 dimension binary(15),
+          2 data_type binary(15),
+          2 offset binary(15),
+          2 invisible binary(15);
+declare 1 pfield_descriptor(1) based like field_descriptor;
+declare 1 input_field_descriptor based,
+          2 name pointer,
+          2 dimension binary(31),
+          2 data_type binary(15),
+          2 initial_value binary(31),
+          2 invisible binary(15);
+declare 1 field_list_descriptor based,
+          2 field binary(31),
+          2 next pointer;
+declare 1 vbit_struct based,
+          2 len binary(15),
+          2 bits bit(32);
+
+declare pchar(1)  character based;
+declare pstring character(256) based;
+declare pvstring character(256) varying based;
+declare pbin15(1) binary(15) based;
+declare pbin31(1) binary(31) based;
+declare pbit bit(32) based;
+declare 1 pentity(1) based,
+          2 ident binary(31),
+          2 type  binary(15);

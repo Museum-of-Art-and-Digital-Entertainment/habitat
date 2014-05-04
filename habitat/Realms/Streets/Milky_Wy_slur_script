@@ -1,0 +1,159 @@
+echo Milky_Wy_s_end
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_s_end.reg \
+     -o rdldir/Milky_Wy_s_end.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_s_end \
+     -n Milky_Wy_128_front
+echo Milky_Wy_128_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_128_front.reg \
+     -o rdldir/Milky_Wy_128_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_128_front \
+     -w Milky_Wy_128_interior \
+     -n Milky_Wy_228_front \
+     -s Milky_Wy_s_end
+echo Milky_Wy_128_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_128_interior.reg \
+     -o rdldir/Milky_Wy_128_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_128_interior \
+     -e Milky_Wy_128_front
+echo Milky_Wy_228_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_228_front.reg \
+     -o rdldir/Milky_Wy_228_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_228_front \
+     -w Milky_Wy_228_interior \
+     -n Milky_Wy_328_front \
+     -s Milky_Wy_128_front
+echo Milky_Wy_228_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_228_interior.reg \
+     -o rdldir/Milky_Wy_228_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_228_interior \
+     -e Milky_Wy_228_front
+echo Milky_Wy_328_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_328_front.reg \
+     -o rdldir/Milky_Wy_328_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_328_front \
+     -w Milky_Wy_328_interior \
+     -n Milky_Wy_428_front \
+     -s Milky_Wy_228_front
+echo Milky_Wy_328_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_328_interior.reg \
+     -o rdldir/Milky_Wy_328_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_328_interior \
+     -e Milky_Wy_328_front
+echo Milky_Wy_428_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_428_front.reg \
+     -o rdldir/Milky_Wy_428_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_428_front \
+     -w Milky_Wy_428_interior \
+     -n Milky_Wy_528_front \
+     -s Milky_Wy_328_front
+echo Milky_Wy_428_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_428_interior.reg \
+     -o rdldir/Milky_Wy_428_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_428_interior \
+     -e Milky_Wy_428_front
+echo Milky_Wy_528_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_528_front.reg \
+     -o rdldir/Milky_Wy_528_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_528_front \
+     -w Milky_Wy_528_interior \
+     -n Milky_Wy_cross \
+     -s Milky_Wy_428_front
+echo Milky_Wy_528_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_528_interior.reg \
+     -o rdldir/Milky_Wy_528_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_528_interior \
+     -e Milky_Wy_528_front
+echo Milky_Wy_cross
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_cross.reg \
+     -o rdldir/Milky_Wy_cross.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_cross \
+     -n Milky_Wy_628_front \
+     -s Milky_Wy_528_front
+echo Milky_Wy_628_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_628_front.reg \
+     -o rdldir/Milky_Wy_628_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_628_front \
+     -w Milky_Wy_628_interior \
+     -n Milky_Wy_728_front \
+     -s Milky_Wy_cross
+echo Milky_Wy_628_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_628_interior.reg \
+     -o rdldir/Milky_Wy_628_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_628_interior \
+     -e Milky_Wy_628_front
+echo Milky_Wy_728_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_728_front.reg \
+     -o rdldir/Milky_Wy_728_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_728_front \
+     -w Milky_Wy_728_interior \
+     -n Milky_Wy_828_front \
+     -s Milky_Wy_628_front
+echo Milky_Wy_728_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_728_interior.reg \
+     -o rdldir/Milky_Wy_728_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_728_interior \
+     -e Milky_Wy_728_front
+echo Milky_Wy_828_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_828_front.reg \
+     -o rdldir/Milky_Wy_828_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_828_front \
+     -w Milky_Wy_828_interior \
+     -n Milky_Wy_928_front \
+     -s Milky_Wy_728_front
+echo Milky_Wy_828_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_828_interior.reg \
+     -o rdldir/Milky_Wy_828_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_828_interior \
+     -e Milky_Wy_828_front
+echo Milky_Wy_928_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_928_front.reg \
+     -o rdldir/Milky_Wy_928_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_928_front \
+     -w Milky_Wy_928_interior \
+     -n Milky_Wy_1028_front \
+     -s Milky_Wy_828_front
+echo Milky_Wy_928_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_928_interior.reg \
+     -o rdldir/Milky_Wy_928_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_928_interior \
+     -e Milky_Wy_928_front
+echo Milky_Wy_1028_front
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_1028_front.reg \
+     -o rdldir/Milky_Wy_1028_front.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_1028_front \
+     -w Milky_Wy_1028_interior \
+     -n Milky_Wy_n_end \
+     -s Milky_Wy_928_front
+echo Milky_Wy_1028_interior
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_1028_interior.reg \
+     -o rdldir/Milky_Wy_1028_interior.rdl \
+     -d FACE_EAST \
+     -r Milky_Wy_1028_interior \
+     -e Milky_Wy_1028_front
+echo Milky_Wy_n_end
+/u0/chip/microcosm/slur/slur regdir/Milky_Wy_n_end.reg \
+     -o rdldir/Milky_Wy_n_end.rdl \
+     -d FACE_WEST \
+     -r Milky_Wy_n_end \
+     -s Milky_Wy_1028_front

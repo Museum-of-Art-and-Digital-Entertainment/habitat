@@ -1,0 +1,110 @@
+use region r_9110 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9120
+  west_neighbor: r -1
+  north_neighbor: r r_9111
+  south_neighbor: r r_1960
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6714 {
+  container: r r_9110
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6715 {
+  container: r r_9110
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use atm o_6716 {
+  container: r r_9110
+  x: 76
+  y: 56
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use streetlamp o_6717 {
+  container: r r_9110
+  x: 8
+  y: 133
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use garbage_can o_6718 {
+  container: r r_9110
+  x: 32
+  y: 152
+  style: 0
+  gr_state: 1
+  orient: 220
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use street o_6719 {
+  container: r r_9110
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use sign o_6720 {
+  container: r r_9110
+  x: 104
+  y: 66
+  style: 1
+  gr_state: 3
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\^\d\( Bob's\R\ U-Bank                       "
+}

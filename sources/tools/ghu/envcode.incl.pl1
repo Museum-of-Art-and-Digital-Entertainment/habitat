@@ -1,0 +1,2 @@
+declare save_code entry(pointer) returns(bit(1));
+declare unsave_code entry returns(pointer);

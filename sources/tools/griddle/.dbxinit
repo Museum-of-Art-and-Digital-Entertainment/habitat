@@ -1,0 +1,7 @@
+alias r run -i test.i -g test.gri
+alias c cont
+alias n next
+alias s step
+alias p print
+alias l list
+alias q quit

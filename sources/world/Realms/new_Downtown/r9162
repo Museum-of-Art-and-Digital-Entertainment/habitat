@@ -1,0 +1,105 @@
+use region r_9162 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9154
+  north_neighbor: r r_9166
+  south_neighbor: r r_9165
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7293 {
+  container: r r_9162
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_7294 {
+  container: r r_9162
+  x: 160
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 112
+  pattern_x_size: 0
+  pattern_y_size: 1
+  pattern: 170, 85, 85, 85, 86, 165, 101, 101, 89, 89, 101, 165, 89, 89, 102, 1
+01, 89, 89, 105, 101, 89, 89, 101, 101, 86, 165, 101, 101, 85, 85, 85, 85
+}
+use short_sign o_7295 {
+  container: r r_9162
+  x: 4
+  y: 72
+  style: 0
+  gr_state: 0
+  orient: 156
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(~\ a     "
+}
+use short_sign o_7296 {
+  container: r r_9162
+  x: 132
+  y: 72
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(b\ \177     "
+}
+use sign o_7297 {
+  container: r r_9162
+  x: 52
+  y: 80
+  style: 6
+  gr_state: 2
+  orient: 156
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Room a:\RTalk Shows\RForums\RMeetings      "
+}
+use sign o_7298 {
+  container: r r_9162
+  x: 52
+  y: 40
+  style: 6
+  gr_state: 2
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Room b:\ROpera\RPlays\RMime Troupe         "
+}

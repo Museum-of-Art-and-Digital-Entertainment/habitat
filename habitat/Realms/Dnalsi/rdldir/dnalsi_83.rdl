@@ -1,0 +1,29 @@
+@region $ dnalsi_83 {
+    north: dnalsi_84.l;
+    south: dnalsi_82.l;
+    east: dnalsi_93.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @tree { x:28; y:22; or:236; style:2; }
+        @pond { x:24; y:7; or:0; gr_state:1; }
+        @pond { x:48; y:5; or:0; gr_state:1; }
+        @tree { x:120; y:27; or:173; style:2; gr_state:1; }
+        @tree { x:92; y:134; or:173; style:2; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @pond { x:40; y:15; or:0; gr_state:3; }
+        @tree { x:120; y:77; or:173; style:2; gr_state:3; }
+        @aquarium { x:52; y:140; or:0; gr_state:2; 
+            8:2;
+        }
+        @trapezoid { x:44; y:138; or:8; gr_state:2; 
+            8:2;
+            9:0;
+            10:38;
+            11:0;
+            12:38;
+            13:22;
+        }
+    ]
+}

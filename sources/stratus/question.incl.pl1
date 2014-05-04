@@ -1,0 +1,7 @@
+     10 originator       binary(31),              /* uid of player who asked */
+     10 time_asked       binary(31),              /* standard timestamp      */
+     10 oracle_id        binary(31),
+     10 flags            ,
+          15 answered    bit(1),
+          15 unused      bit(15),                 /* for future use          */
+     10 text             character(128) varying;

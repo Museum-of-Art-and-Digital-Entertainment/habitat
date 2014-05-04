@@ -1,0 +1,18 @@
+@region $ dnalsi_09 {
+    north: dnalsi_0a.l;
+    south: dnalsi_08.l;
+    east: dnalsi_19.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @bush { x:76; y:140; or:16; style:4; gr_state:1; }
+        @bottle { x:68; y:140; or:0; 
+            8:0;
+        }
+        @ground { x:0; y:4; or:188; style:1; }
+        @bush { x:152; y:22; or:17; style:4; gr_state:2; }
+        @bush { x:24; y:24; or:17; style:4; gr_state:2; }
+        @bush { x:68; y:130; or:16; style:4; gr_state:1; }
+    ]
+}

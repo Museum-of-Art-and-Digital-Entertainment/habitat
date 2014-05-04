@@ -1,0 +1,1936 @@
+
+declare yyexca(0:5) binary(15) static init(
+-1, 1,
+	0, -1,
+	-2, 0
+	);
+%replace YYNPROD by 267;
+%replace YYLAST by 1983;
+declare yyact(0:1982) binary(15) static init(
+
+ 192, 314, 310,  59,  60,  61,  62,  63,  64,  65,
+  66, 111,  68,  69,  70, 191,  71,  72,  73,  74,
+  75,  76,  77,  78,  79,  80,  81,  82,  83,  85,
+  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,
+  96,  97,  98,  99, 100, 101, 102, 104, 105, 106,
+ 107, 108, 109, 110, 103, 261, 213, 193, 190, 135,
+ 118, 366, 338, 334, 288, 136, 137, 224, 223, 140,
+ 207, 141, 142, 138, 322, 321, 143, 145, 146, 147,
+ 112, 185, 186, 187,  84, 259, 343, 194, 195, 196,
+ 198, 259, 277, 117, 199, 200, 201, 202, 203, 204,
+ 206, 116, 278, 208, 272, 212, 285,   4, 214, 215,
+ 216, 218, 220, 122, 370, 364, 273, 368, 254, 209,
+ 240, 260, 258, 221, 243, 244, 245, 246, 247, 248,
+ 249, 250, 251, 252, 253, 351, 345, 346, 347, 355,
+ 344, 353, 352, 350, 349, 354, 348, 229, 263,   2,
+ 242, 228, 225, 342, 226, 240, 227, 320, 272, 229,
+ 242, 317, 264, 228, 225, 265, 226, 240, 227, 229,
+ 114, 284, 115, 228, 225, 319, 226, 240, 227, 139,
+ 228, 232, 148, 237, 240, 227,   3, 256, 113, 270,
+  67, 232, 229, 237,  58, 365, 228, 225,  57, 226,
+ 240, 227, 229, 231,  56,  55, 228, 225,  54, 226,
+ 240, 227, 289, 205, 232, 231, 237,  53, 293, 115,
+  52,  51,  50, 222,  49, 231, 295, 296, 297, 298,
+ 299, 300, 301, 302, 303, 304, 305, 306, 307, 308,
+ 309,  48, 229, 312,  47, 230, 228, 225, 231, 226,
+ 240, 227,  46,  45,  44, 230,  43, 311, 231, 228,
+ 225,  42, 226, 240, 227,  41,  40, 323,  39, 324,
+  38,  37,  36, 327, 328, 329,  35, 330, 230, 331,
+ 332,  34, 333,  33, 335, 336,  32, 337, 230,  31,
+  30, 339,  29, 340,  28,  27,  26,  25,  24,  23,
+  22,  21,  20,  19,  18,  17,  16,  15,  14,  13,
+  12,  11,  10,   9,   8,   7,   6,   1,   0, 315,
+   0, 356, 357, 358,   0, 257,   5,  59,  60,  61,
+  62,  63,  64,  65,  66, 111,  68,  69,  70,   0,
+  71,  72,  73,  74,  75,  76,  77,  78,  79,  80,
+  81,  82,  83,  85,  86,  87,  88,  89,  90,  91,
+  92,  93,  94,  95,  96,  97,  98,  99, 100, 101,
+ 102, 104, 105, 106, 107, 108, 109, 110, 103, 316,
+ 367, 318,   0,   0,   0,   0, 371, 287, 261,   0,
+   0,   0,   0,   0, 261,   5,  59,  60,  61,  62,
+  63,  64,  65,  66, 111,  68,  69,  70,  84,  71,
+  72,  73,  74,  75,  76,  77,  78,  79,  80,  81,
+  82,  83,  85,  86,  87,  88,  89,  90,  91,  92,
+  93,  94,  95,  96,  97,  98,  99, 100, 101, 102,
+ 104, 105, 106, 107, 108, 109, 110, 103, 282, 283,
+   0,   0,   0,   0, 229, 369,   0, 275, 228, 225,
+   0, 226, 240, 227,   0,   0,   0, 276,   0, 239,
+ 238,   0, 234, 236, 233, 235, 232,  84, 237, 239,
+ 238,   0, 234, 236, 233, 235, 363,   0,   0,   0,
+   0, 229,   0,   0,   0, 228, 225,   0, 226, 240,
+ 227,   0, 239, 238,   0, 234, 236, 233, 235,   0,
+ 231,   0,   0, 232, 229, 237,   0,   0, 228, 225,
+   0, 226, 240, 227, 229,   0,   0,   0, 228, 225,
+   0, 226, 240, 227,   0,   0, 232,   0, 237,   0,
+ 230,   0,   0,   0,   0, 229, 232, 231, 237, 228,
+ 225,   0, 226, 240, 227,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0, 232,   0, 237,
+ 231,   0,   0,   0, 229,   0,   0, 230, 228, 225,
+ 231, 226, 240, 227, 229,   0,   0, 341, 228, 225,
+   0, 226, 240, 227,   0,   0, 232,   0, 237,   0,
+ 230, 231,   0,   0,   0,   0, 232,   0, 237,   0,
+ 230,   0,   0, 229,   0,   0,   0, 228, 225,   0,
+ 226, 240, 227,   0,   0,   0,   0,   0,   0,   0,
+ 231, 230,   0,   0,   0, 232,   0, 237,   0, 229,
+ 231,   0, 313, 228, 225,   0, 226, 240, 227,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+ 230, 232,   0, 237,   0,   0,   0, 229,   0, 231,
+ 230, 228, 225,   0, 226, 240, 227,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0, 232,
+ 292, 237,   0, 229,   0, 231,   0, 228, 225, 230,
+ 226, 240, 227,   0, 229,   0,   0,   0, 228, 225,
+   0, 226, 240, 227,   0, 232,   0, 237,   0,   0,
+   0,   0,   0, 231,   0, 230, 232,   0, 237,   0,
+   0,   0,   0,   0,   0, 229,   0, 269,   0, 228,
+ 225, 268, 226, 240, 227,   0,   0,   0,   0, 231,
+   0,   0,   0, 230,   0,   0,   0, 232, 286, 237,
+ 231,   0,   0,   0, 239, 238,   0, 234, 236, 233,
+ 235,   0,   0,   0,   0,   0, 229,   0,   0, 230,
+ 228, 225, 281, 226, 240, 227,   0,   0,   0,   0,
+ 230, 231,   0,   0,   0,   0,   0,   0, 232,   0,
+ 237, 239, 238, 362, 234, 236, 233, 235,   0,   0,
+   0,   0, 361,   0,   0,   0,   0,   0,   0,   0,
+   0, 230,   0,   0, 239, 238,   0, 234, 236, 233,
+ 235,   0, 231, 360, 239, 238,   0, 234, 236, 233,
+ 235,   0,   0,   0,   0, 229,   0,   0,   0, 228,
+ 225,   0, 226, 240, 227, 239, 238, 359, 234, 236,
+ 233, 235, 230,   0,   0,   0,   0, 232,   0, 237,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0, 239, 238,   0, 234, 236, 233,
+ 235,   0,   0,   0, 239, 238, 326, 234, 236, 233,
+ 235, 231,   0,   0,   0,   0,   0,   0,   0,   0,
+ 229,   0,   0,   0, 228, 225,   0, 226, 240, 227,
+   0,   0,   0, 239, 238,   0, 234, 236, 233, 235,
+   0, 230, 232, 279, 237,   0, 229,   0,   0,   0,
+ 228, 225,   0, 226, 240, 227,   0,   0,   0, 239,
+ 238,   0, 234, 236, 233, 235,   0,   0, 232,   0,
+ 237,   0,   0,   0,   0,   0, 231,   0,   0,   0,
+ 294,   0,   0,   0,   0,   0,   0, 239, 238,   0,
+ 234, 236, 233, 235,   0,   0,   0,   0,   0,   0,
+   0, 290, 231,   0,   0,   0, 230,   0,   0,   0,
+   0,   0,   0, 239, 238,   0, 234, 236, 233, 235,
+   0,   0,   0,   0, 239, 238,   0, 234, 236, 233,
+ 235,   0, 230,   0,   0,   0,   0,   0,   0,   0,
+   0,   0, 229,   0,   0,   0, 228, 225,   0, 226,
+ 240, 227,   0,   0,   0, 239, 238,   0, 234, 236,
+ 233, 235,   0, 229, 232,   0, 237, 228, 225,   0,
+ 226, 240, 227,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0, 232,   0, 237,   0,   0,
+   0,   0,   0,   0,   0,   0, 239, 238, 231, 234,
+ 236, 233, 235, 229,   0,   0,   0, 228, 225,   0,
+ 226, 240, 227,   0,   0,   0,   0,   0,   0, 231,
+   0,   0,   0,   0,   0, 232,   0, 237, 230, 229,
+   0,   0,   0, 228, 225,   0, 226, 240, 227,   0,
+   0,   0,   0,   0,   0,   0, 280,   0,   0, 230,
+   0, 232, 241, 237,   0,   0,   0,   0,   0, 231,
+   0,   0,   0,   0,   0, 239, 238,   0, 234, 236,
+ 233, 235, 229,   0,   0,   0, 228, 225,   0, 226,
+ 240, 227,   0, 229,   0, 231,   0, 228, 225, 230,
+ 226, 291, 227,   0, 232, 229, 237,   0,   0, 228,
+ 225,   0, 226, 262, 227, 232,   0, 237,   0,   0,
+   0,   0,   0,   0,   0, 230, 229, 232,   0, 237,
+ 228, 225,   0, 226, 240, 227,   0,   0, 231,   0,
+ 239, 238,   0, 234, 236, 233, 235, 267, 232, 231,
+ 237, 229,   0,   0,   0, 228, 225,   0, 226, 240,
+ 227, 231,   0,   0,   0,   0, 239, 238, 230, 234,
+ 236, 233, 235, 232,   0, 237,   0,   0,   0, 230,
+   0, 127, 231,   0,   0,   0,   0,   0, 128,   0,
+   0, 230,   0, 124,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0, 231, 127,   0,
+   0, 123, 230, 129,   0, 128,   0,   0,   0,   0,
+ 124,   0,   0,   0,   0,   0,   0, 130,   0, 127,
+ 131, 132,   0, 133,   0,   0, 128, 230, 123, 274,
+ 129, 124, 125,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0, 130,   0,   0, 131, 132, 123,
+ 133, 129, 239, 238, 127, 234, 236, 233, 235, 125,
+ 266, 128,   0,   0, 126, 130, 124,   0, 131, 132,
+   0, 133,   0, 239, 238,   0, 234, 236, 233, 235,
+ 125,   0,   0,   0, 123,   0, 129,   0,   0,   0,
+   0, 126,   0,   0, 255,   0,   0,   0,   0,   0,
+ 130,   0,   0, 131, 132,   0, 133,   0,   0,   0,
+   0,   0, 126, 239, 238, 125, 234, 236, 233, 235,
+ 127,   0, 217,   0,   0,   0,   0, 128,   0,   0,
+   0,   0, 124,   0,   0,   0,   0,   0,   0, 239,
+ 238,   0, 234, 236, 233, 235,   0, 126,   0,   0,
+ 123,   0, 129,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0, 130,   0,   0, 131,
+ 132,   0, 133,   0,   0,   0,   0,   0,   0,   0,
+   0, 125, 239, 238,   0, 234, 236, 233, 235,   0,
+   0,   0,   0, 239, 238,   0, 234, 236, 233, 235,
+   0,   0,   0,   0,   0, 239, 238,   0, 234, 236,
+ 233, 235,   0, 126,   0,   0,   0,   0,   0,   0,
+   0, 127,   0,   0,   0,   0,   0, 238, 128, 234,
+ 236, 233, 235, 124,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0, 123,   0, 129, 234, 236, 233, 235,   0, 189,
+   0,   0,   0, 188,   0,   0,   0, 130,   0,   0,
+ 131, 132,   0, 133,   0,   0, 134, 119, 121, 120,
+   0,   0, 125, 127,   0,   0, 325,   0,   0,   0,
+ 128,   0,   0,   0,   0, 124,   0,   0,   0,   0,
+   0,   0,   0, 134, 119, 121, 120, 271,   0,   0,
+   0,   0,   0, 123, 126, 129,   0,   0,   0,   0,
+   0,   0,   0,   0, 134, 119, 121, 120,   0, 130,
+   0,   0, 131, 132,   0, 133, 127,   0,   0,   0,
+   0,   0,   0, 128, 125,   0,   0,   0, 124,   0,
+   0,   0,   0,   0, 219,   0,   0, 127,   0, 134,
+ 119, 121, 120,   0, 128,   0, 123,   0, 129, 124,
+   0,   0,   0,   0,   0,   0, 126,   0,   0,   0,
+   0,   0, 130,   0, 127, 131, 132, 123, 133, 129,
+   0, 128,   0,   0,   0,   0, 124, 125,   0,   0,
+   0,   0,   0, 130,   0,   0, 131, 132,   0, 133,
+   0,   0,   0,   0, 123,   0, 129,   0, 125,   0,
+   0,   0,   0,   0,   0, 134, 119, 121, 120, 126,
+ 130,   0,   0, 131, 132,   0, 133,   0,   0,   0,
+   0,   0,   0,   0,   0, 125,   0,   0,   0,   0,
+ 126,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0, 149, 150, 151, 152,   0,
+ 153, 154, 155, 156, 157,   0,   0, 126,   0,   0,
+   0, 158, 159, 160, 161, 162, 163, 164, 165, 166,
+ 167, 168,   0, 169, 170,   0, 171, 172, 173, 174,
+ 175, 176, 177,   0, 178, 179,   0,   0, 180,   0,
+   0,   0, 181, 211, 182, 183, 184,   0,   0,   0,
+   0,   0,   0,   0,   0,   0, 134, 119, 121, 120,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0, 210,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0, 134, 119,
+ 121, 120,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0, 197,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0, 134, 119, 121, 120,   0, 144,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0, 134, 119, 121, 120,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0, 134,
+ 119, 121, 120 );
+declare yypact(0:371) binary(15) static init(
+
+ 139,  70,-1000, 160,-1000,-1000,-230,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,1641,
+-279,-1000,-1000,-1000,1641,1641,-264, 169,1641,-1000,
+1641,-1000,-1000,-1000,-265,1641,1614,1641,1641,1498,
+1641,1641,1228,-280,1641,-281,1641,1641,1593,1641,
+-1000,-1000,-1000,1641,1641,1641,1641,1641,1641,1641,
+-267,-1000,1641,1540,1478,-1000,-282,1641,1641,1377,
+1311,1641,-1000, 113,-1000,-254,-269,-270,1081,-1000,
+-1000,-1000, 120,1641,1641,1641,1641,1641,1641,1641,
+1641,1641,1641,1641,-1000,  57,1124,1055,-1000,  56,
+1147,1124,-1000,1124,  83,1015,1124, 898,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,1124,1124, 416,1276,-1000,
+-1000, 114,1124,  55,1124, 994, 131,-234, 872, 807,
+ 738,1124,1124,1124, 121, 110,1124,-218, 697,  60,
+-273,1641, 666,-1000,1124,1135, 655,1641,1124,-1000,
+ 629,-1000,-1000,-1000,-1000,1641,1641,1641,1641,1641,
+1641,1641,1641,1641,1641,1641,1641,1641,1641,1641,
+-336,1641,1641,-1000,  74,  74,  74,1193, 601,-1000,
+-1000,-1000,-1000,-1000,-340,-1000,  50,-1000, 151,-283,
+-1000, 117,-336,-255,-256,-1000,1641,-1000,1255,-1000,
+ 575,-1000,1641,1641,1641,-1000,1641,-1000,1641,1641,
+-1000,1641,-274,1641,1641,-1000,1641,-275,-1000,1124,
+1641,-336,1641,1124,-1000, 138, 138,  74,  74, 217,
+ 109, 204, 164, 164, 164, 164, 164, 164,1193,1168,
+-1000, 114, 546,-1000,-1000,-1000, 143,-1000,-1000,-174,
+1641,1641,1641,1124, 536,-1000,-1000,1124,1124,1124,
+ 507, 486,1124,1124,-1000, 476, 453,1124,-1000,1124,
+1124,-1000,-1000,  54,-1000,-1000,-1000,-1000,-1000,-1000,
+-1000,-1000,-1000,-1000,-1000,-1000, 154,1124,1124,-1000,
+-1000,-1000,-276,-1000,1641,  59,-1000, 114,-174,  53,
+1641, 114 );
+declare yypgo(0:65) binary(15) static init(
+
+   0, 317, 186, 107, 316, 315, 314, 313, 312, 311,
+ 310, 309, 308, 307, 306, 305, 304, 303, 302, 301,
+ 300, 299, 298, 297, 296, 295, 294, 292, 290, 289,
+ 286, 283, 281, 276, 272, 271, 270, 268, 266, 265,
+ 261, 256, 254, 253, 252, 244, 241, 224, 222, 221,
+ 220, 217, 208, 205, 204, 198, 194,   0, 113,  15,
+ 190, 187, 182, 122, 121,  86 );
+declare yyr1(0:266) binary(15) static init(
+
+   0,   1,   1,   1,   1,   2,   2,   2,   3,   3,
+   3,   4,   4,   4,   4,   4,   4,   4,   4,   4,
+   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,
+   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,
+   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,
+   4,   4,   4,   4,   4,   4,   4,   4,   4,   4,
+   4,   4,   4,  57,  57,  57,  57,  57,  57,  57,
+  57,  57,  57,  57,  57,  57,  57,  57,  57,  57,
+  57,  57,  57,  57,  57,  57,  57,  57,  57,  57,
+  57,  57,  57,  58,  58,  58,  30,  30,   5,   5,
+   5,   6,   6,   6,   7,   8,   9,  10,  11,  11,
+  12,  13,  13,  60,  14,  14,  14,  15,  16,  17,
+  18,  19,  20,  21,  22,  22,  22,  22,  22,  22,
+  23,  24,  24,  25,  25,  26,  27,  28,  28,  28,
+  28,  28,  28,  28,  28,  28,  28,  28,  28,  29,
+  31,  32,  33,  33,  34,  34,  34,  34,  34,  34,
+  34,  34,  35,  35,  36,  37,  38,  39,  39,  40,
+  40,  40,  41,  42,  43,  44,  44,  44,  44,  45,
+  45,  46,  46,  47,  48,  48,  50,  50,  50,  50,
+  50,  50,  51,  52,  53,  53,  54,  54,  55,  55,
+  55,  55,  56,  56,  56,  49,  49,  49,  49,  61,
+  61,  63,  63,  64,  64,  64,  64,  65,  65,  65,
+  65,  65,  65,  65,  65,  65,  65,  65,  65,  59,
+  59,  62,  62,  62,  62,  62,  62,  62,  62,  62,
+  62,  62,  62,  62,  62,  62,  62,  62,  62,  62,
+  62,  62,  62,  62,  62,  62,  62,  62,  62,  62,
+  62,  62,  62,  62,  62,  62,  62 );
+declare yyr2(0:266) binary(15) static init(
+
+   0,   1,   2,   2,   3,   1,   1,   3,   1,   3,
+   3,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   2,   2,   2,
+   2,   2,   3,   3,   3,   3,   3,   3,   3,   3,
+   3,   3,   3,   3,   3,   3,   3,   3,   2,   2,
+   2,   2,   2,   1,   3,   4,   2,   1,   1,   2,
+   4,   4,   2,   1,   1,   1,   1,   2,   2,   3,
+   2,   4,   3,   3,   2,   3,   1,   1,   2,   1,
+   1,   1,   2,   2,   3,   3,   3,   5,   5,   4,
+   2,   2,   3,   1,   2,   2,   2,   5,   4,   4,
+   3,   4,   3,   3,   2,   3,   2,   2,   1,   2,
+   4,   2,   2,   4,   2,   2,   3,   3,   4,   4,
+   5,   5,   2,   4,   1,   1,   1,   2,   3,   1,
+   2,   4,   2,   2,   2,   2,   4,   4,   6,   4,
+   5,   2,   3,   1,   2,   4,   1,   2,   2,   4,
+   3,   3,   1,   2,   1,   2,   2,   3,   1,   2,
+   3,   4,   1,   2,   2,   2,   4,   1,   3,   2,
+   3,   2,   1,   3,   6,   5,   8,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   3,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
+   1,   1,   1,   1,   1,   1,   1 );
+declare yychk(0:371) binary(15) static init(
+
+-1000,  -1,  10,  -2,  -3, 256,  -4,  -5,  -6,  -7,
+  -8,  -9, -10, -11, -12, -13, -14, -15, -16, -17,
+ -18, -19, -20, -21, -22, -23, -24, -25, -26, -27,
+ -28, -29, -30, -31, -32, -33, -34, -35, -36, -37,
+ -38, -39, -40, -41, -42, -43, -44, -45, -46, -47,
+ -48, -49, -50, -51, -52, -53, -54, -55, -56, 257,
+ 258, 259, 260, 261, 262, 263, 264, -60, 266, 267,
+ 268, 270, 271, 272, 273, 274, 275, 276, 277, 278,
+ 279, 280, 281, 282, 338, 283, 284, 285, 286, 287,
+ 288, 289, 290, 291, 292, 293, 294, 295, 296, 297,
+ 298, 299, 300, 308, 301, 302, 303, 304, 305, 306,
+ 307, 265,  10,  -2,  10,  59, 331, 323, -57, 339,
+ 341, 340, -58,  63,  45,  94, 126,  33,  40,  65,
+  79,  82,  83,  85, 338, 338, -57, -57, 337,  10,
+ -57, -57, 337, -57, 322, -57, -57, -57, -62, 257,
+ 258, 259, 260, 262, 263, 264, 265, 266, 273, 274,
+ 275, 276, 277, 278, 279, 280, 281, 282, 283, 285,
+ 286, 288, 289, 290, 291, 292, 293, 294, 296, 297,
+ 300, 304, 306, 307, 308, -57, -57, -57, 325, 321,
+ 338, -59, -57, 338, -57, -57, -57, 322, -57, -57,
+ -57, -57, -57, -57, -57, -58, -57, 337, -57, -59,
+ 327, 325, -57, 338, -57, -57, -57,  35, -57, 333,
+ -57,  10,  -3, 337, 337,  43,  45,  47,  42,  38,
+ 124,  94,  60, 353, 351, 354, 352,  62, 349, 348,
+  46,  61,  40, -57, -57, -57, -57, -57, -57, -57,
+ -57, -57, -57, -57,  61, 329, -61, 269, -63,  35,
+ -64, 338,  46,  65,  79,  82, 335, 329, 325, 321,
+ -57, 321,  44,  61, 325, 326, 336, 326, 336,  61,
+ 329,  44, 327, 328,  61, 324,  61, 327, 337, -57,
+ 325,  46,  35, -57, 341, -57, -57, -57, -57, -57,
+ -57, -57, -57, -57, -57, -57, -57, -57, -57, -57,
+ 338, -59, -57,  41, 341, 269, -63,  10, -64,  58,
+  40, 330, 330, -57, -57, 321, 321, -57, -57, -57,
+ -57, -57, -57, -57, 337, -57, -57, -57, 337, -57,
+ -57,  41,  10, -65, 314, 310, 311, 312, 320, 318,
+ 317, 309, 316, 315, 319, 313, -57, -57, -57, 321,
+ 326, 326, 327,  33,  61,  41, 337, -59,  58, -65,
+  61, -59 );
+declare yydef(0:371) binary(15) static init(
+
+   0,  -2,   1,   0,   5,   6,   8,  11,  12,  13,
+  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,
+  24,  25,  26,  27,  28,  29,  30,  31,  32,  33,
+  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,
+  44,  45,  46,  47,  48,  49,  50,  51,  52,  53,
+  54,  55,  56,  57,  58,  59,  60,  61,  62,  98,
+ 103, 104, 105, 106,   0,   0,   0,   0, 116, 117,
+   0, 119, 120, 121,   0,   0,   0,   0,   0, 133,
+   0,   0, 148,   0,  97,   0,   0,   0,   0,   0,
+ 164, 165, 166,   0, 169,   0,   0,   0,   0,   0,
+   0, 183,   0, 207, 186, 192,   0, 194,   0, 198,
+ 202,   0,   3,   0,   2,   0,   0,   0,  99,  63,
+  64,  65,  66,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,  93, 102, 107, 108, 110,   0,
+ 114, 118, 122, 123,   0,   0, 130, 131, 134, 231,
+ 232, 233, 234, 235, 236, 237, 238, 239, 240, 241,
+ 242, 243, 244, 245, 246, 247, 248, 249, 250, 251,
+ 252, 253, 254, 255, 256, 257, 258, 259, 260, 261,
+ 262, 263, 264, 265, 266, 135, 136, 144, 146, 147,
+ 149,  96, 229,   0, 151, 152, 154, 155, 162, 167,
+ 170, 172, 173, 174, 175,  66,   0, 181, 184, 205,
+   0, 187, 188, 193, 195, 196, 199,   0, 203, 204,
+   0,   4,   7,   9,  10,   0,   0,   0,   0,   0,
+   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+   0,   0,   0,  67,  68,  69,  70,  71,   0,  88,
+  89,  90,  91,  92,   0, 109,   0, 112,   0,   0,
+ 212,   0, 115, 124, 125, 126,   0, 132, 142, 143,
+ 140, 145,   0,   0,   0, 156,   0, 157,   0,   0,
+ 168,   0,   0,   0,   0, 182,   0,   0, 208, 191,
+ 190, 197,   0, 200, 113,  73,  74,  75,  76,  77,
+  78,  79,  80,  81,  82,  83,  84,  85,  86,  87,
+  94, 100,   0,  72, 101, 111,   0, 209, 211,   0,
+   0,   0,   0, 129, 138, 141, 139, 230, 150, 153,
+ 158, 159, 163, 171, 176, 177, 179, 185, 206, 189,
+ 201,  95, 210, 213, 217, 218, 219, 220, 221, 222,
+ 223, 224, 225, 226, 227, 228,   0, 127, 128, 137,
+ 160, 161,   0, 180,   0,   0, 178, 215,   0, 214,
+   0, 216 );
+/*
+     Tricky hacks of the Lucasfilm Games Division, episode 43:
+
+     This is the Unix yacc parser converted to Stratus PL/1.
+
+     Combined with some emacs translation macros, we can now use yacc to
+     generate PL/1 stuff.  Ain't life grand?
+
+*/
+
+%include 'y.tab.incl.pl1';
+%include 'parse_defs.incl.pl1';
+
+%replace true by '1'b;
+%replace false by '0'b;
+
+%replace YYMAXDEPTH by 150;
+
+declare yylval external static binary(31);
+declare yyval static binary(31);
+
+%replace YYERRCODE by 256;
+%replace YYFLAG by -1000;
+
+/*     parser for yacc output     */
+
+
+declare yydebug bit(1) static init(false);   /* true for debugging */
+
+declare yyv(0:YYMAXDEPTH) static binary(31); /* where the values are stored */
+declare yychar binary(31) static init(-1);   /* current input token number */
+declare yynerrs binary(31) static init(0);   /* number of errors */
+declare yyerrflag binary(15) static init(0); /* error recovery flag */
+
+yyparse: procedure returns(bit(1));
+     declare yys(0:YYMAXDEPTH) binary(15);
+     declare (yyj, yym) binary(15);
+     declare yypvt binary(15);
+     declare (yystate, yyn) binary(15);
+     declare yyps binary(15);
+     declare yypv binary(15);
+     declare yyxi binary(15);
+
+     yystate = 0;
+     yychar = -1;
+     yynerrs = 0;
+     yyerrflag = 0;
+     yyps = -1;
+     yypv = -1;
+
+yystack:    /* put a state and value onto the stack */
+
+     if (yydebug) then
+          put skip edit('state ' || ltrim(yystate) || ', char ' ||
+               ltrim(yychar))(a);
+
+     yyps = yyps + 1;
+     if (yyps > YYMAXDEPTH) then do;
+          call yyerror('parser stack overflow');
+          return(true);
+     end;
+     yys(yyps) = yystate;
+     yypv = yypv + 1;
+     yyv(yypv) = yyval;
+
+yynewstate:
+
+     yyn = yypact(yystate);
+
+     if (yyn <= YYFLAG) then goto yydefault; /* simple state */
+
+     if (yychar < 0) then do;
+          yychar = yylex();
+          if (yychar < 0) then
+               yychar = 0;
+     end;
+     yyn = yyn + yychar;
+     if (yyn < 0 | yyn >= YYLAST) then goto yydefault;
+
+     yyn = yyact(yyn);
+     if (yychk(yyn) = yychar) then do; /* valid shift */
+          yychar = -1;
+          yyval = yylval;
+          yystate = yyn;
+          if (yyerrflag > 0) then yyerrflag = yyerrflag - 1;
+          goto yystack;
+     end;
+
+ yydefault:
+     /* default state action */
+
+     yyn = yydef(yystate);
+     if (yyn = -2) then do;
+          if (yychar < 0) then do;
+               yychar = yylex();
+               if (yychar < 0) then
+                    yychar = 0;
+          end;
+          /* look through exception table */
+
+          yyxi = 0;
+          do while (yyexca(yyxi) ^= -1 | yyexca(yyxi+1) ^= yystate);
+               yyxi = yyxi + 2;
+          end;
+
+          yyxi = yyxi + 2;
+          do while (yyexca(yyxi) >= 0);
+               if (yyexca(yyxi) = yychar) then
+                    goto break;
+               yyxi = yyxi + 2;
+          end;
+break:
+          yyn = yyexca(yyxi + 1);
+          if (yyn < 0 ) then return(false);   /* accept */
+     end;
+
+     if (yyn = 0) then do; /* error */
+          /* error ... attempt to resume parsing */
+
+          goto case(yyerrflag);
+
+          case(0):   /* brand new error */
+               call yyerror('syntax error');
+          yyerrlab:
+               yynerrs = yynerrs + 1;
+
+          case(1): ;
+          case(2): /* incompletely recovered error ... try again */
+               yyerrflag = 3;
+
+               /* find a state where "error" is a legal shift action */
+
+               do while (yyps >= 0);
+                    yyn = yypact(yys(yyps)) + YYERRCODE;
+                    if (yyn >= 0 & yyn < YYLAST & yychk(yyact(yyn)) = YYERRCODE) then do;
+                         yystate = yyact(yyn);  /* simulate a shift of "error" */
+                         goto yystack;
+                    end;
+                    yyn = yypact(yys(yyps));
+
+                    /* the current yyps has no shift onn "error", pop stack */
+
+                    if (yydebug) then
+                         put skip edit('error recovery pops state ' || ltrim(yys(yyps)) || ', uncovers ' || ltrim(yys(yyps-1)))(a);
+
+                    yyps = yyps - 1;
+                    yypv = yypv - 1;
+               end;
+
+               /* there is no state on the stack with an error shift ... abort */
+
+     yyabort:
+               return(true);
+
+
+          case(3):  /* no shift yet; clobber input char */
+
+               if (yydebug) then
+                    put skip edit('error recovery discards char ' || ltrim(yychar))(a);
+
+               if (yychar = 0) then goto yyabort; /* don't discard EOF, quit */
+               yychar = -1;
+               goto yynewstate;   /* try again in the same state */
+
+     end;
+
+     /* reduction by production yyn */
+
+     if (yydebug) then
+          put skip edit('reduce ' || ltrim(yyn))(a);
+     yyps = yyps - yyr2(yyn);
+     yypvt = yypv;
+     yypv = yypv - yyr2(yyn);
+     yyval = yyv(yypv + 1);
+     yym = yyn;
+          /* consult goto table to find next state */
+     yyn = yyr1(yyn);
+     yyj = yypgo(yyn) + yys(yyps) + 1;
+     yystate = yyact(yyj);
+     if (yyj >= YYLAST | yychk(yystate) ^= -yyn) then
+          yystate = yyact(yypgo(yyn));
+     goto casex(yym);
+          /* &&&! put yacc output stuff here */
+			
+casex(1):
+
+
+     /* &&&1 first production &&& */
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(2):
+
+
+     yyval = yyv(yypvt-1);
+ goto endcases;
+casex(3):
+
+
+     yyval = yyv(yypvt-1);
+ goto endcases;
+casex(4):
+
+
+     yyval = yyv(yypvt-2);
+ goto endcases;
+casex(5):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(6):
+
+
+     call abort_nesting;
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(7):
+
+
+     yyval = yyv(yypvt-2);
+ goto endcases;
+casex(8):
+
+
+     call execute_command(yyv(yypvt-0), NULL, false, true);
+ goto endcases;
+casex(9):
+
+
+     call execute_command(yyv(yypvt-2), yyv(yypvt-0), false, true);
+ goto endcases;
+casex(10):
+
+
+     call execute_command(yyv(yypvt-2), yyv(yypvt-0), true, true);
+ goto endcases;
+casex(11):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(12):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(13):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(14):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(15):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(16):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(17):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(18):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(19):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(20):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(21):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(22):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(23):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(24):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(25):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(26):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(27):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(28):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(29):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(30):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(31):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(32):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(33):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(34):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(35):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(36):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(37):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(38):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(39):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(40):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(41):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(42):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(43):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(44):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(45):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(46):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(47):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(48):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(49):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(50):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(51):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(52):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(53):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(54):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(55):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(56):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(57):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(58):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(59):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(60):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(61):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(62):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(63):
+
+
+     yyval = unop(eval_number_value, yyv(yypvt-0));
+ goto endcases;
+casex(64):
+
+
+     yyval = unop(eval_string_value, yyv(yypvt-0));
+ goto endcases;
+casex(65):
+
+
+     yyval = unop(eval_bitstring_value, yyv(yypvt-0));
+ goto endcases;
+casex(66):
+
+
+     yyval = unop(value_from_lvalue, yyv(yypvt-0));
+ goto endcases;
+casex(67):
+
+
+     yyval = unop(objtype, yyv(yypvt-0));
+ goto endcases;
+casex(68):
+
+
+     yyval = unop(anegate, yyv(yypvt-0));
+ goto endcases;
+casex(69):
+
+
+     yyval = unop(bnegate, yyv(yypvt-0));
+ goto endcases;
+casex(70):
+
+
+     yyval = unop(bnegate, yyv(yypvt-0));
+ goto endcases;
+casex(71):
+
+
+     yyval = unop(lnegate, yyv(yypvt-0));
+ goto endcases;
+casex(72):
+
+
+     yyval = yyv(yypvt-1);
+ goto endcases;
+casex(73):
+
+
+     yyval = binop(add, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(74):
+
+
+     yyval = binop(sub, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(75):
+
+
+     yyval = binop(div, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(76):
+
+
+     yyval = binop(mul, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(77):
+
+
+     yyval = binop(band, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(78):
+
+
+     yyval = binop(bor, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(79):
+
+
+     yyval = binop(bxor, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(80):
+
+
+     yyval = binop(cmp_lt, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(81):
+
+
+     yyval = binop(cmp_leq, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(82):
+
+
+     yyval = binop(cmp_eq, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(83):
+
+
+     yyval = binop(cmp_neq, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(84):
+
+
+     yyval = binop(cmp_geq, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(85):
+
+
+     yyval = binop(cmp_gt, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(86):
+
+
+     yyval = binop(land, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(87):
+
+
+     yyval = binop(lor, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(88):
+
+
+     yyval = binop(attach_type, SYM$AVATAR, yyv(yypvt-0));
+ goto endcases;
+casex(89):
+
+
+     yyval = binop(attach_type, SYM$OBJECT, yyv(yypvt-0));
+ goto endcases;
+casex(90):
+
+
+     yyval = binop(attach_type, SYM$REGION, yyv(yypvt-0));
+ goto endcases;
+casex(91):
+
+
+     yyval = binop(attach_type, SYM$STRING, yyv(yypvt-0));
+ goto endcases;
+casex(92):
+
+
+     yyval = binop(attach_type, SYM$INTEGER, yyv(yypvt-0));
+ goto endcases;
+casex(93):
+
+
+     yyval = unop(eval_name_value, yyv(yypvt-0));
+ goto endcases;
+casex(94):
+
+
+     yyval = binop(lookup_field, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(95):
+
+
+     yyval = binop(lookup_array, yyv(yypvt-3), yyv(yypvt-1));
+ goto endcases;
+casex(96):
+
+
+     yyval = build_command(CMD$MACRO_CALL, yyv(yypvt-1), yyv(yypvt-0));
+ goto endcases;
+casex(97):
+
+
+     yyval = build_command(CMD$MACRO_CALL, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(98):
+
+
+     yyval = build_command(CMD$ADD_PROMPT, 0, 0);
+ goto endcases;
+casex(99):
+
+
+     yyval = build_command(CMD$ADD, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(100):
+
+
+     yyval = build_command(CMD$ADD, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(101):
+
+
+     yyval = build_command(CMD$ALIAS, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(102):
+
+
+     yyval = build_command(CMD$ALIAS_PRINT, yyv(yypvt-0), 0);
+ goto endcases;
+casex(103):
+
+
+     yyval = build_command(CMD$ALIAS_LIST, 0, 0);
+ goto endcases;
+casex(104):
+
+
+     yyval = build_command(CMD$ALLMACROS, 0, 0);
+ goto endcases;
+casex(105):
+
+
+     yyval = build_command(CMD$ALLNAMES, 0, 0);
+ goto endcases;
+casex(106):
+
+
+     yyval = build_command(CMD$BREAK, 0, 0);
+ goto endcases;
+casex(107):
+
+
+     yyval = build_command(CMD$CLASS, yyv(yypvt-0), 0);
+ goto endcases;
+casex(108):
+
+
+     yyval = build_command(CMD$CONTENTS, yyv(yypvt-0), 0);
+ goto endcases;
+casex(109):
+
+
+     yyval = build_command(CMD$CONTENTS_FULL, yyv(yypvt-1), 0);
+ goto endcases;
+casex(110):
+
+
+     yyval = build_command(CMD$COOK, yyv(yypvt-0), 0);
+ goto endcases;
+casex(111):
+
+
+     inside_define = false;
+     yyval = build_command(CMD$DEFINE, yyv(yypvt-3), yyv(yypvt-1));
+ goto endcases;
+casex(112):
+
+
+     inside_define = false;
+     yyval = build_command(CMD$DEFINE, yyv(yypvt-2), p2i(null()));
+ goto endcases;
+casex(113):
+
+
+     inside_define = true;
+     yyval = build_define_tag(yyv(yypvt-1), yyv(yypvt-0));
+ goto endcases;
+casex(114):
+
+
+     yyval = build_command(CMD$DISPLAY, yyv(yypvt-0), 0);
+ goto endcases;
+casex(115):
+
+
+     yyval = build_command(CMD$DISPLAY, yyv(yypvt-1), 1);
+ goto endcases;
+casex(116):
+
+
+     yyval = build_command(CMD$DISPLAY_DEFAULT, 0, 0);
+ goto endcases;
+casex(117):
+
+
+     yyval = build_command(CMD$ELSE, 0, 0);
+ goto endcases;
+casex(118):
+
+
+     yyval = build_command(CMD$ELSEIF, yyv(yypvt-0), 0);
+ goto endcases;
+casex(119):
+
+
+     yyval = build_command(CMD$ENDFOR, 0, 0);
+ goto endcases;
+casex(120):
+
+
+     yyval = build_command(CMD$ENDIF, 0, 0);
+ goto endcases;
+casex(121):
+
+
+     yyval = build_command(CMD$ENDMACRO, 0, 0);
+ goto endcases;
+casex(122):
+
+
+     yyval = build_command(CMD$EXECUTE, yyv(yypvt-0), 0);
+ goto endcases;
+casex(123):
+
+
+     yyval = build_command(CMD$FIND, yyv(yypvt-0), 0);
+ goto endcases;
+casex(124):
+
+
+     yyval = build_command(CMD$FOR_ALL_A, 0, 0);
+ goto endcases;
+casex(125):
+
+
+     yyval = build_command(CMD$FOR_ALL_O, 0, 0);
+ goto endcases;
+casex(126):
+
+
+     yyval = build_command(CMD$FOR_ALL_R, 0, 0);
+ goto endcases;
+casex(127):
+
+
+     yyval = build_command(CMD$FOR_ALL_A_IN, yyv(yypvt-0), 0);
+ goto endcases;
+casex(128):
+
+
+     yyval = build_command(CMD$FOR_ALL_O_IN, yyv(yypvt-0), 0);
+ goto endcases;
+casex(129):
+
+
+     yyval = build_command(CMD$FOR_RANGE, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(130):
+
+
+     yyval = build_command(CMD$GET, yyv(yypvt-0), 0);
+ goto endcases;
+casex(131):
+
+
+     yyval = build_command(CMD$GRIDDLE, yyv(yypvt-0), 0);
+ goto endcases;
+casex(132):
+
+
+     yyval = build_command(CMD$GRIDDLE_FULL, yyv(yypvt-1), 0);
+ goto endcases;
+casex(133):
+
+
+     yyval = build_command(CMD$HELP_GENERAL, 0, 0);
+ goto endcases;
+casex(134):
+
+
+     yyval = build_command(CMD$HELP, yyv(yypvt-0), 0);
+ goto endcases;
+casex(135):
+
+
+     yyval = build_command(CMD$IF, yyv(yypvt-0), 0);
+ goto endcases;
+casex(136):
+
+
+     yyval = build_command(CMD$KILL, yyv(yypvt-0), 0);
+ goto endcases;
+casex(137):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, yyv(yypvt-3), yyv(yypvt-1));
+ goto endcases;
+casex(138):
+
+
+     yyval = build_command(CMD$LIST, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(139):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0), yyv(yypvt-1));
+ goto endcases;
+casex(140):
+
+
+     yyval = build_command(CMD$LIST, unop(eval_number_value, 0), yyv(yypvt-0));
+ goto endcases;
+casex(141):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, yyv(yypvt-2),
+                        unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(142):
+
+
+     yyval = build_command(CMD$LIST, yyv(yypvt-1), unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(143):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, yyv(yypvt-1), unop(eval_number_value, -1));
+ goto endcases;
+casex(144):
+
+
+     yyval = build_command(CMD$LIST, yyv(yypvt-0), unop(eval_number_value, -1));
+ goto endcases;
+casex(145):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(146):
+
+
+     yyval = build_command(CMD$LIST, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(147):
+
+
+     yyval = build_command(CMD$LIST_ACTIVE, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(148):
+
+
+     yyval = build_command(CMD$LIST, unop(eval_number_value, 0),
+                        unop(eval_number_value, MAXINT));
+ goto endcases;
+casex(149):
+
+
+     yyval = build_command(CMD$MACRO, yyv(yypvt-0), 0);
+ goto endcases;
+casex(150):
+
+
+     yyval = build_command(CMD$NAME, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(151):
+
+
+     yyval = build_command(CMD$NEWTURF, yyv(yypvt-0), 0);
+ goto endcases;
+casex(152):
+
+
+     yyval = build_command(CMD$NUKE, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(153):
+
+
+     yyval = build_command(CMD$NUKE, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(154):
+
+
+     yyval = build_command(CMD$ORACLE, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(155):
+
+
+     yyval = build_command(CMD$ORACLE, p2i(null()), p2i(null()));
+ goto endcases;
+casex(156):
+
+
+     yyval = build_command(CMD$ORACLE_DUMP, yyv(yypvt-1), p2i(null()));
+ goto endcases;
+casex(157):
+
+
+     yyval = build_command(CMD$ORACLE_DUMP, p2i(null()), p2i(null()));
+ goto endcases;
+casex(158):
+
+
+     yyval = build_command(CMD$ORACLE, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(159):
+
+
+     yyval = build_command(CMD$ORACLE, p2i(null()), yyv(yypvt-0));
+ goto endcases;
+casex(160):
+
+
+     yyval = build_command(CMD$ORACLE_DUMP, yyv(yypvt-3), yyv(yypvt-1));
+ goto endcases;
+casex(161):
+
+
+     yyval = build_command(CMD$ORACLE_DUMP, p2i(null()), yyv(yypvt-1));
+ goto endcases;
+casex(162):
+
+
+     yyval = build_command(CMD$PAGES_LOOKUP, yyv(yypvt-0), 0);
+ goto endcases;
+casex(163):
+
+
+     yyval = build_command(CMD$PAGES, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(164):
+
+
+     yyval = build_command(CMD$PLAYERS, 0, 0);
+ goto endcases;
+casex(165):
+
+
+     yyval = build_command(CMD$PROCESSES, 0, 0);
+ goto endcases;
+casex(166):
+
+
+     yyval = build_command(CMD$QUIT, 0, 0);
+ goto endcases;
+casex(167):
+
+
+     yyval = build_command(CMD$RAW, yyv(yypvt-0), 0);
+ goto endcases;
+casex(168):
+
+
+     yyval = build_command(CMD$RAW_FULL, yyv(yypvt-1), 0);
+ goto endcases;
+casex(169):
+
+
+     yyval = build_command(CMD$READ_IMPLICIT, 0, 0);
+ goto endcases;
+casex(170):
+
+
+     yyval = build_command(CMD$READ, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(171):
+
+
+     yyval = build_command(CMD$READ, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(172):
+
+
+     yyval = build_command(CMD$READMAIL, yyv(yypvt-0), 0);
+ goto endcases;
+casex(173):
+
+
+     yyval = build_command(CMD$REMOVE, yyv(yypvt-0), 0);
+ goto endcases;
+casex(174):
+
+
+     yyval = build_command(CMD$REMTURF, yyv(yypvt-0), 0);
+ goto endcases;
+casex(175):
+
+
+     yyval = build_command(CMD$SENDMAIL, build_value_list(yyv(yypvt-0),NULL), p2i(null()));
+ goto endcases;
+casex(176):
+
+
+     yyval = build_command(CMD$SENDMAIL, build_value_list(yyv(yypvt-2), NULL), yyv(yypvt-0));
+ goto endcases;
+casex(177):
+
+
+     yyval = build_command(CMD$SENDMAIL, build_value_list(yyv(yypvt-2),
+               build_value_list(yyv(yypvt-0), NULL)), p2i(null()));
+ goto endcases;
+casex(178):
+
+
+     yyval = build_command(CMD$SENDMAIL, build_value_list(yyv(yypvt-4),
+               build_value_list(yyv(yypvt-2), NULL)), yyv(yypvt-0));
+ goto endcases;
+casex(179):
+
+
+     yyval = build_command(CMD$SET, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(180):
+
+
+     yyval = build_command(CMD$SET_UPDATE, yyv(yypvt-3), yyv(yypvt-1));
+ goto endcases;
+casex(181):
+
+
+     yyval = build_command(CMD$START_LOGGING, yyv(yypvt-0), 0);
+ goto endcases;
+casex(182):
+
+
+     yyval = build_command(CMD$START_LOGGING, yyv(yypvt-1), 1);
+ goto endcases;
+casex(183):
+
+
+     yyval = build_command(CMD$STOP_LOGGING, 0, 0);
+ goto endcases;
+casex(184):
+
+
+     yyval = build_command(CMD$TELEPORT_LOOKUP, yyv(yypvt-0), 0);
+ goto endcases;
+casex(185):
+
+
+     yyval = build_command(CMD$TELEPORT_SET, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(186):
+
+
+     yyval = build_command(CMD$TITLES, unop(eval_number_value, 0),
+               unop(eval_number_value, TEXTID_LIMIT));
+ goto endcases;
+casex(187):
+
+
+     yyval = build_command(CMD$TITLES, unop(eval_number_value, 0),
+               unop(eval_number_value, TEXTID_LIMIT));
+ goto endcases;
+casex(188):
+
+
+     yyval = build_command(CMD$TITLES, yyv(yypvt-0), unop(eval_number_value, -1));
+ goto endcases;
+casex(189):
+
+
+     yyval = build_command(CMD$TITLES, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(190):
+
+
+     yyval = build_command(CMD$TITLES, yyv(yypvt-1),
+               unop(eval_number_value, TEXTID_LIMIT));
+ goto endcases;
+casex(191):
+
+
+     yyval = build_command(CMD$TITLES, unop(eval_number_value, 0), yyv(yypvt-0));
+ goto endcases;
+casex(192):
+
+
+     yyval = build_command(CMD$TURFS, 0, 0);
+ goto endcases;
+casex(193):
+
+
+     yyval = build_command(CMD$UNNAME, yyv(yypvt-0), 0);
+ goto endcases;
+casex(194):
+
+
+     yyval = build_command(CMD$UPDATE, 0, 0);
+ goto endcases;
+casex(195):
+
+
+     yyval = build_command(CMD$UPDATE_EXPLICIT, yyv(yypvt-0), 0);
+ goto endcases;
+casex(196):
+
+
+     yyval = build_command(CMD$VALUE, yyv(yypvt-0), 0);
+ goto endcases;
+casex(197):
+
+
+     yyval = build_command(CMD$VALUE, yyv(yypvt-1), 1);
+ goto endcases;
+casex(198):
+
+
+     yyval = build_command(CMD$VOICE_IMPLICIT_PROMPT, 0, 0);
+ goto endcases;
+casex(199):
+
+
+     yyval = build_command(CMD$VOICE_PROMPT, yyv(yypvt-0), 0);
+ goto endcases;
+casex(200):
+
+
+     yyval = build_command(CMD$VOICE_IMPLICIT, yyv(yypvt-1), 0);
+ goto endcases;
+casex(201):
+
+
+     yyval = build_command(CMD$VOICE, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(202):
+
+
+     yyval = build_command(CMD$WATCH_IMPLICIT, 0, 0);
+ goto endcases;
+casex(203):
+
+
+     yyval = build_command(CMD$WATCH, yyv(yypvt-0), 0);
+ goto endcases;
+casex(204):
+
+
+     yyval = build_command(CMD$WATCH_OFF, 0, 0);
+ goto endcases;
+casex(205):
+
+
+     yyval = build_command(CMD$WRITE, yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(206):
+
+
+     yyval = build_command(CMD$WRITE, yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(207):
+
+
+     yyval = build_command(CMD$WRITE_NEW, p2i(null()), 0);
+ goto endcases;
+casex(208):
+
+
+     yyval = build_command(CMD$WRITE_NEW, yyv(yypvt-0), 0);
+ goto endcases;
+casex(209):
+
+
+     yyval = build_field_list(yyv(yypvt-1), NULL);
+ goto endcases;
+casex(210):
+
+
+     yyval = build_field_list(yyv(yypvt-1), yyv(yypvt-2));
+ goto endcases;
+casex(211):
+
+
+     yyval = invisify(yyv(yypvt-0));
+ goto endcases;
+casex(212):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(213):
+
+
+     yyval = build_field(yyv(yypvt-2), unop(eval_number_value, 1), yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(214):
+
+
+     yyval = build_field(yyv(yypvt-5), yyv(yypvt-3), yyv(yypvt-0), p2i(null()));
+ goto endcases;
+casex(215):
+
+
+     yyval = build_field(yyv(yypvt-4), unop(eval_number_value, 1), yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(216):
+
+
+     yyval = build_field(yyv(yypvt-7), yyv(yypvt-5), yyv(yypvt-2), yyv(yypvt-0));
+ goto endcases;
+casex(217):
+
+
+     yyval = FIELD$CHARACTER;
+ goto endcases;
+casex(218):
+
+
+     yyval = FIELD$BIN15;
+ goto endcases;
+casex(219):
+
+
+     yyval = FIELD$BIN31;
+ goto endcases;
+casex(220):
+
+
+     yyval = FIELD$BIT;
+ goto endcases;
+casex(221):
+
+
+     yyval = FIELD$WORDS;
+ goto endcases;
+casex(222):
+
+
+     yyval = FIELD$REGID;
+ goto endcases;
+casex(223):
+
+
+     yyval = FIELD$OBJID;
+ goto endcases;
+casex(224):
+
+
+     yyval = FIELD$AVAID;
+ goto endcases;
+casex(225):
+
+
+     yyval = FIELD$FATWORD;
+ goto endcases;
+casex(226):
+
+
+     yyval = FIELD$ENTITY;
+ goto endcases;
+casex(227):
+
+
+     yyval = FIELD$VARSTRING;
+ goto endcases;
+casex(228):
+
+
+     yyval = FIELD$BYTE;
+ goto endcases;
+casex(229):
+
+
+     yyval = build_value_list(yyv(yypvt-0), NULL);
+ goto endcases;
+casex(230):
+
+
+     yyval = build_value_list(yyv(yypvt-0), yyv(yypvt-2));
+ goto endcases;
+casex(231):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(232):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(233):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(234):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(235):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(236):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(237):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(238):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(239):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(240):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(241):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(242):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(243):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(244):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(245):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(246):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(247):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(248):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(249):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(250):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(251):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(252):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(253):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(254):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(255):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(256):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(257):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(258):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(259):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(260):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(261):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(262):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(263):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(264):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(265):
+
+
+     yyval = yyv(yypvt-0);
+ goto endcases;
+casex(266):
+
+
+     yyval = yyv(yypvt-0);
+     /* &&&2 last production &&& */
+ goto endcases;
+endcases:
+     goto yystack;  /* stack new state and value */
+end yyparse;
+/* &&&3 start of embedded routines &&& */
+yyerror: procedure(s);
+     declare s character(*) varying;
+
+     call error(s);
+end yyerror;
+/* &&&4 end of embedded routines &&& */

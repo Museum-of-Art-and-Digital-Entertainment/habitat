@@ -1,0 +1,31 @@
+/* The following definitions are valid only in the MicroCosm Universe!      */
+
+%replace UsersPerRegion                 by   6;   /* Max # of avatars  */
+%replace ObjectsPerRegion               by   255; /* Including avatars */
+%replace ConcurrentObjects              by   128;
+%replace regions_per_process            by   10;  /* more later...     */
+
+%replace Null_Region                    by   538976288;  /* bin(31) equivalent */
+                                                         /* of ascii blanks    */
+%replace Null_Host_Type                 by   8224;       /* bin(15) equivalent */
+%replace Dead_Region                    by   98;
+
+%include 'capacity.equates.incl.pl1';
+
+/* Definitions of DATABASE FUNCTIONS:                                       */
+
+%replace MC$dbf_desc_region        by 1;
+%replace MC$dbf_contents           by 2;
+%replace MC$dbf_read_text          by 3;
+%replace MC$dbf_locate_teleport    by 4;
+%replace MC$dbf_write_text         by 5;
+%replace MC$dbf_send_mail          by 6;
+%replace MC$dbf_mail_check         by 7;
+%replace MC$dbf_avatar_desc        by 8;
+%replace MC$dbf_oracle_msg         by 9;
+%replace MC$dbf_read_title         by 10;
+%replace MC$dbf_init_welcome       by 11;
+%replace MC$dbf_name_region        by 12;
+%replace MC$dbf_locate_player      by 13;
+%replace MC$dbf_check_mail         by 14;
+%replace MC$max_defined_fn         by 14;

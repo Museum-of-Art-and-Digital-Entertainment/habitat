@@ -1,0 +1,25 @@
+@region $ Woods_cr {
+    north: Woods_cs.l;
+    south: Woods_cq.l;
+    east: Woods_dr.l;
+    west: Woods_br.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @street { x:68; y:12; or:104; gr_state:5; 
+            8:0;
+            9:0;
+        }
+        @rock { x:8; y:138; or:8; 
+            8:1;
+        }
+        @tree { x:104; y:35; or:172; }
+        @tree { x:48; y:144; or:196; style:1; }
+        @tree { x:28; y:44; or:16; style:1; }
+        @tree { x:144; y:133; or:16; }
+        @tree { x:108; y:75; or:172; gr_state:3; }
+        @tree { x:0; y:31; or:172; style:1; }
+        @tree { x:100; y:71; or:173; gr_state:3; }
+    ]
+}

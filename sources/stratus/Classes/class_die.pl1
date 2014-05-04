@@ -1,0 +1,50 @@
+/*
+ *   class_die.pl1
+ *
+ *   Die object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_die: procedure;
+
+     %replace DIE_REQUESTS by 4;
+
+     declare a(0:DIE_REQUESTS) entry based;
+     declare class_die_actions pointer;
+     declare 1 die based %include struct_die;
+
+     %replace I by CLASS_DIE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = DIE_REQUESTS;
+     Class_Table(I).alloc_size = size(die);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_die_actions);
+     Class_Table(I).actions = class_die_actions;
+
+     Class_Table(I).actions->a(HELP)  = generic_HELP;  /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(ROLL)  = die_ROLL;      /* 4 */
+
+end initialize_class_die;
+
+die_ROLL: procedure;
+     self.gr_state = random(6);
+     self.gen_flags(MODIFIED) = true;
+     call n_msg_2(null(),PLAY_$,128+0,self.noid);
+     call n_msg_1(selfptr, ROLL$, self.gr_state);
+     call r_msg_1(self.gr_state);
+end;

@@ -1,0 +1,197 @@
+.TL
+\s+9Universe\s-9
+.AU
+a proposal for a new form of interactive entertainment
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(DY
+.ds LH UNIVERSE
+.ds CH \\*(DY
+.ds RH Concept Document
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+3Introduction\s-3
+.SH
+What's happening \(em some technical observations
+.PP
+Basic data communications hardware is becoming cheaper and cheaper.  We are
+beginning to see widespread ownership of low-cost modems.  We may be about to
+witness the advent of mass-produced personal computers that have modems and
+modular jacks built in.  In addition, home computers are finally beginning to
+appear on the market which approach a programmer's notion of reasonable cpu
+power, memory size and disk capacity, such as the Macintosh, possibly the IBM
+PC-AT, and newer machines rumored or announced \(em Amiga and the Atari
+``Jackintosh''.  The coupling of these developments suggests an interesting
+opportunity to create multi-player computer games conducted over telephone
+lines.
+.SH
+Distributed games
+.PP
+Consider a game like Peter Langston's \fIEmpire\fR.  Although it was designed
+for multiple players playing it together in a single-host time-sharing
+environment, in many ways each player is independent.  Potentially, each
+player could start the game on his own computer if all the players shared some
+common, mutually agreed upon random number seed from which to generate the
+world.  Each could then play along with only periodic contact with the other
+players' machines to synchronize the state of the world, conduct combat,
+transmit diplomatic communications, etc.  A master computer (the non-evil
+variety) could handle the coordination and communications needs of the game by
+maintaining a central database.  This central database would represent the
+\fIEmpire\fR world in which all the players would be simulated inhabitants.
+The game world would be updated for the players whenever their machines logged
+in to the central host.  The host would perform the actual database
+manipulation, and simply accept data from and transmit data to the players'
+local computers, without letting them actually run programs (i.e., the host
+would not appear to the players as a general-purpose time-sharing system but
+as something more like an ethernet file-server).
+.SH
+Compuserve? \(em \fIyuck!
+.PP
+Of particular interest is the potential for using the players' home machines'
+considerable processing capability to fashion a loosely coupled system.  There
+are disadvantages to having to maintain \fIcontinuous\fR communications
+between a game player's local computer and some centralized host, even though
+this is the way that many, if not most, public-access systems work.  In such a
+case the player's home computer is usually acting as nothing more than a
+conventional terminal.  There are several problems with this.  First, most of
+the processing power of the player's machine is simply wasted.  Second,
+communications costs, even in this ``information age'', are still
+comparatively high.  Maintaining a connection for several hours at a stretch
+can run up a pretty big phone bill, which in turn can discourage potential
+customers.  Third, the centralized host must be fast enough to keep up with a
+great number of simultaneous users and have large numbers of I/O ports with
+which to talk to them.  This in turn contributes to the host's operating cost
+and ultimately to the connect-time charge that the user gets socked with.
+.SH
+An alternative architecture
+.PP
+Instead of maintaining continuous contact between two machines, where the
+local machine simply passes the user's input on to the remote machine, we
+could use the local machine's own capabilities directly.  To do this, we
+arrange to have all of the interactive virtuality of the game provided by the
+local computer.  Players would buy a program in a local store to run on their
+home computers.  Each copy of this program could have its own serial number to
+provide each player with a unique identity from the moment he or she first
+boots it up.  All the home machines running the program would communicate with
+the single large centralized host (a machine such as a VAX or a big IBM hog)
+over the phone or Telenet or cable TV lines or whatever's cheapest and most
+convenient.  The player's home computer would handle all of the real-time
+interaction of the game.  It would display data quickly and graphically.  It
+would accept the user's input and figure out what it means.  As it does this
+it would store up commands and queries for the remote system.  According to
+some scheme (like a schedule, or perhaps just as needed), it would call up the
+remote system and exchange a brief flurry of highly compressed, abstract
+packets of data.
+.PP
+Another difference between this design and services offered by Compuserve and
+the like is that we could dedicate our system to the game.  We wouldn't be
+offering a general-purpose, multiple-service system.  Our host would be
+communicating with computers running software of our own devising rather than
+with vanilla terminals.  The level of interaction that the host would have to
+support would consequently be much lower.  Since the average connect-time per
+player would be less than that required by a continuous-connection system, the
+number of players logged in at any given time could be a small number in
+comparison to the total number in the game.  This means that the number of
+incoming communications lines required and the amount of host I/O and CPU
+bandwidth required could be less than that needed to support a conventional
+terminal-interactive game of similar scope.  This in turn means that the cost
+to establish and support the host system could be less (on a per user basis)
+than the cost of a conventional system performing essentially the same task.
+In addition, the host system could be optimized for handling the game.  This
+all means that the requisite hardware resources and consequent support
+overhead (per user) could be less, and we would therefore (I hope) be able to
+charge the players less than Compuserve or its brethren while at the same time
+providing a more interesting game.
+.SH
+Universe
+.PP
+While many possible settings, themes and game concepts may spring to mind for
+such a system, one notion in particular appeals to me.  Let's have a large
+(i.e., \fIapparently\fR unbounded) simulated universe with worlds, star
+systems, alien races, different types of technology, and well-defined physical
+laws.  When the player starts the game, he perhaps finds himself in much the
+same situation as he would in \fIEmpire\fR: sitting in an expanse of unowned
+wilderness in a relatively primitive state of development with some standard
+amount of starting resources.  He would then expand from there, developing his
+industrial base, moving over the world and ultimately out into space,
+encountering other players and generally having a grand old time.
+.SH
+Epic scope
+.PP
+The difference between this game and \fIEmpire\fR is largely one of scope.  We
+would support a much larger number of players (\fIthousands\fR) in a much
+larger and more diverse and more open-ended universe.  The universe would have
+its own abstract existence independent of the players.  The system
+administrators (that's \fIus\fR) would liven the game up in the fashion of
+fantasy role playing games everywhere by placing alien artifacts, non-player
+characters and races, inhabited but unclaimed worlds, and so forth in the
+universe for the players to discover and interact with.  In addition, since we
+would be devoting the player's whole home machine to information display and
+control functions, the game would be more interactively fluid and more
+visually and aurally stimulating than \fIEmpire\fR.
+.SH
+The central idea
+.PP
+In essence, the player's home computer would become a window into an alternate
+reality in which the player would be a vicarious inhabitant.
+.SH
+Goals
+.PP
+I would like, then, to begin designing ``a universe and its implementation''.
+These are the goals for the design that I see:
+.IP \(em\(em
+The universe should be open-ended.  It should not have any apparent physical
+boundaries, inherent resource limitations, or time limits.  The overall game
+would not have any defined winners or losers or explicit goals for the
+players.  Rather, as in \fIEmpire\fR, the goals would be provided by the
+players themselves.   Perhaps subsets of the game could be established that
+had victory conditions for those involved but which still took place in the
+same universe and required interaction with possibly non-participating players
+(rather like a scavenger hunt or a road rally in our mundane world).
+.IP \(em\(em
+The scope of the game should be large.  A large number of players helps make
+the universe more interesting.  A large universe provides room for a variety
+of experiences.  The open-ended time scale enables players to develop their
+characters/worlds/personae as much as they would like.  One consequence of the
+open-ended time scale is that players would be dropping out of the game and
+new players joining all the time.  A large physical universe allows new
+players to be placed in remote locations so that they have time to develop and
+encounter similar neophytes before bumping into the experienced players who
+have developed powerful intergalactic empires.
+.IP \(em\(em
+The cost to play should be low.  I'm tired of on-line services that cost
+several dollars an hour, expecting me to pay large sums of money simply
+because they're ``high-tech''.  I certainly couldn't afford to get casually
+involved in something requiring that degree of financial commitment, and I'm
+sure I'm not unique in this regard.  If the game is something that will appeal
+to only the most fanatical and devoted on-line system junkies, then the market
+is probably too small to support it.  Keeping the cost down is one way to
+encourage wider participation.
+.IP \(em\(em
+It should permit people with varying time commitments to play and enjoy it.
+This is another aspect of keeping the audience as broad as possible.
+Obviously someone who is interested in killing a few minutes every so often
+is looking for something different than the person who is willing to commit
+several hours a week.  The game could be set up to let someone who wanted to
+spend 20 minutes to, say, fly a reconnaissance mission or defend a planet from
+an invasion fleet, but also let someone who is willing to spend 10 hours start
+building an interstellar trading empire.
+.IP \(em\(em
+It should have the SF/interstellar theme discussed above.  There are two
+reasons for this.  The first is that the interstellar theme is particularly
+suited to the open-ended structure demanded.  The second is that I'm currently
+the person spec'ing this game, and it's what I want to do.
+.IP \(em\(em
+It should take advantage of distributed processing on home machines.  This has
+already been discussed extensively above.
+.IP \(em\(em
+It should allow for different levels of interest and ability.  Ideally such a
+game should be playable at a variety of levels depending upon player
+inclination and sophistication: as a zoom-thru-space shoot'em-up, as a game of
+exploration, as an economic simulation, as a diplomacy game; as a serious
+effort or as a light-hearted romp; as an occasional weekend diversion or as a
+full-time obsession.

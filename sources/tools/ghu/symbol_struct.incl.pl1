@@ -1,0 +1,29 @@
+/* Symbol table entries look like this: */
+declare 1 symbol_table_entry based,
+          2 symbol_nameptr pointer,
+          2 symbol_type binary(15),
+          2 next_symbol pointer,
+          2 symbol_value binary(31),
+          2 symbol_persistent bit(1),
+          2 symbol_filler(15) bit(1);
+declare symbol_value_str character(256) varying based;
+declare symbol_value_bitstr bit(32) based;
+declare symbol_name character(256) varying based;
+
+/* These are the valid values for the symbol_type field */
+%replace SYM$REGION          by  0;
+%replace SYM$AVATAR          by  1;
+%replace SYM$OBJECT          by  2;
+%replace SYM$UNDEFINED       by  3;
+%replace SYM$NAME            by  4;
+%replace SYM$STRING          by  5;
+%replace SYM$MACRO           by  6;
+%replace SYM$ALIAS           by  7;
+%replace SYM$PARAMETER       by  8;
+%replace SYM$AVA_NAME        by  9;
+%replace SYM$FIELD           by 10;
+%replace SYM$ARRAY           by 11;
+%replace SYM$BITSTRING       by 12;
+%replace SYM$OBJECT_CONTENTS by 13;
+%replace SYM$AVATAR_CONTENTS by 14;
+%replace SYM$INTEGER         by 15;

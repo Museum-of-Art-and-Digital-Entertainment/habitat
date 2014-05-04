@@ -1,0 +1,113 @@
+/*
+ *   class_spray_can.pl1
+ *
+ *   Spray can object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   19-August-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_spray_can: procedure;
+
+     %replace SPRAY_CAN_REQUESTS by 4;
+
+     declare a(0:SPRAY_CAN_REQUESTS) entry based;
+     declare class_spray_can_actions pointer;
+     declare 1 spray_can based %include struct_spray_can;
+
+     %replace I by CLASS_SPRAY_CAN;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = SPRAY_CAN_REQUESTS;
+     Class_Table(I).alloc_size = size(spray_can);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_spray_can_actions);
+     Class_Table(I).actions = class_spray_can_actions;
+
+     Class_Table(I).actions->a(HELP)  = spray_can_HELP;  /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;     /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;     /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW;   /* 3 */
+     Class_Table(I).actions->a(SPRAY) = spray_can_SPRAY; /* 4 */
+
+end initialize_class_spray_can;
+
+%replace LEG_LIMB by 0;
+%replace TORSO_LIMB by 1;
+%replace ARM_LIMB by 2;
+%replace FACE_LIMB by 3;
+
+spray_can_SPRAY: procedure;
+     declare 1 self based(selfptr) %include struct_spray_can;
+     declare limb binary(15);
+     declare pattern binary(15);
+     declare success binary(15);
+     declare headptr pointer;
+     declare 1 head based(headptr) %include struct_head;
+
+     success = FALSE;
+     limb = rank(request(FIRST));
+     if (holding(selfptr)) then do;
+          pattern = and_bit(self.orientation, '0000000001111000'b);
+          if (limb = TORSO_LIMB) then do;
+               success = TRUE;
+               pattern = divide(pattern, 8, 15); /* right shift 3 bits */
+               avatar.customize(1) = or_bit(and_bit(avatar.customize(1),
+                    '00F0'b4), pattern);
+          end; else if (limb = LEG_LIMB) then do;
+               success = TRUE;
+               pattern = pattern * 2; /* left shift 1 bit */
+               avatar.customize(1) = or_bit(and_bit(avatar.customize(1),
+                    '000F'b4), pattern);
+          end; else if (limb = ARM_LIMB) then do;
+               success = TRUE;
+               pattern = pattern * 2; /* left shift 1 bit */
+               avatar.customize(2) = or_bit(and_bit(avatar.customize(2),
+                    '000F'b4), pattern);
+          end; else if (limb = FACE_LIMB) then do;
+               /* do it */
+               if (avatar.contents->c(HEAD) ^= NULL) then do;
+                    headptr = ObjList(avatar.contents->c(HEAD));
+                    if (headptr ^= null()) then do;
+                         success = TRUE;
+                         head.orientation = or_bit(and_bit(head.orientation,
+                              '0000000010000111'b), pattern);
+                         head.gen_flags(MODIFIED) = true;
+                         call b_msg_4(null(),FIDDLE_$,head.noid,
+                              C64_orient_offset,1, head.orientation);
+                    end;
+               end;
+          end;
+     end;
+     call r_msg_3(success, avatar.customize(1), avatar.customize(2));
+     if (success = TRUE) then do;
+          call inc_record(avatarptr, HS$body_changes);
+          call n_msg_3(selfptr, SPRAY$, avatar.noid, avatar.customize(1),
+               avatar.customize(2));
+          self.charge = self.charge - 1;
+          self.gen_flags(MODIFIED) = true;
+          if (self.charge <= 0) then do;
+               call object_say(self.noid, 'This sprayer has run out.');
+               call b_msg_1(null(), GOAWAY_$, self.noid);
+               call destroy_object(self.noid);
+          end;
+     end;
+end spray_can_SPRAY;
+
+spray_can_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_spray_can;
+
+     call r_msg_s('BODY SPRAYER: Point at desired limb, then select DO to color
++ that limb. This sprayer has ' ||
+          ltrim(self.charge) || ' sprays remaining.');
+end spray_can_HELP;

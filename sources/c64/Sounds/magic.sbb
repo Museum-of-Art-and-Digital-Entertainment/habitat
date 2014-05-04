@@ -1,0 +1,23 @@
+; magic:
+;		Uses PW ramps
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x0,0x10,0x1,0x70,0x70	; Start_Freq,Duration,Increment
+	byte	0xda,0x0	; ADSR
+	byte	0x40	; Waveform
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+; magic.pw:
+	; Pulsewidth Ramp starts here
+	byte	0x4		;Ramp 
+	byte	0x0,0x0,0x10,0x1,0x80,0x2	; Start_Freq,Duration,Increment
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

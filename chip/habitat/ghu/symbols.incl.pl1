@@ -1,0 +1,9 @@
+declare lookup_or_install_symbol entry(character(*) varying) returns(pointer);
+declare lookup_symbol entry(character(*) varying) returns(pointer);
+declare install_symbol entry(character(*) varying) returns(pointer);
+declare define_symbol entry(character(*) varying, binary(15), binary(31),
+     bit(1)) returns(pointer);
+declare dump_names entry;
+declare dump_macros entry;
+declare dump_aliases entry;
+declare dump_an_alias entry(pointer, bit(1));

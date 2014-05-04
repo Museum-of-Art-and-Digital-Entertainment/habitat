@@ -1,0 +1,38 @@
+/*             Statistics for Habitat's Hall of Records               */
+
+
+/* Currently defined functions for record_collection routine:         */
+
+%replace HS$adjust            by 1;
+%replace HS$set               by 2;
+%replace HS$max               by 3;
+%replace HS$min               by 4;
+
+
+/* Currently defined stat fields for record_collection routine:       */
+/* Fields numbered less than 100 will be binary(15) fields while      */
+/* fields numbered greater that 100 will be binary(31) fields.        */
+
+%replace HS$lifetime          by   1;
+%replace HS$max_lifetime      by   2;
+%replace HS$deaths            by   3;
+%replace HS$treasures         by   4;
+%replace HS$mail_send_count   by   5;
+%replace HS$mail_recv_count   by   6;
+%replace HS$grabs             by   7;
+%replace HS$kills             by   8;
+%replace HS$escapes           by   9;
+%replace HS$body_changes      by  10;
+
+%replace HS$max_wealth        by 101;
+%replace HS$travel            by 102;
+%replace HS$max_travel        by 103;
+%replace HS$teleports         by 104;
+%replace HS$explored          by 105;
+%replace HS$online_time       by 106;
+%replace HS$talkcount         by 107;
+%replace HS$wealth            by 108;
+%replace HS$ghost_count       by 109;
+%replace HS$esp_send_count    by 110;
+%replace HS$esp_recv_count    by 111;
+%replace HS$requests          by 112;

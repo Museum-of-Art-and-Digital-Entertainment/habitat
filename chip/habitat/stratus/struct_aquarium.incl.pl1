@@ -1,0 +1,15 @@
+/*
+ *   struct_aquarium.incl.pl1
+ *
+ *   Struct stub for aquarium instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+          3    state          binary(15),
+/* Host private below here. */
+          3    fish_die       pointer;

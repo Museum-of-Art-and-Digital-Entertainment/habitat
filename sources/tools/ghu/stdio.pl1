@@ -1,0 +1,589 @@
+/****************************************************************************
+ *                                                                          *
+ *    We are tied down to a language which makes up in obscurity what it    *
+ *    lacks in style.                                                       *
+ *                                                                          *
+ *               -- Tom Stoppard                                            *
+ *                  "Rosencrantz And Guildenstern Are Dead"                 *
+ *                                                                          *
+ ****************************************************************************/
+
+/*
+ * stdio.pl1 -- Standard I/O routines for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 31-March-1987
+ *
+ * The parser *really* wants a stream of tokens, and the lexer *really* wants
+ * a stream of characters (including such exotic non-IBM beasties as the
+ * NEWLINE character.)  PL/1 I/O doesn't make this easy.  Furthermore, we want
+ * to be able to talk about the byte values of characters easily.  So, we
+ * apply these routines as a front-end to maintain the illusion of character
+ * I/O, and pass individual characters around as bin(15)s instead of char(1)s.
+ * Life suddenly becomes a lot simpler.
+ *
+ * We funnel all PL/1 reads through the routine getline.  This provides us
+ * with two additional features.  First, we can maintain a stack of file
+ * descriptors (or whatever is that PL/1 calls them) so we can do nested reads
+ * for EXECUTE statements.  Second, we apply macro pre-processing to each line
+ * before it is "read" by the character I/O routines.
+ *
+ * In this file we also have some utility routines that are commonly useful
+ * and don't have any other obvious place to go.  So, here's what the world
+ * sees:
+ *
+ *     setup_file_pointers -- initializes input and output file stacks, since
+ *          PL/I file descriptors MUST be statically allocated (shame on them)
+ *     push_input  -- pushes a new input file onto the input stack
+ *     pop_input   -- closes the current input file and gets the old one
+ *     setup_output -- sets up output file for a single command
+ *     push_output -- pushes a new output file onto the output stack
+ *     pop_output  -- closes the current output file and gets the old one
+ *     getchar     -- returns the next character of input
+ *     ungetc      -- puts it back
+ *     putline     -- outputs a line to whatever the current output is
+ *     puterr      -- like putline, but always goes to stdout (sysprint)
+ *     putstr      -- outputs a string
+ *     putcol      -- outputs a string and tabs to a column
+ *     putchar     -- outputs one character
+ *     col_reset   -- resets the output column to start of line
+ *     put_hexstring -- outputs hex data
+ *     getline     -- reads a line from current input and macro scans it
+ *     copy_string -- returns a pointer to fresh copy of a string
+ *     error       -- prints out an error message
+ *     warning     -- prints out a warning message
+ *     fatal_error -- prints out an error message and dies
+ *     err_check   -- checks a system call return code
+ *     set_prompt  -- sets the Stratus input prompt string
+ *     get_prompt  -- returns the current Stratus input prompt string
+ *     discover_ports -- unscrambles Stratus I/O port obfuscation
+ *     pad         -- space pads a string to a given length
+ *     s2i         -- converts a string to a bin(31) (the RIGHT way)
+ *     p2i         -- converts a pointer to a bin(31)
+ *     i2p         -- converts a bin(31) to a pointer
+ *
+ * The latter two routines are so the parser can deal with a uniform data
+ * type (bin(31)s) for production values, but we can still pass pointers
+ * around anyhow, since PL/I lacks any sort of type coercion facility
+ * (actually, what it really lacks is a sense of data type, but we won't go
+ * into *that*).  This *does* presume that a pointer will fit into a bin(31),
+ * which is reasonable assumption for the next few years anyhow.  I know it's
+ * a kludge, but it works.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'lex.incl.pl1';
+
+declare s$control entry(bin(15), bin(15), bin(15), bin(15));
+declare s$start_logging entry(bin(15), char(256) var, bin(15), bin(15));
+declare s$stop_logging entry(bin(15), bin(15));
+declare s$expand_path entry(char(256) var,char(32) var,char(256) var,bin(15));
+
+declare error_flag bit(1) static external init(false);
+
+declare immediate_command character(256) varying external;
+declare immediate_command_given binary(15) external;
+
+declare output_line character(500) varying static init('');
+
+declare lineBufStr character(LINE_LENGTH) varying static init('');
+declare lineBuf(-1:LINE_LENGTH) character(1) defined(lineBufStr);
+declare bufPtr binary(15) static init(0);
+
+declare column_number binary(15) static init(1);
+
+declare default_input binary(15) static;
+declare default_output binary(15) static;
+
+declare (infile1, infile2, infile3, infile4, infile5,
+         infile6, infile7, infile8, infile9) file;
+declare (outfile1, outfile2, outfile3, outfile4, outfile5,
+         outfile6, outfile7, outfile8, outfile9) file;
+declare input(MAX_FILES) static variable file;
+declare current_input binary(15) static init(0);
+declare output(MAX_FILES) static file;
+declare current_output binary(15) static init(0);
+declare output_name(MAX_FILES) static character(256) varying
+          init('', '', '', '', '', '', '', '', '', '');
+declare working_output static file variable;
+
+%replace MAX_ALLOC_CALLS by 27;
+declare alloc_monitor_count(MAX_ALLOC_CALLS) binary(31) static;
+declare alloc_monitor_allocs(MAX_ALLOC_CALLS) binary(31) static;
+declare alloc_monitor_max(MAX_ALLOC_CALLS) binary(31) static;
+
+setup_file_pointers: procedure;
+     input(1) = sysin;            output(1) = sysprint;
+     input(2) = infile1;          output(2) = outfile1;
+     input(3) = infile2;          output(3) = outfile2;
+     input(4) = infile3;          output(4) = outfile3;
+     input(5) = infile4;          output(5) = outfile4;
+     input(6) = infile5;          output(6) = outfile5;
+     input(7) = infile6;          output(7) = outfile6;
+     input(8) = infile7;          output(8) = outfile7;
+     input(9) = infile8;          output(9) = outfile8;
+     input(10) = infile9;         output(10) = outfile9;
+     current_input = 1;           current_output = 1;
+     working_output = sysprint;
+     output_name(1) = '<standard output>';
+     call push_output;
+end setup_file_pointers;
+
+push_input: procedure(filename);
+     declare filename character(*) varying;;
+
+     if (current_input = MAX_FILES) then
+          call error('maximum number of nested input files exceeded.');
+     else do;
+          current_input = current_input + 1;
+          on undefinedfile(input(current_input)) goto input_open_failed;
+          open file(input(current_input)) title(filename) stream input;
+     end;
+     return;
+
+input_open_failed:
+     current_input = current_input - 1;
+     call error('unable to open ' || filename);
+end push_input;
+
+pop_input: procedure returns(bit(1));
+     call pop_output;
+     if (current_input < 1) then
+          call error('file stack underflow!');
+     else do;
+          close file(input(current_input));
+          current_input = current_input - 1;
+     end;
+     return(current_input < 1);
+end pop_input;
+
+setup_output: procedure(filenamenum, append_flag);
+     declare filenamenum binary(31);
+     declare append_flag bit(1);
+     declare filenameptr pointer;
+     declare filename based(filenameptr) character(256) varying;
+
+     filenameptr = i2p(filenamenum);
+     if (filenamenum ^= 0) then
+          if (output_name(current_output) = filename & append_flag) then
+               return;
+     if (append_flag) then
+          call warning('we don''t yet know how to open files for append');
+     if (output_name(current_output) ^= '') then do;
+          close file(output(current_output));
+          working_output = backup_output();
+          output_name(current_output) = '';
+     end;
+     if (filenamenum = 0) then
+          return;
+     on undefinedfile(output(current_output)) goto output_open_failed;
+     open file(output(current_output)) title(filename) linesize(256) stream
+          output;
+     output_name(current_output) = filename;
+     working_output = output(current_output);
+     return;
+
+output_open_failed:
+     call error('unable to open output file ' || filename);
+end setup_output;
+
+push_output: procedure;
+     if (current_output > MAX_FILES) then
+          call error('maximum number of output files exceeded');
+     else do;
+          current_output = current_output + 1;
+          output_name(current_output) = '';
+     end;
+end push_output;
+
+pop_output: procedure;
+     if (current_output <= 2) then
+          call error('BOTCH: output file stack underflow');
+     else do;
+          if (output_name(current_output) ^= '') then do;
+               close file(output(current_output));
+               output_name(current_output) = '';
+          end;
+          working_output = backup_output();
+          current_output = current_output - 1;
+     end;
+end pop_output;
+
+backup_output: procedure returns(file);
+     declare i binary(15);
+
+     i = current_output - 1;
+     do while (i > 1);
+          if (output_name(i) ^= '') then
+               return(output(i));
+          i = i - 1;
+     end;
+     return(sysprint);
+end backup_output;
+
+getchar: procedure returns(binary(15));
+     if (bufPtr = 0) then do;
+          lineBufStr = getline();
+          bufPtr = 1;
+     end;
+     if (bufPtr > length(lineBufStr)) then do;
+          bufPtr = 0;
+          return(NEWLINE);
+     end; else do;
+          bufPtr = bufPtr + 1;
+          return(rank(lineBuf(bufPtr - 1)));
+     end;
+end getchar;
+
+ungetc: procedure(c);
+     declare c binary(15);
+
+     if (c = EOF) then
+          return;
+     else if (c = NEWLINE) then
+          bufPtr = length(lineBufStr) + 1;
+     else
+          bufPtr = bufPtr - 1;
+end ungetc;
+
+putline: procedure(string);
+     declare string character(*) varying;
+
+     output_line = output_line || string;
+     put file(working_output) edit(output_line)(a);
+     put file(working_output) skip;
+     column_number = 1;
+     output_line = '';
+end putline;
+
+puterr: procedure(string);
+     declare string character(*) varying;
+
+     put file(sysprint) edit(string)(a);
+     put file(sysprint) skip;
+end puterr;
+
+putstr: procedure(string);
+     declare string character(*) varying;
+
+     /* We would like to be able to simply output a stream of characters to
+      the terminal.  However VOS insists on inserting extraneous newlines
+      whenever it thinks you have reached the width of the terminal (and you
+      can't set the width arbitrarily high nor turn this "feature" off).
+      Therefore, we must manually emulate the continue-character mechanism
+      that the command interpreter uses when displaying long lines (since this
+      feature does not appear to happen when the output is coming from your
+      program).  Argh!! */
+     output_line = output_line || string;
+     column_number = column_number + length(string);
+end putstr;
+
+putcol: procedure(string, col);
+     declare string character(*) varying;
+     declare col binary(15);
+
+     call putstr(string);
+     if (column_number < col) then
+          call putstr(copy(' ', col - column_number));
+end putcol;
+
+putchar: procedure(c);
+     declare c binary(15);
+
+     if (c = NEWLINE) then
+          call putline('');
+     else
+          call putstr(byte(c));
+end putchar;
+
+col_reset: procedure;
+     put file(working_output) edit(output_line)(a);
+     column_number = 1;
+     output_line = '';
+end col_reset;
+
+put_hexstring: procedure(dataptr, length);
+     declare dataptr pointer;
+     declare data(1) character based(dataptr);
+     declare length binary(15);
+     declare i binary(15);
+     declare hexstring character(512) varying;
+     declare hexchar(0:15) character(1) static init(
+          '0', '1', '2', '3', '4', '5', '6', '7',
+          '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+     );
+
+     hexstring = '';
+     do i = 1 to length;
+          hexstring = hexstring ||
+                      hexchar(divide(rank(data(i)), 16, 15)) ||
+                      hexchar(mod(rank(data(i)), 16));
+     end;
+     call putstr(hexstring);
+end put_hexstring;
+
+getline: procedure returns(character(LINE_LENGTH) varying);
+     declare inBufStr character(LINE_LENGTH) varying;
+     declare inBuf(-1:LINE_LENGTH) character(1) defined(inBufStr);
+     declare inptr binary(15);
+     declare lenptr binary(15);
+     declare macroptr pointer;
+     declare 1 macro based(macroptr) like symbol_table_entry;
+     declare macro_flag bit(1);
+     declare actual_eof bit(1);
+
+     if (immediate_command_given ^= 0) then
+          return (immediate_command || ' ;quit' || byte(NEWLINE));
+
+     actual_eof = false;
+try_again:
+     if (actual_eof) then
+          return(byte(EOF));
+
+     on endfile(input(current_input)) begin;
+          actual_eof = pop_input();
+          goto try_again;
+     end;
+     if (error_flag) then do;
+          do while (current_input > 1);
+               actual_eof = pop_input();
+          end;
+          error_flag = false;
+     end;
+
+     get file(input(current_input)) edit(inBufStr)(a);
+     inptr = 1;
+     do while (inptr <= length(inBufStr));
+          if (is_alpha(rank(inBuf(inptr)))) then do;
+               lenptr = 1;
+               do while (is_alpha(rank(inBuf(inptr+lenptr))) |
+                         is_digit(rank(inBuf(inptr+lenptr))));
+                    lenptr = lenptr + 1;
+               end;
+               macroptr = lookup_symbol(substr(inBufStr, inptr, lenptr));
+               macro_flag = false;
+               if (macroptr ^= null()) then
+                    if (macro.symbol_type = SYM$ALIAS) then
+                         macro_flag = true;
+               if (macro_flag) then
+                    inBufStr = substr(inBufStr, 1, inptr - 1) ||
+                               i2p(macro.symbol_value)->symbol_value_str ||
+                               substr(inBufStr, inptr + lenptr);
+               else
+                    inptr = inptr + lenptr;
+          end; else
+               inptr = inptr + 1;
+     end;
+     return(inBufStr);
+end getline;
+
+p2i: procedure(ptr) returns(binary(31));
+     declare ptr pointer;
+     declare result binary(31);
+     declare int_ptr pointer;
+     declare int based(int_ptr) binary(31);
+
+     int_ptr = addr(ptr);
+     result = int;
+     return(result);
+end p2i;
+
+i2p: procedure(int) returns(pointer);
+     declare int binary(31);
+     declare result pointer;
+     declare ptr_ptr pointer;
+     declare ptr based(ptr_ptr) pointer;
+
+     ptr_ptr = addr(int);
+     result = ptr;
+     return(result);
+end i2p;
+
+s2i: procedure(string) returns(binary(31));
+     declare string character(*) varying;
+     declare stringc(-1:256) character(1) defined(string);
+     declare result binary(31);
+     declare i binary(15);
+
+     result = 0;
+     do i=1 to length(string);
+          result = result * 256 + rank(stringc(i));
+     end;
+     return(result);
+end s2i;
+
+copy_string: procedure(string) returns(pointer);
+     declare string character(*) varying;
+     declare resultptr pointer;
+     declare result character(256) varying based(resultptr);
+
+     resultptr = alloc((length(string) + 2) * 8, 19);
+     result = substr(string, 1, length(string));
+     return(resultptr);
+end copy_string;
+
+/* This will grow more sophisticated with time */
+error: procedure(message);
+     declare message character(*) varying;
+     declare save_file file variable;
+
+     error_flag = true;
+     call puterr('error: ' || message);
+end error;
+
+warning: procedure(message);
+     declare message character(*) varying;
+
+     call puterr('warning: ' || message);
+end warning;
+
+fatal_error: procedure(message);
+     declare message character(*) varying;
+     declare exit_ghu entry;
+
+     call puterr('fatal error: ' || message);
+     call exit_ghu;
+end fatal_error;
+
+err_check: procedure(rc, message) returns(bit(1));
+     declare rc binary(15);
+     declare message character(*) varying;
+     declare s$error entry(bin(15), char(*) var, char(*) var);
+
+     if (rc = 0) then
+          return(false);
+     else do;
+          call s$error(rc, 'Ghu', message);
+          return(true);
+     end;
+end err_check;
+
+set_prompt: procedure(new_prompt);
+     declare new_prompt character(8) varying;
+     declare marker binary(15) based;
+     declare rc binary(15);
+     
+     call s$control(default_input, 208, addr(new_prompt)->marker, rc);
+end set_prompt;
+
+get_prompt: procedure returns(character(8) varying);
+     declare 1 info_struct,
+               2 version binary(15),
+               2 junk1(5) binary(15),
+               2 prompt character(8) varying,
+               2 junk2(90) binary(15);
+     declare marker binary(15) based;
+     declare rc binary(15);
+
+     info_struct.version = 1;
+     call s$control(default_input, 201, addr(info_struct)->marker, rc);
+     return(info_struct.prompt);
+end get_prompt;
+
+discover_ports: procedure;
+     declare s$get_port_id entry(char(32) var, bin(15), bin(15));
+     declare rc binary(15);
+
+     call s$get_port_id('default_input', default_input, rc);
+     if (rc ^= 0) then
+          call error('default_input port not found!');
+     call s$get_port_id('default_output', default_output, rc);
+     if (rc ^= 0) then
+          call error('default_output port not found!');
+end discover_ports;
+
+pad: procedure(string, pad_length) returns(character(256) varying);
+     declare string character(*) varying;
+     declare pad_length binary(15);
+
+     if (length(string) < pad_length) then
+          return(string || copy(' ', pad_length - length(string)));
+     else
+          return(string);
+end pad;
+
+alloc: procedure(size_wanted, tag) returns(pointer);
+     declare size_wanted binary(31);
+     declare tag binary(15);
+     declare result pointer;
+     declare secret_tag binary(31) based;
+     declare s$allocate entry(binary(31), pointer);
+
+     call s$allocate(size_wanted + size(secret_tag), result);
+     if (result = null()) then do;
+          call print_alloc_monitor;
+          call fatal_error('PANIC!  alloc failed!');
+     end;
+     result->secret_tag = tag;
+     alloc_monitor_count(tag) = alloc_monitor_count(tag) + 1;
+     alloc_monitor_allocs(tag) = alloc_monitor_allocs(tag) + 1;
+     if (alloc_monitor_count(tag) > alloc_monitor_max(tag)) then
+          alloc_monitor_max(tag) = alloc_monitor_count(tag);
+     return(addrel(result, 4));
+end alloc;
+
+free: procedure(p);
+     declare p pointer;
+     declare secret_tag binary(31) based;
+     declare s$free entry(pointer);
+
+     if (p = null()) then
+          return;
+     p = addrel(p, -4);
+     alloc_monitor_count(p->secret_tag) =
+          alloc_monitor_count(p->secret_tag) - 1;
+     call s$free(p);
+end free;
+
+init_alloc_monitor: procedure;
+     declare i binary(15);
+
+     do i = 1 to MAX_ALLOC_CALLS;
+          alloc_monitor_count(i) = 0;
+          alloc_monitor_allocs(i) = 0;
+          alloc_monitor_max(i) = 0;
+     end;
+end init_alloc_monitor;
+
+print_alloc_monitor: procedure;
+     declare i binary(15);
+
+     do i = 1 to MAX_ALLOC_CALLS;
+          call putline(ltrim(i) || ' <-- ' || ltrim(alloc_monitor_count(i)) ||
+               '/' || ltrim(alloc_monitor_max(i)) || ' from ' ||
+               ltrim(alloc_monitor_allocs(i)));
+     end;
+end print_alloc_monitor;
+
+c$start_logging: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare filenameptr pointer;
+     declare filename based(filenameptr) character(256) varying;
+     declare log_path character(256) varying;
+     declare log_flag binary(15);
+     declare rc binary(15);
+
+     filenameptr = i2p(arg1);
+     call s$expand_path(filename, '', log_path, rc);
+     log_flag = LOG_WRITES + LOG_READS;
+     if (arg2 = 1) then
+          log_flag = log_flag + LOG_APPEND;
+     call s$start_logging(default_output, log_path, log_flag, rc);
+     if (rc = e$already_logging_on_port) then
+          call error('already logging');
+     else if (rc ^= 0) then
+          call error('unable to log to ' || log_path);
+end c$start_logging;
+
+c$stop_logging: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare rc binary(15);
+
+     call s$stop_logging(default_output, rc);
+end c$stop_logging;

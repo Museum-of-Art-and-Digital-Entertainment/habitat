@@ -1,0 +1,2442 @@
+amulet
+
+ans
+
+35c36,37
+< 	byte	run,6,170
+---
+> 	byte	170
+> 	byte	run,5,170
+atm
+
+
+91c93,94
+< 	byte	run,7,170
+---
+> 	byte	170
+> 	byte	run,6,170
+114c117,118
+< 	byte	run,7,170
+---
+> 	byte	170
+> 	byte	run,6,170
+bag
+
+ball1
+
+barred
+
+104c105,106
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	run,3,170
+148c150,151
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+1
+barred_old
+bbox0
+
+38c39,40
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+2
+53c55,56
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+6
+bbox1
+bbush
+bedb
+bedf
+beds
+
+beep
+bell
+booke
+
+44c45,46
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+bookf
+
+bottle
+
+box1
+
+bpack
+brang
+
+bridgef
+
+bridges
+
+52c53,54
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+3
+65c67,68
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+4
+77c80,81
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+
+
+192c198,199
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+3
+bush1
+
+
+50c52,53
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+1
+79c82,83
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+91c95,96
+< 	byte	run,0x80+13
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+9
+bush2
+
+bush3
+
+45c46,47
+< 	byte	run,0x80+27
+---
+> 	byte	run,0x80+14
+> 	byte	run,0x80+13
+141c143,144
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+11
+
+167c171,172
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+6
+184c189,190
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+
+
+246c254,255
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+3
+
+
+292c303,304
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+7
+> 	byte	run,0x80+2
+301c313,314
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+
+335c349,350
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+3
+bush4
+
+97c98,99
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+3
+105c107,108
+< 	byte	run,0x80+18
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+10
+
+bwall5
+6,9c6,9
+< bwall5_data::
+< 	byte	swing	+ 0
+< 	byte	0b10000000
+< 	byte	no_animation
+---
+> bwall5_data::					; plain wall or sky
+> 	byte	swing	+ 1
+> 	byte	0b11000000
+> 	byte	bwall5_start_end - bwall5_data
+12c12
+< 	byte	0,0,0
+---
+> 	byte	0+left,0+left,12
+> 	byte	0b01000000
+> 	word	bwall5_data_b - bwall5_data
+> bwall5_start_end:
+> 	byte	0,0,1,1
+
+
+
+20,21c27,38
+< 	byte	cel_box + 0x01, 0x7d, 0x01, 0x69, 0x00, 0x00
+< 	byte	0x3f
+---
+> 	byte	cel_trap + col + 0x01, 0x80, 0x01, 0x69, 0x00, 0x00
+> 	byte	pat_wild
+
+> 	byte	0,	159,	0,	159
+
+
+> bwall5_data_b:
+> 	byte	cel_trap + col + 0x01, 0x80, 0x01, 0x69, 0x00, 0x00
+> 	byte	pat_glass
+
+> 	byte	0,	159,	0,	159
+
+bwall8
+12c12
+< 	byte	0,0,0
+---
+> 	byte	0+left,0+left,12
+22c22
+< 	byte	0x88
+---
+> 	byte	0x00
+25,26c25,30
+< 	byte	cel_box + 0x01, 0x40, 0x00, 0x3f, 0x00, 0x00
+< 	byte	0x77
+---
+> 	byte	cel_trap + col + 0x01, 0x40, 0x00, 0x3f, 0x00, 0x00
+> 	byte	pat_wild
+
+> 	byte	0,	159,	0,	159
+
+
+c
+cactus
+cage2
+camera0
+
+39c40,41
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+
+75c78,79
+< 	byte	run,8,10
+---
+> 	byte	10
+> 	byte	run,7,10
+car4
+
+
+
+
+
+
+520c526,527
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+524c531,532
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+1
+528c536,537
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+1
+532c541,542
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+536c546,547
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+7
+> 	byte	run,0x80+1
+carb
+carf
+cassette
+
+cat
+
+55c56,57
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+
+114c117,118
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+3
+
+
+cave0
+27c27
+< 	byte	cel_box + 0x03, 0x48, 0xfb, 0x37, 0x00, 0x00
+---
+> 	byte	cel_box + 0x0c, 0x48, 0xfb, 0x37, 0x00, 0x00
+31,32c31,32
+< 	byte	cel_box + 0x06, 0x10, 0xfb, 0x47, 0x00, 0x00
+< 	byte	0x55
+---
+> 	byte	cel_trap + col + 0x02, 0x10, 0xfb, 0x47, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	10,	0x0c*4-1 -10,	0,	0x0c*4-1
+
+
+36c39
+< 	byte	0xff
+---
+> 	byte	pat_glass
+cball0
+
+
+
+84c87,88
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+
+cbolt
+ccard
+
+chairfb
+
+
+
+chairs
+10c10
+< 	byte	chairs_contents_xy - chairs_data
+---
+> 	byte	chairs_contents_xy - chairs_data + 0x80
+
+53c54,59
+< 	byte	run,5,170
+---
+
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+
+chango
+
+
+
+
+chess0
+
+
+
+
+
+
+
+
+chestf
+
+
+49c51
+< 	byte	cel_box + both_bord + 0x05, 0x2d, 0xfe, 0x06, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x05+3, 0x2d, 0xfe, 0x06, 0x00, 0x00
+
+
+
+170c175,176
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+chests
+
+
+
+cinder
+
+47c48,49
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+10
+> 	byte	run,0x80+1
+82c84,85
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+2
+
+106c110,111
+< 	byte	run,0x80+24
+---
+> 	byte	run,0x80+21
+> 	byte	run,0x80+3
+126c131,132
+< 	byte	run,0x80+16
+---
+> 	byte	run,0x80+9
+> 	byte	run,0x80+7
+144c150,151
+< 	byte	run,0x80+16
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+11
+170c177,178
+< 	byte	run,0x80+16
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+15
+
+233c242,243
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+5
+
+255c266,267
+< 	byte	run,0x80+18
+---
+> 	byte	run,0x80+14
+> 	byte	run,0x80+4
+267c279,280
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+7
+> 	byte	run,0x80+2
+314c327,328
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+328c342,343
+< 	byte	run,0x80+15
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+13
+
+
+386c403,404
+< 	byte	run,0x80+13
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+5
+club2
+
+31c32,33
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+34c36,37
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+1
+
+58c62,63
+< 	byte	run,0x80+20
+---
+> 	byte	run,0x80+19
+> 	byte	run,0x80+1
+64c69,70
+< 	byte	run,0x80+17
+---
+> 	byte	run,0x80+13
+> 	byte	run,0x80+4
+71c77,78
+< 	byte	run,0x80+14
+---
+> 	byte	run,0x80+7
+> 	byte	run,0x80+7
+77c84,85
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+9
+
+coke1
+
+
+compass
+
+couchfb
+33c33
+< 	byte	0x55
+---
+> 	byte	pat_glass
+
+57c58
+< 	byte	cel_box + tb_bord + 0x06, 0x27, 0xfa, 0xf9, 0x00, 0x00
+---
+> 	byte	cel_box + tb_bord + 0x06+4, 0x27, 0xfa, 0xf9, 0x00, 0x00
+
+69c71,72
+< 	byte	run,11,128
+---
+> 	byte	128
+> 	byte	run,10,128
+
+
+couchs
+10c10
+< 	byte	couchs_contents_xy - couchs_data
+---
+> 	byte	couchs_contents_xy - couchs_data + 0x80
+
+
+counter0
+24c24
+< 	byte	cel_box + both_bord + 0x08, 0x1e, 0xfb, 0xf2, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x08+3, 0x1e, 0xfb, 0xf2, 0x00, 0x00
+
+crack0
+
+64c65,66
+< 	byte	run,0x80+16
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+11
+
+
+
+
+cups0
+
+
+
+
+
+dcase
+44c44
+< 	byte	cel_box + both_bord + 0x06, 0x26, 0xfe, 0xf9, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x06+5, 0x26, 0xfe, 0xf9, 0x00, 0x00
+
+
+
+dials
+
+
+69c71,72
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+1
+95c98,99
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+5
+
+
+die
+
+
+
+70c73,74
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+4
+doll
+
+
+
+
+113c117,118
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+
+
+door1
+32c32
+< 	byte	0xaa
+---
+> 	byte	pat_glass
+
+77c78
+< 	byte	cel_box + 0x03, 0x45, 0x00, 0x23, 0x00, 0x00
+---
+> 	byte	cel_box + 0x03+2, 0x45, 0x00, 0x23, 0x00, 0x00
+
+105c107
+< 	byte	cel_box + 0x03, 0x45, 0x00, 0x23, 0x00, 0x00
+---
+> 	byte	cel_box + 0x03+2, 0x45, 0x00, 0x23, 0x00, 0x00
+
+door2
+32c32
+< 	byte	0xaa
+---
+> 	byte	pat_glass
+
+
+
+119c122,124
+< 	byte	run,15,85
+---
+> 	byte	85
+> 	byte	85
+> 	byte	run,13,85
+128c133,134
+< 	byte	run,16,85
+---
+> 	byte	run,3,85
+> 	byte	run,13,85
+134c140,141
+< 	byte	run,4,85
+---
+> 	byte	run,3,85
+> 	byte	85
+161c168
+< 	byte	cel_box + 0x03, 0x45, 0x00, 0x23, 0x00, 0x00
+---
+> 	byte	cel_box + 0x03+2, 0x45, 0x00, 0x23, 0x00, 0x00
+
+empty
+escaper
+
+25c26,27
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+explo1
+explo2
+explo3
+eye0
+
+fence1
+
+
+fgun1
+
+41c42,43
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+46c48,49
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+
+flag
+
+
+60c62,63
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+67c70,71
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+3
+74c78,79
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+5
+
+
+119c126,127
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+flamp
+
+
+
+
+flat
+
+flite
+
+floor0
+22c22
+< 	byte	0x88
+---
+> 	byte	0x00
+25,26c25,29
+< 	byte	cel_box + 0x01, 0x30, 0x00, 0x2f, 0x00, 0x00
+< 	byte	0x77
+---
+> 	byte	cel_trap + col + 0x01, 0x30, 0x00, 0x2f, 0x00, 0x00
+> 	byte	pat_wild
+
+> 	byte	0,	159,	0,	159
+
+floor1
+22c22
+< 	byte	0x88
+---
+> 	byte	0x00
+25,26c25,28
+< 	byte	cel_box + 0x01, 0x20, 0x00, 0x1f, 0x00, 0x00
+< 	byte	0x77
+---
+> 	byte	cel_trap + col + 0x01, 0x20, 0x00, 0x1f, 0x00, 0x00
+> 	byte	pat_wild
+
+> 	byte	0,	159,	0,	159
+fortun
+
+
+85c87,89
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+
+
+fount2
+
+65c66,68
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+96c99,100
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+11
+> 	byte	run,0x80+1
+
+
+
+268c275,276
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+7
+309c317,318
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+4
+
+350c360,361
+< 	byte	run,0x80+15
+---
+> 	byte	run,0x80+12
+> 	byte	run,0x80+3
+fris
+
+
+ftank2
+
+65c66,67
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+1
+79c81,82
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+86c89,90
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+
+133c138,139
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+140c146,147
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+
+184c192,193
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+199c208,209
+< 	byte	run,0x80+10
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+9
+
+214c225,226
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+221c233,234
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+249c262,263
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+
+283c298,299
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+2
+293c309,310
+< 	byte	run,0x80+10
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+8
+300c317,318
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+307c325,326
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+gcan
+
+
+106c108,109
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+gem
+
+
+
+glue0
+33c33
+< 	byte	0xaa
+---
+> 	byte	pat_glass
+grass0
+
+
+113c115,116
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+1
+132c135,136
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+1
+gren
+
+gun1
+
+31c32,33
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+gun2
+
+31c32,33
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+gun3
+
+36c37,38
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+41c43,44
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+hand
+
+38c39,40
+< 	byte	run,0x80+15
+---
+> 	byte	run,0x80+9
+> 	byte	run,0x80+6
+56c58,59
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+2
+
+
+
+167c173,174
+< 	byte	run,0x80+17
+---
+> 	byte	run,0x80+16
+> 	byte	run,0x80+1
+184c191,192
+< 	byte	run,0x80+16
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+8
+hole0
+29c29
+< 	byte	0x55
+---
+> 	byte	pat_glass
+33c33
+< 	byte	0x55
+---
+> 	byte	pat_glass
+
+
+hottub
+
+
+
+
+
+
+house2
+39,81c39,41
+< 	byte	0x08, 0x15, 0xfa, 0x08, 0x00, 0x00
+< 	byte	42
+< 	byte	10
+< 	byte	10
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+16
+< 	byte	run,7,170
+< 	byte	42
+< 	byte	42
+< 	byte	10
+< 	byte	10
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+8
+< 	byte	run,15,170
+< 	byte	42
+< 	byte	42
+< 	byte	10
+< 	byte	10
+< 	byte	2
+< 	byte	2
+< 	byte	run,59,170
+< 	byte	168
+< 	byte	168
+< 	byte	160
+< 	byte	160
+< 	byte	run,9,170
+< 	byte	168
+< 	byte	168
+< 	byte	160
+< 	byte	160
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+6
+< 	byte	170
+< 	byte	168
+< 	byte	168
+< 	byte	160
+< 	byte	160
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+14
+---
+> 	byte	cel_trap + col + 0x08, 0x15, 0xfa, 0x08, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	12,	20,	2,	30
+83,85d42
+< 
+< 
+< 
+87c44
+< 	byte	cel_box + both_bord + 0x09, 0x1c, 0xfb, 0x27, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x09+3, 0x1c, 0xfb, 0x27, 0x00, 0x00
+
+
+138c97,99
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+187,247d147
+< 	byte	0x0e, 0x0c, 0xfa, 0x33, 0x00, 0x00
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+10
+< 	byte	170
+< 	byte	255
+< 	byte	191
+< 	byte	47
+< 	byte	11
+< 	byte	2
+< 	byte	run,0x80+6
+< 	byte	170
+< 	byte	run,5,255
+< 	byte	191
+< 	byte	47
+< 	byte	11
+< 	byte	2
+< 	byte	run,0x80+2
+< 	byte	170
+< 	byte	run,9,255
+< 	byte	191
+< 	byte	42
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,10,255
+< 	byte	170
+< 	byte	170
+< 	byte	run,9,255
+< 	byte	254
+< 	byte	168
+< 	byte	170
+< 	byte	run,5,255
+< 	byte	254
+< 	byte	248
+< 	byte	224
+< 	byte	128
+< 	byte	run,0x80+2
+< 	byte	170
+< 	byte	255
+< 	byte	254
+< 	byte	248
+< 	byte	224
+< 	byte	128
+< 	byte	run,0x80+6
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+10
+> 	byte	cel_trap + col + 0x0e, 0x80 + 0x0c, 0xfa, 0x33, 0x00, 0x00
+> 	byte	pat_pink
+> 	byte	13,	42,	2,	53
+251d153
+< 
+
+
+jug0
+
+
+61c63,64
+< 	byte	run,0x80+35
+---
+> 	byte	run,0x80+23
+> 	byte	run,0x80+12
+
+80c84,85
+< 	byte	run,0x80+44
+---
+> 	byte	run,0x80+23
+> 	byte	run,0x80+21
+
+94c100,101
+< 	byte	run,0x80+24
+---
+> 	byte	run,0x80+23
+> 	byte	run,0x80+1
+juke
+
+
+kcan
+
+35c36,38
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+
+
+
+
+key1
+
+
+kk1
+
+
+
+
+
+kk2
+
+49c50,52
+< 	byte	run,3,128
+---
+> 	byte	128
+> 	byte	128
+> 	byte	128
+
+kk3
+
+knife1
+
+23c24,25
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+1
+40c42,43
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+46c49,50
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+4
+knife2
+
+23c24,25
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+42c44,45
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+48c51,52
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+4
+luggages
+
+mag
+
+maus
+
+40c41,42
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+4
+47c49,50
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+10
+50c53,54
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+10
+mbikes
+
+
+
+186c189,190
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+223c227,228
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+8
+
+247c253,254
+< 	byte	run,0x80+21
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+16
+255c262,263
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+270c278,279
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+mbook0
+
+
+mbox
+
+
+65c67,68
+< 	byte	run,6,2
+---
+> 	byte	2
+> 	byte	run,5,2
+
+mdrop
+
+
+
+mic0
+
+mlamp2
+
+109c110,111
+< 	byte	run,0x80+13
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+8
+
+
+
+
+
+mount1
+19c19
+< 	word	mount1_data_b - mount1_data
+---
+> ;;	word	mount1_data_b - mount1_data
+27,80c27,28
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+40
+< 	byte	85
+< 	byte	85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+32
+< 	byte	run,10,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+24
+< 	byte	run,18,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+16
+< 	byte	run,26,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+8
+< 	byte	run,34,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+---
+> 	byte	pat_wild
+> 	byte	0x6*4,	0x06*4,	0,	0x6*4*2-1
+85,143d33
+< mount1_data_b:
+< 	byte	run,34,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,26,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+8
+< 	byte	run,18,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+16
+< 	byte	run,10,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+24
+< 	byte	85
+< 	byte	85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+32
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+40
+< 
+< 
+< 
+< 
+
+148c39,40
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+1
+162c54,56
+< 	byte	run,3,2
+---
+> 	byte	2
+> 	byte	2
+> 	byte	2
+mpill
+
+mring
+
+
+mstaff
+
+news
+
+newsstand0
+
+38c39,40
+< 	byte	run,0x80+15
+---
+> 	byte	run,0x80+13
+> 	byte	run,0x80+2
+
+
+newsstand1
+
+
+
+101c104
+< 	byte	cel_box + both_bord + 0x04, 0x3b, 0xfc, 0x2d, 0x00, 0x00
+---
+> 	byte	cel_box + 0x04+3, 0x3b, 0xfc, 0x2d, 0x00, 0x00
+palm2
+
+
+
+
+
+95c100,101
+< 	byte	run,0x80+15
+---
+> 	byte	run,0x80+13
+> 	byte	run,0x80+2
+
+paper
+
+
+patgun0
+
+
+pawn
+
+106c107,108
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+
+
+peng
+
+
+56c58,60
+< 	byte	run,3,42
+---
+> 	byte	42
+> 	byte	42
+> 	byte	42
+
+
+
+phone1
+
+
+picture1
+
+picture2
+
+110c111,112
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+7
+
+picture3
+
+
+133c135,136
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+10
+> 	byte	run,0x80+2
+138c141,142
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+6
+143c147,148
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+9
+152c157,158
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+pillbot
+
+pipe0
+
+
+
+
+
+
+
+plant1
+
+75c76,77
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+3
+plant2
+
+62c63,64
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+75c77,78
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+4
+plant3
+
+32c33,34
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+70c72,73
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+pond0
+
+37c38,39
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+3
+41c43,44
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+45c48,49
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+48c52,53
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+52c57,58
+< 	byte	run,29,85
+---
+> 	byte	run,14,85
+> 	byte	run,15,85
+60c66,67
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+4
+64c71,72
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+5
+
+108c117,118
+< 	byte	run,0x80+3
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+2
+
+130c141,142
+< 	byte	run,0x80+21
+---
+> 	byte	run,0x80+18
+> 	byte	run,0x80+3
+port7
+rduk
+
+region0
+
+
+
+
+
+road0
+41,50c41,43
+< 	byte	0x08, 0x10, 0x06, 0x1b, 0x00, 0x00
+< 	byte	run,4,170
+< 	byte	run,4,42
+< 	byte	run,4,10
+< 	byte	run,4,2
+< 	byte	run,88,170
+< 	byte	run,4,168
+< 	byte	run,4,160
+< 	byte	run,4,128
+< 	byte	run,0x80+12
+---
+> 	byte	cel_trap + 0x08, 0x10, 0x06, 0x1b, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	4+1,	4+0x5*4-2,	4+0,	4+0x5*4-1
+52,54d44
+< 
+< 
+< 
+56,62c46,48
+< 	byte	0x09, 0x0c, 0x05, 0x0b, 0x00, 0x00
+< 	byte	run,4,42
+< 	byte	run,4,10
+< 	byte	run,4,2
+< 	byte	run,88,170
+< 	byte	run,4,168
+< 	byte	run,4,160
+---
+> 	byte	cel_trap + 0x09, 0x0c, 0x05, 0x0b, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	6+1,	7+0x5*4+1,	6+0,	7+0x5*4+2
+64,66d49
+< 
+< 
+< 
+68,78c51,53
+< 	byte	0x06, 0x14, 0x07, 0x2f, 0x00, 0x00
+< 	byte	run,4,170
+< 	byte	run,4,42
+< 	byte	run,4,10
+< 	byte	run,4,2
+< 	byte	run,0x80+4
+< 	byte	run,68,170
+< 	byte	run,4,168
+< 	byte	run,4,160
+< 	byte	run,8,128
+< 	byte	run,0x80+16
+---
+> 	byte	cel_trap + 0x06, 0x14, 0x07, 0x2f, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	3,	0x5*4-4,	2,	0x5*4-3
+80,82d54
+< 
+< 
+< 
+84,85c56,58
+< 	byte	0xaa
+---
+> 	byte	cel_trap + 0x0c, 0x10, 0xf5, 0x1b, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	0,	0x12*4,	0,	0x12*4
+
+88,89c62,65
+< 	byte	0xaa
+---
+> 	byte	cel_trap + 0x0c, 0x10, 0x0b, 0x1b, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	0,	0x12*4-1,	0,	0x12*4-1
+
+rock1
+
+rock2
+
+rock3
+
+25c26,27
+< 	byte	run,0x80+10
+---
+> 	byte	run,0x80+9
+> 	byte	run,0x80+1
+54c56,57
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+3
+safe1
+
+31c32,33
+< 	byte	run,6,170
+---
+> 	byte	run,3,170
+> 	byte	run,3,170
+35c37,38
+< 	byte	run,6,170
+---
+> 	byte	run,3,170
+> 	byte	run,3,170
+39c42,43
+< 	byte	run,6,170
+---
+> 	byte	run,3,170
+> 	byte	run,3,170
+
+62c67,69
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+
+78c86,87
+< 	byte	run,38,170
+---
+> 	byte	run,19,170
+> 	byte	run,19,170
+saw
+
+30c31,33
+< 	byte	run,3,2
+---
+> 	byte	2
+> 	byte	2
+> 	byte	2
+
+
+security
+
+
+sensor
+
+
+sexo
+30c30
+< 	byte	0x80
+---
+> 	byte	pat_glass
+
+
+104c106,107
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+3
+135c138,139
+< 	byte	run,0x80+2
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+1
+
+
+175c181,182
+< 	byte	run,0x80+13
+---
+> 	byte	run,0x80+8
+> 	byte	run,0x80+5
+232c239,240
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+8
+
+shovel0
+
+29c30,31
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+
+sign0
+7c7
+< 	byte	out	+ 1
+---
+> 	byte	out	+ 1+4+2+3+3+3
+> 	byte	0b10100000
+> 	byte	0b00100000
+
+> 	byte	0b10010000
+> 	byte	0b00010000
+
+> 	byte	0b00000000
+> 	byte	0b00000000
+
+> 	byte	0b01000000
+> 	byte	0b00000000
+> 	byte	0b00000000
+
+> 	byte	0b00100000
+> 	byte	0b00000000
+> 	byte	0b00000000
+
+> 	byte	0b00010000
+> 	byte	0b00000000
+> 	byte	0b00000000
+
+
+> 	word	sign0_data_c - sign0_data
+> 	word	sign0_data_d - sign0_data
+21c45,48
+< 	byte	0,0,1,1
+---
+> 	byte	0,0,1,1,2,2,3,3,4,4,5,5
+> 	byte	cycle+8,10,cycle+7,9,cycle+6,8
+> 	byte	cycle+11,13,cycle+10,12,cycle+9,11
+> 	byte	cycle+14,16,cycle+13,15,cycle+12,14
+29,30c56,69
+< 	byte	cel_box + 0x01, 0x01, 0xfc, 0x1e, 0x00, 0x00
+< 	byte	0x20
+---
+> 	byte	cel_text + 0x01, 0x01, 0xfc, 0x1e, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	2
+
+> sign0_data_c:
+> 	byte	cel_text + 0x01, 0x01, 0xfc, 0x1e, 0x00, 0x00
+> 	byte	pat_sky
+> 	byte	2
+
+> sign0_data_d:
+> 	byte	cel_text + 0x01, 0x01, 0xfc, 0x1e, 0x00, 0x00
+> 	byte	pat_pink
+> 	byte	2
+
+sign1
+36c36
+< 	byte	0xff
+---
+> 	byte	0x00
+
+
+
+76c79,80
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+10
+> 	byte	run,0x80+2
+81c85,86
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+6
+86c91,92
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+9
+95c101,102
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+109,110c116,119
+< 	byte	cel_box + 0x01, 0x01, 0xfb, 0x22, 0x00, 0x00
+< 	byte	0x80
+---
+> 	byte	cel_text + 0x01, 0x01, 0xfb, 0x22, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	0
+
+sign2
+32,95c32,34
+< 	byte	0x07, 0x1b, 0xfc, 0x31, 0x00, 0x00
+< 	byte	run,0x80+19
+< 	byte	2
+< 	byte	2
+< 	byte	9
+< 	byte	9
+< 	byte	37
+< 	byte	37
+< 	byte	149
+< 	byte	149
+< 	byte	run,0x80+11
+< 	byte	2
+< 	byte	2
+< 	byte	9
+< 	byte	9
+< 	byte	37
+< 	byte	37
+< 	byte	149
+< 	byte	149
+< 	byte	run,8,85
+< 	byte	run,0x80+3
+< 	byte	2
+< 	byte	2
+< 	byte	9
+< 	byte	9
+< 	byte	37
+< 	byte	37
+< 	byte	149
+< 	byte	149
+< 	byte	run,16,85
+< 	byte	32
+< 	byte	152
+< 	byte	152
+< 	byte	86
+< 	byte	86
+< 	byte	101
+< 	byte	run,21,85
+< 	byte	run,0x80+5
+< 	byte	128
+< 	byte	128
+< 	byte	96
+< 	byte	96
+< 	byte	88
+< 	byte	88
+< 	byte	86
+< 	byte	86
+< 	byte	run,14,85
+< 	byte	run,0x80+13
+< 	byte	128
+< 	byte	128
+< 	byte	96
+< 	byte	96
+< 	byte	88
+< 	byte	88
+< 	byte	86
+< 	byte	86
+< 	byte	run,6,85
+< 	byte	run,0x80+21
+< 	byte	128
+< 	byte	128
+< 	byte	96
+< 	byte	96
+< 	byte	88
+< 	byte	88
+---
+> 	byte	cel_trap + col + 0x07, 0x80 + 0x1c, 0xfc, 0x31, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	0,	26,	13,	13
+98,99d36
+< 
+< 
+101,165c38,40
+< 	byte	0x07, 0x1c, 0xfc, 0x4b, 0x00, 0x00
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+20
+< 	byte	run,8,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+12
+< 	byte	run,16,85
+< 	byte	149
+< 	byte	149
+< 	byte	37
+< 	byte	37
+< 	byte	9
+< 	byte	9
+< 	byte	2
+< 	byte	2
+< 	byte	run,0x80+4
+< 	byte	run,21,85
+< 	byte	101
+< 	byte	86
+< 	byte	86
+< 	byte	152
+< 	byte	152
+< 	byte	32
+< 	byte	32
+< 	byte	run,14,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+6
+< 	byte	run,6,85
+< 	byte	86
+< 	byte	86
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+14
+< 	byte	88
+< 	byte	88
+< 	byte	96
+< 	byte	96
+< 	byte	128
+< 	byte	128
+< 	byte	run,0x80+22
+---
+> 	byte	cel_trap + col + 0x07, 0x80 + 0x1c, 0xfc, 0x4b, 0x00, 0x00
+> 	byte	pat_wild
+> 	byte	13,	13,	0,	26
+167,169d41
+< 
+< 
+< 
+
+179,180d51
+< 
+< 
+182,183c53,56
+< 	byte	cel_box + 0x01, 0x01, 0xfe, 0x3f, 0x00, 0x00
+< 	byte	0x20
+---
+> 	byte	cel_text + 0x01, 0x01, 0xfe, 0x3f, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	251
+
+sign3
+
+68,69c69,72
+< 	byte	cel_box + 0x01, 0x01, 0xfc, 0x3e, 0x00, 0x00
+< 	byte	0x20
+---
+> 	byte	cel_text + 0x01, 0x01, 0xfc, 0x3e, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	1
+
+sign4
+42,43c42,44
+< 	byte	cel_box + 0x01, 0x01, 0xf8, 0x23, 0x00, 0x00
+< 	byte	0x08
+---
+> 	byte	cel_text + 0x01, 0x01, 0xf8, 0x23, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	2
+45,47d45
+< sign4_data_e:
+< 	byte	cel_box + 0x01, 0x01, 0xf8, 0x22, 0x00, 0x00
+< 	byte	0x02
+> sign4_data_e:
+> 	byte	cel_text + 0x01, 0x01, 0xf8, 0x22, 0x00, 0x00
+> 	byte	pat_sky
+> 	byte	3
+sign5
+
+72,73c73,76
+< 	byte	cel_box + 0x01, 0x01, 0xfb, 0x46, 0x00, 0x00
+< 	byte	0x88
+---
+> 	byte	cel_text + 0x01, 0x01, 0xfb, 0x46, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	1
+
+sign6
+17c17
+< 	byte	0b001110000
+---
+> 	byte	0b00111000
+40c40
+< 	byte	cel_box + both_bord + 0x05, 0x28, 0xf8, 0x28, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x05+9, 0x28, 0xf8, 0x28, 0x00, 0x00
+44,45c44,46
+< 	byte	cel_box + 0x01, 0x01, 0xf9, 0x24, 0x00, 0x00
+< 	byte	0x80
+---
+> 	byte	cel_text + 0x01, 0x06, 0xf9, 0x24, 0x00, 0x00
+> 	byte	pat_black
+> 	byte	0
+48,49c49,51
+< 	byte	cel_box + 0x01, 0x01, 0xf9, 0x23, 0x00, 0x00
+< 	byte	0x20
+---
+> 	byte	cel_text + 0x01, 0x06, 0xf9, 0x23, 0x00, 0x00
+> 	byte	pat_sky
+> 	byte	1
+slite1
+
+
+slite2
+
+
+59c61,62
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+67c70,71
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+7
+72c76,77
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+9
+76c81,82
+< 	byte	run,0x80+11
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+10
+
+89c96,97
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+1
+100c108,109
+< 	byte	run,4,128
+---
+> 	byte	run,3,128
+> 	byte	128
+stock0
+
+stool0
+
+34c35,36
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+2
+
+switches
+
+
+
+
+
+table0
+
+
+
+
+
+tablets
+
+tapep
+tbear
+
+tele0
+
+30c31,34
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+42c46,49
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+50c57,60
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+58c68,71
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+test
+ticket
+
+tok
+
+
+
+torch0
+
+
+
+
+
+towel
+
+trchest
+
+
+
+
+
+tree1
+
+
+
+
+
+tree2
+
+
+
+
+tree4
+
+
+
+130c133,134
+< 	byte	run,0x80+21
+---
+> 	byte	run,0x80+7
+> 	byte	run,0x80+14
+
+162c167,168
+< 	byte	run,0x80+10
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+8
+168c174,175
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+2
+tree5
+
+
+
+91c94,95
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+10
+> 	byte	run,0x80+2
+159c163,164
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+4
+169c174,175
+< 	byte	run,0x80+13
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+7
+tree6
+
+33c34,36
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+
+
+
+tree7
+
+
+87c89,90
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+5
+> 	byte	run,0x80+2
+114c117,118
+< 	byte	run,0x80+4
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+3
+154c158,159
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+4
+tree8
+
+50c51,52
+< 	byte	run,0x80+5
+---
+> 	byte	run,0x80+3
+> 	byte	run,0x80+2
+54c56,57
+< 	byte	run,0x80+6
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+4
+58c61,62
+< 	byte	run,0x80+7
+---
+> 	byte	run,0x80+1
+> 	byte	run,0x80+6
+
+73c78,79
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+6
+> 	byte	run,0x80+2
+79c85,86
+< 	byte	run,0x80+8
+---
+> 	byte	run,0x80+4
+> 	byte	run,0x80+4
+85c92,93
+< 	byte	run,0x80+9
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+7
+
+tree9
+
+
+
+treeA
+31c31
+< 	byte	cel_box + 0x07, 0x21, 0xfa, 0x3b, 0x00, 0x00
+---
+> 	byte	cel_box + 0x07+2, 0x21, 0xfa, 0x3b, 0x00, 0x00
+
+
+
+
+treeB
+
+41c42,44
+< 	byte	run,3,128
+---
+> 	byte	128
+> 	byte	128
+> 	byte	128
+
+
+76c81,82
+< 	byte	run,10,85
+---
+> 	byte	run,3,85
+> 	byte	run,7,85
+
+
+
+tube0
+
+
+
+
+215c219,221
+< 	byte	run,5,149
+---
+> 	byte	run,3,149
+> 	byte	149
+> 	byte	149
+
+245c252,254
+< 	byte	run,5,85
+---
+> 	byte	run,3,85
+> 	byte	85
+> 	byte	85
+253c262,264
+< 	byte	run,5,85
+---
+> 	byte	run,3,85
+> 	byte	85
+> 	byte	85
+undefined
+
+varpicture
+vase
+
+
+vendo0
+35c35
+< 	byte	0xaa
+---
+> 	byte	pat_glass
+38c38
+< 	byte	cel_box + both_bord + 0x02, 0x50, 0xfb, 0x84, 0x00, 0x00
+---
+> 	byte	cel_box + both_bord + 0x02+8, 0x50, 0xfb, 0x84, 0x00, 0x00
+42c42,43
+< 	byte	0x01, 0x09, 0x104, 0x35, 0x00, 0x00
+---
+> 	byte	0x01, 0x09, 0x04, 0x35, 0x00, 0x00
+
+
+
+67c70,73
+< 	byte	run,4,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+> 	byte	170
+69c75,77
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+71c79,81
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+73c83,85
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+75c87,89
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+77c91,93
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+79c95,97
+< 	byte	run,8,170
+---
+> 	byte	run,6,170
+> 	byte	170
+> 	byte	170
+
+92c111,116
+< 	byte	run,0x80+12
+---
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+> 	byte	run,0x80+2
+vendo1
+57c57
+< 	byte	cel_box + both_bord + 0x02, 0x58, 0xfd, 0x4d, 0x00, 0x00
+---
+> 	byte	cel_box + 0x02+8, 0x58, 0xfd, 0x4d, 0x00, 0x00
+
+wand1
+
+wand2
+
+window1
+
+62c63,65
+< 	byte	run,3,170
+---
+> 	byte	170
+> 	byte	170
+> 	byte	170
+
+
+window3
+
+

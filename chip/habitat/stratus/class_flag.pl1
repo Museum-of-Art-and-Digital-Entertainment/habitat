@@ -1,0 +1,41 @@
+/*
+ *   class_flag.pl1
+ *
+ *   Flag object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_flag: procedure;
+
+     %replace FLAG_REQUESTS by 3;
+
+     declare a(0:FLAG_REQUESTS) entry based;
+     declare class_flag_actions pointer;
+     declare 1 flag based %include struct_flag;
+
+     %replace I by CLASS_FLAG;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = FLAG_REQUESTS;
+     Class_Table(I).alloc_size = size(flag);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_flag_actions);
+     Class_Table(I).actions = class_flag_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+
+end initialize_class_flag;

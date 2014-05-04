@@ -1,0 +1,259 @@
+.AM
+.ds Dq November 26, 1986
+.lg 1
+.TL
+\s+9Habitat Economics\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH ECON 101
+.ds CH \\*(Dq
+.ds RH Habitat Document # 35
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the \fIHabitat\fP economic model.  The \fIHabitat\fP
+economy is quite simple (at least, those facets of it that we will bother to
+try to manage are simple).  Economic policy for \fIHabitat\fP therefore
+consists of a few simple rules for such things as trust fund dispersements
+together with a global price list for objects in the world.
+.SH
+\s+3Money\s-3
+.PP
+As has been discussed often before, the standard monetary unit in
+\fIHabitat\fP is the \fIToken\fP.  The buying power of a Token is not directly
+comparable to any ``real'' monetary unit, since the relative values of various
+items in the \fIHabitat\fP world do not necessarily correspond to their
+relative values in the real world.  Also, of course, many items in
+\fIHabitat\fP are pure fantasy and have no real world counterparts.  However,
+as a purely subjective measure (e.g., in order to guide judgement when setting
+prices), it may be helpful to think of a Token as representing something
+between 25\(ct and a dollar, depending on the context.
+.SH
+\s+3Whence Money Comes, Where Money Goes\s+3
+.PP
+Money enters the world in three ways: trust fund interest payments, paybacks
+from pawnshop machines, and random treasures placed in the world.  Money
+leaves the world in three ways also: expenditures in vendos and other
+coin-operated devices, fines and fees levied by the system for various reasons
+(such as the reincarnation penalty), and money simply lost by players which
+then gets swept up by ``garbage collection'' processes.  In order to define
+the \fIHabitat\fP economy, we need to define each of these sources and sinks
+in turn.
+.SH
+\s+3Making Money\s-3
+.LP
+\fITrust funds\fR
+.PP
+According to our fantasy, each Avatar is endowed with a trust fund.  This
+provides a basic, subsistence level income so that players can cover
+incidental expenses (TelePort fare, minimal equipment, and so on) without
+having to struggle for the cash if he or she is not interested in the game of
+money making.  The idea is that the trust fund pays ``interest'' into the
+Avatar's bank account on a regular basis.  The principal is not available to
+the player \(em in fact, the player never even sees the principal.
+.PP
+Trust fund payments are not really interest, in that they do not represent a
+percentage of anything and they do not compound.  The situation is actually
+much more analagous to the $200 you get for passing ``GO'' in Monopoly.  Each
+Avatar receives \fBtrustFundPayment\fR Tokens per day, paid into his bank
+account.  We only count days that the Avatar actually logs in, so a player
+can't stay away from \fIHabitat\fP for two weeks and then log in and get 14
+days worth of trust fund payments.  The value of \fBtrustFundPayment\fR is
+the same for all Avatars, though we may adjust it upward or downward from time
+to time in order to regulate the economy.  Initially, we will start with
+\fBtrustFundPayment =\fR T100.
+.LP
+\fIPawnshops\fR
+.PP
+The pawnshop machine provides a means whereby Avatars can recycle ``dead''
+objects, converting them into ready cash.  Each object has a cash value that
+depends on its class and possibly on its style.  The pawnshop machine behavior
+code on the host must have access to a table of these values.  Due to the wide
+variety of objects available in the world, this table will by necessity be
+somewhat large, even though it needn't contain entries for objects which
+cannot be carried and placed into the machine (e.g., trees and houses).
+Therefore, we do not wish to support an idiosyncratic pricing model for each
+individual pawnshop.  Instead, there will be one global set of values that
+will be placed in a global table to be shared in common by all instances of
+the pawnshop machine object.  In order to provide a little bit of variety (as
+well as to cause some pricing differentials to stimulate trade), each machine
+will have a limited number of local price exceptions for certain items that it
+recognizes.  For example, rocks could bring an unusually high return in one
+part of the world while escape devices bring an unusually low return in
+another.
+.PP
+As a rule, the prices paid by a pawnshop machine reflect a substantial
+discount from the price that an Avatar would have to pay in order to purchase
+the same item from a vendo machine.  There will be rare exceptions to this,
+where a particular machine pays a premium for an item that can be purchased
+more cheaply elsewhere.  Since such situations are intended to stimulate
+trade, the place where an item can be obtained cheaply will be distant from
+the place where it can be exchanged for a higher cash value.  Note that
+distance in \fIHabitat\fP is a little different from its real world
+counterpart, due to the presence of TelePort booths (although, of course, the
+cost of the TelePort ride itself adds to the ``economic distance'' between two
+points).
+.PP
+The complete price schedule for all types of objects is given in the appendix.
+.LP
+\fIMoney found\fR
+.PP
+As the operators of this world, we will, from time to time, place treasures to
+be found by the players.  Some of these will be objects that can be redeemed
+for cash, and some will be cash directly.  We can offer here no particular
+guidelines for the value of these treasures, other than a general observation
+that profligate treasure burying will cause inflation.  Unlike the real world,
+where inflation is bad because of the economic dislocation that it causes, in
+\fIHabitat\fP inflation is bad because it makes the world a less exciting
+place by devaluing the objects of players' quests.
+.SH
+\s+3Spending Money\s-3
+.LP
+\fIBuying things\fR
+.PP
+Avatars may obtain goods and services throughout the world using a variety of
+coin-operated devices.  The most common of these is the vendo machine, but
+there are also TelePort booths, fortune telling machines and coke machines.
+.PP
+Each object that may be purchased in a vendo has a price associated with it in
+the machine.  This is in contrast to the pawnshop machine, where prices are
+global, and is possible because each vendo sells only a limited number of
+items.  This means that there can be much greater variation in the selling
+prices of various kinds of objects throughout the world.  However, we will try
+to stick close to a universal price list.  As with the pawnshop machines,
+variations will be strategically chosen to encourage trade.  The basic prices
+represent our subjective judgement about the relative values of various items.
+The complete price breakdown by class and style is given in the appendix.
+.PP
+TelePort travel is charged on the basis of how far the Avatar is travelling.
+Distance is measured by counting the number of ``area code'' zones between the
+starting and ending TelePorts.  TelePort travel cost is reckoned in terms of
+a basic unit, \fBteleportFare\fR.  The formula for computing cost is
+.nf
+
+	\fBcost = teleportFare + (longDistancePremium \(mu teleportFare \(mu distance)\fR
+
+.fi
+where \fBdistance\fP is the length of the hop in area code zones and
+\fBlongDistancePremium\fR is a multiplier to scale the long distance charge
+by.  For trips within a single area code zone \fBdistance\fP is 0, and so cost
+only the minimum charge necessary to activate a TelePort booth.  Each
+successive zone cost adds an additional \fBlongDistancePremium \(mu
+teleportFare\fR Tokens to the charge.  Initially we are going to start with
+\fBteleportFare =\fR T10 and \fBlongDistancePremimum =\fR 2.  Thus a
+local 'Port will cost T10, a trip to the area code zone next door will cost
+T30, the zone next to that costs T50, and so on.  With the present
+geographic layout, the maximum distance between two area code zones is 5, so
+the maximum possible TelePort charge would be T110.  Eventually we would
+like to add a special pseudo-area code analagous to the real world 800-number:
+a toll-free TelePort destination.
+.PP
+Fortune telling machines and coke machines are minor sources of humor.  The
+price we set for them is rather arbitrary.  For the time being it will be
+T5, which is more than nothing but still cheap.
+.LP
+\fIFines and fees\fR
+.PP
+The Oracle charges for some of the services that it provides for Avatars.
+These include reincarnation as well as some of the services available from
+various Bureaucrats-In-A-Box.
+.PP
+Since the amount of money that an Avatar may have when it dies is completely
+unpredictable, the reincarnation fee is not a fixed charge, but a fraction of
+the Avatar's net worth.  ``Net worth'', in this context, is the sum of the
+Avatar's bank account balance and any Tokens that may be stashed in his Turf.
+Note that an Avatar can shelter his money by storing it as cash outside his
+Turf, at the risk that somebody else might steal it.  To begin with, the
+reincarnation fee will be 20% of the Avatar's net worth or T100, whichever is
+more.
+.PP
+Services of Bureaucrats-In-A-Box are charged variously.  The currently defined
+Bureaucratic functions are as follows:
+.IP "\ \ \ \ \(bu\ "
+\fITransfers of title to turves\fR \(em T50.
+.IP "\ \ \ \ \(bu\ "
+\fIPublic advertisements\fR \(em T500 to T10,000, depending on size and
+location.
+.IP "\ \ \ \ \(bu\ "
+\fIBusiness property rent\fR \(em T700 per week.  This charge is based on
+the maximum possible trust fund payment that can be received by an Avatar.  In
+other words, if an Avatar was to spend every Token he received renting a
+business property, he could do it, but we would have nothing left over.  In
+order to keep the Avatar solvent, the business has to make a profit.
+Currently we do not distinguish between the various possible business rental
+properties that we will be making available.  We may wish to reconsider this
+in the future.
+.IP "\ \ \ \ \(bu\ "
+\fIPublic facility scheduling\fR \(em T0.  For the time being, we will make
+public facilities (theaters, auditoria, and so on) available for free.  The
+purpose is to get them to be used.  If we reach a point where demand greatly
+exceeds supply, we may have to consider charging for use of the space, at
+least until additional facilities can be created.
+.LP
+\fIMoney lost\fR
+.PP
+From time to time, players will leave Tokens laying around the world, either
+deliberately or by accident.  While money is one thing that we will probably
+not want to have picked up by periodic ``garbage collection'' processes, we
+will want to keep an eye on it and sweep it up if the quantity of loose change
+starts to get out of hand.  For this reason, one of the daily batch processes
+that we will want to have will be a money supply counter, measuring how much
+money is in the world, both in cash and in Avatars' bank accounts.  It should
+be able to give separate tallies for cash carried on Avatars' persons, stored
+in Turves, and laying around free.  We will want to monitor the latter
+quantity carefully.
+.bp
+.CD
+\fB\s+6Appendix: Values of Objects\s-6\fR
+.DE
+.TS
+tab (:) ;
+l l l
+l n n l .
+Class:Purchase price (T):Pawn value (T)
+_:_:_
+amulet:5 to 10,000+:1 to 2,000+:depends on magic type
+bag:50:25:
+ball:20:10:
+body sprayer:50:25:
+book:1 to 100+:1 to 50+:depends on nature of book
+boomerang:40:20:
+bottle:10:5:
+box:80:40:
+change-o-matic:695:400:
+club:129:100:
+compass:195:100:
+crystal ball:50,000:35,000:
+drugs:75:5:
+escape device:1120:800:
+fake gun:80:20:
+flashlight:22:11:
+frisbee:47:47:
+gemstone:5 to 10,000+:1 to 2,000+:depends on magic type
+grenade:2,800:400:
+gun:800:600:
+key:5:1:
+knick-knack:4 to 104:1 to 10:depends on kind of knick-knack
+knife:395:200:
+magic staff:500 to 10,000+:100 to 2,000+:depends on magic type
+magic wand:150 to 10,000+:30 to 2,000+:depends on magic type
+matchbook:2:1:
+movie camera:10:5:
+plant:27:1:
+ring:5 to 10,000+:1 to 2,000+:depends on magic type
+rock:100:1:
+security device:995:800:
+sensor:95 to 9,000:50 to 4,500:depends on what it senses
+shovel:150:75:
+stun gun:1,800:900:
+ticket:5+:1:depends on what it admits you to
+wind up toy:300:150:
+.TE

@@ -1,0 +1,4 @@
+echo 'ls *.bin | wc'
+ls *.bin | wc
+echo 'grep unim beta.mud | wc'
+grep unim beta.mud | wc

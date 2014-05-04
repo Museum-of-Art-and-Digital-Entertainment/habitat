@@ -1,0 +1,60 @@
+/*
+ *   class_coke_machine.pl1
+ *
+ *   Object behavior module for class coke_machine.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_coke_machine: procedure;
+
+     %replace COKE_MACHINE_REQUESTS by 4;
+
+     declare a(0:COKE_MACHINE_REQUESTS) entry based;
+     declare class_coke_machine_actions pointer;
+     declare 1 coke_machine based %include struct_coke_machine;
+
+     %replace I by CLASS_COKE_MACHINE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = COKE_MACHINE_REQUESTS;
+     Class_Table(I).alloc_size = size(coke_machine);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_coke_machine_actions);
+     Class_Table(I).actions = class_coke_machine_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)   = illegal;              /* 1 */
+     Class_Table(I).actions->a(2)   = illegal;              /* 2 */
+     Class_Table(I).actions->a(3)   = illegal;              /* 3 */
+     Class_Table(I).actions->a(PAY) = coke_machine_PAY;     /* 4 */
+
+end initialize_class_coke_machine;
+
+%replace COKE_COST by 5; /* A coke costs a nickel */
+
+coke_machine_PAY: procedure;
+     declare success binary(15);
+     declare 1 self based(selfptr) %include struct_coke_machine;
+
+     success = spend(COKE_COST);
+     if (success = TRUE) then do;
+          self.take = self.take + COKE_COST;
+          self.gen_flags(MODIFIED) = true;
+          call n_msg_3(selfptr, PAY$, avatar.noid, COKE_COST, 0);
+          call n_msg_1(avatarptr, POSTURE$, OPERATE);
+     end; else
+          call object_say(self.noid, 'You don''t have enough money.  A Choke costs $' || ltrim(COKE_COST) || '.');
+     call r_msg_3(success, COKE_COST, 0);
+end coke_machine_PAY;

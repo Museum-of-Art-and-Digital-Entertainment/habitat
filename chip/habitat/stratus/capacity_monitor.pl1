@@ -1,0 +1,249 @@
+/*
+ *   capacity_monitor.pl1 -- Routines to compute run-time heap memory usage
+ *    in the Commodore 64 home system end of Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   18-September-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'capacity.incl.pl1';
+%include 'defs_class.incl.pl1';
+
+declare trace_msg entry (char(*) var);
+
+note_object_creation: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number > MAX_CLASS_NUMBER) then do;
+         call trace_msg ('*ERR* call to CAPMON create with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_instance_creation_internal(class_number);
+     call note_resource_creation_internal(class_number, style);
+end note_object_creation;
+
+note_instance_creation: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number > MAX_CLASS_NUMBER) then do;
+         call trace_msg ('*ERR* call to CAPMON create with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_instance_creation_internal(class_number);
+end note_instance_creation;
+
+note_resource_creation: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number > MAX_CLASS_NUMBER) then do;
+         call trace_msg ('*ERR* call to CAPMON create with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_resource_creation_internal(class_number, style);
+end note_resource_creation;
+
+note_instance_creation_internal: procedure(class_number);
+     declare class_number binary(15);
+
+     space_usage = space_usage + class.instance_size;
+     class_ref_count(class_number) = class_ref_count(class_number) + 1;
+     if (class_ref_count(class_number) = 1) then
+          space_usage = space_usage + class.class_size;
+end note_instance_creation_internal;
+
+note_resource_creation_internal: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     declare resources_array(256) based(resource_number_ptr) binary(15);
+     declare resource_number_ptr pointer;
+     declare i binary(15);
+
+     resource_number_ptr = class.resources;
+     i = class.image_count + 1;
+     if (resource_number_ptr = null()) then do;
+        call trace_msg ('CAPMON: Resource ptr null for class ' || 
+                   ltrim(class_number));
+        return;
+        end;
+     do while (resources_array(i) ^= 0);
+          call note_resource_usage(resources_array(i));
+          i = i + 1;
+     end;
+     if (class.image_count > 0) then
+          call note_resource_usage(resources_array(style + 1));
+end note_resource_creation_internal;
+
+note_resource_usage: procedure(resource);
+     declare resource binary(15);
+
+     resource_ref_count(resource) = resource_ref_count(resource) + 1;
+     if (resource_ref_count(resource) = 1) then
+          space_usage = space_usage + resource_size(resource);
+end note_resource_usage;
+
+note_object_deletion: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number >= 255) then do;
+         call trace_msg ('*ERR* call to CAPMON delete with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_instance_deletion_internal(class_number);
+     call note_resource_deletion_internal(class_number, style);
+end note_object_deletion;
+
+note_instance_deletion: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number >= 255) then do;
+         call trace_msg ('*ERR* call to CAPMON delete with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_instance_deletion_internal(class_number);
+end note_instance_deletion;
+
+note_resource_deletion: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     if (class_number < 0  | class_number > MAX_CLASS_NUMBER) then do;
+         call trace_msg ('*ERR* call to CAPMON delete with class = ' ||
+                         ltrim(class_number));
+         return;
+         end;
+
+     class_ptr = addr(classes(class_number));
+     if (class_ptr = null()) then do;
+        call trace_msg ('CAPMON: Class ptr null for class ' || 
+                        ltrim(class_number));
+        return;
+        end;
+
+     call note_resource_deletion_internal(class_number, style);
+end note_resource_deletion;
+
+note_instance_deletion_internal: procedure(class_number);
+     declare class_number binary(15);
+
+     space_usage = space_usage - class.instance_size;
+     class_ref_count(class_number) = class_ref_count(class_number) - 1;
+     if (class_ref_count(class_number) = 0) then
+          space_usage = space_usage - class.class_size;
+end note_instance_deletion_internal;
+
+note_resource_deletion_internal: procedure(class_number, style);
+     declare class_number binary(15);
+     declare style binary(15);
+
+     declare resources_array(256) based(resource_number_ptr) binary(15);
+     declare resource_number_ptr pointer;
+     declare i binary(15);
+
+     resource_number_ptr = class.resources;
+     i = class.image_count + 1;
+     if (resource_number_ptr = null()) then do;
+        call trace_msg ('CAPMON: Resource ptr null for class ' || 
+                   ltrim(class_number));
+        return;
+        end;
+     do while (resources_array(i) ^= 0);
+          call note_resource_removal(resources_array(i));
+          i = i + 1;
+     end;
+     if (class.image_count > 0) then
+          call note_resource_removal(resources_array(style + 1));
+end note_resource_deletion_internal;
+
+note_resource_removal: procedure(resource);
+     declare resource binary(15);
+
+     resource_ref_count(resource) = resource_ref_count(resource) - 1;
+     if (resource_ref_count(resource) = 0) then
+          space_usage = space_usage - resource_size(resource);
+end note_resource_removal;
+
+mem_checks_ok: procedure (the_class) returns (bit(1) aligned);
+declare the_class binary(15);
+
+     if (space_usage > C64_HEAP_SIZE)                  then return (false);
+
+     if (the_class = CLASS_HEAD)
+        then if (class_ref_count(the_class) > 31)      then return (false);
+        else if (class_ref_count(the_class) > 63)      then return (false);
+
+     return (true);
+
+end mem_checks_ok;
+
+reconstruct_memory_usage: procedure;
+     declare i binary(15);
+     declare 1 obj based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+
+     space_usage = 0;
+     do i=0 to MAX_CLASS_NUMBER;
+          class_ref_count(i) = 0;
+     end;
+     do i=1 to NUMBER_OF_RESOURCES;
+          resource_ref_count(i) = 0;
+     end;
+     do i=0 to 255;
+          objptr = ObjList(i);
+          if (objptr ^= null()) then
+               call note_object_creation(obj.class, obj.style);
+     end;
+end reconstruct_memory_usage;

@@ -1,0 +1,1558 @@
+.ds T \v'-3p'\s-7TM\s+7\v'3p'  \" \*T in document
+.ll 4.5i
+.po .625i
+.nr PS -1
+.nr LL 4.5i
+.nr PO .625i
+.nr HM 1i
+.nr FM 3i
+.ad l
+.na
+.nh
+.ds RH %
+.ds CH
+.ds LH
+.CD
+\ 
+
+
+
+
+
+
+\s+7THE OFFICIAL
+
+AVATAR HANDBOOK\s-7
+
+
+
+\fBA Comprehensive Guide to Understanding 
+\v'5p'\s+3Habitat\*T\s-3\fR
+
+
+
+\s+2\fI``Look Theodosis, a book for us!''\fR\s-2
+.DE
+.na
+.fi
+.nh
+.ps 10
+.vs 13
+.nr PS 10
+.nr VS 13p
+.bp
+.LP
+\fB\s+2Credits\s-2\fR
+.LP
+Habitat was created by the Lucasfilm Games Division and Quantum Computer
+Services.
+.LP
+For Lucasfilm Games:
+.LP
+Chip Morningstar was project leader, programmer and principal designer.  Randy
+Farmer and Aric Wilmunder wrote the Commodore 64 software.  Gary Winnick
+created most of the artwork and animation, with additional artwork by Ken
+Macklin.  Chris Grigg created the sounds.  Additional technical contributions
+by Charlie Kellner (the original cel animation system) and Ron Gilbert (the
+original Commodore object memory manager).  Additional creative support was
+provided by Noah Falstein, David Fox, Douglas Crockford, David Levine, Mary
+Paterno, Chris Werner and David Martin.  The ``Official Avatar Handbook'' was
+written by Jamie Williams and Chip Morningstar.  Production Manager was Nancy
+Mohler.  General Manager of the Lucasfilm Games Division was Steve Arnold.
+Thanks to Janice Morningstar, Pamela Farmer and Lori Wilmunder for
+extraordinary support and understanding.  Special thanks to George Lucas.
+.LP
+For Quantum:
+.LP
+Janet Hunter was the primary Q-Link host system programmer.  Additional
+technical support provided by Doug Coward, Mike Ficco and Ken Huntsman.
+Project schedule coordination at Quantum was handled by Cathy Anderson.  Marc
+Seriff was technical manager at Quantum.  The support and interest of Steve
+Case from Quantum and Clive Smith from Commodore Business Machines were
+essential in making Habitat possible.
+.sp .5i
+.LP
+.vs 7.5p
+\s-2TM and \(co 1987 Lucasfilm Ltd.  All Rights Reserved.  Avatar,
+Bureaucrat-In-A-Box, Populopolis, The Official Avatar Handbook, Rant, VenDroid
+and all other character names and elements of the game fantasy are trademarks
+of Lucasfilm Ltd.  All Rights Reserved.  Quantum Computer Services, Authorized
+User.\s+2
+.bp
+.LP
+\fB\s+2TABLE OF CONTENTS\fR\s-2
+
+.LP
+\fIAN INTRODUCTION\fR...page 5
+
+.LP
+\fISOME BACKGROUND\fR...page 7
+.LP
+Why you're here.
+
+.LP
+\fIGETTING THERE\fR...page 9.
+.LP
+A basic introduction to Habitat...understanding the joystick and
+commands...some basic rules to live by...how certain things work.
+
+.LP
+\fITHE FASHIONABLE AVATAR\fR...page 20.
+.LP
+How to assemble a look that'll put you on the cover of \fIAvatar's Wear
+Daily\fR...customization: how it works.
+
+.LP
+\fIGETTING AROUND\fR...page 22.
+.LP
+How to go from one part of the world to another...TelePorts explained.
+
+.LP
+\fITURF, SWEET TURF\fR...page 25.
+.LP
+Why an Avatar's home is his castle...how customization works.
+
+.LP
+\fITHE ORACLE FACTOR\fR...page 26.
+.LP
+The mystique...the adventure...the possibilities explained...sort of.
+
+.LP
+\fIDATES TO REMEMBER\fR...page 29.
+.LP
+Great moments in Habitat history.
+
+.LP
+\fIAVATARS I HAVE KNOWN\fR...page 31.
+.LP
+How, what and why Avatars are named.
+
+.LP
+\fITHE SOCIAL LIFE\fR...page 32.
+.LP
+How Avatars spend their plentiful spare time...dos and don'ts...adventuring
+explained.
+
+.LP
+\fISOME THINGS WE JUST DON'T TALK ABOUT\fR...page 34.
+.LP
+Where the money comes from...the Token as currency...``What, me work?''
+
+.LP
+\fITHE WELL-READ AVATAR\fR...page 37.
+.LP
+Must reading for every Avatar.
+
+.LP
+\fICINEMA AVATAR\fR...page 38.
+.LP
+The films that have put Habitat on the cinematic map.
+
+.LP
+\fIHALL OF RECORDS\fR...page 39.
+.LP
+Notable Avatars... and how they got that way.
+
+.LP
+\fITHE AVATAR GLOSSARY\fR...page 40.
+.LP
+The expressions that separate Those Who Know from Those Who Don't Know.
+.bp
+.CD
+\s+5\fBAN INTRODUCTION\fR\s-5
+.DE
+
+.LP
+We don't know all that much about Habitat, or Avatars, the human-like
+inhabitants of that world.
+
+.hw notable
+.LP
+What we do know is that Avatars share a rich social, intellectual and cultural
+history that sets them apart from most higher life forms.  The detailing of
+their culture was made possible through the work of Platorius and Figwash, two
+notable Avatar anthropologists from Thelonius University.  Professors
+Platorius and Figwash graciously agreed to compile this manual, assembling the
+information necessary to ``introduce'' you to their society.  The rest, as
+they say, is up to you.
+
+.LP
+We hope the information provided herein will assist you as you explore
+Habitat.  We think you'll find, as we have, that Avatars can be a lot like
+us...some of the time.
+
+.nf
+The Editors
+Marin County, California
+January, 1988
+.fi
+
+.bp
+\ 
+.bp
+.CD
+\s+5\fBSOME BACKGROUND\fR\s-5
+
+\s+3\fIWhy You're Here\fR\s-3
+.DE
+
+.LP
+As Avatars, we feel it necessary to explain to you why we, in essence, are
+allowing you to take our form and enter our society.
+
+.LP
+The early Avatars were adventurers like none other.  If you read through
+Habitat history, you will find stories of grand expeditions, the discovery
+of magnificent treasures, and tales of bravery and valor that would challenge
+those of your King Arthur with his Knights of the Round Table.
+
+.LP
+But, as the years passed, Avatars changed.  The spirit of adventuring died
+away, and we became more and more content to do nothing...
+
+.LP
+You see, the Avatars, when left to themselves, have become basically lazy
+creatures that would be only too happy to sit or sleep all day and night,
+lounging in their hot tubs, reading magazines or books, or chatting with
+friends, but never getting out to see the world because it would take too much
+effort.
+
+.LP
+The Oracle, which both watches over and directs life in Habitat (you will read
+more about It later), eventually became quite bored with this state of affairs
+and decided to take some action.
+
+.LP
+As Mystical Beings sometimes will, the Oracle decided that a Drastic Measure
+was in order, and allowed the discovery of our world by yours.  The result,
+It hoped, would be for things, as you humans say, ``to start hopping''.
+
+.LP
+Once over the shock of intrusion, we Avatars came to agree with the Oracle.
+Our long period of inactivity has made most of us eager for some adventure,
+some intrigue, and some exercise.
+
+.LP
+In other words, we're game if you are...
+
+.bp
+\ 
+.bp
+.CD
+\s+2\fBCHAPTER ONE\s-2
+
+\s+5GETTING THERE\fR\s-5
+
+\s+3\fIA Basic Introduction to Habitat\fR\s-3
+.DE
+
+.LP
+Getting to Habitat is accomplished by choosing ``Lucasfilm's Habitat'' from
+the games menu in QuantumLink's \fBPeople Connection\fR department.  If
+``Lucasfilm's Habitat'' is not on your games menu, please see the installation
+instructions that accompanied your Habitat disk.  To enter Habitat, you will
+need the QuantumLink Program Disk and the Lucasfilm's Habitat Disk.
+Presumably you already have these things, or why would you be reading this?
+When you choose Habitat from the games menu, you will be asked to insert your
+Habitat Program Disk (side 1 of the Lucasfilm's Habitat Disk) in the disk
+drive, from which the Habitat program will be loaded into your computer.  It
+will then ask you to put your Habitat Imagery Disk (side 2 of the Lucasfilm's
+Habitat Disk) in the disk drive when it is ready for it.
+
+.LP
+Naturally, you need to have your disk drive, monitor and modem hooked up and
+your joystick plugged into Joystick Port #1.  All other peripherals must be
+unplugged.  And you better unplug'em too, otherwise it won't work!
+
+.LP
+When you enter Habitat for the first time, you will be given a chance to
+customize the appearance of your Avatar.  Customization is explained in more
+detail below.  Once you have done this, you will see your Avatar waiting for
+you in your ``Turf'', or home.  Go for a ``test drive'' by trying out some or
+all of the basic commands, which follow.
+
+\s+3\fBBasic Habitat Commands\fR\s-3
+
+.LP
+Avatars understand and respond to six basic commands: \fBGO\fR,
+\fBDO\fR, \fBGET\fP, \fBPUT\fR, \fBTALK\fR and \fBHELP\fR.
+
+\fIUsing the Joystick\fR
+
+.LP
+To initiate any of the basic commands (except \fBTALK\fR and \fBHELP\fR), you
+must press the button on your joystick, at which time the cursor will change
+into a question mark icon.  Move the joystick forward, backward, left or right
+to the command you wish to give.  The cursor will again change, into an icon
+showing the command you have chosen.  Release the button to select this
+command.  Your Avatar will then undertake the action.
+.sp 1.5i \" illustration of command pattern and icons
+If you accidentally get the wrong command icon by pushing the joystick in the
+wrong direction, don't worry.  You can select another command by just moving
+the joystick to another position.  Your Avatar won't do anything until you
+release the button.  If you didn't mean to push the button at all, just
+release the button while the question mark icon is showing.  The four command
+icons will all change back into the question mark icon if you release the
+joystick and wait a few moments without doing anything.
+
+
+\fIThe \fBGO \fIcommand\fR
+
+.LP
+This command directs your Avatar in motion.  If you wish to go somewhere,
+point the cursor to the spot or thing you wish to go to, and press the
+joystick button.  Then move the stick to the \fBGO\fP position (the \fBGO\fP
+command icon will appear on the screen), and release the button.  Your Avatar
+will walk to the spot indicated (pointing to the very edge of the screen will
+take you to the region next door \(em see page 21 for more information).  In
+this way you can cross a room, explore the countryside, or just take a
+leisurely stroll.  Be careful where you direct your Avatar to walk: if he
+encounters an obstacle in his path, he will stop when he bumps into it!
+
+.LP
+\fISamantha appeared at the door, and Winona crossed the room to greet her.
+``Hey, Win!'' Samantha shouted, ``I just got a message from Smedley.  A gang
+is getting together over at his Turf for a little soak.''
+.LP
+\fI``I think I'll pass on that one,'' Winona blushed.  ``After that last party
+I swore I'd never get near Smedley's hot tub again.''
+.bp
+\fIThe \fBGET\fI command\fR
+
+.LP
+Habitat is littered with objects, some of which you will need or want.  To
+\fBGET\fP one of them, point the cursor at it, press the button, select the
+\fBGET\fP command, and release the button.  Your Avatar will walk to the
+object, bend over and pick it up.
+
+.LP
+It is important to remember that you can only hold one object in your hand at
+one time \(em that's why Avatars have pockets.  You should also know that you
+cannot \fBGET\fP some objects, such as trees and houses, because they are
+either too heavy or they are fastened down.  If you try to \fBGET\fP something
+and fail, either because your Avatar's hands are already full or because the
+object just isn't \fBGET\fPable, you will simply hear a ``BEEP'' and nothing
+will happen on the screen.
+
+.LP
+\fINorbert snickered with Broderick, as the two watched the new Avatar on the
+block trying out the \fBGET\fP command.  ``You can always tell a greenhorn,''
+Norbert chuckled.  ``They have no concept of the laws of physics \(em I just
+saw this guy try to pick up the TelePort booth!''
+
+
+\fIThe \fBPUT \fIcommand\fR
+
+.LP
+Obviously, the opposite of \fBGET\fP.  To use \fBPUT\fP, point to the place
+you wish to put an object in your possession, press the button, choose
+\fBPUT\fR and release the button.  Your Avatar will drop the object at the
+indicated spot, crossing the room if need be.
+
+.LP
+\fICynthia and Ralphie were having a teensie-weensie little disagreement about
+how she should arrange her Turf.
+.LP
+\fI``I mean it, Cyn,'' Ralphie insisted, ``you gotta put the lamp on the left
+side of the room and the trophy on the shelf!''
+.LP
+\fICynthia smiled sweetly.  ``Do you know where you can put the lamp,
+Ralphie?''
+.bp
+\fIThe \fBDO \fIcommand\fR
+
+.LP
+This ``catch-all'' command directs your Avatar to take some kind of action,
+either \fIwith\fP an object, or \fIto\fP an object.  The action taken depends
+on what object you are pointing at and what, if anything, your Avatar is
+holding in his hands.  Press the button and select \fBDO\fP, then release the
+button.  The object you point to will make the appropriate response.  For
+example, the door will open or close, or the lamp will turn on or off. 
+
+.LP
+\fI``Gee, look what I found!'' Sedgewick said.
+.LP
+\fI``Sedge,'' stammered Noah, ``where did you get that...that...gun?''
+.LP
+\fI``Golly,'' Sedgewick smiled evilly, ``what do you think would happen if I
+pointed this at you and hit the \fBDO\fP command?''
+
+
+\fIThe \fBTALK \fIcommand\fR
+
+.LP
+This command doesn't involve using the joystick button.  To \fBTALK\fP to
+other Avatars, simply type your message on the keyboard, and press the
+\fBRETURN\fP key when finished.  Everyone you see on the screen will receive
+your message in a ``word balloon'' displayed above your Avatar's head.
+
+.LP
+You can also talk directly to certain special objects, like an Oracle's
+Fountain or a TelePort booth.  Just point the cursor to the object (the
+Fountain or the booth), and type the message on the keyboard.  Again, press
+\fBRETURN\fP when finished.  If you are in a place with one of these objects,
+be careful where you point the cursor \(em if what you really mean to do is
+speak to the other Avatars on the screen, you should make sure you are not
+pointing at, say, a TelePort booth.
+
+.LP
+There is a special form of \fBTALK\fP called \fIESP\fP that lets you send
+private messages to Avatars who may be elsewhere in the world.  ESP is
+described on page 18.
+
+.LP
+\fI``Talk to me baby,'' the Avastud leered at the innocent young girl.
+``What's your sign?  Come here often?  What's a nice Avatar like you doing in
+a place like this?  Didn't we know each other in another life?  How am I
+doing?''
+.LP
+\fI``Isn't it past your bedtime?'' she coolly asked, and walked away.
+.LP
+\fI``I think she really likes me,'' he said to no one in particular, taking
+chase.
+
+
+\fIThe \fBHELP\fI command\fR
+
+.LP
+Many of the items in Habitat have helpful instruction plates attached to them
+by their manufacturers.  You can read an object's instruction plate by
+pointing at the object with the cursor and then pressing the \fBHELP\fP
+(\fBF7\fP) key.  This can be handy if you forget how something works or if you
+encounter an object you have never seen before.  Practically everything in
+Habitat has a label or instruction plate of some sort on it.  Be forewarned,
+however, that some items' instructions may be more mysterious than helpful.
+This is especially true of things that are magical.
+
+.LP
+You can also find out who another Avatar is by pointing at him and then
+pressing the \fBHELP\fP (\fBF7\fP) key.  A word balloon with his name in it
+will appear over his head.  However, it is considered somewhat snoopy to do
+this to someone; to guard against invasions of privacy, whenever you identify
+someone with the \fBHELP\fP key, the Oracle automatically displays for the
+other person a balloon over \fIyour\fP head telling \fIthem\fP who \fIyou\fP
+are.
+
+
+\s+3\fBHow Certain Things Work\fR\s-3
+
+\fIGhosts\fR
+
+.LP
+Avatars can turn themselves into ``ghosts''.  When an Avatar is a ghost, he
+can't affect the world in any way, though he can move around and see what is
+happening wherever he may be.  Ghosts are an exception to the so-called ``five
+guests only'' rule, which states that no more than six Avatars may gather in
+one place at a time (see Chapter Three \(em Getting Around).  Any number of
+ghosts (well, a very large number anyway) can occupy the same place at the
+same time.  Turning yourself into a ghost is the preferred way of bypassing
+traffic jams in crowded areas.  Becoming a ghost is also the way you join the
+audience in a theater or night club.
+
+.LP
+To turn your Avatar into a ghost, press the \fBF1\fP key.  Your Avatar's body
+will disappear.  To turn back into an Avatar, simply press \fBF1\fP again.
+Your body will be restored to its previous condition.  If you are a ghost, or
+if there are any ghosts in a region with you, you will see the ``ghost-icon'',
+an Egyptian Eye-Of-Horus hieroglyph, displayed in the upper left-hand corner
+of the screen.
+
+.LP
+To attend a play or lecture or other mass entertainment, turn yourself into a
+ghost before entering the theater.  To get through an over-crowded section of
+the world, turn yourself into a ghost and move about as if the crowd wasn't
+there.  When you reach an uncrowded place, you can turn yourself back into a
+regular Avatar.  You won't be able to turn back into an Avatar if it is too
+crowded when you try to do so (you will simply hear a soft ``BOING'' sound
+instead).  You will just have to move to a less crowded place or wait for
+somebody else to leave.
+
+\fIMatters of Posture\fR
+
+.LP
+There are certain body movements you can control, such as standing up and
+sitting down.  Point the cursor at your Avatar and press the button.  Choose
+\fBGO\fR and watch him cycle his body posture among the available positions.
+You can also make gestures by pressing the ``gesture keys''.  These are the
+\fBCTRL-\fIdigit\fR keys (hold the \fBCTRL\fP key down while pressing one of
+the digits \fB0\fP through \fB9\fP).
+.TS
+tab (/) ;
+l8 l .
+\fIPressing\fR/\fImakes your Avatar\fR
+\fBCTRL-1\fR/wave his hand
+\fBCTRL-2\fR/point
+\fBCTRL-3\fR/hold out his hands
+\fBCTRL-4\fR/jump in the air
+\fBCTRL-5\fR/face forward
+\fBCTRL-6\fR/face backward
+\fBCTRL-7\fR/bend over
+\fBCTRL-8\fR/stand up again
+\fBCTRL-9\fR/make a punching motion
+\fBCTRL-0\fR/frown
+.TE
+In addition, \fBF6\fR changes the color of flesh tones.  You can make Avatars
+look white or green or any other color, if you are uncomfortable with the
+conventional pink.
+.bp
+\fIDoors\fR
+
+.LP
+If you \fBGO\fP to a door, your Avatar will generally just walk to the door.
+However, if the door is open and you point at the opening, your Avatar will
+walk \fIthrough\fP the door and go to whatever place is on the other side of
+it.
+
+.LP
+You can open or close a door it by pointing at it and choosing the \fBDO\fP
+command.  If your Avatar is not standing next to it when you do this, your he
+will walk to the door first.
+
+\fISeats\fR
+
+.LP
+If you \fBGO\fP to a seat of some sort, such as a chair or a couch, your
+Avatar will generally just walk to it.  However, if he is already next to it,
+he will sit down in it.  He can stand up again with another \fBGO\fP command.
+If your Avatar is seated, the only commands you can use are \fBTALK\fP and
+\fBGO\fP.
+
+\fIContainers\fR
+
+.LP
+Some objects, like suitcases and boxes, are containers that can hold other
+objects.  To put something in a container, point at the container and select
+\fBPUT\fP.  A container will only hold a certain number of objects, depending
+on its size.  If it has reached its limit you will hear a ``BEEP'' sound and
+you will not be able to add anything more without first removing something
+from it using \fBGET\fP.
+
+.LP
+Some containers, such as boxes and bags, may be opened and closed.  You can
+pick up a closed container, but not an open one.  Of course, you can't
+\fBPUT\fP anything into a closed container or take anything out.  To open or
+close a container, point at it and choose \fBDO\fP.
+
+.LP
+To \fBGET\fP an object from an open container, point at the container, press
+the button, and choose \fBGET\fP.  A picture will appear on your screen,
+showing you each of the objects in the container.  Point at the one you want
+with the cursor and press the button to indicate your choice.  If you don't
+want any of the objects after all, point the cursor to empty space and press
+the button.  In either case, once a choice has been made, the picture will
+disappear.  (In some cases, the Commodore 64 will not have enough memory to
+display all the objects.  If this happens, it will show you as many as it can;
+then, if you do not choose any of these, it will show you some more,
+continuing in this fashion until you have had an opportunity to see every
+object in the container).  If you selected an object, you will \fBGET\fR it
+out of the container.
+
+.LP
+\fI``Now, have I got everything for my adventure?'' Rodney mused as he packed
+his suitcase.  ``Boomerang, check.  Compass, check.  Grenade, check.  Magic
+staff, check.  And a change of disguise.  Good \(em enough room left for the
+Orb of Oshtemo...if and when I find it...''
+
+\fIPockets\fR
+
+.LP
+Every Avatar has a pocket to carry things.  You can put something your Avatar
+is carrying into his pocket by pointing at the Avatar himself and choosing
+\fBPUT\fP, and you can get things back out again by pointing at the Avatar and
+choosing \fBGET\fP.  Pockets work just like any other container.
+
+\fILocks and Keys\fR
+
+.LP
+There are some things you will be able to lock, such as certain containers and
+doors.  To unlock or lock these objects, you must be holding the key when you
+select the \fBDO\fR function to open or close them.  If a door or container is
+locked and you do not have the key, you simply will be unable to open it and
+you'll hear a ``BEEP''.
+
+.LP
+Keys all look pretty much alike, but they are not all the same.  Each key goes
+with a particular lock.  Keys are distinguished by their ``key numbers''.  To
+identify a key, point at it and press \fBHELP\fP (\fBF7\fR).  The key number
+will be shown in a word balloon.  In addition, containers and doors with locks
+on them will display their required key numbers in their \fBHELP\fP messages.
+
+\fIReading and Writing\fR
+
+.LP
+If you want to read something, such as a book or a newspaper, you must first
+\fBGET\fP it.  Then, point at it and select \fBDO\fP.  The text will appear on
+the screen.  At the bottom of the screen will be a series of ``buttons''.  You
+can press one of these screen buttons by pointing at it with the cursor and
+pressing the joystick button.  When you are finished reading, pressing the
+\fBQUIT\fP button will end the text display.  If the thing you are reading has
+more than one page, you can flip the pages back and forth by pressing the
+\fBNEXT\fP or \fBBACK\fP buttons.  You can also flip to any page you care to
+by pressing the \fBPAGE\fR button and then typing in the desired page number
+when prompted to do so.
+
+.LP
+If you are holding a piece of paper, you can write on it in addition to
+reading it.  Point at the paper and select \fBDO\fP.  Again, the text will
+appear on the screen.  If it is a fresh piece of paper, the screen will be
+blank.  You ``write'' by typing on the keyboard.  You can control where on the
+page you are writing by moving the cursor around with the joystick.  You can
+erase text with the \fBDEL\fP key.  You can erase the entire page by pressing
+the \fBERASE\fR button.  When you are finished writing, press the \fBQUIT\fR
+button as described above.
+
+
+\fIMail\fR
+
+.LP
+Every Avatar can send mail to other Avatars and receive mail from them.  To
+send mail to someone, just write your letter on a blank piece of paper.  On
+the first line of the letter, write ``To:'' and then the name of the Avatar to
+whom you want it sent \(em obviously, the Habitat Post Office can't deliver a
+letter unless you provide an address.  When you are finished composing your
+letter, just press the \fBMAIL IT\fR button at the bottom of the screen
+instead of pressing \fBQUIT\fP.  You message will be sent on its way
+automagically.
+
+.LP
+Mail is delivered to your Avatar's pocket.  If there are mail messages
+awaiting you, when you \fBGET\fP from your pocket you will see a letter
+envelope among the things you are carrying.  Pointing at this and pressing the
+button will \fBGET\fP the first letter (written on a piece of paper) into your
+Avatar's hands.  You can read this letter by pointing to it and choosing
+\fBDO\fP, as explained above in the description of paper.  The top line of the
+letter will give the name of the sender and a postmark.  If there is more than
+one letter waiting for you, you can \fBGET\fP each one from your pocket in
+turn.
+
+.LP
+If you have received a piece of mail from someone, the \fBREPLY\fP button is a
+useful shortcut that you can use to compose a response.  Pressing the
+\fBREPLY\fP button will turn the postmark into the appropriate ``To:
+so-and-so'' line and erase the rest of the page so you can write your message
+on it.  Just write your message and \fBMAIL IT\fR as if you had started from a
+blank sheet of paper.  Since \fBREPLY\fP does erase the page, you won't want
+to use it when you want to save the message that you are replying to.
+
+.LP
+If there is no mail waiting, instead of the envelope you will see a blank
+sheet of paper in your pocket.  \fBGET\fPing this will yield a fresh, blank
+sheet of paper that you may use to send mail or to write notes to yourself or
+others.  You can get as many blank sheets in this fashion as you like \(em
+it's an unlimited supply.  However, to prevent littering, any \fIblank\fP
+piece of paper that leaves your Avatar's hands will simply disappear.
+
+.LP
+\fI``To: Chuckoober
+.LP
+\fI``My dearest Chuckles,'' wrote Daphne, ``You are the Avatar of my eye.  Oh,
+Chucklette, when will I see you again?''
+.LP
+\fIShe signed her name amid countless X's and O's and sent it on its way.
+When Chuck got the letter, he tossed his cookies.
+
+
+\fIESP\fR
+
+.LP
+Avatars have a certain telepathic ability and can communicate with each other
+over vast distances using ESP.  ESP is a special private form of \fBTALK\fP.
+To \fBTALK\fP via ESP to someone, type ``To:'', and then the name of the
+person you want to send to, and then press \fBRETURN\fP.  A prompt will appear
+at the top of the screen: ``\fBESP:\fP''.  (If you try to send ESP to someone
+who does not exist, or who is not in Habitat at the time, you will be told
+that the person cannot be contacted and you will not receive the ESP prompt.)
+When you see this prompt, type the message you want to send, as many lines as
+you wish, ending each with a \fBRETURN\fP.  Press \fBRETURN\fP directly at the
+ESP prompt \(em i.e., enter a blank line \(em to stop sending ESP (this is to
+tell the stupid computer that you are done).  You must end one ESP message
+before you can send another one.  For example, if you wanted to send an ESP
+message to the Avatar named Gerfingle, you would type ``To:
+Gerfingle\fI(RETURN)\fR'' and then your message.
+
+.LP
+If you want to find out who is inside Habitat right now so that you can send
+ESP to them, pressing the \fBF3\fR key will give you a list of the last few
+Avatars who have entered the system.
+
+.LP
+If someone sends an ESP message to you, a word balloon will appear over your
+Avatar's head, saying ``ESP from so-and-so'' and then the message they are
+sending you.
+
+\fILeaving Habitat\fR
+
+.LP
+To leave Habitat, just press the \fBSHIFT\fP and \fBRUN-STOP\fR keys at the
+same time.  You will be returned to \fBPeople Connection\fR.
+
+.LP
+Whenever you leave Habitat, either deliberately or by accident (e.g., if there
+is a problem with your telephone or a power failure), your Avatar is
+automatically turned into a ghost.  This is the Oracle's way of protecting
+your inanimate body from roaming brigands while at the same time preventing it
+from obstructing traffic.  When you log back in you may need to press the
+\fBF1\fP key to cease being a ghost.
+.bp
+.CD
+\s+2\fBCHAPTER TWO\s-2
+
+\s+5THE FASHIONABLE AVATAR\fR\s-5
+.DE
+
+.LP
+\fI``Oh, brother,'' Wilhelmina whispered to Prunella, ``here comes ole fashion
+plate again.'' Prunella looked over to see devastatingly handsome Berford
+sauntering up in the latest Oscy De La Rooster style.  ``Who does he think he
+is?'' Wilhelmina hissed.
+.LP
+\fI``The Oracle's gift to Avatars,'' Prunella sighed, stars in her eyes.
+``The Oracle's gift to Avatars.''
+
+.LP
+One of the really fun things you can do when you enter Habitat is customize
+your appearance.  What you get to help you in this task is a customization
+program allowing you to make the kind of alterations that would make a Beverly
+Hills plastic surgeon cry.  You'll automatically be put into the customization
+program the first time you enter Habitat.  Just follow the instructions it
+gives you and you'll do fine.
+
+.LP
+Clothing works a little differently.  Avatars never go around undressed.  In
+fact, their clothes are part of their bodies.  It's easy to change your
+Avatar's appearance though...just use a handy bottle of spray-on body color.
+These can be purchased down at the General Store, or you can borrow one from a
+friend.  While you are holding a sprayer, you can change the coloration of
+different parts of your body by pointing at them with the cursor and choosing
+the \fBDO\fP command.
+.sp 1.375i \"illustration of color sprayer
+You can also change your Avatar's head.  New heads can be gotten at a Head
+Shop, though they are often quite expensive \(em and the more exotic a head
+is, the more it will cost you.  You can remove your Avatar's old head simply
+by \fBGET\fPing it into your hands \(em just point at the head and choose
+\fBGET\fP.  Then \fBPUT\fP your old head down somewhere and \fBGET\fP the new
+one.  Once you are holding the new head in your hands, you can \fBPUT\fP it
+on your shoulders by pointing at yourself and choosing \fBPUT\fP.
+
+.LP
+Although you can remove your head at any time, it is considered extremely
+tacky to wander around the world headless.  The sight of a headless Avatar can
+be quite upsetting to some of the younger, more liberal citizens of Habitat.
+
+.LP
+Some common styles of appearance in Habitat appear below:
+.sp 2.25i \" illustration of male and female avatars
+.bp
+.CD
+\s+2\fBCHAPTER THREE\s-2
+
+\s+5GETTING AROUND\fR\s-5
+.DE
+
+.LP
+\fI``Oh, Ruark,'' Penelope breathed, ``I love you as no Avatar has ever loved
+another.  But I fear for your life when my despised betrothed, Horace Mugwart,
+learns of our passion!''
+.LP
+\fIRuark stared at her with intensely blue eyes set under his perfectly molded
+brow.
+.LP
+\fI``Penelope, my dove,'' he said with all the gentleness and strength she had
+come to love him for, ``when will you learn that I can take care of you?
+Freedom is just a TelePort away.''
+.LP
+\fI``Oh, Ruark,'' Penelope cried, ``How foolish I was not to trust you!  We'll
+simply TelePort so far away he'll never find us!''
+
+.LP
+The world of Habitat is quite large, and growing larger all the time.  Since
+Avatars love exploration and adventure, being a seasoned world traveller is
+considered the surest sign of class and character.  The ultimate status symbol
+in Avatar high society is to be able to give accurate directions to such
+exciting and obscure spots as the Great Enchanted Art Deco Caves and the
+infamous Tavern-Deep-In-The-Heart-Of-The-Terribly-Confusing-Desert.
+
+.LP
+What you see on the screen at any given time is just one small part of the
+world.  Each such place is called a ``region''.  One of the ways you can get
+from one region to the next is by walking.  Just point the cursor off the edge
+of the screen to the right or the left or the bottom, or above the horizon
+into the sky in back, and then select \fBGO\fP.  Your Avatar will walk in the
+chosen direction, out of the region and into the one next door.  The screen
+will black-out during the time it takes to go between regions, and some
+``snappy tunes to travel by'' will kick in (you can make the tunes stop with
+the \fBF2\fR key).  You can also travel to other regions by \fBGO\fPing
+through a doorway or to a building in the distance.
+
+.LP
+Not every region has neighbors in all four directions.  If there is nothing
+next door, when you try to \fBGO\fP off the edge of the screen your Avatar
+will simply walk as far as he can and ``BEEP'' at you, and a warning message
+will be displayed.
+
+
+\fIThe ``Five Guests Only'' Rule and The Stuff Limit\fR
+
+.LP
+Ever since the ``War to End All Wars, I Think'' the Oracle won't allow
+gatherings of more than six Avatars in one place at one time.  This is the
+basis of the so-called ``five guests only'' rule.  If you try to walk or
+TelePort to a place that is already filled to capacity, the Oracle won't admit
+you.  Instead, you will hear a ``BOING'' sound and be left standing where you
+already were.  Of course, you can always turn into a ghost to get into or
+through congested regions.
+
+.LP
+Fact is, the Oracle just doesn't like the world to get too cluttered.  It
+won't let you get more than a certain amount of stuff in one place at a time.
+If you try to do something that will exceed the Stuff Limit, you just won't be
+allowed to succeed.  This most commonly occurs when you try to walk into
+another region carrying more things than the Oracle deems will fit, but it can
+also happen when you try to open a closed container, buy something from a
+VenDroid, or do anything else that introduces a new item into the world.  As
+when you try to violate the ``five guests only'' rule, you will hear a soft
+``BOING'' sound to let you know what is going on.
+
+.LP
+If you are stuck, unable to do something because of the Stuff Limit, try
+putting things in your pocket, closing containers or discarding things in a
+garbage can.
+
+
+\fITelePorts\fR
+
+.LP
+If you have a long way to go, walking the whole way can be rather dull.  This
+is why the Oracle created TelePorts.  A TelePort is like a telephone, except
+that it sends your Avatar instead of your voice.  TelePort booths are
+scattered throughout Habitat, though they are much more common in the urban
+areas.  The TelePort is the preferred mode of long-distance transportation in
+Habitat, being a great improvement over walking, flying, or taking a bus or a
+taxi.  This is especially true since there are no airplanes, busses or taxis
+in Habitat.
+
+.LP
+To use a TelePort booth, first walk into the booth by pointing at it and
+choosing \fBGO\fP.  Then \fBPUT\fP some money into it (point at the booth and
+choose \fBPUT\fP while your Avatar is holding a Token \(em Tokens are
+described in more detail in Chapter Nine).  If you have enough money, the
+TelePort will turn itself on and indicate that it is activated by flashing its
+logo (the costs vary somewhat, depending on how far you are going).
+.sp 3i \" illustration of TelePort booth
+Once the booth is activated, you can Port wherever you want by \fBTALK\fPing
+to the booth: point the cursor at the booth and type the TelePort address of
+your destination.  Be sure your cursor is pointing at the booth!  If the
+address you type doesn't match any destination, or if you just don't have
+enough money in hand to travel the distance, you won't go anywhere.  Try a
+different address.
+
+.LP
+TelePort addresses are like telephone numbers, except that they can have
+letters in them too.  TelePort addresses are usually names that identify the
+places they are located.  You can find out the TelePort addresses of places
+you might want to visit by looking at a TelePort Directory.  These handy books
+can be found in any Habitat Public Library.  You can also find out the
+TelePort address of a Port you're at by pointing at it with the cursor and
+pressing the \fBHELP\fP (\fBF7\fP) key.
+
+.LP
+Like telephone numbers, TelePort addresses have area codes.  To Port outside
+the area you are in (a ``long distance Port''), you must give an area code.
+If the place you are Porting to is inside your area (a ``local Port''), you
+don't need to give an area code, though you can if you feel like it.  For
+example, the area code for the town of Populopolis is ``\fBPop\fR''.  Let's
+say you want to Port to the booth at the north end of Bleem Street in
+Populopolis.  If you are already within the Populopolis area, the TelePort
+address is ``\fBBleem St North\fR'' but from outside the area you would have
+to use ``\fBPop-Bleem St North\fR''.  Got it?
+.bp
+.CD
+\s+2\fBCHAPTER FOUR\s-2
+
+\s+5TURF, SWEET TURF\fR\s-5
+.DE
+
+.LP
+\fI``Oh, heck,'' MacGruder thought, ``if Chrysanthe and Penelope are coming
+for tea, I suppose I really should spruce the place up.''  He quickly
+straightened up his Turf, and gazing around, grew more and more dissatisfied
+with the looks of the place.  ``I know!'' he exclaimed, snapping his fingers,
+``I'll redecorate!''\fR
+
+.LP
+Decorating, or, as in MacGruder's case, redecorating, is accomplished in a
+couple of different ways.  You can get a device called a ``Change-O-Matic''
+that will let you choose the color and pattern of the things in your Turf.  To
+use it, hold it in your hands, point at the item you wish to change, and
+choose \fBDO\fP.  The thing you have pointed at will change.  By doing this
+several times in a row you can cycle through all the various choices of color
+and style.  As with the body-sprayer, the Change-O-Matic can be purchased at
+the General Store or you can borrow somebody else's.  Unless you have been
+chosen by the Oracle as a highly trustworthy person of impeccable taste, a
+Change-O-Matic will only work for you inside your own Turf.
+.sp 1.75i \" illustration of Change-O-Matic
+Your Turf will come with some furniture, leaving it up to you to make just the
+right touches in decor.  Maybe you'll find them in the form of artifacts you
+bring back from your adventures.  Perhaps you'll have to go out and buy them.
+.LP
+The Stuff Limit applies in the home Turf as well as anywhere else \(em don't
+be extravagant, and don't try to crowd too many objects into one area.  No one
+will be impressed, and it will limit the number of people you can entertain.
+
+.bp
+.CD
+\s+2\fBCHAPTER FIVE\s-2
+
+\s+5THE ORACLE FACTOR\fR\s-5
+.DE
+
+\fI``Tell me, oh Wise One,'' said Platypus to the Oracle, ``will there be even
+greater adventure and riches in my future?'' The answer from the Oracle was as
+foreboding as it was mysterious.
+
+.nf
+``Your greed is such
+That you may find
+All you dare to seek.
+In far off lands
+With seven seas
+And one, gigantic peak,
+You'll find the riches
+But Beware
+The ghastly Fendersneek.''
+.fi
+
+``Oh, thank you, Oracle!'' Platypus cried, and ran home to prepare for the
+adventure, little realizing that it would be his last.
+
+.LP
+There is one pervasive factor in every Avatar's life: the Oracle, the great,
+all-knowing, mysterious power residing in Habitat.  No one knows where It came
+from \(em but then again, no one really cares.
+
+.LP
+What Avatars do care about is the fun, intrigue and adventure that the Oracle
+provides.  In return, they support It with donations.
+
+.LP
+The Oracle grants wishes, sends Avatars on quests and adventures, and has
+been known to play a trick or two.
+
+.LP
+The Oracle takes on many forms and appears in many places.  It commonly
+manifests Itself as the fountain found in the center of most Habitat towns.
+However, there are other places where it appears, and they are not all the
+same.  In particular, the Oracle likes to encourage travel and exploration by
+making you journey to exotic and distant places before It will answer some
+questions or grant certain requests.
+
+.LP
+You can speak with the Oracle by \fBTALK\fPing to one of its manifestations,
+such as the fountain.  Simply point at the Oracle and type your question or
+request.  Sometimes the Oracle will talk back to you, or even carry on a
+conversation.  Usually, however, it will respond later by mail, if at all.
+For above all else, the Oracle is as unpredictable as It is mysterious, and
+should never, never be taken for granted.
+.sp 3i \" illustration of Oracular fountain
+.bp
+One of the more mundane manifestations of the Oracle is its administrative
+minion, the \fIBureaucrat-In-A-Box\fR.  Bureaucrats-In-A-Box are usually found
+in the City Hall building downtown.  These dedicated souls form the executive
+branch of Habitat.  Each Bureaucrat is dedicated to a particular task, such as
+handling transfers of Turf ownership, allocating commercial space to Avatars,
+controlling advertising on public walls, and so on.  Near where each
+Bureaucrat sits is a sign indicating its function.  Point at the Bureaucrat
+and \fBTALK\fP to it, phrasing your request or question in one sentence or
+less.  The Bureaucrat will retreat back into its box to resume attending to
+its own affairs.  Don't expect an immediate response: the Bureaucracy is
+usually overworked and it may take several days before they can get around to
+acting on your case.  Don't worry though: you will be notified through the
+Habitat mail.  Also, like civil servants everywhere they are very territorial,
+and each will refuse to act on any matter that is not in its department \(em
+so be sure to go to the right one.
+.sp 2i \" illustration of bureaucrat-in-a-box
+.bp
+.CD
+\s+2\fBCHAPTER SIX\s-2
+
+\s+5DATES TO REMEMBER\fR\s-5
+.DE
+
+.LP
+At first, there was only the Oracle.  Tired of playing solitaire and having
+the world all to Itself, the Oracle created Avatars for Its amusement.  All
+time in Habitat dates from the creation of Avatars, the Oracle referring to
+the time before them as ``The Great Boredom.''
+
+.LP
+What follows are great moments in Habitat history:
+
+.IP "0 A.C. (After Creation) \(em "
+The Great Boredom ends as the Oracle creates Avatars.
+
+.hw Falrouche
+.IP "373 A.C. \(em "
+The great Blumbeach Wars against the tyrannies of Duke Falrouche firmly
+establish one of the cornerstone principles of Habitat moral philosophy: ``It
+is better to have fun than to get blown up.''
+
+.IP "765 A.C. \(em "
+The Oracle hands down The National Leisure Edict, providing for ``life,
+liberty and the pursuit of quality leisure time'' for all Avatars.  Each
+Avatar is granted a trust fund from the Oracle, removing the need to work for
+a living.
+
+.IP "1329 A.C. \(em "
+The explorer Columbius discovers the continent of New Marin, uncovering riches
+beyond his wildest dreams.  Hundreds of Avatars follow in search of more
+treasure.
+
+.IP "1537 A.C. \(em "
+The Grand Quest for the Holy Walnut lures thousands in search of adventure and
+riches.  The object is never found, and few return alive.
+
+.IP "1724 A.C. \(em "
+The ``War to End All Wars, I Think'' is fought after a faction of Avatars, led
+by Fredrhackh the Ill-Mannered, tries to overthrow the authority of the
+Oracle.  The attempt fails; the Oracle decrees the ``five guests only'' rule.
+
+.IP "1867 A.C. \(em "
+TelePorts are introduced to Habitat, ushering in a new era of travel.
+
+.IP "1950 A.C. \(em "
+Televisions become instant antiques when the Oracle, tiring of people sitting
+and watching moving pictures on a box, blows up all the television stations.
+
+.IP "1987 A.C. \(em "
+Habitat is made accessible to Earth.
+.bp
+.CD
+\s+2\fBCHAPTER SEVEN\s-2
+
+\s+5AVATARS I HAVE KNOWN\fR\s-5
+
+\s+3\fIHow, what and why Avatars are named.\fR\s-3
+.DE
+
+.LP
+\fI``The time has come,'' she thought, ``for me to get myself a name.''  So
+she sat, and pondered.  ``Hmmm.'' she thought, ``what will it be? Terwiliger?
+Marietta?  Miranda?  So many choices...I just can't decide!''
+
+.LP
+One of the most important things in Habitat is your sense of
+identity...especially with a name that sets you apart from the others.
+
+.LP
+The rule of thumb is, the more distinctive the name, the better.  Your name
+may have a maximum of 10 letters, since your Avatar inherits your QuantumLink
+user name.  Since you can have up to five different QuantumLink user names, be
+sure to pick a good name for your Avatar.  (You can create a new QuantumLink
+user name by going to the online Customer Service Center.)
+
+.LP
+What follows are some inadvisable and advisable names for Avatars.  Study
+them closely before choosing a moniker for yours!
+
+.TS
+tab (/) ;
+c s a c s
+l5 l5 a l5 l .
+\fIOUT\fR//\fIIN\fR/
+_/_//_/_
+Janet/Bob2//Prunella/Norbert
+Mary/Steve//Plantasia/Osgood
+Susan43/Chuck//Henrietta/Heronymous
+Jamie/Ken//Hermione/Filbert
+Ellen B/Chip//Millicent/Cornelius
+Sarah/Randy F//Veronique/Phineas
+Buffy/Aric//Cassandra/Milhurst
+Helen/HAK Lives//Phillipa/Bronson
+Babs/Gary//Marietta/Heathcliff
+Wood Elf/Beastlord//Annalise/Theodosis
+.TE
+
+.bp
+.CD
+\s+2\fBCHAPTER EIGHT\s-2
+
+\s+5THE SOCIAL LIFE\fR\s-5
+.DE
+
+\fI``How do you think we're going to get out of this one, Dredmitch?'' Cosmo
+asked as the two Avatars crouched in terror at the entrance to the cave.
+.LP
+\fI``Oh, that's right,'' Dredmitch replied, ``blame it on me, you slimewad!''
+.LP
+\fI``And why shouldn't I? As I recall, it was your idea to go in search of the
+Jewelled Horn of the Green Bleem...''
+.LP
+\fI``Cosmo,'' whispered Dredmitch frantically, ``stop whining!  Listen!  Do
+you hear that?''
+.LP
+\fI``Oh no,'' Cosmo moaned, ``it's that monster...that disgustingly slimy
+green \fRthing\fP...and it sounds like it's getting closer...''
+
+.LP
+Ah, adventure \(em The lifeblood of the Avatar.  Like many Avatars, you'll
+quickly turn amusing yourself into a fine art.
+
+.LP
+There are, however, several dos and don'ts when it comes to amusement in
+Habitat:
+
+\s+3\fBDOs\fR\s-3
+
+.LP
+\fIMake new friends.\fR  And lots of them.  Avatars love meeting other
+Avatars, and consider themselves fortunate in having a large circle of
+acquaintances.  Just think about where Cosmo and Dredmitch would be if they
+hadn't met each other.
+
+.LP
+\fITelePorting.\fR  Just the thing that Cosmo and Dredmitch wish they had
+quick access to.  A TelePort is a lot like a telephone, except that, instead
+of sending your voice, you send yourself.  Costs a few more Tokens than
+walking, but how else can you travel 3,000 miles in a split second?
+
+.LP
+\fIHanging out at the Oracle.  \fBThe\fR place to see and be seen.  When you
+connect into Habitat, you'll want to go down to the Oracle's fountain to see
+which of your friends are hanging out there.  And, if no one you know is
+around, it's a great opportunity to meet someone new.
+
+.LP
+\fIAdventures.\fR  The rallying cry of the Avatar.  A great way to spend a
+day...a week...or longer.  Much longer.  (Remember old Cosmo and Dredmitch?)
+There are several ways to plan an adventure.  You can let the Oracle chart
+your course, give you clues and send you on your way.  You can keep up with
+the latest adventure classified ads in the Habitat newspaper.  You can go it
+alone, or you can team up with a band of fearless mercenaries.  Or, you could
+always wait until Cosmo and Dredmitch get back...
+
+.LP
+\fIExploring.\fR  Kind of like adventuring, but without the risk.  Habitat is
+a big place \(em what better way to learn about it than to go out and explore
+the surrounding neighborhoods?  It's also a great way to meet other Avatars.
+
+\s+3\fBDON'Ts\fR\s-3
+
+.LP
+\fITennis.\fR  Avatars detest tennis.
+
+.LP
+\fITelevision.\fR  Nobody watches it.
+
+.LP
+\fICard playing.\fR  Playing cards don't exist in Habitat, and repeated
+attempts to introduce them have failed.
+
+.LP
+\fIDriving vehicles.\fR  Why ride when you can walk or TelePort?  The car and
+motorcycle as a mode of transportation died out hundreds of years ago,
+although you might find the occasional skateboard.
+
+.LP
+\fIMaterialism.\fR  Exceeding the Stuff Limit is \fInot\fP the way to impress
+your friends.  A lot of possessions just overburden you, and slow you and your
+friends down.  Oh, it's fine to have little items you can call your own, but
+don't overdo it.  The average Avatar just isn't impressed by ostentatious
+displays of material wealth.
+
+.LP
+\fIOver-extend your Avatar's hospitality.\fR  Don't forget the ``five guests
+only'' rule the next time you decide to hold a hot-tub party.
+
+.bp
+.CD
+\s+2\fBCHAPTER NINE\s-2
+
+\s+5SOME THINGS WE
+
+JUST DON'T TALK ABOUT...\fR\s-5
+.DE
+
+
+.LP
+\fI``You know, Filbert,'' Alendale said quietly, ``you could easily buy your
+way out of this little...jam...with a few Tokens...say 1000?''
+.LP
+\fI``You know I don't have that kind of money,'' Filbert replied, fear in his
+voice.  ``I can't afford your protection money.  So go ahead, beat me up.''
+.LP
+\fI``You know I never do the dirty work,'' Alendale said with an evil smile.
+``The boys will be by tomorrow night...unless you can somehow raise the
+money you owe.  And Filbert,'' he chuckled, ``don't try to hide.  We'll find
+you.  We always do.''
+
+.LP
+Money.  What society could survive without it?  Avatars are lucky...all their
+basic financial concerns were taken care of when the National Leisure Laws
+were enacted and trust funds, lifetime trust funds, were established for
+each one of them.  \fINo\fR Avatar has to work for a living.
+
+.LP
+Yet, if there's one thing Avatars don't talk about, it's where they get the
+money.  The trust funds are an accepted fact, and it's considered \fIgauche\fP
+to discuss it.  Unless, of course, you're a petty thief like Alendale.
+However, you don't have an infinite supply of cash.  At regular intervals,
+your bank account will accumulate interest, which you may spend.  You may
+\fInot\fP spend the principal.  And, interest will accrue as long as you
+continue visiting Habitat.  So you can never be broke, but you can be short on
+cash.
+
+.LP
+The Token is the currency standard in Habitat.  Since you can only hold one
+object in your hand at one time, a Token object can represent any amount of
+cash from one Token to whatever.  Pointing at a Token and pressing the
+\fBHELP\fR (\fBF7\fR) key will display its value.  You can make change from a
+Token in your hand by using the \fBDO\fP command.  You will be prompted for
+the amount that you would like to keep in your hand; the balance (if any) will
+be placed back in your pocket.
+.sp .75i \" illustration of token
+You can obtain cash from your bank account by visiting one of the convenient
+Automatic Token Machines located throughout Habitat.  If you point at an ATM
+and select \fBDO\fP, it will tell you your available bank account balance.
+Choosing \fBGET\fP indicates that you wish to withdraw some cash.  It will
+prompt you for the amount.  Just enter the number of Tokens you want and then
+press \fBRETURN\fP.  You can also deposit Tokens you are carrying into your
+bank account by \fBPUT\fPing them into the ATM.
+.sp 1.75i \" illustration of ATM
+Throughout Habitat there are VenDroid machines and other coin-operated
+devices.  A VenDroid will contain one or more items that you may purchase.  If
+you are standing next to a VenDroid, pointing at it and choosing \fBDO\fP will
+make it display one of the items you can buy and show you the item's price.
+To purchase one of these items, put a Token in the machine (in other words,
+point at the VenDroid and select \fBPUT\fP while your Avatar is holding a
+Token).  The price of the item will be taken from the Tokens in your Avatar's
+hand and your purchase will appear on the ground in front of the machine.  Of
+course, in order to buy anything from a VenDroid, you must have enough Tokens
+in your hand to pay for it!
+.sp 3i \" illustration of vendo
+There \fIare\fP other ways to get money.  Consider the fortunes of the Avatar
+Arnquirt, who went off in search of treasure and came back with one of the
+most sacred of Habitat relics \(em the bronze candlestick of Demetrius the
+Blind.  The enterprising Mr. Arnquirt opened a private museum, drew thousands
+of Avatars, and made a small fortune.  Which he promptly spent in his next
+quest for sunken treasure off the coast of Andoverland.
+
+.LP
+Tokens also come from unexpected sources, depending on the Oracle's generous
+streak on any given day.  The Avatar Jeanette once found a Token worth T5,000
+stuck in a crack in the sidewalk.
+
+.LP
+Avatars also raise quick cash at the pawn shop \(em a seedy if necessary
+establishment on the outskirts of most towns.
+
+.LP
+Money's not a problem, in short, unless you choose to make it a problem.  But
+then, there's always Alendale.
+
+.bp
+.CD
+\s+2\fBCHAPTER TEN\s-2
+
+\s+5THE WELL-READ AVATAR\fR\s-5
+.DE
+
+.LP
+\fIJuliette scanned the classified ads in the Habitat Rant.  Someone selling
+clues to a fabulous treasure...someone getting together an expedition to go in
+search of the magic gopher, someone looking for a lost key...but wait!  What
+was this?  ``Fabulous diamond and ruby necklace, recently discovered and
+recovered in adventure, T15,000 or B/O. Contact Fooberto.'' Scrambling for the
+door, all Juliette could think was, ``I've got to have it...I've got to have
+it...''
+
+.LP
+You know how to read, don't you?  In Habitat there are letters, which were
+discussed earlier, as well as newspapers and magazines.  The Habitat Rant, the
+local newspaper, is the best place to look for the latest news, as well as
+classified ads about treasure-hunting expeditions, clues to mysteries, and
+relics or valuable items for sale.
+
+.LP
+You can submit letters to the editor and articles for publication to the Rant.
+Just write what you have to say on a piece of paper and mail it to ``Rant''.
+If the editors like it, they'll publish it.  If they don't like it, they
+won't.  (The editors are grouchy old curmudgeons.  They reserve the right to
+do anything they want with your submission and they don't have to pay for it
+unless they feel like it.)
+
+.LP
+You can also mail classified ads to the Rant.  They'll deduct the price of the
+ad directly from your bank account.  Consult masthead of the most recent issue
+for price and format information.
+
+.LP
+In addition to the regular newspapers and magazines, there are also books
+published within Habitat.  In most towns you'll find a Public Library
+containing books full of useful, interesting or entertaining stuff.
+
+.bp
+.CD
+\s+2\fBCHAPTER ELEVEN\s-2
+
+\s+5CINEMA AVATAR\fR\s-5
+.DE
+
+.LP
+One of the most thriving of all Avatar art forms is (what else?) the movies.
+
+.LP
+Noted Avatar film critics Fledmich and Blattwork, co-writers of the popular
+Rant column, ``Still At The Movies'', have put together a list of all-time
+great Habitat movies:
+
+STARE WARS:  A cosmic action/adventure classic about space optometrists.
+
+GOING, GOING, GONE WITH THE WIND:  A turbulent love story set in the
+background of the Great Auction Wars.
+
+CASA DE BLANCA:  Another wartime love story, featuring the immortal line,
+``Play it again, Smedley.''
+
+BERFORD CASSIDY AND THE SUNSHINE KID:  Rollicking, comic tale of the two
+cow-atars, legendary bankrobbers of the old west.
+
+THE ORACLE OF OZ:  Family adventure about a young Avatar's adventures in a
+strange land called Kansas.
+
+CAWS:  How a gigantic seagull terrorizes a small beach community one summer.
+
+LOOKING FOR MR. FOOBAR:  The seedy world of singles, as seen through the eyes
+of an aging, jaded software designer.
+
+THE BAGEL THAT ATE 47TH STREET:  Classic 1950's `B' horror flick about
+a yeast experiment gone awry in a major metropolitan bakery/think-tank.
+
+.bp
+.CD
+\s+2\fBCHAPTER TWELVE\s-2
+
+\s+5HALL OF RECORDS\fR\s-5
+.DE
+
+.LP
+Avatars pride themselves at being the best.  Because of that drive, they
+established a ``Hall of Records'' in which categories of distinction are as
+diverse as the activities they participate in.
+
+.LP
+Included here is a list of some of the ``Guilderness Book of Records'' title
+holders, with their record-making facts and figures.
+
+.LP
+\fIOLDEST AVATAR:\fR ``Old Stinky'' Planterret, 3 years, 237 days.
+
+.LP
+\fIWEALTHIEST AVATAR:\fR ``Tokenbags'' Bleenquit, lifetime fortune of more
+than T37 million, mostly from adventuring.
+
+.LP
+\fIMOST WISHES GRANTED FROM THE ORACLE:\fR Sandlebury, 4.
+
+.LP
+\fIMOST MILEAGE IN A TELEPORTER:\fR Zapmeister, 30,711 'Ports.
+
+.LP
+\fIMOST REINCARNATIONS:\fR Ferdinand, 903.
+
+.LP
+\fIMOST REGIONS VISITED:\fR Grizelda, 10,002 different regions.
+
+.LP
+\fIMOST TIME IN HABITAT:\fR Rosetta, 6,111 hrs.
+
+.LP
+\fIMOST NOTORIOUS:\fR Phlebitus, infamous bandit, swindler, TelePort pirate
+and litterbug.
+
+.LP
+\fIMOST OFTEN IN THE NEWS:\fR Rubin Snide, rabble rousing attorney for the
+Habitat law firm Snide, Snide, Cromfelter and Snide.
+
+.LP
+\fIBEST DRESSED:\fR Berford, by unanimous choice of the editors of \fIAvatar's
+Wear Daily\fR.
+.bp
+.CD
+\s+2\fBCHAPTER THIRTEEN\s-2
+
+\s+5THE AVATAR GLOSSARY\fR\s-5
+.DE
+
+.LP
+All the expressions that separate Those Who Know from Those Who Don't Know.
+
+.ad b
+.IP "ADVENTURING:\ "
+Going in search of intrigue, riches, and danger.
+.IP "AVATAR:\ "
+The basic lifeform in Habitat.
+.IP "CHANGE-O-MATIC:\ "
+A handy device that helps you customize your Turf.
+.IP "CUSTOMIZING:\ "
+Altering the appearance of your Avatar or Turf to suit your own taste or the
+whims of fashion.
+.IP "ESP:\ "
+A form of long-distance private communication between Avatars using Avatars'
+intrinsic telepathic abilities.
+.IP "GOATHEAD:\ "
+An evil Avatar whose means justify his end.
+.IP "HEAD DOWN TO THE O:\ "
+Slang term for visiting the Oracle to see who's hanging out.
+.IP "ORACLE:\ "
+The all-knowing being that controls life in Habitat.
+.IP "PENNIES:\ "
+Slang term for stray Tokens found laying on the ground in public places.
+Since these Tokens are presumably left by the Oracle, the term derives from
+the old expression ``pennies from heaven.''
+.IP "PORT:\ "
+Short for ``TelePort''.  Common usage: ``Say, Mirabella, why don't you Port on
+over for some fun and games?''
+.IP "PULLING A DREDMITCH:\ "
+Getting into a sticky situation.
+.IP "RANT:\ "
+The official Habitat newspaper.
+.IP "SIXED OUT:\ "
+When you've met your limit on the ``five guests only rule''
+.IP "TELEPORT:\ "
+As a noun, an electronic TelePorting system for Avatars.  Kind of like a plane
+or a train, only better.  As a verb, the act of being TelePorted to another
+location in Habitat.
+.IP "TOKEN:\ "
+The monetary unit of Habitat.
+.IP "TRUST FUND:\ "
+Where money comes from.
+.IP "TURF:\ "
+The Avatar's home.  Basis of the well known expression, ``An Avatar's Turf is
+his castle.''
+.bp
+.CD
+\s+5\fBINDEX\fR\s-5
+.DE
+.2C
+.LD
+adventures, 33
+Automatic Token Machine (ATM), 35
+avatars, 5, 7
+	customization, 20
+	naming, 31
+	other players', 18
+background information, 7
+body sprayers, 20
+books, 16, 37
+Bureaucrat-In-A-Box, 28
+chairs, 15
+Change-O-Matic, 25
+changing colors, 14
+color sprayers, 20
+colors (screen), changing of, 14
+commands
+	avoiding, 10
+	\fBDO\fP, 12
+	\fBGET\fP, 11
+	\fBGO\fP, 10, 22
+	\fBHELP\fP, 13
+	\fBPUT\fP, 11
+	\fBTALK\fP, 12
+containers, 15
+credits, 2
+customization
+	avatars, 20
+	turf, 25
+disks
+	image, 9
+	program, 9
+	QuantumLink, 9
+\fBDO\fP command, 12
+doors, 15
+entering Habitat, 9
+ESP, 12, 18
+exiting Habitat, 19
+\fBF1\fP key, 13
+\fBF2\fP key, 22
+\fBF3\fP key, 18
+\fBF6\fP key, 14
+\fBF7\fP key, 13
+Figwash, 5
+finding out who is on, 18
+``Five guests only'' rule, 23
+fountain, 26
+function keys
+	\fBF1\fP, 13
+	\fBF2\fP, 22
+	\fBF3\fP, 18
+	\fBF6\fP, 14
+	\fBF7\fP, 13
+gesture keys, 14
+gestures, 14
+\fBGET\fP command, 11
+	and containers, 15
+	failure of, 11
+	and heads, 20
+getting in, 9
+getting out, 19
+ghosts, 13
+	automatic, 19
+glossary, 40
+\fBGO\fP command, 10, 22
+	and doors, 15
+	and seats, 15
+Hall of Records, 39
+heads, 20
+\fBHELP\fP command, 13
+history, 29
+index, 41
+introduction, 5
+joystick
+	setup, 9
+	use of, 9
+keys, 16
+Library, 37
+locks, 16
+mail, 17
+money, 34
+movies, 38
+music, region transition, 22
+names, 31
+newspapers, 16
+newspapers, 37
+Oracle, 7, 26, 32
+	talking to, 12
+People Connection
+	entering from, 9
+	returning to, 19
+peripherals, use with Habitat, 9
+picking things up, 11
+Platorius, 5
+pockets, 16
+Public Library, 37
+\fBPUT\fP command, 11
+	and containers, 15
+	and heads, 20
+putting things down, 11
+Rant, the, 37
+reading, 16, 37
+region transition music, 22
+regions, walking between, 22
+seats, 15
+``Stuff Limit'', 23
+table of contents, 3
+\fBTALK\fP command, 12
+	and ESP, 18
+	and Oracle, 27
+teleport addresses, 24
+teleport booth, 23
+	talking to, 12
+text, 16
+tokens, 34
+turf, customization, 24
+VenDroid machine, 35
+walking, 10
+	between regions, 22
+word balloons, 12
+writing, 16
+.DE

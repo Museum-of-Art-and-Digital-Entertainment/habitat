@@ -1,0 +1,25 @@
+@region $ Outamy_Wy_s_end {
+    north: Outamy_Wy_129_front.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:64; style:1; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @wall { x:0; y:2; or:64; style:7; }
+        @plant { x:88; y:156; or:236; style:2; 
+            8:1;
+        }
+        @teleport_booth { x:36; y:136; or:204; 
+            8:0;
+        }
+        @plant { x:108; y:39; or:236; style:2; 
+            8:1;
+        }
+        @street { x:68; y:12; or:56; gr_state:4; 
+            8:0;
+            9:0;
+        }
+        @plant { x:72; y:134; or:188; style:2; 
+            8:1;
+        }
+    ]
+}

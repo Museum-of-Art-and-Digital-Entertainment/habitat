@@ -1,0 +1,106 @@
+.lg 1
+.ds D February 7, 1986
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Report
+
+February 7, 1986\s-9
+.AU
+``Because we thought you'd want to know''
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+.ds LH MONTHLY REPORT
+.ds CH \\*D
+.ds RH MicroCosm Project
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This is the third in a series of monthly reports detailing the progress on
+the \fBMicroCosm\fP project at Lucasfilm.  This report describes events and
+achievements during the month of January, 1985.
+.SH
+\s+1Work In Progress/Tasks Accomplished\s-1
+.PP
+The Project Schedule calls for us to meet two deliverables for mid-January.
+These are 1) to provide a definition document describing the basic set of
+objects that will populate the MicroCosm Universe, and 2) to establish
+communications across the packet switching network between our Commodore
+64-based prototype system and the QuantumLink host in Virginia.  These
+deliverables have been met, though communications were established two days
+late due to delays caused by minor, unrelated technical difficulties with
+Quantum's Stratus system.
+.PP
+Aric Wilmunder has finished the cel animation driver.  This is the piece of
+software which paints the various pieces of imagery on the screen for each
+frame to achieve the cartoon-like animation we are using.  He has also
+produced a number of other graphics primitives that will be used together with
+the cel animator to produce the complete graphics system.  These primitives
+include routines for generalized trapezoidal polygons, circles and ellipses,
+and text.  We anticipate that these will allow us to represent many of the
+objects' imagery with much greater flexibility and lower storage overhead than
+would be possible if we stored everything as bitmaps.
+.PP
+Gary Winnick, our artist in residence, has started designing the imagery for
+the many different kinds of objects.  These are looking very nice indeed.
+.PP
+Randy Farmer has finished the communications software.  Our prototype system
+now handles the complete \fBMicroCosm\fP object-message protocol at both 300
+and 1200 baud.  It now awaits a host system with which to talk.  Having
+finished the communications processor, Randy has now begun work on the sound
+effects routines.  We are constructing a general purpose sound-effects driver
+together with a simple interactive sound-effects editor that we will use to
+actually create the sounds.  The sound-effects editor has tentatively been
+named ``CHEESE'', which stands for ``CHEESE Helps Everyone Edit Sound
+Effects''.
+.PP
+Ron Gilbert, another member of the Lucasfilm Games Division, has started
+working on the project half-time.  He is developing the object-oriented
+database system that will handle memory and disk space management and the
+various critical data structures that hold the whole system together.  As of
+the end of the month, the specific data structures have been designed and
+documented.  He will now set about actually implementing the database.
+.PP
+I have begun very detailed specification of the internal behavior of the
+entire object set.  This will be the first step in implementation of the
+objects themselves in both the host and Commodore 64 portions of the
+\fBMicroCosm\fP system.  As of the end of the month this work was about 25%
+complete.
+.SH
+\s+1Tasks For February\s-1
+.PP
+During February we plan to finish the first-draft graphics sub-system,
+complete the first batch of artwork for the object set, finish the
+sound-effects infrastructure and begin work on creation of the sound-effects
+themselves.  In addition we intend to finish formal definition of the behavior
+of all objects and begin actual implementation of the objects.  This includes
+finishing the database system inside of which the objects will reside.
+.PP
+We are on target for our February 15 milestones.  We expect to deliver as
+planned.
+.SH
+\s+1Quantum Comments\s-1
+.PP
+The mid-January Deliverables Requirements call for Quantum to provide us with
+access to their development system for purposes of object-set installation.
+This has not happened.  However, we are not yet ready to make use of the
+Quantum system, so this has had no effect on the schedule.  We are presuming
+that such access can be made available on short notice as soon as we actually
+require it.
+.PP
+We were hoping to see a preliminary host database processor working at the
+Quantum end of the network by mid-February, as called for in the development
+schedule.  However, we understand that this work was only started in the last
+few days of January, and that the person doing this work, Janet Hunter, will
+be on vacation for the first week of February.  We expect that we will not
+have a working host database handler by February 15.  The schedule should not
+be adversely affected by this if the delay is no more than two weeks (i.e., if
+the database processor is working before the end of February).  However, we
+would like to stay as much on schedule as possible during these early months.
+Please recognize that if the delay is longer, one of the March 15
+deliverables, which calls for the Commodore 64 system to demonstrate object
+interaction in concert with the host, will also be delayed.

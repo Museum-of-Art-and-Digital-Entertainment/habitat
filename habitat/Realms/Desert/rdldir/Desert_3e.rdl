@@ -1,0 +1,30 @@
+@region $ Desert_3e {
+    north: Desert_4d.l;
+    region_orientation: FACE_WEST;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @street { x:68; y:12; or:8; gr_state:6; 
+            8:0;
+            9:0;
+        }
+        @tree { x:20; y:32; or:32; style:2; }
+        @short_sign { x:116; y:32; or:16; style:2; 
+            8:138;
+            9:128;
+            10:133;
+            11:131;
+            12:56;
+            13:48;
+            14:32;
+            15:32;
+            16:32;
+            17:32;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+    ]
+}

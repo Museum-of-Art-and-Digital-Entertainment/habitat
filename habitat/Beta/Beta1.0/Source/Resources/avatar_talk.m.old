@@ -1,0 +1,24 @@
+;
+;	avatar_talk.m
+;
+;	Action code for the avatar 'talk' behavior.
+;
+;	This file should be assembled as position independent code.
+;
+;	Originally coded by Randy Farmer
+;	Prettified by Chip Morningstar
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	ldx	pointed_noid
+	cpx	me_noid
+	if (equal) {			; No talking to yourself!
+		ldx	#0		; Send to everybody
+	}
+	chainTo	v_talk
+
+	actionEnd

@@ -1,0 +1,69 @@
+.ds Da October 14, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Exhibit A\s-9
+.AU
+\s+2Specification of the MicroCosm System\s-2
+.ds LH
+.ds CH
+.ds RH 
+.ds LF 
+.ds CF
+.ds RF
+.AM
+.PP
+The MicroCosm System is specified by the attached collection of
+documents.  This table of contents describes these documents.
+.XP
+1. \fBMicroCosm Features\fR, a list of the various features and components of
+the MicroCosm System, 3 pages, dated October 15, 1985.
+.XP
+2. \fBMicroCosm\fP, the original proposal for the MicroCosm System,
+\fIMicroCosm Design Document #1\fP, 8 pages including 1 diagram, dated
+September 27, 1985.
+.XP
+3. \fBLooi\fP, a description of the \fILow Overhead Object Interpreter\fR, a
+system component, \fIMicroCosm Design Document #2\fR, 5 pages including 1
+diagram, dated November 10, 1985.
+.XP
+4. \fBNoodl\fP, a description of the \fINegligable Overhead Object Description
+Language\fR, a proposed software tool to aid in the construction of the
+MicroCosm System, \fIMicroCosm Design Document #3\fR, 8 pages, dated September
+26, 1985.
+.XP
+5. \fBMicroCosm Coordinate Systems and Topology\fR, a description of the
+proposed geometric organization of the MicroCosm fantasy universe,
+\fIMicroCosm Design Document #4\fP, 4 pages including 1 diagram, dated
+November 14, 1985.
+.XP
+6. \fBMicroCosm Player Interface\fR, a description of the interactive controls
+for a user of the MicroCosm System, \fIMicroCosm Design Document #6\fR, 6
+pages, dated October 17, 1985.
+.XP
+7. \fBMicroCosm Home System Architecture Block Diagram\fR, a block diagram
+showing the overall architecture of the Commodore 64 MicroCosm Baseline Home
+System, \fIMicroCosm Design Document #7\fR, a single page diagram, dated
+Octover 15, 1985.
+.XP
+8. \fBMicroCosm Host System Architecture\fR, a description of the design and
+structure of the MicroCosm Baseline Host System, \fIMicroCosm Design Document
+#8\fR, 4 pages including diagram, dated October 23, 1985.
+.XP
+9. \fBMicroCosm Project Schedule\fR, the original proposed development
+schedule for the MicroCosm System, \fIMicroCosm Design Document #11\fR, a
+single page chart, dated October 17, 1985.
+.XP
+10. \fBMicroCosm Home System Architecture\fR, a description of the design and
+structure of the MicroCosm Commodore 64 Baseline Host System, \fIMicroCosm
+Design Document #12\fR, 7 pages, dated November 10, 1985.
+.XP
+11. \fBMicroCosm Object Protocol\fR, a description of the communications
+interface between the MicroCosm Home System and the MicroCosm Host System,
+\fIMicroCosm Design Document #14\fR, 5 pages, dated October 30, 1985.
+.XP
+12. \fBMicroCosm Graphics\fR, a description of the computer graphics
+techniques to be used in the MicroCosm Commodore 64 Baseline Home System,
+\fIMicroCosm Design Document #15\fR, 4 pages, dated November 10, 1985.
+

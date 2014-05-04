@@ -1,0 +1,59 @@
+/*
+ *   class_hole.pl1
+ *
+ *   Behavior module for object class hole.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   22-July-1986
+ */
+
+%replace HOLE_CAPACITY by 10;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_hole: procedure;
+
+     %replace HOLE_REQUESTS by 5;
+
+     declare a(0:HOLE_REQUESTS) entry based;
+     declare class_hole_actions pointer;
+     declare 1 hole based %include struct_hole;
+
+     %replace I by CLASS_HOLE;
+
+     Class_Table(I).capacity = HOLE_CAPACITY;
+     Class_Table(I).max_requests = HOLE_REQUESTS;
+     Class_Table(I).alloc_size = size(hole);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_hole_actions);
+     Class_Table(I).actions = class_hole_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)              = illegal;    /* 1 */
+     Class_Table(I).actions->a(2)              = illegal;    /* 2 */
+     Class_Table(I).actions->a(3)              = illegal;    /* 3 */
+     Class_Table(I).actions->a(CLOSECONTAINER) = hole_CLOSE; /* 4 */
+     Class_Table(I).actions->a(OPENCONTAINER)  = hole_OPEN;  /* 5 */
+
+end initialize_class_hole;
+
+hole_CLOSE: procedure;
+     if (holding_class(CLASS_SHOVEL)) then
+          call generic_CLOSECONTAINER;
+     else
+          call r_msg_1(FALSE);
+end hole_CLOSE;
+
+hole_OPEN: procedure;
+     if (holding_class(CLASS_SHOVEL)) then
+          call generic_OPENCONTAINER;
+     else
+          call r_msg_1(FALSE);
+end hole_OPEN;

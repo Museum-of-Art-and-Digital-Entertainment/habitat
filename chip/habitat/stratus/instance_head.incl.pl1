@@ -1,0 +1,23 @@
+/*
+ *   instance_head.incl.pl1
+ *
+ *   The common header shared by ALL object instance descriptors.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ *
+ */
+,         2    avatarslot     binary(15),
+          2    obj_id         binary(31),
+          2    noid           binary(15),
+          2    class          binary(15),
+          2    style          binary(15),
+          2    x              binary(15),
+          2    y              binary(15),
+          2    position       binary(15),
+          2    orientation    binary(15),
+          2    gr_state       binary(15),
+          2    container      binary(15),
+          2    gr_width       binary(15),
+          2    gen_flags(32)  bit(1)        /* note absence of comma */

@@ -1,0 +1,37 @@
+/u0/chip/habitat/doc:
+	This directory contains the Habitat documentation.  There's lots of
+stuff here:
+
+DOC
+batch.itr	- doc #41: overnight batch processes needed on host
+econ.tbl	- doc #35: Habitat economics
+ethics.itr	- doc #44: theory on Habitat ethics
+fortunes	- collection of "fortune cookie" messages for Habitat
+garbage.tbl	- doc #39: garbage collection specs for host
+geography.tbl	- doc #34: geographic master plan for Habitat world
+ghu.itr		- doc #23a: original specs for Ghu
+ghuguide.itr	- doc #23b: current documentation for Ghu
+hotlist.tbl	- current edition of an old task list
+manual.tbl	- Master copy of THE MANUAL
+newclass.t	- description of what to do to add a new object class to
+		  Habitat (somewhat outdated)
+objman.itr	- doc #43: detailed description of every object class
+operations.itr	- doc #26: first pass at operations plan
+portdir.rt	- Habitat text for Nov 15, 1987 teleport directory
+records.itr	- doc #32: original plan/spec for Hall of Records records
+regdesign.itr	- doc #45: guide to designing regions (unfinished)
+stats.itr	- doc #42: updated plan/spec for Hall of Records
+stuff.itr	- doc #38: design doc on things to do in Habitat
+
+Subdirectories:
+admin/		- historical archive of old status reports, todo lists, etc.
+archives/	- historical archive of older versions of important documents,
+		  contracts, notes, etc.
+cya/		- historical archive of letters, memos and meeting notes
+hotlist/	- historical info: ancient task lists
+notes/		- a bunch of "documentessimals", fragments of information too
+		  minor to become full-fledged documents but too important to
+		  throw away 
+system/		- archive of orginal habitat design documents
+worldgen/	- creative material relating to the generation of the Habitat
+		  world

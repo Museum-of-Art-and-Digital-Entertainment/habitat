@@ -1,0 +1,171 @@
+.lg 1
+.ds D November 14, 1985
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Coordinate
+
+Systems and Topology\s-9
+.AU
+how to reckon where we are when we're out on the Great Plain
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*D
+.ds LH COORDINATES & TOPOLOGY
+.ds CH \\*D
+.ds RH MicroCosm Document #4
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the physical organization of the \fBMicroCosm\*T\fR:
+its topology and coordinate systems.  It also explains how to reckon distances
+and areas and how to indicate regions of the world's surface.
+.PP
+A note on notation: things in \fIitalics\fR are new terms being introduced for
+the first time.  The italics mean, ``Pay attention, this is a new term.  Don't
+panic if you don't quite understand it.  We are either just now explaining it
+or will explain it real soon.''
+.SH
+\s+3Local Topology\s-3
+.PP
+The basic geometric unit of the \fBMicroCosm\fP universe is the \fIregion\fP.
+A region is an independent, bounded section of the Cartesian plane.
+Conceptually, the bounds of a region could be any sort of geometric figure.
+For simplicity however, we will only bound regions by rectangles.  This allows
+us to characterize the area of a region with just two numbers: its \fIX\fR and
+\fIY\fR dimensions.  Locations \fIwithin\fP a region can be specified using
+ordinary Cartesian coordinates.  Each of the four edges of a region may be
+connected to one of the edges of some other region.  When an avatar crosses a
+region's edge he enters the region that the edge was connected to.  The
+topology of these connections can make the world geometry either ordinary or
+quite bizarre.  In particular:
+.IP "  \(bu "
+Two connected edges need not be the same length.  When this happens, the
+entrance point along the edge of a region is linearly interpolated from the
+exit point along the edge of the region departed from.
+.IP "  \(bu "
+The map resulting from the connectivity of the regions does not have to be
+consistent with Euclidean geometry.  In other words, it need not be possible
+to lay the regions out on a flat surface in any sensible way.  Two regions can
+be connected as if they were adjacent, even though by all other measures they
+would be considered distant from each other.  Direction does not need to be
+conserved either.  For example, the south edge of one region could connect to
+east edge of another, rather than to a north edge as one might expect.
+.IP "  \(bu "
+Connections between edges are not necessarily bidirectional.  For example, if
+the west edge of region \fBA\fP is connected to the east edge of region
+\fBB\fP it does not inevitably follow that the east edge of region \fBB\fP is
+also connected to the west edge of region \fBA\fP.  It could connect to some
+other place entirely.  In other words, you may not be able to leave a place by
+the same door you entered.
+.IP "  \(bu "
+The topology does not have to be stable over time.  Just because one region is
+connected to another today you are not guaranteed that it will be connected
+the same way tomorrow.  New regions can appear, old regions can disappear,
+regions can move around and connections between them can change.
+.LP
+Even though the topology of the world potentially can be very strange, in
+practice we will try to minimize deviations from the Euclidean norm.  Bizarre
+topology is difficult for most people to visualize.  We want players to be
+able to develop good practical mental (and physical) maps of their
+environment.  To do this it is helpful to support the illusion that the world
+is geometrically consistent and well behaved.  Such consistency also enhances
+the magic and mystery of the places where the topology is irregular.  A subtle
+hand here will keep the players guessing about what is possible, making the
+universe seem richer and more complex than it actually is.
+.SH
+\s+3Coordinates\s-3
+.PP
+Within a region, locations are specified using Cartesian coordinates.  The
+origin (location \fB(0, 0)\fR) is the region's southwest corner.  The X-axis
+increases to the east and the Y-axis increases to the north.  All coordinate
+values are integers.  Distances on the Plain are measured in \fIfeet\fR, so
+coordinate pairs give a location's distance in feet from the X- and Y-axes of
+its region.  If we limit the size of regions to a maximum of 255 feet on a
+side we can pack a coordinate pair into two bytes.  This helps speed
+communications.  Even without this limit, we would not want regions to be much
+bigger because a region is defined to be an area that can be seen in its
+entirety from a single fixed viewpoint.  The one byte ordinate limit still
+gives us a maximum region area of close to one and a half acres!
+.PP
+Each region has a unique identification number to distinguish it from other
+regions.  These identification numbers are used to tell a player what region
+his avatar is in and also to express the edge-to-edge mapping between regions.
+The identification numbers could be the memory addresses of the data
+structures representing the regions, though we might not want to actually
+allow such addresses to be known outside the host itself.
+.SH
+\s+3Global Topology\s-3
+.PP
+The full size of the world has not yet been decided.  Suffice to say that it's
+pretty big, although we don't want the world to be too huge or the players
+will just rattle around in it.  Of course, our flexible region mechanism
+allows the world to grow or shrink depending on our real estate needs.
+.PP
+Since we don't want to violate Euclidean geometry too severely, we must have a
+global framework for the various regions to sit in.  The basic world is a
+Cartesian plane mapped onto the surface of a cylinder.  See figure 1.  The
+North-South axis runs parallel to the primary axis of the cylinder.  At the
+North and South ends are sheer precipices \(em the ``edge of the world''
+(edges actually).  Things thrown off the edge of the world disappear forever.
+The East-West axis runs around the circumference of the cylinder.  It will be
+possible to circumnavigate the world if you journey far enough to the East or
+West.
+.PP
+Note that this cylinder is part of the fantasy underlying the \fBMicroCosm\fP
+world.  Because of the region-based geometry, there is no functional reason
+why the world must be this way.  We are free to change it if we wish.
+.PP
+Most regions are assigned positions on the cylinder.  Such positions are
+indicated using \fIglobal\fP X- and Y-axes (as distinct from the \fIlocal\fP
+X- and Y-axes that are relevant within a region).  Such positions are merely
+for our convenience in building the fantasy and have no direct relevance to
+the underlying implementation.  Global positions are ordinals with no units of
+measure associated with them.
+.SH
+\s+3Relative Coordinates\s-3
+.PP
+Players (and their home computers) are usually not aware of the actual
+coordinate system underlying a region.  The player systems refer to all
+locations using a relative coordinate scheme.  This scheme uses the same
+conventions of metric and direction, but the lower left corner of the region
+as seen from the viewpoint is always used as the origin.  All locations are
+referred to relative to this point.  This means that if the viewpoint is on
+the south side of the region, the player coordinates are the same as the host
+coordinates.  However, if the viewpoint is on some other edge then the player
+coordinate system is rotated a multiple of 90 degrees about the center of the
+region with respect to the host coordinate system.  Internally, the host keeps
+track of the viewpoint position and corrects any coordinates generated by the
+player's system accordingly via a simple calculation.
+.PP
+The relative coordinate system serves the cause of game play by forcing
+players to move around and explore to find out their orientation with respect
+to the world as a whole.  We may introduce a \fIcompass\fP object that allows
+a player to always know his true orientation, but that's a detail.
+.SH
+\s+3Distances\s-3
+.PP
+As was mentioned above, distances in the \fBMicroCosm\fR are reckoned in feet.
+We won't try to do anything fancy or weird with diagonal distances.  We will
+simply use the good old Pythagorean Theorem, with suitable rounding or
+truncation of fractions in whatever way makes the host software run fastest.
+It should be pointed out that ranges (e.g., the firing range property of a
+projectile weapon object) can be stored internally as distance-squared and
+thus avoid having to calculate the square root just to determine whether a
+thing is within the range.
+.SH
+\s+3Areas\s-3
+.PP
+A given coordinate does not just denote an infinitesimal point on the Plain.
+Rather, as indicated in figure 1, it also refers to a one-foot by one-foot
+square area centered around the point.  The fact that the point itself is
+defined as the center of this square, rather than as one of the corners or as
+something else entirely, is arbitrary.  We are doing it this way because it
+seems simplest, but if some other convention turns out to be more effective in
+implementation, we are free to change as long as we do so before the first
+release of the software.

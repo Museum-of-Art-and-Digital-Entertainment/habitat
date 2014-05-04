@@ -1,0 +1,19 @@
+@region $ beach_1f {
+    north: beach_1g.l;
+    south: beach_1e.l;
+    east: beach_2f.l;
+    west: beach_0f.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:188; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @tree { x:36; y:144; or:189; style:2; }
+        @pond { x:24; y:5; or:0; gr_state:3; }
+        @plant { x:36; y:136; or:16; style:1; 
+            8:1;
+        }
+        @tree { x:112; y:26; or:188; style:2; }
+        @sky { x:0; y:2; or:244; style:7; }
+        @tree { x:84; y:32; or:197; style:2; }
+    ]
+}

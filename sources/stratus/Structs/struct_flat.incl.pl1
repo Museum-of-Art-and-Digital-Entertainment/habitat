@@ -1,0 +1,13 @@
+/*
+ *   struct_flat.incl.pl1
+ *
+ *   Struct stub for flat instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-August-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   flat_type      binary(15);

@@ -1,0 +1,31 @@
+@region $ Woods_2k {
+    north: Woods_3k.l;
+    south: Woods_2j.l;
+    east: Woods_3k.l;
+    west: Woods_1k.l;
+    region_orientation: FACE_WEST;
+    [
+        @bush { x:0; y:30; or:32; style:4; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @ground { x:0; y:4; or:204; }
+        @bush { x:32; y:34; or:16; style:4; gr_state:2; }
+        @bush { x:72; y:32; or:97; style:4; gr_state:2; }
+        @bush { x:76; y:36; or:16; style:4; gr_state:2; }
+        @bush { x:108; y:34; or:16; style:4; gr_state:2; }
+        @bush { x:136; y:36; or:16; style:4; gr_state:2; }
+        @tree { x:136; y:141; or:48; style:10; }
+        @bush { x:96; y:158; or:80; style:4; gr_state:1; }
+        @bush { x:16; y:152; or:24; style:4; gr_state:2; }
+        @sky { x:56; y:96; or:140; style:11; }
+        @bush { x:52; y:141; or:33; style:4; gr_state:2; }
+        @bush { x:84; y:151; or:57; style:4; gr_state:2; }
+        @bush { x:92; y:136; or:17; style:4; gr_state:2; }
+        @bush { x:112; y:131; or:17; style:4; gr_state:1; }
+        @bush { x:120; y:141; or:25; style:4; gr_state:2; }
+        @bush { x:64; y:132; or:17; style:4; gr_state:2; }
+        @bush { x:0; y:132; or:16; style:4; gr_state:2; }
+        @bush { x:160; y:135; or:97; style:4; gr_state:2; }
+        @sky { x:40; y:90; or:140; style:11; }
+        @sky { x:96; y:105; or:140; style:11; }
+    ]
+}

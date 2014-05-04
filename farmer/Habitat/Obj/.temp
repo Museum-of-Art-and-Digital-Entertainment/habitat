@@ -1,0 +1,11 @@
+actions.m:	lda	save_status
+actions.m:	lda	save_accumulator	; set by action
+actions.m:	sta	save_accumulator	; incase it was a return value
+actions.m:	sta	save_status
+actions.m:	lda	save_status
+actions.m:	lda	save_accumulator
+actions.m:	sta	in_counter		; save
+actions.m:	sta	temp_word+1			; Save the price
+actions.m:	sta	y[@in_hand_object]		; Save new denomination
+animate.m:	sta	y[@object_address]		; save new frame #0-15
+animate.m:	lda	drawing_which_object		; save container!

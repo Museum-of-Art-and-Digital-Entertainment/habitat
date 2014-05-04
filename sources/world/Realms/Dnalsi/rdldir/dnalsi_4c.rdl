@@ -1,0 +1,35 @@
+@region $ dnalsi_4c {
+    south: dnalsi_4b.l;
+    east: dnalsi_5c.l;
+    west: dnalsi_3c.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @hole { x:60; y:156; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @short_sign { x:0; y:0; or:0; gr_state:1; 
+                    8:133;
+                    9:131;
+                    10:78;
+                    11:79;
+                    12:84;
+                    13:32;
+                    14:72;
+                    15:69;
+                    16:82;
+                    17:69;
+                }
+            ]
+        }
+        @tree { x:48; y:28; or:173; style:2; }
+        @tree { x:48; y:28; or:172; style:2; }
+        @tree { x:88; y:27; or:173; style:2; }
+        @tree { x:92; y:27; or:172; style:2; }
+        @ground { x:0; y:4; or:188; style:1; }
+    ]
+}

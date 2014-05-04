@@ -1,0 +1,37 @@
+/*
+ *   class_bed.pl1
+ *
+ *   Object behavior module for class bed.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_bed: procedure;
+
+     %replace BED_REQUESTS by 0;
+
+     declare a(0:0) entry based;
+     declare 1 bed based %include struct_bed;
+     declare class_bed_actions pointer;
+
+     %replace I by CLASS_BED;
+
+     Class_Table(I).capacity = 1;
+     Class_Table(I).max_requests = BED_REQUESTS;
+     Class_Table(I).alloc_size = size(bed);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_bed_actions);
+     Class_Table(I).actions = class_bed_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;
+end initialize_class_bed;

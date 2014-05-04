@@ -1,0 +1,329 @@
+use region r_9129 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9130
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6951 {
+  container: r r_9129
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_6952 {
+  container: r r_9129
+  x: 12
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6959 {
+  container: r r_9129
+  x: 60
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6967 {
+  container: r r_9129
+  x: 108
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use wall o_6974 {
+  container: r r_9129
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_6975 {
+  container: r r_9129
+  x: 12
+  y: 104
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\  Style       Warmth      Useful        "
+}
+use vendo_front o_6953 {
+  container: o o_6952
+  x: 184
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 79
+  display_item: 4
+  prices: 104, 80, 29, 50, 79, 0, 0, 0, 0, 0
+}
+use knick_knack o_6954 {
+  container: o o_6952
+  x: 0
+  y: 1
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use vendo_front o_6960 {
+  container: o o_6959
+  x: 181
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 27
+  display_item: 5
+  prices: 125, 28, 31, 126, 29, 27, 0, 0, 0, 0
+}
+use knick_knack o_6961 {
+  container: o o_6959
+  x: 0
+  y: 1
+  style: 7
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use vendo_front o_6968 {
+  container: o o_6967
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 37
+  display_item: 4
+  prices: 169, 30, 32, 38, 37, 0, 0, 0, 0, 0
+}
+use knick_knack o_6969 {
+  container: o o_6967
+  x: 0
+  y: 1
+  style: 3
+  gr_state: 2
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6955 {
+  container: o o_6953
+  x: 1
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6956 {
+  container: o o_6953
+  x: 2
+  y: 2
+  style: 8
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6957 {
+  container: o o_6953
+  x: 3
+  y: 3
+  style: 9
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6966 {
+  container: o o_6960
+  x: 1
+  y: 0
+  style: 6
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6962 {
+  container: o o_6960
+  x: 1
+  y: 1
+  style: 10
+  gr_state: 0
+  orient: 80
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6963 {
+  container: o o_6960
+  x: 2
+  y: 2
+  style: 7
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6964 {
+  container: o o_6960
+  x: 3
+  y: 3
+  style: 6
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6965 {
+  container: o o_6960
+  x: 4
+  y: 4
+  style: 10
+  gr_state: 0
+  orient: 56
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6973 {
+  container: o o_6968
+  x: 1
+  y: 0
+  style: 4
+  gr_state: 1
+  orient: 56
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6970 {
+  container: o o_6968
+  x: 1
+  y: 1
+  style: 3
+  gr_state: 3
+  orient: 8
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6971 {
+  container: o o_6968
+  x: 2
+  y: 2
+  style: 3
+  gr_state: 0
+  orient: 56
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6972 {
+  container: o o_6968
+  x: 3
+  y: 3
+  style: 3
+  gr_state: 3
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}

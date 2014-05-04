@@ -1,0 +1,159 @@
+echo Kerner_s_end
+/u0/chip/microcosm/slur/slur regdir/Kerner_s_end.reg \
+     -o rdldir/Kerner_s_end.rdl \
+     -d FACE_WEST \
+     -r Kerner_s_end \
+     -n Kerner_116_front
+echo Kerner_116_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_116_front.reg \
+     -o rdldir/Kerner_116_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_116_front \
+     -w Kerner_116_interior \
+     -n Kerner_216_front \
+     -s Kerner_s_end
+echo Kerner_116_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_116_interior.reg \
+     -o rdldir/Kerner_116_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_116_interior \
+     -e Kerner_116_front
+echo Kerner_216_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_216_front.reg \
+     -o rdldir/Kerner_216_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_216_front \
+     -w Kerner_216_interior \
+     -n Kerner_316_front \
+     -s Kerner_116_front
+echo Kerner_216_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_216_interior.reg \
+     -o rdldir/Kerner_216_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_216_interior \
+     -e Kerner_216_front
+echo Kerner_316_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_316_front.reg \
+     -o rdldir/Kerner_316_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_316_front \
+     -w Kerner_316_interior \
+     -n Kerner_416_front \
+     -s Kerner_216_front
+echo Kerner_316_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_316_interior.reg \
+     -o rdldir/Kerner_316_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_316_interior \
+     -e Kerner_316_front
+echo Kerner_416_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_416_front.reg \
+     -o rdldir/Kerner_416_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_416_front \
+     -w Kerner_416_interior \
+     -n Kerner_516_front \
+     -s Kerner_316_front
+echo Kerner_416_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_416_interior.reg \
+     -o rdldir/Kerner_416_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_416_interior \
+     -e Kerner_416_front
+echo Kerner_516_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_516_front.reg \
+     -o rdldir/Kerner_516_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_516_front \
+     -w Kerner_516_interior \
+     -n Kerner_cross \
+     -s Kerner_416_front
+echo Kerner_516_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_516_interior.reg \
+     -o rdldir/Kerner_516_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_516_interior \
+     -e Kerner_516_front
+echo Kerner_cross
+/u0/chip/microcosm/slur/slur regdir/Kerner_cross.reg \
+     -o rdldir/Kerner_cross.rdl \
+     -d FACE_WEST \
+     -r Kerner_cross \
+     -n Kerner_616_front \
+     -s Kerner_516_front
+echo Kerner_616_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_616_front.reg \
+     -o rdldir/Kerner_616_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_616_front \
+     -w Kerner_616_interior \
+     -n Kerner_716_front \
+     -s Kerner_cross
+echo Kerner_616_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_616_interior.reg \
+     -o rdldir/Kerner_616_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_616_interior \
+     -e Kerner_616_front
+echo Kerner_716_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_716_front.reg \
+     -o rdldir/Kerner_716_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_716_front \
+     -w Kerner_716_interior \
+     -n Kerner_816_front \
+     -s Kerner_616_front
+echo Kerner_716_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_716_interior.reg \
+     -o rdldir/Kerner_716_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_716_interior \
+     -e Kerner_716_front
+echo Kerner_816_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_816_front.reg \
+     -o rdldir/Kerner_816_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_816_front \
+     -w Kerner_816_interior \
+     -n Kerner_916_front \
+     -s Kerner_716_front
+echo Kerner_816_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_816_interior.reg \
+     -o rdldir/Kerner_816_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_816_interior \
+     -e Kerner_816_front
+echo Kerner_916_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_916_front.reg \
+     -o rdldir/Kerner_916_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_916_front \
+     -w Kerner_916_interior \
+     -n Kerner_1016_front \
+     -s Kerner_816_front
+echo Kerner_916_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_916_interior.reg \
+     -o rdldir/Kerner_916_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_916_interior \
+     -e Kerner_916_front
+echo Kerner_1016_front
+/u0/chip/microcosm/slur/slur regdir/Kerner_1016_front.reg \
+     -o rdldir/Kerner_1016_front.rdl \
+     -d FACE_WEST \
+     -r Kerner_1016_front \
+     -w Kerner_1016_interior \
+     -n Kerner_n_end \
+     -s Kerner_916_front
+echo Kerner_1016_interior
+/u0/chip/microcosm/slur/slur regdir/Kerner_1016_interior.reg \
+     -o rdldir/Kerner_1016_interior.rdl \
+     -d FACE_EAST \
+     -r Kerner_1016_interior \
+     -e Kerner_1016_front
+echo Kerner_n_end
+/u0/chip/microcosm/slur/slur regdir/Kerner_n_end.reg \
+     -o rdldir/Kerner_n_end.rdl \
+     -d FACE_WEST \
+     -r Kerner_n_end \
+     -s Kerner_1016_front

@@ -1,0 +1,96 @@
+/*
+ *   curses.pl1
+ *
+ *   Avatar curse handling for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   13-March-1987
+ */
+
+%include 'microcosm.incl.pl1';
+declare b_msg_1 entry(pointer, binary(15), binary(15));
+declare b_msg_s entry(pointer, binary(15), character(*) varying);
+declare vectorize entry(pointer) returns(character(256) varying);
+declare checkpoint_object entry(binary(31), binary(15));
+
+%replace CURSE_IMMUNITY_BIT by 32;
+
+%replace HEAD_COOTIE by 117;
+%replace HEAD_SMILEY by 110;
+%replace HEAD_MUTANT by  27;
+%replace HEAD_FLY    by  13;
+
+/*
+ * curse_touch: the curse that occurs when one Avatar touches another.
+ *
+ */
+curse_touch: procedure(curserptr, curseeptr);
+     declare curserptr pointer;
+     declare 1 curser based(curserptr) %include struct_avatar;
+     declare curseeptr pointer;
+     declare 1 cursee based(curseeptr) %include struct_avatar;
+     declare headptr pointer;
+     declare 1 head based(headptr) %include struct_head;
+     declare dummy bit(1) aligned;
+
+     /* If the victim is already cursed, he can't be cursed again.  Depending
+        on whether the curse he would be receiving is a worse thing than the
+        curse he already has, this can be a mixed curse... */
+     if (cursee.curse_type ^= CURSE_NONE) then
+          return;
+
+     /* Plagues of various types spread by contact */
+     if (curser.curse_type = CURSE_COOTIES |
+               curser.curse_type = CURSE_SMILEY |
+               curser.curse_type = CURSE_MUTANT) then do;
+          if (cursee.nitty_bits(CURSE_IMMUNITY_BIT)) then return;
+          if (^activate_head_curse(curseeptr, curser.curse_type)) then
+               return;
+
+          /* The fever is over? */
+          curser.curse_counter = curser.curse_counter - 1;
+          if (curser.curse_counter <= 0) then
+               dummy = activate_head_curse(curserptr, CURSE_NONE);
+     end;
+end curse_touch;
+
+activate_head_curse: procedure(victimptr, curse_type) returns(bit(1) aligned);
+     declare victimptr pointer;
+     declare 1 victim based(victimptr) %include struct_avatar;
+     declare curse_type binary(15);
+     declare headptr pointer;
+     declare 1 head based(headptr) %include struct_head;
+
+     /* Being headless or already cursed saves you... */
+     if (victim.curse_type = curse_type | victim.contents->c(HEAD) = NULL) then
+          return(false);
+     else
+          headptr = ObjList(victim.contents->c(HEAD));
+
+     victim.curse_type = curse_type;
+
+     if (curse_type = CURSE_COOTIES) then do;
+          head.style = HEAD_COOTIE;
+          victim.curse_counter = 1; /* just moves around */
+     end; else if (curse_type = CURSE_SMILEY) then do;
+          head.style = HEAD_SMILEY;
+          victim.curse_counter = 2; /* exponential explosion */
+     end; else if (curse_type = CURSE_MUTANT) then do;
+          head.style = HEAD_MUTANT;
+          victim.curse_counter = 32767; /* virtually infinite */
+     end; else if (curse_type = CURSE_FLY) then do;
+          head.style = HEAD_FLY;
+          victim.curse_counter = 0; /* doesn't spread */
+     end; else /* if (curse_type = CURSE_NONE) then */ do;
+          head.style = victim.true_head_style;
+          victim.curse_counter = 0; /* all gone */
+          victim.nitty_bits(CURSE_IMMUNITY_BIT) = true;
+     end;
+
+     head.gen_flags(MODIFIED) = true;
+     call checkpoint_object(0, head.noid);   
+     call b_msg_1(null(), GOAWAY_$, head.noid);
+     call b_msg_s(null(), HEREIS_$, vectorize(headptr));
+     return(true);
+end;

@@ -1,0 +1,66 @@
+@region $ Hyper_Dr_330_front {
+    north: Hyper_Dr_430_front.l;
+    south: Hyper_Dr_230_front.l;
+    west: Hyper_Dr_330_interior.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:56; style:1; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @wall { x:0; y:2; or:172; style:7; }
+        @building { x:16; y:32; or:149; }
+        @bush { x:112; y:57; or:164; }
+        @sign { x:72; y:58; or:16; style:5; gr_state:8; 
+            8:32;
+            9:32;
+            10:32;
+            11:51;
+            12:51;
+            13:48;
+            14:32;
+            15:32;
+            16:32;
+            17:32;
+            18:32;
+            19:32;
+            20:32;
+            21:32;
+            22:32;
+            23:32;
+            24:32;
+            25:32;
+            26:32;
+            27:32;
+            28:32;
+            29:32;
+            30:32;
+            31:32;
+            32:32;
+            33:32;
+            34:32;
+            35:32;
+            36:32;
+            37:32;
+            38:32;
+            39:32;
+            40:32;
+            41:32;
+            42:32;
+            43:32;
+            44:32;
+            45:32;
+            46:32;
+            47:32;
+        }
+        @mailbox { x:24; y:153; or:16; 
+            8:0;
+        }
+        @fence { x:64; y:33; or:0; }
+        @fence { x:92; y:33; or:0; gr_state:2; }
+        @street { x:68; y:7; or:252; gr_state:6; 
+            8:0;
+            9:0;
+        }
+        @fence { x:108; y:161; or:0; gr_state:2; }
+        @fence { x:132; y:33; or:0; }
+    ]
+}

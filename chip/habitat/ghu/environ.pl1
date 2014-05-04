@@ -1,0 +1,281 @@
+/*
+ * environ.pl1 -- Handle Ghu persistent-variable environment.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 16-November-1987
+ *
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'envcode.incl.pl1';
+
+declare env_path character(256) varying external;
+declare general_access bit(1) external;
+declare automacro_codeptr pointer external;
+
+%replace BUF_LIMIT by 2048;
+declare big_buf(BUF_LIMIT) character static;
+declare big_buf_str character(BUF_LIMIT) defined(big_buf);
+declare buf_ptr binary(15) static;
+
+declare s$open entry(bin(15), bin(15), bin(15), bin(15), bin(15), bin(15),
+     char(*) var, bin(15));
+declare s$attach_port entry(char(*) var, char(*) var, bin(15), bin(15),
+     bin(15));
+declare s$close entry(bin(15), bin(15));
+declare s$seq_read entry(bin(15), bin(15), bin(15), char(*), bin(15));
+declare s$seq_write entry(bin(15), bin(15), char(*), bin(15));
+declare s$get_user_name entry(char(65) varying);
+
+%replace SYMBOL_TABLE_SIZE by 511;
+
+declare symbol_table(SYMBOL_TABLE_SIZE) pointer static external;
+
+declare env_port binary(15) static;
+
+save_environ: procedure;
+     declare i binary(15);
+     declare chaser pointer;
+     declare 1 symbol based(chaser) like symbol_table_entry;
+     declare rc binary(15);
+
+     call s$close(env_port, rc);
+     call s$attach_port('', env_path, 0, env_port, rc);
+     if (rc = 0) then
+          call s$open(env_port, IO_SEQUENTIAL, MAX_RECORD_SIZE, IO_OUTPUT,
+               IO_SET_LOCK_DONT_WAIT, IO_SEQ_ACCESS, '', rc);
+     if (rc ^= 0) then do;
+          call fatal_error('can''t open environment file "' || env_path || '".');
+     end;
+     do i=1 to SYMBOL_TABLE_SIZE;
+          chaser = symbol_table(i);
+          do while (chaser ^= null());
+               if (symbol.symbol_persistent) then
+                    call save_symbol(symbol, env_port);
+               chaser = symbol.next_symbol;
+          end;
+     end;
+end save_environ;
+
+save_symbol: procedure(symbol, port);
+     declare 1 symbol like symbol_table_entry;
+     declare port binary(15);
+     declare rc binary(15);
+
+     buf_ptr = 1;
+     call buffer_string(symbol.symbol_nameptr->symbol_name);
+     call buffer_bin15(symbol.symbol_type);
+     if (symbol.symbol_type = SYM$STRING | symbol.symbol_type =
+               SYM$AVA_NAME | symbol.symbol_type = SYM$ALIAS) then
+          call buffer_string(i2p(symbol.symbol_value)->symbol_value_str);
+     else if (symbol.symbol_type = SYM$BITSTRING) then
+          call buffer_bitstring(i2p(symbol.symbol_value));
+     else if (symbol.symbol_type = SYM$INTEGER | symbol.symbol_type =
+               SYM$AVATAR | symbol.symbol_type = SYM$OBJECT | symbol.
+               symbol_type = SYM$REGION) then
+          call buffer_bin31(symbol.symbol_value);
+     else if (symbol.symbol_type = SYM$MACRO) then
+          if (^save_code(i2p(symbol.symbol_value))) then
+               return;
+     call s$seq_write(port, buf_ptr - 1, big_buf_str, rc);
+     if (rc ^= 0) then
+          call error('writing to environment file');
+end save_symbol;
+
+buffer_bin15: procedure(num);
+     declare num binary(15);
+     declare bin15 binary(15) based;
+
+     addr(big_buf(buf_ptr))->bin15 = num;
+     buf_ptr = buf_ptr + 2;
+end buffer_bin15;
+
+buffer_bin31: procedure(num);
+     declare num binary(31);
+     declare bin31 binary(31) based;
+
+     addr(big_buf(buf_ptr))->bin31 = num;
+     buf_ptr = buf_ptr + 4;
+end buffer_bin31;
+
+buffer_string: procedure(str);
+     declare str character(*) varying;
+     declare bin15 binary(15) based;
+
+     addr(big_buf(buf_ptr))->bin15 = length(str);
+     buf_ptr = buf_ptr + 2;
+     substr(big_buf_str, buf_ptr, length(str)) = substr(str, 1, length(str));
+     buf_ptr = buf_ptr + length(str);
+end buffer_string;
+
+buffer_bitstring: procedure(bptr);
+     declare bptr pointer;
+     declare 1 bstr based(bptr) like vbit_struct;
+     declare bin15 binary(15) based;
+     declare bit32 bit(32) based;
+
+     addr(big_buf(buf_ptr))->bin15 = bstr.len;
+     buf_ptr = buf_ptr + 2;
+     addr(big_buf(buf_ptr))->bit32 = bstr.bits;
+     buf_ptr = buf_ptr + 4;
+end buffer_bitstring;
+
+unsave_environ: procedure;
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare rc binary(15);
+
+     automacro_codeptr = null();
+     call s$attach_port('', env_path, 0, env_port, rc);
+     if (rc = 0) then
+          call s$open(env_port, IO_SEQUENTIAL, MAX_RECORD_SIZE, IO_UPDATE,
+               IO_SET_LOCK_DONT_WAIT, IO_SEQ_ACCESS, '', rc);
+     if (rc ^= 0) then do;
+          if (rc = e$file_in_use) then
+               call fatal_error('environment file "' || env_path || '" is being used by someone else.');
+          else
+               call fatal_error('can''t open environment file "' || env_path || '".');
+     end;
+     do while (unsave_symbol(env_port) ^= null());
+          ;
+     end;
+end unsave_environ;
+
+unsave_symbol: procedure(port) returns(pointer);
+     declare result pointer;
+     declare value binary(31);
+     declare data_type binary(15);
+     declare nameptr pointer;
+     declare name character(1000) varying based(nameptr);
+     declare port binary(15);
+     declare rc binary(15);
+     declare max_buf binary(15);
+
+     buf_ptr = 1;
+     call s$seq_read(port, BUF_LIMIT, max_buf, big_buf_str, rc);
+     if (rc ^= 0) then do;
+          if (rc ^= e$end_of_file) then
+               call error('reading from environment file');
+          return(null());
+     end;
+     nameptr = unbuffer_string();
+     data_type = unbuffer_bin15();
+     if (data_type = SYM$STRING | data_type = SYM$AVA_NAME |
+               data_type = SYM$ALIAS) then
+          value = p2i(unbuffer_string());
+     else if (data_type = SYM$BITSTRING) then
+          value = p2i(unbuffer_bitstring());
+     else if (data_type = SYM$INTEGER | data_type = SYM$AVATAR |
+               data_type = SYM$OBJECT | data_type = SYM$REGION) then
+          value = unbuffer_bin31();
+     else if (data_type = SYM$MACRO) then do;
+          value = p2i(unsave_code());
+          if (name = 'automacro') then
+               automacro_codeptr = i2p(value);
+     end;
+     return(define_symbol(name, data_type, value, true));
+end unsave_symbol;
+
+unbuffer_bin15: procedure returns(binary(15));
+     declare result binary(15);
+     declare bin15 binary(15) based;
+
+     result = addr(big_buf(buf_ptr))->bin15;
+     buf_ptr = buf_ptr + 2;
+     return(result);
+end unbuffer_bin15;
+
+unbuffer_bin31: procedure returns(binary(31));
+     declare result binary(31);
+     declare bin31 binary(31) based;
+
+     result = addr(big_buf(buf_ptr))->bin31;
+     buf_ptr = buf_ptr + 4;
+     return(result);
+end unbuffer_bin31;
+
+unbuffer_string: procedure returns(pointer);
+     declare result pointer;
+     declare str character(1000) varying based(result);
+     declare len binary(15);
+     declare bin15 binary(15) based;
+
+     len = addr(big_buf(buf_ptr))->bin15;
+     buf_ptr = buf_ptr + 2;
+     result = alloc((len + 2) * 8, 22);
+     str = substr(big_buf_str, buf_ptr, len);
+     buf_ptr = buf_ptr + len;
+     return(result);
+end unbuffer_string;
+
+unbuffer_bitstring: procedure returns(pointer);
+     declare result pointer;
+     declare bin15 binary(15) based;
+     declare bit32 bit(32) based;
+
+     result = alloc(size(vbit_struct), 23);
+     result->vbit_struct.len = addr(big_buf(buf_ptr))->bin15;
+     buf_ptr = buf_ptr + 2;
+     result->vbit_struct.bits = addr(big_buf(buf_ptr))->bit32;
+     buf_ptr = buf_ptr + 4;
+     return(result);
+end unbuffer_bitstring;
+
+buffer_overflow: procedure returns(bit(1));
+     if (buf_ptr > BUF_LIMIT) then do;
+          call error('PANIC: save buffer overflow!');
+          call error('macro too large to save');
+          return(true);
+     end;
+     return(false);
+end buffer_overflow;
+
+verify_access: procedure;
+     declare user_name character(65) varying;
+     declare acc_port binary(15);
+     declare rc binary(15);
+     declare read_len binary(15);
+     declare done bit(1);
+     declare dummy_symbolptr pointer;
+     declare general_access_integer binary(31);
+     %replace ACCESS_FILE_NAME by '%cvideo#d010>lucas>toolbox>ghu_access';
+
+     call s$get_user_name(user_name);
+     dummy_symbolptr = define_symbol('user_name', SYM$STRING,
+          p2i(copy_string(user_name)), false);
+     call s$attach_port('', ACCESS_FILE_NAME, 0, acc_port, rc);
+     if (rc = 0) then
+          call s$open(acc_port, IO_SEQUENTIAL, MAX_RECORD_SIZE, IO_INPUT,
+               IO_SET_LOCK_DONT_WAIT, IO_SEQ_ACCESS, '', rc);
+     if (rc ^= 0) then
+          call fatal_error('can''t open access control file "' ||
+               ACCESS_FILE_NAME || '".');
+     done = false;
+     do while (^done);
+          call s$seq_read(acc_port, BUF_LIMIT, read_len, big_buf_str, rc);
+          if (rc ^= 0) then do;
+               if (rc ^= e$end_of_file) then
+                    call fatal_error('reading access control file');
+               else do;
+                    general_access = false;
+                    general_access_integer = 0;
+                    done = true;
+               end;
+          end; else do;
+               if (substr(big_buf_str, 1, read_len) = user_name) then do;
+                    general_access = true;
+                    general_access_integer = 1;
+                    done = true;
+               end;
+          end;
+     end;
+     dummy_symbolptr = define_symbol('general_access', SYM$INTEGER,
+          general_access_integer, false);
+end verify_access;
+

@@ -1,0 +1,17 @@
+@region $ dnalsi_63 {
+    north: dnalsi_64.l;
+    south: dnalsi_62.l;
+    east: dnalsi_73.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:1; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @ground { x:84; y:2; or:188; }
+        @tree { x:44; y:28; or:72; style:2; gr_state:1; }
+        @tree { x:0; y:28; or:72; style:2; }
+        @tree { x:112; y:135; or:64; style:2; }
+        @tree { x:28; y:64; or:72; style:2; gr_state:3; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @sky { x:84; y:1; or:0; style:4; }
+    ]
+}

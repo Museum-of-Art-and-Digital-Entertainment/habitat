@@ -1,0 +1,240 @@
+.AM
+.ds Dq October 13, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Gateway Development\s-9
+.AU
+products and activities that extend Habitat\*T
+
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GATEWAYS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 24
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+5Introduction\s-5
+.PP
+What we have been calling a \fIGateway Developer's Toolkit\fR is a package of
+software and documentation to allow third-party developers to develop new
+products based on the \fIHabitat\fP system.  As I see it, there are actually
+three levels of involvement to consider.  These are:
+.IP "\ \ \ \ \(sq\ "
+Realm Development
+.IP "\ \ \ \ \(sq\ "
+World Development
+.IP "\ \ \ \ \(sq\ "
+Universe Development
+.LP
+I'll talk about each of these in turn.
+.SH
+\s+5Realm Development\s-5
+.PP
+A \fIrealm\fP, in our terminology, is a collection of \fIHabitat\fP regions
+sharing a common theme and purpose.  \fIRealm development\fR is the creation
+of new realms for use within the existing \fIHabitat\fP world.  The \fIRealm
+Developer's Toolkit\fR will be a package to enable third parties to do this.
+New realms use the existing \fIHabitat\fP software (both host and Commodore
+64) and an existing \fIHabitat\fP data disk.
+.PP
+Realm development involves the following activities:
+.IP "\ \ \ \ \(sq\ "
+Design, definition, and generation of regions.
+.IP "\ \ \ \ \(sq\ "
+Definition and assignment of inter-region connectivity and topology.
+.IP "\ \ \ \ \(sq\ "
+Definition, creation, and placement of objects (using an existing object set).
+.IP "\ \ \ \ \(sq\ "
+Definition and distribution of ``printed matter'' (books, notes, signs, etc.).
+.IP "\ \ \ \ \(sq\ "
+Definition of various ancillary databases (e.g., TelePort addresses).
+.PP
+Realm development requires the developer to create a set of entries for each
+of the various host system \fIHabitat\fP databases.  Collectively, these
+database entries describe everything about a set of regions and their
+contents.
+.PP
+Realm developers will create new realms using the \fIRealm Developer's
+Toolkit\fR.  This is a package of software and documentation that makes it
+possible for them to generate the appropriate files, suitable for uploading to
+QuantumLink.  The toolkit consists of a special editor program, the \fIRealm
+Editor\fR, an ordinary \fIHabitat\fP object data disk, and a thick manual, the
+\fIRealm Developer's Guidebook\fR.
+.PP
+The \fIRealm Editor\fR is an editor program that runs on the Commodore 64.  It
+generates, on a Commodore 64 diskette, a standard set of data files in a
+standard format.  These files collectively describe a realm in all the
+specificity that the host requires to generate the correct set of
+\fIHabitat\fP database entries for it.  The Realm Editor is dual-moded.
+.PP
+In \fIRealm Mode\fR it allows the developer to manipulate the global
+properties of a realm \(em what regions it contains, their interconnectivity
+and their orientations with respect to each other.
+.PP
+In \fIRegion Mode\fR it allows the developer to manipulate the individual
+regions themselves.  A region is defined by its contents: a set of objects and
+their properties.  The developer can create and delete these objects, and
+modify their state information, such as location, color, graphic state, and so
+on.  The editor displays the composite image that results from putting all
+these objects together, so that the developer can see what he has wrought.
+.PP
+Once the developer has created a realm definition using the Realm Editor, he
+must transfer his creation to the host system so that it can be installed in
+the world.  This is accomplished by uploading the files that were output by
+the Realm Editor, together with any additional supporting material, such as
+text for books and documentation for the system operators (these text files
+may be created with whatever conventional Commodore 64 text-editing program
+the developer cares to use).  A special program on the host, called the
+\fIRealm Database File Translator\fR, converts the uploaded files into the
+appropriate host database entries, which can then be examined, tested, or
+installed in the running system.
+.PP
+The \fIRealm Developer's Guidebook\fR is the developer's bible, documenting
+both the Realm Editor itself and the whole process of realm development.  This
+will include various ``tricks of the trade'', rules of thumb, and general
+guidelines for making a realm that is interesting and self-consistent.  As
+part of the \fIGuidebook\fP, there will be one or more \fIObject Manuals\fR
+\(em one for each object disk that we support (initially, of course, there
+will be only one of these).  An \fIObject Manual\fR is a reference guide that
+describes each of the objects on an object disk: what it looks like, what it
+does, what its state variables are and how they are used, and what sorts of
+things the object can be used for.
+.PP
+The current incarnation of the Realm Editor runs on a Commodore 64 connected
+via Fastlink\*T to a Sun Workstation.  Most of the region editing functions
+are performed by the Commodore 64, but the realm editing functions, as well as
+long-term file storage, are handled by the Sun.  To make it run as a
+standalone utility will require the addition of a few Region Mode functions
+(such as the creation of new objects) which are currently achieved by poking
+around the machine with Fastlink, and a means of saving the results to (and
+reading them back in from) a Commodore disk file.  The Realm Mode functions
+will also have to be coded.  Fortunately, we can build on top of the existing
+components for most of this.  In addition, since it must work from a regular
+\fIHabitat\fP object disk, we must add the appropriate interactive functions
+to handle disk swapping as needed.
+.PP
+Realm definitions currently pass through a variety of Unix utilities that
+eventually produce files suitable for transmission to Quantum.  These files
+are passed through a utility named \fIGenesis\fP that runs on the Stratus,
+producing the actual database entries.  The file format, though readily
+manipulated by both Unix- and Stratus-resident utility programs, is not
+suitable for use in the Realm Developer's Toolkit package because it is far
+too bulky for implementation on a Commodore 64.  This means that the \fIRealm
+Database File Translator\fR utility must still be written for the host system.
+.SH
+\s+5World Development\s-5
+.PP
+What we call \fIWorld Development\fR is the creation of new object sets that
+function within the existing \fIHabitat\fP universe.  This in turn results in
+the creation of new worlds with completely different imagery and game play but
+which build on top of the present software foundation.  In particular, these
+new worlds use the same main \fIHabitat\fP program and the same host region
+processor.  They replace the Commodore 64 object disk and the host object
+behavior routines.  World development involves the following activities:
+.IP "\ \ \ \ \(sq\ "
+Design of new artwork and animation.
+.IP "\ \ \ \ \(sq\ "
+Design of new sound effects.
+.IP "\ \ \ \ \(sq\ "
+Programming of new object behaviors.
+.IP "\ \ \ \ \(sq\ "
+Integration of newly generated elements into a complete Commodore 64 object
+disk.
+.IP "\ \ \ \ \(sq\ "
+Generation of new realms utilizing the new object set.
+.PP
+Essentially, world development requires the developer to create a set of
+entries for each of the various Commodore 64 system \fIHabitat\fP databases
+that reside on the object disk, and then to create one or more realms to
+match.  Since each object also has a software component that resides on the
+host, programming the host computer is also required.
+.PP
+World development subsumes realm development, since any new object disk will
+require a new set of realms to go with it.  Furthermore, the same set of
+software tools for realm generation may be applied to a new object disk
+without change.  However, world development requires more effort and results
+in a more invasive change to the system since it \fIdoes\fP require additional
+programming (to implement the object behaviors) both for the Commodore 64 and
+for the host, whereas realm development requires no special programming.
+.PP
+Given detailed specifications for the Commodore 64 disk database formats, the
+data formats and capabilities of the cel animation engine, the choreography
+engine and the sound effects driver, the specifics of both the host and the
+Commodore 64 object behavior execution environments, and the object-message
+communications protocol, it is conceivable that one could generate a new
+``world'' without special assistance (a new world, in this context, is a
+functioning Commodore 64 object disk and a set of host object behavior
+routines to match).  However, the complexity of this task would be somewhat
+daunting, since a developer would have to spend a while developing some
+specialized software tools.  We have such specialized utilities for our
+development system, but they are not likely to port easily to other
+environments.  These utilities include:
+.IP "\ \ \ \ \(sq\ "
+\fIAnimation Cel Editor\fR \(em a utility that enable the creation of cel
+images for objects and avatars.  It is essentially a graphics editor with a
+built-in animation capability that mirrors that found in the \fIHabitat\fP
+main program.
+.IP "\ \ \ \ \(sq\ "
+\fIHabitat Sound Effects Editor\fR \(em a utility that enables the creation of
+sound effects for objects.  It is essentially an interactive front-end for the
+\fIHabitat\fP sound driver that lets the user manipulate the contents of a
+sound effect definition directly.
+.IP "\ \ \ \ \(sq\ "
+\fIMacross\fR \(em a very powerful macro assembler, for which we have
+developed a set of macros to ease coding of object behaviors.
+.IP "\ \ \ \ \(sq\ "
+\fIMuddle\fR \(em a utility that takes the various images, sound effects and
+fragments of object behavior code and generates the tables and files that go
+on a \fIHabitat\fP object disk.
+.LP
+In addition we understand how the various pieces of the system fit together.
+In sum, the mechanisms of world creation are not readily transferred to other
+developer's, though it would not be impossible given copious documentation.
+.PP
+Host object behaviors are coded in PL/1 using the conventional Stratus
+software development tools.  They are then compiled and bound directly into
+the region processor program.  Each world must therefor have a separate region
+processor that combines the generic region processing part of the program with
+a set of world-specific object behavior routines.  Coding these routines also
+requires specialized knowledge, though it can be simplified by use of certain
+utility subroutines which we have developed.  Since world development does
+require programming the host, world developers would have to be carefully
+screened and any world development efforts could only take place within the
+enclosure of appropriate, detailed legal agreements between Quantum,
+ourselves, and the developers.
+.SH
+\s+5Universe Development\s-5
+.PP
+By \fIUniverse Development\fR we mean the creation of entirely new systems
+based on some or all of the underlying \fIHabitat\fP structural components.
+Universe development involves the creation of complete systems that do not
+necessarily have to be compatible with the existing \fIHabitat\fP system in
+any way (although they could be if we so desired).  Components of the existing
+system would simply be used to reduce the amount of work required and to
+minimize ``reinventing the wheel''.
+.PP
+Commodore 64 software components of the existing system that could be useful
+in \fIHabitat\fP-technology spinoff products include the RS-232 port driver,
+Q-Link message protocol handler, Habitat object-message protocol handler,
+Habitat user interface routines, cel animation engine, high-speed
+interruptible disk I/O routines, sound effects driver, and object
+database/memory manager.  Useful host software components include the message
+I/O routines, region processor and object database engine, as well as the
+entire support infrastructure of the broader Q-Link system.
+.PP
+While these are all useful building blocks, they do not lend themselves
+readily to being individually separated for distribution to other developers.
+Instead, they represented the cumulative expertise of the Lucasfilm and
+QuantumLink technical staffs in the implementation of systems of this type.
+In other words, it would be \fIvery\fP difficult to make these components
+available to another developer, but they are readily available to us if we
+choose to implement additional systems based on \fIHabitat\fP, and they will
+considerably reduce the time and expense of developing such systems if we use
+them.

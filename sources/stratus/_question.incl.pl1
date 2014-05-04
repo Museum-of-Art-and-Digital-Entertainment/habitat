@@ -1,0 +1,7 @@
+
+     10 originator       binary(31),              /* uid of player who asked */
+     10 time_asked       binary(31),              /* standard timestamp      */
+     10 time_answered    binary(31),
+     10 who_answered     binary(15),
+     10 text             character(128) varying;
+

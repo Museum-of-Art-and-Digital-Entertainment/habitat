@@ -1,0 +1,29 @@
+@region $ Street_Rd_931_interior {
+    east: Street_Rd_931_front.l;
+    region_owner: 0.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:4; or:220; style:1; }
+        @wall { x:0; y:0; or:172; style:4; }
+        @window { x:48; y:56; or:0; style:1; }
+        @couch { x:44; y:130; or:0; }
+        @chest { x:8; y:32; or:252; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @door { x:120; y:33; or:172; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @floor_lamp { x:100; y:133; or:48; 
+            8:1;
+        }
+        @window { x:88; y:56; or:0; style:1; }
+        @house_cat { x:8; y:131; or:120; }
+        @knick_knack { x:12; y:87; or:0; style:3; gr_state:3; 
+            8:0;
+        }
+    ]
+}

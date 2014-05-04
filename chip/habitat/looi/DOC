@@ -1,0 +1,7 @@
+/u0/chip/habitat/looi: OBJECT
+
+	This directory contains the code for Looi, the Low Overhead Object
+Interpreter.  This was originally a design for a low overhead object behavior
+lookup and dispatch processor for the Habitat host system.  It was superceded
+by the Stratus PL/1 stuff that we currently use.  The files here are of
+historical interest only.

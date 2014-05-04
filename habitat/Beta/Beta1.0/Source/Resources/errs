@@ -1,0 +1,84 @@
+cp org_statement temp.m
+cat atm_thinking.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > atm_thinking.bin
+block addr = 0x1000, bytecount = 0x005d, last addr = 0x105c
+lo = 0x1000 hi = 0x105c length = 93
+cp org_statement temp.m
+cat door_closing.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > door_closing.bin
+block addr = 0x1000, bytecount = 0x001c, last addr = 0x101b
+lo = 0x1000 hi = 0x101b length = 28
+cp org_statement temp.m
+cat door_opening.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > door_opening.bin
+block addr = 0x1000, bytecount = 0x0036, last addr = 0x1035
+lo = 0x1000 hi = 0x1035 length = 54
+cp org_statement temp.m
+cat teleport_departure.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > teleport_departure.bin
+block addr = 0x1000, bytecount = 0x0016, last addr = 0x1015
+lo = 0x1000 hi = 0x1015 length = 22
+cp org_statement temp.m
+cat digging.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > digging.bin
+block addr = 0x1000, bytecount = 0x003a, last addr = 0x1039
+lo = 0x1000 hi = 0x1039 length = 58
+cp org_statement temp.m
+cat titles_music_v0.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v0.bin
+block addr = 0x1000, bytecount = 0x0109, last addr = 0x1108
+lo = 0x1000 hi = 0x1108 length = 265
+cp org_statement temp.m
+cat titles_music_v0.spb >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v0.pwbin
+block addr = 0x1000, bytecount = 0x0011, last addr = 0x1010
+lo = 0x1000 hi = 0x1010 length = 17
+cp org_statement temp.m
+cat titles_music_v1.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v1.bin
+block addr = 0x1000, bytecount = 0x00fd, last addr = 0x10fc
+lo = 0x1000 hi = 0x10fc length = 253
+cp org_statement temp.m
+cat titles_music_v1.spb >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v1.pwbin
+block addr = 0x1000, bytecount = 0x0018, last addr = 0x1017
+lo = 0x1000 hi = 0x1017 length = 24
+cp org_statement temp.m
+cat titles_music_v2.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v2.bin
+block addr = 0x1000, bytecount = 0x00c3, last addr = 0x10c2
+lo = 0x1000 hi = 0x10c2 length = 195
+cp org_statement temp.m
+cat titles_music_v2.spb >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > titles_music_v2.pwbin
+block addr = 0x1000, bytecount = 0x0011, last addr = 0x1010
+lo = 0x1000 hi = 0x1010 length = 17
+cp org_statement temp.m
+cat region_change_music_v0.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > region_change_music_v0.bin
+block addr = 0x1000, bytecount = 0x0011, last addr = 0x1010
+lo = 0x1000 hi = 0x1010 length = 17
+cp org_statement temp.m
+cat region_change_music_v1.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > region_change_music_v1.bin
+block addr = 0x1000, bytecount = 0x0013, last addr = 0x1012
+lo = 0x1000 hi = 0x1012 length = 19
+cp org_statement temp.m
+cat region_change_music_v2.sob >>temp.m
+macross temp.m  -o m.out
+loadrom -p 0 -t < m.out > region_change_music_v2.bin
+block addr = 0x1000, bytecount = 0x0025, last addr = 0x1024
+lo = 0x1000 hi = 0x1024 length = 37

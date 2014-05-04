@@ -1,0 +1,689 @@
+.AM
+.ds Dq March 10, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+.ds [ \s+1\z[\h'1p'\z[\h'-1p'\s-1\0
+.ds ] \s+1\z]\h'-1p'\z]\s-1\0
+.ds Z \s+1\z]\h'-1p'\z]\h'3p'\z*\s-1\0
+\s+9Functional specs
+
+for Ghu\s-9
+.AU
+(God's Handy Utility)
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GHU
+.ds CH \\*(Dq
+.ds RH Habitat Document # 23a
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the preliminary specifications for \fBGhu\fR, a
+utility for Habitat\*T operators on the host system.  The document is
+substantially revised from an earlier version.
+.PP
+The specific details of the function set, command syntax and so on are not
+final at this point.  This document is intended to be the starting point for
+discussion.  We anticipate that the design described here will change
+considerably as it evolves.  In particular, Quantum's technical advice and
+operational policies may lead to considerable changes to the design that
+follows.  Throughout the document, italicized parenthetical comments \fI(like
+this one)\fR indicate possible alternate approaches to things.
+.SH
+\s+3What It's For\s-3
+.PP
+\fBGhu\fP is meant to be a full-featured operator's utility for the Habitat
+system.  Many of the functions described here are redundant with
+\fBTwiddle\fR; in fact, the starting point for this definition is the
+\fBTwiddle\fR command set.  In many respects, \fBGhu\fP will just be a sort of
+``\fBSuper Twiddle\fR''.  However, a major distinction between \fBGhu\fR and
+\fBTwiddle\fR is that \fBGhu\fR is intended to be capable of dealing with
+active regions.  Like \fBTwiddle\fR, \fBGhu\fP is intended to be run from an
+ASCII terminal connected to the Stratus host by Quantum and Lucasfilm
+operational personnel (i.e., ``Authorized Personnel Only'').
+.PP
+\fBGhu\fP is not intended to be a substitute for the ``god'' functions that
+can be made available to privileged users using special magical objects or
+hidden features in the Commodore 64 software (e.g., Avatar invisibility).
+These operate from \fIwithin\fP the Habitat environment and are generally
+tailored to specific tasks.  Nor is \fBGhu\fP supposed to offer a major handle
+on the task of large-scale creation of regions and their contents, even though
+it will be of significant use in this.  The bulk of this task will be dealt
+with by other utilities.  The job of \fBGhu\fP is to provide a \fIgeneral\fP
+mechanism for \fImanaging\fP the world.
+.SH
+\s+3Functional Overview\s-3
+.PP
+\fBGhu\fP is a line-oriented utility.  It reads lines from the terminal,
+parses them into commands, and executes the commands.  It is not designed as a
+visual, CRT-oriented program since it must be usable over something like
+Telenet.  \fI(It may be that we wish to create an alternate ``\fIVisual
+Ghu'' version for use with directly connected terminals.  This obviously
+could be much zippier in its interaction.  However, our perspective is from
+2500 miles away and we always have to talk to the Stratus through Telenet,
+which keeps us painfully focused on a line-oriented front-end.)\fR
+.PP
+Specific design goals of \fBGhu\fP include the following:
+.IP "\ \ \ \ \(bu\ "
+Access to the states of objects in \fIboth\fP the disk database and the
+running (i.e., in memory) system.
+.IP "\ \ \ \ \(bu\ "
+Incorporation of knowledge about all the different databases and executing
+processes that make up the Habitat system.
+.IP "\ \ \ \ \(bu\ "
+Specification of input data in a variety of formats (e.g., hex \fIand\fP
+decimal \fIand\fP ASCII strings).
+.IP "\ \ \ \ \(bu\ "
+Definition of symbolic names for frequently used values.
+.IP "\ \ \ \ \(bu\ "
+Allowance for simple expressions wherever values are required.
+.IP "\ \ \ \ \(bu\ "
+``One shot'' commands issuable directly on the \fBGhu\fP command line from VOS
+command level.
+.IP "\ \ \ \ \(bu\ "
+Frequent operations accomplishable with a single command rather than requiring
+a sequence of commands.
+.IP "\ \ \ \ \(bu\ "
+Incorporation of greater knowledge about specific details of different object
+properties (for example, it should understand that the high-bit of the
+Y-coordinate of an object distinguishes a background object from a foreground
+object, except for objects that are in containers in which case the
+Y-coordinate is the container slot) to save operator effort and validate data.
+.LP
+One feature in particular deserves special mention: \fBGhu\fP is intended to
+support virtually all possible manipulations and information retrieval
+functions associated with the various Habitat databases and the running
+Habitat environment.  Since we do not wish to allow every operator to
+have unlimited power over everything, \fBGhu\fP is designed with a very
+finely-grained privilege control mechanism that determines which capabilities
+are permitted to which accounts.
+.SH
+\s+3Privilege Control\s-3
+.PP
+This utility is designed to support every conceivable manipulation or query
+associated with any of the Habitat databases.  This makes it enormously
+powerful, and such power presents not only the security problems associated
+with deliberate misuse but those associated with accidental mishaps as well.
+Clearly, this power must be checked somehow.
+.PP
+One possible path to controlling \fBGhu\fP's power is to break it into a
+variety of separate utilities, each of which manages a particular aspect of
+the database.  This approach has merit; however, it entails considerable
+per-operation overhead and does not allow much state information to be carried
+between successive commands.
+.PP
+The approach we have chosen is to maintain a privileged database, much like a
+password file, of \fIpermission records\fR that specify what each \fBGhu\fP
+user may and may not do.  The permissions are very finely grained, so that we
+can limit particular individuals' control to particular parts of the universe
+or to particular roles.
+.PP
+For each \fBGhu\fP user, there is a set of global restrictions that limits the
+regions, Avatars and objects that the user can find out about or change.
+Specifically, for each of the three major databases (region, object and
+Avatar) we maintain two \fIrestriction lists\fP: a \fIread restriction list\fR
+and a \fIwrite restriction list\fR.  Each of these lists is an ordered set of
+pairs of global ID numbers.  A user may only access a database record if the
+global ID of the record is within the range of one of these pairs on the list
+appropriate to the database and access type sought.
+.PP
+In addition to the global restrictions, there are restrictions associated with
+each command that limit the use of that command.  The nature of these
+restrictions varies with the command, so they are described below with the
+commands themselves.
+.SH
+\s+3Types, Values and Expressions\s-3
+.PP
+In a number of the commands described below, one must provide a global ID
+number for some entity in one of the databases.  Since the key-spaces for the
+databases overlap (potentially if not in fact), it is necessary to indicate,
+in addition to the global ID number, what sort of entity it is that one is
+referring to.  Many of the command definitions refer to something called an
+\fIobspec\fR, which is an object specifier.  It has the following form:
+.IP
+\*[ \fItype\fR \*] \fIvalue\fR
+.LP
+Where:
+.LP
+\fItype\fR is one of the five letters \fCa\fR (for Avatar), \fCo\fR (for
+Object), \fCr\fR (for Region), \fCs\fR (for String) or \fCu\fR (for Undefined,
+i.e., no particular type is intended).  If \fItype\fR is omitted or is
+\fCu\fR, a default is chosen that is based on the particular type of command
+being executed.  In the definitions below, this default is indicated by a
+letter after a hyphen (``-'') character in the particularly syntactic entity
+in question.  For example, \fIobspec-r\fR refers to an \fIobspec\fR whose
+default type is Region.
+.LP
+\fIvalue\fR is either a number, a string, a symbolic name (defined using the
+\fCname\fR command, which is described below), or a simple expression.
+.PP
+A number may be specified in any of a number of different radix formats.  For
+the sake of eliminating arguments about which is ``better'' (and at the
+expense of slight complication to the spec) we have chosen to adopt both the
+Unix-derived representations that we use at Lucasfilm and the PL/1 derived
+representation used by Quantum, since this can be done without significant
+ambiguity.
+.IP "\ \ \ \ \(bu\ "
+Decimal \(em a decimal number is represented by one or more decimal digits,
+the first of which may not be \fC0\fP (e.g., \fC47\fP, \fC3\fP,
+\fC123786432333\fP, etc.)
+.IP "\ \ \ \ \(bu\ "
+Octal \(em an octal number is represented by zero or more octal digits,
+preceded by a \fC0\fP digit (e.g., \fC0377\fP, \fC022\fP, \fC0\fP, \fC047\fP,
+etc.).  Alternatively, a series of octal digits enclosed in apostrophes and
+followed by \fCb3\fP may be used (e.g., \fC'377'b3\fR, \fC'22'b3\fR,
+\&\fC'0'b3\fR, \fC'47'b3\fR, etc.)
+.IP "\ \ \ \ \(bu\ "
+Hexadecimal \(em a hex number is represented by one or more hex digits,
+preceded by \fC0x\fR or \fC0X\fR (e.g., \fC0xf000\fP, \fC0x80\fP,
+\&\fC0X10FF\fP, \fC0x0\fP, etc.).  Note that case is not significant in the
+hex digits \fCa\fP through \fCf\fP.  Alternatively, a series of hex digits
+enclosed in apostrophes and followed by \fCb4\fP may be used (e.g.,
+\&\fC'f000'b4\fR, \fC'80'b4\fR, \fC'10ff'b4\fR, \fC'0'b4\fR, etc.)
+.IP "\ \ \ \ \(bu\ "
+Binary \(em a binary number is represented by one or more binary digits (i.e.,
+\&\fC0\fP or \fC1\fP) preceded by \fC0b\fP or \fC0B\fP (e.g.,
+\&\fC0b10101010\fP, \fC0B111\fP, \fC0b10001\fP, etc.)  Alternatively, a series
+of binary digits enclosed in apostrophes and followed by \fCb\fP may be used
+(e.g., \fC'10101010'b\fR, \fC'111'b\fR, \fC'10001'b\fR, etc.)
+.IP "\ \ \ \ \(bu\ "
+Quarters \(em a quarter (base-4 number) is represented by one or more base-4
+digits preceded by \fC0q\fP or \fC0Q\fP (e.g., \fC0q1230\fP, \fC0q2020\fP,
+\&\fC0Q0013\fP, etc.)  Alternatively, a series of base-4 digits enclosed in
+apostrophes and followed by \fCb2\fP may be used (e.g., \fC'1230'b2\fR,
+\&\fC'2020'b2\fR, \fC'0013'b2\fR, etc.)
+.PP
+A string is represented by a series of characters enclosed in apostrophes or
+quotation marks (e.g., \fC"hello world."\fR or \fC'this is a string'\fR).
+Non-printing and special characters may be embedded in the string by using the
+backslash character (``\fC\\\fR'') as an escape followed by an indicator
+character (we are borrowing this from Unix).  The escape character codes are:
+.nf
+
+	\fC\\n\fR		newline
+	\fC\\t\fR		horizontal tab
+	\fC\\b\fR		backspace
+	\fC\\r\fR		carriage return
+	\fC\\f\fR		form feed
+	\fC\\e\fR		escape
+	\fC\\\\\fR		backslash
+	\fC\\'\fR		apostrophe
+	\fC\\"\fR		quote
+	\fC\\^\fIc\fR		CONTROL-\fIc\fR (where \fIc\fR is any character).
+	\fC\\\fIddd\fR		arbitrary byte (where \fIddd\fR is one, two or three octal digits).
+	\fC\\x\fIhh\fR		arbitrary byte (where \fIhh\fR is one or two hexadecimal digits).
+
+.fi
+.PP
+A symbolic name is represented as a sequence of alphanumeric characters, the
+first of which may not be a decimal digit.  Names may also contain the
+characters underscore (``\fC_\fR'') and dollar sign (``\fC$\fR'').  The case
+of alphabetic characters in symbolic names \fIis\fP significant.
+.PP
+In general, anyplace where a \fIvalue\fR is called for a simple expression may
+be given.  The expression syntax is:
+.LP
+.nf
+	\fInumber\fR
+	\fIstring\fR
+	\fIname\fR
+	\fC- \fIexpression\fR
+	\fC^ \fIexpression\fR
+	\fC( \fIexpression\fC )\fR
+	\fIexpression\fC + \fIexpression\fR
+	\fIexpression\fC - \fIexpression\fR
+	\fIexpression\fC * \fIexpression\fR
+	\fIexpression\fC / \fIexpression\fR
+	\fIexpression\fC & \fIexpression\fR
+	\fIexpression\fC | \fIexpression\fR
+	\fIexpression\fC ^ \fIexpression\fR
+	\fIobspec-o\fC . \fIfield\fR
+.fi
+.LP
+The operators all have their usual meanings and precedences: \fC+\fR, \fC-\fR,
+\fC*\fR and \fC/\fR indicate addition, subtraction, multiplication and
+division respectively; \fC&\fR, \fC|\fR and \fC^\fR represent bitwise AND, OR
+and XOR (exclusive-OR); unary \fC-\fR and \fC^\fR indicate arithmetic and
+bitwise negation.  Unary operators take precedence over binary operators and
+multiplicative operators over additive.  Parentheses may be used at any point
+to control the order of evaluation.
+.PP
+The \fC.\fR operator may be used to select the value of a field of an object,
+Avatar or region.  This value will be read from the database, independent of
+the ``working entity''.  Be careful about using values that have been changed
+but not updated, since this sort of expression will always yield the old
+(pre-change) value.
+.PP
+Each term in an expression has a type.  The type of a \fInumber\fR is \fCu\fR.
+The type of a \fIstring\fR is \fCs\fR.  The type of a \fIname\fR is assigned
+when the name is defined.  The type of a unary operator term or of a
+parenthesized sub-expression is simply the type of the \fIexpression\fR being
+operated upon.  The type of a binary operator term is chosen from the types of
+the two sub-expressions as follows: if the two sub-expressions have the same
+type, then the result has this type; else if one of the two sub-expressions
+has type \fCu\fR, then the result has the type of the other (non-\fCu\fR)
+sub-expression; otherwise an error results from trying to combine two
+incompatible types.
+.PP
+Note that since there are no string operators, expressions involving strings
+per se are rather silly.  In arithmetic expressions, we treat a single
+character string as a number whose value is the value of the 8-bit ASCII code
+for the character in the string.  Similarly, two-character strings represent
+16-bit numbers and so on.  We do \fInot\fP adopt the nearly useless PL/1
+convention of trying to convert the string containing the characters \fC'4'\fR
+and \fC'7'\fR into the number 47.
+.SH
+\s+3The Commands\s-3
+.PP
+The specifics of the various commands will be described shortly.  First, some
+general information:
+.PP
+The command names have been chosen so that they are unique in the first few
+characters.  Single letter abbreviations are usually possible.  However, any
+unambiguous initial substring of a command name is an acceptable abbreviation.
+.PP
+In general, commands are terminated by the end of the line, but multiple
+commands may be given on a line separated by semicolons (``\fC;\fR'').  A
+single command can be spread over multiple lines by ending all but the final
+line with a backslash (``\fC\\\fR'');
+.PP
+Any command may be followed by
+.nf
+		\fC> \fIfilename\fR
+.fi
+or
+.nf
+		\fC>> \fIfilename\fR
+.fi
+in which case the printed output generated by the command is written to the
+given file instead of to the terminal.  If \fC>>\fR was specified, the output
+is appended to the file; otherwise the output replaces the file's previous
+contents.
+.SH
+General Ghu Environment Manipulation
+.sp
+.LP
+\fChelp \fR\*[ \fIcommand\fR \*]
+.PP
+If no \fIcommand\fR is given, print out a list of the available commands along
+with a quick one-liner description of each.  If a \fIcommand\fR is given,
+print out a screen worth of explanation of that command.
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCname \fIname\fR \*[\fC =  \fR\*] \fIobspec-u\fR
+.PP
+Assigns the symbolic name \fIname\fR the type and value specified by
+\fIobspec\fR.  The type associated with \fIname\fR will be whatever the type
+of \fIobspec\fR happens to be.
+.PP
+Certain names are predefined by \fBGhu\fP automatically.  These include all
+the class numbers, represented by symbols of the form \fCclass_foo\fR.  In
+addition, any context where an Avatar user ID is expected, user names may be
+used as if they were defined symbols (though they won't actually be in
+\fBGhu\fP's list of predefined symbols since there are far too many of them).
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCallnames\fR
+.PP
+Prints out the names, values, and associated types of all symbolic names
+currently defined.
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCmacro \fIname\fR \*[\fC =  \fR\*] \fIstring\fR
+.PP
+Defines the macro \fIname\fP as the string \fIstring\fP.  Whenever the symbol
+\fIname\fP is encountered on a command line, it is textually replaced with
+\fIstring\fP.  Macros may call other macros (i.e., macro expansion continues
+until exhausted).
+.PP
+The ``pseudo-macro'' \fC$\fR is automatically defined in \fCset\fP commands as
+the current value of the field being set.  In addition, other macros may be
+defined by a standard definition file that \fBGhu\fP reads at the beginning of
+execution.  These standard macros will be used to encapsulate details about
+the internal configurations of various object properties.
+.fi
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCallmacros\fR
+.PP
+Prints out the names and definitions of all macros currently defined.
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCevaluate \fIvalue\fR
+.PP
+Simply prints out the type and value of \fIvalue\fR.  This is mostly to
+refresh one's memory as to the values of symbolic names, though it can also be
+used as a simple calculator.
+.LP
+Restrictions: none.
+.sp
+.LP
+\fCquit\fR
+.PP
+Exit \fBGhu\fR and return to the system command level.
+.LP
+Restrictions: allowed/not-allowed (enables us to have an account which may
+\fIonly\fP run \fBGhu\fP).
+.sp
+.LP
+\fCinput \fIfilename\fR
+.PP
+Read \fBGhu\fR commands from the indicated file, returning to terminal input
+upon reaching the end of the file.
+.LP
+Restrictions: only those on the input files themselves.
+.SH
+General Database Operations
+.sp
+.LP
+\fCcontents \fIobspec-r\fR
+.PP
+Prints a list of the entities contained by the entity specified by
+\fIobspec\fR (a region by default, though it may also be an object or an
+Avatar).  Each entity is listed on a line with its global ID and the values of
+its fundamental properties (x-y position, orientation, etc.).
+.LP
+Restrictions: \fIobspec\fP must be readable according to the global
+restrictions.
+.sp
+.LP
+\fCfind \fIobspec-o\fR
+.PP
+Print out the chain of containership from the entity \fIobspec\fR (an object
+by default, though it may also be an Avatar) to the outermost containing
+region, listing the global ID and class of each entity in the chain.
+.LP
+Restrictions: \fIobspec\fP must be readable according to the global
+restrictions.
+.sp
+.LP
+\fCget \fIobspec-o\fR
+.PP
+Makes the entity indicated by \fIobspec\fR the ``working'' entity.  By default
+it is an object, though it may also be a region or an Avatar.
+.LP
+Restrictions: \fIobspec\fP must be readable according to the global
+restrictions.
+.sp
+.LP
+\fCdisplay \fR\*[ \fIobspec-o\fR \*] \*[\fC . \fIfield\fR \*]
+.PP
+Makes the entity indicated by \fIobspec\fR (an object by default, though it
+may also be a region or an Avatar) the ``working'' entity and then prints out
+the values of its fields.  If \fIfield\fP is given, it only prints the value
+of that particular field.  If \fIobspec\fP is omitted, it defaults to the
+current ``working'' entity.
+.LP
+Restrictions: \fIobspec\fP, if given, must be readable according to the global
+restrictions.
+.sp
+.LP
+\fCset \fR\*[ \fIobspec-o\fC . \fR\*] \fIfield\fR \*[\fC =  \fR\*] \fIvalue\fR  \*[\fC! \fR\*]
+.PP
+Set the value of the property named by \fIfield\fR in the ``working'' entity
+to the value specified by \fIvalue\fR.  \fIvalue\fR must have a type that
+matches \fBGhu\fP's internal table definition for \fIfield\fP.  If \fIfield\fR
+is preceded by \fIobspec.\fR, the entity specified by \fIobspec\fR (an
+object by default, though it may also be a region or an Avatar) is first made
+the ``working'' entity.  If the command is terminated with an exclamation
+point (``\fC!\fR''), write the new version of the entity to the database as if
+an \fCupdate\fP command had been issued.
+.LP
+Restrictions: \fIobspec\fP, if given, must be readable according to the global
+restrictions.  It must also be writable if the \fC!\fR option is used.
+.sp
+.LP
+\fCupdate\fR \*[ \fIobspec-o\fR \*]
+.PP
+Write the ``working'' entity out to its associated database.  If the entity is
+in an active region and has been changed since the last read from the
+database, broadcast \f(CBFIDDLE\fR messages(s) to all the players in the
+region informing them of the change(s).  If \fIobspec\fP is explicitly
+specified, write the ``working'' entity to \fIobspec\fP's database record
+rather than to it's own.  If you do this, they must be the same type of entity
+and, if objects, of the same class; furthermore, certain fields of Avatar and
+region records are never changed by a write such as this.
+.LP
+Restrictions: the record must be writable according to the global
+restrictions.
+.sp
+.LP
+\fCadd \fR\*[ \fItype-o\fR \*] \*[ \fIclass\fR \*[ \fIvalue\fR \*[\fC, \fIvalue\fR \*Z \*] \*]
+.PP
+Create a new entity of the given type (an object by default).  One can specify
+its class (if it is an object) and the values of its property fields (in
+order) on the command line (any that are omitted will be prompted for).  The
+entity becomes the ``working'' entity.  If the entity is placed into an active
+region, broadcast a \f(CBHEREIS\fR request to all the players in the region
+informing them of the new item.
+.LP
+Restrictions: separate allowed/not-allowed flags for the creation of regions,
+objects, and Avatars.  In the case of the objects and Avatars, the containing
+region and/or object must be writable according to the global restrictions.
+In the case of objects, there is a further per-class allowed/not-allowed flag.
+.sp
+.LP
+\fCremove \fIobspec-o\fR
+.PP
+Effectively delete the specified entity (an object by default, though it may
+also be an Avatar) from the database by moving it to a ``limbo'' region.  If
+the entity is an Avatar its associated player must not be online and the
+player's user record should be updated to indicate that he or she no longer
+has an Avatar in the Habitat universe.  If the entity is in an active region,
+broadcast a \f(CBGOAWAY\fR request to all the players in the region informing
+them of the disappearance.
+.LP
+Restrictions: separate allowed/not-allowed flags for the removal of objects
+and Avatars.  Furthermore, \fIobspec\fP and its containing objects and regions
+must be writable according to the global restrictions.
+.SH
+Specialized Database Operations
+.sp
+.LP
+\fClist \fR\*[ \fIregionid1\fR \*] \*[ \fC--  \fR\*] \*[ \fIregionid2\fR \*] \*[ \fCactive\fR \*]
+.PP
+Print a list of the regions in the range from \fIregionid1\fR to
+\fIregionid2\fR (inclusive).  The \fIregionid\fR values must have type \fCr\fR
+or \fCu\fR.  If \fIregionid1\fR is omitted, it defaults to 0, i.e., the
+beginning of the database.  If \fIregionid2\fR is omitted, it defaults to
+\fBMAXINT\fR, i.e., the end of the database.  If only one \fIregionid\fR is
+given and the \fC--\fR is omitted, only the one region specified is listed.
+If both \fIregionid\fRs are omitted the \fC--\fR may be omitted as well.
+Omitting both means that the entire region database is to be listed.  If the
+keyword \fCactive\fR is given, only regions that are currently active (i.e.,
+memory resident) are listed.  For each region, the \fClist\fP command prints a
+line containing the region ID number, those of its four neighbors (-1 if there
+is no neighbor in a particular direction), the region's orientation, and the
+number of the regionproc with which the region is associated (if it is
+active).  For example,
+.LP
+.nf
+	\fClist 5		\fRlists region number 5
+	\fClist 5--10	\fRlists regions 5 through 10
+	\fClist 5--		\fRlists from region 5 to the end of the database
+	\fClist --10	\fRlists from the start of the database to region 10
+	\fClist --		\fRlists all regions
+	\fClist			\fRalso lists all regions
+	\fClist active	\fRlists all active regions
+.fi
+.sp
+.LP
+\fCnuke \fR\*[ \fIregionid1\fR \*] \*[ \fC-- \fIregionid2\fR \*]
+.PP
+Removes the specified regions from the database.  The regions are specified
+as in the \fClist\fP command, except that the ranges of regions must have
+explicit start and end numbers.  It is not possible to \fCnuke\fP active
+regions.
+.LP
+Restrictions: there is a restriction list for this command similar to the
+global restriction lists.  For most users, this list will be empty.
+.sp
+.LP
+\fCkill \fIobspec-a\fR
+.PP
+\fCkill\fR is similar to remove, but designed for online Avatars.  Kill the
+specified Avatar (i.e., start it going through the normal Avatar
+death-and-reincarnation cycle), sending the appropriate messages to the Avatar
+and to the other players in its region as if it been killed by one of them.
+.LP
+Restrictions: \fIobspec\fP must be writable according to the global
+restrictions.
+.sp
+.LP
+\fCread \fR\*[ \fIobspec-o\fR \*]
+.PP
+Prints out the text of the indicated document.  If \fIobspec\fR has type
+\fCo\fR it must refer to a paper or book object, and that object's text entry
+is printed.  If \fIobspec\fP has type \fCu\fR it is used directly as the text
+ID number.
+.LP
+Restrictions: allowed/not-allowed flags for the portions of the text ID space
+corresponding to books and paper respectively (separation is so \fBGhu\fP
+users will not generally be able to read player mail).
+.sp
+.LP
+\fCtext \fIobspec-u\fR \*[ \*[\fC<\fR \*] \fIfilename\fR \*]
+.PP
+If \fIobspec\fP has type \fCu\fP, it is interpreted as a text ID.  Otherwise,
+it should represent a book or paper object from which the text ID field will
+be extracted.  Associate new text with the text ID in the text database.  If
+\fIfilename\fP is given, take the new text from the indicated file, otherwise
+prompt for it.  There is a limit of 16 lines per page with no more than 40
+characters per line allowed.  Page breaks are indicated by lines consisting
+solely of form-feed characters (the form-feed lines do not go into the text
+database and do not count towards the 16 line per page limit).
+.LP
+Restrictions: allowed/not-allowed flag.  If \fIobspec\fP is a paper or book
+object, then it must be writable according to the global restrictions.  For
+ordinary text IDs there is a restriction list similar to the global
+restriction lists that constrains on the basis of text ID number.
+.sp
+.LP
+\fCteleport \fIaddress \fR\*[ \*[\fC=\fR \*] \fIobspec-o\fR \*]
+.PP
+Print the global ID of the teleport booth associated with the teleport address
+\fIaddress\fP (a string value).  If \fIobspec\fP is given, it must correspond
+to a teleport or elevator object; make the entry in the teleport address
+database for \fIaddress\fP point to the teleport indicated \fIobspec\fP.
+.LP
+Restrictions: allowed/not-allowed flags for read and write.
+.SH
+Online Operations
+.sp
+.LP
+\fCplayers\fR
+.PP
+Print a list of the currently online players in the Habitat, together with
+appropriate information (user names, global ID's, location, etc.).
+.LP
+Restrictions: allowed/not-allowed flag.
+.sp
+.LP
+\fCvoice \fR\*[ \fIobspec-r\fR \*] \*[\fC \fItext\fC  \fR\*]
+.PP
+Broadcast to the indicated entity (a region by default) a \f(CBSPEAK\fR
+message from God containing the text \fItext\fP (a string value).  If
+\fItext\fR is omitted it will be prompted for.  The \fItext\fR must be short
+enought to fit in a single packet.  If \fIobspec\fR is omitted and some entity
+is currently being \fCwatch\fR'ed (see below), the text is sent to that
+entity.  Otherwise an error results.
+.LP
+Restrictions: allowed/not-allowed flag.  \fIobspec\fP must be writable
+according to the global restrictions.
+.sp
+.LP
+\fCwatch \fC\*[ \fIobspec-r\fR  | \fCoff \fR\*]
+.PP
+If an \fIobspec\fR is given (a region by default, though it may also be an
+Avatar), monitor message traffic associated with the indicated entity.  If
+\fIobspec\fR is a region, display all requests sent to or from that region.
+If \fIobspec\fR is an Avatar, display all messages sent by or to the
+associated player.  \fIobspec\fR may not be an ordinary object.  In all cases,
+\fBGhu\fP \fImust\fP place a ghost icon in the region with the players
+affected, to inform them that the eavesdropping is taking place.
+.PP
+Once a \fCwatch\fR command is issued, one may continue issuing other commands.
+The messages will simply be printed as they arrive.  Entering another
+\fCwatch\fR command supercedes the previous one (it is possible to \fCwatch\fR
+only one entity at a time).  Giving the keyword \fCoff\fR in place of the
+\fIobspec\fR turns \fCwatch\fR'ing off (and removes the ghost icon).
+.LP
+Restrictions: allowed/not-allowed flag. \fIobspec\fP must be readable
+according to the global restrictions.
+.sp
+.LP
+\fCoracle \fR\*[ \fIobspec-o\fR  | \fCoff\fR  | \fCold\fR \*]
+.PP
+Attach the operator to the given oracle.  \fIobspec\fR must refer to an
+oracular object.  Henceforth any messages sent to that oracle will be printed
+along with their player of origin.  Entering another \fCoracle\fR command
+supercedes the previous one (is is possible to listen to only one oracle at a
+time).  \fCoracle\fR is a special form of \fCwatch\fR, and \fCwatch\fR
+commands and \fCoracle\fR commands also supercede each other.  The object
+indicated in an \fCoracle\fR command becomes the \fCwatch\fRed entity for
+purposes of sending \fCvoice\fR messages, etc.  Entering the keyword \fCoff\fR
+instead of an \fIobspec\fR turns oracle monitoring off.  Entering the keyword
+\fCold\fR instead of an \fIobspec\fR yields a printout of old, unattended
+messages to that oracle that have been written to the oracle log file.
+.LP
+Restrictions: allowed/not-allowed flag.  There is additionally a restriction
+list (by oracle object ID number) similar to the global lists.
+.sp
+.LP
+\fCmail \fIusername\fR \fR\*[ \*[\fC<\fR \*] \fIfilename\fR \*]
+.PP
+Send a Habitat mail letter to the indicated user.  \fBGhu\fP will prompt for
+the text.  There is a limit of 16 lines of no more than 40 characters per
+line.  If \fIfilename\fP is given, the text of the mail message is taken from
+the file named.
+.LP
+Restrictions: allowed/not-allowed flag.
+.sp
+.LP
+\fCprocesses\fR
+.PP
+Print a list of the running Habitat processes associated with the incarnation
+of the Habitat universe that this invocation of \fBGhu\fP is attached to.  For
+region processes, list the regions that those processes are handling and the
+number of ghosts and Avatars currently in each.  For other kinds of processes,
+print whatever other information may prove useful.
+.LP
+Restrictions: allowed/not-allowed flag.
+.SH
+\s+3The Ghu Command Line\s-3
+.PP
+The \fBGhu\fP command issued from VOS command level on the Stratus has the
+following form:
+.nf
+
+	\fCghu\fR \*[ \fIdatabasedir\fR \*] \*[ \fC-do \fIcommandstring\fR \*]
+
+.fi
+where \fIdatabasedir\fP is the pathname of a directory in which the various
+database files for a running Habitat system will be found.  If omitted it
+defaults to whatever the directory containing the current operational system
+is.  \fIcommandstring\fP is an optional string of \fBGhu\fP commands that will
+be parsed like an ordinary \fBGhu\fP command line.  If the \fC-do\fR option is
+used, the commands in \fIcommandstring\fP will be executed and then \fBGhu\fP
+will exit.  If \fC-do\fP is not given, \fBGhu\fP will come up in interactive
+mode and start reading command lines from the terminal until a \fCquit\fP
+command or an end-of-file is encountered.

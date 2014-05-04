@@ -1,0 +1,3 @@
+%replace MAX_CLASS_NUMBER by 255;
+%replace MAX_CLASS_NUMBER_PLUS_1 by 256;
+%replace NUMBER_OF_RESOURCES by 687;

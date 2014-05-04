@@ -1,0 +1,44 @@
+/*
+ *   class_mailbox.pl1
+ *
+ *   Object behavior module for class mailbox.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_mailbox: procedure;
+
+     %replace MAILBOX_REQUESTS by 5;
+
+     declare a(0:MAILBOX_REQUESTS) entry based;
+     declare class_mailbox_actions pointer;
+     declare 1 mailbox based %include struct_mailbox;
+
+     %replace I by CLASS_MAILBOX;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = MAILBOX_REQUESTS;
+     Class_Table(I).alloc_size = size(mailbox);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_mailbox_actions);
+     Class_Table(I).actions = class_mailbox_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)        = illegal;          /* 1 */
+     Class_Table(I).actions->a(2)        = illegal;          /* 2 */
+     Class_Table(I).actions->a(3)        = illegal;          /* 3 */
+     Class_Table(I).actions->a(READMAIL) = generic_READMAIL; /* 4 */
+     Class_Table(I).actions->a(SENDMAIL) = generic_SENDMAIL; /* 5 */
+
+end initialize_class_mailbox;

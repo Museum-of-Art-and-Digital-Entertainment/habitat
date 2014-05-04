@@ -1,0 +1,46 @@
+/*
+ *   class_pants.pl1
+ *
+ *   Behavior module for object class pants.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace PANTS_CAPACITY by 5;
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_pants: procedure;
+
+     %replace PANTS_REQUESTS by 7;
+
+     declare a(0:PANTS_REQUESTS) entry based;
+     declare class_pants_actions pointer;
+     declare 1 pants based %include struct_pants;
+
+     %replace I by CLASS_PANTS;
+
+     Class_Table(I).capacity = PANTS_CAPACITY;
+     Class_Table(I).max_occupants = 0;
+     Class_Table(I).location_to_wear = UNWEARABLE;
+     Class_Table(I).max_requests = PANTS_REQUESTS;
+     Class_Table(I).alloc_size = size(pants);
+     Class_Table(I).pc_state_bytes = 1;
+
+     allocate a set(class_pants_actions);
+     Class_Table(I).actions = class_pants_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)            = generic_GET;           /* 1 */
+     Class_Table(I).actions->a(PUT)            = generic_PUT;           /* 2 */
+     Class_Table(I).actions->a(THROW)          = generic_THROW;         /* 3 */
+     Class_Table(I).actions->a(4)              = illegal;               /* 4 */
+     Class_Table(I).actions->a(5)              = illegal;               /* 5 */
+     Class_Table(I).actions->a(WEAR)           = generic_WEAR;          /* 6 */
+     Class_Table(I).actions->a(REMOVE)         = generic_REMOVE;        /* 7 */
+
+end initialize_class_pants;

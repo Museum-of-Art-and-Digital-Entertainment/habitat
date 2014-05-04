@@ -1,0 +1,113 @@
+%page;
+encode_string: procedure (object,work);
+declare object char(*) var;
+declare work   char(*) var;
+
+declare illegal     bin(15);
+declare (tmp,i)     bin(15);
+declare max         bin(15);
+declare sub1        bin(15);
+declare encode      char(1);
+declare encode_bits bit(8) defined(encode);
+
+declare char_list_bits(7) bit(8)  static init ('00'b4, '0d'b4, '0e'b4, '5d'b4,
+                                               '8d'b4, '8e'b4, 'ff'b4);
+declare char_list(7)              char(1) defined(char_list_bits);
+
+     max = length(object) + 1;
+     illegal = max;
+     do i = 1 to 7;
+        tmp = index (object,char_list(i));
+        if (tmp ^= 0  & tmp < illegal) then illegal = tmp;
+        end;
+     sub1 = 1;
+     work = '';
+     if (illegal = max) then illegal = 0;
+
+     do while (illegal ^= 0);
+        encode = substr(object,illegal+sub1-1,1);
+        encode_bits = bool(encode_bits, '01010101'b, '0110'b);
+        work   = work || substr(object,sub1,illegal-1) || byte(93) || encode;
+        sub1 = sub1 + illegal;
+
+        illegal = max;
+        do i = 1 to 7;
+           tmp = index ( substr(object,sub1), char_list(i));
+           if (tmp ^= 0  & tmp < illegal) then illegal = tmp;
+           end;
+        if (illegal = max) then illegal = 0;
+        end;
+
+     work = work || substr(object,sub1);
+
+end encode_string;
+%page;
+encode_buffer: procedure (inbuf,inlen,outbuf,outlen);
+declare inbuf  char(*);
+declare outbuf char(*);
+declare (inlen,outlen) bin(31);
+
+declare orig   char(256) var;
+declare new    char(256) var;
+
+   orig = substr(inbuf,1,inlen);
+   call encode_string (orig,new);
+
+   outlen = length(new);
+   substr(outbuf,1,outlen) = new;
+
+end encode_buffer;
+%page;
+decode_string: procedure (object);
+declare object char(*) var;
+declare work   char(128) var;
+
+declare sentenial   bin(15);
+declare sub1        bin(15);
+declare encode      char(1);
+declare encode_bits bit(8) defined(encode);
+
+/* We are assuming that an encoded pair (sentenial char + encoded char)   *
+ * will not span packets.                                                 */
+
+   sentenial = index(object,byte(93));             /* Look for "]" char */
+   if (sentenial = length(object)) then return;    /* Didn't find one.  */
+   sub1 = 1;
+   work = '';
+
+   do while (sentenial ^= 0);
+      encode = substr(object,sentenial+sub1,1);              /* Get next char */
+      encode_bits = bool(encode_bits, '01010101'b, '0110'b); /* EOR w/ 55x */
+      work   = work || substr(object,sub1,sentenial-1) || encode;
+      sub1 = sub1 + sentenial + 1;
+      sentenial = index( substr(object,sub1) ,byte(93));     /* Check rest */
+      end;
+
+   object = work || substr(object,sub1);
+
+end decode_string;
+%page;
+encode_byte: procedure (in) returns (char(2) var);
+declare in     bin(15);
+declare out    char(2) var;
+
+declare in_byte  char(1);
+
+declare illegal_bits(7) bit(8)  static init ('00'b4, '0d'b4, '0e'b4, '5d'b4,
+                                             '8d'b4, '8e'b4, 'ff'b4);
+declare illegals        char(7) defined (illegal_bits);
+declare legal_bits(7)   bit(8)  static init ('55'b4, '58'b4, '5b'b4, '08'b4,
+                                             'd8'b4, 'db'b4, 'aa'b4);
+declare legals          char(7) defined (legal_bits);
+
+
+   in_byte  = byte(in);
+
+   if (verify (in_byte,illegals) ^= 0) then do;
+       out = in_byte;
+       return (out);
+       end;
+
+   return (byte(93) || translate(in_byte,legals,illegals));
+
+end encode_byte;

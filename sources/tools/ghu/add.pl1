@@ -1,0 +1,472 @@
+/*
+ * add.pl1 -- Database addition commands for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 26-June-1987
+ *
+ * These routines handle the actual execution of various commands that
+ * add new entries to the Habitat world databases.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+
+%include 'stdio.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'command.incl.pl1';
+%include 'database.incl.pl1';
+%include 'class.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'tables.incl.pl1';
+%include 'world.incl.pl1';
+
+declare relative_id_limit binary(31) static external;
+
+c$add_prompt: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare class_valueptr pointer;
+     declare abort_flag bit(1);
+
+     call set_prompt('');
+     class_valueptr = prompt_value('class', abort_flag);
+     if (abort_flag) then
+          call putline('object creation aborted');
+     else if (class_valueptr = null()) then
+          call error('no default class allowed');
+     else
+          call create_entity(class_valueptr, null());
+     call set_prompt('ghu? ');
+end c$add_prompt;
+
+prompt_value: procedure(prompt, abort_flag) returns(pointer);
+     declare prompt character(*) varying;
+     declare abort_flag bit(1);
+
+     call putstr(prompt || ': ');
+     call col_reset;
+     return(getval(true, abort_flag));
+end prompt_value;
+
+c$add: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare class_valueptr pointer;
+     declare 1 class_value based(class_valueptr) like value_descriptor;
+
+     call set_prompt('');
+     class_valueptr = eval(arg1);
+     if (class_value.data_type = SYM$INTEGER) then
+          call create_entity(class_valueptr, i2p(arg2));
+     else if (class_value.data_type = SYM$UNDEFINED) then
+          call error('class value undefined');
+     else
+          call error('improper data type for class number');
+     call set_prompt('ghu? ');
+end c$add;
+
+create_entity: procedure(class_valueptr, init_listptr);
+     declare class_valueptr pointer;
+     declare 1 class_value based(class_valueptr) like value_descriptor;
+     declare init_listptr pointer;
+     declare fill_buf(700) character defined(info_buf(DB$CURRENT));
+
+     if (class_value.data_type ^= SYM$INTEGER) then
+          call error('improper data type for class value');
+     else if (class_value.value < 0 | 255 < class_value.value) then
+          call error('class ' || ltrim(class_value.value) || ' out of range');
+     else do;
+          if (create_object(fill_buf, class_value.value, init_listptr)) then
+               call write_new_record(DB$CURRENT, (class_value.value));
+     end;
+     call free(class_valueptr);
+end create_entity;
+
+create_object: procedure(buf, class, init_listptr) returns(bit(1));
+     declare buf(*) character;
+     declare class binary(31);
+     declare init_listptr pointer;
+     declare new_id binary(31);
+     declare result bit(1);
+
+     new_id = generate_new_id((class));
+     result = true;
+     if (class > CLASS_AVATAR) then
+          result = fill_object(buf, -1, init_listptr, new_id);
+     result = result & fill_object(buf, class, init_listptr, new_id);
+     return(result);
+end create_object;
+
+fill_object: procedure(buf, class, init_listptr, new_id) returns(bit(1));;
+     declare buf(*) character;
+     declare class binary(31);
+     declare init_listptr pointer;
+     declare 1 init_list based(init_listptr) like value_list_descriptor;
+     declare new_id binary(31);
+     declare fieldsptr pointer;
+     declare 1 fields(1) based(fieldsptr) like field_descriptor;
+     declare field_count binary(15);
+     declare offset binary(15);
+     declare bit_offset binary(15);
+     declare dataptr pointer;
+     declare dimension binary(15);
+     declare initptr pointer;
+     declare (f, i, j) binary(15);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare bump bit(1);
+     declare abort_flag bit(1);
+
+     fieldsptr = class_fields(class);
+     field_count = class_field_count(class);
+     if (class <= CLASS_AVATAR) then do;
+          fieldsptr = addr(fields(2));
+          field_count = field_count - 1;
+          addr(buf)->pbin31(1) = new_id;
+     end; else
+          addr(buf)->pbin31(2) = class;
+          
+     abort_flag = false;
+     do f = 1 to field_count;
+          call setup_offsets(fields(f).offset, offset, bit_offset);
+          dataptr = addrel(addr(buf), offset);
+          initptr = fields(f).init_value;
+
+          do i = 1 to fields(f).dimension;
+               if (fields(f).data_type = FIELD$BIN15) then
+                    dataptr->pbin15(i) = initptr->pbin15(i);
+               else if (fields(f).data_type = FIELD$BIN31 |
+                        fields(f).data_type = FIELD$FATWORD |
+                        fields(f).data_type = FIELD$AVAID |
+                        fields(f).data_type = FIELD$OBJID |
+                        fields(f).data_type = FIELD$REGID ) then
+                    dataptr->pbin31(i) = initptr->pbin31(i);
+               else if (fields(f).data_type = FIELD$VARSTRING) then do;
+                    dataptr->pvstring = initptr->pvstring;
+                    i = fields(f).dimension;
+               end; else if (fields(f).data_type = FIELD$WORDS) then
+                    dataptr->pchar(i*2) = initptr->pchar(i*2);
+               else if (fields(f).data_type = FIELD$BIT) then do;
+                    substr(dataptr->pbit, bit_offset, fields(f).dimension) =
+                         substr(initptr->pbit, 1, fields(f).dimension);
+                    i = fields(f).dimension;
+               end; else if (fields(f).data_type = FIELD$ENTITY) then
+                    dataptr->pentity(i) = initptr->pentity(i);
+               else /* if (fields(f).data_type = FIELD$BYTE |
+                           fields(f).data_type = FIELD$CHARACTER) then */
+                    dataptr->pchar(i) = initptr->pchar(i);
+          end;
+          i = 1;
+          do while (i <= fields(f).dimension & ^abort_flag &
+                    fields(f).invisible = 0);
+               if (init_listptr ^= null()) then do;
+                    valueptr = eval(init_list.value);
+                    init_listptr = init_list.next;
+               end; else
+                    valueptr = prompt_field(fields(f), i, abort_flag);
+               if (valueptr ^= null()) then do;
+                    bump = assign_field(dataptr, i, bit_offset, true,
+                         fields(f).data_type, fields(f).dimension, valueptr) |
+                         init_listptr ^= null();
+                    call free(valueptr);
+               end; else
+                    bump = true;
+               if (bump) then do;
+                    if (fields(f).data_type = FIELD$CHARACTER |
+                              fields(f).data_type = FIELD$WORDS |
+                              fields(f).data_type = FIELD$VARSTRING |
+                              fields(f).data_type = FIELD$BIT) then
+                         i = fields(f).dimension;
+                    i = i + 1;
+               end;
+          end;
+     end;
+     return(^abort_flag);
+end fill_object;
+
+prompt_field: procedure(field, index, abort_flag) returns(pointer);
+     declare 1 field like field_descriptor;
+     declare index binary(15);
+     declare abort_flag bit(1);
+     declare prompt character(256) varying;
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like value_descriptor;
+
+     prompt = field.name->symbol_table_entry.symbol_nameptr->symbol_name;
+     if (field.dimension > 1) then
+          if (field.data_type = FIELD$CHARACTER |
+                    field.data_type = FIELD$WORDS |
+                    field.data_type = FIELD$BIT |
+                    field.data_type = FIELD$VARSTRING ) then
+               prompt = prompt || '(' || ltrim(field.dimension) || ')';
+          else
+               prompt = prompt || '(' || ltrim(index) || ')';
+     return(prompt_value(prompt, abort_flag));
+end prompt_field;
+
+c$cook: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare filenameptr pointer;
+     declare filename based(filenameptr) character(256) varying;
+     declare line_number binary(15);
+     declare raw_input file;
+     declare in_str character(LINE_LENGTH) varying;
+     declare raw_buf_str character(800) varying;
+     declare fill_buf(700) character defined(info_buf(DB$TEMP));
+
+     declare relative_id_listptr pointer;
+     declare 1 relative_id_list_entry based,
+               2 id      binary(31),
+               2 type    binary(15),
+               2 forward binary(15);
+     declare 1 relative_id_list(100000) based(relative_id_listptr) like
+          relative_id_list_entry;
+     declare max_ordinal binary(15);
+     declare class binary(31);
+     declare hex_string character(700) varying;
+
+     filenameptr = i2p(arg1);
+     on undefinedfile(raw_input) goto raw_open_failed;
+     open file(raw_input) title(filename) stream input;
+     line_number = 0;
+     max_ordinal = 0;
+
+     on endfile(raw_input) goto raw_eof;
+
+     relative_id_listptr = alloc(relative_id_limit *
+          size(relative_id_list_entry), 21);
+
+     do while(^user_break_flag);
+          raw_buf_str = '';
+          get file(raw_input) edit(in_str)(a);
+          do while (substr(in_str, length(in_str), 1) = '\');
+               raw_buf_str = raw_buf_str || substr(in_str, 1,
+                    length(in_str) - 1);
+               get file(raw_input) edit(in_str)(a);
+          end;
+          raw_buf_str = raw_buf_str || in_str;
+          line_number = line_number + 1;
+          if (^parse_rawline(raw_buf_str, class, hex_string)) then do;
+               call error('syntax error in raw file "' || filename ||
+                    '", line ' || ltrim(line_number));
+               goto raw_eof;
+          end;
+          call fill_rawbuf(fill_buf, class, hex_string);
+          call build_relative_ids(fill_buf, class, line_number);
+          call write_new_record(DB$TEMP, (class));
+     end;
+
+raw_eof:
+     close file(raw_input);
+     if (user_break_flag) then
+          call warning('raw read interrupted; possible database inconsistency may result');
+     else
+          call fixup_relative_ids;
+     call free(relative_id_listptr);
+     return;
+
+raw_open_failed:
+     call error('unable to open ' || filename);
+/* end c$cook; */
+
+parse_rawline: procedure(line, class, hex_str) returns(bit(1));
+     declare line character(*) varying;
+     declare class binary(31);
+     declare hex_str character(*) varying;
+     declare delim binary(15);
+     declare class_string character(LINE_LENGTH) varying;
+
+     if (substr(line, 1, 1) ^= '/') then return(false);
+     delim = index(line, ' ');
+     if (delim < 3) then return(false);
+     class_string = substr(line, 2, delim - 2);
+     if (verify(class_string, '0123456789') ^= 0) then return(false);
+     class = binary(class_string, 31);
+     hex_str = substr(line, delim + 1);
+     if (verify(hex_str, '0123456789abcdefABCDEF') ^= 0) then return(false);
+     if (mod(length(hex_str), 2) ^= 0) then return(false);
+     hex_str = translate(hex_str, 'abcdef', 'ABCDEF');
+     return(true);
+end parse_rawline;
+
+fill_rawbuf: procedure(buf, class, hex_str);
+     declare buf(*) character;
+     declare class binary(31);
+     declare hex_str character(*) varying;
+     declare i binary(15);
+
+     do i = 1 to class_size(class);
+          buf(i) = byte(decode_hex_byte(substr(hex_str, 2*i - 1, 2)));
+     end;
+end fill_rawbuf;
+
+decode_hex_byte: procedure(data_str) returns(binary(15));
+     declare data_str character(2);
+     declare data(2) character(1) defined(data_str);
+     declare hex_strike character(16) static init('0123456789abcdef');
+
+     return((index(hex_strike, data(1)) - 1) * 16 +
+             index(hex_strike, data(2)) - 1        );
+end decode_hex_byte;
+
+build_relative_ids: procedure(buf, class, ordinal);
+     declare buf(*) character;
+     declare class binary(31);
+     declare ordinal binary(15);
+     declare dummy bit(1);
+
+     if (ordinal > relative_id_limit) then do;
+          call error('new entity #' || ltrim(ordinal) ||
+               ' exceeds relative id limit of ' || ltrim(relative_id_limit));
+          return;
+     end;
+     relative_id_list(ordinal).id = generate_new_id((class));
+     relative_id_list(ordinal).type = type_code((class));
+     max_ordinal = ordinal;
+     dummy = instantiate_relative_ids(buf, class, ordinal,
+          relative_id_list(ordinal).forward);
+end build_relative_ids;
+
+get_relative_entity: procedure(ordinal) returns(binary(15));
+     declare ordinal binary(15);
+     declare dummy bit(1);
+
+     if (relative_id_list(ordinal).type = SYM$AVATAR) then do;
+          dummy = get_avatar(relative_id_list(ordinal).id, DB$TEMP);
+          return(CLASS_AVATAR);
+     end; else if (relative_id_list(ordinal).type = SYM$REGION) then do;
+          dummy = get_region(relative_id_list(ordinal).id, DB$TEMP);
+          return(CLASS_REGION);
+     end; else do;
+          dummy = get_object(relative_id_list(ordinal).id, DB$TEMP);
+          return(temp_object.class);
+     end;
+end get_relative_entity;
+
+fixup_relative_ids: procedure;
+     declare i binary(15);
+     declare buf(700) character defined(info_buf(DB$TEMP));
+     declare class binary(31);
+     declare forward binary(15);
+
+     do i = 1 to max_ordinal while(^user_break_flag);
+          if (relative_id_list(i).forward ^= 0) then do;
+               class = get_relative_entity(i);
+               call putline('fixing #' || ltrim(i));
+               if (instantiate_relative_ids(buf, class, i, forward)) then do;
+                    changed_flag(DB$TEMP) = true;
+                    call update_record(DB$TEMP);
+               end;
+               if (forward ^= 0) then
+                    call error('out of range relative reference in item #' ||
+                         ltrim(i));
+          end;
+     end;
+     if (user_break_flag) then
+          call warning('cook fixup interrupted; possible database inconsistency may result');
+end fixup_relative_ids;
+
+instantiate_relative_ids:  procedure(buf, class, ordinal, forward)
+          returns(bit(1));
+     declare buf(*) character;
+     declare class binary(31);
+     declare ordinal binary(15);
+     declare forward binary(15);
+
+     forward = 0;
+     if (class = CLASS_REGION) then
+          return(instantiate_relative_fields(buf, class_fields(CLASS_REGION),
+               class_field_count(CLASS_REGION), forward));
+     else if (class = CLASS_AVATAR) then
+          return(instantiate_relative_fields(buf, class_fields(CLASS_AVATAR),
+               class_field_count(CLASS_AVATAR), forward));
+     else do;
+          return(instantiate_relative_fields(buf, class_fields(CLASS_OBJECT),
+               class_field_count(CLASS_OBJECT), forward) |
+               instantiate_relative_fields(buf, class_fields(class),
+               class_field_count(class), forward));
+     end;
+end instantiate_relative_ids;
+
+instantiate_relative_fields: procedure(buf, fieldsptr, field_count, forward)
+          returns(bit(1));
+     declare buf(*) character;
+     declare fieldsptr pointer;
+     declare 1 fields(1) based(fieldsptr) like field_descriptor;
+     declare field_count binary(15);
+     declare forward binary(15);
+     declare i binary(15);
+     declare offset binary(15);
+     declare dummy_bit_offset binary(15);
+     declare result bit(1);
+
+     if (field_count < 1) then
+          return(false);
+     result = false;
+     do i = 1 to field_count;
+          call setup_offsets(fields(i).offset, offset, dummy_bit_offset);
+          result = instantiate_relative_field(addrel(addr(buf), offset),
+               fields(i).dimension, fields(i).data_type, forward) | result;
+     end;
+     return(result);
+end instantiate_relative_fields;
+
+instantiate_relative_field: procedure(dataptr, dimension, data_type, forward)
+          returns(bit(1));
+     declare dataptr pointer;
+     declare dimension binary(15);
+     declare data_type binary(15);
+     declare forward binary(15);
+     declare i binary(15);
+     declare id binary(31);
+     declare result bit(1);
+     declare test bit(1);
+
+     result = true;
+     do i = 1 to dimension;
+          if (data_type = FIELD$REGID) then
+               test = replace_field(dataptr->pbin31(i), SYM$REGION);
+          else if (data_type = FIELD$AVAID) then
+               test = replace_field(dataptr->pbin31(i), SYM$AVATAR);
+          else if (data_type = FIELD$OBJID) then
+               test = replace_field(dataptr->pbin31(i), SYM$OBJECT);
+          else if (data_type = FIELD$ENTITY) then
+               test = replace_field(dataptr->pentity(i).ident,
+                    dataptr->pentity(i).type);
+          else do;
+               test = false;
+               result = false;
+          end;
+     end;
+     if (test) then
+          forward = 1;
+     return(result);
+end instantiate_relative_field;
+
+replace_field: procedure(id, type) returns(bit(1));
+/* returns true iff hit a forward reference */
+     declare id binary(31);
+     declare type binary(15);
+     declare index binary(15);
+
+     if (id < -1000) then do;
+          index = -id - 1000;
+          if (index > max_ordinal) then do;
+               return(true);
+          end; else if (type ^= relative_id_list(index).type) then do;
+               call error('mismatched id types, index ' || ltrim(index) ||
+                    ' in raw file');
+               id = 0;
+          end; else do;
+               id = relative_id_list(index).id;
+          end;
+     end;
+     return(false);
+end replace_field;
+
+end c$cook;

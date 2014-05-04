@@ -1,0 +1,271 @@
+.AM
+.ds Dq February 25, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Garbage Collection for Habitat\*M\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GARBAGE COLLECTION
+.ds CH \\*(Dq
+.ds RH Habitat Document # 39
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document begins the process of defining off-line batch tasks that must be
+run periodically in order to maintain the \fIHabitat\fP world.  One of the
+first such maintainence tasks to consider is garbage collection.  This is the
+removal from public places of various objects that are considered debris or
+clutter, so that these places do not become overly congested and thus inhibit
+normal operation.
+.PP
+We envision the garbage collector as a program that is run during off hours
+(i.e., during the day) which scans the entire \fIHabitat\fP database and
+removes selected objects to ``limbo'' based on some rules which will be
+defined here.  There will likely be two versions of the garbage collector.
+One version is run daily while the other is run less frequently, e.g.,
+monthly.  The daily sweep handles the basic maintainance task of policing up
+random objects.  The monthly sweep is concerned with longer term changes
+in the world, particularly the reclamation of the Avatars and Turves of
+inactive or deleted accounts.
+.SH
+\s+3The Daily Sweep\s-3
+.PP
+The garbage collection process consists of making a decision about each object
+in the database \(em Does it belong here?  This decision is based on two
+pieces of information: what kind of object it is and where it is located.  We
+will consider location first.
+.PP
+Objects are either contained inside other objects or they are in regions.  For
+our mission here, we only need to be concerned with objects that are in
+regions.  Decisions about objects in containers will be made on the basis of
+the container.  In other words, if the container goes to limbo, then its
+contents automatically go with it.  If the container stays, then its contents
+also stay.  For garbage collection purposes, regions may be divided into three
+broad categories: private regions, public regions, and ``semi-public''
+regions.
+.PP
+Private regions include Turves and leased shop space.  Each of these regions
+is the exclusive province of some player and we will leave it up to the player
+to decide what should or should not be there.  Policing the private regions is
+up to the players themselves.
+.PP
+Public regions include downtown areas, major roads, and the interiors of
+various system-run service establishments.  It is very important that these
+regions be kept clear of debris, since they are high-traffic areas.  The
+garbage collector should be strict in deciding what doesn't belong in these
+regions.
+.PP
+What we are calling ``semi-public'' regions include such things as forests,
+deserts, and other public but lower traffic places.  As with public regions,
+these too need to be kept clear, but we can be a little looser in our
+interpretation of what is allowed to stay.  This way, interesting objects can
+be left laying around for people to find.
+.PP
+Which of these three cases applies to a particular region is determined by
+looking at the region's \fCowner\fP property.  A value of \fC0\fP indicates
+that it is a public region.  A value of \fC1\fP (???) indicates a semi-public
+region.  Any other value indicates a private region.
+.PP
+As with regions, we also group objects into categories.  A complete list of
+each object class and its corresponding category is found in the Appendix to
+this document.  There are eight categories:
+.IP "\ \ \ \ \(bu\ "
+\fIScenic\fP \(em these objects are the background building blocks of the
+world.  They include such things as trees, walls, ground, and so on.  They are
+immune to garbage collection.  In general, Scenic objects are immobile (i.e.,
+they have no \fBGET\fP behavior) and their placement is not a matter of player
+choice.
+.IP "\ \ \ \ \(bu\ "
+\fIInternal\fP \(em these objects are associated with the internal details of
+the operation of the system.  They include such things as test objects as well
+as the Avatars themselves.  As with Scenic objects, they are immune to garbage
+collection.
+.IP "\ \ \ \ \(bu\ "
+\fIValuable\fP \(em these are objects of immediate value to anyone who
+finds them.  They include Tokens and magical artifacts of various sorts.
+Though they can clutter the world, they are not likely to be left unattended
+for long before somebody picks them up.  Since finding one of these objects is
+fun and rewarding for the players, we won't garbage collect them.
+.IP "\ \ \ \ \(bu\ "
+\fIMathom\fP \(em these are the run-of-the-mill objects that players can pick
+up and carry around.  This category includes both objects which are mere
+props, such as knick-knacks and balls, and objects which are valuable or
+useful, such as escape devices or guns.  In general, we want to garbage
+collect these items from public places, but leave them unmolested in
+semi-public and private places.
+.IP "\ \ \ \ \(bu\ "
+\fIDual\fP \(em these are objects which may be treated either as Scenic
+objects or Mathom objects, depending on whether they can be picked up and
+carried.  Currently, there are only two classes in this category, rock and
+flag.  The \fCmass\fP property distinguishes Scenic from Mathom.
+.IP "\ \ \ \ \(bu\ "
+\fIContainer\fP \(em this category includes only those containers which may be
+picked up and carried (immobile containers are Scenic objects).  These objects
+are little peculiar.  If they are empty, then they are just Mathoms.  However,
+if they have something in them then the judgement becomes a little more
+complex.  We would propose the establishment a Lost-and-Found shop in each
+downtown area, and move these objects there, where they may be claimed by any
+passers by, instead of transferring them to limbo.
+.IP "\ \ \ \ \(bu\ "
+\fIBook\fP \(em books need to be treated specially.  In general, they can
+contain valuable information and so should not be swept up unconditionally.
+However, there can be a proliferation of these objects due to the availablity
+of cheap printing (i.e., vending machines).  We propose separating the space
+of text-identifiers into two groups: long term documents and short term
+documents.  The latter includes things like the \fIWeekly Rant\fR and other
+periodicals, as well as clues for treasure hunts and the like.  The former
+includes works of literature and reference materials.  The idea is that short
+term documents should be garbage collected, since they are easily replaced
+(indeed, if one of these is just left laying around, it may well be the case
+that nobody wants it any more) and often contain material that is quickly
+outdated.  Long term documents should go to the Lost-and-Found.
+.IP "\ \ \ \ \(bu\ "
+\fIPaper\fP \(em like books, paper needs to be treated specially.  As with
+books, pieces of paper can contain valuable information and so should not be
+swept up unconditionally.  However, there can be a proliferation of these
+objects due to the ease with which new pieces of paper can be created, and
+paper is probably going to be the largest source of garbage objects in the
+system.  We propose the following rules.  Paper in public spaces is always
+garbage collected.  Paper in private and semi-public spaces is garbage
+collected if it is older than some age (we propose 1 month to begin with).
+Whether we track the age in the text database entries or in the objects
+themselves is immaterial to the design, though for technical reasons one or
+the other may be preferred.  Paper should also be an exception to the rule
+that objects in containers are not garbage collected.  We should always look
+at paper objects no matter where they are found (except in the mail slot of
+Avatars' pockets, of course).
+.hw restricted
+.LP
+There are a couple of general exceptions to the above rules.  The first is
+that any object whose \fCrestricted\fP bit is set is immune to garbage
+collection.  The second is that any object whose container is a garbage can is
+automatically garbage collected (i.e., we flush all garbage cans nightly).  In
+the case of conflict between these two rules, the first takes precedence,
+although it should not be possible to ever put restricted objects into garbage
+cans in the first place.
+.LP
+Finally, there are a couple of picyune exceptions to the above rules: an
+escape device should be garbage collected if its \fCcharge\fP property is less
+than 1, as should a drugs object if its \fCcount\fP property is less than 1.
+.SH
+\s+3The Monthly Sweep\s-3
+.PP
+Although the daily garbage collection will ensure that the world does not
+become unduly cluttered, there is still a problem with consumption of certain
+resources.  In particular, Turves represent an important recyclable commodity.
+We wish to be able to reclaim the property of deceased or inactive Avatars.
+.PP
+Avatars who are candidates for this reclamation include those associated with
+deleted accounts, of course.  However, we also wish to eliminate those Avatars
+associated with accounts that are active in the greater Q-Link system but not
+in \fIHabitat\fP.  We would suggest an inactivity period of 2 months to
+qualify for reclamation, but this number is just an initial estimate and
+should be adjusted upward or downward according to Q-Link's prior experience
+with the rest of the system and our experience running \fIHabitat\fP itself.
+.PP
+It may also be the case that we wish to reclaim the Turves of deleted Avatars
+daily and only sweep up the inactive ones monthly.  Quantum's input on this is
+solicited, since the decision hinges largely on the question of the
+computational burden of the sweep.
+.PP
+Reclaiming a Turf consists of garbage collecting all the ``non-native''
+objects from the Turf region (including the Avatar itself), returning the
+region to the available Turf list, and (in the case of inactive accounts)
+marking the user's Q-Link records to indicate that he or she no longer has an
+Avatar.
+.PP
+By ``non-native'' objects, we mean those objects which have been carried into
+the region by the player, as opposed to those objects which were furnished
+with the Turf to begin with.  We can determine these by considering the class
+categories of the objects: Scenic objects stay and everything else goes.
+The portable objects that an Avatar is granted upon hatching (such as mail, a
+Token, the latest Rant, and so on) should be created when the Avatar is, since
+there is no way of guaranteeing that these will be left in the Turf when the
+Avatar lapses into inactivity.
+.bp
+.CD
+\s+5\fBAppendix \(em Garbage Collection Categories of Object Classes\fR\s-5
+.DE
+.SH
+Book\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:book
+.TE
+.SH
+Container\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:bag:box
+.TE
+.SH
+Dual\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:flag:rock
+.TE
+.SH
+Internal\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:avatar:ghost:region:test:zone
+.TE
+.SH
+Mathom\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:ball:boomerang:bottle:changomatic:club
+:compass:die:escape device:fake gun:flashlight
+:frisbee:game piece:grenade:gun:head
+:knick knack:knife:matchbook:movie camera:security device
+:sensor:shovel:spray can:stereo:stun gun
+:tape:wind up toy
+.TE
+.SH
+Paper\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:paper
+.TE
+.SH
+Scenic\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:aquarium:ATM:bed:bridge:building
+:bureaucrat-in-a-box:bush:chair:chest:coke machine
+:couch:countertop:display case:door:dropbox
+:elevator:fence:flat:floor lamp:fortune machine
+:fountain:garbage can:glue:ground:hand of god
+:hole:hot tub:house cat:jukebox:magic immobile
+:mailbox:pawn machine:picture:plant:plaque
+:pond:river:roof:safe:sex changer
+:short sign:sign:sky:street:streetlamp
+:super trapezoid:table:teleport booth:trapezoid:tree
+:vendo front:vendo inside:wall:window
+.TE
+.SH
+Valuable\fR
+.TS
+tab (:) ;
+lw(1) lw(15) lw(15) lw(15) lw(15) lw(15) .
+:amulet:crystal ball:drugs:gemstone:instant object pill
+:key:magic lamp:magic staff:magic wand:ring
+:ticket:tokens
+.TE

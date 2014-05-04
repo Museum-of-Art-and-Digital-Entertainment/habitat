@@ -1,0 +1,13 @@
+BehaviorsActions/: source code for the object behaviours
+Images/: source code/binaries for the object images
+Makefile: runs muddle to build the c64 disk files
+Main/: source code for c64 frontend (other than object behaviors)
+Sounds/: source code for the object sounds
+*.dat: the muddle output files. Written to C64 disk with 'filldisk'
+beta.list: muddle diagnostic output
+beta.mud: muddle database source file
+capacity.incl.pl1: muddle output. To be uploaded/compiled into the host.
+class_equates.m: muddle output. Compiled into main program
+id_file.dat: 'signature' of a Habitat data disk
+on_disk_charset.*: Characterset that is on the C64 disk
+width.incl.pl1: muddle output. To be uploaded/compiled into the host.

@@ -1,0 +1,205 @@
+use region {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use avatar a_683665819 {
+  region: r -1001
+  container: o 0
+  x: -1
+  y: 160
+  gr_state: 0
+  gr_width: 8
+  genl_flags: '00000000000000000000000000000000'b
+  orient: 50
+  style: 0
+  name: "brotherbob"
+  screen_name: "BrotherBob"
+  activity: 146
+  action: 0
+  health: 255
+  restrainer: 0
+  custom: 19, 52, 0
+  bank_balance: 200
+  turf: r -1
+  stun_count: 0
+  nitty_bits: '0000000000000000000000000000000'b
+  curse_immune: '0'b
+  true_orient: 50
+  true_head_style: 11
+  true_custom: 19, 52, 0
+  curse_type: 0
+  curse_counter: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid {
+  container: r -1001
+  x: 160
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 127
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 170, 170, 149
+}
+use door {
+  container: r -1001
+  x: 68
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use short_sign {
+  container: r -1001
+  x: 140
+  y: 129
+  style: 5
+  gr_state: 7
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Admin Av  "
+}
+use street {
+  container: r -1001
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use short_sign {
+  container: r -1001
+  x: 56
+  y: 104
+  style: 4
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " City Hall"
+}
+use flag {
+  container: r -1001
+  x: 116
+  y: 158
+  style: 0
+  gr_state: 0
+  orient: 57
+  gr_width: 4
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use flag {
+  container: r -1001
+  x: 56
+  y: 158
+  style: 0
+  gr_state: 0
+  orient: 81
+  gr_width: 4
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use dropbox {
+  container: r -1001
+  x: 16
+  y: 29
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head {
+  container: a a_683665819
+  x: 0
+  y: 6
+  style: 11
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use tokens {
+  container: a a_683665819
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  denom: 1621
+}
+use knick_knack {
+  container: a a_683665819
+  x: 116
+  y: 1
+  style: 4
+  gr_state: 1
+  orient: 56
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}

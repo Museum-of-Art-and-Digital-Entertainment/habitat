@@ -1,0 +1,42 @@
+@region $ dnalsi_6c {
+    south: dnalsi_6b.l;
+    east: dnalsi_7c.l;
+    west: dnalsi_5c.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @tree { x:20; y:72; or:140; style:9; }
+        @tree { x:88; y:27; or:173; style:2; gr_state:1; }
+        @tree { x:112; y:21; or:172; style:2; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @tree { x:96; y:71; or:173; style:2; gr_state:2; }
+        @tree { x:92; y:89; or:173; style:2; gr_state:2; }
+        @tree { x:88; y:106; or:173; style:2; gr_state:2; }
+        @tree { x:76; y:120; or:173; style:2; gr_state:3; }
+        @hole { x:8; y:148; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @knick_knack { x:2; y:2; or:80; style:3; 
+                    8:0;
+                }
+                @knick_knack { x:0; y:0; or:104; style:3; 
+                    8:0;
+                }
+                @shovel { x:4; y:4; or:56; }
+                @rock { x:8; y:8; or:0; 
+                    8:1;
+                }
+                @rock { x:7; y:7; or:8; 
+                    8:1;
+                }
+                @rock { x:6; y:6; or:32; 
+                    8:1;
+                }
+            ]
+        }
+    ]
+}

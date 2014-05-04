@@ -1,0 +1,50 @@
+
+
+cp homeNN.reg Outamy_Wy_129_interior.reg
+cp homeNN.reg Outamy_Wy_229_interior.reg
+cp homeNN.reg Outamy_Wy_329_interior.reg
+cp homeNN.reg Outamy_Wy_429_interior.reg
+cp homeNN.reg Outamy_Wy_529_interior.reg
+cp homeNN.reg Outamy_Wy_629_interior.reg
+cp homeNN.reg Outamy_Wy_729_interior.reg
+cp homeNN.reg Outamy_Wy_829_interior.reg
+cp homeNN.reg Outamy_Wy_929_interior.reg
+cp homeNN.reg Outamy_Wy_1029_interior.reg
+
+
+
+cp homeNN.reg Hyper_Dr_130_interior.reg
+cp homeNN.reg Hyper_Dr_230_interior.reg
+cp homeNN.reg Hyper_Dr_330_interior.reg
+cp homeNN.reg Hyper_Dr_430_interior.reg
+cp homeNN.reg Hyper_Dr_530_interior.reg
+cp homeNN.reg Hyper_Dr_630_interior.reg
+cp homeNN.reg Hyper_Dr_730_interior.reg
+cp homeNN.reg Hyper_Dr_830_interior.reg
+cp homeNN.reg Hyper_Dr_930_interior.reg
+cp homeNN.reg Hyper_Dr_1030_interior.reg
+
+
+cp homeNN.reg Street_Rd_131_interior.reg
+cp homeNN.reg Street_Rd_231_interior.reg
+cp homeNN.reg Street_Rd_331_interior.reg
+cp homeNN.reg Street_Rd_431_interior.reg
+cp homeNN.reg Street_Rd_531_interior.reg
+cp homeNN.reg Street_Rd_631_interior.reg
+cp homeNN.reg Street_Rd_731_interior.reg
+cp homeNN.reg Street_Rd_831_interior.reg
+cp homeNN.reg Street_Rd_931_interior.reg
+cp homeNN.reg Street_Rd_1031_interior.reg
+
+
+cp homeNN.reg Road_St_132_interior.reg
+cp homeNN.reg Road_St_232_interior.reg
+cp homeNN.reg Road_St_332_interior.reg
+cp homeNN.reg Road_St_432_interior.reg
+cp homeNN.reg Road_St_532_interior.reg
+cp homeNN.reg Road_St_632_interior.reg
+cp homeNN.reg Road_St_732_interior.reg
+cp homeNN.reg Road_St_832_interior.reg
+cp homeNN.reg Road_St_932_interior.reg
+cp homeNN.reg Road_St_1032_interior.reg
+

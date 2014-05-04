@@ -1,0 +1,2 @@
+macross -p generic_broadcast.m
+loadrom -q -p 0 -t < m.out > generic_broadcast.bin

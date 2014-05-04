@@ -1,0 +1,127 @@
+use region {
+  owner: a 0
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "`1 #`2"
+  avatars: 6
+  town_dir:'\x7c'
+  port_dir:'\x7c'		
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use window {
+  container: r -1001
+  x: 132
+  y: 59
+  style: 1
+  gr_state: 1
+  orient: 8
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use couch {
+  container: r -1001
+  x: 4
+  y: 152
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chest {
+  container: r -1001
+  x: 64
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use door {
+  container: r -1001
+  x: 100
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use floor_lamp {
+  container: r -1001
+  x: 48
+  y: 148
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 1
+}
+use picture {
+  container: r -1001
+  x: 16
+  y: 70
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+  picture: 0
+}

@@ -1,0 +1,52 @@
+.so /u1/gg/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 2 inches
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 5 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+This note is just a formal notification to accompany our shipment last week of
+the \(*b1.2 version of the Commodore 64 Habitat disks, which, as you indicated
+in our telephone conversation yesterday, you received this past Monday.
+
+We consider this to be the May 15 deliverable as described in Exhibit B of the
+development agreement, and you should go ahead and use it for the first round
+of beta testing.
+
+This new and improved version fixes all the various major and minor problems
+that you discovered and notified us of in your fax memos and telephone calls,
+as well as a few glitches that we discovered ourselves.  It also features
+numerous other improvements including the text-page interface and several
+``hooks'' for avatar customization that will become apparent as we get the
+customization tools working.
+
+We will be shipping you yet another rev as soon as we can, which will contain
+the elements required to implement avatar and turf customization and thus meet
+our June 15 delivery requirements as well.  This version will also have
+several new objects, both of the scenic and the functional varieties, that we
+will use to flesh out the world for the second round of beta testing.  We will
+keep you up to date on developments as we move towards this delivery.
+
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+cc:	Steve Arnold
+	Steve Case
+	Jim Kimsey
+	Marc Seriff

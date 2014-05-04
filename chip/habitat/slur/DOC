@@ -1,0 +1,10 @@
+/u0/chip/habitat/slur: OBSOLETE
+
+	This directory contains the code for Slur, a Stupid Little Utility for
+Riddle.  Riddle was a data massager that has evolved past needing this
+utility.  This program translated the binary region contents vectors generated
+by Arics original region editor on the C64 into fragments of Riddle code that
+could then be processed by Riddle into data that could be uploaded to the host
+and turned into region and object entries in the host database.  Fortunately
+we no longer have to use it.  These files are left around for historical
+interest only.

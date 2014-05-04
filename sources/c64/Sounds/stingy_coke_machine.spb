@@ -1,0 +1,8 @@
+; stingy_coke_machine_pw
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0xa5,0x6,0xc0,0x2,0x40,0xff	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

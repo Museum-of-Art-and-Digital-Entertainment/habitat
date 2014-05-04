@@ -1,0 +1,262 @@
+use region r_9105 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r r_9112
+  west_neighbor: r -1
+  north_neighbor: r r_9190
+  south_neighbor: r -1
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6639 {
+  container: r r_9105
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_6640 {
+  container: r r_9105
+  x: 12
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6649 {
+  container: r r_9105
+  x: 60
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use wall o_6666 {
+  container: r r_9105
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_6667 {
+  container: r r_9105
+  x: 12
+  y: 108
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\ \(Vendroid    Vendroid    \hMORE\177    5   "
+}
+use trapezoid o_15829 {
+  container: r r_9105
+  x: 104
+  y: 91
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 0
+  upper_left_x: 0
+  upper_right_x: 52
+  lower_left_x: 0
+  lower_right_x: 52
+  height: 149
+}
+use book o_1001930 {
+  container: r r_9105
+  x: 20
+  y: 0
+  style: 4
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 99
+  last_page: 2
+}
+use vendo_front o_6641 {
+  container: o o_6640
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 52
+  display_item: 0
+  prices: 52, 81, 83, 10, 2, 22, 49, 0, 0, 0
+}
+use bag o_6648 {
+  container: o o_6640
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 40
+  gr_width: 2
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use vendo_front o_6650 {
+  container: o o_6649
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 9
+  display_item: 5
+  prices: 54, 81, 999, 2, 95, 9, 0, 0, 0, 0
+}
+use bottle o_6651 {
+  container: o o_6649
+  x: 5
+  y: 1
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  filled: 0
+}
+use box o_6644 {
+  container: o o_6641
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use box o_6643 {
+  container: o o_6641
+  x: 2
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use movie_camera o_6645 {
+  container: o o_6641
+  x: 3
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use knick_knack o_6647 {
+  container: o o_6641
+  x: 5
+  y: 5
+  style: 10
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use ball o_6642 {
+  container: o o_6641
+  x: 6
+  y: 6
+  style: 0
+  gr_state: 0
+  orient: 24
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use bag o_6655 {
+  container: o o_6650
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 48
+  gr_width: 2
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+}
+use fake_gun o_6652 {
+  container: o o_6650
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+}

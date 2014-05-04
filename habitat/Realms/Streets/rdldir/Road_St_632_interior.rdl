@@ -1,0 +1,26 @@
+@region $ Road_St_632_interior {
+    east: Road_St_632_front.l;
+    region_owner: 0.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:4; or:16; style:1; }
+        @wall { x:0; y:0; or:24; style:4; }
+        @display_case { x:96; y:156; or:164; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @window { x:52; y:60; or:0; }
+        @window { x:68; y:67; or:0; gr_state:2; }
+        @door { x:16; y:33; or:148; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @floor_lamp { x:60; y:130; or:188; 
+            8:1;
+        }
+        @chair { x:96; y:130; or:57; style:1; }
+        @chair { x:48; y:131; or:56; style:1; }
+    ]
+}

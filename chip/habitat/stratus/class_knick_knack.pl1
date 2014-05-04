@@ -1,0 +1,74 @@
+/*
+ *   class_knick_knack.pl1
+ *
+ *   Knick knack object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_knick_knack: procedure;
+
+     %replace KNICK_KNACK_REQUESTS by 4;
+
+     declare a(0:KNICK_KNACK_REQUESTS) entry based;
+     declare class_knick_knack_actions pointer;
+     declare 1 knick_knack based %include struct_knick_knack;
+
+     %replace I by CLASS_KNICK_KNACK;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = KNICK_KNACK_REQUESTS;
+     Class_Table(I).alloc_size = size(knick_knack);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_knick_knack_actions);
+     Class_Table(I).actions = class_knick_knack_actions;
+
+     Class_Table(I).actions->a(HELP)  = knick_knack_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(MAGIC) = generic_MAGIC; /* 4 */
+
+end initialize_class_knick_knack;
+
+knick_knack_HELP: procedure;
+     declare kkhelp_strings(0:13) character(85) varying static init(
+/*  0 */  'This is a candelabra, but it doesn''t work.',
+/*  1 */  'The Voorzhimmer Award for Distinguishable Service',  /* trophy */
+/*  2 */  'Carol''s Tacky Knick-Knack Industries, Inc.',  /* knick-knack */
+/*  3 */  'Bernie''s Floral Junk Shop, Quantumgrad',  /* vase of flowers */
+/*  4 */  'Juggle ''til you drop!',  /* juggling balls */
+/*  5 */  'Chainsaw (out of gas)',
+/*  6 */  'This is Aloysius',  /* teddy bear */
+/*  7 */  'Rubber ducky',
+/*  8 */  'Answering machine.  (Not much good without a telephone).',
+/*  9 */  'Telephone.  I don''t know how this got here.  There are no telephones in Habitat.',
+/* 10 */  'Towel.  Now you know where your towel is!',
+/* 11 */  'Microphone.  If you TALK while holding this, everyone in the region will hear you.',
+/* 12 */  'Yuck!',  /* road pizza */
+/* 13 */  'Cup.  Holds your place in the conversation.'
+     );
+     declare 1 self based(selfptr) %include struct_knick_knack;
+     declare result character(114) varying;
+     declare magic_vendo_info entry(bin(15)) returns(char(114) varying);
+
+     if (0 <= self.style & self.style <= 13) then
+          result = kkhelp_strings(self.style);
+     else
+          result = 'This is some kind of knick-knack.';
+     if (self.magic_type ^= 0) then
+          result = result || '  It''s magic:';
+     call r_msg_s(result);
+     if (self.magic_type ^= 0) then
+          call object_say(self.noid, magic_vendo_info(self.magic_type));
+end knick_knack_HELP;

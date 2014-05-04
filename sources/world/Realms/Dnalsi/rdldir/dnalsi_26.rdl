@@ -1,0 +1,64 @@
+@region $ dnalsi_26 {
+    south: dnalsi_25.l;
+    east: dnalsi_36.l;
+    region_orientation: FACE_NORTH;
+    [
+        @flat { x:0; y:2; or:244; 
+            8:3;
+        }
+        @wall { x:136; y:0; or:0; style:4; }
+        @hole { x:64; y:148; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @knick_knack { x:8; y:24; or:17; style:7; 
+            8:0;
+        }
+        @hole { x:112; y:148; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @knick_knack { x:0; y:0; or:96; style:6; 
+                    8:0;
+                }
+            ]
+        }
+        @box { x:100; y:138; or:0; style:1; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @bag { x:0; y:0; or:48; gr_state:1; 
+                    8:2;
+                    9:0;
+                    10:0;
+                }
+            ]
+        }
+        @ground { x:44; y:4; or:188; style:1; }
+        @plant { x:40; y:143; or:32; style:2; 
+            8:1;
+        }
+        @plant { x:36; y:128; or:32; style:2; 
+            8:1;
+        }
+        @flat { x:44; y:2; or:244; 
+            8:1;
+        }
+        @flat { x:0; y:2; or:244; 
+            8:0;
+        }
+        @trapezoid { x:0; y:148; or:0; gr_state:2; 
+            8:3;
+            9:0;
+            10:23;
+            11:0;
+            12:23;
+            13:21;
+        }
+    ]
+}

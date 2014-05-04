@@ -1,0 +1,159 @@
+echo Sunday_Dr_e_end
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_e_end.reg \
+     -o rdldir/Sunday_Dr_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_e_end \
+     -w Sunday_Dr_120_front
+echo Sunday_Dr_120_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_120_front.reg \
+     -o rdldir/Sunday_Dr_120_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_120_front \
+     -s Sunday_Dr_120_interior \
+     -w Sunday_Dr_220_front \
+     -e Sunday_Dr_e_end
+echo Sunday_Dr_120_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_120_interior.reg \
+     -o rdldir/Sunday_Dr_120_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_120_interior \
+     -n Sunday_Dr_120_front
+echo Sunday_Dr_220_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_220_front.reg \
+     -o rdldir/Sunday_Dr_220_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_220_front \
+     -s Sunday_Dr_220_interior \
+     -w Sunday_Dr_320_front \
+     -e Sunday_Dr_120_front
+echo Sunday_Dr_220_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_220_interior.reg \
+     -o rdldir/Sunday_Dr_220_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_220_interior \
+     -n Sunday_Dr_220_front
+echo Sunday_Dr_320_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_320_front.reg \
+     -o rdldir/Sunday_Dr_320_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_320_front \
+     -s Sunday_Dr_320_interior \
+     -w Sunday_Dr_420_front \
+     -e Sunday_Dr_220_front
+echo Sunday_Dr_320_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_320_interior.reg \
+     -o rdldir/Sunday_Dr_320_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_320_interior \
+     -n Sunday_Dr_320_front
+echo Sunday_Dr_420_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_420_front.reg \
+     -o rdldir/Sunday_Dr_420_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_420_front \
+     -s Sunday_Dr_420_interior \
+     -w Sunday_Dr_520_front \
+     -e Sunday_Dr_320_front
+echo Sunday_Dr_420_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_420_interior.reg \
+     -o rdldir/Sunday_Dr_420_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_420_interior \
+     -n Sunday_Dr_420_front
+echo Sunday_Dr_520_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_520_front.reg \
+     -o rdldir/Sunday_Dr_520_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_520_front \
+     -s Sunday_Dr_520_interior \
+     -w Sunday_Dr_cross \
+     -e Sunday_Dr_420_front
+echo Sunday_Dr_520_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_520_interior.reg \
+     -o rdldir/Sunday_Dr_520_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_520_interior \
+     -n Sunday_Dr_520_front
+echo Sunday_Dr_cross
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_cross.reg \
+     -o rdldir/Sunday_Dr_cross.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_cross \
+     -w Sunday_Dr_620_front \
+     -e Sunday_Dr_520_front
+echo Sunday_Dr_620_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_620_front.reg \
+     -o rdldir/Sunday_Dr_620_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_620_front \
+     -s Sunday_Dr_620_interior \
+     -w Sunday_Dr_720_front \
+     -e Sunday_Dr_cross
+echo Sunday_Dr_620_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_620_interior.reg \
+     -o rdldir/Sunday_Dr_620_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_620_interior \
+     -n Sunday_Dr_620_front
+echo Sunday_Dr_720_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_720_front.reg \
+     -o rdldir/Sunday_Dr_720_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_720_front \
+     -s Sunday_Dr_720_interior \
+     -w Sunday_Dr_820_front \
+     -e Sunday_Dr_620_front
+echo Sunday_Dr_720_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_720_interior.reg \
+     -o rdldir/Sunday_Dr_720_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_720_interior \
+     -n Sunday_Dr_720_front
+echo Sunday_Dr_820_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_820_front.reg \
+     -o rdldir/Sunday_Dr_820_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_820_front \
+     -s Sunday_Dr_820_interior \
+     -w Sunday_Dr_920_front \
+     -e Sunday_Dr_720_front
+echo Sunday_Dr_820_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_820_interior.reg \
+     -o rdldir/Sunday_Dr_820_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_820_interior \
+     -n Sunday_Dr_820_front
+echo Sunday_Dr_920_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_920_front.reg \
+     -o rdldir/Sunday_Dr_920_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_920_front \
+     -s Sunday_Dr_920_interior \
+     -w Sunday_Dr_1020_front \
+     -e Sunday_Dr_820_front
+echo Sunday_Dr_920_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_920_interior.reg \
+     -o rdldir/Sunday_Dr_920_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_920_interior \
+     -n Sunday_Dr_920_front
+echo Sunday_Dr_1020_front
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_1020_front.reg \
+     -o rdldir/Sunday_Dr_1020_front.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_1020_front \
+     -s Sunday_Dr_1020_interior \
+     -w Sunday_Dr_w_end \
+     -e Sunday_Dr_920_front
+echo Sunday_Dr_1020_interior
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_1020_interior.reg \
+     -o rdldir/Sunday_Dr_1020_interior.rdl \
+     -d FACE_NORTH \
+     -r Sunday_Dr_1020_interior \
+     -n Sunday_Dr_1020_front
+echo Sunday_Dr_w_end
+/u0/chip/microcosm/slur/slur regdir/Sunday_Dr_w_end.reg \
+     -o rdldir/Sunday_Dr_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Sunday_Dr_w_end \
+     -e Sunday_Dr_1020_front

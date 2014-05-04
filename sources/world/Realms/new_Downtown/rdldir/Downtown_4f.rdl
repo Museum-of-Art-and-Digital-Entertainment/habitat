@@ -1,0 +1,25 @@
+@region $ Downtown_4f {
+    north: Downtown_4g.l;
+    south: Downtown_4e.l;
+    east: Downtown_5f.l;
+    west: Downtown_3f.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:104; style:1; }
+        @sky { x:0; y:0; or:244; style:4; }
+        @street { x:68; y:24; or:8; gr_state:6; 
+            8:0;
+            9:0;
+        }
+        @sky { x:0; y:2; or:172; style:7; }
+        @trapezoid { x:0; y:3; or:220; 
+            8:2;
+            9:0;
+            10:160;
+            11:0;
+            12:160;
+            13:47;
+        }
+        @streetlamp { x:72; y:135; or:0; }
+    ]
+}

@@ -1,0 +1,99 @@
+use region r_9135 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r r_9134
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7008 {
+  container: r r_9135
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_15492 {
+  container: r r_9135
+  x: 0
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 0
+  upper_right_x: 160
+  lower_left_x: 0
+  lower_right_x: 160
+  height: 127
+  pattern_x_size: 3
+  pattern_y_size: 7
+  pattern: 85, 170, 149, 85, 86, 85, 101, 85, 105, 85, 89, 85, 85, 170, 153, 85
+, 86, 235, 229, 85, 107, 235, 229, 85, 86, 255, 149, 85, 85, 170, 85, 85
+}
+use plaque o_15493 {
+  container: r r_9135
+  x: 20
+  y: 75
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 99
+  last_page: 2
+}
+use plaque o_15494 {
+  container: r r_9135
+  x: 64
+  y: 75
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 97
+  last_page: 1
+}
+use plaque o_15495 {
+  container: r r_9135
+  x: 108
+  y: 75
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 100
+  last_page: 16
+}

@@ -1,0 +1,84 @@
+.AM
+.ds Dq December 1, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Advertising in the Rant\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH RANT ADS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 36
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+The purpose of this document is to establish policy and rules for
+player-originated advertising in the \fIWeekly Rant\fR, the \fIHabitat\fP
+newspaper.  One of the objectives of the operational \fIHabitat\fP system is
+to be as self-sustaining as possible in the area of player-originated
+adventures and activities.  One way we can encourage this is to make some of
+the system-managed communications channels available to the players
+themselves.  An important such channel is the \fIRant\fP.  We can put this
+resource at the players' disposal by allowing them to place paid
+advertisements that will be published with each issue, just like ads in a
+regular newspaper.
+.SH
+\s+3Types Of Ads\s-3
+.PP
+There will be two types of ads that we will sell.  These correspond to what
+you might think of as ``ordinary ads'' and ``classified ads''.  Classified ads
+are short, relatively inexpensive, and grouped together by category in a
+special classified ad section of the paper.  Ordinary ads are more expensive,
+but are larger and may be placed within the main body of the paper.  Final
+classification categories will have to wait until we have a clearer idea of
+the nature of the ads that players will be placing, but we recommend the
+following to start with:
+.nf
+
+	Services for sale
+	Services wanted
+	Personal
+	Miscellaneous
+	Goods for sale
+.fi
+.SH
+\s+3Submission Mechanism\s-3
+.PP
+Players submit ads to the \fIRant\fP using the \fIHabitat\fP mail system.  All
+they need to do is write their ad copy on a piece of paper and mail it to
+\fBWEEKLY RANT\fR.  The letter should contain an indication of whether the ad
+is to be an ordinary ad or a classified ad, and if a classified ad which
+category it should be run under.  It should also indicate for how long the ad
+is to run.  The ``advertising editor'' of the \fIRant\fP will collect these
+messages periodically and merge them into the text of the latest issue.  We
+will need to establish a deadline for ad submission once the publication
+schedule for the \fIRant\fP has been set.
+.SH
+\s+3Payment, Pricing and Policy\s-3
+.PP
+The \fIRant\fP editors will charge players for their ads using direct
+withdrawal from their Avatars' bank accounts.  Of course, all charges reflect
+the \fIHabitat\fP token economy and not ``real'' money.  Here is the initial
+pricing schedule, though we may wish to increase prices later if the volume of
+advertising becomes excessive:
+.PP
+Classified ads cost T2 per character per week, with a minimum charge of T80
+per week applying to ads of less than 40 characters.  There is a 160 character
+limit (four lines).
+.PP
+Ordinary ads cost T250 per line, minimum four lines (T1,000), maximum one page
+(sixteen lines at T4,000).  Ordinary ads are interspersed with the regular
+text of the paper at the editors' discretion.  Consequently they are available
+on a strict space-available first-come first-served basis.
+.PP
+Of course, we reserve the right to reject any ad which we deem unsuitable for
+publication.

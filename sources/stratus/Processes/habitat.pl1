@@ -1,0 +1,2379 @@
+%replace true                           by   '1'b;
+%replace false                          by   '0'b;
+
+%replace e$object_not_found             by   1032;
+%replace e$timeout                      by   1081;
+%replace e$end_of_file                  by   1025;
+%replace e$invalid_eventid              by   1183;
+
+%replace seq_file                       by      3;
+%replace ignored_rec_size               by    128;
+%replace Separation_Char                by    144;
+
+declare ascii_qid              entry (bin(31)) returns (char(10) var);
+
+declare s$attach_event         entry (char(256)var, bin(31), bin(31), bin(15));
+declare s$attach_port          entry (char(*) var, char(*) var, bin(15), bin(15),
+                                      bin(15));
+declare s$close                entry (bin(15), bin(15));
+declare s$create_file          entry (char(256)var, bin(15), bin(15), bin(15));
+declare s$cv_to_int_date_time  entry (char(*)var, bin(31), bin(15));
+declare s$cv_to_string_date_time
+                               entry (bin(31), char(*) var);
+declare s$expand_module_name   entry (char(66)var, char(66)var, bin(15));
+declare s$expand_path          entry (char(256)var, char(32)var,
+                                      char(256)var, bin(15));
+declare s$detach_port          entry (bin(15), bin(15));
+declare s$get_processes        entry (char(65) var, char(32) var, char(66) var,
+                                      bin(15), bin(15), bin(31), bin(15));
+declare s$get_process_info     entry (bin(31), bin(15), bin(15));
+declare s$int_date_time        entry (bin(31));
+declare s$open                 entry (bin(15), bin(15), bin(15), bin(15), 
+                                      bin(15), bin(15), char(*) var, bin(15));
+declare s$notify_event         entry (bin(31), bin(31), bin(15));
+declare s$parse_command        entry (char(*)var,bin(15),
+                                      char(*)var,char(*)var,
+                                      char(*)var,char(*)var,
+                                      char(*)var,bit(1) aligned,
+                                      char(*)var);
+declare s$read_event           entry (bin(31), bin(31), bin(31), bin(15));
+declare s$rename               entry (char(256) var, char(256) var, bin(15));
+declare s$seq_read             entry (bin(15), bin(15), bin(15), char(*),
+                                      bin(15));
+declare s$set_implicit_locking entry (char(256)var, bin(15), bin(15));
+declare s$sleep                entry (bin(31), bin(15));
+declare s$start_process        entry (char(256)var, char(256)var, char(256)var,
+                                      bin(15),      char(256)var, char(66) var,
+                                      bin(15),      char(32)var, bin(31), bin(15));
+declare s$stop_process         entry (bin(31), bin(15));
+declare s$string_date_time     entry (char(32) var);
+declare s$task_setup_wait      entry (bin(31), bin(15), bin(15), bin(31),
+                                      bin(31), bin(31), bin(15), bin(15));
+declare s$task_wait_event      entry (bin(31), bin(31), bin(15), bin(31),
+                                      bin(15), bin(31), bin(31), bin(15));
+declare s$wait_event           entry (bin(15), (*)bin(31), (*)bin(31),
+                                      bin(31), bin(15), bin(15));
+declare die                    entry (bin(15), char(*) var, char(*) var);
+
+declare  encode_byte           entry (bin(15)) returns (char(2) var);
+declare  encode_string         entry (char(*) var, char(*) var);
+
+%nolist;  %include 'Messages.incl.pl1';       %list;
+%nolist;  %include 'Queues.incl.pl1';         %list;
+%nolist;  %include 'Debug.incl.pl1';          %list;
+%nolist;  %include 'Stat.strux.incl.pl1';     %list;
+%nolist;  %include 'Lists.strux.incl.pl1';    %list;
+%nolist;  %include 'Lists.incl.pl1';          %list;
+%nolist;  %include 'TimeAfterTime.incl.pl1';  %list;
+
+%include 'process_control.incl.pl1';
+%include 'region.defs.incl.pl1';
+%include 'Microcosm.data.incl.pl1';
+
+declare  habitat_queue        pointer external initial (null());
+declare  habitatQ_queue       pointer external initial (null());
+declare  habitat_db_queue     pointer external initial (null());
+declare  MCosmMasterQueue     pointer external initial (null());
+declare  newuser_queue        pointer external initial (null());
+
+declare  habitat_qid          bin(31) external initial (0);
+
+%replace server_event                   by    1;   /* External (small) Q    */
+%replace serverQ_event                  by    2;   /* Internal (big) Q      */
+%replace master_event                   by    3;   /* for started processes */
+%replace db_event                       by    4;
+%replace newuser_event                  by    5;
+%replace tact_event                     by    6;
+%replace obn_event                      by    7;
+%replace termination_event              by    8;
+%replace stat_event                     by    9;
+%replace max_events                     by    9;
+
+declare   UserInfoEvent  bin(31)    static initial(0);
+declare   UserInfoCnt    bin(31)    static initial(0);
+
+declare   event_index    bin(15) external;
+
+declare   tot_users bin(15) external; /* summ stats */
+declare   tot_time  bin(31) external; /* summ stats */
+
+declare  BUGON           bit(1) static external initial(false);
+declare  BUGON_high      bit(1) static external initial(false);
+
+declare habitat_log      bit(1) aligned static external;
+
+declare ei_2(64)         bin(31) static external;
+declare ec_2(64)         bin(31) static external;
+declare no_events_2      bin(15) static external;
+
+declare term_event_name  char(256) var external;
+declare term_ei          bin(31) static external initial(0);
+declare term_ec          bin(31) static external initial(0);
+
+declare Transit_list     pointer static external initial(null());
+declare 1 transit        based,
+          2 avatar           bin(31),
+          2 user_q           bin(31),
+          2 region_id        bin(31),
+          2 region_owner     bin(31),
+          2 login_request    char(10) var,
+          2 login_data       char(12),
+          2 got_db_response  bit(1),
+          2 got_init_request bit(1);
+                             
+declare RegionQ (0:9) pointer static external;
+declare keep_cnt bin(15) static external initial(0);
+declare 1 hi_water external,
+          2 users  binary(15) initial(0),
+          2 procs  binary(15) initial(0);
+declare curr_users external binary(15) initial(0);
+                             
+%page;                       
+habitat:  procedure options (main);
+   declare  event                       bin (31);
+   declare  task                        bin (15);
+   declare  count                       bin (31);
+   declare  code                        bin (15);
+   declare  index                       bin (15);
+   declare  status                      bin (31);
+   declare  done                        bit (1);
+
+
+   call initialize_process;
+
+   do  while (true);
+       call s$task_wait_event (Master_ei, -1, task, event, event_index,
+                               count, status, code);
+       if (code = 0)  then do;
+
+           if (task = server_event  |  
+               task = serverQ_event)  then call handle_msg (task);
+
+             else if (task = master_event) then do;
+                   done = false;
+                   do  while (^done);
+                       call a_process_woke_up (done, 0);
+                       end;
+                   end;
+
+             else if (task = tact_event) then do;
+                   call ProcessTact;
+                   call GetTactInfo (tact_ei, tact_ec);
+                   call s$task_setup_wait (Master_ei, tact_event, 1,
+                                           tact_ei, tact_ec, -1, index, code);
+                   end;
+
+             else if (task = termination_event) then do;
+                   call check_region_processes;
+                   call setup_termination_event;
+                   end;
+
+             else if (task = db_event)      then  call resend_msg (habitat_db_queue);
+             else if (task = newuser_event) then  call resend_msg (newuser_queue);
+             else if (task = obn_event)     then  call resend_msg (Q_ptrs (event_index));
+             else if (task = stat_event)    then  call resend_msg (stat_queue_ptr);
+             else if (task > max_events)    then  call resend_msg (RegionQ (task-max_events-1));
+           end;
+         else do;
+           call debug_msg (code, ' Habitat problem in wait event');
+           if (code = e$invalid_eventid) then stop;
+           end;
+       end;
+
+end habitat;
+
+%page;
+handle_msg: procedure (task);
+declare task        bin(15);
+/* locals */
+declare mtype       bin(31);
+declare buffer      character(1024);
+declare obuf        character(1024) varying;
+declare len         bin(31);
+declare uid         bin(31);
+declare qid         bin(31);
+
+ do while (true);
+    if (task = server_event)
+        then call get_message (habitat_queue,  event_index, mtype, buffer, 
+                               length(buffer), len, uid, qid);
+        else call get_message (habitatQ_queue, event_index, mtype, buffer, 
+                               length(buffer), len, uid, qid);
+    if (mtype = -1) then return;
+
+    obuf = substr(buffer,1,len); 
+
+    if (mtype = message$new_login)
+    then do;
+         call new_login (obuf,uid,qid);
+    end;
+    else if (mtype = msg$current_region)
+    then do;
+         call process_current_location (uid,qid,addr(buffer),len);;
+    end;
+    else if (mtype = msg$lookup_results)
+    then do;
+         call initialize_region (addr(buffer));
+    end;
+    else if (mtype = message$change_room)
+    then do;
+         call change_room (uid,qid,obuf);
+    end;
+    else if (mtype = msg$change_room_result)
+    then do;
+         call check_change_result (uid,qid,addr(buffer));
+    end;
+    else if (mtype = msg$add_objects | mtype = msg$add_user)
+    then do;
+       call pass_to_new_region (addr(buffer),mtype,len,uid,qid);
+    end;
+    else if (mtype = msg$find_current_region)
+    then do ;
+         call preliminary_new_login (uid,qid) ;
+    end ;       
+    else if (mtype = message$find_name)
+    then do ;
+         call find_by_name (obuf,uid,qid) ;
+    end ;       
+    else if (mtype = msg$habitat_olm)
+    then do ;
+         call send_olm_msg (addr(buffer),uid,qid) ;
+    end ;       
+    else if (mtype = message$user_unplugged)
+    then do;
+       call reset_user (qid,uid);
+    end;
+    else if (mtype = msg$mail_arrived)
+    then do;
+       call signal_mail_arrival (addr(buffer),uid);
+    end;
+    else if (mtype = msg$user_stats)
+    then do;
+       call list_latest_users (uid);
+    end;
+    else if (mtype = msg$reroute)
+    then do;
+       call reroute_message (obuf,uid,qid);
+    end;
+    else if (mtype = message$statflush)
+    then do;
+         call Stat_Flush;          
+    end;    
+    else if (mtype = message$debug_msg)
+    then do;
+         call process_console_msg (obuf);          
+    end;
+    else call trace_msg (' Unknown type('  ||  ltrim(mtype)  ||
+                         ') uid('          ||  ltrim(uid)    ||
+                         ') qid('          ||  ltrim(qid)    || '):' || obuf);
+    end;
+end handle_msg;
+%page;
+preliminary_new_login: procedure (uid,qid);            /* LOGIN: At this point the user has just begun to load Habitat. */
+declare uid         bin(31);                           /* As a result, we request habitat_db to lookup the user's cur-  */
+declare qid         bin(31);                           /* rent region.  Therefore, we have to wait for BOTH the reply   */
+                                                       /* from habitat_db and the user's initial request before we can  */
+declare tp          pointer;                           /* actually continue processing.  Note that if we don't get a    */
+declare msg_data    char(4) based (tp);                /* user request, the load hung and he is still "connected" to    */
+                                                       /* a Roomer (ie not hung).                                       */
+
+    /* Ask habitat_db to read db to find out where the guy was last time... */
+
+    allocate transit set (tp);
+    tp->transit.avatar           = uid;
+    tp->transit.user_q           = qid;
+    tp->transit.region_id        = 0;
+    tp->transit.region_owner     = 0;
+    tp->transit.login_request    = '';
+    tp->transit.login_data       = '';
+    tp->transit.got_db_response  = false;
+    tp->transit.got_init_request = false;
+
+    call send_message (habitat_db_queue, msg$find_current_region,
+                       msg_data, 8, 0, habitat_qid);
+
+    call add_to_list (Transit_list,tp);
+
+end preliminary_new_login;
+%page;
+new_login: procedure (str,uno,qno);                    /* LOGIN:  We just got the user's initial request (to login).    */
+/* params */                                           /* We'll remember it (so that we can send the proper response),  */
+declare str        character(*) varying;               /* and wait until habitat_db tells us which region to put the    */
+declare uno        bin(31);                            /* user in.                                                      */
+declare qno        bin(31);
+declare tp         pointer;
+
+     call get_transit_info (qno,tp);
+     if (tp = null()) then do;
+        if (BUGON) then call trace_msg ('No Transit entry for ' ||
+                                        ltrim(uno) || '/' || ltrim(qno));
+        return;
+        end;
+
+     tp->transit.got_init_request = true;
+     tp->transit.login_data       = substr(str,1,12);
+     tp->transit.login_request    = substr(str,13);
+
+     call process_login_when_ready (tp->transit.got_db_response,tp);
+
+end new_login;
+%page;
+process_current_location: procedure (uid,qid,buff,buff_len);
+/* params */
+declare uid        bin(31);
+declare qid        bin(31);
+declare buff       pointer;
+declare 1 buf_olay       based (buff),
+          2 region       bin(31),
+          2 current_msg  char(10) var;
+declare buff_len   bin(31);
+declare tp         pointer;
+
+     call get_transit_info (qid,tp);
+     if (tp = null()) then do;
+        if (BUGON) then call trace_msg ('No Transit entry for ' ||
+                                        ltrim(uid) || '/' || ltrim(qid));
+        return;
+        end;
+
+     tp->transit.got_db_response = true;
+     tp->transit.region_id       = buf_olay.region;
+     tp->transit.region_owner    = 0;
+     if (buff_len > 4) then
+        tp->transit.login_request = buf_olay.current_msg;   /* hatchery sends */
+
+     call process_login_when_ready (tp->transit.got_init_request,tp);
+
+end process_current_location;
+%page;
+process_login_when_ready: procedure (which_condition,tp);
+declare which_condition bit(1);
+declare tp              pointer;
+declare vers   bin(15);
+declare vers_str char(2) defined(vers);
+declare 1 create_user    ,
+          2 sub_account  bin(31),
+          2 sub_qid      bin(31),
+          2 version      bin(15),
+          2 screen_name  char(10),
+          2 login_msg    char(10) var;
+declare create_message   char(32) defined(create_user);
+
+     if (which_condition = true)
+        then if (tp->transit.region_id = 0) then do;
+           create_user.sub_account  = tp->transit.avatar;
+           create_user.sub_qid      = tp->transit.user_q;
+           vers_str                 = substr(tp->transit.login_data,11,2);
+           create_user.version      = vers;
+           create_user.screen_name  = substr(tp->transit.login_data,1,10);
+           create_user.login_msg    = tp->transit.login_request;
+           call send_message (newuser_queue,msg$find_current_region,
+                             create_message,length(create_message),0,0);
+           tp->transit.got_db_response = false;
+           end;
+        else do;
+           call finish_new_login (tp,tp->transit.avatar,tp->transit.user_q);
+           call delete_from_list (Transit_list,tp);
+           free tp->transit;
+           end;
+
+end process_login_when_ready;
+%page;
+finish_new_login: procedure (tp,uno,qno);
+/* params */
+declare tp         pointer;
+declare uno        bin(31);
+declare qno        bin(31);
+
+/* locals */
+declare up               pointer;
+declare version          bin(15);
+declare version_str      character(2) defined(version);
+declare uno_str          char(4) defined (uno);
+
+
+    call get_user_pointer_from_q_id (qno,up);
+    if (up ^= null())
+       then call reset_user (up->ui_qid, up->ui_uid);
+
+    allocate user_info set (up);
+
+    up -> ui_uid             = uno;
+    up -> ui_account_num     = substr(string(uno),5);
+    up -> ui_room_pointer    = null();
+    up -> ui_chg_room_ptr    = null();
+    up -> ui_room_id         = 0;
+    up -> ui_qid             = qno;
+
+    version_str = substr(tp->transit.login_data,11,2);
+    up -> ui_version = version;
+      
+    call get_unique_screen_name(substr(tp->transit.login_data,1,10),
+                                   up->ui_scr_name);
+    call compress_name (up->ui_scr_name, up->ui_scr_compname);
+    call add_to_user_list (up);
+    curr_users = curr_users + 1;
+    hi_water.users = max(hi_water.users,curr_users);
+
+    call put_user_in_room (uno,qno,tp);
+
+end finish_new_login;
+%page;
+get_transit_info: procedure (qid,ptr);
+declare qid         bin(31);
+declare ptr         pointer;
+declare le          pointer;
+declare done        bit(1);
+
+     le = Transit_list;
+     done = false;
+     do while (^done & le ^= null());
+        ptr = le->le_content;
+        le = le->le_next;
+        if (ptr->transit.user_q = qid)
+              then done = true;
+     end ;
+
+     if (^done) then do;
+        ptr = null();
+        if (BUGON) then call trace_msg ('*ERR - No transit entry for ' || 
+                   ltrim(qid));
+        end;
+
+end get_transit_info;
+%page;
+get_unique_screen_name: procedure (name_in,name_out);
+/* params */
+declare name_in      character(10) varying;
+declare name_out     character(10) varying;
+
+    /* 
+     * for now we just wont let screen names collide 
+     */
+    name_out = ltrim(rtrim(name_in));
+
+end get_unique_screen_name;
+
+%page;
+get_room_info: procedure (region,p);
+declare region bin(31);
+declare p      pointer;
+
+declare le   pointer;
+
+
+     le = room_list;
+     do while ( le ^= null() );    /* Do a linear search thru the room list    */
+          if (le->le_content->ri_region_id = region)
+          then do;                 /* Found the desired room                   */
+               p = le->le_content; /* Return the stucture defining the room   */
+               return;
+               end;
+          le = le->le_next;        /* Try the next room                        */
+          end;
+
+     /* Didn't find it - we got problems! */
+
+     p = null();
+
+end get_room_info;
+
+%page;
+get_room: procedure (region,p,owner,starter);
+/* params */
+declare region bin(31);
+declare p      pointer;
+declare owner  bin(31); /* public or private */
+declare starter bin(31);
+
+/* locals */
+declare le   pointer;
+
+
+     /* If (the room already exists)
+        then
+          Return the structure defining the room
+        else
+          Create a new room and assign it to the first available RoomingHouse
+     */
+
+     le = room_list;
+     do while ( le ^= null() );    /* Do a linear search thru the room list    */
+          if (le->le_content->ri_region_id = region)
+          then do;                 /* Found the desired room                   */
+               p = le->le_content; /* Return the stucture defining the room   */
+               return;
+               end;
+          le = le->le_next;        /* Try the next room                        */
+          end;
+
+     /* Didn't find it - gotta make one           */
+
+     call make_room_make_room(region,p,owner,starter);
+     starter = 0;
+
+     end get_room;
+
+%page;
+make_room_make_room: procedure (region,p,owner,starter);
+
+/* params */
+declare region bin(31);
+declare p      pointer;
+declare owner  bin(31);
+declare starter bin(31);
+ 
+/* locals */
+declare le                pointer;
+declare rp                pointer;
+declare done              bit(1);
+
+     /* 
+      * ****** DANGER ******
+      * i should fiddle this so that it will handle a decreasing user load
+      * in such a way as to enable us to delete processes when appropriate.
+      * now it is essentially random, but that will leave cookies all over 
+      * the floor when users start to abandon ship
+      */
+
+
+    call get_room_process (rp);
+
+    if (rp = null())
+    then do;
+        call wait_for_process_to_start;
+        call get_room_process (rp);
+        if (rp = null())
+        then do;
+             call trace_msg ('ERROR - Failed to get Process for ' || 
+                             ltrim(string(region)));
+             p = null();
+             return;
+        end;
+    end;
+
+    call activate_room (rp,p,region,owner,starter);
+
+end make_room_make_room;
+%page;
+start_room_process: procedure(process_num);
+     declare process_num      binary(15);
+     declare out_name         character(256) varying;
+     declare marker_15        bin(15)     based;
+     declare code             bin(15);
+     declare tptr             pointer;
+     declare roomp            pointer;
+     declare process_switch   char(32) var;
+
+     declare 1 info                 ,
+          2 dummy1        bin(15),
+          2 priority      bin(15),
+          2 dummy2        bin(31),
+          2 dummy3        fixed decimal(15),
+          2 dummy4        fixed decimal(15),
+          2 dummy5(30)    bin(15),
+          2 dummy6(4)     char(32) varying;
+
+
+     allocate room_process_info set (roomp);
+     
+     roomp->rp_process_name = pcontrol.process_name(process_num);
+     roomp->rp_number       = process_num;
+
+     call s$expand_path((roomp->rp_process_name),'out',out_name,code);
+
+     if (code ^= 0)  then
+          call debug_msg (code, roomp->rp_process_name || 'out');
+     else do;
+          call s$create_file(out_name, seq_file, ignored_rec_size, code);
+          if (code ^= 0) then
+               call debug_msg (code, roomp->rp_process_name || 'creating out');
+          else do;
+               call s$set_implicit_locking(out_name, 1, code);
+               if (code ^= 0) then
+                    call debug_msg (code, roomp->rp_process_name || 'locking out');
+               end;
+          end;
+                          
+     if (pcontrol.process_priority = -1) then do;
+          dummy1 = 1;
+          tptr = addr(info);
+          call s$get_process_info(0,tptr->marker_15,code);
+          if (code ^= 0)  then  call debug_msg (code, 'Get process info');
+          pcontrol.process_priority = priority;
+
+          call s$expand_module_name('',pcontrol.module_name,code);
+          if (code ^= 0)  then  call debug_msg (code, 'Unable to get module name.');
+          end;
+
+     if (habitat_log)
+        then process_switch = '';
+        else process_switch = ' -no_subsys_log';
+
+     call s$start_process ('regionproc ' ||
+                          ltrim(rtrim(process_num)) || process_switch,
+                          out_name, '', priority, term_event_name,
+                          pcontrol.module_name, 1, roomp -> rp_process_name,
+                          roomp -> rp_process_id, code);
+
+     if (code ^= 0) 
+     then do;
+          call debug_msg(code, 'start regionproc' || ltrim(process_num));
+          return;
+     end;
+
+     if (BUGON)  then  call trace_msg ('starting process:  regionproc' || 
+                                       ltrim(process_num));
+
+     waiting_for_count  = waiting_for_count + 1;
+     how_many_room_prox = how_many_room_prox + 1;      /* remove later */
+     roomp -> rp_active_room_count = 0;                /* newly created proc */
+     call add_to_list (incipient_room_process_list, roomp);
+
+     pcontrol.num_processes = max (pcontrol.num_processes, process_num);
+
+end start_room_process;
+%page;
+activate_room: procedure (rpp,rp,region,owner,starter);
+/* params */
+declare    rpp      pointer;                /* region process pointer */
+declare    rp       pointer;                /* region pointer */
+declare    region   bin(31);                /* region id */
+declare    owner    bin(31);                /* public or private */
+declare    starter  bin(31);
+declare    region_str char(4) defined(region);
+
+/* locals */
+declare   junkp     pointer;
+declare   i         bin(15);
+declare   pr_flag   character(1); 
+declare   room_size bin(15);
+declare 1 obuf,                             /*msg format - start room request*/
+          2 region_number     bin(31),
+          2 who               bin(31),
+          2 pr_flag           char(1);
+declare obuf_str   char(9) defined(obuf);
+
+declare rq_name     char(32) var;
+declare rq_id       bin(31);
+declare rq_type     bin(15);
+
+    /*  Take first one from inactive list.  */
+
+    rp = rpp -> rp_inactive_room_list -> le_content;
+    rpp -> rp_active_room_count = rpp -> rp_active_room_count + 1;
+
+    call delete_from_list(rpp->rp_inactive_room_list,rp);
+    call add_to_list (rpp -> rp_active_room_list,rp);
+
+    how_many_rooms_used = how_many_rooms_used + 1;
+    hi_water.procs = max(hi_water.procs, how_many_rooms_used);
+    call add_to_list (room_list, rp);
+
+    if (how_many_rooms_used > how_many_room_prox * regions_per_process - 2 )
+    then do;   /* looks like we are getting low on rooms.... */
+         call start_extra_process;
+         end;
+
+    rp -> ri_region_id      = region;
+    rp -> ri_players_online = 0;
+    rp -> ri_room_id        = 0;
+    rp -> ri_private        = owner;
+    rp -> ri_initialized    = false;       /* Must get info from db process. */
+    rp -> ri_enter_list     = null();
+    rp -> ri_chg_list       = null();
+
+    if (rp->ri_user_list ^= null())
+       then call free_userid_list (rp->ri_user_list);
+
+    obuf.region_number = region;
+    if (owner = -1) 
+       then obuf.pr_flag = '*';
+       else obuf.pr_flag = ' ';
+    obuf.who = starter;
+
+    call send_message (rp->ri_q_pointer, message$start_room, obuf_str,
+                       9, 0, 0);
+
+    if (BUGON_high) then
+       call trace_msg ('Starting region ' || ltrim(region));
+
+end activate_room;
+%page;
+start_extra_process:  procedure;
+
+    if (pcontrol.num_processes >= MaxRegionProcs) then do;
+       call trace_msg ('MaxRegionProcs limit reached.');
+       return;
+       end;
+
+    call trace_msg ('Starting region.' || ltrim(pcontrol.num_processes+1));
+    call start_room_process (pcontrol.num_processes+1);
+    call setup_termination_event;
+    return;
+
+end start_extra_process;
+%page;
+free_userid_list: procedure (gp);
+declare gp     pointer;
+declare ptr    pointer;
+
+     do while (gp ^= null());
+        ptr = gp->le_content;
+        gp = gp->le_next;
+        free ptr->user_block;
+     end ;
+
+end free_userid_list;
+%page;
+put_user_in_room: procedure(uid, qid, tp);
+     declare uid              bin(31);    /* user  id              */
+     declare qid              bin(31);    /* queue id              */
+     declare tp               pointer;
+     declare up               pointer;
+     declare rp               pointer;
+     declare p                pointer;
+     declare error_msg        char(40) var;
+     declare local_uid        bin(31);
+
+     call get_user_pointer_from_q_id(qid, up); /* Find user_info struct using Q */
+     if (up = null())
+     then do;  /* We couldn't find this user      */
+          call trace_msg ('*ERR* qid not found '  || ltrim (uid)  ||
+                           '/'  ||  ltrim (qid) || ': initial region');
+          return;
+          end;
+
+     if (tp->transit.region_id <= 0) then do;
+          if (tp->transit.region_id = -2) then do;
+             call trace_msg ('NO AVATAR RECORD: ' || ltrim(string(uid)));
+             error_msg = 'NOT a registered Beta Tester.';
+             end;
+          else error_msg = 'Error - contact Customer Service';
+          call respond_to_user (up,tp->transit.login_request,error_msg);                               
+          return;
+          end;
+
+     local_uid = uid;
+     call get_room(tp->transit.region_id, rp, tp->transit.region_owner, local_uid);
+
+     if (rp = null())
+     then do;  /* Tell the micro that the room was full                    */
+          call trace_msg ('No more regions!');
+          call respond_to_user (up,tp->transit.login_request,
+                       'Unable to enter Habitat - please try again later.');
+          return;
+          end;
+
+     if (local_uid = 0)
+         then up->ui_make_null = false;
+         else up->ui_make_null = true;
+
+     if (rp->ri_initialized)
+        then call user_to_room(up, rp, tp->transit.login_request);
+        else do;
+           allocate new_user set (p);
+           p->new_user.uid       = uid;
+           p->new_user.qid       = qid;
+           p->new_user.region_id = tp->transit.region_id;
+           p->new_user.user_data = tp->transit.login_request;
+           p->new_user.attempts  = 1;
+           call add_to_list (rp->ri_enter_list,p);
+           return;
+           end;
+
+end put_user_in_room;
+%page;
+respond_to_user: procedure (up,buff,msg);
+declare up     pointer;
+declare buff   char(*) var;
+declare msg    char(*) var;
+declare qp     pointer;
+
+declare enc    char(100) var;
+
+   call open_queue_from_number (up->ui_qid,qp);
+
+   call encode_string (byte(0) || msg,enc);
+   call send_message (qp,message$normal, substr(buff,1,4) || enc,
+                     (length(enc) + 4), up->ui_uid, up->ui_qid);
+
+   call delete_from_user_list (up);
+   free up -> user_info;
+   curr_users = curr_users - 1;
+
+end respond_to_user;
+%page;
+initialize_region: procedure (buff);
+declare buff   pointer;
+
+declare 1 buff_info based(buff),
+          2 region_num                  bin(31),
+          2 num_ghosts                  bin(15),
+          2 num_avatars                 bin(15),
+          2 avatar_id(206)              bin(31);
+
+declare i bin(15);
+declare rp pointer;
+declare tp pointer;
+declare ep pointer;
+
+     call get_room_info (region_num, rp);
+     if (rp = null()) then do;
+        call trace_msg ('Cannot init region ' || string(region_num));
+        return;
+        end;
+
+     rp->ri_initialized       = true;
+
+     do while (rp->ri_enter_list ^= null());
+        call get_from_head_of_list (rp->ri_enter_list,ep);
+        call retry_enter_room (ep,rp);
+        end;
+     do while (rp -> ri_chg_list ^= null());
+        call get_from_head_of_list (rp->ri_chg_list,ep);
+        call retry_change_room (ep,rp);
+        end;
+
+     if (BUGON_high) then
+        call trace_msg ('Region init for ' || ltrim(region_num));
+
+end initialize_region;
+%page;
+add_userid_slot:  procedure (gp,who);
+declare gp     pointer;
+declare who    bin(31);
+
+declare le     pointer;
+declare ptr    pointer;
+declare i      bin(15);
+
+     le = gp->ri_user_list;
+     do while (le ^= null());
+        ptr = le->le_content;
+        le = le->le_next;
+        if (ptr->blk_cnt < user_blk_size) then do i = 1 to user_blk_size;
+           if (ptr->user_id(i) = 0) then do;
+              ptr->user_id(i) = who;
+              ptr->blk_cnt = ptr->blk_cnt + 1;
+              return;
+              end;
+           end;
+     end ;
+
+     call prepare_userid_slot (gp,ptr);
+     ptr->user_id(1) = who;
+     ptr->blk_cnt = ptr->blk_cnt + 1;
+
+end add_userid_slot;
+%page;
+retry_enter_room: procedure (ep,rp);
+declare ep     pointer;
+declare rp     pointer;
+
+declare up     pointer;
+
+     if (BUGON) then call trace_msg ('Enter retry for ' || ltrim(ep->new_user.uid));
+
+     call get_user_pointer_from_q_id(ep->new_user.qid, up);
+     if (up = null()) then do;            /* User has disconnected... */
+        free ep->new_user;                /* ... so just forget him.  */
+        return;
+        end;
+
+     call user_to_room(up, rp, ep->new_user.user_data);
+     free ep->new_user;
+
+end retry_enter_room;
+%page;
+retry_change_room: procedure(ep,new_rp);
+declare ep               pointer;
+declare new_rp           pointer;
+
+declare up               pointer;
+declare old_rp           pointer;
+declare region           bin(31);
+declare datap            pointer;
+
+     call get_user_pointer_from_q_id(ep->new_user.qid, up);
+     if (up = null()) then do;
+        call trace_msg ('Can''t locate user '  ||
+                        ltrim (ep->new_user.uid) || ' for changing region.');
+        free ep->new_user;
+        return;
+        end;
+
+     old_rp = up->ui_room_pointer;    /* Get pointer to old room_info struct */
+
+     datap = addrel(addr(ep->new_user.user_data),2);   /* skip 2 for char var */
+
+     /*  Fill in the important parts of q_context .... */
+
+     q_context.uid          = ep->new_user.uid;
+     q_context.qid          = ep->new_user.qid;
+     q_context.user_name    = ep->new_user.qc_name;
+     q_context.holding_area = ep->new_user.qc_hold_area;
+
+     call check_new_region (up,datap,new_rp);
+     free ep->new_user;
+
+end retry_change_room;
+
+%page;
+change_room: procedure(uid, qid, buffer);
+     declare uid              bin(31);    /* user  id              */
+     declare qid              bin(31);    /* queue id              */
+     declare buffer           char(*) var;
+     declare up               pointer;
+     declare old_rp           pointer;
+     declare new_rp           pointer;
+     declare region           bin(31);
+     declare region_str       char(4) defined(region);
+     declare poss_count       bin(15);
+     declare poss_count_str   char(2) defined(poss_count);
+     declare p                pointer;
+     declare ghost_flag       char(1);
+
+
+     call get_user_pointer_from_q_id(qid, up); /* Find user_info struct using Q */
+     if (up = null())
+     then do;  /* We couldn't find this user      */
+          call trace_msg ('*ERR* Chg reg null user ptr '  ||
+                          ltrim (uid)  ||  '/'  ||  ltrim (qid) || ':' || buffer);
+          return;
+          end;
+
+     if ( (up->ui_uid ^= uid) | (up->ui_qid ^= qid) )
+     then do;  /* I think this says we got the WRONG user   */
+          call trace_msg ('*ERR* WRONG user '  ||
+                          ltrim (uid)  ||  '/'  ||  ltrim (qid) || ':' || buffer);
+          return;
+          end;
+
+     old_rp = up->ui_room_pointer;      /* Get pointer to old room_info struct */
+     if (old_rp = null())
+     then do;  /* Found the user, but we think he's not in any room yet        */
+          call trace_msg ('*ERR* user has no room '  ||
+                          ltrim (uid)  ||  '/'  ||  ltrim (qid) || ':' || buffer);
+          return;
+          end;
+%page;
+
+     region_str     = substr(buffer,1,4);
+     poss_count_str = substr(buffer,5,2);
+     ghost_flag     = substr(buffer,7,1);
+
+     if (BUGON_high) then
+        call trace_msg (ltrim(uid) || ': Request change to region ' ||
+                        ltrim(region));
+
+     if (up->ui_chg_room_ptr ^= null()) then do;
+        call trace_msg ('Chg region discarded for ' ||
+                        ltrim(uid) || ' region: ' || ltrim(region));
+        return;
+        end;
+
+     up->ui_make_null = false;
+     if (region ^= -1)
+        then call get_room(region, new_rp, public$room, 0);
+
+     if (region = -1  |  new_rp = null()) then do;
+        call send_message(old_rp->ri_q_pointer,message$change_room_failed,
+                               '', 0, uid, qid);
+        if (region ^= -1) then 
+           call trace_msg ('NO MORE REGION SLOTS.');
+        return;
+        end;
+
+     if (new_rp->ri_initialized)
+        then call check_new_region(up, addrel(addr(buffer),2), new_rp);
+        else do;
+           allocate new_user set (p);
+           p->new_user.uid         = uid;
+           p->new_user.qid         = qid;
+           p->new_user.region_id   = region;
+           p->new_user.qc_name     = q_context.user_name;
+           p->new_user.qc_hold_area = q_context.holding_area;
+           p->new_user.user_data   = buffer;
+           call add_to_list (new_rp->ri_chg_list,p);
+           return;
+           end;
+
+end change_room;
+%page;
+check_new_region: procedure (up, datap, new);
+declare up     pointer;
+declare datap  pointer;
+declare new    pointer;
+declare tp     pointer;
+
+declare 1 request             based,
+          2 region_num        bin(31),
+          2 total_cnt         bin(15),
+          2 ghost_flag        char(1),
+          2 unused            char(1),
+          2 objs(9)           bin(15),
+          2 pos(9)            bin(15);
+declare request_str           char(1) based;
+
+     call send_message(new->ri_q_pointer,message$user_enter_room,
+                       datap->request_str,bytesize(request),
+                       up->ui_uid,up->ui_qid);
+
+/* Update players_online  - assume the change_region will go through. */
+
+     up->ui_chg_room_ptr = new;
+     new->ri_players_online = new->ri_players_online + 1;
+     call add_userid_slot (new,up->ui_uid);
+
+end check_new_region;
+%page;
+check_change_result: procedure(uid,qid,ptr);
+declare uid         bin(31);
+declare qid         bin(31);
+declare ptr         pointer;
+declare up          pointer;
+declare room        pointer;
+declare 1 result    based(ptr),
+          2 code    bin(15),
+          2 roomq   bin(31),
+          2 ghost   char(1);
+declare result_str  char(2) based(ptr);
+
+    call get_user_pointer_from_q_id(qid, up);
+    if (up = null()) then do;
+       call trace_msg ('*ERR* unable to locate '  || ltrim(uid) ||
+                       ', check chg result.');
+       return;
+       end;
+    if (up->ui_chg_room_ptr = null()) then do;   /* => Regionproc crash */
+       call trace_msg ('Chg result discarded (crash?): '  || ltrim(uid));
+       return;
+       end;
+
+    room = up->ui_room_pointer;
+    if (BUGON_high) then
+       call trace_msg (ltrim(uid) || ':  Chg result of ' || ltrim(result.code));
+    call send_message(room->ri_q_pointer,msg$change_room_result,result_str,6,
+                            uid,qid);
+
+    if (result.code ^= 1) then do;                /* Change has PASSED. */
+       call drop_user_from_room(up,room);
+       up->ui_room_pointer = up->ui_chg_room_ptr;
+       up->ui_room_id      = up->ui_room_pointer->ri_region_id;
+       up->ui_chg_room_ptr = null();
+       end;
+    else do;                                      /* Change has FAILED. */
+       call drop_user_from_room(up,up->ui_chg_room_ptr);
+       up->ui_chg_room_ptr = null();
+       end;
+
+end check_change_result;
+%page;
+pass_to_new_region: procedure (arg,msgtype,msglen,uid,qid);
+declare arg    pointer;
+declare msgtype bin(31);
+declare msglen bin(31);
+declare uid    bin(31);
+declare qid    bin(31);
+declare up     pointer;
+declare new_region pointer;
+
+declare 1 info based(arg),
+          2 regionq      bin(31),
+          2 pass_thru    char(1020);
+
+     call open_queue_from_number(regionq,new_region);
+     call send_message (new_region,msgtype,substr(info.pass_thru,1,msglen-4),
+                        msglen-4, uid,qid);
+
+end pass_to_new_region;
+%page;
+user_to_room: procedure(user, room, init_request);
+     declare user             pointer;
+     declare room             pointer;
+     declare init_request     character(*) var;
+
+     declare 1 entry_info     ,
+               2 version      bin(15),
+               2 dashes       char(2),
+               2 user_name    char(10),
+               2 first_req    char(10);
+     declare str character(24) defined (entry_info);
+
+     declare 1 null_region    ,
+               2 null_value   bin(31),
+               2 count        bin(15),
+               2 who          bin(31);
+     declare null_region_msg char(10) defined(null_region);
+
+     if (user->ui_room_pointer ^= null())
+     then do;  /* Should always have left old room before this is called   */
+          call trace_msg ('*ERR* "user_to_room" called with user in a room '  ||
+                          ltrim (user->ui_uid)  ||  '/'  ||  ltrim (user->ui_qid));
+          return;
+          end;
+
+     entry_info.version   = user->ui_version;
+     entry_info.dashes    = '--';
+     entry_info.user_name = user->ui_scr_name;
+     entry_info.first_req = init_request;
+     call send_message(room->ri_q_pointer,message$user_enter_room,str,
+                       length(init_request)+14,user->ui_uid,user->ui_qid);
+
+     if (user->ui_make_null = true) then do;
+          null_region.null_value = Null_Region;
+          null_region.who = user->ui_uid;
+          null_region.count = 1;
+          substr(q_context.holding_area,1,2) = byte(0) || ' ';
+          call send_message (habitat_db_queue, msg$ckpoint_my_region,
+                       null_region_msg, 10, 0, habitat_qid);
+          user->ui_make_null = false;
+          end;
+
+     user->ui_room_pointer   = room;
+     user->ui_room_id        = room->ri_region_id;
+     room->ri_players_online = room->ri_players_online + 1;
+     call add_userid_slot (room,user->ui_uid);
+
+end user_to_room;
+%page;
+leave_room: procedure (u,r);
+     declare u pointer;
+     declare r pointer;
+
+    /*
+     *            *********DANGER********
+     * some mechanism is going to be needed to assure that 
+     * the room the dolt leaves sends off all the old messages
+     * before the new room sends off any messages
+     *
+     * is this message needed? after all it was the room who told us
+     * the guy was leaving.  I dont think so, but leave it in for now.
+     */
+
+     call send_message (r -> ri_q_pointer ,
+                       message$user_leave_room,
+                       '',
+                       0,
+                       u -> ui_uid,
+                       u -> ui_qid);
+             
+     call drop_user_from_room(u,r);
+   
+     u->ui_room_id      = 0;
+     u->ui_room_pointer = null();
+
+     end leave_room;
+
+%page;
+wait_for_process_to_start: procedure;
+
+/* locals */
+declare mtype   bin(31);
+declare buffer  character(256);
+declare user    bin(31);
+declare qid     bin(31);
+declare event_no bin(15);
+declare code    bin(15);
+declare len     bin(31);
+declare pid     bin(31) defined (buffer );
+declare i       bin(15);
+declare bpid    bin(31);
+declare done    bit(1);
+
+     if (waiting_for_count = 0) then do;
+/*        call start_room_process('regionproc');  */
+          call trace_msg ('Waiting for process start with zero count.');
+          return;
+          end;
+
+    done = false;
+    i = 0;
+    do while(^done);
+        call get_message(MCosmMasterQueue,
+                         event_index,
+                         mtype,
+                         buffer,
+                         length(buffer),
+                         len,
+                         user,
+                         qid);
+
+        if len < 0 then len = length(buffer);
+
+        if mtype = message$process_going then do;
+           done = true;
+        end;
+        else if mtype = -1 then do;
+           i = i + 1;
+           if i > 3 then do;
+              call trace_msg ('*ERR* max waits for Room Process activate.');
+              return;
+           end;
+           call s$sleep(10*1024,code);
+        end;    
+    end;
+
+    done = false;
+    bpid = pid;
+    do while (^done);
+        call a_process_woke_up (done,bpid);
+        bpid = 0;
+    end;
+
+end wait_for_process_to_start;
+%page;
+wake_process_up: procedure (pid);
+/* params */
+declare pid bin(31);
+
+/* locals */
+declare le          pointer;
+declare roomp       pointer;
+declare nu_rume     pointer;
+declare who_cares   pointer;
+declare j           bin(15);
+declare i           bin(15);
+declare bi_15_junk  bin(15);
+declare max_rooms   bin(15);
+declare ch_junk     character(32) varying;
+
+
+    le    = incipient_room_process_list;
+    roomp = null();
+
+    do while (le ^= null() & roomp = null() );
+        if (le -> le_content -> rp_process_id = pid)
+        then do;
+            roomp = le -> le_content;
+            call delete_from_list (incipient_room_process_list,
+                                   roomp); 
+            call add_to_end_of_list(room_process_list,roomp);
+        end;
+        le = le -> le_next; 
+    end;
+
+    if (roomp = null() )
+    then do;
+         call trace_msg ('Failed to find room process');
+         return;
+    end;
+
+    if (roomp -> rp_active_room_count = -1) then do;  /* Restarting regionproc */
+       roomp -> rp_active_room_count = 0;
+       return;
+       end;
+
+    roomp -> rp_active_room_count  = 0;
+    roomp -> rp_active_room_list   = null();
+    roomp -> rp_inactive_room_list = null();
+
+    max_rooms = regions_per_process;
+
+     do i = 1 to max_rooms;
+          allocate room_info set (nu_rume);
+          call add_to_list (roomp->rp_inactive_room_list,nu_rume);
+          nu_rume->ri_q_pointer = null();
+          nu_rume->ri_poppa     = roomp;
+          call make_sub_sender_queue ('region_big.' 
+                                || ltrim(roomp -> rp_number),
+                                max_events + roomp->rp_number + 1,
+                                nu_rume -> ri_q_pointer,i );
+
+          nu_rume->ri_room_id         = 0;
+          nu_rume->ri_players_online  = 0;
+
+/*        call identify_yourself (nu_rume -> ri_q_pointer);    */
+          call GetQueueInformation(nu_rume -> ri_q_pointer,
+                                 ch_junk, 
+                                 nu_rume -> ri_q_id, 
+                                 bi_15_junk);
+          nu_rume->ri_user_list = null();
+          call prepare_userid_slot (nu_rume, who_cares);
+          end;      /* i = 1 to max_rooms         */
+
+     roomp->rp_pointer         = nu_rume->ri_q_pointer;
+     RegionQ(roomp->rp_number) = nu_rume->ri_q_pointer;
+ 
+end wake_process_up;
+%page;
+a_process_woke_up: procedure (done,proc_id);
+/* locals */
+declare done    bit(1);
+declare proc_id bin(31);
+declare mtype   bin(31);
+declare buffer  character(4);
+declare user    bin(31);
+declare qid     bin(31);
+declare len     bin(31);
+declare pid     bin(31) defined (buffer );
+
+    pid = proc_id;
+    if pid = 0 then do;
+       call get_message (MCosmMasterQueue,
+                         event_index,
+                         mtype,
+                         buffer,
+                         length(buffer),
+                         len,
+                         user,
+                         qid);
+
+       if len < 0 then len = length(buffer); 
+
+       if (mtype = -1) 
+       then do;
+            done = true; 
+            return;
+       end;
+     
+       if (mtype ^= message$process_going) 
+       then do;
+          call trace_msg ('Process awoke with bad msg type');
+          signal error;
+          end;
+    end;
+
+    if (BUGON)  then
+        call trace_msg ('Process woke up ' || ltrim(rtrim(string(pid)))); 
+
+    call wake_process_up (pid);
+    waiting_for_count = waiting_for_count - 1;
+
+end a_process_woke_up;
+%page;
+get_room_process: procedure (rp);
+     declare rp     pointer;       /* Returned pointer to room process         */
+     declare rptr   pointer;
+     declare le     pointer;
+     declare min    bin(15);    /* Tracks least number of rooms in use      */
+
+
+     /* Assign this new room to the RoomH(i) with the LEAST number of
+     /* active rooms, if there is one with any room remaining.  If RoomH(i)
+     /* have the same number of filled rooms, the algorithm will add rooms
+     /* in the order the RoomH(i)s were created (1,2,3,4).
+     */
+
+     le = room_process_list;       /* The list of active RoomH(i)s             */
+
+     rp  = null();  /* Begin by assuming that no RoomH(i) will be found        */
+     min = regions_per_process;
+
+     do while ( le ^= null() );    /* Always search thru all RoomH(i)s         */
+          rptr = le->le_content;
+          if (rptr->rp_active_room_count < min)
+          then do;  /* This RoomH(i) has rooms and is best found so far   */
+               rp  = rptr;
+               min = rptr->rp_active_room_count;
+               end;
+
+          le = le->le_next;   /* Examine the next RoomH(i) process             */
+          end;
+
+     end get_room_process;
+
+%page;
+get_user_pointer_from_q_id: procedure (qid,p);
+/* params */
+declare qid bin(31);
+declare p  pointer;
+/* locals */
+declare le pointer;
+declare i  bin(15);
+
+    call hash_by_qid (qid,i);
+    le = user_list(i);
+    p = null();
+
+    do while (le ^= null() );
+       if (le -> le_content -> ui_qid = qid)
+       then do;
+           p = le -> le_content;
+           return;
+       end;
+       le = le -> le_next;
+    end;
+
+end get_user_pointer_from_q_id;
+%page;
+get_user_pointer_from_uid: procedure (uid,p);
+/* params */
+declare uid bin(31);
+declare p  pointer;
+/* locals */
+declare le pointer;
+declare i  bin(15);
+declare uid_str char(10);
+
+    uid_str = substr(string(uid),5);
+    call hash_by_acct (uid_str,i);
+    le = user_list(i);
+    p = null();
+
+    do while (le ^= null() );
+       if (le -> le_content -> ui_uid = uid)
+       then do;
+           p = le -> le_content;
+           return;
+       end;
+       le = le -> le_next;
+    end;
+
+end get_user_pointer_from_uid;
+%page;
+reset_user: procedure (q, user);
+
+/* params */
+declare   q        bin(31);
+declare   user     bin(31);
+
+/* locals */
+declare le         pointer;
+declare found      bit(1);
+declare roomp      pointer;
+declare up         pointer;
+declare i          bin(15);
+declare tp         pointer;
+declare need_dump  bit(1) aligned;
+
+    need_dump = false;
+    call get_transit_info (q,tp);
+    if (tp ^= null()) then do;
+        call delete_from_list (Transit_list,tp);
+        free tp->transit;
+        need_dump = true;
+        end;
+
+    call get_user_pointer_from_q_id (q,up);
+    if (up = null()) then do;
+       call trace_msg ('Unable to find unplugged user on q ' || ascii_qid(q) ||
+                       ', user ' || ltrim(user));
+       return;
+       end;
+
+    if (need_dump) then call aborted_load_dump (up);
+
+    call update_stat_summary (up);
+    if (up->ui_room_id = 0) then do;    /* Was on during regionproc crash */
+       call delete_from_user_list (up);
+       curr_users = curr_users - 1;
+       return;
+       end;
+
+    roomp = up -> ui_room_pointer;
+    if (roomp ^= null()) then do;
+       call send_message (roomp->ri_q_pointer,message$user_unplugged,
+                              '',0,up->ui_uid,q);
+       call drop_user_from_room(up,roomp);
+       end;
+
+    roomp = up -> ui_chg_room_ptr;
+    if (roomp ^= null()) then do;
+       call send_message (roomp->ri_q_pointer,message$user_unplugged,
+                              '',0,up->ui_uid,q);
+       call drop_user_from_room(up,roomp);
+       end;
+
+    call delete_from_user_list (up);
+    curr_users = curr_users - 1;
+
+end reset_user;
+%page;
+drop_user_from_room: procedure(u,r);
+     declare u           pointer;  /* Pointer to the user_info structure   */
+     declare r           pointer;  /* Pointer to the room_info structure   */
+     declare rp          pointer;  /* Pointer to room_process_info struct  */
+     declare le          pointer;
+     declare tp          pointer;
+     declare i           bin(15);
+     declare max_size    bin(15);
+     declare done        bit(1);
+
+
+     if (r = null()) then do;
+          call trace_msg ('Drop user from null room: ' || ltrim(u->ui_uid));
+          return;
+          end;
+
+     rp = r->ri_poppa;        /* Get the PROCESS holding this ROOM    */
+     r->ri_players_online = r->ri_players_online - 1;
+
+     le = r->ri_user_list;
+     done = false;
+     do while (le ^= null()  &  ^done);
+        tp = le->le_content;
+        do i = 1 to user_blk_size while (^done);
+           if (tp->user_id(i) = u->ui_uid) then do;
+               tp->user_id(i) = 0;
+               tp->blk_cnt = tp->blk_cnt - 1;
+               done = true;
+               if (tp->blk_cnt = 0) then do;
+                  call delete_from_list (r->ri_user_list,tp);
+                  free tp->user_block;
+                  end;
+               end;
+           end;
+        if (^done) then le = le->le_next;
+        end;
+
+     if (^done) then
+        call trace_msg ('Drop from region ' || ltrim(r->ri_region_id) ||
+                        ' did not find ' || ltrim(u->ui_uid));
+
+     if (r->ri_players_online <= 0) then call ReCycleRoom(r);
+
+end drop_user_from_room;
+%page;
+aborted_load_dump: procedure (up);
+declare up  pointer;
+declare qp  pointer;
+
+   call open_queue_from_number (up->ui_qid,qp);
+   if (qp = null()) then return;
+
+   call send_message(qp,msg$dump_circular,byte(32),1,up->ui_uid, up->ui_qid);
+
+   call trace_msg ('Load dump for ' || up->ui_scr_name);
+
+end aborted_load_dump;
+%page;
+find_by_name:  procedure (buf, uid, qid);
+declare buf         character(*) varying ;
+declare uid         binary(31) ;
+declare qid         binary(31) ;
+
+declare up          pointer;
+declare qp          pointer;
+declare user_que    pointer;
+
+declare 1 list_buffer ,
+          2 list_name         character(10),
+          2 list_uid          binary(31),
+          2 list_qid          binary(31),
+          2 list_version      binary(15);
+declare list_buff        character(20) defined(list_buffer) ;
+
+
+     call get_user_pointer_from_q_id (qid, up);
+     if (up = null ())  then  return;
+
+     qp = up->ui_room_pointer->ri_q_pointer;
+
+     list_name = buf;
+     call get_acct_info (list_name,list_uid,list_qid,list_version,user_que);
+     call send_message (qp,message$found_id,list_buff,20,uid,qid) ; 
+ 
+end find_by_name;
+%page;
+send_olm_msg: procedure(bptr,uid,qid);
+declare bptr   pointer;
+declare uid    bin(31);
+declare qid    bin(31);
+declare vers   bin(15);
+declare rp     pointer;
+declare 1 buff based(bptr),
+          2 addressee    char(10),
+          2 from_name    char(10),
+          2 message      char(117) var;
+declare 1 result,
+          2 msg_uid      bin(31),
+          2 msg_qid      bin(31),
+          2 msg_from     char(10),
+          2 msg_text     char(117) var;
+declare result_str char(1) defined(result);
+
+  call get_acct_info (buff.addressee,msg_uid,msg_qid,vers,rp);
+  if (rp = null()) then return;
+
+  result.msg_from = buff.from_name;
+  result.msg_text = buff.message;
+  call send_message (rp,msg$habitat_olm,result_str,length(msg_text)+20,0,0);
+  return;
+
+end send_olm_msg;
+%page;
+get_acct_info:  procedure (a_name,a_uid,a_qid,a_version,a_regionptr);
+declare a_name      char(10);
+declare a_uid       bin(31);
+declare a_qid       bin(31);
+declare a_version   bin(15);
+declare a_regionptr pointer;
+declare i           binary(15) ;
+declare p           pointer ;
+declare qp          pointer ; 
+declare le          pointer ; 
+declare (name_in,name_out) character(10) varying;
+declare str_name    character(10) ;
+
+     name_in = a_name;
+     call compress_name(name_in,name_out);
+     str_name = name_out;
+     call hash_by_name (str_name,i) ;
+     le = user_list (i) ;
+     
+     a_qid     = 0;
+     a_uid     = 0;
+     a_version = 0;
+     a_regionptr = null();
+
+     do while (le ^= null()) ;
+          p = le->le_content ;
+          if  (p->ui_scr_compname = name_out)
+          then do ;                                                   
+               a_qid = p->ui_qid ;
+               a_version = p->ui_version;
+               if (p->ui_room_pointer = null())
+                  then a_regionptr = null();
+                  else if (p->ui_chg_room_ptr ^= null())
+                     then a_regionptr = null();
+                     else a_regionptr = p->ui_room_pointer->ri_q_pointer;
+               if (a_regionptr = null())
+                  then a_uid = 0;
+                  else a_uid = p->ui_uid ;
+               return ;
+          end ;
+          else do ;
+               le = le->le_next ; 
+          end ;
+     end ;
+     
+     return;
+ 
+end get_acct_info;
+%page;
+signal_mail_arrival: procedure(bptr,uid);
+declare bptr   pointer;
+declare uid    bin(31);
+declare 1 buff based(bptr),
+          2 flag         bin(15),
+          2 postmark     bin(31);
+
+declare up     pointer;
+declare roomp  pointer;
+
+declare char_buf char(6) defined(buff);
+
+   call get_user_pointer_from_uid (uid,up);
+   if (up = null()) then return;        /* not online, so forget it. */
+
+   roomp = up -> ui_room_pointer;
+   if (roomp ^= null())
+      then call send_message (roomp->ri_q_pointer,msg$mail_arrived,
+                             char_buf,6, up->ui_uid,0);
+      else call trace_msg ('Null room for user ' || ltrim(up->ui_uid) ||
+                           ' for mail delivery.');
+
+end signal_mail_arrival;
+%page;
+list_latest_users: procedure(uid);
+declare uid    bin(31);
+
+declare up     pointer;
+declare qp     pointer;
+declare le     pointer;
+declare last_buff char(1) defined (last_login.pos);
+
+declare i      bin(15);
+declare more   bit(1) aligned;
+
+   call get_user_pointer_from_uid (uid,up);
+   if (up = null()) then return;        /* not online, so forget it. */
+
+   more = true;
+   le = linear_user_list;
+   do i = 1 to 12 while (more);
+      qp = le->le_content;
+      le = le->le_next;
+      if (qp->ui_scr_name ^= '')
+         then last_login.name(i) = qp->ui_scr_name;
+         else last_login.name(i) = ltrim(qp->ui_uid);
+      if (le = null()) then more = false;
+      end;
+   last_login.pos = i - 1;
+
+   qp = up->ui_room_pointer->ri_q_pointer;
+   call send_message (qp,msg$user_stats,last_buff,122,uid,up->ui_qid) ; 
+   return;
+
+end list_latest_users;
+%page;
+prepare_userid_slot: procedure (rp,tp);
+declare rp     pointer;
+declare tp     pointer;
+declare i      bin(15);
+
+   allocate user_block set (tp);
+   call add_to_list (rp->ri_user_list,tp);
+
+   tp->blk_cnt  = 0;
+
+   do i = 1 to user_blk_size;
+      tp->user_id(i) = 0;
+      end;
+
+end prepare_userid_slot;
+%page;
+reroute_message:  procedure (buf, uid, qid);
+declare buf         character(*) varying;
+declare uid         binary(31);
+declare qid         binary(31);
+
+declare up          pointer;
+declare roomp       pointer;
+
+   call get_user_pointer_from_q_id (qid,up);
+   if (up = null()) then do;
+      if (BUGON) then 
+         call trace_msg ('Unable to find ' || ltrim(uid) ||
+                         ' for message rerouting');
+      return;
+      end;
+
+   roomp = up -> ui_room_pointer;
+   call send_message(roomp->ri_q_pointer,message$terminal_message,
+                     substr(buf,1),length(buf),up->ui_uid,up->ui_qid);
+   return;
+
+end reroute_message;
+%page;
+ReCycleRoom: procedure (rp);
+     declare rp          pointer;
+     declare i           bin(15);
+     declare pops        pointer;
+
+     if (BUGON_high) then 
+        call trace_msg ('Region ' || ltrim(rp->ri_region_id) || ' removed.');
+
+     pops = rp->ri_poppa;
+
+     rp->ri_players_online  = 0;
+     rp->ri_initialized     = false;
+     if (rp->ri_enter_list ^= null()) then do;
+         rp->ri_enter_list = null();
+         call trace_msg ('Recycle with enter list for ' || 
+                            ltrim(rp->ri_region_id));
+         end;
+     if (rp->ri_chg_list ^= null()) then do;
+         rp->ri_chg_list = null();
+         call trace_msg ('Recycle with change list for ' || 
+                            ltrim(rp->ri_region_id));
+         end;
+     rp->ri_region_id = 0;
+
+     if (rp->ri_user_list ^= null())
+         then call free_userid_list (rp->ri_user_list);
+
+    call delete_from_list (room_list,rp);  
+    call delete_from_list (pops -> rp_active_room_list, rp);
+    call add_to_list (pops -> rp_inactive_room_list, rp);    
+
+    pops->rp_active_room_count = pops->rp_active_room_count-1;
+    how_many_rooms_used        = how_many_rooms_used-1;
+
+/*    call DeleteRoomRecord(rp);  */
+
+end ReCycleRoom; 
+GetInsideAddress: procedure (qid,qp);
+
+/* params */
+declare qid     bin(31);
+declare qp      pointer;
+ 
+/* locals */
+declare up      pointer;
+
+    call get_user_pointer_from_q_id (qid,up);
+
+    /*
+     * ****** DANGER ******
+     * how can up be null?  i dont have time now to find out, avoid it.
+     */
+    if (up ^= null())
+    then do;
+         qp = up -> ui_room_pointer -> ri_q_pointer;
+    end;
+    else do 
+         qp = null();
+    end;
+
+end GetInsideAddress;
+%page;
+add_to_user_list: procedure (p);
+declare p           pointer;
+declare i1          bin(15);
+declare i2          bin(15); 
+declare i3          bin(15);
+declare str_name    character(10);
+declare code        bin(15);
+
+     str_name = p->ui_scr_compname; 
+     call hash_by_name (str_name,i1);
+     call add_to_list (user_list(i1),p);
+     call hash_by_acct (p->ui_account_num,i2);
+     if (i1 ^= i2) then call add_to_list (user_list(i2),p);
+     call hash_by_qid (p->ui_qid,i3);                   
+     if ((i1 ^= i3) & (i2 ^= i3)) then call add_to_list (user_list(i3),p);
+     call add_to_list (linear_user_list,p);
+     UserInfoCnt = UserInfoCnt + 1;
+     if UserInfoEvent ^= 0 then do;
+        call s$notify_event(UserInfoEvent,UserInfoCnt,code);
+        if (code ^= 0)  then  call debug_msg (code, ' *ERR* on inc UserInfoEvent.');
+     end;
+
+end add_to_user_list;
+%page;
+delete_from_user_list: procedure (p);
+declare p           pointer;
+declare i1          bin(15);
+declare i2          bin(15);
+declare i3          bin(15);
+declare str_name    character(10);
+declare code        bin(15);
+
+     str_name = p->ui_scr_compname; 
+     call hash_by_name (str_name,i1);
+     call delete_from_list (user_list(i1),p);
+     call hash_by_acct (p->ui_account_num,i2);
+     if (i1 ^= i2) then call delete_from_list (user_list(i2),p);
+     call hash_by_qid (p->ui_qid,i3);
+     if ((i1 ^= i3) & (i2 ^= i3)) then call delete_from_list (user_list(i3),p);
+     call delete_from_list (linear_user_list,p);
+     UserInfoCnt = UserInfoCnt - 1;
+     if UserInfoEvent ^= 0 then do;
+        call s$notify_event(UserInfoEvent,UserInfoCnt,code);
+        if (code ^= 0)  then  call debug_msg (code, ' *ERR* on dec UserInfoEvent.');
+     end;
+
+end delete_from_user_list;
+%page;
+hash_by_name: procedure (str,i);
+declare str         character(*);
+declare i           bin(15);
+declare str1        character(10) defined(bin_flds);
+declare 1 bin_flds,
+          2    bin1      bin(15),
+          2    bin2      bin(31),
+          2    bin3      bin(31);
+
+     str1 = str;
+     i = mod(bin1+bin2+bin3,hash_value) + 1;
+ 
+end hash_by_name; 
+
+hash_by_acct: procedure (str,i);
+declare str         character(*);
+declare i           bin(15);
+declare str1        character(10) defined(bin_flds);
+declare 1 bin_flds,
+          2    bin1      bin(15),
+          2    bin2      bin(31),
+          2    bin3      bin(31);
+
+     str1 = str;
+     i = mod(bin1+bin2+bin3,hash_value) + 1;
+ 
+end hash_by_acct;
+
+hash_by_qid: procedure (qid,i); 
+declare qid         bin(31); 
+declare i           bin(15);
+
+     i = mod(qid,hash_value) + 1;
+
+end hash_by_qid;
+%page;
+check_region_processes: procedure;
+declare number_found binary(15);
+declare (i,code)     binary(15);
+
+   call s$get_processes (pcontrol.whos_system, 'region.*', pcontrol.module_name,
+                         64, number_found,
+                         running_list(1).proc_id, code);
+   if (code ^= 0) then do;
+      call debug_msg (code, 'Getting regionproc info');
+      return;
+      end;
+
+   if (number_found > pcontrol.num_processes)
+      then call trace_msg (ltrim(number_found) || ' regionprocs found!');
+
+   do i = 0 to pcontrol.num_processes;
+      if (^in_running_list(i))
+         then call restart_room_process (i);
+      end;
+
+   call timestamp_keep_file;
+   return;
+
+in_running_list: procedure (proc_index) returns (bit(1) aligned);
+declare proc_index binary(15);
+declare x          binary(15);
+
+   do x = 1 to number_found;
+      if (running_list(x).process_name = pcontrol.process_name(proc_index))
+         then return (true);
+      end;
+
+   return (false);
+
+end in_running_list;
+end check_region_processes;
+%page;
+kill_region_processes: procedure;
+declare number_found binary(15);
+declare (i,code)     binary(15);
+
+   call s$get_processes (pcontrol.whos_system, 'region.*', pcontrol.module_name,
+                         64, number_found,
+                         running_list(1).proc_id, code);
+   if (code ^= 0) then do;
+      call debug_msg (code, 'Getting regionproc info');
+      return;
+      end;
+
+   if (number_found > MaxRegionProcs)
+      then call trace_msg (ltrim(number_found) || ' regionprocs on restart!');
+
+   do i = 1 to number_found-1;
+         call s$stop_process (running_list(i).proc_id,code);
+         if (code = 0)
+            then call trace_msg ('Stopped ' || 
+                                  rtrim(running_list(i).process_name) ||
+                                  '/' || rtrim(running_list(i).user_name));
+            else call trace_msg ('Could not stop (' || ltrim(code) || ') ' ||
+                                  rtrim(running_list(i).process_name) ||
+                                  '/' || rtrim(running_list(i).user_name));
+      end;
+
+   return;
+
+end kill_region_processes;
+%page;
+timestamp_keep_file: procedure;
+declare keep_file   char(256) var;
+declare when        char(32)var;
+declare code        bin(15);
+
+
+   if (keep_cnt >= 5) then return;
+
+   call s$expand_path ('regionproc.kp','',keep_file,code);
+   if (code ^= 0) then do;
+      call debug_msg (code, 'expanding regionproc.kp');
+      return;
+      end;
+
+   call s$string_date_time (when);
+   when = '.' || translate (substr (when, 1, 17), '_', ' ');
+
+   call s$rename (keep_file, 'regionproc.kp' || when, code);
+   if (code = e$object_not_found) then ;
+      else if (code ^= 0)
+         then call debug_msg (code, 'renaming regionproc.kp');
+   if (code = 0) then keep_cnt = keep_cnt + 1;
+
+end timestamp_keep_file;
+%page;
+restart_room_process: procedure(process_num);
+     declare process_num      binary(15);
+     declare out_name         character(256) varying;
+     declare code             bin(15);
+     declare roomp            pointer;
+     declare process_switch   char(32) var;
+
+
+     /* look thru room_process_list to find value of roomp */
+     call get_process_by_number (process_num,roomp);
+     if (roomp = null()) then do;
+         call trace_msg ('Unable to restart region.' || ltrim(process_num));
+         return;
+         end;
+     call delete_from_list (room_process_list,roomp);
+
+     call s$expand_path((roomp->rp_process_name),'out',out_name,code);
+     if (code ^= 0)  then
+          call debug_msg (code, roomp->rp_process_name || '.out');
+     else do;
+          call s$set_implicit_locking(out_name, 1, code);
+          if (code ^= 0) then
+                    call debug_msg (code, roomp->rp_process_name || 'locking out');
+          end;
+                          
+     if (habitat_log)
+        then process_switch = '';
+        else process_switch = ' -no_subsys_log';
+
+     call s$start_process ('regionproc ' || ltrim(rtrim(process_num)) ||
+                          process_switch, out_name, '',
+                          pcontrol.process_priority, term_event_name,
+                          pcontrol.module_name, 1,
+                          roomp -> rp_process_name, roomp -> rp_process_id,
+                          code);
+     call cleanup_hung_regions (roomp);
+     if (code ^= 0) 
+     then do;
+          call debug_msg(code, 'start region.' || ltrim(process_num));
+          return;
+     end;
+
+     if (BUGON) then call trace_msg ('Restarting region.' || ltrim(process_num));
+
+     waiting_for_count  = waiting_for_count + 1;
+     call add_to_list (incipient_room_process_list, roomp);
+
+end restart_room_process;
+%page;
+cleanup_hung_regions: procedure (pops);
+declare pops   pointer;
+declare regn   pointer;
+declare le     pointer;
+declare i      binary(15);
+
+   le = pops->rp_active_room_list;
+   do i = 1 to pops->rp_active_room_count;
+      regn = le->le_content;
+      le = le->le_next;
+      if (regn ^= null()) then do;
+         call cleanup_hung_users (regn);
+         call ReCycleRoom (regn);
+         end;
+      end;
+
+   pops->rp_active_room_count = -1;
+      
+end cleanup_hung_regions;
+%page;
+cleanup_hung_users: procedure (rp);
+declare rp pointer;
+declare up pointer;
+declare gp pointer;
+declare i  binary(15);
+declare le pointer;
+declare lp pointer;
+
+declare 1 reset,
+          2 current_region    bin(31),
+          2 num_players       bin(15),
+          2 player_id(254)    bin(31);
+declare reset_msg char(1) defined(reset);
+
+   reset.current_region = rp->ri_region_id;
+   reset.num_players    = 0;
+
+   le = rp->ri_user_list;
+   do while (le ^= null());
+      lp = le->le_content;
+      do i = 1 to user_blk_size;
+         if (lp->user_id(i) ^= 0) then do;
+            call get_user_pointer_from_uid (lp->user_id(i),up);
+            if (up ^= null()) then do;
+               up->ui_room_pointer = null();
+               up->ui_room_id      = 0;
+               call add_to_reset_msg;
+               end;
+            end;
+         end;
+      le = le->le_next;
+      end;
+
+   do while (rp->ri_enter_list ^= null());
+      call get_from_head_of_list (rp->ri_enter_list,gp);
+      call get_user_pointer_from_q_id (gp->new_user.qid,up);
+      if (up ^= null()) then do;
+         up->ui_room_pointer = null();
+         up->ui_room_id      = 0;
+         call add_to_reset_msg;
+         end;
+      free gp->new_user;
+      end;
+
+   do while (rp->ri_chg_list ^= null());
+      call get_from_head_of_list (rp->ri_chg_list,gp);
+      call get_user_pointer_from_q_id (gp->new_user.qid,up);
+      if (up ^= null()) then do;
+         call send_message(up->ui_room_pointer->ri_q_pointer,
+                   message$change_room_failed,'', 0, up->ui_uid, up->ui_qid);
+         up->ui_chg_room_ptr = null();
+         end;
+      free gp->new_user;
+      end;
+
+   if (reset.num_players = 0) then return;
+
+   call send_message (habitat_db_queue, msg$ckpoint_my_region,reset_msg,
+                      ((reset.num_players*4)+6), 0, habitat_qid);
+   return;
+
+add_to_reset_msg: procedure;
+
+   reset.num_players = reset.num_players + 1;
+   reset.player_id(reset.num_players) = up->ui_uid;
+
+   if (reset.num_players = 254) then do;
+      call send_message (habitat_db_queue, msg$ckpoint_my_region,reset_msg,
+                      ((reset.num_players*4)+6), 0, habitat_qid);
+      reset.num_players = 0;
+      end;
+
+end add_to_reset_msg;
+end cleanup_hung_users;
+%page;
+get_process_by_number: procedure (proc_number,rp);
+     declare proc_number bin(15);
+     declare rp     pointer;       /* Returned pointer to room process         */
+     declare le     pointer;
+
+     le = room_process_list;       /* The list of active regionprocs           */
+     do while ( le ^= null() );
+          rp = le->le_content;
+          if (rp->rp_number = proc_number) then return;
+          le = le->le_next;        /* Examine the next process                 */
+          end;
+
+     rp = null();
+     return;
+
+end get_process_by_number;
+%page;
+setup_termination_event: procedure;
+declare index binary(15);
+declare code  binary(15);
+
+   if (term_ei = 0) then do;
+      call s$attach_event (term_event_name, term_ei, term_ec, code);
+      if (code ^= 0) then call die (code, 'EVENT', term_event_name);
+      end;
+
+   call s$read_event (term_ei, term_ec, (0), code);
+   if (code ^= 0)  then  call debug_msg (code, 'event setup: read_event');
+
+   call s$task_setup_wait (Master_ei, termination_event, 1, term_ei,
+                           term_ec, -1, index, code);
+   if (code ^= 0) then call debug_msg (code, 'event setup ' || term_event_name);
+
+end setup_termination_event;
+%page;
+init_stat_summary: procedure;
+
+     tot_users = 0;
+     tot_time  = 0;
+
+end init_stat_summary;
+
+%page;
+update_stat_summary: procedure (up);
+
+declare   curr_time           bin(31);
+declare   up                  pointer;
+
+     tot_users = tot_users + 1;
+/*   call s$int_date_time (curr_time);
+     tot_time  = tot_time + curr_time - up->ui_game_start;   */
+
+end update_stat_summary;
+
+%page;
+
+send_summary_stats: procedure (p);
+
+declare   p         pointer;
+declare   buff (2)  character(20)  defined (summ_ptr->summary_stats);
+declare   snap      bit(1) aligned;
+
+     snap = false;
+     goto send_stats_body;
+
+  snap_summary_stats: entry (p);
+     snap = true;
+
+  send_stats_body:
+     summ_ptr->summary_users(1) = curr_users;
+     summ_ptr->summary_time(1)  = how_many_rooms_used;
+
+     call collect_stats (stat$games,stat$sub_usage,0,(buff(1)));
+     call init_stat_summary;
+
+     if (curr_users > 1)
+        then call snap_cluster_info;
+
+     if (^snap)
+        then call Tact (send_summary_stats,p,summ_minutes*60);
+
+end send_summary_stats;
+%page;
+snap_cluster_info: procedure;
+declare rp   pointer;
+declare le   pointer;
+declare slot bin(15);
+declare i    bin(15);
+
+declare cluster(10) bin(15);
+declare buff        char(20) defined(cluster);
+
+     do i = 1 to 10;  cluster(i) = 0;  end;
+
+     le = room_list;
+     do while (le ^= null());
+          rp = le->le_content;
+          slot = determine_which_counter(rp->ri_players_online);
+          cluster(slot) = cluster(slot) + 1;
+          le = le->le_next;
+     end;
+
+     call collect_stats (stat$games,stat$sub_cluster,0,substr(buff,1));
+        
+end snap_cluster_info;
+
+
+determine_which_counter: procedure (curr_count)  returns(bin(15));
+declare curr_count bin(15);
+
+     if (curr_count <= 7)  then return (curr_count);
+     if (curr_count <= 15) then return (8);
+     if (curr_count <= 24) then return (9);
+
+     return (10);
+
+end determine_which_counter;
+
+%page;
+Stat_Flush: procedure;
+declare   rp   pointer;
+declare   le   pointer;
+
+     le = room_process_list;
+     do while (le ^= null());
+          rp = le->le_content;
+          call send_message (rp->rp_pointer,message$statflush,'',0,0,0);
+          le = le->le_next;
+     end;
+         
+     call snap_summary_stats (summ_ptr);
+     call send_stats;
+
+end Stat_Flush;
+%page;
+calculate_today_start:  procedure (ptr);
+declare  ptr        pointer;
+
+declare  code       binary(15);
+declare  cur_time   binary(31);
+declare  wait_time  binary(31);
+declare  date_stg   char(32) var;
+declare  today_start_time bin(31);
+
+   call s$int_date_time (cur_time);
+   call s$cv_to_string_date_time (cur_time, date_stg);
+   call s$cv_to_int_date_time (substr (date_stg, 1, 8), today_start_time, code);
+   if (code ^= 0)  then  call debug_msg (code, date_stg);
+
+
+/*    today is defined as starting at 10:00 am */
+/*    reset this value each day    at 10:00 am */
+
+   today_start_time = today_start_time - (14*60*60); /* previous day at 10:00 am */
+
+   if (cur_time - today_start_time  >=  24*60*60)  then  /* after 10:00 am ?  */
+       today_start_time = today_start_time + 24*60*60;   /* today at 10:00 am */
+
+   wait_time = 24*60*60 - (cur_time - today_start_time);
+
+   call Tact (calculate_today_start, null (), wait_time); /* wake up tomorrow */
+
+   if (hi_water.users > 0)
+      then call trace_msg ('HIGH:  users = ' || ltrim(hi_water.users) ||
+                           ', regions = ' || ltrim(hi_water.procs));
+
+end  calculate_today_start;
+%page;
+process_console_msg: procedure (buff);
+declare buff                  character(*) varying;
+declare len                   bin(31);
+declare rp                    pointer;
+declare le                    pointer;
+declare type                  bin(31);
+
+     len = length(buff);
+     if substr(buff,1,1) = 'Q' then do;
+        type = message$flush_q_stats;
+        len = len - 1;
+        substr(buff,1,1) = substr(buff,2,1);
+     end;
+     else do;
+        type = message$debug_msg;
+     end;
+
+     le = room_process_list;
+     do while (le ^= null());
+          rp = le->le_content;
+          call send_message (rp->rp_pointer,type,
+                              substr(buff,1),len,0,0);
+          le = le->le_next;
+     end;
+
+     if type = message$debug_msg then call debug_on (substr(buff,1),len); 
+
+end process_console_msg;
+%page;
+compress_name:  procedure (oldname, newname);
+   declare i bin (15);
+   declare oldname char (10) varying;
+   declare newname char (10) varying;
+   declare tempstr char (10) varying;
+   %replace lower_case by 'abcdefghijklmnopqrstuvwxyz';
+   %replace upper_case by 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+   tempstr = '';
+   do i = 1 to min (length (oldname), 10);
+      if substr (oldname, i, 1) ^= ' ' then
+         tempstr = tempstr || substr (oldname, i, 1);
+   end;
+   newname = translate (tempstr, lower_case, upper_case);
+   return;
+end compress_name;
+%page;
+initialize_process: procedure;
+declare code             binary(15);
+declare i                binary(15);
+declare junk             binary(31);
+declare my_name          char(32) var;
+
+   call s$parse_command ('habitat master', code,
+                         'monitor_event:pathname,required',term_event_name,
+                         'option(-system),string,=quantum.quantum',whos_system,
+                         'switch(-subsys_log),=1', habitat_log,
+                         'end');
+   if (code ^= 0) then stop;
+
+   if (habitat_log)
+      then call set_debug_queue ('habitat_debug');
+
+   call initialize_queues_and_tasks ('habitat', habitat_queue,
+                                     max_events + MaxRegionProcs,
+                                     obn_event, tact_event);
+   call GetQueueInformation (habitat_queue, my_name, habitat_qid, code);
+   call make_server_queue ('habitat_big', serverQ_event, habitatQ_queue, junk);
+   call make_server_queue ('MCosmMasterQueue', master_event,
+                            MCosmMasterQueue,  junk);
+
+   call make_sender_queue ('habitat_db', db_event,      habitat_db_queue);
+   call make_sender_queue ('hatchery',   newuser_event, newuser_queue);
+
+/* call kill_region_processes;     */
+   call setup_termination_event;
+
+   call init_stats (stat_event);
+   allocate  summary_stats  set (summ_ptr);
+   call init_stat_summary;
+   call Tact (send_summary_stats, summ_ptr, summ_minutes*60);
+   last_login.pos = 0;
+
+   do i = 0 to InitRegionProcs-1;
+      call start_room_process (i);
+      end;
+
+   call calculate_today_start (null());
+
+end initialize_process;

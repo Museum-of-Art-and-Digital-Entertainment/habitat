@@ -1,0 +1,85 @@
+.lg 1
+.ds D April 2, 1986
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Report
+
+April 2, 1986\s-9
+.AU
+``Because we thought you'd want to know''
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+.ds LH MONTHLY REPORT
+.ds CH \\*D
+.ds RH MicroCosm Project
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This is the fifth in a series of monthly reports detailing the progress on
+the \fBMicroCosm\fP project at Lucasfilm.  This report describes events and
+achievements during the month of March, 1986.
+.SH
+\s+1Work In Progress/Tasks Accomplished\s-1
+.PP
+The Project Schedule calls for us to meet three deliverables for mid-March.
+These are: to demonstrate the completed animation and graphics sub-system in
+action, to provide further imagery and artwork for objects, and to demonstrate
+objects functioning in an integrated system.  As discussed in the previous
+progress report, the third deliverable was adjusted to reflect the state of
+the database system at the time of delivery, and was instead a demonstration
+of an integrated system loading under Q-Link and communicating with the host,
+but without object-oriented database transactions driving the behavior on the
+screen.  A videotape addressing these three deliverables was sent out March
+20.  All three deliverables (the third modified as we just said) were met
+handily.
+.PP
+During March Aric Wilmunder added several enhancements and improvements to the
+graphics sub-system and made major progress on development of the avatar
+motion control sequencer.
+.PP
+Randy Farmer has optimized and improved the communications routines.  In
+particular, we are now able to simultaneously perform disk access, modem
+communications and animation on the screen without any noticeable glitching
+effects on the screen.  He has also implemented the code to unpack contents
+vectors and initialize new regions when they are entered.
+.PP
+Ron Gilbert has finished the object-oriented disk database system.
+.PP
+Our major accomplishment during March involved the entire MicroCosm team
+working together.  This was to integrate the various parts of the system,
+weaving the strands of development being followed by the various team members
+into a single, functioning unit.  Further development will build on top of
+this integrated system rather than following several parallel paths.
+.PP
+I have completed the first pass of the detailed specification of the internal
+behavior of the entire object set.  Randy and I have plotted out the
+development plan for the objects themselves based on this specification.
+.SH
+\s+1Tasks For April\s-1
+.PP
+The essential task for April is to create a complete working system (if you
+will, an alpha-test release).  The major element of this is the programming of
+the bulk of the object behavior.
+.PP
+The development schedule lists one milestone for us to reach by April 15.
+This is to deliver a rough but testable C64-based system.  We anticipate that
+we will reach this goal with some effort, barring unforeseen disasters
+cropping up along the way.
+.SH
+\s+1Quantum Comments\s-1
+.PP
+I will be traveling to the Quantum offices during the first part of April in
+order to intensively work on the host-end of the object behavior software.
+The host database processor needs to be ready for object installation by this
+time.  However, all indications we have so far are that it will be.
+.PP
+We have developed quite a good working relationship with the technical people
+at Quantum.  In particular, Janet Hunter has been very helpful and productive,
+and has contributed a number of excellent ideas to the overall system.
+The Quantum folk have been especially tolerant of the shifting sands of the
+communications protocol specification, which gratifies us greatly.

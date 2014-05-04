@@ -1,0 +1,24 @@
+@region $ Woods_7u {
+    north: Woods_7v.l;
+    south: Woods_7t.l;
+    east: Woods_7t.l;
+    west: Woods_6u.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:204; }
+        @sky { x:0; y:0; or:0; style:4; }
+        @rock { x:80; y:138; or:32; 
+            8:1;
+        }
+        @rock { x:64; y:40; or:32; 
+            8:1;
+        }
+        @rock { x:136; y:148; or:32; 
+            8:1;
+        }
+        @fence { x:88; y:140; or:0; }
+        @fence { x:108; y:140; or:0; gr_state:2; }
+        @fence { x:132; y:140; or:0; gr_state:1; }
+        @tree { x:92; y:147; or:0; style:4; }
+    ]
+}

@@ -1,0 +1,169 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r 9134
+  west_neighbor: r 9113
+  north_neighbor: r 9124
+  south_neighbor: r 9122
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Show some respect!  "
+  avatars: 6
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign {
+  container: r -1001
+  x: 0
+  y: 19
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hOrder\h of the \hHoly\h \hWalnut           "
+}
+use window {
+  container: r -1001
+  x: 144
+  y: 39
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 44
+  y: 59
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door {
+  container: r -1001
+  x: 84
+  y: 32
+  style: 1
+  gr_state: 0
+  orient: 205
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r 0
+}
+use window {
+  container: r -1001
+  x: 120
+  y: 49
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use street {
+  container: r -1001
+  x: 68
+  y: 7
+  style: 0
+  gr_state: 13
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use window {
+  container: r -1001
+  x: 20
+  y: 49
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 96
+  y: 59
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window {
+  container: r -1001
+  x: 252
+  y: 39
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use short_sign {
+  container: r -1001
+  x: 76
+  y: 122
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\34       "
+}

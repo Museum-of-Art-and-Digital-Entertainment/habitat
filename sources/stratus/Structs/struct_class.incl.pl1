@@ -1,0 +1,21 @@
+/*
+ *   struct_class.incl.pl1
+ *
+ *   Struct stub for class descriptor structure.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ */
+,    2    capacity            binary(15),
+     2    max_requests        binary(15),
+     2    alloc_size          binary(15),
+     2    class_bytes         binary(15),
+     2    pc_state_bytes      binary(15),
+     2    flags               ,
+       3  known               bit(1),
+       3  opaque_container    bit(1),
+       3  static              bit(1),
+       3  filler              bit(13),
+     2    actions             pointer;

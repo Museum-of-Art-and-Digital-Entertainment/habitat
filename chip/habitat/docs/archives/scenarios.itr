@@ -1,0 +1,177 @@
+.ds Da September 30, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Features List\s-9
+.AU
+A ``LUCASFILM UNIVERSE'' DOCUMENT
+the various features and components of the \fBMicroCosm\fP system
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH MICROCOSM FEATURES
+.ds CH \\*(Da
+.ds RH The Lucasfilm Universe
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the various software features and components that make
+up the \fBMicroCosm\fP system.  It also describes the particular elements that
+will be delivered according to various possible development scenarios.
+.SH
+\s+3Features and Components of MicroCosm\s-3
+.IP " \(bu "
+\fIBaseline home system\fP \(em The basic software which resides in the home
+computer to handle interaction, communications and graphics.
+.IP " \(bu "
+\fIBasic object set\fP \(em The (home system resident) set of object behavior
+modules and imagery for the basic collection of common objects that everyone
+knows about and requires to exist in this world.  Includes such things as
+minimal turf environment objects, clothing, weapons, basic transportation
+devices, and other basic elements of the Universe.
+.IP " \(bu "
+\fIAdvanced object set\fP \(em The (home system resident) set of object
+behavior modules and imagery for unusual (but interesting) objects.  Includes
+rare treasures, specialized tools, unusual buildings, and so on.
+.IP " \(bu "
+\fIAvatar personality kit\fP \(em Interactive package to allow a player to
+customize the appearance of his avatar.
+.IP " \(bu "
+\fIBaseline host system\fP \(em The basic software which resides in the
+network host computer to make the universe work with multiple players.
+.IP " \(bu "
+\fIHost database for basic object set\fP \(em Software modules to handle the
+part of the basic object set which must reside in the host.
+.IP " \(bu "
+\fIHost database for advanced object set\fP \(em Software modules to handle
+the part of the advanced object set which must reside in the host.
+.IP " \(bu "
+\fIThird-party software developers' toolkit\fP \(em Software package to allow
+third-party software developers to use the \fBMicroCosm\fP universe as a
+gateway into software of their own creation.
+.SH
+\s+2Scenario I\s-2
+.PP
+Scenario I is an intensive development effort.  The objective is to achieve an
+operational system as quickly as possible.  It comes in two phases:
+.SH
+Phase 1 \(em Minimal Commodore 64 System
+.PP
+Phase 1 obtains the minimal possible functional system for the Commodore 64.
+.DS
+October 15, 1985 \(em project start
+May 15, 1986 \(em \(*b-test release
+July 15, 1986 \(em public release
+August 31, 1986 \(em end of post-project ramp-down
+.DE
+features delivered May 15:
+.DS
+Baseline home system for Commodore 64
+Basic object set for Commodore 64 (partial)
+Baseline host system
+Host database for basic object set (partial)
+.DE
+features delivered July 15:
+.DS
+Basic object set for Commodore 64 (complete)
+Host database for basic object set (complete)
+.DE
+.SH
+Phase 2 \(em Enhanced Objects and Amiga Support
+.PP
+Phase 2 adds two major elements to the system: a set of additional objects to
+enhance the detail and interactive interest of the system and support for the
+Amiga computer in addition to the Commodore 64.
+.DS
+March 1, 1986 \(em start Amiga implementation
+May 15, 1986 \(em start enhanced objects implementation
+October 1, 1986 \(em deliver enhanced objects 
+November 1, 1986 \(em deliver Amiga system
+.DE
+Phase 2, then, delivers the following features in addition to those developed
+during Phase 1.
+.DS
+Basic object set for Amiga
+Baseline home system for Amiga
+Advanced object set for Commodore 64
+Advanced object set for Amiga
+Host database for advanced object set
+Third-party software developers' toolkit
+.DE
+.SH
+\s+2Scenario II\s-2
+.PP
+Scenario II is a more extended development effort for both Commodore 64 and
+Amiga computers.  The objective is to achieve a mature, full-featured system.
+The milestone dates are:
+.DS
+October 15, 1985 \(em project start
+June 15, 1986 \(em \(*b-test release
+August 15, 1986 \(em public release
+November 15, 1986 \(em end of post-project ramp-down
+.DE
+features delivered June 15:
+.DS
+Baseline home system for Commodore 64
+Baseline home system for Amiga
+Basic object set for Commodore 64
+Basic object set for Amiga
+Avatar personality kit for Commodore 64 (partial)
+Avatar personality kit for Amiga (partial)
+Baseline host system
+Host database for basic object set
+.DE
+features delivered August 15:
+.DS
+Advanced object set for Commodore 64
+Advanced object set for Amiga
+Avatar personality kit for Commodore 64 (rest)
+Avatar personality kit for Amiga (rest)
+Host database for advanced object set
+Third-party software developers' toolkit
+.DE
+.SH
+\s+2Scenario III\s-2
+.PP
+Scenario III is an extended development effort for both Commodore 64 and Amiga
+computers.  It staggers the start of work on the two target systems so that
+the workload and financial burden is spread over a longer period of time.
+The objective is to achieve a full-featured system.  The milestone dates
+are:
+.DS
+October 15, 1985 \(em project start
+February 15, 1986 \(em Amiga development effort start
+June 15, 1986 \(em \(*b-test release of Commodore 64 and host components
+August 15, 1986 \(em public release of Commodore 64 and host components
+August 15, 1986 \(em \(*b-test release of Amiga components
+October 15, 1986 \(em public release of Amiga components
+November 15, 1986 \(em end of post-project ramp-down
+.DE
+features delivered June 15:
+.DS
+Baseline home system for Commodore 64
+Basic object set for Commodore 64
+Avatar personality kit for Commodore 64 (partial)
+Baseline host system
+Host database for basic object set
+.DE
+features delivered August 15:
+.DS
+Advanced object set for Commodore 64
+Baseline home system for Amiga
+Basic object set for Amiga
+Avatar personality kit for Commodore 64 (rest)
+Avatar personality kit for Amiga (partial)
+Host database for advanced object set
+Third-party software developers' toolkit
+.DE
+features delivered October 15:
+.DS
+Advanced object set for Amiga
+Avatar personality kit for Amiga (rest)
+.DE

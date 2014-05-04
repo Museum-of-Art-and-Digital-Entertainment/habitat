@@ -1,0 +1,73 @@
+/*
+ *   class_bottle.pl1
+ *
+ *   Bottle object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_bottle: procedure;
+
+     %replace BOTTLE_REQUESTS by 5;
+
+     declare a(0:BOTTLE_REQUESTS) entry based;
+     declare class_bottle_actions pointer;
+     declare 1 bottle based %include struct_bottle;
+
+     %replace I by CLASS_BOTTLE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = BOTTLE_REQUESTS;
+     Class_Table(I).alloc_size = size(bottle);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+
+     allocate a set(class_bottle_actions);
+     Class_Table(I).actions = class_bottle_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;       /* 3 */
+     Class_Table(I).actions->a(FILL)  = bottle_FILL;   /* 4 */
+     Class_Table(I).actions->a(POUR)  = bottle_POUR;   /* 5 */
+
+end initialize_class_bottle;
+
+bottle_FILL: procedure;
+     declare success binary(15);
+     declare 1 self based(selfptr) %include struct_bottle;
+
+     success = (holding(selfptr) & self.filled = FALSE & at_water());
+     if (success = TRUE) then do;
+          self.filled = TRUE;
+          self.gr_state = TRUE;
+          self.gen_flags(MODIFIED) = true;
+          call n_msg_1(selfptr, FILL$, avatar.noid);
+     end;
+     call r_msg_1(success);
+end;
+
+bottle_POUR: procedure;
+     declare 1 self based(selfptr) %include struct_bottle;
+     declare success binary(15);
+
+     if (holding(selfptr) & self.filled = TRUE) then do;
+          self.filled = FALSE;
+          self.gr_state = FALSE;
+          self.gen_flags(MODIFIED) = true;
+          call n_msg_1(selfptr, POUR$, avatar.noid);
+          success = TRUE;
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+end bottle_POUR;

@@ -1,0 +1,27 @@
+; coin_accepted_by_coinop:
+;			Uses PW ramp
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x20,0x10,0x0,0x40,0x0	; Start_Freq,Duration,Increment
+	byte	0x0,0xda	; ADSR
+	byte	0x50	; Waveform
+
+	byte	0x10		;Extd 
+	byte	0x4	; Extended Command ByteDur 
+	byte	0x80,0x1	; Set Duration
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+; coin_accepted_by_coinop.pw:
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0x0,0x4,0x7,0x0,0x60,0x4	; Start_Freq,Duration,Increment
+
+	byte	0x80		;loop 
+	byte	0x7,0x1	; reverse_rel_branch,count
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

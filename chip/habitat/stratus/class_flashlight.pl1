@@ -1,0 +1,53 @@
+/*
+ *   class_flashlight.pl1
+ *
+ *   Object behavior module for class flashlight.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_flashlight: procedure;
+
+     %replace FLASHLIGHT_REQUESTS by 5;
+
+     declare a(0:FLASHLIGHT_REQUESTS) entry based;
+     declare class_flashlight_actions pointer;
+     declare 1 flashlight based %include struct_flashlight;
+
+     %replace I by CLASS_FLASHLIGHT;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = FLASHLIGHT_REQUESTS;
+     Class_Table(I).alloc_size = size(flashlight);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_flashlight_actions);
+     Class_Table(I).actions = class_flashlight_actions;
+
+     Class_Table(I).actions->a(HELP) = flashlight_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(OFF)   = generic_OFF;   /* 4 */
+     Class_Table(I).actions->a(ON)    = generic_ON;    /* 5 */
+
+end initialize_class_flashlight;
+
+flashlight_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_flashlight;
+
+     if (self.on = 0) then
+          call r_msg_s('LIGHT: DO while holding turns light on or off.  This light is now off.');
+     else
+          call r_msg_s('LIGHT: DO while holding turns light on or off.  This light is now on.');
+end flashlight_HELP;

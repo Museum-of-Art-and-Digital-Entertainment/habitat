@@ -1,0 +1,54 @@
+; fortune_machine_thinking
+;    No PW
+; voice header
+;	byte	0x0,0x0,0x0,0x0	;Ring/Sync flag,User addr,Filter Flag
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x8,0x1c,0x0,0x0,0x0	; Start_Freq,Duration,Increment
+	byte	0x49,0xe0	; ADSR
+	byte	0x10	; Waveform
+
+	byte	0x4		;Ramp 
+	byte	0x0,0x2,0x10,0x0,0x0,0x0	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x0,0x3a	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x40,0x17	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x50,0x11	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x26,0x80	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x80,0x22	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x19,0x43	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x0,0x32	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x0,0x80	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x0,0x35	; Start_Freq,Duration,Increment
+
+	byte	0x45		;Gate Ramp bref 
+	byte	0x0,0x60	; Start_Freq,Duration,Increment
+
+	byte	0x4		;Ramp 
+	byte	0x0,0x0,0x10,0x0,0x0,0x0	; Start_Freq,Duration,Increment
+
+	byte	0x80		;loop 
+	byte	0x36,0x5	; reverse_rel_branch,count
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

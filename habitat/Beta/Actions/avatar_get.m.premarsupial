@@ -1,0 +1,103 @@
+;
+;	avatar_get.m
+;
+;	Action code for the avatar 'get' behavior.
+;
+;	This file should be assembled as position independent code.
+;
+;	Chip Morningstar
+;	Lucasfilm Ltd.
+;	18-May-1986
+;
+;	If the avatar we are pointing at is holding something in his hand, we
+;	 want to grab that thing, whatever it is.  If his hand is empty, we
+;	 want to grab HIM and thus restrain him from further movement.
+;
+	include	"action_head.i"
+	include "class_equates.m"
+
+; These are the parameters of the message response to the GRAB request
+define GRAB_NOID = 0		; whos' stuff did we get?
+
+; This is the parameter returned by the GET request
+define GET_SUCCESS = 0
+
+; This is a temporary scratch variable
+define TEMP_SHOULD_BE_CLASS = 0x10
+
+	actionStart
+
+	ldx	pointed_noid
+	cpx	me_noid
+	if (!equal) {				; No getting yourself!
+	    lda	in_hand_noid
+	    if (zero) {				; Hand must be empty
+		doMyAction ACTION_GO		; My GO walks to this object
+		waitWhile animation_wait_bit	; Wait till we get there
+		jsr	v_face_cursor
+
+		chore AV_ACT_hand_out
+		sendMsg pointed_noid, MSG_GRAB, 0
+		chore AV_ACT_hand_back
+
+		getResponse GRAB_NOID
+		if (!zero) {			; Non-zero is success
+			jsr	v_get_subject_object
+			changeContainers 0, AVATAR_HAND, actor_noid
+			rts
+		}
+	    }
+	    chainTo v_beep			; Catch the various errors
+	}
+
+    ; If it's me I'm pointing at, then I want to get something out of
+    ; my pockets (if I have any).
+    lda in_hand_noid		; Have to be empty handed
+    if (!zero) {
+	chainTo v_beep
+    }
+    lda pointed_at_limb	; What body part are we indicating?
+    cmp #AVATAR_LEG_CEL	; If legs, check for pants
+    if (equal) {
+        lda #CLASS_PANTS
+        putArg TEMP_SHOULD_BE_CLASS
+        getProp pointed, AVATAR_contents + AVATAR_LEGS
+    } else {
+        cmp #AVATAR_TORSO_CEL	; If torso, check for jacket
+        if (!equal) {
+            cmp #AVATAR_ARM_CEL	; Still could be jacket
+            if (!equal) {
+                chainTo v_beep	; Nope, complain
+            }
+        }
+	    ; If we got here he was pointing at arms or torso
+        lda #CLASS_JACKET
+        putArg TEMP_SHOULD_BE_CLASS
+        getProp pointed, AVATAR_contents + AVATAR_TORSO
+    }
+    if (!zero) {			; Must be wearing something
+        jsr v_get_subject_object	; So we can peek inside it
+        getProp subject, OBJECT_class_pointer	; What is worn?
+        cmpArg TEMP_SHOULD_BE_CLASS	; Is it the right thing?
+        if (equal) {		; It is?
+            chore AV_ACT_unpocket
+	    waitWhile	animation_wait_bit
+            lda subject_noid	; Get clothing noid
+	    sta	pointed_noid
+            rjsr v_pick_from_container	; Pick something from pockets
+            if (!zero) {		; Only if something picked!
+                sendMsg pointed_noid, MSG_GET, 0 ; Try to get it
+                getResponse GET_SUCCESS		; Did we get it?
+                if (!zero) {			; We DID?
+                    lda pointed_noid		; Put in hand
+                    jsr v_get_subject_object
+                    changeContainers 0, AVATAR_HAND, actor_noid
+		    chore AV_ACT_stand
+                    rts				; Avoid beep below
+                }
+            }
+        }
+    }
+    chore AV_ACT_stand
+    chainTo v_beep
+    actionEnd

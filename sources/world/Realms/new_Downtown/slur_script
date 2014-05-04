@@ -1,0 +1,758 @@
+
+echo Downtown_1g
+slur regdir/sandys_a.reg \
+	-o rdldir/Downtown_1g.rdl \
+	-d FACE_WEST \
+	-r Downtown_1g \
+	-n Downtown_1h 
+
+
+echo Downtown_1h
+slur regdir/sandys_interior.reg \
+	-o rdldir/Downtown_1h.rdl \
+	-d FACE_WEST \
+	-r Downtown_1h \
+	-e Downtown_3h \
+	-s Downtown_1g \
+	-n Downtown_1i
+
+
+echo Downtown_1i
+slur regdir/sandys_b.reg \
+	-o rdldir/Downtown_1i.rdl \
+	-d FACE_WEST \
+	-r Downtown_1i \
+	-s Downtown_1h
+
+
+echo Downtown_2c
+slur regdir/for_rent_a_interior.reg \
+	-o rdldir/Downtown_2c.rdl \
+	-d FACE_WEST \
+	-r Downtown_2c \
+	-e Downtown_3c 
+
+
+echo Downtown_2d
+slur regdir/for_rent_f_interior.reg \
+	-o rdldir/Downtown_2d.rdl \
+	-d FACE_WEST \
+	-r Downtown_2d \
+	-e Downtown_3d 
+
+
+
+echo Downtown_2g
+slur regdir/general_store_interior.reg \
+	-o rdldir/Downtown_2g.rdl \
+	-d FACE_WEST \
+	-r Downtown_2g \
+	-e Downtown_3g 
+
+
+
+echo Downtown_2i
+slur regdir/machutas_interior.reg \
+	-o rdldir/Downtown_2i.rdl \
+	-d FACE_WEST \
+	-r Downtown_2i \
+	-e Downtown_3i 
+
+
+
+echo Downtown_3b
+slur regdir/for_rent_h.reg \
+	-o rdldir/Downtown_3b.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_3b \
+	-e Downtown_4b \
+	-n Downtown_3c 
+
+
+echo Downtown_3c
+slur regdir/for_rent_a.reg \
+	-o rdldir/Downtown_3c.rdl \
+	-d FACE_WEST \
+	-r Downtown_3c \
+	-w Downtown_2c \
+	-e Downtown_4c \
+	-s Downtown_3b \
+	-n Downtown_3d 
+
+
+echo Downtown_3d
+slur regdir/fine_furniture.reg \
+	-o rdldir/Downtown_3d.rdl \
+	-d FACE_WEST \
+	-r Downtown_3d \
+	-w Downtown_2d \
+	-e Downtown_4d \
+	-s Downtown_3c \
+	-n Downtown_3e 
+
+
+echo Downtown_3e
+slur regdir/bobs_bank.reg \
+	-o rdldir/Downtown_3e.rdl \
+	-d FACE_WEST \
+	-r Downtown_3e \
+	-e Downtown_4e \
+	-s Downtown_3d \
+	-n Downtown_3f 
+
+
+echo Downtown_3f
+slur regdir/ti_maine.reg \
+	-o rdldir/Downtown_3f.rdl \
+	-d FACE_WEST \
+	-r Downtown_3f \
+	-e Downtown_4f \
+	-s Downtown_3e \
+	-n Downtown_3g 
+
+
+echo Downtown_3g
+slur regdir/general_store.reg \
+	-o rdldir/Downtown_3g.rdl \
+	-d FACE_WEST \
+	-r Downtown_3g \
+	-w Downtown_2g \
+	-e Downtown_4g \
+	-s Downtown_3f \
+	-n Downtown_3h 
+
+
+echo Downtown_3h
+slur regdir/sandys.reg \
+	-o rdldir/Downtown_3h.rdl \
+	-d FACE_WEST \
+	-r Downtown_3h \
+	-w Downtown_1h \
+	-e Downtown_4h \
+	-s Downtown_3g \
+	-n Downtown_3i 
+
+
+echo Downtown_3i
+slur regdir/machutas.reg \
+	-o rdldir/Downtown_3i.rdl \
+	-d FACE_WEST \
+	-r Downtown_3i \
+	-w Downtown_2i \
+	-s Downtown_3h \
+	-n Downtown_3j 
+
+
+echo Downtown_3j
+slur regdir/geeks_rule.reg \
+	-o rdldir/Downtown_3j.rdl \
+	-d FACE_NORTH \
+	-r Downtown_3j \
+	-e Downtown_4j \
+	-s Downtown_3i
+
+
+
+
+echo Downtown_4a
+slur regdir/emporium_interior.reg \
+	-o rdldir/Downtown_4a.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_4a \
+	-n Downtown_4b 
+
+
+echo Downtown_4b
+slur regdir/emporium.reg \
+	-o rdldir/Downtown_4b.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_4b \
+	-w Downtown_3b \
+	-e Downtown_5b \
+	-s Downtown_4a 
+
+echo Downtown_4c
+slur regdir/new_you_interior.reg \
+	-o rdldir/Downtown_4c.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_4c \
+	-w Downtown_4cII \
+	-n Downtown_4d 
+
+echo Downtown_4cII
+slur regdir/new_you_backroom.reg \
+	-o rdldir/Downtown_4cII.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_4cII \
+	-e Downtown_4c
+
+
+echo Downtown_4d
+slur regdir/new_you.reg \
+	-o rdldir/Downtown_4d.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_4d \
+	-w Downtown_3d \
+	-e Downtown_5d \
+	-s Downtown_4c \
+	-n Downtown_4e 
+
+
+echo Downtown_4e
+slur regdir/plaza_sw.reg \
+	-o rdldir/Downtown_4e.rdl \
+	-d FACE_WEST \
+	-r Downtown_4e \
+	-w Downtown_3e \
+	-e Downtown_5e \
+	-s Downtown_4d \
+	-n Downtown_4f 
+
+
+echo Downtown_4f
+slur regdir/plaza_w.reg \
+	-o rdldir/Downtown_4f.rdl \
+	-d FACE_WEST \
+	-r Downtown_4f \
+	-w Downtown_3f \
+	-e Downtown_5f \
+	-s Downtown_4e \
+	-n Downtown_4g 
+
+
+echo Downtown_4g
+slur regdir/plaza_nw.reg \
+	-o rdldir/Downtown_4g.rdl \
+	-d FACE_WEST \
+	-r Downtown_4g \
+	-w Downtown_3g \
+	-e Downtown_5g \
+	-s Downtown_4f \
+	-n Downtown_4h 
+
+
+echo Downtown_4h
+slur regdir/meeting_hall.reg \
+	-o rdldir/Downtown_4h.rdl \
+	-d FACE_NORTH \
+	-r Downtown_4h \
+	-w Downtown_3h \
+	-e Downtown_5h \
+	-s Downtown_4g \
+	-n Downtown_4i 
+
+
+echo Downtown_4i
+slur regdir/meeting_hall_interior.reg \
+	-o rdldir/Downtown_4i.rdl \
+	-d FACE_NORTH \
+	-r Downtown_4i \
+	-s Downtown_4h 
+
+echo Downtown_4j
+slur regdir/pawnshop.reg \
+	-o rdldir/Downtown_4j.rdl \
+	-d FACE_NORTH \
+	-r Downtown_4j \
+	-w Downtown_3j \
+	-e Downtown_5j \
+	-n Downtown_4k 
+
+
+echo Downtown_4k
+slur regdir/pawnshop_interior.reg \
+	-o rdldir/Downtown_4k.rdl \
+	-d FACE_NORTH \
+	-r Downtown_4k \
+	-s Downtown_4j 
+
+
+echo Downtown_5a
+slur regdir/tivollis_interior.reg \
+	-o rdldir/Downtown_5a.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_5a \
+	-n Downtown_5b 
+
+
+echo Downtown_5b
+slur regdir/tivollis.reg \
+	-o rdldir/Downtown_5b.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_5b \
+	-w Downtown_4b \
+	-e Downtown_6b \
+	-s Downtown_5a 
+
+
+echo Downtown_5c
+slur regdir/knick_knacks_interior.reg \
+	-o rdldir/Downtown_5c.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_5c \
+	-n Downtown_5d 
+
+
+echo Downtown_5d
+slur regdir/knick_knacks.reg \
+	-o rdldir/Downtown_5d.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_5d \
+	-w Downtown_4d \
+	-e Downtown_6d \
+	-s Downtown_5c \
+	-n Downtown_5e 
+
+
+echo Downtown_5e
+slur regdir/plaza_s.reg \
+	-o rdldir/Downtown_5e.rdl \
+	-d FACE_WEST \
+	-r Downtown_5e \
+	-w Downtown_4e \
+	-e Downtown_6e \
+	-s Downtown_5d \
+	-n Downtown_5f 
+
+
+echo Downtown_5f
+slur regdir/plaza_fountain.reg \
+	-o rdldir/Downtown_5f.rdl \
+	-d FACE_WEST \
+	-r Downtown_5f \
+	-w Downtown_4f \
+	-e Downtown_6f \
+	-s Downtown_5e \
+	-n Downtown_5g 
+
+
+echo Downtown_5g
+slur regdir/plaza_n.reg \
+	-o rdldir/Downtown_5g.rdl \
+	-d FACE_WEST \
+	-r Downtown_5g \
+	-w Downtown_4g \
+	-e Downtown_6g \
+	-s Downtown_5f \
+	-n Downtown_5h 
+
+
+echo Downtown_5h
+slur regdir/hall_of_records.reg \
+	-o rdldir/Downtown_5h.rdl \
+	-d FACE_NORTH \
+	-r Downtown_5h \
+	-w Downtown_4h \
+	-e Downtown_6h \
+	-s Downtown_5g \
+	-n Downtown_5i 
+
+
+echo Downtown_5i
+slur regdir/hall_of_records_interior.reg \
+	-o rdldir/Downtown_5i.rdl \
+	-d FACE_NORTH \
+	-r Downtown_5i \
+	-s Downtown_5h 
+
+echo Downtown_5j
+slur regdir/kellys_bar.reg \
+	-o rdldir/Downtown_5j.rdl \
+	-d FACE_NORTH \
+	-r Downtown_5j \
+	-w Downtown_4j \
+	-e Downtown_6j \
+	-n Downtown_5k 
+
+
+echo Downtown_5k
+slur regdir/kellys_bar_interior.reg \
+	-o rdldir/Downtown_5k.rdl \
+	-d FACE_NORTH \
+	-r Downtown_5k \
+	-e Downtown_5l \
+	-s Downtown_5j 
+
+echo Downtown_5l
+slur regdir/kellys_bar_backroom.reg \
+	-o rdldir/Downtown_5l.rdl \
+	-d FACE_NORTH \
+	-r Downtown_5l \
+	-w Downtown_5k \
+	-n Downtown_3j
+
+
+echo Downtown_6a
+slur regdir/costellos_interior.reg \
+	-o rdldir/Downtown_6a.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_6a \
+	-n Downtown_6b 
+
+
+echo Downtown_6b
+slur regdir/costellos.reg \
+	-o rdldir/Downtown_6b.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_6b \
+	-w Downtown_5b \
+	-e Downtown_7b \
+	-s Downtown_6a 
+
+echo Downtown_6c
+slur regdir/body_paints_interior.reg \
+	-o rdldir/Downtown_6c.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_6c \
+	-n Downtown_6d 
+
+
+echo Downtown_6d
+slur regdir/body_paints.reg \
+	-o rdldir/Downtown_6d.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_6d \
+	-w Downtown_5d \
+	-e Downtown_7d \
+	-s Downtown_6c \
+	-n Downtown_6e 
+
+
+echo Downtown_6e
+slur regdir/plaza_se.reg \
+	-o rdldir/Downtown_6e.rdl \
+	-d FACE_WEST \
+	-r Downtown_6e \
+	-w Downtown_5e \
+	-e Downtown_7e \
+	-s Downtown_6d \
+	-n Downtown_6f 
+
+
+echo Downtown_6f
+slur regdir/plaza_e.reg \
+	-o rdldir/Downtown_6f.rdl \
+	-d FACE_WEST \
+	-r Downtown_6f \
+	-w Downtown_5f \
+	-e Downtown_7f \
+	-s Downtown_6e \
+	-n Downtown_6g 
+
+
+echo Downtown_6g
+slur regdir/plaza_ne.reg \
+	-o rdldir/Downtown_6g.rdl \
+	-d FACE_WEST \
+	-r Downtown_6g \
+	-w Downtown_5g \
+	-e Downtown_7g \
+	-s Downtown_6f \
+	-n Downtown_6h 
+
+
+echo Downtown_6h
+slur regdir/city_hall.reg \
+	-o rdldir/Downtown_6h.rdl \
+	-d FACE_NORTH \
+	-r Downtown_6h \
+	-w Downtown_5h \
+	-e Downtown_7h \
+	-s Downtown_6g \
+	-n Downtown_6i 
+
+
+echo Downtown_6i
+slur regdir/city_hall_interior.reg \
+	-o rdldir/Downtown_6i.rdl \
+	-d FACE_NORTH \
+	-r Downtown_6i \
+	-s Downtown_6h 
+
+echo Downtown_6j
+slur regdir/leftys.reg \
+	-o rdldir/Downtown_6j.rdl \
+	-d FACE_NORTH \
+	-r Downtown_6j \
+	-w Downtown_5j \
+	-e Downtown_7j \
+	-n Downtown_6k 
+
+
+echo Downtown_6k
+slur regdir/leftys_interior.reg \
+	-o rdldir/Downtown_6k.rdl \
+	-d FACE_NORTH \
+	-r Downtown_6k \
+	-s Downtown_6j 
+
+
+echo Downtown_7a
+slur regdir/stock_market_interior.reg \
+	-o rdldir/Downtown_7a.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_7a \
+	-n Downtown_7b 
+
+
+echo Downtown_7b
+slur regdir/stock_market.reg \
+	-o rdldir/Downtown_7b.rdl \
+	-d FACE_SOUTH \
+	-r Downtown_7b \
+	-w Downtown_6b \
+	-s Downtown_7a \
+	-n Downtown_7c 
+
+
+echo Downtown_7c
+slur regdir/quizshows.reg \
+	-o rdldir/Downtown_7c.rdl \
+	-d FACE_EAST \
+	-r Downtown_7c \
+	-e Downtown_8c \
+	-s Downtown_7b \
+	-n Downtown_7d 
+
+
+echo Downtown_7d
+slur regdir/hamlets.reg \
+	-o rdldir/Downtown_7d.rdl \
+	-d FACE_EAST \
+	-r Downtown_7d \
+	-w Downtown_6d \
+	-e Downtown_8d \
+	-s Downtown_7c \
+	-n Downtown_7e 
+
+
+echo Downtown_7e
+slur regdir/auditorium.reg \
+	-o rdldir/Downtown_7e.rdl \
+	-d FACE_EAST \
+	-r Downtown_7e \
+	-w Downtown_6e \
+	-e Downtown_8e \
+	-s Downtown_7d \
+	-n Downtown_7f 
+
+
+echo Downtown_7f
+slur regdir/broadway_cross.reg \
+	-o rdldir/Downtown_7f.rdl \
+	-d FACE_WEST \
+	-r Downtown_7f \
+	-w Downtown_6f \
+	-s Downtown_7e \
+	-n Downtown_7g 
+
+
+echo Downtown_7g
+slur regdir/arcade.reg \
+	-o rdldir/Downtown_7g.rdl \
+	-d FACE_EAST \
+	-r Downtown_7g \
+	-w Downtown_6g \
+	-e Downtown_8g \
+	-s Downtown_7f \
+	-n Downtown_7h 
+
+
+echo Downtown_7h
+slur regdir/broadway_bank.reg \
+	-o rdldir/Downtown_7h.rdl \
+	-d FACE_EAST \
+	-r Downtown_7h \
+	-w Downtown_6h \
+	-s Downtown_7g \
+	-n Downtown_7i 
+
+
+echo Downtown_7i
+slur regdir/library.reg \
+	-o rdldir/Downtown_7i.rdl \
+	-d FACE_EAST \
+	-r Downtown_7i \
+	-e Downtown_8i \
+	-s Downtown_7h \
+	-n Downtown_7j 
+
+
+echo Downtown_7j
+slur regdir/for_rent_w.reg \
+	-o rdldir/Downtown_7j.rdl \
+	-d FACE_NORTH \
+	-r Downtown_7j \
+	-w Downtown_6j \
+	-s Downtown_7i
+
+
+
+
+echo Downtown_8c
+slur regdir/quizshows_interior.reg \
+	-o rdldir/Downtown_8c.rdl \
+	-d FACE_EAST \
+	-r Downtown_8c \
+	-w Downtown_7c 
+
+echo Downtown_8d
+slur regdir/hamlets_interior.reg \
+	-o rdldir/Downtown_8d.rdl \
+	-d FACE_EAST \
+	-r Downtown_8d \
+	-w Downtown_7d 
+
+echo Downtown_8e
+slur regdir/auditorium_lobby.reg \
+	-o rdldir/Downtown_8e.rdl \
+	-d FACE_EAST \
+	-r Downtown_8e \
+	-w Downtown_7e \
+	-s Downtown_9d \
+	-n Downtown_9f
+
+echo Downtown_8g
+slur regdir/arcade_interior.reg \
+	-o rdldir/Downtown_8g.rdl \
+	-d FACE_EAST \
+	-r Downtown_8g \
+	-n Downtown_1t \
+	-e Downtown_2s \
+	-s Downtown_1r \
+	-w Downtown_7g 
+
+
+
+echo Downtown_8i
+slur regdir/library_lobby.reg \
+	-o rdldir/Downtown_8i.rdl \
+	-d FACE_EAST \
+	-r Downtown_8i \
+	-w Downtown_7i \
+	-s Downtown_9h \
+	-n Downtown_9j
+
+
+
+echo Downtown_9d
+slur regdir/auditorium_b.reg \
+	-o rdldir/Downtown_9d.rdl \
+	-d FACE_EAST \
+	-r Downtown_9d \
+	-n Downtown_8e
+
+
+echo Downtown_9f
+slur regdir/auditorium_a.reg \
+	-o rdldir/Downtown_9f.rdl \
+	-d FACE_EAST \
+	-r Downtown_9f \
+	-s Downtown_8e
+
+
+
+echo Downtown_9g
+slur regdir/library_purple.reg \
+	-o rdldir/Downtown_9g.rdl \
+	-d FACE_EAST \
+	-r Downtown_9g \
+	-n Downtown_9h
+
+echo Downtown_9h
+slur regdir/library_green.reg \
+	-o rdldir/Downtown_9h.rdl \
+	-d FACE_EAST \
+	-r Downtown_9h \
+	-s Downtown_9g \
+	-n Downtown_8i
+
+
+echo Downtown_9j
+slur regdir/library_yellow.reg \
+	-o rdldir/Downtown_9j.rdl \
+	-d FACE_EAST \
+	-r Downtown_9j \
+	-s Downtown_8i \
+	-n Downtown_9k
+
+
+echo Downtown_9k
+slur regdir/library_red.reg \
+	-o rdldir/Downtown_9k.rdl \
+	-d FACE_EAST \
+	-r Downtown_9k \
+	-s Downtown_9j
+
+
+
+echo Downtown_1p
+slur regdir/gammon_board.reg \
+	-o rdldir/Downtown_1p.rdl \
+	-d FACE_EAST \
+	-r Downtown_1p \
+	-n Downtown_1q
+
+echo Downtown_1q
+slur regdir/gammon_board.reg \
+	-o rdldir/Downtown_1q.rdl \
+	-d FACE_EAST \
+	-r Downtown_1q \
+	-s Downtown_1p \
+	-n Downtown_1r
+
+echo Downtown_1r
+slur regdir/gammon_board.reg \
+	-o rdldir/Downtown_1r.rdl \
+	-d FACE_EAST \
+	-r Downtown_1r \
+	-s Downtown_1q \
+	-n Downtown_8g
+
+echo Downtown_1t
+slur regdir/checker_board.reg \
+	-o rdldir/Downtown_1t.rdl \
+	-d FACE_EAST \
+	-r Downtown_1t \
+	-s Downtown_8g \
+	-n Downtown_1u
+
+echo Downtown_1u
+slur regdir/checker_board.reg \
+	-o rdldir/Downtown_1u.rdl \
+	-d FACE_EAST \
+	-r Downtown_1u \
+	-s Downtown_1t \
+	-n Downtown_1v
+
+echo Downtown_1v
+slur regdir/checker_board.reg \
+	-o rdldir/Downtown_1v.rdl \
+	-d FACE_EAST \
+	-r Downtown_1v \
+	-s Downtown_1u
+
+
+
+echo Downtown_2s
+slur regdir/chess_board.reg \
+	-o rdldir/Downtown_2s.rdl \
+	-d FACE_EAST \
+	-r Downtown_2s \
+	-w Downtown_8g \
+	-e Downtown_3s
+
+echo Downtown_3s
+slur regdir/chess_board.reg \
+	-o rdldir/Downtown_3s.rdl \
+	-d FACE_EAST \
+	-r Downtown_3s \
+	-w Downtown_2s \
+	-n Downtown_4s
+
+echo Downtown_4s
+slur regdir/chess_board.reg \
+	-o rdldir/Downtown_4s.rdl \
+	-d FACE_EAST \
+	-r Downtown_4s \
+	-w Downtown_3s

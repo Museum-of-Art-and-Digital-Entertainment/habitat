@@ -1,0 +1,74 @@
+@region $ Woods_4u {
+    east: Woods_5u.l;
+    west: Woods_4u.l;
+    region_orientation: FACE_WEST;
+    [
+        @ground { x:0; y:4; or:220; style:1; }
+        @wall { x:0; y:0; or:140; style:4; }
+        @window { x:12; y:108; or:0; style:2; gr_state:1; }
+        @window { x:16; y:92; or:1; style:2; gr_state:1; }
+        @window { x:120; y:99; or:1; style:2; gr_state:2; }
+        @window { x:120; y:71; or:1; style:2; gr_state:1; }
+        @countertop { x:20; y:136; or:244; 
+            8:3;
+            9:0;
+            10:0;
+
+            [
+                @bottle { x:1; y:1; or:0; gr_state:1; 
+                    8:1;
+                }
+                @bottle { x:0; y:0; or:64; gr_state:1; 
+                    8:1;
+                }
+                @knick_knack { x:2; y:2; or:0; style:3; 
+                    8:0;
+                }
+            ]
+        }
+        @display_case { x:92; y:156; or:16; 
+            8:3;
+            9:0;
+            10:0;
+
+            [
+                @bottle { x:0; y:0; or:0; gr_state:1; 
+                    8:1;
+                }
+                @bottle { x:1; y:1; or:32; gr_state:1; 
+                    8:1;
+                }
+                @bottle { x:2; y:2; or:40; gr_state:1; 
+                    8:1;
+                }
+                @knick_knack { x:3; y:3; or:48; style:3; 
+                    8:0;
+                }
+            ]
+        }
+        @glue { x:40; y:72; or:0; gr_state:1; 
+            8:0;
+            9:0;
+            10:0;
+            11:254;
+            12:249;
+            13:254;
+            14:0;
+            15:5;
+            16:249;
+            17:5;
+            18:0;
+            19:0;
+            20:0;
+            21:0;
+            22:0;
+
+            [
+                @window { x:1; y:1; or:244; gr_state:1; }
+                @head { x:0; y:0; or:0; style:30; gr_state:1; }
+                @head { x:2; y:2; or:0; style:68; gr_state:1; }
+                @window { x:3; y:3; or:244; gr_state:1; }
+            ]
+        }
+    ]
+}

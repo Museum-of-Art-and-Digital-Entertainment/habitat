@@ -1,0 +1,16 @@
+ /*
+ *   struct_garbage_can.incl.pl1
+ *
+ *   Struct stub for garbage_can instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    contents            pointer,
+     2    class_specific      ,
+           3   open_flags     binary(15),
+           3   key_hi         binary(15),
+           3   key_lo         binary(15);

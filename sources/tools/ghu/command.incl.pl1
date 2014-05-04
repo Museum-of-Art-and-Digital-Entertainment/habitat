@@ -1,0 +1,11 @@
+declare build_command entry(binary(15), binary(31), binary(31))
+     returns(binary(31));
+declare execute_command entry(binary(31), binary(31), bit(1), bit(1));
+declare execute_automacro entry;
+declare init_command_table entry;
+declare lookup_macro_parameter entry(binary(31)) returns(pointer);
+declare putval entry(pointer);
+declare abort_nesting entry;
+declare intercept_break entry;
+
+declare user_break_flag bit(1) external;

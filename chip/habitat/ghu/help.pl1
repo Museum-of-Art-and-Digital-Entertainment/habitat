@@ -1,0 +1,332 @@
+/*
+ * help.pl1 -- Help info for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 10-April-1987
+ *
+ * These routines print help messages.  This stuff is in a separate file
+ * because there is so much text associated with it.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'y.tab.incl.pl1';
+
+c$help_general: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('To get help for a particular command, type');
+     call putline('     help <command>');
+     call putline('');
+     call putline('Help is available for the following commands:');
+     call putline('      add         alias       allmacros   allnames    class       contents');
+     call putline('      cook        define      display     execute     find        for');
+     call putline('      get         griddle     help        if          list        macro');
+     call putline('      name        nuke        quit        raw         read        set');
+     call putline('      teleport    update      value');
+end c$help_general;
+
+c$help: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     goto hcase(arg1);
+
+hcase(ADD):
+     call putline('The ADD command adds new objects to the world.');
+     call putline('Usage: add [ <class> [ = <initvalue> , <initvalue> ... ] ]');
+     call putline('  Adds an object of class <class> with properties specified by the');
+     call putline('  <initvalue>s.  If fewer <initvalue>s are given than the object has');
+     call putline('  properties, the remaining properties will be prompted for.  If *no*');
+     call putline('  <initvalue>s are given, all properties will be prompted for.  If <class>');
+     call putline('  omitted, it too will be prompted for.');
+     goto endhcases;
+
+hcase(ALIAS):
+     call putline('The ALIAS command defines or displays text aliases.');
+     call putline('Usage: alias <name> = <string>');
+     call putline('  Defines <name> to be <string>.  Whenever <name> appears on a Ghu command');
+     call putline('  line, it will be replaced with <string>.');
+     call putline('Usage: alias <name>');
+     call putline('  Prints the current alias definition of <name>, if any.');
+     call putline('Usage: alias');
+     call putline('  Prints all currently defined aliases.');
+     goto endhcases;
+
+hcase(ALLMACROS):
+     call putline('The ALLMACROS command displays all currently defined macros.');
+     call putline('Usage: allmacros');
+     goto endhcases;
+
+hcase(ALLNAMES):
+     call putline('The ALLNAMES command displays the names and values of all currently');
+     call putline('  symbols (except for macros and aliases).');
+     call putline('Usage: allnames');
+     goto endhcases;
+
+hcase(CLASS):
+     call putline('The CLASS command prints the field definition for a class.');
+     call putline('Usage: class <classnumber>');
+     goto endhcases;
+
+hcase(CONTENTS):
+     call putline('The CONTENTS command prints the contents of a region, avatar or container');
+     call putline('  object.');
+     call putline('Usage: contents <thing> [full]');
+     call putline('  prints a brief listing of the contents of <thing>.  If the keyword full');
+     call putline('  is given, it also prints those things'' contents, and theirs, recursively');
+     call putline('  until the chain of containership is exhausted.');
+     goto endhcases;
+
+hcase(COOK):
+     call putline('The COOK command reads a file full of raw-format object descriptions and');
+     call putline('  creates the objects described by it.');
+     call putline('Usage: cook <filename>');
+     goto endhcases;
+
+hcase(DEFINE):
+     call putline('The DEFINE command defines the fields for a class.');
+     call putline('Usage: define <classnumber>');
+     call putline('          <field1>');
+     call putline('          <field2>');
+     call putline('          <etc>');
+     call putline('       enddefine');
+     call putline('  defines class number <classnumber> to have the fields <filed1>, <field2>');
+     call putline('  and so on.  Each field has the form:');
+     call putline('       <name>: <type>');
+     call putline('  or');
+     call putline('       <name>(<dimension>): <type>');
+     call putline('  where <name> is the name of the field and <type> is it''s data type.');
+     call putline('  <dimension>, if given, allows the definition of fields which are arrays.');
+     call putline('  The allowed values for <type> are:');
+     call putline('       byte       -- a 1-byte integer');
+     call putline('       bin15      -- a 2-byte integer word');
+     call putline('       bin31      -- a 4-byte integer');
+     call putline('       bit        -- single bits');
+     call putline('       character  -- characters of text');
+     call putline('       words      -- characters stored in words');
+     call putline('       fatword    -- a word stored as two words, one for each byte');
+     call putline('       varstring  -- a PL/1-style variable length string');
+     call putline('       avaid      -- an avatar identifier');
+     call putline('       objid      -- an object identifier');
+     call putline('       regid      -- a region identifier');
+     call putline('       entity     -- an arbitrary entity identifier (id+type)');
+     goto endhcases;
+
+hcase(DISPLAY):
+     call putline('The DISPLAY command displays entities and their fields.');
+     call putline('Usage: display [ <value> [ . ] ]');
+     call putline('  Displays the entity associated with <value>.  If <value> is omitted it');
+     call putline('  displays the current default entity.  If <value> is given, the thing');
+     call putline('  displayed becomes the new default entity.  If the "." is given, it');
+     call putline('  suppresses printing a newline when it is done displaying.');
+     goto endhcases;
+
+hcase(EXECUTE):
+     call putline('The EXECUTE command executes files full of Ghu commands.');
+     call putline('Usage: execute <filename>');
+     call putline('  Reads commands from <filename> and executes them.  Execute commands may be');
+     call putline('  nested up to 10 levels deep.');
+     goto endhcases;
+
+hcase(FIND):
+     call putline('The FIND command tells you the chain of containership of an object');
+     call putline('  or Avatar.');
+     call putline('Usage: find <thing>');
+     goto endhcases;
+
+hcase(FOR):
+     call putline('The FOR command allows you to iterate commands over a range of values.');
+     call putline('Usage: for <value1> to <value2>');
+     call putline('          <commands>');
+     call putline('       endfor');
+     call putline('  <value1> and <value2> should be avatar, object or region numbers.  The');
+     call putline('  series of commands <commands> will be executed repeatedly with the');
+     call putline('  active entity set to each entity in this range in turn.');
+     call putline('  An alternative form:');
+     call putline('       for all a');
+     call putline('  iterates over the entire avatar database.  Similarly:');
+     call putline('       for all o');
+     call putline('  or');
+     call putline('       for all r');
+     call putline('  iterate over the object and region databases respectively.');
+     goto endhcases;
+
+hcase(GET):
+     call putline('The GET command makes an entity the default entity without displaying it.');
+     call putline('Usage: get <value>');
+     goto endhcases;
+
+hcase(GRIDDLE):
+     call putline('The GRIDDLE command dumps a region, avatar or object in griddle-format.');
+     call putline('Usage: griddle <thing> [full]');
+     call putline('  Dumps <thing> and its contents.  If the keyword full is given, it also');
+     call putline('  dumps those things'' contents, and theirs, recursively until the chain of');
+     call putline('  containership is exhausted.');
+     goto endhcases;
+
+hcase(HELP):
+     call putline('The HELP command tells you about how to use Ghu.');
+     call putline('Usage: help');
+     call putline('  Prints a summary of the entire command set.');
+     call putline('Usage: help <command>');
+     call putline('  Prints a description of the given command.');
+     goto endhcases;
+
+hcase(IF):
+     call putline('The IF command allows you to execute commands conditionally.');
+     call putline('Usage: if <condition1>');
+     call putline('          <stuff1>');
+     call putline('       elseif <condition2>');
+     call putline('          <stuff2>');
+     call putline('       else');
+     call putline('          <stuff3>');
+     call putline('       endif');
+     call putline('  If <condition1> evaluates to True, Ghu executes <stuff1>, else if');
+     call putline('  <condition2> evaluates to True, it executes <stuff2>, otherwise it executes');
+     call putline('  <stuff3>.  Of course, any number of "elseif" clauses (including none at');
+     call putline('  all) may be given, and the "else" clause may be omitted.  The <stuff> may');
+     call putline('  any Ghu commands at all.');
+     goto endhcases;
+
+hcase(KILL):
+     call putline('no help yet available for KILL');
+     goto endhcases;
+
+hcase(LIST):
+     call putline('The LIST command lists the interconnectivity of regions.');
+     call putline('Usage: list [<region1>][-- [<region2>]]');
+     call putline('  lists <region1> through <region2>.  If <region2> is omitted, it lists only');
+     call putline('  the one region, <region1>.  If <region1>-- is given, all regions from');
+     call putline('  <region1> on up will be listed.  Similarly, if --<region2> is given, all');
+     call putline('  regions from the very first up to <region2> will be listed.  If no regions');
+     call putline('  are given, all the regions in the database will be listed.');
+     goto endhcases;
+
+hcase(SENDMAIL):
+     call putline('no help yet available for MAIL');
+     goto endhcases;
+
+hcase(MACRO):
+     call putline('The MACRO command allows the definition of macros.  Macros are parameterized');
+     call putline('  sets of commands stored away for future reference.');
+     call putline('Usage: macro <name>');
+     call putline('          <stuff>');
+     call putline('       endmacro');
+     call putline('  defines <name> to be a macro consisting of the series of Ghu commands');
+     call putline('  <stuff>.  Within <stuff>, any symbol of the form "$1", "$2", etc., refers');
+     call putline('  to the first, second, etc., parameters of the macro.  When the macro is');
+     call putline('  called, these symbols are bound to the values of the corresponding');
+     call putline('  parameters.  A macro is called with a statement of the form:');
+     call putline('       <name> <param1>, <param2>, ...');
+     call putline('  where the <param>s are any valid Ghu expressions.');
+     goto endhcases;
+
+hcase(NAME):
+     call putline('The NAME command defines a symbolic value.');
+     call putline('Usage: name <name> = <value>');
+     call putline('  Creates the symbol <name> with value <value>.  <value> can be of any data');
+     call putline('  type, including string, object, avatar, region, etc.');
+     goto endhcases;
+
+hcase(NUKE):
+     call putline('The NUKE command permanently removes one or more entities from the database.');
+     call putline('Usage: nuke <entity1> [ -- <entity2> ]');
+     call putline('  Deletes <entity1> through <entity2> inclusive.  If <entity2> is omitted,');
+     call putline('  it just deletes <entity1>.  Otherwise, <entity1> and <entity2> should have');
+     call putline('  the same type (avatar, region or object).  Also, any objects contained by');
+     call putline('  the deleted entities are also deleted.');
+     goto endhcases;
+
+hcase(ORACLE):
+     call putline('no help yet available for ORACLE');
+     goto endhcases;
+
+hcase(PLAYERS):
+     call putline('no help yet available for PLAYERS');
+     goto endhcases;
+
+hcase(PROCESSES):
+     call putline('no help yet available for PROCESSES');
+     goto endhcases;
+
+hcase(QUIT):
+     call putline('The QUIT command gets you out of Ghu and returns you to StratusLand');
+     call putline('Usage: quit');
+     goto endhcases;
+
+hcase(RAW):
+     call putline('The RAW command dumps a region, avatar or object in raw-format.');
+     call putline('Usage: raw <thing> [full]');
+     call putline('  Dumps <thing> and its contents.  If the keyword full is given, it also');
+     call putline('  dumps those things'' contents, and theirs, recursively until the chain of');
+     call putline('  containership is exhausted.');
+     goto endhcases;
+
+hcase(READ):
+     call putline('The READ command displays pages of text from the text database.');
+     call putline('Usage: read [ <docid> [ , <page> ] ]');
+     call putline('  Reads the text associated with text-id <docid>, page number <page>.  If');
+     call putline('  <page> is omitted or is 0, all pages of the document are displayed.');
+     call putline('  <docid> may also be the object identifier of a text object, in which case');
+     call putline('  the text-id is extracted implicitly.  If <docid> is omitted, Ghu will');
+     call putline('  attempt to extract a text-id from the current default entity.');
+     goto endhcases;
+
+hcase(REMOVE):
+     call putline('no help yet available for REMOVE');
+     goto endhcases;
+
+hcase(SET):
+     call putline('The SET command allows you to change the values of names and object fields.');
+     call putline('Usage: set <lvalue> = <value> [ ! ]');
+     call putline('  <lvalue> must be an assignable thing, such as the name of a field of the');
+     call putline('  current default entity, a defined name (created with the NAME command), or');
+     call putline('  an entity identifier qualified with a field name.  The value <value> is');
+     call putline('  assigned to this.  If "!" is specified, then the changed entity (if it is a');
+     call putline('  database entity) is written back out to the database immediately, otherwise');
+     call putline('  the database is not updated.');
+     goto endhcases;
+
+hcase(TELEPORT):
+     call putline('The TELEPORT command allows you to examine and change teleport entries.');
+     call putline('Usage: teleport <string> [ = <entity> ]');
+     call putline('  If <entity> is omitted, the teleport entry associated with the address');
+     call putline('  <string> is printed.  <string> is first converted to lower case and has all');
+     call putline('  whitespace squeezed out of it and an area code prepended before the');
+     call putline('  database lookup takes place.  If <entity> *is* given, then the database');
+     call putline('  entry associated with <string> is updated (or a new one is created if there');
+     call putline('  wasn''t one already.  Entity must be an object or region identifier.  If an');
+     call putline('  object identifier, it must be a teleport or elevator object.  If a region');
+     call putline('  identifier then the region must contain a teleport or elevator object.');
+     goto endhcases;
+
+hcase(UPDATE):
+     call putline('The UPDATE command writes the current default entity back out to the database.');
+     call putline('Usage: update');
+     goto endhcases;
+
+hcase(VALUE):
+     call putline('The VALUE command displays the values associated with entities'' fields.');
+     call putline('Usage: value <value> [ . ]');
+     call putline('  Displays the value <value>.  If the "." is given, it suppresses printing a');
+     call putline('  newline when it is done displaying.');
+     goto endhcases;
+
+hcase(VOICE):
+     call putline('no help yet available for VOICE');
+     goto endhcases;
+
+hcase(WATCH):
+     call putline('no help yet available for WATCH');
+     goto endhcases;
+
+hcase(WRITE):
+     call putline('no help yet available for WRITE');
+     goto endhcases;
+
+endhcases:
+end c$help;

@@ -1,0 +1,15 @@
+; stun_gun_miss
+;    No PW
+; voice header
+;	byte	0x0,0x0,0x0,0x0	;Ring/Sync flag,User addr,Filter Flag
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x0,0x0,0x5c,0x0,0x0,0x6e	; Start_Freq,Duration,Increment
+	byte	0x4a,0x0	; ADSR
+	byte	0x80	; Waveform
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

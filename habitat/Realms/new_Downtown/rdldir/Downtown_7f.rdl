@@ -1,0 +1,33 @@
+@region $ Downtown_7f {
+    north: Downtown_7g.l;
+    south: Downtown_7e.l;
+    west: Downtown_6f.l;
+    region_orientation: FACE_WEST;
+    [
+        @sky { x:0; y:0; or:0; style:4; }
+        @ground { x:0; y:4; or:228; style:1; }
+        @street { x:68; y:11; or:8; gr_state:13; 
+            8:0;
+            9:0;
+        }
+        @flag { x:24; y:137; or:204; 
+            8:0;
+        }
+        @sky { x:0; y:0; or:220; }
+        @flag { x:132; y:137; or:244; 
+            8:0;
+        }
+        @short_sign { x:136; y:129; or:236; style:5; gr_state:7; 
+            8:66;
+            9:114;
+            10:111;
+            11:97;
+            12:100;
+            13:119;
+            14:97;
+            15:121;
+            16:32;
+            17:32;
+        }
+    ]
+}

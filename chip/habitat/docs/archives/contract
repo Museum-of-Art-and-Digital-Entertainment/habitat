@@ -1,0 +1,868 @@
+.so /usr/lfl/lib/doctemps/papdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6.5i			\" line-length - 6.5 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 5n				\" paragraph indent - 0
+.HM 1i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 6 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+
+.na
+.ND
+.fi
+.ls 2
+.ce
+.ul
+AGREEMENT
+
+.PP
+THIS AGREEMENT is made and entered into this ______day of
+____________________, 1985, by and between QUANTUM COMPUTER SERVICES,
+INC., a Delaware corporation, having its principal offices at 8620
+Westwood Center Drive, Vienna, Virginia 22180 (herein "Quantum") and
+LUCASFILM LTD., a California corporation, having its principal offices
+at 3301 Kerner Boulevard, San Rafael, California 94901 (herein
+"Lucasfilm").
+
+.PP
+WHEREAS, Quantum is the proprietor and operator of the QuantumLink
+Network and related software (hereinafter referred to as "Q-Link")
+providing Commodore 64 users and others access to certain electronic
+communications services, information services and software products (to
+include game and other entertainment software products) which Q-Link
+subscribers use in an interactive mode with other Q-Link subscribers;
+and
+.PP
+WHEREAS, Lucasfilm has begun research and development for and is the
+proprietor of an interactive entertainment software system known as the
+MicroCosm System (herein MicroCosm); and
+.PP
+WHEREAS, Quantum desires to retain Lucasfilm's research and development
+services with regard to developing an interactive entertainment
+software system and to obtain certain rights to market and make use of
+MicroCosm; and
+.PP
+WHEREAS, Lucasfilm is willing to provide such services and license
+certain rights in MicroCosm to Quantum in accordance with the terms of
+this Agreement;
+.PP
+NOW, THEREFORE, in consideration of the foregoing, the mutual promises
+contained herein, and other good and valuable consideration, receipt of
+which is hereby acknowledged, the parties agree as follows:
+
+1.   \fIDEFINITIONS.\fR
+.PP
+The following terms have the following respective meanings for purposes
+of this agreement:
+.PP
+1.1.  "Advanced Object Set" means the set of objective behavior modules and
+imagery which Lucasfilm may develop as an enhancement to the Public
+Microcosm system release.
+.PP
+1.2.  "Amiga Q-Link Subscriber" means a user of an Amiga computer who
+accesses the QuantumLink network by means of such computer.
+.PP
+1.3.  "Avatar Personalization Kit" means the interactive software developed
+by Lucasfilm to allow a Q-Link Commodore 64 subscriber to customize the
+appearance of his avatar in the MicroCosm system.
+.PP
+1.4.  "Baseline Home System" means the basic software residing on a
+Q-Link Commodore 64 subscriber's computer to handle interaction,
+communications and graphics for the Public Release MicroCosm system.
+.PP
+1.5.  "Baseline Host System" means the software specified and designed by
+Lucasfilm and programmed by Quantum which shall reside in the Q-Link
+host computer system to permit interaction between and among multiple
+Q-Link Commodore 64 subscribers in the MicroCosm system.
+.PP
+1.6.  "Basic Object Set" means the set of object behavior modules and imagery
+developed by Lucasfilm for the basic collection of common objects which
+shall reside on a Q-Link Commodore 64 subscriber's computer and in the
+Public MicroCosm System Release.
+.PP
+1.7.  "Beta-test MicroCosm system release" means the preliminary baseline
+home system, preliminary baseline host system and preliminary basic
+object set.
+.PP
+1.8.  "Commodore 64 Q-Link subscriber" means a user of Commodore 64 or
+Commodore 128 computer who accesses the QuantumLink network by means of
+either such computer.
+.PP
+1.9.  "Conversion" means any version of the Public MicroCosm System Release
+programmed to operate on any computer other than the Commodore 64.
+.PP
+1.10. "Derivative Version" means any interactive entertainment system
+based on MicroCosm Story Elements.
+.PP
+1.11. "Documentation" means any material related to the MicroCosm system
+created by Lucasfilm to aid in the understanding, use or application of
+the MicroCosm system.
+.PP
+1.12. "Gateway software developers' kit" means the software which Lucasfilm
+may develop as an enhancement to the Public MicroCosm System Release to allow
+third-party software developers to develop software of their own
+creation for use in connection with MicroCosm system.
+.PP
+1.13. "Host database" means the software modules developed by Lucasfilm and
+Quantum under this Agreement which shall reside in the Q-Link host
+computer system to handle the necessary parts of the basic object set
+and advanced object set which must reside in the Q-Link host computer
+system.
+.PP
+1.14. "MicroCosm system" means the most recent complete version of the
+MicroCosm system, whether it be the Beta-test Microcosm system release,
+the Public MicroCosm system release or Advanced MicroCosm system
+containing additional features and components not included in the
+Public MicroCosm system release.
+.PP
+1.15. "Object Construction Kit" means the software to allow third-party
+developers to add new objects to the basic object set or advanced
+object set which Lucasfilm may develop as an enhancement to the Public
+MicroCosm system release.
+.PP
+1.16. "Public MicroCosm system release" means the computer program modules,
+programming and designs for the baseline home system, basic object set,
+baseline host system, and avatar personalization kit, turf
+personalization kit and system manager's package developed, written,
+provided or modified by the parties, and as generally described in the
+Lucasfilm's Proposal dated October 18, 1985, which is attached hereto
+as Exhibit A and incorporated herein by this reference.
+.PP
+1.17. "Q-Link subscriber" means any party who subscribes to the Q-Link
+network.
+.PP
+1.18. "Story Elements" means audio, visual, or audiovisual
+representations contained in MicroCosm which are presented to the user
+during interaction with MicroCosm and which are unique to or
+characteristic of MicroCosm.  Story Elements does not mean or include
+any System Element, in whole or in part.
+.PP
+1.19. "System Elements" means computer software components of MicroCosm
+which operate on a Q-Link subscriber's Commodore 64 or a Q-Link host
+computer to present MicroCosm and to permit its interactive operation.
+.PP
+1.20. "System manager's package" means the software developed by Quantum
+which will reside in the Q-Link host computer and which permits Q-Link
+personnel to make such deletions, additions, or modifications in the
+MicroCosm host database as needed for routine operation of the
+MicroCosm system.
+.PP
+1.21. "Turf Personalization Kit" means the interactive software developed by
+Lucasfilm to allow a Q-Link Commodore 64 subscriber to customize the
+appearance of his turf in the MicroCosm system.
+.PP
+1.22. "Universe Construction Kit" means the software to allow third
+party developers to add new universes to the MicroCosm system which
+Lucasfilm may develop as an enhancement to the Public MicroCosm system
+release.
+
+2.  \fIPROJECT_SCOPE_AND_COOPERATION.\fR
+.PP
+2.1.  This Agreement covers the research, design, development, and
+testing of the Public MicroCosm system release, and, if research and
+testing are successful (pursuant to the parties' mutually agreed-upon
+standards), the incorporation of such system release by Quantum on the
+Q-Link under license from Lucasfilm.
+.PP
+2.2.  Quantum and Lucasfilm acknowledge and agree that the development
+of MicroCosm pursuant to this Agreement is an innovative,
+developmental, experimental effort, and that the success of such
+efforts and incorporation of MicroCosm on the Q-Link network requires
+both parties full and mutual good faith and cooperation.
+.PP
+2.3.  Subject to the confidentiality restrictions below, the parties
+agree to share with each other all information and data necessary for
+the performance of this Agreement.
+.PP
+2.4.  Lucasfilm agrees and acknowledges that Quantum may compensate
+Lucasfilm hereunder by means of a partnership or other legal entity,
+subject to the assignment and guarantee restrictions of Paragraph ____
+below.
+
+3. \fIDEVELOPMENT_AND_PAYMENT_SCHEDULE.\fR
+.PP
+3.1.  The Development and Payment Schedule for completion of the Public
+MicroCosm system release is attached hereto as Exhibit B and
+incorporated herein by this reference.  Exhibit B illustrates the
+parties' present expectations as to the timing, and is subject to
+mutually agreed-upon modification from time-to-time as the project
+progresses.
+.PP
+3.2.  Detailed design specifications for the Public MicroCosm system
+release shall be completed by Lucasfilm and delivered to Quantum
+__________________.  Quantum shall accept or reject such specifications
+within five (5) work days of the date of its receipt thereof.  The
+parties may mutually agree in writing to modify the dates set forth on
+the Schedule at Exhibit B with respect to the delivery and acceptance
+or rejection of the detailed design specifications.
+.PP
+3.3.  In the event that Quantum requests changes in the specifications
+or otherwise requests or requires changes in the deliverables or in the
+Development or Payment Schedules which in Lucasfilm's reasonable
+judgment require additional compensation to Lucasfilm, Quantum shall
+compensate Lucasfilm on a time-and-materials basis in accordance with
+written estimates submitted to and improved in advance by Quantum.
+
+4.  \fIRESPONSIBILITIES_OF_LUCASFILM.\fR
+.PP
+Lucasfilm shall provide the following to Quantum in accordance with
+Exhibit B:
+.PP
+4.1.  Detailed design specifications for the Public MicroCosm system release;
+.PP
+4.2.  Preliminary Basic Object Set components to be included in the
+preliminary Baseline Host Data Base of the Host Baseline System;
+.PP
+4.3.  Preliminary Baseline Home System;
+.PP
+4.4.  With the assistance of Quantum, integration of the preliminary
+Basic Object Set, preliminary Baseline Home System and preliminary
+Baseline Host System into a functional Beta-test MicroCosm system
+release.
+.PP
+4.5.  Demonstrate the functionality of the Beta-test MicroCosm
+system release.
+.PP
+4.6.  Assist Quantum in Beta-test of Beta-test MicroCosm
+system. 
+.PP
+4.7.  Complete final basic object set for Public MicroCosm
+system release.
+.PP
+4.8.  Provide Quantum with the final basic object set components to
+be included in host database of hose baseline system for Public
+MicroCosm system release.
+.PP
+4.9.  Complete final baseline home system for Public
+MicroCosm system release.
+.PP
+4.10. Complete avatar personalization kit for Public MicroCosm system
+release.
+.PP
+4.11. Complete turf personalization kit for Public MicroCosm system
+release.
+.PP
+4.12. Complete the host database for the basic object set with the
+assistance of Quantum.
+.PP
+4.13. Demonstrate the functionality of the Public MicroCosm system
+release. 
+.PP
+4.14. Assist Quantum in testing the Public MicroCosm system release.
+.PP
+4.15. Complete documentation for Public MicroCosm system release.
+.PP
+4.16. Develop demo of Public MicroCosm system release to assist Quantum
+in marketing the system.
+.PP
+4.17. Assist Quantum in marketing the MicroCosm system.
+.PP
+4.18. Lucasfilm shall submit a monthly progress report to Quantum, not
+less than five working days after the end of each month signed by an
+authorized representative of Lucasfilm.  Each progress report shall
+describe the status of Lucasfilm's performance since the preceding
+report, including the deliverables delivered, and the progress expected
+to be made in the next succeeding month.  Each report shall describe
+Lucasfilm's activities by reference to the schedule of stages and tasks
+attached as Exhibit B.  The progress reports shall identify and
+describe any unanticipated material problems, or delays, incurred or
+anticipated by Lucasfilm.  The monthly reports shall continue until
+Beta-testing for the MicroCosm system is completed.
+
+
+5.  \fIRESPONSIBILITIES_OF_QUANTUM.\fR
+.PP
+Quantum shall provide the following to Lucasfilm in accordance with Exhibit B:
+.PP
+5.1.  Provide at least one full-time host database programmer to
+incorporate the components of the project into the host system.
+.PP
+5.2.  Complete the baseline host system with the assistance of Lucasfilm.
+.PP
+5.3.  Complete system manager's package for Public MicroCosm system
+release. 
+.PP
+5.4.  Complete Beta-test of Beta-test MicroCosm system release with
+assistance of Lucasfilm.
+.PP
+5.5.  Complete test of Public MicroCosm system release. 
+.PP
+5.6.  Announce release of Public MicroCosm system release. 
+.PP
+5.7.  Publish documentation for Public MicroCosm system release. 
+.PP
+5.8.  Publish software for basic MicroCosm system release.
+.PP
+5.9.  Quantum shall, following release of the MicroCosm system, provide
+Lucasfilm with a written marketing report no later than the fifth
+working day of each quarter (i.e., reports to be submitted in January,
+April, July and October of each year, during the term hereof)
+containing the following data:  (1) a description of marketing
+activities conducted during the preceding quarter; and (2) a review of
+projected marketing activities, sales, and projected sales for the
+subsequent quarter.
+.PP
+5.10. Quantum will maintain a high order of professionalism in the
+marketing and distribution of MicroCosm and to use its best efforts to
+maximize the royalties paid to Lucasfilm under this Agreement.
+.PP
+5.11. Quantum reserves the right to determine terms and conditions of
+sale for access to and use of the MicroCosm by its Commodore 64
+Q-Link subscribers. 
+.PP
+5.12. Quantum shall submit a monthly progress report to Lucasfilm, not
+less than five working days after the end of each month signed by an
+authorized representative of Quantum.  Each progress report shall
+describe the status of Quantum's performance since the preceding
+report, including the deliverables delivered, and the progress expected
+to be made in the next succeeding month.  Each report shall describe
+Quantum's activities by reference to the schedule of stages and tasks
+attached as Exhibit B.  The progress reports shall identify and
+describe any unanticipated material problems, or delays, incurred or
+anticipated by Quantum.  The monthly reports shall continue until
+Beta-testing for the MicroCosm system is completed.
+
+6.  \fICONFIDENTIALITY.\fR
+.PP
+6.1.  The parties acknowledge and agree that pursuant to this Agreement
+each party will disclose to the other certain data and that as a result
+of such disclosure, the receiving party ("Recipient") may have access
+to or receive information of the disclosing party ("Disclosing Party")
+which is confidential concerning any or all of the following:
+research, products, designs, software, services, development,
+inventions, processes, designs, drawings, engineering, marketing, or
+finances.  For purposes of this Agreement, any such information which
+is to be considered Disclosing Party Information and subject to the use
+and disclosure provisions of this Agreement shall be clearly and
+conspicuously marked in writing by the Disclosing Party as
+"Proprietary" or "Confidential", and any disclosure of such
+information made orally or visually shall be promptly confirmed in
+writing by the Disclosing Party and identified in writing as
+"Confidential" or "Proprietary" if Disclosing Party wishes to make such
+information Disclosing Party Information hereunder.
+.PP
+6.2.  Recipient agrees that (a) it shall use Disclosing Party
+Information only as authorized by this Agreement, (b) it shall hold
+Disclosing Party Information in confidence, (c) it shall not disclose
+any Disclosing Party Information to anyone except in accordance with
+this Agreement, and (d) it shall use its best efforts to prevent any
+unauthorized disclosure of Disclosing Party Information.
+.PP
+6.3.  Recipient's obligations, as set forth above, shall not apply to any
+information, whether or not such information is "Disclosing Party
+Information" for purposes of this Agreement, if such information:
+.IP (a)
+was publicly available or in the public domain at the time it was
+communicated to Recipient by the Disclosing Party; or
+.IP (b)
+is or becomes publicly available or public domain information through no
+fault of Recipient subsequent to the time it was communicated to
+Recipient by the Disclosing Party; or
+.IP (c)
+is in Recipient's possession free of any obligation of confidence to
+Disclosing Party at the time it was communicated to Recipient by the
+Disclosing Party; or
+.IP (d)
+is rightfully communicated to Recipient free of any obligation of
+confidence subsequent to the time it was communicated to Recipient by
+the Disclosing Party; or
+.IP (e)
+is independently developed by Recipient;
+.IP (f)
+is disclosed pursuant to law, or in response to the order of a court or
+government authority; or
+.IP (g)
+is disclosed inadvertently notwithstanding the exercise of the same
+degree of care as the Recipient takes to preserve and safeguard its own
+confidential information.
+.PP
+6.4.  Disclosing Party warrants, represents and acknowledges that it has
+the right to disclose the Disclosing Party Information to Recipient and
+that any such disclosure does not violate the rights of any other
+person or entity.  Disclosing Party agrees to indemnify Recipient and
+hold it harmless from and against all loss, liability, damage and
+expense (including reasonable attorneys' fees) arising from any all 
+claims, demands, actions or suits resulting directly or indirectly from
+use by Recipient of the Disclosing Party Information authorized
+hereunder or disclosure to Recipient of the Disclosing Party
+Information by Disclosing Party.
+.PP
+6.5.  This Agreement shall be considered a proprietary document.  The
+parties agree and acknowledge that each shall keep the existence of
+this Agreement, as well as the relationship hereunder, confidential and
+shall not disclose the existence of this Agreement, this relationship,
+or any information relating thereto, to any entity for any purpose
+without prior written consent of the other party.
+
+7. \fIMICROCOSM_LICENSE\fR
+.PP
+7.1.  Lucasfilm hereby grants and Quantum hereby accepts, subject to the
+terms and conditions specified herein, the worldwide, exclusive license
+to publish, market and distribute to Commodore 64 Q-Link subscribers by
+means of the Q-Link network, including the right to copy, reproduce,
+download, transmit, encode, scramble, modify, adapt, use, perform and
+display Microcosm.
+.PP
+7.2.  In the event Quantum fails to meet the minimum performance
+requirements for the initial two-year term of this Agreement, the
+exclusivity of the rights granted to Quantum hereunder shall terminate.
+Nothing contained in this paragraph shall be construed to limit or
+eliminate the parties' termination rights as specified in Paragraph ___
+below.
+
+8. \fITRADEMARKS.\fR
+.PP
+8.1.  Simultaneously with execution of this Agreement, Quantum will
+execute a Trademark License Agreement in the form attached hereto as
+Exhibit C.  Quantum's rights thereunder will continue only so long as
+this Agreement shall remain in full force and effect, and upon
+expiration or termination of this Agreement, all rights granted Quantum
+thereunder shall simultaneously expire or terminate, provided however
+that Quantum shall continue to be bound by any obligations therein
+which expressly survive expiration or termination.
+.PP
+8.2.  Neither party shall acquire any rights in the trade names or marks
+of the other party under this Agreement except as stated herein.
+
+9. \fIOWNERSHIP_AND_RESERVATION_OF_RIGHTS\fR
+.PP
+9.1. Lucasfilm is and shall be the sole and exclusive owner of all
+worldwide rights in and to any software, program codes, audiovisual
+effects created by program code, designs, databases, documentation, or
+other work produced, developed or authored solely or principally by
+Lucasfilm under this Agreement.  Quantum agrees to cooperate with
+Lucasfilm in perfecting any such rights, such cooperation including but
+not limited to execution of assignments, limited powers of attorney or
+other documents as requested by Lucasfilm.
+.PP
+9.2. Quantum is and shall be the sole and exclusive owner of all
+worldwide rights in and to any software, program codes, audiovisual
+effects created by program code, designs, databases, documentation, or
+other work produced, developed or authored solely or principally by
+Quantum under this Agreement.  Lucasfilm agrees to cooperate with
+Quantum in perfecting any such rights, such cooperation including but
+not limited to execution of assignments, limited powers of attorney or
+other documents as requested by Quantum.
+.PP
+9.3.  Joint ownership language to be supplied by LFL.
+.PP
+9.4.  Copyright notices or other proprietary notices provided by
+either party to the other with respect to their respective works will
+be included by the other party on all copies of such works, and as
+otherwise required with regard to display or performance thereof.
+.PP
+9.5  The parties agree and acknowledge that Lucasfilm retains and
+reserves all rights in and to MicroCosm, and all components or elements
+thereof, except to the extent any such rights are licensed to Quantum
+by the express terms of this Agreement.
+
+10. \fIPUBLICITY_AND_ADVERTISING.\fR
+.PP
+At Quantum's request, Lucasfilm shall assist Quantum in creating
+publicity and advertising materials to support Quantum's marketing of
+the MicroCosm system under this Agreement, provided however that
+Quantum shall promptly reimburse Lucasfilm for all expenses, including
+without limitation any out-of-pocket expenses, incurred by Lucasfilm in
+connection therewith, and further provided that nothing contained in
+this paragraph shall be construed to limit or eliminate Lucasfilm's
+approval rights under this Agreement or any other agreement between the
+parties hereto.
+
+11.  \fIRELATIONSHIP_OF_THE_PARTIES.\fR
+.PP
+11.1.  This Agreement creates no relationship of joint venturers,
+partners, or associates.  The parties agree that each shall perform its
+obligations hereunder as an independent contractor.  The parties will
+have the right to appoint, and will solely be responsible for, their
+own employees, agents and representatives.  All such persons will be
+hired or retained at the respective party's own risk, expense and
+supervision, and will not have any right to claim any compensation or
+reimbursement from the other party in the absence of a prior written
+agreement between the parties so providing.
+.PP
+11.2.  Neither party has, nor will it hold itself out as having, any
+right, power, or authority to create any contract or obligation on
+behalf of or in the name of the other party, or to otherwise bind the
+other party or to do any act or thing in the name of the other party
+unless specifically authorized to do so by this Agreement. 
+.PP
+11.3.  Each party shall bear all of its own expenses and disbursements
+incurred in connection with this Agreement and its performance
+hereunder, except as provided elsewhere herein.
+
+12.  \fISUBSTITUTE_NETWORK.\fR
+.PP
+In the event Quantum elects to discontinue the Q-Link network, Quantum
+may substitute another network to support MicroCosm provided that any
+such substitution shall be subject to Lucasfilm's prior written
+consent, which consent may be reasonably withheld.  In the event that
+any such substitution is approved, Lucasfilm agrees to assist Quantum
+in effecting a network substitution consistent with the objective of
+maintaining continuous operations of the MicroCosm system, provided
+that Quantum shall compensate Lucasfilm for any such efforts on a
+time-and-expense basis.
+
+13.  \fIADVERTISING_LIMITATION.\fR
+.PP
+Except as provided elsewhere herein, neither party shall acquire the
+right to use, and shall not use, the names, characters, artwork,
+designs, trade names, copyrighted materials, trademarks or service
+marks of the other party, its related or subsidiary companies,
+employees, directors, shareholders, assigns, successors or licensees
+(a) in any advertising, publicity or promotion, (b) to express or
+imply any endorsement of the other party's services or products, or
+(c) in any manner.
+
+14.  \fICOMPENSATION.\fR
+.PP
+14.1.  Upon execution of this Agreement, Quantum shall pay Lucasfilm
+Twenty-Five Thousand Dollars ($25,000.00).  In the event Quantum
+rejects the Detailed Design Specifications for the MicroCosm system,
+Lucasfilm agrees to refund Fifteen Thousand Dollars ($15,000.00) of the
+foregoing advance.
+.PP
+14.2.  If Quantum approves the Detailed Design Specifications, the balance of the contract price of Two Hundred
+Twenty-Five Thousand Dollars shall be paid to Lucasfilm in the amounts
+and at the times set forth in Exhibit B, upon satisfactory completion
+of the corresponding deliverables.
+.PP
+14.3.  In addition to the foregoing compensation, Quantum agrees to pay
+and Lucasfilm agrees to accept a royalty of ____percent (____%) on the
+"commissionable revenue" (as such term is hereinafter defined)
+generated by Quantum from the MicroCosm system.  Commissionable revenue
+shall mean the gross revenue received by Quantum for the sale, use, or
+license of the MicroCosm system (or any portion thereof), less
+deductions for________________________.  Payments of royalty
+commissions to Lucasfilm will be made monthly within sixty (60) days
+from the date of receipt of Commissionable Revenue by Quantum.
+.PP
+14.4.  Lucasfilm agrees to pay Quantum a royalty of ____percent (____%)
+on net revenues received by Lucasfilm from the license of MicroCosm or
+any Derivative Version receives from any source other than Quantum or
+its designated representative, provided that Lucasfilm receives any
+such revenues while this Agreement is in full force and effect.
+.PP
+14.5.  As a material inducement for Quantum to enter into this
+Agreement, Lucasfilm agrees to pay and Quantum agrees to accept a
+royalty commission of ____ percent (____%) on "commissionable revenue"
+(as such term is hereinafter defined) by Lucasfilm from the
+merchandising rights pertaining to the names, marks, objects,
+characters, or designs used in the MicroCosm system.  Commissionable
+revenue shall mean revenue actually received by Lucasfilm as a result
+of its merchandising rights, less _____________________.  Payments of
+royalty commissions to Quantum will be made monthly within sixty (60)
+days from the date of receipt of commissionable revenue by Lucasfilm.
+.PP
+14.6. (Lucasfilm to supply standard account/audit number.)
+
+15.  \fIWARRANTY_OF_ORIGINAL_DEVELOPMENT\fR
+.PP
+15.1 Lucasfilm represents and warrants that all materials produced
+hereunder will be of original development by Lucasfilm, except to the
+extent any such materials are supplied in whole or in part by Quantum
+or based in while or in part on material supplied by Quantum, and will
+not infringe upon or violate any patent, copyright, trade secret or
+other property right of any third party, and Lucasfilm will indemnify
+and hold Quantum harmless from and against any loss, cost, liability or
+expense (including reasonable attorneys' fees) arising out of any
+breach or claimed breach of this warranty.  In the event Lucasfilm
+shall elect to use or incorporate in the materials to be produced any
+components of a system already existing, Lucasfilm shall first notify
+Quantum, who, after whatever investigation Quantum may elect to make,
+may direct Lucasfilm not to so use or incorporate any such components.
+If Quantum shall not object, Lucasfilm may use or incorporate such
+component at Lucasfilm's expense after obtaining the written consent of
+the party owning the same, and furnishing a copy thereof to Quantum; in
+all events, such components shall be similarly warranted (except for
+originality) by Lucasfilm and Lucasfilm will arrange to transfer title
+or the perpetual license to use and sublicense such components to
+Quantum for purposes of this Agreement, and shall indemnify Quantum, in
+the manner aforesaid, with respect thereto.
+.PP
+15.2 Quantum represents and warrants that all materials produced
+hereunder will be of original development by Quantum, except to the
+extent any such materials are supplied in whole or in part by Lucasfilm
+or based in while or in part on material supplied by Lucasfilm, and will
+not infringe upon or violate any patent, copyright, trade secret or
+other property right of any third party, and Quantum will indemnify
+and hold Lucasfilm harmless from and against any loss, cost, liability or
+expense (including reasonable attorneys' fees) arising out of any
+breach or claimed breach of this warranty.  In the event Quantum
+shall elect to use or incorporate in the materials to be produced any
+components of a system already existing, Quantum shall first notify
+Lucasfilm, who, after whatever investigation Lucasfilm may elect to make,
+may direct Quantum not to so use or incorporate any such components.
+If Lucasfilm shall not object, Quantum may use or incorporate such
+component at Quantum's expense after obtaining the written consent of
+the party owning the same, and furnishing a copy thereof to Lucasfilm; in
+all events, such components shall be similarly warranted (except for
+originality) by Quantum and Quantum will arrange to transfer title
+or the perpetual license to use and sublicense such components to
+Lucasfilm for purposes of this Agreement, and shall indemnify Lucasfilm, in
+the manner aforsaid, with respect thereto.
+
+16.  \fIWARRANTY_OF_SOFTWARE_FUNCTIONS\fR
+.PP
+(to be supplied by LFL)
+
+
+17.  \fIMICROCOSM_SYSTEM_ENHANCEMENTS.\fR
+.PP
+Lucasfilm shall provide Quantum with a written proposal covering the
+advanced object set, object construction kit, universe construction
+kit, and gateway developers kit within Fifteen (15) days of the
+completion of Beta-test for Beta-test MicroCosm system.  The proposal
+shall set forth the cost of each enhancement if completed separately or
+as a group, and the time schedule for the completion of each
+enhancement separately or as a group.  If approved, Schedule B shall be
+amended as approved to reflect the additional deliverables, dates and
+payments associated therewith to Lucasfilm.
+
+18.  \fIAMIGA_Q-LINK_SUBSCRIBERS\fR
+.PP
+Within thirty (30) days from the date Quantum so requests, Lucasfilm
+shall provide Quantum with a written proposal covering the design and
+development of a complete MicroCosm system for Quantum's Amiga Q-Link
+Subscribers.  The proposal shall set forth the costs and time schedule
+for the completion of the complete MicroCosm system for Quantum's
+Q-Link Subscribers.  To the extent practical, the parties intend that the general terms and conditions of this Agreement shall apply to any agreement
+reached by the parties with regard to conversion of MicroCosm for
+access by Q-Link Amiga subscribers.
+
+19.  \fIASSIGNMENT\fR
+.PP
+The rights and obligations of the parties hereunder are personal to
+such parties and neither party may assign, license or transfer in any
+manner its respective rights and obligations hereunder without the
+prior written consent of the other party which consent may not be
+unreasonably withheld.  The parties agree and acknowledge that such
+consent may be conditioned on the assignor party guaranteeing the
+performance of the assignee party, and the assignee party providing
+satisfactory assurance to the non-assigning party of the assignee's
+willingness and ability to perform its obligations should consent be
+granted to the assignment.
+
+20.  \fINONCOMPETITION\fR
+
+(to be supplied by LFL)
+
+21.  \fITERMINATION\fR
+.PP
+(Acceptable in principle - LFL to supply additional language)
+
+21.1.  If either party fails to perform in accordance with the terms of
+this Agreement and has not cured the alleged default, or made a good
+faith effort to cure the alleged default, within thirty (30) days of
+receipt of written notice from the other party specifying the default,
+the non-defaulting party shall have the right to terminate this
+Agreement and the license granted hereunder upon giving the defaulting
+party thirty (30) days written notice of its intention to terminate. 
+.PP
+21.2. This Agreement may be terminated by either party in the event the
+other party shall have ceased business, been adjudged bankrupt of
+insolvent, made an assignment for the benefit of creditors, filed for a
+petition in bankruptcy or reorganization.
+
+22.  \fILIMITATION_OF_LIABILITY.\fR
+
+(to be supplied)
+
+23.  \fINOTICES.\fR
+.PP
+All notices, payments or other communications provided for this
+Agreement shall be made in writing and shall be deemed properly
+delivered when actually received or delivered personally, or by the
+mailing of such notice to the parties entitled thereto, registered or
+certified mail, postage prepaid to the parties at the address set forth
+in the first paragraph of this Agreement (or to such address designated
+in writing by one party to the other).
+
+24.  \fISUBJECT_HEADINGS.\fR
+.PP
+The subject heading of the paragraph and subparagraphs of this
+Agreement are included solely for purposes of convenience and reference
+only, and shall not be deemed to explain, modify, limit, amplify or aid
+in the meaning, construction or interpretation of any of the provisions
+of this Agreement.
+
+25.  \fIAMENDMENTS.\fR
+.PP
+No supplement, modification or amendment of any term, provision or
+condition of this Agreement shall be binding or enforceable unless
+executed in writing by the parties hereto. 
+
+26.  \fIENTIRE_AGREEMENT_AND_WAIVER.\fR
+.PP
+This Agreement contains the entire Agreement between the parties hereto
+and supersedes all prior and contemporaneous agreements, arrangements,
+negotiations and understandings between the parties hereto relating to
+the subject matter hereof.  There are no other understandings,
+statements, promises or inducements, oral or otherwise, contrary to the
+terms of this Agreement.  No representations, warranties, covenants or
+conditions, express or implied, whether by statute or otherwise,
+otherwise, other than as set forth herein have been made by any party
+hereto.  No waiver of any term, provision or condition of this
+Agreement, whether by conduct or otherwise, in any one or more
+instances, shall be deemed to be, or shall constitute, a waiver of any
+other provision hereof, whether or not similar, not shall such waiver
+constitute a continuing waiver, and no waiver shall be binding unless
+executed in writing by the party making the waiver. 
+
+27.  \fIPARTIES_IN_INTEREST.\fR
+.PP
+Nothing in this Agreement (whether express or implied) is intended to
+confer upon any person other than the parties hereto and their
+respective successors and permitted assign, any rights or remedies
+under or by reason of this Agreement, nor is anything in this Agreement
+intended to relieve or discharge the liability of any other party
+hereto, nor shall any provision hereof give any entity any right to
+subrogation against or action over against any party.
+
+28.  \fICOUNTERPARTS.\fR
+.PP
+This Agreement may be executed in one or more counterparts, each of
+which shall be deemed an original, but all of which together shall
+constitute one and the same instrument. 
+
+29.  \fIFORCE_MAJEURE.\fR
+.PP
+Any prevention, delay or stoppage due to strikes, lockouts, labor
+disputes, acts of God, inability to obtain labor or materials or
+reasonable substitutes therefore, governmental controls, judicial
+orders, enemy or hostile government action, civil commotion, fire or
+other casualty, and other causes beyond the reasonable control of
+either party shall excuse the performance of that party of its
+obligations hereunder for a period equal to any such prevention, delay
+or stoppage. 
+
+30.  \fIREMEDIES_NOT_EXCLUSIVE.\fR
+.PP
+The remedies given to the parties hereunder shall be in addition and
+supplemental to all other rights or remedies which each party may have
+under the law then in force.
+
+31.  \fIAPPLICABLE_LAW.\fR
+.pp
+This Agreement shall be governed by and construed and enforced in
+accordance with the subject to the laws of the State of California.
+
+
+IN WITNESS WHEREOF, the parties have caused this Agreement to be
+signed by their duly authorized representatives on the date indicated
+below, and declare the same to be effective on the date first written
+above.
+
+.nf
+                            LUCASFILM LTD.
+
+                        By: _______________________________
+
+                       Its: _______________________________
+
+
+
+                            QUANTUM COMPUTER SERVICES, INC. 
+
+                        By: _______________________________
+
+                       Its: _______________________________
+
+
+.bp
+
+                                       EXHIBIT A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ce
+MICROCOSM PROPOSAL
+.bp
+                                       EXHIBIT B
+
+
+.ce 3
+MICROCOSM SYSTEM
+.ul
+DEVELOPMENT_AND_PAYMENT_SCHEDULE
+
+
+Description           Scheduled                   Payment to
+.ul
+ of_Event               Date     Responsibility   Lucasfilm  
+
+Contract Execution     11/01/85   Both Parties     $25,000
+
+Detailed Functional
+ Specifications
+
+Complete Preliminary
+ Basic Object Set
+.bp
+
+                                       EXHIBIT C
+
+
+.ce 3
+MICROCOSM SYSTEM
+.ul
+COPYRIGHT_LISTING
+
+
+.ul
+NAME_OF_WORK                                       COPYRIGHT_OWNER
+
+MicroCosm Basic Object Set                            Lucasfilm
+MicroCosm Baseline Home System                        Lucasfilm
+MicroCosm Baseline Host System                        Quantum
+Baseline System MicroCosm Host Data Base              Lucasfilm
+MicroCosm Avatar Personalization Kit                  Lucasfilm
+MicroCosm Turf Personalization Kit                    Lucasfilm
+MicroCosm System Manager's Package                    Quantum
+MicroCosm Documentation                               Lucasfilm
+MicroCosm Advanced Object Set                         Lucasfilm
+MicroCosm Object Construction Kit                     Lucasfilm
+MicroCosm Universe Construction Kit                   Lucasfilm
+MicroCosm Gateway Software Developers Kit             Lucasfilm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

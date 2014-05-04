@@ -1,0 +1,10 @@
+slur test.reg \
+     -o foo.rdl \
+     -d FACE_EAST \
+     -r Bleem_St_cross \
+     -s Bleem_St_68_front \
+     -n Bleem_St_58_front \
+     -w Cross_Rd_cross \
+     -e Foon_Ave_cross \
+     -p 'Perfoonery Road Plus' \
+     -c class2.dat

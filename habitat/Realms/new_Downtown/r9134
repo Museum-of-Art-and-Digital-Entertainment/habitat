@@ -1,0 +1,130 @@
+use region r_9134 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9146
+  west_neighbor: r r_9123
+  north_neighbor: r r_9135
+  south_neighbor: r r_9133
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_7000 {
+  container: r r_9134
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_7001 {
+  container: r r_9134
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_7002 {
+  container: r r_9134
+  x: 8
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use sign o_7003 {
+  container: r r_9134
+  x: 64
+  y: 110
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " Populopolis\R\R\h\( \ HALL\R \  of\RRECORDS    "
+}
+use trapezoid o_7004 {
+  container: r r_9134
+  x: 64
+  y: 40
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 0
+  upper_right_x: 59
+  lower_left_x: 0
+  lower_right_x: 59
+  height: 208
+}
+use fortune_machine o_7005 {
+  container: r r_9134
+  x: 40
+  y: 153
+  style: 0
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 330
+}
+use street o_7006 {
+  container: r r_9134
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use fortune_machine o_7007 {
+  container: r r_9134
+  x: 132
+  y: 153
+  style: 0
+  gr_state: 2
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  take: 238
+}

@@ -1,0 +1,3451 @@
+Classes:
+ 00 (36) class_region
+ 01 (57) class_avatar
+ 02 (24) class_amulet
+ ...
+ 04 (27) class_atm
+ ...
+ 06 (25) class_bag
+ 07 (22) class_ball
+ ...
+ 0a (28) class_book
+ 0b (22) class_boomerang
+ 0c (24) class_bottle
+ 0d (25) class_box
+ ...
+ 10 (22) class_club
+ 11 (22) class_compass
+ 12 (22) class_countertop
+ ...
+ 14 (25) class_crystal_ball
+ ...
+ 16 (22) class_display_case
+ 17 (25) class_door
+ 18 (24) class_dropbox
+ 19 (23) class_drugs
+ 1a (25) class_escape_device
+ 1b (28) class_fake_gun
+ ...
+ 1d (23) class_flag
+ 1e (27) class_flashlight
+ 1f (22) class_frisbee
+ 20 (25) class_garbage_can
+ 21 (24) class_gemstone
+ ...
+ 23 (25) class_grenade
+ 24 (23) class_ground
+ 25 (28) class_gun
+ 26 (27) class_hand_of_god
+ 27 (22) class_hat
+ 28 (24) class_instant_object_pill
+ ...
+ 2a (22) class_key
+ 2b (36) class_knick_knack
+ 2c (23) class_knife
+ 2d (27) class_magic_lamp
+ 2e (24) class_magic_staff
+ 2f (26) class_magic_wand
+ 30 (27) class_mailbox
+ 31 (22) class_matchbook
+ ...
+ 34 (26) class_movie_camera
+ ...
+ 36 (22) class_paper
+ ...
+ 38 (28) class_short_sign
+ 39 (28) class_sign
+ 3a (24) class_plant
+ ...
+ 3c (24) class_ring
+ 3d (24) class_rock
+ ...
+ 3f (26) class_security_device
+ 40 (26) class_sensor
+ ...
+ 45 (33) class_sky
+ 46 (26) class_stereo
+ 47 (23) class_tape
+ ...
+ 4a (40) class_teleport_booth
+ 4b (22) class_ticket
+ 4c (22) class_tokens
+ ...
+ 50 (33) class_wall
+ ...
+ 52 (26) class_wind_up_toy
+ ...
+ 54 (24) class_changomatic
+ 55 (35) class_vendo_front
+ 56 (23) class_vendo_inside
+ 57 (27) class_trapezoid
+ 58 (25) class_hole
+ 59 (24) class_shovel
+ 5a (25) class_sex_changer
+ 5b (29) class_stun_gun
+ 5c (26) class_super_trapezoid
+ 5d (37) class_flat
+ 5e (22) class_test
+ 5f (24) spray_can
+ ...
+ 7f (38) class_head
+ ...
+ 81 (23) class_aquarium
+ 82 (22) class_bed
+ 83 (23) class_bridge
+ 84 (22) class_building
+ 85 (26) class_bush
+ 86 (27) class_chair
+ 87 (26) class_chest
+ 88 (32) class_coke_machine
+ 89 (23) class_couch
+ 8a (22) class_fence
+ 8b (25) class_floor_lamp
+ 8c (35) class_fortune_machine
+ 8d (23) class_fountain
+ ...
+ 8f (22) class_house_cat
+ 90 (22) class_hot_tub
+ 91 (25) class_jukebox
+ ...
+ 93 (22) class_pond
+ 94 (22) class_river
+ 95 (22) class_roof
+ 96 (24) class_safe
+ ...
+ 98 (25) class_picture
+ 99 (22) class_street
+ 9a (23) class_streetlamp
+ 9b (22) class_table
+ 9c (32) class_tree
+ 9d (23) class_window
+ ...
+
+class class_region (0)
+  class length: 36
+  images: 0
+  sounds: 13
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xd
+  actions offset: 0x1a
+  data:
+    0x06
+    0x00
+    0x00
+  images:
+    <no images>
+  sounds:
+    [0]   0 Sounds/error_beep.bin
+    [1]   1 Sounds/region_boing.bin
+    [2]   2 Sounds/footsteps.bin
+    [3]   3 Sounds/teleport_region_change_0.bin
+    [4]   4 Sounds/teleport_region_change_0.pwbin
+    [5]   5 Sounds/teleport_region_change_1.bin
+    [6]   6 Sounds/teleport_region_change_1.pwbin
+    [7]   7 Sounds/teleport_region_change_2.bin
+    [8]   8 Sounds/teleport_arrival.bin
+    [9]   9 Sounds/teleport_arrival.pwbin
+    [10]  10 Sounds/region_change_music_v0.bin
+    [11]  11 Sounds/region_change_music_v1.bin
+    [12]  12 Sounds/region_change_music_v2.bin
+  actions:
+    [0]   0 illegal.bin
+    [1]   0 illegal.bin
+    [2]   1 GoToNewRegion.bin
+    [3]   2 generic_cease.bin
+    [4]   0 illegal.bin
+    [5]   0 illegal.bin
+    [6]   3 generic_broadcast.bin
+    [7]   0 illegal.bin
+    [8]   4 transit_region.bin
+    [9]   5 ask_for_help.bin
+
+class class_avatar (1)
+  class length: 57
+  images: 1
+  sounds: 12
+  actions: 31
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x1a
+  data:
+    0x8e
+    0x8c
+    0x07
+  images:
+    [0]   0 Gr/Av/do40.bin
+  sounds:
+    [0]  13 Sounds/avatar_injured.bin
+    [1]  14 Sounds/avatar_injured.pwbin
+    [2]  15 Sounds/avatar_killed.bin
+    [3]  16 Sounds/avatar_killed.pwbin
+    [4]  17 Sounds/avatar_into_stone.bin
+    [5]  18 Sounds/avatar_out_of_stone.bin
+    [6]  19 Sounds/successful_esp_activation.bin
+    [7]  20 Sounds/message_sent.bin
+    [8]  21 Sounds/message_received.bin
+    [9]  22 Sounds/failed_esp_activation.bin
+    [10]  23 Sounds/clothes_donned.bin
+    [11]  24 Sounds/clothes_doffed.bin
+  actions:
+    [0]   6 avatar_do.bin
+    [1]   7 noEffect.bin
+    [2]   8 avatar_go.bin
+    [3]   2 generic_cease.bin
+    [4]   9 avatar_get.bin
+    [5]  10 avatar_put.bin
+    [6]  11 avatar_talk.bin
+    [7]  12 generic_destroy.bin
+    [8]  13 avatar_WALK.bin
+    [9]  14 avatar_ATTACK.bin
+    [10]  15 avatar_BASH.bin
+    [11]  16 avatar_DIE.bin
+    [12]  17 avatar_CLOSE.bin
+    [13]  18 avatar_CLOSECONTAINER.bin
+    [14]  19 generic_SPEAK.bin
+    [15]  20 avatar_GET.bin
+    [16]  21 avatar_SITORGETUP.bin
+    [17]  22 avatar_GRABFROM.bin
+    [18]  23 avatar_OPEN.bin
+    [19]  24 avatar_OPENCONTAINER.bin
+    [20]  25 avatar_POSTURE.bin
+    [21]   7 noEffect.bin
+    [22]  26 avatar_PUT.bin
+    [23]  27 avatar_REINCARNATE.bin
+    [24]  28 avatar_THROW.bin
+    [25]   7 noEffect.bin
+    [26]   7 noEffect.bin
+    [27]   7 noEffect.bin
+    [28]  29 avatar_WEAR.bin
+    [29]  30 avatar_REMOVE.bin
+    [30]  31 avatar_PAID.bin
+
+class class_amulet (2)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  16 Images/amulet.bin
+  sounds:
+    [0]  25 Sounds/magic.bin
+    [1]  26 Sounds/magic.pwbin
+  actions:
+    [0]  38 generic_doMagic.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_atm (4)
+  class length: 27
+  images: 1
+  sounds: 5
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x13
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  18 Images/atm.bin
+  sounds:
+    [0]  27 Sounds/money_into_atm.bin
+    [1]  28 Sounds/money_into_atm.pwbin
+    [2]  29 Sounds/money_out_of_atm.bin
+    [3]  30 Sounds/money_out_of_atm.pwbin
+    [4]  31 Sounds/atm_thinking.bin
+  actions:
+    [0]  42 atm_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  43 atm_get.bin
+    [5]  44 atm_put.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_bag (6)
+  class length: 25
+  images: 2
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x11
+  data:
+    0x16
+    0x89
+    0x05
+  images:
+    [0]  19 Images/bag.bin
+    [1]  20 Images/luggages.bin
+  sounds:
+    [0]  32 Sounds/bag_opening.bin
+    [1]  33 Sounds/bag_closing.bin
+  actions:
+    [0]  45 generic_adjacentOpenCloseContainer.bin
+    [1]  40 generic_depends.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  46 generic_goToAndPickFromOrGet.bin
+    [5]  47 generic_goToAndDropIntoIfOpen.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_ball (7)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  21 Images/ball1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_book (10)
+  class length: 28
+  images: 7
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x14
+  actions offset: 0x14
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  23 Images/booke.bin
+    [1]  24 Images/bookf.bin
+    [2]  25 Images/mag.bin
+    [3]  26 Images/news.bin
+    [4]  27 Images/paper.bin
+    [5]  28 Images/kk2.bin
+    [6]  29 Images/bottle.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  51 book_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_boomerang (11)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  30 Images/brang.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_bottle (12)
+  class length: 24
+  images: 1
+  sounds: 0
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  29 Images/bottle.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  52 bottle_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  53 bottle_FILL.bin
+    [9]  54 bottle_POUR.bin
+
+class class_box (13)
+  class length: 25
+  images: 2
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x11
+  data:
+    0x1b
+    0x89
+    0x0a
+  images:
+    [0]  31 Images/box1.bin
+    [1]  32 Images/trchest.bin
+  sounds:
+    [0]  34 Sounds/box_opening.bin
+    [1]  35 Sounds/box_closing.bin
+  actions:
+    [0]  45 generic_adjacentOpenCloseContainer.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  46 generic_goToAndPickFromOrGet.bin
+    [5]  47 generic_goToAndDropIntoIfOpen.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_club (16)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  49 Images/club2.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  60 generic_strike.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_compass (17)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  51 Images/compass.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_countertop (18)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x16
+    0x09
+    0x05
+  images:
+    [0]  53 Images/counter0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_crystal_ball (20)
+  class length: 25
+  images: 1
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  54 Images/cball0.bin
+  sounds:
+    [0]  47 Sounds/crystal_ball.bin
+    [1]  48 Sounds/crystal_ball.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]  64 generic_askOracle.bin
+    [7]  12 generic_destroy.bin
+    [8]  19 generic_SPEAK.bin
+
+class class_display_case (22)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x16
+    0x09
+    0x05
+  images:
+    [0]  55 Images/dcase.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_door (23)
+  class length: 25
+  images: 2
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x11
+  data:
+    0x11
+    0x09
+    0x00
+  images:
+    [0]  56 Images/door1.bin
+    [1]  57 Images/door2.bin
+  sounds:
+    [0]  49 Sounds/door_opening.bin
+    [1]  50 Sounds/door_closing.bin
+  actions:
+    [0]  65 generic_adjacentOpenClose.bin
+    [1]   0 illegal.bin
+    [2]  66 generic_goToOrPassThrough.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_dropbox (24)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  58 Images/mdrop.bin
+  sounds:
+    [0]  51 Sounds/mail_into_mailbox.bin
+    [1]  52 Sounds/mail_into_mailbox.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  67 generic_sendMail.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_drugs (25)
+  class length: 23
+  images: 1
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  59 Images/pillbot.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  68 drugs_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  69 drugs_TAKE.bin
+
+class class_escape_device (26)
+  class length: 25
+  images: 1
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  60 Images/escaper.bin
+  sounds:
+    [0]  53 Sounds/escape_device_activates.bin
+    [1]  54 Sounds/escape_device_used_up.bin
+  actions:
+    [0]  70 escape_device_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  71 escape_device_BUGOUT.bin
+
+class class_fake_gun (27)
+  class length: 28
+  images: 1
+  sounds: 4
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x12
+  data:
+    0x10
+    0x07
+    0x00
+  images:
+    [0]  61 Images/fgun1.bin
+  sounds:
+    [0]  55 Sounds/gun_safety_on.bin
+    [1]  56 Sounds/gun_safety_off.bin
+    [2]  57 Sounds/joke_gunshot.bin
+    [3]  58 Sounds/joke_gunshot.pwbin
+  actions:
+    [0]  72 fake_gun_do.bin
+    [1]  73 fake_gun_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  74 fake_gun_FAKESHOOT.bin
+    [9]  75 fake_gun_RESET.bin
+
+class class_flag (29)
+  class length: 23
+  images: 1
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  63 Images/flag.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  41 generic_CHANGESTATE.bin
+
+class class_flashlight (30)
+  class length: 27
+  images: 3
+  sounds: 1
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0x10
+  actions offset: 0x11
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  64 Images/flite.bin
+    [1]  65 Images/torch0.bin
+    [2]  66 Images/kk1.bin
+  sounds:
+    [0]  59 Sounds/switch_click.bin
+  actions:
+    [0]  76 flashlight_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  77 generic_OFFLIGHT.bin
+    [9]  78 generic_ONLIGHT.bin
+
+class class_frisbee (31)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  70 Images/fris.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_garbage_can (32)
+  class length: 25
+  images: 2
+  sounds: 1
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x10
+  data:
+    0x25
+    0x09
+    0x14
+  images:
+    [0]  71 Images/gcan.bin
+    [1]  72 Images/kcan.bin
+  sounds:
+    [0]  64 Sounds/garbage_can_flush.bin
+  actions:
+    [0]  82 garbage_can_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  83 garbage_can_FLUSH.bin
+
+class class_gemstone (33)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  73 Images/gem.bin
+  sounds:
+    [0]  65 Sounds/magic_2.bin
+    [1]  66 Sounds/magic_2.pwbin
+  actions:
+    [0]  84 generic_doMagicIfMagic.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_grenade (35)
+  class length: 25
+  images: 1
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  74 Images/gren.bin
+  sounds:
+    [0]  67 Sounds/big_explosion.bin
+    [1]  68 Sounds/big_explosion.pwbin
+  actions:
+    [0]  85 grenade_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  86 grenade_EXPLODE.bin
+
+class class_ground (36)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  75 Images/floor0.bin
+    [1]  76 Images/floor1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  55 generic_goToCursor.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_gun (37)
+  class length: 28
+  images: 4
+  sounds: 3
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x11
+  actions offset: 0x14
+  data:
+    0x0f
+    0x06
+    0x00
+  images:
+    [0]  77 Images/gun1.bin
+    [1]  78 Images/gun2.bin
+    [2]  79 Images/gun3.bin
+    [3]  80 Images/maus.bin
+  sounds:
+    [0]  55 Sounds/gun_safety_on.bin
+    [1]  56 Sounds/gun_safety_off.bin
+    [2]  69 Sounds/gunshot.bin
+  actions:
+    [0]  87 gun_do.bin
+    [1]  88 generic_shoot.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_hand_of_god (38)
+  class length: 27
+  images: 2
+  sounds: 3
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x12
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  81 Images/hand.bin
+    [1]  82 Images/cinder.bin
+  sounds:
+    [0]  70 Sounds/hand_o_god_flame.bin
+    [1]  71 Sounds/hand_o_god_lightning.bin
+    [2]  72 Sounds/hand_o_god_lightning.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]   0 illegal.bin
+    [3]   0 illegal.bin
+    [4]   0 illegal.bin
+    [5]   0 illegal.bin
+    [6]   0 illegal.bin
+    [7]  12 generic_destroy.bin
+    [8]  89 hand_of_god_BLAST.bin
+
+class class_hat (39)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  83 Images/undefined.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_instant_object_pill (40)
+  class length: 24
+  images: 1
+  sounds: 1
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  96 Images/mpill.bin
+  sounds:
+    [0]  73 Sounds/instant_object_pill.bin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  92 instant_object_TRANSFORM.bin
+
+class class_key (42)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0]  98 Images/key1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  97 key_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_knick_knack (43)
+  class length: 36
+  images: 13
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x1a
+  actions offset: 0x1c
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  66 Images/kk1.bin
+    [1]  28 Images/kk2.bin
+    [2]  99 Images/kk3.bin
+    [3] 100 Images/vase.bin
+    [4] 101 Images/jug0.bin
+    [5] 102 Images/saw.bin
+    [6] 103 Images/tbear.bin
+    [7] 104 Images/rduk.bin
+    [8] 105 Images/ans.bin
+    [9] 106 Images/phone1.bin
+    [10] 107 Images/towel.bin
+    [11] 108 Images/mic0.bin
+    [12] 109 Images/flat.bin
+  sounds:
+    [0]  74 Sounds/magic_3.bin
+    [1]  75 Sounds/magic_3.pwbin
+  actions:
+    [0]  84 generic_doMagicIfMagic.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_knife (44)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 110 Images/knife1.bin
+    [1] 111 Images/knife2.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  60 generic_strike.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_magic_lamp (45)
+  class length: 27
+  images: 1
+  sounds: 2
+  actions: 11
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0] 112 Images/mlamp2.bin
+  sounds:
+    [0]  76 Sounds/genie_appears.bin
+    [1]  77 Sounds/genie_out.bin
+  actions:
+    [0]  98 magic_lamp_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]  99 magic_lamp_talk.bin
+    [7]  12 generic_destroy.bin
+    [8] 100 magic_lamp_GIVEUP.bin
+    [9] 101 magic_lamp_RUB.bin
+    [10] 102 magic_lamp_WISH.bin
+
+class class_magic_staff (46)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 113 Images/mstaff.bin
+  sounds:
+    [0]  78 Sounds/magic_4.bin
+    [1]  79 Sounds/magic_4.pwbin
+  actions:
+    [0]  38 generic_doMagic.bin
+    [1]  60 generic_strike.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_magic_wand (47)
+  class length: 26
+  images: 3
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x10
+  actions offset: 0x12
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 114 Images/wand1.bin
+    [1] 115 Images/wand2.bin
+    [2] 103 Images/tbear.bin
+  sounds:
+    [0]  25 Sounds/magic.bin
+    [1]  26 Sounds/magic.pwbin
+  actions:
+    [0]  38 generic_doMagic.bin
+    [1]  60 generic_strike.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_mailbox (48)
+  class length: 27
+  images: 1
+  sounds: 4
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x12
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 116 Images/mbox.bin
+  sounds:
+    [0]  51 Sounds/mail_into_mailbox.bin
+    [1]  52 Sounds/mail_into_mailbox.pwbin
+    [2]  80 Sounds/mail_out_of_mailbox.bin
+    [3]  81 Sounds/mail_out_of_mailbox.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4] 103 mailbox_get.bin
+    [5]  67 generic_sendMail.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 104 mailbox_MAILARRIVED.bin
+
+class class_matchbook (49)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 117 Images/mbook0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 105 generic_read.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_movie_camera (52)
+  class length: 26
+  images: 1
+  sounds: 2
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 118 Images/camera0.bin
+  sounds:
+    [0]  59 Sounds/switch_click.bin
+    [1]  59 Sounds/switch_click.bin
+  actions:
+    [0] 106 generic_switch.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 107 generic_OFF.bin
+    [9] 108 generic_ON.bin
+
+class class_paper (54)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  27 Images/paper.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 109 paper_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_short_sign (56)
+  class length: 28
+  images: 7
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x14
+  actions offset: 0x14
+  data:
+    0x18
+    0x10
+    0x00
+  images:
+    [0] 119 Images/sign0.bin
+    [1] 120 Images/sign1.bin
+    [2] 121 Images/sign2.bin
+    [3] 122 Images/sign3.bin
+    [4] 123 Images/sign4.bin
+    [5] 124 Images/sign5.bin
+    [6] 125 Images/sign6.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_sign (57)
+  class length: 28
+  images: 7
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x14
+  actions offset: 0x14
+  data:
+    0x36
+    0x2e
+    0x00
+  images:
+    [0] 119 Images/sign0.bin
+    [1] 120 Images/sign1.bin
+    [2] 121 Images/sign2.bin
+    [3] 122 Images/sign3.bin
+    [4] 123 Images/sign4.bin
+    [5] 124 Images/sign5.bin
+    [6] 125 Images/sign6.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_plant (58)
+  class length: 24
+  images: 3
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x10
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 126 Images/plant1.bin
+    [1] 127 Images/plant2.bin
+    [2] 128 Images/plant3.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4] 110 generic_getMass.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_ring (60)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 130 Images/mring.bin
+  sounds:
+    [0]  65 Sounds/magic_2.bin
+    [1]  66 Sounds/magic_2.pwbin
+  actions:
+    [0]  38 generic_doMagic.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_rock (61)
+  class length: 24
+  images: 3
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x10
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 131 Images/rock1.bin
+    [1] 132 Images/rock2.bin
+    [2] 133 Images/rock3.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4] 110 generic_getMass.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_security_device (63)
+  class length: 26
+  images: 1
+  sounds: 2
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 135 Images/security.bin
+  sounds:
+    [0]  82 Sounds/security_device_on.bin
+    [1]  83 Sounds/security_device_off.bin
+  actions:
+    [0] 106 generic_switch.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 107 generic_OFF.bin
+    [9] 108 generic_ON.bin
+
+class class_sensor (64)
+  class length: 26
+  images: 1
+  sounds: 3
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x11
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 136 Images/sensor.bin
+  sounds:
+    [0]  84 Sounds/sensor_scanning.bin
+    [1]  85 Sounds/sensor_didnt_find_it.bin
+    [2]  86 Sounds/sensor_found_it.bin
+  actions:
+    [0] 111 sensor_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 112 sensor_SCAN.bin
+
+class class_sky (69)
+  class length: 33
+  images: 12
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x19
+  actions offset: 0x19
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  75 Images/floor0.bin
+    [1]  76 Images/floor1.bin
+    [2]  87 Images/bwall3.bin
+    [3]  88 Images/bwall4.bin
+    [4]  89 Images/bwall5.bin
+    [5]  90 Images/bwall6.bin
+    [6]  91 Images/bwall7.bin
+    [7]  92 Images/bwall8.bin
+    [8]  93 Images/mount1.bin
+    [9]  94 Images/cave0.bin
+    [10]  21 Images/ball1.bin
+    [11]  95 Images/treeA.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  56 sky_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]   7 noEffect.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_stereo (70)
+  class length: 26
+  images: 1
+  sounds: 2
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x11
+    0x08
+    0x00
+  images:
+    [0] 144 Images/tapep.bin
+  sounds:
+    [0]  59 Sounds/switch_click.bin
+    [1]  59 Sounds/switch_click.bin
+  actions:
+    [0] 106 generic_switch.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 120 stereo_UNLOAD.bin
+    [9]  96 generic_PLAY.bin
+
+class class_tape (71)
+  class length: 23
+  images: 1
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 149 Images/cassette.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 105 generic_read.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 122 tape_LOAD.bin
+
+class class_teleport_booth (74)
+  class length: 40
+  images: 1
+  sounds: 14
+  actions: 12
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x1c
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 150 Images/port7.bin
+  sounds:
+    [0]  39 Sounds/coin_accepted_by_coinop.bin
+    [1]  40 Sounds/coin_accepted_by_coinop.pwbin
+    [2]  41 Sounds/coin_deposited_in_coinop.bin
+    [3]  42 Sounds/coin_deposited_in_coinop.pwbin
+    [4]  43 Sounds/coin_rejected_by_coinop.bin
+    [5]  44 Sounds/coin_rejected_by_coinop.pwbin
+    [6]  96 Sounds/teleport_activates.bin
+    [7]  97 Sounds/teleport_activates.pwbin
+    [8]  98 Sounds/teleport_conf_wait.bin
+    [9]  99 Sounds/teleport_conf_wait.pwbin
+    [10] 100 Sounds/teleport_departure.bin
+    [11] 101 Sounds/teleport_departure.pwbin
+    [12]   8 Sounds/teleport_arrival.bin
+    [13]   9 Sounds/teleport_arrival.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2] 123 generic_enterOrExit.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5] 124 teleport_put.bin
+    [6] 125 teleport_talk.bin
+    [7]  12 generic_destroy.bin
+    [8] 126 teleport_PAY.bin
+    [9] 127 teleport_ZAPIN.bin
+    [10] 128 teleport_ZAPOUT.bin
+    [11]  63 generic_coinOp.bin
+
+class class_ticket (75)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 151 Images/ticket.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 105 generic_read.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_tokens (76)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0] 152 Images/tok.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 130 tokens_do.bin
+    [1] 131 tokens_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_wall (80)
+  class length: 33
+  images: 12
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x19
+  actions offset: 0x19
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  75 Images/floor0.bin
+    [1]  76 Images/floor1.bin
+    [2]  87 Images/bwall3.bin
+    [3]  88 Images/bwall4.bin
+    [4]  89 Images/bwall5.bin
+    [5]  90 Images/bwall6.bin
+    [6]  91 Images/bwall7.bin
+    [7]  92 Images/bwall8.bin
+    [8]  93 Images/mount1.bin
+    [9]  94 Images/cave0.bin
+    [10]  21 Images/ball1.bin
+    [11]  95 Images/treeA.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  55 generic_goToCursor.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_wind_up_toy (82)
+  class length: 26
+  images: 2
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x11
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0] 172 Images/doll.bin
+    [1] 173 Images/peng.bin
+  sounds:
+    [0] 105 Sounds/winding_up_toy.bin
+    [1] 106 Sounds/winding_up_toy.pwbin
+  actions:
+    [0] 136 windup_toy_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 137 windup_toy_WIND.bin
+
+class class_changomatic (84)
+  class length: 24
+  images: 1
+  sounds: 1
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  45 Images/chango.bin
+  sounds:
+    [0]  36 Sounds/changomatic.bin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  57 changomatic_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  58 changomatic_CHANGE.bin
+
+class class_vendo_front (85)
+  class length: 35
+  images: 2
+  sounds: 9
+  actions: 11
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0x18
+  data:
+    0x1d
+    0x0b
+    0x0a
+  images:
+    [0] 166 Images/vendo1.bin
+    [1] 167 Images/newsstand1.bin
+  sounds:
+    [0]  39 Sounds/coin_accepted_by_coinop.bin
+    [1]  40 Sounds/coin_accepted_by_coinop.pwbin
+    [2]  41 Sounds/coin_deposited_in_coinop.bin
+    [3]  42 Sounds/coin_deposited_in_coinop.pwbin
+    [4]  43 Sounds/coin_rejected_by_coinop.bin
+    [5]  44 Sounds/coin_rejected_by_coinop.pwbin
+    [6] 102 Sounds/vendo_changing.bin
+    [7] 103 Sounds/vendo_dispensing.bin
+    [8] 104 Sounds/vendo_dispensing.pwbin
+  actions:
+    [0] 132 vendo_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5] 133 vendo_put.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 134 vendo_SELECT.bin
+    [9] 135 vendo_SELL.bin
+    [10]  63 generic_coinOp.bin
+
+class class_vendo_inside (86)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x13
+    0x09
+    0x02
+  images:
+    [0] 168 Images/vendo0.bin
+    [1] 169 Images/newsstand0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]   0 illegal.bin
+    [1]   0 illegal.bin
+    [2]   0 illegal.bin
+    [3]   0 illegal.bin
+    [4]   0 illegal.bin
+    [5]   0 illegal.bin
+    [6]   0 illegal.bin
+    [7]  12 generic_destroy.bin
+
+class class_trapezoid (87)
+  class length: 27
+  images: 2
+  sounds: 0
+  actions: 12
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x14
+    0x0c
+    0x00
+  images:
+    [0] 153 Images/trap0.bin
+    [1] 154 Images/trap1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  91 trap_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  56 sky_go.bin
+    [9]  55 generic_goToCursor.bin
+    [10]  55 generic_goToCursor.bin
+    [11]   7 noEffect.bin
+
+class class_hole (88)
+  class length: 25
+  images: 1
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x1b
+    0x89
+    0x0a
+  images:
+    [0]  84 Images/hole0.bin
+  sounds:
+    [0]  34 Sounds/box_opening.bin
+    [1]  35 Sounds/box_closing.bin
+  actions:
+    [0]  90 hole_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  59 generic_goToAndPickFromIfOpen.bin
+    [5]  47 generic_goToAndDropIntoIfOpen.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  45 generic_adjacentOpenCloseContainer.bin
+
+class class_shovel (89)
+  class length: 24
+  images: 1
+  sounds: 1
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 138 Images/shovel0.bin
+  sounds:
+    [0]  89 Sounds/digging.bin
+  actions:
+    [0]  40 generic_depends.bin
+    [1] 116 shovel_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 117 shovel_DIG.bin
+
+class class_sex_changer (90)
+  class length: 25
+  images: 1
+  sounds: 2
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 137 Images/sexo.bin
+  sounds:
+    [0]  87 Sounds/sex_changer.bin
+    [1]  88 Sounds/sex_changer.pwbin
+  actions:
+    [0] 113 sex_changer_do.bin
+    [1]   0 illegal.bin
+    [2] 114 sex_changer_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 115 sex_changer_SEXCHANGE.bin
+
+class class_stun_gun (91)
+  class length: 29
+  images: 1
+  sounds: 7
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x15
+  data:
+    0x0f
+    0x06
+    0x00
+  images:
+    [0]  79 Images/gun3.bin
+  sounds:
+    [0]  55 Sounds/gun_safety_on.bin
+    [1]  56 Sounds/gun_safety_off.bin
+    [2]  91 Sounds/stun_gun_fire.bin
+    [3]  92 Sounds/stun_gun_fire.pwbin
+    [4]  93 Sounds/stun_gun_hit.bin
+    [5]  94 Sounds/stun_gun_hit.pwbin
+    [6]  95 Sounds/stun_gun_miss.bin
+  actions:
+    [0]  87 gun_do.bin
+    [1] 121 stun_gun_rdo.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_super_trapezoid (92)
+  class length: 26
+  images: 1
+  sounds: 0
+  actions: 12
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x36
+    0x2e
+    0x00
+  images:
+    [0] 155 Images/super_trap.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  91 trap_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  56 sky_go.bin
+    [9]  55 generic_goToCursor.bin
+    [10]  55 generic_goToCursor.bin
+    [11]   7 noEffect.bin
+
+class class_flat (93)
+  class length: 37
+  images: 12
+  sounds: 0
+  actions: 12
+  images offset: 0xd
+  sounds offset: 0x19
+  actions offset: 0x19
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  75 Images/floor0.bin
+    [1]  76 Images/floor1.bin
+    [2]  87 Images/bwall3.bin
+    [3]  88 Images/bwall4.bin
+    [4]  89 Images/bwall5.bin
+    [5]  90 Images/bwall6.bin
+    [6]  91 Images/bwall7.bin
+    [7]  92 Images/bwall8.bin
+    [8]  93 Images/mount1.bin
+    [9]  94 Images/cave0.bin
+    [10]  21 Images/ball1.bin
+    [11]  95 Images/treeA.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]   7 noEffect.bin
+    [1]   0 illegal.bin
+    [2]  91 trap_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]   7 noEffect.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  56 sky_go.bin
+    [9]  55 generic_goToCursor.bin
+    [10]  55 generic_goToCursor.bin
+    [11]   7 noEffect.bin
+
+class class_test (94)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  83 Images/undefined.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0] 129 generic_test.bin
+    [1] 129 generic_test.bin
+    [2] 129 generic_test.bin
+    [3]   2 generic_cease.bin
+    [4] 129 generic_test.bin
+    [5] 129 generic_test.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class spray_can (95)
+  class length: 24
+  images: 1
+  sounds: 1
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 139 Images/patgun0.bin
+  sounds:
+    [0]  90 Sounds/spraycan.bin
+  actions:
+    [0] 118 spray_can_do.bin
+    [1]   7 noEffect.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8] 119 spray_can_SPRAY.bin
+
+class class_head (127)
+  class length: 38
+  images: 16
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0x1d
+  actions offset: 0x1d
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]   1 Images/undefined1.bin
+    [1]   1 Images/undefined1.bin
+    [2]   2 Images/undefined2.bin
+    [3]   3 Images/undefined3.bin
+    [4]   4 Images/undefined4.bin
+    [5]   5 Images/undefined5.bin
+    [6]   6 Images/undefined6.bin
+    [7]   7 Images/undefined7.bin
+    [8]   8 Images/undefined8.bin
+    [9]   9 Images/undefined9.bin
+    [10]  10 Images/undefined10.bin
+    [11]  11 Images/undefined11.bin
+    [12]  12 Images/undefined12.bin
+    [13]  13 Images/undefined13.bin
+    [14]  14 Images/undefined14.bin
+    [15]  15 Images/undefined15.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  32 head_do.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  35 head_get.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]  37 head_talk.bin
+    [7]  12 generic_destroy.bin
+    [8]  36 generic_goToAndDropAt.bin
+
+class class_aquarium (129)
+  class length: 23
+  images: 1
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  17 Images/ftank2.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]  33 generic_throw.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  39 generic_goToAndGet.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  41 generic_CHANGESTATE.bin
+
+class class_bed (130)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x06
+    0x01
+  images:
+    [0]  22 Images/beds.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  48 generic_goToFurniture.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_bridge (131)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0]  33 Images/bridges.bin
+    [1]  34 Images/bridgef.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  55 generic_goToCursor.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_building (132)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  35 Images/house1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  56 sky_go.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]   7 noEffect.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_bush (133)
+  class length: 26
+  images: 5
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x12
+  actions offset: 0x12
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  36 Images/bush1.bin
+    [1]  37 Images/bush2.bin
+    [2]  38 Images/bush3.bin
+    [3]  39 Images/bush4.bin
+    [4]  40 Images/grass0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_chair (134)
+  class length: 27
+  images: 6
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x13
+  actions offset: 0x13
+  data:
+    0x0f
+    0x06
+    0x01
+  images:
+    [0]  41 Images/chairfb.bin
+    [1]  42 Images/chairs.bin
+    [2]  43 Images/stool0.bin
+    [3]  43 Images/stool0.bin
+    [4]  41 Images/chairfb.bin
+    [5]  44 Images/couchs.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  48 generic_goToFurniture.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_chest (135)
+  class length: 26
+  images: 3
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x10
+  actions offset: 0x12
+  data:
+    0x25
+    0x89
+    0x14
+  images:
+    [0]  46 Images/chestf.bin
+    [1]  47 Images/chestb.bin
+    [2]  48 Images/chests.bin
+  sounds:
+    [0]  37 Sounds/chest_of_drawers_opening.bin
+    [1]  38 Sounds/chest_of_drawers_closing.bin
+  actions:
+    [0]  45 generic_adjacentOpenCloseContainer.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  59 generic_goToAndPickFromIfOpen.bin
+    [5]  47 generic_goToAndDropIntoIfOpen.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_coke_machine (136)
+  class length: 32
+  images: 1
+  sounds: 8
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x16
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  50 Images/coke1.bin
+  sounds:
+    [0]  39 Sounds/coin_accepted_by_coinop.bin
+    [1]  40 Sounds/coin_accepted_by_coinop.pwbin
+    [2]  41 Sounds/coin_deposited_in_coinop.bin
+    [3]  42 Sounds/coin_deposited_in_coinop.pwbin
+    [4]  43 Sounds/coin_rejected_by_coinop.bin
+    [5]  44 Sounds/coin_rejected_by_coinop.pwbin
+    [6]  45 Sounds/stingy_coke_machine.bin
+    [7]  46 Sounds/stingy_coke_machine.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  61 coke_machine_put.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  62 generic_PAY.bin
+    [9]  63 generic_coinOp.bin
+
+class class_couch (137)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x10
+    0x06
+    0x02
+  images:
+    [0]  52 Images/couchfb.bin
+    [1]  52 Images/couchfb.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  48 generic_goToFurniture.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_fence (138)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  62 Images/fence1.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_floor_lamp (139)
+  class length: 25
+  images: 1
+  sounds: 1
+  actions: 10
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xf
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  67 Images/flamp.bin
+  sounds:
+    [0]  59 Sounds/switch_click.bin
+  actions:
+    [0]  79 floor_lamp_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  77 generic_OFFLIGHT.bin
+    [9]  78 generic_ONLIGHT.bin
+
+class class_fortune_machine (140)
+  class length: 35
+  images: 1
+  sounds: 10
+  actions: 11
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x18
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  68 Images/fortun.bin
+  sounds:
+    [0]  39 Sounds/coin_accepted_by_coinop.bin
+    [1]  40 Sounds/coin_accepted_by_coinop.pwbin
+    [2]  41 Sounds/coin_deposited_in_coinop.bin
+    [3]  42 Sounds/coin_deposited_in_coinop.pwbin
+    [4]  43 Sounds/coin_rejected_by_coinop.bin
+    [5]  44 Sounds/coin_rejected_by_coinop.pwbin
+    [6]  60 Sounds/fortune_dispensed.bin
+    [7]  61 Sounds/fortune_dispensed.pwbin
+    [8]  62 Sounds/parking_meter_crank.bin
+    [9]  63 Sounds/parking_meter_crank.pwbin
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  80 fortune_machine_put.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+    [8]  19 generic_SPEAK.bin
+    [9]  63 generic_coinOp.bin
+    [10]  62 generic_PAY.bin
+
+class class_fountain (141)
+  class length: 23
+  images: 1
+  sounds: 0
+  actions: 9
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  69 Images/fount2.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  81 generic_goToAndFill.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]  64 generic_askOracle.bin
+    [7]  12 generic_destroy.bin
+    [8]  19 generic_SPEAK.bin
+
+class class_house_cat (143)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  85 Images/cat.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_hot_tub (144)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x14
+    0x06
+    0x06
+  images:
+    [0]  86 Images/hottub.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  55 generic_goToCursor.bin
+    [3]   2 generic_cease.bin
+    [4]  81 generic_goToAndFill.bin
+    [5]   0 illegal.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_jukebox (145)
+  class length: 25
+  images: 1
+  sounds: 0
+  actions: 11
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0f
+    0x07
+    0x00
+  images:
+    [0]  97 Images/juke.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  93 jukebox_do.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  94 jukebox_put.bin
+    [6]  95 jukebox_talk.bin
+    [7]  12 generic_destroy.bin
+    [8]  62 generic_PAY.bin
+    [9]  96 generic_PLAY.bin
+    [10]  63 generic_coinOp.bin
+
+class class_pond (147)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 129 Images/pond0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  81 generic_goToAndFill.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_river (148)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0]  83 Images/undefined.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  81 generic_goToAndFill.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_roof (149)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0]  83 Images/undefined.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]   7 noEffect.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]   7 noEffect.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_safe (150)
+  class length: 24
+  images: 1
+  sounds: 2
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0x10
+  data:
+    0x1b
+    0x89
+    0x0a
+  images:
+    [0] 134 Images/safe1.bin
+  sounds:
+    [0]  34 Sounds/box_opening.bin
+    [1]  35 Sounds/box_closing.bin
+  actions:
+    [0]  45 generic_adjacentOpenCloseContainer.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  59 generic_goToAndPickFromIfOpen.bin
+    [5]  47 generic_goToAndDropIntoIfOpen.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_picture (152)
+  class length: 25
+  images: 4
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x11
+  actions offset: 0x11
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0] 140 Images/varpicture.bin
+    [1] 141 Images/picture1.bin
+    [2] 142 Images/picture2.bin
+    [3] 143 Images/picture3.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_street (153)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x10
+    0x08
+    0x00
+  images:
+    [0] 145 Images/road0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  55 generic_goToCursor.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_streetlamp (154)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 146 Images/slite1.bin
+    [1] 147 Images/slite2.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_table (155)
+  class length: 22
+  images: 1
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xe
+  actions offset: 0xe
+  data:
+    0x16
+    0x09
+    0x05
+  images:
+    [0] 148 Images/table0.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]  49 generic_goToAndPickFrom.bin
+    [5]  50 generic_goToAndDropInto.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_tree (156)
+  class length: 32
+  images: 11
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0x18
+  actions offset: 0x18
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 156 Images/tree1.bin
+    [1] 157 Images/tree2.bin
+    [2] 158 Images/palm2.bin
+    [3] 159 Images/tree4.bin
+    [4] 160 Images/tree5.bin
+    [5] 161 Images/tree6.bin
+    [6] 162 Images/tree7.bin
+    [7] 163 Images/tree8.bin
+    [8] 164 Images/tree9.bin
+    [9]  95 Images/treeA.bin
+    [10] 165 Images/treeB.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+class class_window (157)
+  class length: 23
+  images: 2
+  sounds: 0
+  actions: 8
+  images offset: 0xd
+  sounds offset: 0xf
+  actions offset: 0xf
+  data:
+    0x0e
+    0x06
+    0x00
+  images:
+    [0] 170 Images/window1.bin
+    [1] 171 Images/window3.bin
+  sounds:
+    <no sounds>
+  actions:
+    [0]  40 generic_depends.bin
+    [1]   0 illegal.bin
+    [2]  34 generic_goTo.bin
+    [3]   2 generic_cease.bin
+    [4]   7 noEffect.bin
+    [5]  36 generic_goToAndDropAt.bin
+    [6]   3 generic_broadcast.bin
+    [7]  12 generic_destroy.bin
+
+Actions:
+ 00 (  3) illegal.bin
+ 01 (  3) GoToNewRegion.bin
+ 02 (  1) generic_cease.bin
+ 03 (  5) generic_broadcast.bin
+ 04 ( 68) transit_region.bin
+ 05 ( 60) ask_for_help.bin
+ 06 ( 48) avatar_do.bin
+ 07 (  3) noEffect.bin
+ 08 ( 63) avatar_go.bin
+ 09 (234) avatar_get.bin
+ 0a (239) avatar_put.bin
+ 0b ( 61) avatar_talk.bin
+ 0c (  3) generic_destroy.bin
+ 0d ( 28) avatar_WALK.bin
+ 0e ( 88) avatar_ATTACK.bin
+ 0f ( 48) avatar_BASH.bin
+ 10 ( 37) avatar_DIE.bin
+ 11 ( 43) avatar_CLOSE.bin
+ 12 ( 53) avatar_CLOSECONTAINER.bin
+ 13 ( 11) generic_SPEAK.bin
+ 14 ( 46) avatar_GET.bin
+ 15 ( 93) avatar_SITORGETUP.bin
+ 16 ( 37) avatar_GRABFROM.bin
+ 17 ( 41) avatar_OPEN.bin
+ 18 ( 77) avatar_OPENCONTAINER.bin
+ 19 (  7) avatar_POSTURE.bin
+ 1a ( 57) avatar_PUT.bin
+ 1b (  8) avatar_REINCARNATE.bin
+ 1c ( 47) avatar_THROW.bin
+ 1d ( 22) avatar_WEAR.bin
+ 1e ( 31) avatar_REMOVE.bin
+ 1f ( 48) avatar_PAID.bin
+ 20 ( 58) head_do.bin
+ 21 (125) generic_throw.bin
+ 22 ( 12) generic_goTo.bin
+ 23 (205) head_get.bin
+ 24 ( 96) generic_goToAndDropAt.bin
+ 25 ( 25) head_talk.bin
+ 26 ( 27) generic_doMagic.bin
+ 27 (125) generic_goToAndGet.bin
+ 28 (  3) generic_depends.bin
+ 29 ( 14) generic_CHANGESTATE.bin
+ 2a ( 38) atm_do.bin
+ 2b (234) atm_get.bin
+ 2c (203) atm_put.bin
+ 2d (305) generic_adjacentOpenCloseContainer.bin
+ 2e (169) generic_goToAndPickFromOrGet.bin
+ 2f (144) generic_goToAndDropIntoIfOpen.bin
+ 30 (232) generic_goToFurniture.bin
+ 31 (155) generic_goToAndPickFrom.bin
+ 32 (127) generic_goToAndDropInto.bin
+ 33 (100) book_do.bin
+ 34 (127) bottle_rdo.bin
+ 35 ( 39) bottle_FILL.bin
+ 36 ( 39) bottle_POUR.bin
+ 37 ( 51) generic_goToCursor.bin
+ 38 ( 28) sky_go.bin
+ 39 ( 80) changomatic_rdo.bin
+ 3a ( 35) changomatic_CHANGE.bin
+ 3b (172) generic_goToAndPickFromIfOpen.bin
+ 3c (128) generic_strike.bin
+ 3d ( 38) coke_machine_put.bin
+ 3e ( 17) generic_PAY.bin
+ 3f (182) generic_coinOp.bin
+ 40 ( 15) generic_askOracle.bin
+ 41 (235) generic_adjacentOpenClose.bin
+ 42 ( 47) generic_goToOrPassThrough.bin
+ 43 (126) generic_sendMail.bin
+ 44 ( 36) drugs_do.bin
+ 45 ( 17) drugs_TAKE.bin
+ 46 ( 61) escape_device_do.bin
+ 47 (  8) escape_device_BUGOUT.bin
+ 48 ( 69) fake_gun_do.bin
+ 49 ( 57) fake_gun_rdo.bin
+ 4a ( 19) fake_gun_FAKESHOOT.bin
+ 4b ( 12) fake_gun_RESET.bin
+ 4c ( 51) flashlight_do.bin
+ 4d ( 19) generic_OFFLIGHT.bin
+ 4e ( 19) generic_ONLIGHT.bin
+ 4f ( 75) floor_lamp_do.bin
+ 50 ( 77) fortune_machine_put.bin
+ 51 (122) generic_goToAndFill.bin
+ 52 ( 25) garbage_can_do.bin
+ 53 ( 12) garbage_can_FLUSH.bin
+ 54 ( 36) generic_doMagicIfMagic.bin
+ 55 ( 59) grenade_do.bin
+ 56 ( 12) grenade_EXPLODE.bin
+ 57 ( 42) gun_do.bin
+ 58 (157) generic_shoot.bin
+ 59 ( 13) hand_of_god_BLAST.bin
+ 5a ( 92) hole_do.bin
+ 5b ( 10) trap_go.bin
+ 5c (  5) instant_object_TRANSFORM.bin
+ 5d ( 98) jukebox_do.bin
+ 5e ( 37) jukebox_put.bin
+ 5f ( 62) jukebox_talk.bin
+ 60 (  3) generic_PLAY.bin
+ 61 ( 60) key_do.bin
+ 62 (105) magic_lamp_do.bin
+ 63 ( 76) magic_lamp_talk.bin
+ 64 ( 29) magic_lamp_GIVEUP.bin
+ 65 ( 25) magic_lamp_RUB.bin
+ 66 ( 12) magic_lamp_WISH.bin
+ 67 (127) mailbox_get.bin
+ 68 ( 12) mailbox_MAILARRIVED.bin
+ 69 ( 52) generic_read.bin
+ 6a ( 53) generic_switch.bin
+ 6b ( 19) generic_OFF.bin
+ 6c ( 19) generic_ON.bin
+ 6d (112) paper_do.bin
+ 6e (135) generic_getMass.bin
+ 6f ( 85) sensor_do.bin
+ 70 ( 31) sensor_SCAN.bin
+ 71 ( 95) sex_changer_do.bin
+ 72 ( 12) sex_changer_go.bin
+ 73 ( 81) sex_changer_SEXCHANGE.bin
+ 74 (137) shovel_rdo.bin
+ 75 ( 32) shovel_DIG.bin
+ 76 ( 72) spray_can_do.bin
+ 77 ( 31) spray_can_SPRAY.bin
+ 78 ( 38) stereo_UNLOAD.bin
+ 79 (127) stun_gun_rdo.bin
+ 7a ( 38) tape_LOAD.bin
+ 7b ( 24) generic_enterOrExit.bin
+ 7c (105) teleport_put.bin
+ 7d ( 86) teleport_talk.bin
+ 7e ( 30) teleport_PAY.bin
+ 7f (  8) teleport_ZAPIN.bin
+ 80 ( 14) teleport_ZAPOUT.bin
+ 81 ( 29) generic_test.bin
+ 82 ( 61) tokens_do.bin
+ 83 (196) tokens_rdo.bin
+ 84 (179) vendo_do.bin
+ 85 ( 56) vendo_put.bin
+ 86 (136) vendo_SELECT.bin
+ 87 ( 42) vendo_SELL.bin
+ 88 ( 42) windup_toy_do.bin
+ 89 ( 23) windup_toy_WIND.bin
+ ...
+
+Images:
+ 00 (4850) Gr/Av/do40.bin
+ 01 ( 70) Images/undefined1.bin
+ 02 ( 70) Images/undefined2.bin
+ 03 ( 70) Images/undefined3.bin
+ 04 ( 70) Images/undefined4.bin
+ 05 ( 70) Images/undefined5.bin
+ 06 ( 70) Images/undefined6.bin
+ 07 ( 70) Images/undefined7.bin
+ 08 ( 70) Images/undefined8.bin
+ 09 ( 70) Images/undefined9.bin
+ 0a ( 70) Images/undefined10.bin
+ 0b ( 70) Images/undefined11.bin
+ 0c ( 70) Images/undefined12.bin
+ 0d ( 70) Images/undefined13.bin
+ 0e ( 70) Images/undefined14.bin
+ 0f ( 70) Images/undefined15.bin
+ 10 ( 51) Images/amulet.bin
+ 11 (471) Images/ftank2.bin
+ 12 (223) Images/atm.bin
+ 13 (192) Images/bag.bin
+ 14 ( 34) Images/luggages.bin
+ 15 ( 52) Images/ball1.bin
+ 16 (124) Images/beds.bin
+ 17 (122) Images/booke.bin
+ 18 (284) Images/bookf.bin
+ 19 (186) Images/mag.bin
+ 1a ( 86) Images/news.bin
+ 1b ( 49) Images/paper.bin
+ 1c (141) Images/kk2.bin
+ 1d ( 76) Images/bottle.bin
+ 1e ( 41) Images/brang.bin
+ 1f (190) Images/box1.bin
+ 20 (344) Images/trchest.bin
+ 21 (565) Images/bridges.bin
+ 22 (233) Images/bridgef.bin
+ 23 (563) Images/house1.bin
+ 24 (297) Images/bush1.bin
+ 25 (375) Images/bush2.bin
+ 26 (586) Images/bush3.bin
+ 27 (221) Images/bush4.bin
+ 28 (266) Images/grass0.bin
+ 29 (128) Images/chairfb.bin
+ 2a (100) Images/chairs.bin
+ 2b (126) Images/stool0.bin
+ 2c (259) Images/couchs.bin
+ 2d (165) Images/chango.bin
+ 2e (273) Images/chestf.bin
+ 2f (399) Images/chestb.bin
+ 30 (177) Images/chests.bin
+ 31 (271) Images/club2.bin
+ 32 (324) Images/coke1.bin
+ 33 ( 89) Images/compass.bin
+ 34 (271) Images/couchfb.bin
+ 35 ( 71) Images/counter0.bin
+ 36 (139) Images/cball0.bin
+ 37 (291) Images/dcase.bin
+ 38 (273) Images/door1.bin
+ 39 (589) Images/door2.bin
+ 3a (233) Images/mdrop.bin
+ 3b ( 37) Images/pillbot.bin
+ 3c (109) Images/escaper.bin
+ 3d (148) Images/fgun1.bin
+ 3e (313) Images/fence1.bin
+ 3f (482) Images/flag.bin
+ 40 ( 38) Images/flite.bin
+ 41 (237) Images/torch0.bin
+ 42 (196) Images/kk1.bin
+ 43 (214) Images/flamp.bin
+ 44 (239) Images/fortun.bin
+ 45 (816) Images/fount2.bin
+ 46 ( 89) Images/fris.bin
+ 47 (221) Images/gcan.bin
+ 48 (171) Images/kcan.bin
+ 49 ( 81) Images/gem.bin
+ 4a ( 43) Images/gren.bin
+ 4b ( 27) Images/floor0.bin
+ 4c ( 27) Images/floor1.bin
+ 4d ( 43) Images/gun1.bin
+ 4e ( 43) Images/gun2.bin
+ 4f ( 57) Images/gun3.bin
+ 50 ( 91) Images/maus.bin
+ 51 (499) Images/hand.bin
+ 52 (740) Images/cinder.bin
+ 53 ( 70) Images/undefined.bin
+ 54 ( 73) Images/hole0.bin
+ 55 (251) Images/cat.bin
+ 56 (810) Images/hottub.bin
+ 57 (276) Images/bwall3.bin
+ 58 ( 18) Images/bwall4.bin
+ 59 ( 36) Images/bwall5.bin
+ 5a ( 52) Images/bwall6.bin
+ 5b (276) Images/bwall7.bin
+ 5c ( 27) Images/bwall8.bin
+ 5d ( 98) Images/mount1.bin
+ 5e ( 44) Images/cave0.bin
+ 5f (363) Images/treeA.bin
+ 60 ( 16) Images/mpill.bin
+ 61 (387) Images/juke.bin
+ 62 ( 50) Images/key1.bin
+ 63 ( 53) Images/kk3.bin
+ 64 (151) Images/vase.bin
+ 65 (362) Images/jug0.bin
+ 66 (138) Images/saw.bin
+ 67 (178) Images/tbear.bin
+ 68 ( 69) Images/rduk.bin
+ 69 ( 65) Images/ans.bin
+ 6a ( 72) Images/phone1.bin
+ 6b (106) Images/towel.bin
+ 6c ( 53) Images/mic0.bin
+ 6d (162) Images/flat.bin
+ 6e ( 55) Images/knife1.bin
+ 6f ( 67) Images/knife2.bin
+ 70 (782) Images/mlamp2.bin
+ 71 ( 83) Images/mstaff.bin
+ 72 (130) Images/wand1.bin
+ 73 ( 45) Images/wand2.bin
+ 74 (187) Images/mbox.bin
+ 75 ( 41) Images/mbook0.bin
+ 76 (304) Images/camera0.bin
+ 77 ( 29) Images/sign0.bin
+ 78 (352) Images/sign1.bin
+ 79 (346) Images/sign2.bin
+ 7a ( 95) Images/sign3.bin
+ 7b ( 63) Images/sign4.bin
+ 7c (109) Images/sign5.bin
+ 7d ( 69) Images/sign6.bin
+ 7e (125) Images/plant1.bin
+ 7f (103) Images/plant2.bin
+ 80 (133) Images/plant3.bin
+ 81 (469) Images/pond0.bin
+ 82 ( 62) Images/mring.bin
+ 83 ( 25) Images/rock1.bin
+ 84 ( 43) Images/rock2.bin
+ 85 (205) Images/rock3.bin
+ 86 (278) Images/safe1.bin
+ 87 ( 97) Images/security.bin
+ 88 ( 85) Images/sensor.bin
+ 89 (482) Images/sexo.bin
+ 8a (109) Images/shovel0.bin
+ 8b (132) Images/patgun0.bin
+ 8c ( 94) Images/varpicture.bin
+ 8d ( 89) Images/picture1.bin
+ 8e (306) Images/picture2.bin
+ 8f (331) Images/picture3.bin
+ 90 (108) Images/tapep.bin
+ 91 (114) Images/road0.bin
+ 92 (151) Images/slite1.bin
+ 93 (206) Images/slite2.bin
+ 94 (250) Images/table0.bin
+ 95 ( 34) Images/cassette.bin
+ 96 (382) Images/port7.bin
+ 97 ( 21) Images/ticket.bin
+ 98 ( 77) Images/tok.bin
+ 99 ( 86) Images/trap0.bin
+ 9a (276) Images/trap1.bin
+ 9b ( 52) Images/super_trap.bin
+ 9c (339) Images/tree1.bin
+ 9d (363) Images/tree2.bin
+ 9e (642) Images/palm2.bin
+ 9f (398) Images/tree4.bin
+ a0 (290) Images/tree5.bin
+ a1 (281) Images/tree6.bin
+ a2 (397) Images/tree7.bin
+ a3 (229) Images/tree8.bin
+ a4 (208) Images/tree9.bin
+ a5 (312) Images/treeB.bin
+ a6 (200) Images/vendo1.bin
+ a7 (143) Images/newsstand1.bin
+ a8 (188) Images/vendo0.bin
+ a9 (178) Images/newsstand0.bin
+ aa (159) Images/window1.bin
+ ab (407) Images/window3.bin
+ ac (323) Images/doll.bin
+ ad (231) Images/peng.bin
+ ...
+
+Sounds:
+ 00 ( 25) Sounds/error_beep.bin
+ 01 ( 21) Sounds/region_boing.bin
+ 02 ( 27) Sounds/footsteps.bin
+ 03 ( 22) Sounds/teleport_region_change_0.bin
+ 04 (  9) Sounds/teleport_region_change_0.pwbin
+ 05 ( 14) Sounds/teleport_region_change_1.bin
+ 06 (  9) Sounds/teleport_region_change_1.pwbin
+ 07 ( 24) Sounds/teleport_region_change_2.bin
+ 08 ( 29) Sounds/teleport_arrival.bin
+ 09 ( 29) Sounds/teleport_arrival.pwbin
+ 0a ( 17) Sounds/region_change_music_v0.bin
+ 0b ( 31) Sounds/region_change_music_v1.bin
+ 0c ( 37) Sounds/region_change_music_v2.bin
+ 0d ( 34) Sounds/avatar_injured.bin
+ 0e (  9) Sounds/avatar_injured.pwbin
+ 0f ( 22) Sounds/avatar_killed.bin
+ 10 (  9) Sounds/avatar_killed.pwbin
+ 11 ( 38) Sounds/avatar_into_stone.bin
+ 12 ( 31) Sounds/avatar_out_of_stone.bin
+ 13 ( 21) Sounds/successful_esp_activation.bin
+ 14 ( 35) Sounds/message_sent.bin
+ 15 ( 25) Sounds/message_received.bin
+ 16 ( 21) Sounds/failed_esp_activation.bin
+ 17 ( 28) Sounds/clothes_donned.bin
+ 18 ( 28) Sounds/clothes_doffed.bin
+ 19 ( 14) Sounds/magic.bin
+ 1a ( 11) Sounds/magic.pwbin
+ 1b ( 18) Sounds/money_into_atm.bin
+ 1c ( 12) Sounds/money_into_atm.pwbin
+ 1d ( 18) Sounds/money_out_of_atm.bin
+ 1e ( 12) Sounds/money_out_of_atm.pwbin
+ 1f ( 93) Sounds/atm_thinking.bin
+ 20 ( 14) Sounds/bag_opening.bin
+ 21 ( 14) Sounds/bag_closing.bin
+ 22 ( 14) Sounds/box_opening.bin
+ 23 ( 14) Sounds/box_closing.bin
+ 24 ( 14) Sounds/changomatic.bin
+ 25 ( 14) Sounds/chest_of_drawers_opening.bin
+ 26 ( 21) Sounds/chest_of_drawers_closing.bin
+ 27 ( 18) Sounds/coin_accepted_by_coinop.bin
+ 28 ( 12) Sounds/coin_accepted_by_coinop.pwbin
+ 29 ( 38) Sounds/coin_deposited_in_coinop.bin
+ 2a ( 12) Sounds/coin_deposited_in_coinop.pwbin
+ 2b ( 28) Sounds/coin_rejected_by_coinop.bin
+ 2c ( 12) Sounds/coin_rejected_by_coinop.pwbin
+ 2d ( 54) Sounds/stingy_coke_machine.bin
+ 2e (  9) Sounds/stingy_coke_machine.pwbin
+ 2f ( 18) Sounds/crystal_ball.bin
+ 30 ( 12) Sounds/crystal_ball.pwbin
+ 31 ( 54) Sounds/door_opening.bin
+ 32 ( 28) Sounds/door_closing.bin
+ 33 ( 32) Sounds/mail_into_mailbox.bin
+ 34 (  5) Sounds/mail_into_mailbox.pwbin
+ 35 ( 28) Sounds/escape_device_activates.bin
+ 36 ( 38) Sounds/escape_device_used_up.bin
+ 37 ( 24) Sounds/gun_safety_on.bin
+ 38 ( 24) Sounds/gun_safety_off.bin
+ 39 ( 24) Sounds/joke_gunshot.bin
+ 3a (  9) Sounds/joke_gunshot.pwbin
+ 3b ( 14) Sounds/switch_click.bin
+ 3c ( 71) Sounds/fortune_dispensed.bin
+ 3d (  9) Sounds/fortune_dispensed.pwbin
+ 3e ( 24) Sounds/parking_meter_crank.bin
+ 3f (  9) Sounds/parking_meter_crank.pwbin
+ 40 ( 14) Sounds/garbage_can_flush.bin
+ 41 ( 31) Sounds/magic_2.bin
+ 42 (  9) Sounds/magic_2.pwbin
+ 43 ( 24) Sounds/big_explosion.bin
+ 44 (  9) Sounds/big_explosion.pwbin
+ 45 ( 21) Sounds/gunshot.bin
+ 46 ( 34) Sounds/hand_o_god_flame.bin
+ 47 ( 36) Sounds/hand_o_god_lightning.bin
+ 48 (  9) Sounds/hand_o_god_lightning.pwbin
+ 49 ( 30) Sounds/instant_object_pill.bin
+ 4a ( 31) Sounds/magic_3.bin
+ 4b (  9) Sounds/magic_3.pwbin
+ 4c ( 34) Sounds/genie_appears.bin
+ 4d ( 14) Sounds/genie_out.bin
+ 4e ( 31) Sounds/magic_4.bin
+ 4f (  9) Sounds/magic_4.pwbin
+ 50 ( 32) Sounds/mail_out_of_mailbox.bin
+ 51 (  5) Sounds/mail_out_of_mailbox.pwbin
+ 52 ( 14) Sounds/security_device_on.bin
+ 53 ( 14) Sounds/security_device_off.bin
+ 54 ( 38) Sounds/sensor_scanning.bin
+ 55 ( 31) Sounds/sensor_didnt_find_it.bin
+ 56 ( 17) Sounds/sensor_found_it.bin
+ 57 ( 32) Sounds/sex_changer.bin
+ 58 ( 16) Sounds/sex_changer.pwbin
+ 59 ( 58) Sounds/digging.bin
+ 5a ( 18) Sounds/spraycan.bin
+ 5b ( 44) Sounds/stun_gun_fire.bin
+ 5c (  9) Sounds/stun_gun_fire.pwbin
+ 5d ( 24) Sounds/stun_gun_hit.bin
+ 5e (  9) Sounds/stun_gun_hit.pwbin
+ 5f ( 14) Sounds/stun_gun_miss.bin
+ 60 ( 21) Sounds/teleport_activates.bin
+ 61 (  9) Sounds/teleport_activates.pwbin
+ 62 ( 18) Sounds/teleport_conf_wait.bin
+ 63 ( 19) Sounds/teleport_conf_wait.pwbin
+ 64 ( 22) Sounds/teleport_departure.bin
+ 65 (  9) Sounds/teleport_departure.pwbin
+ 66 ( 14) Sounds/vendo_changing.bin
+ 67 ( 34) Sounds/vendo_dispensing.bin
+ 68 (  9) Sounds/vendo_dispensing.pwbin
+ 69 ( 64) Sounds/winding_up_toy.bin
+ 6a (  9) Sounds/winding_up_toy.pwbin
+ ...
+
+Heads:
+ 00 ( 70) Images/nillhead.bin
+ 01 (208) Images/head0.bin
+ 02 (249) Images/head1.bin
+ 03 (245) Images/head2.bin
+ 04 (190) Images/head3.bin
+ 05 (192) Images/head4.bin
+ 06 (363) Images/head5.bin
+ 07 (234) Images/head6.bin
+ 08 (244) Images/head7.bin
+ 09 (198) Images/beard0.bin
+ 0a (226) Images/block0.bin
+ 0b (345) Images/buckw0.bin
+ 0c (365) Images/dragon0.bin
+ 0d (431) Images/fly0.bin
+ 0e (301) Images/helmet0.bin
+ 0f (295) Images/lioness.bin
+ 10 (370) Images/lizard0.bin
+ 11 (351) Images/ming0.bin
+ 12 (229) Images/skull0.bin
+ 13 (361) Images/stalk0.bin
+ 14 (374) Images/tiger.bin
+ 15 (327) Images/woman0.bin
+ 16 (285) Images/robot0.bin
+ 17 (284) Images/ostrich0.bin
+ 18 (284) Images/turkey0.bin
+ 19 (258) Images/sailor0.bin
+ 1a (350) Images/bizzaro0.bin
+ 1b (219) Images/bman0.bin
+ 1c (343) Images/coolcat0.bin
+ 1d (244) Images/duck0.bin
+ 1e (311) Images/grandma0.bin
+ 1f (340) Images/groucho.bin
+ 20 (198) Images/shades0.bin
+ 21 (234) Images/thug0.bin
+ 22 (424) Images/viking0.bin
+ 23 (259) Images/vampire0.bin
+ 24 (322) Images/bozo0.bin
+ 25 (245) Images/cyclops0.bin
+ 26 (270) Images/fishead0.bin
+ 27 (340) Images/tex0.bin
+ 28 (340) Images/tophat0.bin
+ 29 (227) Images/bean0.bin
+ 2a (274) Images/cent0.bin
+ 2b (278) Images/pirate1.bin
+ 2c (328) Images/pirate2.bin
+ 2d (279) Images/tknot1.bin
+ 2e (314) Images/tknot2.bin
+ 2f (294) Images/hillbilly0.bin
+ 30 (305) Images/coldlady0.bin
+ 31 (332) Images/turban0.bin
+ 32 (250) Images/fstien0.bin
+ 33 (257) Images/phair0.bin
+ 34 (334) Images/darth0.bin
+ 35 (319) Images/afro0.bin
+ 36 (321) Images/milkman0.bin
+ 37 (315) Images/wimpy0.bin
+ 38 (240) Images/woman1.bin
+ 39 (394) Images/sherlock0.bin
+ 3a (319) Images/hunter0.bin
+ 3b (202) Images/metro0.bin
+ 3c (259) Images/hammer0.bin
+ 3d (340) Images/rabbit0.bin
+ 3e (391) Images/witch0.bin
+ 3f (288) Images/army0.bin
+ 40 (279) Images/bigmama0.bin
+ 41 (282) Images/dandy0.bin
+ 42 (333) Images/mr_mike0.bin
+ 43 (276) Images/tonto0.bin
+ 44 (222) Images/oldman0.bin
+ 45 (332) Images/santa0.bin
+ 46 (283) Images/jerk0.bin
+ 47 (261) Images/fhippie0.bin
+ 48 (339) Images/jaws0.bin
+ 49 (301) Images/brain0.bin
+ 4a (236) Images/oink0.bin
+ 4b (261) Images/doctor0.bin
+ 4c (319) Images/princess0.bin
+ 4d (312) Images/mouse0.bin
+ 4e (363) Images/wizard0.bin
+ 4f (351) Images/madsci0.bin
+ 50 (320) Images/pigtail0.bin
+ 51 (385) Images/chef0.bin
+ 52 (313) Images/bum0.bin
+ 53 (310) Images/newsboy0.bin
+ 54 (310) Images/gabor0.bin
+ 55 (271) Images/ninja0.bin
+ 56 (361) Images/statesman0.bin
+ 57 (274) Images/irma0.bin
+ 58 (314) Images/dodo0.bin
+ 59 (265) Images/tasha0.bin
+ 5a (238) Images/scruffy0.bin
+ 5b (265) Images/grit0.bin
+ 5c (324) Images/army1.bin
+ 5d (276) Images/penguin0.bin
+ 5e (303) Images/chaplin0.bin
+ 5f (304) Images/nailhead0.bin
+ 60 (266) Images/ascot0.bin
+ 61 (265) Images/satan0.bin
+ 62 (233) Images/angel0.bin
+ 63 (292) Images/angel1.bin
+ 64 (307) Images/spacesuit0.bin
+ 65 (306) Images/princess1.bin
+ 66 (273) Images/boone0.bin
+ 67 (292) Images/moto0.bin
+ 68 (304) Images/hardhat0.bin
+ 69 (258) Images/hiawatha0.bin
+ 6a (306) Images/gamorrean0.bin
+ ...
+

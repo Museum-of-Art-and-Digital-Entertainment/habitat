@@ -1,0 +1,159 @@
+echo Pokey_Pl_w_end
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_w_end.reg \
+     -o rdldir/Pokey_Pl_w_end.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_w_end \
+     -e Pokey_Pl_122_front
+echo Pokey_Pl_122_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_122_front.reg \
+     -o rdldir/Pokey_Pl_122_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_122_front \
+     -n Pokey_Pl_122_interior \
+     -e Pokey_Pl_222_front \
+     -w Pokey_Pl_w_end
+echo Pokey_Pl_122_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_122_interior.reg \
+     -o rdldir/Pokey_Pl_122_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_122_interior \
+     -s Pokey_Pl_122_front
+echo Pokey_Pl_222_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_222_front.reg \
+     -o rdldir/Pokey_Pl_222_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_222_front \
+     -n Pokey_Pl_222_interior \
+     -e Pokey_Pl_322_front \
+     -w Pokey_Pl_122_front
+echo Pokey_Pl_222_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_222_interior.reg \
+     -o rdldir/Pokey_Pl_222_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_222_interior \
+     -s Pokey_Pl_222_front
+echo Pokey_Pl_322_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_322_front.reg \
+     -o rdldir/Pokey_Pl_322_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_322_front \
+     -n Pokey_Pl_322_interior \
+     -e Pokey_Pl_422_front \
+     -w Pokey_Pl_222_front
+echo Pokey_Pl_322_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_322_interior.reg \
+     -o rdldir/Pokey_Pl_322_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_322_interior \
+     -s Pokey_Pl_322_front
+echo Pokey_Pl_422_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_422_front.reg \
+     -o rdldir/Pokey_Pl_422_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_422_front \
+     -n Pokey_Pl_422_interior \
+     -e Pokey_Pl_522_front \
+     -w Pokey_Pl_322_front
+echo Pokey_Pl_422_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_422_interior.reg \
+     -o rdldir/Pokey_Pl_422_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_422_interior \
+     -s Pokey_Pl_422_front
+echo Pokey_Pl_522_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_522_front.reg \
+     -o rdldir/Pokey_Pl_522_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_522_front \
+     -n Pokey_Pl_522_interior \
+     -e Pokey_Pl_cross \
+     -w Pokey_Pl_422_front
+echo Pokey_Pl_522_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_522_interior.reg \
+     -o rdldir/Pokey_Pl_522_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_522_interior \
+     -s Pokey_Pl_522_front
+echo Pokey_Pl_cross
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_cross.reg \
+     -o rdldir/Pokey_Pl_cross.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_cross \
+     -e Pokey_Pl_622_front \
+     -w Pokey_Pl_522_front
+echo Pokey_Pl_622_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_622_front.reg \
+     -o rdldir/Pokey_Pl_622_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_622_front \
+     -n Pokey_Pl_622_interior \
+     -e Pokey_Pl_722_front \
+     -w Pokey_Pl_cross
+echo Pokey_Pl_622_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_622_interior.reg \
+     -o rdldir/Pokey_Pl_622_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_622_interior \
+     -s Pokey_Pl_622_front
+echo Pokey_Pl_722_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_722_front.reg \
+     -o rdldir/Pokey_Pl_722_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_722_front \
+     -n Pokey_Pl_722_interior \
+     -e Pokey_Pl_822_front \
+     -w Pokey_Pl_622_front
+echo Pokey_Pl_722_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_722_interior.reg \
+     -o rdldir/Pokey_Pl_722_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_722_interior \
+     -s Pokey_Pl_722_front
+echo Pokey_Pl_822_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_822_front.reg \
+     -o rdldir/Pokey_Pl_822_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_822_front \
+     -n Pokey_Pl_822_interior \
+     -e Pokey_Pl_922_front \
+     -w Pokey_Pl_722_front
+echo Pokey_Pl_822_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_822_interior.reg \
+     -o rdldir/Pokey_Pl_822_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_822_interior \
+     -s Pokey_Pl_822_front
+echo Pokey_Pl_922_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_922_front.reg \
+     -o rdldir/Pokey_Pl_922_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_922_front \
+     -n Pokey_Pl_922_interior \
+     -e Pokey_Pl_1022_front \
+     -w Pokey_Pl_822_front
+echo Pokey_Pl_922_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_922_interior.reg \
+     -o rdldir/Pokey_Pl_922_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_922_interior \
+     -s Pokey_Pl_922_front
+echo Pokey_Pl_1022_front
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_1022_front.reg \
+     -o rdldir/Pokey_Pl_1022_front.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_1022_front \
+     -n Pokey_Pl_1022_interior \
+     -e Pokey_Pl_e_end \
+     -w Pokey_Pl_922_front
+echo Pokey_Pl_1022_interior
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_1022_interior.reg \
+     -o rdldir/Pokey_Pl_1022_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pokey_Pl_1022_interior \
+     -s Pokey_Pl_1022_front
+echo Pokey_Pl_e_end
+/u0/chip/microcosm/slur/slur regdir/Pokey_Pl_e_end.reg \
+     -o rdldir/Pokey_Pl_e_end.rdl \
+     -d FACE_NORTH \
+     -r Pokey_Pl_e_end \
+     -w Pokey_Pl_1022_front

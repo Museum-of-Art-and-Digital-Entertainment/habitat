@@ -1,0 +1,187 @@
+use region r_9151 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9140
+  north_neighbor: r r_9152
+  south_neighbor: r r_9150
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_7191 {
+  container: r r_9151
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_7192 {
+  container: r r_9151
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign o_7193 {
+  container: r r_9151
+  x: 100
+  y: 64
+  style: 6
+  gr_state: 2
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Populopolis\h\R\RStock\RMarket              "
+}
+use door o_7194 {
+  container: r r_9151
+  x: 68
+  y: 34
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 0
+  key: 3000
+  connection: r 0
+}
+use short_sign o_7195 {
+  container: r r_9151
+  x: 124
+  y: 114
+  style: 5
+  gr_state: 9
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\ 42nd St  "
+}
+use street o_7196 {
+  container: r r_9151
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 8
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use vendo_inside o_7197 {
+  container: r r_9151
+  x: 40
+  y: 27
+  style: 1
+  gr_state: 0
+  orient: 196
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_7200 {
+  container: r r_9151
+  x: 8
+  y: 27
+  style: 1
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_front o_7198 {
+  container: o o_7197
+  x: 0
+  y: 0
+  style: 1
+  gr_state: 0
+  orient: 120
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 10
+  display_item: 0
+  prices: 10, 0, 0, 0, 0, 0, 0, 0, 0, 0
+}
+use book o_7199 {
+  container: o o_7197
+  x: 1
+  y: 1
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 95
+  last_page: -1
+}
+use vendo_front o_7201 {
+  container: o o_7200
+  x: 0
+  y: 0
+  style: 1
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 12
+  display_item: 0
+  prices: 12, 0, 0, 0, 0, 0, 0, 0, 0, 0
+}
+use book o_7202 {
+  container: o o_7200
+  x: 1
+  y: 1
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}

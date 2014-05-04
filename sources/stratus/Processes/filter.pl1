@@ -1,0 +1,167 @@
+%page;
+filter: procedure options(main);
+
+%replace true            by '1'b;
+%replace false           by '0'b;
+
+%replace io_implicit_locking  by 4;
+%replace io_indexed           by 3;
+%replace io_sequential        by 3;
+%replace io_update            by 4;
+%replace key_equal            by 4;
+%replace key_gteq             by 6;
+%replace key_first            by 8;
+%replace max_record_size      by 700;
+
+%replace WEAPONS_FREE         by 5;
+
+%replace e$end_of_file                  by 1025;
+%replace e$invalid_record_number        by 1128;
+%replace e$record_already_exists        by 1275;
+%replace e$record_not_found             by 1112;
+
+declare path_name                       char(256)var;
+declare (rdb_port,rdb_size)             bin(15);
+declare bytes_read                      bin(15);
+
+declare rdb_string                      char(700);
+declare 1 rdb defined(rdb_string),      %include 'region';;
+
+declare command          char(80) var;
+declare original         char(80) var;
+declare current_type     bin(15) static initial(0);
+declare code             bin(15);
+declare token_st         bin(15);
+declare (targ1,targ2)    bin(31);
+
+declare state_vars       (50) bin(15);
+declare state_var_buf    char(100) defined(state_vars);
+
+declare additional_class_bytes bin(15);
+
+declare (p1,p2,p3,p4)    pointer;
+declare char1            char(1) based;
+declare bin15            bin(15) based;
+declare bin31            bin(31) based;
+declare list_records     bit(1) aligned;
+
+declare upper char(26) static initial ('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+declare lower char(26) static initial ('abcdefghijklmnopqrstuvwxyz');
+
+%nolist;
+%include 'defs_class.incl.pl1';
+%list;
+%page;
+
+declare s$attach_port    entry (char(*)var,char(*)var,bin(15),bin(15),
+                               bin(15));
+declare s$cv_to_string_date_time entry (bin(31), char(*) var);
+declare s$error          entry (bin(15), char(*)var, char(*)var);
+declare s$keyed_position entry (bin(15), char(*)var, char(*)var, bin(15),
+                               char(*), bin(15), bin(15));
+declare s$keyed_read     entry (bin(15), char(*) var, char(*) var, bin(15),
+                               bin(15), char(*), bin(15));
+declare s$open           entry (bin(15),bin(15),bin(15),bin(15),bin(15),
+                               bin(15),char(*)var,bin(15));
+declare s$message_rs     entry (bin(15),char(*)var,char(*)var,char(*)var,
+                               char(*)var);
+declare s$parse_command  entry (char(*)var,bin(15),
+                               char(*)var,char(*)var,
+                               char(*)var,bit(1) aligned,
+                               char(*)var);
+declare s$seq_read       entry (bin(15), bin(15), bin(15), char(*), bin(15));
+declare s$seq_write      entry (bin(15),bin(15),char(*),bin(15));
+declare s$seq_rewrite    entry (bin(15),bin(15),char(*),bin(15));
+
+/* - - - - - - - - - - - - - - - MAIN ROUTINE - - - - - - - - - - - - - - - */
+
+  path_name = '%cvideo#d010>quantum>run_habitat';
+  call s$parse_command ('Habitat DataBase Filter', code,
+                        'Database:pathname,value',path_name,
+                        'switch(list),=1',list_records,
+                        'end');
+  if (code ^= 0 | path_name = '') then stop;
+  call open_microcosm_files;
+
+  do while (true);
+     call s$seq_read (rdb_port,max_record_size,bytes_read,rdb_string,code);
+     if (code = e$end_of_file) then stop;
+        else if (code ^= 0) then signal error;
+     if (record_needs_changing (0))
+        then call fix_the_sucker;
+     end;
+
+/* - - - - - - - - - - - - - - ^ MAIN ROUTINE ^ - - - - - - - - - - - - - - */
+%page;
+record_needs_changing: procedure (dmy) returns (bit(1) aligned);
+declare dmy bin(15);
+
+  /* CHG:  This routine controls whether or not the record just read from   *
+   *       the database will be modified.  Most commonly, there will be a   *
+   *       check of the object's class here.  Example:                      *
+   *                                                                        *
+   * if (rdb.owner_id = -1) then return (true);                             */
+
+  if (rdb.flags(WEAPONS_FREE) = false) then return (true);
+
+  return (false);
+
+end record_needs_changing;
+%page;
+fix_the_sucker: procedure;
+declare i bin(15);
+
+  rdb.flags(WEAPONS_FREE) = true;
+
+  call update_this_record;
+
+end fix_the_sucker;
+%page;
+update_this_record: procedure;
+
+  if (list_records)
+     then put skip list ('Region ' || ltrim(rdb.ident) || ' updated.');
+
+  call s$seq_rewrite (rdb_port, rdb_size, rdb_string, code);
+  if (code ^= 0) then do;
+       call debug_msg (code, ' update of ' || ltrim(rdb.ident));
+       return;
+       end;
+
+end update_this_record;
+%page;
+debug_msg: procedure (err,msg);
+declare err bin(15);
+declare msg char(*) var;
+
+  call s$error (err,'',msg);
+  return;
+end debug_msg;
+
+
+
+trace_msg: procedure (msg);
+declare msg char(*) var;
+
+  put skip list (msg);
+  return;
+end trace_msg;
+%page;
+open_microcosm_files: procedure;
+declare file_name char(256) var;
+
+  rdb_size = bytesize(rdb);
+
+  file_name = path_name || '>' || 'MC_region';
+  call s$attach_port ('', file_name, 0, rdb_port, code);
+  if (code = 0) then
+       call s$open (rdb_port, io_sequential, rdb_size, io_update,
+                 io_implicit_locking, io_indexed, 'ident', code);
+  if (code ^= 0) then do;
+       put list ('Cannot open ' || file_name);
+       put skip;
+       stop;
+       end;
+
+end open_microcosm_files;
+end filter;

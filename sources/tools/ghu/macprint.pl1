@@ -1,0 +1,450 @@
+/*
+ * macprint.pl1 -- Macro printing routines for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 17-November-1987
+ *
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'command_struct.incl.pl1';
+%include 'expr_struct.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'environ.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'tables.incl.pl1';
+
+declare command_name(CMD_MAX) character(14) varying static init(
+     'add ',       'add ',       'alias ',     'alias ',     'alias ',
+     'allmacros ', 'allnames ',  'break ',     'class ',     'contents ',
+     'contents ',  'cook ',      'define ',    'display ',   'display ',
+     'else ',      'elseif ',    'endfor ',    'endif ',     'endmacro ',
+     'execute ',   'find ',      'for all a ', 'for all o ', 'for all r ',
+     'for ',       'get ',       'griddle ',   'griddle ',   'help ',
+     'help ',      'if ',        'kill ',      'list ',      'list ',
+     'macro ',     'macro ',     'name ',      'nuke ',      'oracle ',
+     'oracle ',    'pages ',     'pages ',     'players ',   'processes ',
+     'quit ',      'raw ',       'raw ',       'read ',      'read ',
+     'readmail ',  'remove ',    'sendmail ',  'set ',       'set ',
+     'teleport ',  'teleport ',  'titles ',    'unname ',    'update ',
+     'update ',    'value ',     'voice ',     'voice ',     'voice ',
+     'voice ',     'watch ',     'watch ',     'watch off ', 'write ',
+     'write ',     'newturf',    'remturf ',   'turfs ',     'for all o in ',
+     'for all a in ','start_logging ', 'stop_logging ');
+
+declare tabcount binary(15) static;
+
+print_code: procedure(original_codeptr);
+     declare original_codeptr pointer;
+     declare codeptr pointer;
+     declare 1 code based(codeptr) like command_list_descriptor;
+
+     codeptr = original_codeptr;
+     tabcount = 1;
+     do while (codeptr ^= null());
+         call print_command(code.command, code.filenamenum, code.append_flag);
+         codeptr = code.next;
+     end;
+end print_code;
+
+print_command: procedure(commandnum, filenamenum, append_flag);
+     declare commandnum binary(31);
+     declare commandptr pointer;
+     declare 1 command based(commandptr) like command_descriptor;
+     declare filenamenum binary(31);
+     declare append_flag bit(1);
+     declare command_func binary(15);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     commandptr = i2p(commandnum);
+     command_func = command.command_function;
+     arg1 = command.arg1;
+     arg2 = command.arg2;
+     if (tabcount > 0) then do;
+          if (command_func = CMD$ELSE | command_func = CMD$ENDFOR |
+                    command_func = CMD$ENDIF | command_func = CMD$ENDMACRO |
+                    command_func = CMD$ELSEIF) then
+               call putstr(copy('   ', tabcount - 1));
+          else
+               call putstr(copy('   ', tabcount));
+     end;
+
+     goto case(command_func);
+
+     case(CMD$ENDFOR):;
+     case(CMD$ENDIF):;
+     case(CMD$ENDMACRO):
+          tabcount = tabcount - 1;
+          call putstr(command_name(command_func));
+          goto endcases;
+
+     case(CMD$FOR_ALL_A):;
+     case(CMD$FOR_ALL_O):;
+     case(CMD$FOR_ALL_R):
+          tabcount = tabcount + 1;
+          call putstr(command_name(command_func));
+          goto endcases;
+
+     case(CMD$ADD_PROMPT):;
+     case(CMD$ALIAS_LIST):;
+     case(CMD$ALLMACROS):;
+     case(CMD$ALLNAMES):;
+     case(CMD$BREAK):;
+     case(CMD$DISPLAY_DEFAULT):;
+     case(CMD$ELSE):;
+     case(CMD$HELP_GENERAL):;
+     case(CMD$PLAYERS):;
+     case(CMD$PROCESSES):;
+     case(CMD$QUIT):;
+     case(CMD$READ_IMPLICIT):;
+     case(CMD$UPDATE):;
+     case(CMD$VOICE_IMPLICIT_PROMPT):;
+     case(CMD$WATCH_IMPLICIT):;
+     case(CMD$WATCH_OFF):
+          call putstr(command_name(command_func));
+          goto endcases;
+
+     case(CMD$IF):
+          tabcount = tabcount + 1;
+     case(CMD$CLASS):;
+     case(CMD$CONTENTS):;
+     case(CMD$ELSEIF):;
+     case(CMD$FIND):;
+     case(CMD$GET):;
+     case(CMD$GRIDDLE):;
+     case(CMD$KILL):;
+     case(CMD$PAGES_LOOKUP):;
+     case(CMD$RAW):;
+     case(CMD$READMAIL):;
+     case(CMD$REMOVE):;
+     case(CMD$TELEPORT_LOOKUP):;
+     case(CMD$TITLES):;
+     case(CMD$UPDATE_EXPLICIT):;
+     case(CMD$VOICE_PROMPT):;
+     case(CMD$VOICE_IMPLICIT):;
+     case(CMD$WATCH):;
+     case(CMD$FOR_ALL_O_IN):;
+     case(CMD$FOR_ALL_A_IN):
+          call putstr(command_name(command_func));
+          call mp_value(arg1);
+          goto endcases;
+
+     case(CMD$CONTENTS_FULL):;
+     case(CMD$GRIDDLE_FULL):;
+     case(CMD$RAW_FULL):
+          call putstr(command_name(command_func));
+          call mp_value(arg1);
+          call putstr(' full');
+          goto endcases;
+
+     case(CMD$FOR_RANGE):
+          tabcount = tabcount + 1;
+          call putstr('for ');
+          call mp_value(arg1);
+          call putstr(' to ');
+          call mp_value(arg2);
+          goto endcases;
+
+     case(CMD$LIST_ACTIVE):
+          call putstr('list ');
+          call mp_value(arg1);
+          call putstr('--');
+          call mp_value(arg2);
+          call putstr(' active');
+          goto endcases;
+
+     case(CMD$LIST):
+          call putstr('list ');
+          call mp_value(arg1);
+          call putstr('--');
+          call mp_value(arg2);
+          goto endcases;
+
+     case(CMD$NUKE):
+          call putstr('list ');
+          call mp_value(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr('--');
+               call mp_value(arg2);
+          end;
+          goto endcases;
+
+     case(CMD$ORACLE):;
+     case(CMD$ORACLE_DUMP):
+          call putstr('oracle ');
+          if (i2p(arg1) = null()) then
+               call putstr('all');
+          else
+               call mp_value(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(' since ');
+               call mp_value(arg2);
+          end;
+          if (command_func = CMD$ORACLE_DUMP) then
+               call putstr(' dump');
+          goto endcases;
+
+     case(CMD$PAGES):;
+     case(CMD$SET):;
+     case(CMD$SET_UPDATE):;
+     case(CMD$TELEPORT_SET):
+          call putstr(command_name(command_func));
+          call mp_value(arg1);
+          call putstr(' = ');
+          call mp_value(arg2);
+          if (command_func = CMD$SET_UPDATE) then
+               call putstr('!');
+          goto endcases;
+
+     case(CMD$READ):
+          call putstr('read ');
+          call mp_value(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(',');
+               call mp_value(arg2);
+          end;
+          goto endcases;
+
+     case(CMD$VOICE):
+          call putstr('voice ');
+          call mp_value(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(' % ');
+               call mp_value(arg2);
+          end;
+          goto endcases;
+
+     case(CMD$ADD):
+          call putstr('add ');
+          call mp_value(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(' = ');
+               call mp_value_list(arg2);
+          end;
+          goto endcases;
+
+     case(CMD$MACRO_CALL):
+          call mp_name(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(' ');
+               call mp_value_list(arg2);
+          end;
+          goto endcases;
+
+     case(CMD$ALIAS):
+          call putstr('alias ');
+          call mp_name(arg1);
+          call putstr(' = ');
+          call putstr(i2p(arg2)->symbol_value_str);
+          goto endcases;
+
+     case(CMD$ALIAS_PRINT):;
+     case(CMD$MACRO):;
+     case(CMD$UNNAME):
+          call putstr(command_name(command_func));
+          call mp_name(arg1);
+          goto endcases;
+
+     case(CMD$COOK):;
+     case(CMD$EXECUTE):
+          call putstr(command_name(command_func));
+          call putstr(i2p(arg1)->symbol_value_str);
+          goto endcases;
+
+     case(CMD$WRITE_NEW):
+          call putstr('write');
+          if (i2p(arg1) ^= null()) then do;
+               call putstr(' file ');
+               call putstr((arg1)->symbol_value_str);
+          end;
+          goto endcases;
+
+     case(CMD$DEFINE):
+          call warning('can''t print DEFINE statement in macro');
+          goto endcases;
+
+     case(CMD$DISPLAY):;
+     case(CMD$VALUE):
+          call putstr(command_name(command_func));
+          call mp_value(arg1);
+          if (arg2 ^= 0) then
+               call putstr(' .');
+          goto endcases;
+
+     case(CMD$HELP):
+          call putstr('help ' || ltrim(arg1));
+          goto endcases;
+
+     case(CMD$NAME):
+          call putstr('name ');
+          call mp_name(arg1);
+          call putstr(' = ');
+          call mp_value(arg2);
+          goto endcases;
+
+     case(CMD$SENDMAIL):
+          call putstr('sendmail');
+          goto endcases;
+
+     case(CMD$WRITE):
+          call putstr('write ');
+          call mp_value_list(arg1);
+          if (i2p(arg2) ^= null()) then do;
+               call putstr(' file ');
+               call putstr(i2p(arg2)->symbol_value_str);
+          end;
+          goto endcases;
+
+endcases:
+     if (filenamenum ^= 0) then do;
+          if (append_flag) then
+               call putstr(' append ');
+          else
+               call putstr(' into ');
+          call putstr(i2p(filenamenum)->symbol_value_str);
+     end;
+     call putchar(NEWLINE);
+end print_command;
+
+mp_value_list: procedure(listnum);
+     declare listnum binary(31);
+     declare listptr pointer;
+     declare 1 value_list based(listptr) like value_list_descriptor;
+
+     listptr = i2p(listnum);
+     do while (listptr ^= null());
+          call mp_value(value_list.value);
+          listptr = value_list.next;
+          if (listptr ^= null()) then
+               call putstr(',');
+     end;
+end mp_value_list;
+
+mp_value: procedure(valuenum) recursive;
+     declare valuenum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like expr_struct;
+     declare func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     valueptr = i2p(valuenum);
+     func = value.eval_func;
+     arg1 = value.arg1;
+     arg2 = value.arg2;
+
+     if (func = eval_number_value) then do;
+          call putstr(ltrim(arg1));
+     end; else if (func = eval_string_value) then do;
+          call putstr('"' || i2p(arg1)->symbol_value_str || '"');
+     end; else if (func = eval_bitstring_value) then do;
+          call putstr('''' || i2p(arg1)->vbit_struct.bits || '''b');
+     end; else if (func = value_from_lvalue) then do;
+          call mp_value(arg1);
+     end; else if (func = objtype) then do;
+          call putstr('o ');
+          call mp_value(arg1);
+     end; else if (func = anegate) then do;
+          call putstr('-');
+          call mp_value(arg1);
+     end; else if (func = bnegate) then do;
+          call putstr('~');
+          call mp_value(arg1);
+     end; else if (func = lnegate) then do;
+          call putstr('^');
+          call mp_value(arg1);
+     end; else if (func = add) then do;
+          call mp_value(arg1);
+          call putstr('+');
+          call mp_value(arg2);
+     end; else if (func = sub) then do;
+          call mp_value(arg1);
+          call putstr('-');
+          call mp_value(arg2);
+     end; else if (func = div) then do;
+          call mp_value(arg1);
+          call putstr('/');
+          call mp_value(arg2);
+     end; else if (func = mul) then do;
+          call mp_value(arg1);
+          call putstr('*');
+          call mp_value(arg2);
+     end; else if (func = band) then do;
+          call mp_value(arg1);
+          call putstr('&');
+          call mp_value(arg2);
+     end; else if (func = bor) then do;
+          call mp_value(arg1);
+          call putstr('|');
+          call mp_value(arg2);
+     end; else if (func = bxor) then do;
+          call mp_value(arg1);
+          call putstr('^');
+          call mp_value(arg2);
+     end; else if (func = cmp_lt) then do;
+          call mp_value(arg1);
+          call putstr('<');
+          call mp_value(arg2);
+     end; else if (func = cmp_leq) then do;
+          call mp_value(arg1);
+          call putstr('<=');
+          call mp_value(arg2);
+     end; else if (func = cmp_eq) then do;
+          call mp_value(arg1);
+          call putstr('==');
+          call mp_value(arg2);
+     end; else if (func = cmp_neq) then do;
+          call mp_value(arg1);
+          call putstr('!=');
+          call mp_value(arg2);
+     end; else if (func = cmp_geq) then do;
+          call mp_value(arg1);
+          call putstr('>=');
+          call mp_value(arg2);
+     end; else if (func = cmp_gt) then do;
+          call mp_value(arg1);
+          call putstr('>');
+          call mp_value(arg2);
+     end; else if (func = land) then do;
+          call mp_value(arg1);
+          call putstr('&&');
+          call mp_value(arg2);
+     end; else if (func = lor) then do;
+          call mp_value(arg1);
+          call putstr('||');
+          call mp_value(arg2);
+     end; else if (func = attach_type) then do;
+          call putstr(container_code(arg1) || ' ');
+          call mp_value(arg2);
+     end; else if (func = eval_name_value) then do;
+          call mp_name(arg1);
+     end; else if (func = lookup_field) then do;
+          call mp_value(arg1);
+          call putstr('.');
+          call mp_name(arg2);
+     end; else if (func = lookup_array) then do;
+          call mp_value(arg1);
+          call putstr('(');
+          call mp_value(arg2);
+          call putstr(')');
+     end; else
+          call error('BOTCH: bad expr type in save macro');
+end mp_value;
+
+mp_name: procedure(namenum);
+     declare namenum binary(31);
+     declare nameptr pointer;
+     declare 1 name based(nameptr) like symbol_table_entry;
+
+     nameptr = i2p(namenum);
+     if (name.symbol_type = SYM$PARAMETER) then
+          call putstr('$');
+     call putstr(name.symbol_nameptr->symbol_name);
+end mp_name;

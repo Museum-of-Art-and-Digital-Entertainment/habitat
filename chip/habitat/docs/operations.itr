@@ -1,0 +1,606 @@
+.AM
+.ds Dq October 13, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Habitat\*M Operations\s-9
+.AU
+how to run it, once it's up
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH HABITAT OPERATIONS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 26
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document begins an evolutionary process to develop the guidelines and
+procedures for \fIHabitat\fP operations.  It is an outline of the operational
+needs of the present and future system, a definition of the necessary support
+roles and a statement of our feelings about the division of operational
+responsibility.
+.SH
+\s+3New Users\s-3
+.PP
+As new users sign up to play, they will need to have turves assigned to them.
+This in turn will require the generation of large number of residential
+regions.  Obviously, we don't want to have to be designing a custom turf for
+each new user.  Not only would this be expensive, but when 500+ new users sign
+up over a weekend we risk having consumption outstrip production.  What we
+really want to do is automate the process, so that an arbitrary number of new
+turves can be generated on demand.  Fortunately, this does not seem terribly
+difficult to accomplish.
+.PP
+The most straightforward implementation seems to be to generate apartment
+buildings.  These have the advantage of being highly regular in structure,
+making automatic generation easy.  We will generate them a floor or a whole
+building at a time, rather than turf-by-turf.  Each floor of an apartment
+building is constructed according to a uniform, generic model.  A floor
+consists of a hallway full of doors into adjoining apartment turves.  To build
+the hallway, all the generator must do is copy a standard hallway model and
+add signs with the apartment numbers.  The turf regions themselves are created
+by copying randomly from a collection of standard designs and then joining
+these with the hallway.  The floors are connected to the rest of the world by
+a special TelePort designed to operate like an elevator.
+.PP
+One reasonably compact, utilitarian design we are considering packs 30 turves
+onto a floor.  The ideal height for an apartment building seems to be 15
+floors, so that each floor can be uniquely color coded.  Such a building would
+therefor have space for up to 450 Avatars.  By further clustering these
+buildings into standard model complexes, we can obtain another level of
+automated allocation before the intervention of a human designer is required.
+Ultimately, of course, some human attention \fIwill\fP be needed to determine
+the placement of the apartment complexes within the overall framework of the
+world.  However, this placement can be a part of the \fIHabitat\fP master
+geographic plan, so that the amount of human attention required at the
+operational level should be minimal.
+.PP
+We are faced with a choice of how and where to implement the apartment
+building generator.  Certainly implementation will be much simpler and quicker
+on the Lucasfilm's Unix system, since all of the building blocks are presently
+there and a trivial ``glue'' program can be written in a day or so to
+automatically generate arbitrary quantities of apartment buildings at will.
+On the other hand, it will ultimately be more efficacious to situate the
+apartment generator at QuantumLink so that the process can be made completely
+automatic \(em obviously generating the turves at LFL requires some human
+intervention to run the program and transfer the data as needed.
+.PP
+In response to this choice, we propose the following compromise solution:
+since implementation of the apartment generator at Lucasfilm is so easy, we
+will do ahead and do so.  This generator will be used to produce a batch of
+10,000 to 20,000 turves worth of apartments, which can be uploaded to
+QuantumLink and stored for use as needed.  This will give us a sufficient
+backlog that we can proceed with the more difficult task of a Stratus-based
+apartment generator at a later date when we are not preoccupied with the press
+of getting the complete \fIHabitat\fP system operational.  Lucasfilm will, in
+consultation with Quantum, lay out the apartment building floor plans, design
+the apartment turf interiors, and figure out where the buildings fit in the
+overall structure of the world.  Once the data is generated, Quantum will be
+responsible for creating the software to install the new turves in the
+\fIHabitat\fP database and assign Avatars to them as new users sign on.
+.SH
+\s+3Inactive Users\s-3
+.PP
+Inevitably, players will disappear from the system, for all of the reasons
+that users typically disappear from any system.  We must take care to ensure
+that we are not left with hollow caverns where our cities and apartment
+complexes used to be \(em places where the ``dead'' population outnumbers the
+``live'' population and the number of online players at any particular time is
+small enough relative to the size of the place that they just sort of rattle
+around in it.
+.PP
+The process of identifying the inactive users will be much like that presently
+used by the greater QuantumLink system.  If a user's account lapses or is
+cancelled, his \fIHabitat\fP resources, such as his Avatar and Turf, need to
+be removed from the world and placed in a pool for reclamation, according to
+the same criteria that Quantum presently uses for reclaiming other resources
+devoted to lapsed or cancelled users.
+.PP
+There is, however, one complication.  This is that people can be inactive
+\fIHabitat\fP players and still be active QuantumLink subscribers.  In other
+words, we are not guaranteed the definite indicator of inactivity provided by
+an explicit account cancellation or failure to pay a bill that can be used in
+the system at large.  While a dead QuantumLink account is a dead \fIHabitat\fP
+Avatar, the reverse is not necessarily true.  This means that we must
+establish some criteria for deeming an Avatar to be well and truly dead.
+.PP
+We propose that a lapse of two months of inactivity mark a player's Avatar and
+Turf for the ``grim reaper'', though Quantum may wish to propose a longer or
+shorter period on the basis of their experience with QuantumLink.  When an
+Avatar is declared inactive by such a lapse, we should give the player a
+second chance by sending him a message through the regular QuantumLink mail
+system informing him (politely, of course) that his Avatar is inactive and
+will be swept up by the Oracle if he does not log in to \fIHabitat\fP sometime
+during the next week.  If the player fails to heed this warning, at the end of
+the week the system should send him a mail message informing him that his
+Avatar is deceased and then proceed with the ``burial''.
+.PP
+Once an Avatar has truly lapsed into inactivity, we want to reclaim its turf
+to be recycled and assigned to a new user.  As with generation of new turves
+from scratch, this process can and should be automated.  The object is to keep
+the residential areas as fully populated as possible.  Quantum will need to
+created the software to detect the fact that an Avatar is inactive, to warn
+the player, and finally to ``garbage collect'' the resources.
+.SH
+\s+3The Oracle\s-3
+.PP
+The Oracle is the personification of the system operators.  It is also the
+major means by which we introduce information into the world and tinker with
+the players' sense of reality.  What we have been calling ``The Oracle'',
+however, is actually several separate functions sharing a common operator's
+interface, each of which appears in the world under a different guise.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Fountain\fR, found in most town squares, is primarily an information
+channel.  Mostly what The Fountain does is answer questions.  Sometimes it
+also says things spontaneously.  Being a direct channel to the omnipresent
+being in charge of the world, The Fountain can be means of communicating
+requests and demands of all sorts, some of which may even be granted.
+However, The Fountain's main purpose is information distribution.  It is the
+means by which clues are dispensed, advice is given, judgements are
+pronounced, and so on.  The Fountain ``prefers'' that requests made to it be
+of a broad or public nature (such as ``please make Populopolis a weapons-free
+zone'') rather a specific or private nature (such as ``please give me a
+million Tokens'').  Its responses to questions are often quite cryptic, but
+The Fountain does not make an overt effort to twist the meaning of what
+players say to it.  The Fountain does not answer all of the questions that are
+asked of it.  Indeed, it answers relatively few of them.  In the tradition of
+oracles throughout the ages, it is fickle and unpredictable.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Genie\fR is a basic wish-granting genie in a magic lamp.  Its purpose,
+obviously, is to grant wishes.  Magic lamps are rare treasures found in
+obscure places.  If an Avatar rubs on a lamp, a genie appears, and offers to
+grant a wish.  The Avatar then has a short amount of time to make a wish,
+after which the genie (and the lamp) vanishes.  Wishes are thus a
+you-only-get-one-chance sort of deal.  The Genie should try to grant the wish
+to the extent that it is possible within the scope of the \fIHabitat\fP world.
+However, the Genie should try to twist and pervert the meaning of the wish (by
+such devices as taking the wisher overly literally) in direct proportion to
+greediness or foolishness of the wish.  Thus simple, generous wishes should be
+granted directly, while complex, selfish wishes should result in all manner of
+havoc being visited on the wisher.  Unlike The Fountain, The Genie is a ``sure
+thing'', in the sense that if a player makes a wish he is certain to get a
+response.  However, Genies (or rather, the magic lamps that contain them) are
+very rare, and they disappear after they are used.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Crystal Ball\fR is another information channel, but one oriented more
+towards divining details about the present and future, rather than with
+answering the sort of metaphysical questions that The Fountain tends to
+handle.  Like the Genie, it is ``reliable'', in the sense that a player has a
+high probability of getting his question answered.  However, Crystal Balls
+tend to be subtle and to misconstrue the meaning of questions in devious ways.
+In addition to being nearly as rare as magic lamps, Crystal Balls are also
+quite timid and shy.  A Crystal ball will tend to only respond to the Avatar
+it considers to be its ``owner'' \(em the one who found it originally or who
+has been in possession of it for some while.  Crystal Balls also tend to
+vanish forever if asked too many questions at once or if questioned too
+aggressively.
+.IP "\ \ \ \ \(bu\ "
+\fIBureaucrat-in-a-Box\fR is a mechanism for handling various sorts of
+mundane, non-magical, but necessary system-operator communications tasks.
+Each Bureaucrat-in-a-Box has an office in the \fIHabitat\fP with some
+associated purpose.  Messages directed to a Bureaucrat relate to whatever
+business that Bureaucrat's office is concerned with.  For example, the
+Bureaucrat in the Land Office is concerned with ownership of property, and it
+is here that Avatars come to request transfers of title to turves.
+Bureaucrats are very business-like, no-nonsense types, and deal only within
+their limited purviews.  If a Bureaucrat is given a request that is not
+relevant to its particular sphere of influence, it simply ignores it.
+.LP
+The Oracular roles will be filled by one or more system operators.  The way it
+works is as follows:  ordinarily, things that Avatars say to Oracles go into a
+log file.  The log file entries include a time stamp and identification of who
+the speaker was and exactly which Oracle he was speaking to, as well as what
+was said.  The messages directed to a particular Oracle can be extracted from
+the log file automatically based on the log file entries themselves.  The
+Operator goes through the log for a particular Oracle, and deals with the
+various entries.  He can choose to ignore an entry (this, in fact, will be the
+usual case) or to respond.  The response may simply require a message to the
+player or it may demand more extensive action.  In any case, the operator does
+what needs to be done.  Playing Oracle will require both imagination and
+patience.
+.PP
+In time, we will certainly develop a collection of stock responses to common
+questions (``Oh Great Oracle, what is the meaning of life?'') and wishes
+(``Please give me a million more wishes!''), so that the operators' load can
+be reduced to handling the uncommon ones.  The operators' interface needs to
+have a built-in mechanism for easily invoking these canned responses from a
+library.
+.PP
+Quantum will be responsible for creating the software to log messages to the
+Oracle in an appropriate format and to allow Oracular operators to extract the
+entries in a convenient way.  Lucasfilm and Quantum will jointly specify and
+create the operators' tools necessary to allow the operators to respond with
+messages and changes to the system.  We (LFL) have already drafted a
+first-pass specification for such a utility (which we named ``Ghu''), that we
+provided to Quantum at the beginning of August.  This must still be refined
+into a mutually agreeable design and then implemented.  Since it is host
+software, Quantum will be responsible for implementation, though we will
+assist.
+.PP
+Quantum will be responsible for providing the operators.  Whether these are
+Quantum employees or specially empowered volunteers from the user community
+must still be determined.  If volunteers are used, someone at Quantum will
+need to be responsible for riding herd on them.
+.PP
+During the beta-test and the following few weeks of operation, Lucasfilm staff
+will perform the Oracle operator functions.  This will enable us to determine
+precisely the sorts of things that an Oracle must deal with on a day-to-day
+basis, as well as to develop a body of practice and experience from which to
+train the initial cadre of operators.  On the basis of this experience,
+Lucasfilm will assemble a guidebook to the answering of questions and the
+granting of wishes, and begin collecting a library of pithy and provocative
+responses to common questions and wishes.  Lucasfilm will also assist in the
+training of the first batch of Oracle operators and coach them during the
+first months of operation.  The intent is that there will be a gradual
+transfer of responsibility for Oracular functions from Lucasfilm staff to
+Quantum operators over the first month or two of actual operations.
+.PP
+A future extension for the further automation of Oracular functions,
+particularly those of Bureaucrat-in-a-Box Oracles, is to create an Oracular
+automaton containing an English language parser.  This automaton would attempt
+to interpret player utterances and deal with them directly, passing them on to
+human operators only those things which are too strange for it to handle
+itself.  However, this is a complex, long-range undertaking and should be
+seriously considered only after the rest of the system is running smoothly.
+Furthermore, I would have to implement this one personally and I would insist
+that Quantum get a \fBC\fR compiler for their Stratus, since I refuse to even
+attempt such a thing in \fBPL/1\fR!
+.PP
+During the beta-test period, Lucasfilm will develop a full specification for
+the set of operations that need to be supported by Bureaucrat-in-a-Box Oracles
+and jointly with Quantum create the host software required to realize those
+operations.
+.SH
+\s+3Exit Interviews\s-3
+.PP
+The ``exit interview'' is discussed in the user's manual.  It is a ploy by
+which we can give the players a sense that the Oracle really exists as a
+Supreme Being with a minimal amount of effort on our part.  Indeed, since the
+intent is that exit interviews are rare, we don't even have to have the
+feature operational right away.  However, once we are set up we need to be
+very clever and very careful in the way we use it.  Due to the sensitivity of
+the procedure, Lucasfilm will handle all exit interviews until such a time as
+we are confident that the procedure is so well understood that selected,
+regular Oracle operators may be entrusted with it.  If necessary, we will
+retain responsibility for exit interviews indefinitely, though this may mean
+that they become very rare indeed.
+.SH
+\s+3The Weekly Rant\s-3
+.PP
+The \fIWeekly Rant\fR is the \fIHabitat\fP newspaper.  Somebody will have to
+be responsible for being its editor.  The editor's job is to assemble the
+various bits of material that go into an issue, generating a piece of text to
+feed to a distribution program.  This distribution program (to be provided by
+Quantum) will change all of the newspaper vending machines so that they
+contain the new issue instead of the old issue, allowing interested Avatars to
+stroll by and purchase a copy.  We do not currently intend to offer a
+subscription plan, in the sense that Avatars would have copies of the
+\fIRant\fP delivered directly to their turves, due to the proliferation of
+``trash'' that this would generate.
+.PP
+The material that goes into the \fIRant\fP is varied:
+.IP "\ \ \ \ \(bu\ "
+Articles
+.IP "\ \ \ \ \(bu\ "
+Paid advertisements
+.IP "\ \ \ \ \(bu\ "
+Letters to the editor
+.IP "\ \ \ \ \(bu\ "
+Classified ads
+.IP "\ \ \ \ \(bu\ "
+Messages from the Oracle
+.IP "\ \ \ \ \(bu\ "
+Editorials
+.LP
+Content can originate with the general public, who can submit articles and
+purchase advertising space, and with ourselves, for purposes of disseminating
+important system information as well as news about events that people might
+want to participate in, new developments in the world, clues to ongoing
+puzzles and mysteries, and so on.
+.PP
+Initially we ought to plan on publishing the \fIRant\fP on a weekly basis.
+Depending on the volume of material being generated for it and amount of labor
+available to edit it, we may wish to alter the publication frequency upward or
+downward.
+.PP
+For the first few weeks of operation, Lucasfilm will edit the \fIRant\fP.
+However, Quantum will provide an official editor, who we will bring up to
+speed during this period so that we can hand the job off to him once we have
+the operation down to a science.  As with the Oracles, the editor may be
+either a Quantum employee or a trusted volunteer.  The editor will require a
+means of extracting the text from submissions and compiling it into the
+publishable edition.  If special software is required to do this, it will be
+Quantum's responsibility.  Both Quantum and Lucasfilm will be responsible for
+providing material for the \fIRant\fP to the extent that such material is
+needed in support of the world.
+.SH
+\s+3Conduct of Adventures and Quests\s-3
+.PP
+In the context of \fIHabitat\fP, the word \fIAdventure\fP, to me, means the
+type of quest-for-treasure-and-magical-artifacts involving travel through
+exotic places and struggles against mysterious, magical enemies, both real and
+imagined, that characterizes the traditional fantasy role playing game genre.
+I don't think that adventuring will be the most significant nor the most
+common type of \fIHabitat\fP activity, but I think it will be very important.
+In particular, I think that it will be especially important in the early
+stages of the system's evolution, since I suspect that a large segment of the
+player base will originate in the FRP community and thus both want and expect
+such games.
+.PP
+While a large variety of adventures is both possible and desirable within
+\fIHabitat\fP, it is not practical for Lucasfilm nor Quantum to be the sole
+source of such material.  What we wish to do is use the players themselves for
+leverage, establishing a community of adventure generators \(em interested and
+involved users who will lend their efforts to the creation of material simply
+because they enjoy that aspect of interaction.  Our own participation would
+range widely in effort and involvement.  Ideally, the bulk of material should
+come from the users themselves, with relatively little effort on our behalf
+being required to support them.  Our support activities should emphasize
+making resources and information available, rather than giving individualized
+attention to each specific project.  Naturally, we will want to leaven the mix
+with special projects for which we do provide special support, and, of course,
+some which are entirely our own undertaking.
+.PP
+Different adventures will require varying degrees of setup and oversight.
+Setup can range from the placement of a few important artifacts and clues to
+the wholesale creation of entire new realms.  Oversight can range from
+non-existent \(em start it and forget about it \(em to massive \(em a virtual
+hand-holding guided tour.  Adventures should be made available to the players
+through a variety of channels: advertisements in the \fIRant\fP,
+pronouncements from the Oracle, \fIHabitat\fP-resident businesses catering to
+adventurers, and word of mouth.
+.PP
+The less specialized intervention in the world (requiring correspondingly
+specialized powers and privileges) needed to create a given adventure, the
+less support and attention the creator of that adventure will require from us.
+We should, therefor, provide the maximum degree of flexibility and power to
+adventure creators that we possibly can without compromising the security of
+the system and the integrity of the experience that the broader player
+community is having.
+.PP
+What we must do is establish a special level of player, somewhat more powerful
+and privileged than regular players but not as powerful as a regular
+operations person.  The exact scope of these powers is, as yet, uncertain, as
+is the means by which these powers would be made available.  However, this
+group of users would fill a role that we might call the ``Adventure Masters'
+Guild''.  These people would be carefully screened, and then each would be
+given reign over a particular chunk of the world, within which they could
+conduct whatever adventures and so on that they feel like.  Of course, they
+would be sworn to uphold a code of conduct designed to protect the less
+privileged players.  Violation of the code of conduct would be grounds for
+loss of their privileged status, as would lack of activity, substandard
+quality output, or other undesirable behavior or non-behavior.  Naturally,
+somebody in the permanent operations staff would have to be responsible for
+keeping an eye on these people and for handling complaints about them, as is
+now the case with the existing corps of QGuides and QHelpers.
+.PP
+Quantum and Lucasfilm must jointly consider the creation of this cadre of
+``Adventure Masters''.  We must develop a specification for the powers we will
+grant them and implement the mechanisms to achieve this.  This specification
+and implementation will also be a joint effort, with Lucasfilm taking the
+lead.  Lucasfilm will be responsible for the creation of documentation and
+instructional materials to guide and assist adventure creators.  Quantum will
+be responsible for oversight of these volunteers on a day-to-day basis, though
+Lucasfilm will retain final authority over their conduct.
+.PP
+Lucasfilm will contribute adventures of its own creation from time to time.
+We must arrive at an agreement as soon as possible as to the quantity and
+nature of the adventure material that Lucasfilm will generate, and the
+arrangement under which this material will be provided.  We encourage Quantum
+to also contribute adventure materials to the world, with Lucasfilm retaining
+the same final authority over its use that it does with material provided by
+outsiders.
+.SH
+\s+3World Expansion\s-3
+.PP
+The \fIHabitat\fP world is intended to be a constantly growing and changing
+place.  However, it isn't like a plant or even a real city that grows and
+changes all by itself.  Somebody is going to have to be responsible for
+generating the world.  As with adventures, we would intend to gain maximum
+leverage from a community of interested and dedicated volunteers, rather than
+having to fabricate the entire thing ourselves.  World expansion requires
+somewhat more control and supervision than adventure generation, however,
+since the effects are more lasting and the resource load induced is larger.
+We would like the growth to follow at least the skeleton of a plan, rather
+than proceeding in an uncontrolled and haphazard fashion.
+.PP
+We will start with a broad plan for the world as a whole.  This plan will
+outline the skeleton of the \fIHabitat\fP geography, providing roads and other
+pathways but leaving the interstices relatively unfilled.  The master plan
+will include the locations of cities and the positions and priorities for the
+installation of new housing and basic services.  With the basic infrastructure
+installed, we can then proceed to start generating the more interesting parts
+of the world, the spots where the real action will be.
+.PP
+As with adventures, we would like to empower a special class of privileged
+users who can design and create realms.  Unlike adventuring, where we simply
+grant some authority and set the Adventure Masters loose in the world, we will
+want to be more controlled.  I see the realm creation operation working
+somewhat like a publishing house: people submit realms for consideration; the
+ones we like, we install; the ones we don't like, we send back with a
+thanks-but-no-thanks letter; the ones that show promise but aren't quite
+right, we send back with specific critiques and our best wishes.  Eventually
+we develop a stable of reliable world builders from whom we solicit realms.
+Of course, there will be the ``slush pile'' of unsolicited realms, most of
+which are crap but which occasionally contains a real gem.  As in a publishing
+house, the low person on the totem pole in the operation will inevitably be
+the one who gets assigned to plow through this stuff when he or she is not too
+busy with other things.  To manage this process, Lucasfilm proposes that
+another trusted system operator be appointed as ``editor of user generated
+realms''.  Like the editor of the \fIWeekly Rant\fR, this person would be a
+special and devoted sysop who would work closely with Quantum and Lucasfilm.
+As with the \fIRant\fP editor, Quantum will be responsible for locating and
+recruiting this person, while Lucasfilm will train him.
+.PP
+Of course, having a large, external community of realm generators requires
+that we provide some means for them to specify their designs.  This has been
+previously discussed in the document \fBGateway Development\fR.
+.PP
+We will also want to create special realms of our own, to maintain balance and
+to keep a generally high quality level in the world.  Special realms will
+support the various special activities which we devise for the players, such
+as the numerous sub-games that have previously been suggested in other
+documents.  We will also want to generate realms of our own in order to
+influence by example the direction of the broader world-building community.
+.PP
+Of course, Lucasfilm will generate the overall geographic plan and the
+specific designs for such "core" areas as business districts and so on.
+Quantum will consult in the development of this plan.
+.SH
+\s+3Antisocial Behavior\s-3
+.PP
+As is currently the case with People Connection, and is inevitably the case in
+any sort of interactive system where the users are given the means to
+communicate with each other, there will be individuals who insist on engaging
+the most obnoxious sorts of antisocial behavior.  The ``real'' world has
+institutions designed to deal with such undesirables, such as schools, police,
+courts, and so on, as well as general standards of politeness and civilized
+conduct.  Part of the appeal of online systems to the more obnoxious elements,
+I think, is in fact the very lack of any such institutional structure.  There
+are no parents or teachers or police to be afraid of, and the ultimate censure
+is only loss of access to the system (which, while perhaps undesirable, is
+less traumatic and thus less daunting than the threat of having to stay after
+school or of getting a sharp \fIwack!\fP upside the head).
+.PP
+Unlike other online systems, \fIHabitat\fP attempts to portray a complete
+world.  It is therefor at least plausible that certain forms of antisocial
+behavior may be at least partially self-correcting, in the sense that the
+\fIHabitat\fP society itself may develop the necessary institutions.  It is
+important, however, for us to distinguish between the forms of ``antisocial''
+behavior that are legitimate elements of game play in the world and those
+which are offenses against the users themselves.  For example, if someone
+chooses to arm themselves and become a bandit, robbing whoever they can, that
+is game play and we should not attempt to intervene.  On the other hand, if
+someone chooses to stand in the town square and utter obscenities to everyone
+who passes by, we will need to act against them.  It may be that with time,
+\fIHabitat\fP may evolve its own internal checks and balances (say, people
+form a government that provides a police force) that acts to control the
+latter elements as well as the former.  However, we cannot simply rely on this
+happening spontaneously.
+.PP
+The question which confronts us is this:  To what degree do we let
+\fIHabitat\fP function as a social laboratory and allow it to evolve its own
+institutions and to what degree to we attempt to manage it directly, imposing
+structures and institutions ourselves?  To what degree do we attempt to
+maintain order and civilization within the world and to what degree do we just
+allow whatever happens to happen?
+.PP
+My intuition is to compromise, establishing a compartmented environment
+similar to what happens in People Connection with public and private rooms.
+At the core of the world is civilization.  The residential zones that new
+users start out in are included in this area, as are the businesses that
+provide the basic, essential services and the play areas that are home to a
+number of the more organized and controlled activities that players can
+participate in.  We maintain a reasonably high degree of order within these
+areas, and the rules are made clear to everyone from the beginning.  At the
+edges of civilization are the frontier areas.  Within the frontier areas the
+rules are different.  Communities are free to establish their own standards of
+behavior and their own institutions for enforcing those standards.  We will
+provide certain types of limited assistance in doing this (perhaps, for
+example, allowing a community to establish a weapons-free zone and then having
+the host enforce this).  Beyond the frontier areas is wilderness.  In the
+wilderness, anything goes.  There is absolutely no law except survival of the
+fittest.  Wilderness gradually turns into frontier and then civilization as it
+is settled and communities develop.  We make the boundaries between these
+areas explicit, and make sure that people understand what it means to cross
+these boundaries.  Naturally, there will be a limit to just how wild-and-wooly
+the wilderness can get.  This limit will no doubt be prescribed for us by our
+lawyers.
+.PP
+The policy Lucasfilm would like to pursue is the above.  Quantum will have to
+approve, of course, and contribute the specifics as to where we draw the line
+as far as behavior is concerned.  Given the above policy, we will be jointly
+responsible for seeing that it is followed.  This includes not only enforcing
+the rules of good behavior but also, for example, seeing to it that signs are
+posted in the appropriate regions warning about the boundaries between the
+different levels of control and guiding the orderly progression of settled
+areas into the fold of civilization.
+.SH
+\s+3Habitat Economics\s-3
+.PP
+The \fIHabitat\fP economy will have to be controlled somewhat carefully, at
+least until it starts to develop some momentum of its own.  By this, I mean
+that we will have to pay close attention to the prices we establish for
+various goods and devices, to the supply of these goods and devices, and to
+the amount of money that is actually circulating at any given time.  Initially
+we will simply have to set up a pricing structure based on our own intuitions
+about the value of different items.  For example, my perception is that the
+escape device will be quite valuable, since it is so useful.  However, what we
+establish as the price and supply of this device will probably have profound
+effects on game play.  A world in which this particular device is cheap and
+commonplace will have a different flavor from one in which it is rare and
+expensive.
+.PP
+We must establish some meaning for our monetary unit and set prices for the
+various items accordingly (we must establish prices in order to program the
+vendo machines).  We may also want to establish limits on the supply of
+certain items.  Therefor, in addition to a geographic plan the \fIHabitat\fP
+world must have an economic plan.  This plan does not need to be elaborate but
+it does need to be solid and self-consistent.  Unlike real economies, we are
+not setting out to control production nor to fulfill some social agenda about
+distribution of wealth.  Instead, we are striving to keep the world
+interesting and entertaining.  Indeed, I favor following a free-market model
+to the greatest extent that this is possible.  We therefor have a reasonable
+hope of avoiding many of the pitfalls that real planned economies tend to fall
+prey to.
+.PP
+As part of the beta-test setup, Lucasfilm will establish the initial pricing
+and monetary standards.  Both parties will have to be responsible for
+monitoring these standards to see if they need to be changed on the basis of
+actual experience.
+.SH
+\s+3Rewards and Punishments\s-3
+.PP
+Various activities in the world will carry with them rewards and punishments
+of various sorts.  For example, there may be prizes awarded for solving
+particular puzzles, accomplishing particular quests, or winning the capture
+the flag tournament.  There are a couple of issues to be decided here: first,
+what sorts of rewards and punishments are appropriate (given, among other
+things, our economic plan) and second, who will be responsible for doling them
+out, and for underwriting them, in the case where they have real-world value,
+however nominal (e.g., the chocolate aardvark awarded for the most clever
+slogan for the \fIWeekly Rant\fR).
+.PP
+Lucasfilm proposes that there be a number of contests run regularly for which
+we distribute nominal but enjoyable prizes (e.g., the proverbial chocolate
+floppy disk).  These contests should match in frequency, challenge and reward
+those currently conducted by Quantum in other parts of the system.  The
+contests themselves would tie in with the various activities that are being
+developed for the players to participate in, such as region rallies, treasure
+hunts, and so on (the list of activities currently under development is given
+in a companion document).  As with present contests, Quantum will be
+responsible for providing and distributing the prizes.  Lucasfilm will assist
+in the organization and conduct of the first several such contests, until the
+sysops get the hang of it.
+.SH
+\s+3Record Keeping\s-3
+.PP
+The \fIHabitat\fP design, not to mention the user's manual, calls for a ``Hall
+of Records'' or ``Book of Records''.  The purpose of this is to provide
+feedback to the players in order to motivate those who are driven by the urge
+to be the best or do the most or have the most or in some other way aspire to
+possess a superlative.  Maintaining these records can be largely automated,
+once we establish what the records we want to keep actually are.  Several have
+been suggested elsewhere, and this is not the place to go into that sort of
+detail.  However, it is necessary to point out that we do have to decide on
+what records will be kept.  Also, somebody will have to be responsible for
+installing software ``instruments'' in the appropriate parts of the system to
+collect this information and to see to it that this information is
+periodically collected, sorted, and output in a form suitable for inclusion in
+a player readable document.
+.PP
+Lucasfilm will be responsible for developing the list of records to be kept.
+Quantum will advise as to the practicality of collecting the various pieces of
+data.  Quantum and Lucasfilm will be jointly responsible for implementing the
+software to collect the records, each being concerned with modifications to
+its own code.  Quantum will be responsible for implementing the software to
+summarize the data and generate the record book output.  Lucasfilm will
+specify the format of this output.

@@ -1,0 +1,430 @@
+define -1 'object'
+# ident:          objid
+# class:          bin31
+  container:      entity
+  x:              bin15
+  y:              bin15
+  style:          bin15
+  gr_state:       bin15
+  orient:         bin15
+  gr_width:       bin15
+  restricted:     bit
+  nitty_bits(31): bit
+# fillers(5):     bin15
+# prop_length:    bin15
+# property_data:  bin15
+enddefine
+define 0 'region'
+  ident:             regid
+  owner:             avaid = -1
+  light_level:       bin15 = 1
+  depth:             bin15 = 32
+  east_neighbor:     regid
+  west_neighbor:     regid
+  north_neighbor:    regid
+  south_neighbor:    regid
+  class_group:       bin15
+  orient:            bin15
+  entry_proc:        bin15
+  exit_proc:         bin15
+  east_exit:         bin15
+  west_exit:         bin15
+  north_exit:        bin15
+  south_exit:        bin15
+  east_restriction:  bit
+  west_restriction:  bit
+  north_restriction: bit
+  south_restriction: bit
+  weapons_free:      bit
+  theft_free:        bit
+  nitty_bits(26):    bit
+  name(20):          character = ""
+  avatars:           byte
+  town_dir:          character
+  port_dir:          character
+# filler(33):        character
+enddefine
+define 1 'avatar'
+# ident:           avaid
+  region:          regid
+  container:       objid
+  x:               bin15
+  y:               bin15
+# not_really_turf: regid
+  gr_state:        bin15
+  gr_width:        bin15
+  genl_flags(32):  bit
+  orient:          bin15
+# prof_length:     bin15
+  style:           byte
+# filler(27):      character
+  name(10):        character = ""
+  screen_name(10): character = ""
+  activity:        bin15
+  action:          bin15
+  health:          bin15
+  restrainer:      bin15
+  custom(3):       bin15
+  bank_balance:    bin31
+  turf:            regid
+  stun_count:      bin15
+  nitty_bits(31):  bit
+  curse_immune:    bit
+  true_orient:     bin15
+  true_head_style: bin15
+  true_custom(3):  bin15
+  curse_type:      bin15
+  curse_counter:   bin15
+  last_on:         bin31
+enddefine
+define 2 'amulet'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 129 'aquarium'
+  state:           bin15
+enddefine
+define 4 'atm'
+enddefine
+define 6 'bag'
+  open_flags:      bin15 = 0
+  key:             fatword = 0
+enddefine
+define 7 'ball'
+enddefine
+define 130 'bed'
+  open_flags:      bin15 = 3
+enddefine
+define 10 'book'
+  current_page:    bin15 = 1
+  text_id:         bin31 = 1
+  last_page:       bin15 = 1
+enddefine
+define 12 'bottle'
+  filled:          bin15
+enddefine
+define 13 'box'
+  open_flags:      bin15 = 0
+  key:             fatword = 0
+enddefine
+define 131 'bridge'
+  width:           bin15
+  length:          bin15
+enddefine
+define 132 'building'
+# filler(3):       bin15
+  connection:      regid = -1
+enddefine
+define 158 'bureaucrat'
+  open_flags:      bin15 = 3
+enddefine
+define 133 'bush'
+enddefine
+define 134 'chair'
+  open_flags:      bin15 = 3
+enddefine
+define 84 'changomatic'
+enddefine
+define 135 'chest'
+  open_flags:      bin15 = 0
+  key:             fatword = 0
+enddefine
+define 16 'club'
+enddefine
+define 136 'coke machine'
+  take:            bin31 = 0
+enddefine
+define 17 'compass'
+enddefine
+define 137 'couch'
+  open_flags:      bin15 = 3
+enddefine
+define 18 'countertop'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+  whoput(5):       avaid = 0, 0, 0, 0, 0
+enddefine
+define 20 'crystal ball'
+  live:            bit
+# filler(15):      bit
+enddefine
+define 21 'die'
+  state:           bin15 = 1
+enddefine
+define 22 'display case'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+  owner:           avaid = 0
+  locked(5):       bit = 0, 0, 0, 0, 0
+# filler(11):      bit
+enddefine
+define 23 'door'
+  open_flags:      bin15 = 2
+  key:             fatword = 0
+  connection:      regid = -1
+enddefine
+define 24 'dropbox'
+enddefine
+define 25 'drugs'
+  count:           bin15 = 5
+  effect:          bin15 = 1
+enddefine
+define 28 'elevator'
+  state:           bin15 = 0
+  take:            bin31 = 0
+  address(20):     character = ""
+enddefine
+define 26 'escape dev'
+  charge:          bin15 = 10
+enddefine
+define 27 'fake gun'
+  state:           bin15
+enddefine
+define 138 'fence'
+enddefine
+define 29 'flag'
+  mass:            bin15 = 1
+enddefine
+define 30 'flashlight'
+  on:              bin15 = 0
+enddefine
+define 93 'flat'
+  flat_type:       bin15 = 0
+enddefine
+define 139 'floor lamp'
+  on:              bin15 = 0
+enddefine
+define 140 'fortune machine'
+  take:            bin31 = 0
+enddefine
+define 141 'fountain'
+  live:            bit = 0
+# filler(15):      bit
+enddefine
+define 31 'frisbee'
+enddefine
+define 5 'game piece'
+  state:           bin15
+enddefine
+define 32 'garbage can'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+enddefine
+define 33 'gemstone'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 3 'ghost'
+enddefine
+define 98 'glue'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+  x_offset_1:      bin15
+  y_offset_1:      bin15
+  x_offset_2:      bin15
+  y_offset_2:      bin15
+  x_offset_3:      bin15
+  y_offset_3:      bin15
+  x_offset_4:      bin15
+  y_offset_4:      bin15
+  x_offset_5:      bin15
+  y_offset_5:      bin15
+  x_offset_6:      bin15
+  y_offset_6:      bin15
+enddefine
+define 35 'grenade'
+  pinpulled:       bin15
+enddefine
+define 36 'ground'
+enddefine
+define 37 'gun'
+enddefine
+define 38 'hand of god'
+  state:           bin15
+enddefine
+define 39 'hat'
+enddefine
+define 127 'head'
+enddefine
+define 88 'hole'
+  open_flags:      bin15 = 2
+  key:             fatword = 0
+enddefine
+define 144 'hot tub'
+enddefine
+define 143 'house cat'
+enddefine
+define 40  'instant object'
+  instant_what:    bin15
+enddefine
+define 145 'jukebox'
+enddefine
+define 42 'key'
+  key_number:      fatword = 1
+enddefine
+define 43 'knick knack'
+  is_magic:        bin15
+enddefine
+define 44 'knife'
+enddefine
+define 45 'magic lamp'
+  lamp_state:      bin15
+  wisher:          bin15
+# filler:          bin31
+  live:            bit
+# fillerx(15):     bit
+enddefine
+define 46 'magic staff'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 47 'magic wand'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 48 'mailbox'
+  mail_arrived:    bin15
+  owner:           avaid
+enddefine
+define 49 'matchbook'
+  mtext(84):       varstring
+enddefine
+define 52 'movie camera'
+  on:              bin15
+enddefine
+define 54 'paper'
+  text_id:         bin31 = 0
+enddefine
+define 96 'pawn machine'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+enddefine
+define 152 'picture'
+  mass:            bin15 = 1
+  picture:         bin15
+enddefine
+define 58 'plant'
+  mass:            bin15 = 1
+enddefine
+define 55 'plaque'
+  current_page:    bin15 = 1
+  text_id:         bin31 = 1
+  last_page:       bin15 = 1
+enddefine
+define 147 'pond'
+enddefine
+define 60 'ring'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 148 'river'
+enddefine
+define 61 'rock'
+  mass:            bin15 = 1
+enddefine
+define 149 'roof'
+  base:            bin15
+  pattern:         bin15
+enddefine
+define 150 'safe'
+  open_flags:      bin15 = 0
+  key:             fatword = 0
+enddefine
+define 63 'security dev'
+  on:              bin15
+enddefine
+define 64 'sensor'
+  scan_type:       bin15 = 0
+enddefine
+define 90 'sex changer'
+enddefine
+define 56 'short sign'
+  text(10):        words = ""
+enddefine
+define 89 'shovel'
+enddefine
+define 57 'sign'
+  text(40):        words = ""
+enddefine
+define 69 'sky'
+enddefine
+define 95 'spray can'
+  charge:          bin15
+enddefine
+define 70 'stereo'
+  on:              bin15
+  tape:            bin15
+enddefine
+define 153 'street'
+  width:           bin15
+  height:          bin15
+enddefine
+define 154 'streetlamp'
+enddefine
+define 91 'stun gun'
+enddefine
+define 92 'super trapezoid'
+  trapezoid_type:  bin15
+  upper_left_x:    bin15
+  upper_right_x:   bin15
+  lower_left_x:    bin15
+  lower_right_x:   bin15
+  height:          bin15
+  pattern_x_size:  bin15
+  pattern_y_size:  bin15
+  pattern(32):     bin15
+enddefine
+define 97 'switch'
+  magic_type:      bin15
+  magic_data:      bin31
+enddefine
+define 155 'table'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+enddefine
+define 71 'tape'
+enddefine
+define 74 'teleport'
+  state:           bin15 = 0
+  take:            bin31 = 0
+  address(20):     character = ""
+enddefine
+define 94 'test'
+enddefine
+define 75 'ticket'
+  event:           bin15 = 0
+enddefine
+define 76 'tokens'
+  denom:           fatword = 1
+enddefine
+define 87 'trapezoid'
+  trapezoid_type:  bin15
+  upper_left_x:    bin15
+  upper_right_x:   bin15
+  lower_left_x:    bin15
+  lower_right_x:   bin15
+  height:          bin15
+enddefine
+define 156 'tree'
+enddefine
+define 85 'vendo front'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+  item_price:      bin15
+  display_item:    bin15
+  prices(10):      bin15
+enddefine
+define 86 'vendo inside'
+  open_flags:      bin15 = 3
+  key:             fatword = 0
+enddefine
+define 80 'wall'
+  length:          bin15
+  height:          bin15
+  pattern:         bin15
+enddefine
+define 157 'window'
+enddefine
+define 82 'windup toy'
+  wind_level:      bin15
+enddefine

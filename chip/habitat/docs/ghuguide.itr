@@ -1,0 +1,2274 @@
+.AM
+.ds Dq March 9, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+.ds [ \s+1\z[\h'1p'\z[\h'-1p'\s-1\0
+.ds ] \s+1\z]\h'-1p'\z]\s-1\0
+.ds Z \s+1\z]\h'-1p'\z]\h'3p'\z*\s-1\0
+\s+9The
+
+Ghu
+
+Ghuide\s-9
+.AU
+(A manual for God's Handy Utility)
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GHU GHUIDE
+.ds CH \\*(Dq
+.ds RH Habitat Document # 23b
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+4Introduction\s-4
+.LP
+This document is a user's manual and reference guide for \fBGhu\fR, a utility
+for Habitat\*T operators on the Stratus system.  This is a preliminary draft
+and will no doubt evolve as both the tool and its users become more
+sophisticated.
+.SH
+\s+4What It Is\s-4
+.LP
+\fBGhu\fP is meant to be a full-featured operator's utility for the Habitat
+system.  (It is descended from an earlier utility named \fBTwiddle\fP, which
+you may have heard of or even used.)  It is intended to be run by Quantum and
+Lucasfilm operational staff from a conventional terminal connected to the
+Stratus host.  \fBGhu\fP has lots of ``features''; however, we will try to
+keep everything as simple as we can.  We anticipate that additional features
+will be added as our knowledge of what we need develops.
+.LP
+\fBGhu\fP is a command-line-oriented utility.  It reads command lines from the
+terminal and executes them.  (It is not designed as a visual, CRT-oriented
+program since it must be usable over something like Telenet.)  Using \fBGhu\fP
+commands, you can examine, modify or add to any of the various databases that
+the Habitat system uses.  It lets you do this in a very general and powerful
+way that (hopefully) will keep the amount of work you must do to a minimum.
+For more advanced uses, \fBGhu\fP allows you to define macros and command
+loops to turn common or repetitive procedures into single commands.
+.SH
+\s+4The Databases\s-4
+.LP
+There are three primary databases that Habitat uses, together with a number of
+more minor ones.  Each of the three primary databases describes one of the
+major elements of the Habitat world: regions, objects and avatars.  The lesser
+databases contain information about teleport addresses, text for book and
+paper objects, requests made to the oracle, and so on.  They will be described
+in more detail in the sections below that the discuss the commands that deal
+with them.
+.SH
+\s+4Things and Types\s-4
+.LP
+Each region, object and avatar in the Habitat world has a \fIglobal ID
+number\fR that identifies its place in its respective database.  In many of
+the commands described below, you need to provide one of these global ID
+numbers for some entity in one of the databases.  Since avatar #145733901 is
+not the same as region #145733901, you need to indicate, in addition to the
+global ID number, what sort of thing it is that you are referring to.  Many of
+the command descriptions below will refer to something called a \fIthing\fR
+(in italics, just like that), which is an expression that refers to an object,
+region or avatar.  It has the following form:
+.IP
+\fIt  globalID\fR
+.LP
+where \fIt\fR is ``type specifier'' that is one of the three letters \fCa\fR
+(for avatar), \fCo\fR (for object), or \fCr\fR (for region); and
+\fIglobalID\fP is a global ID number.  For example,
+.IP
+\fCr 145733901\fR
+.LP
+refers to region #145733901, while
+.IP
+\fCo 47\fR
+.LP
+refers to object #47.
+.LP
+In practice, usually you can leave the type specifier out, in which case a
+default type will be chosen depending on the particular command being
+executed.  In the command descriptions that follow, we will tell you what the
+default type associated with each command is (the defaults are chosen to be
+the most common types you would expect to use with each command).
+.LP
+You may also apply the \fCa\fR type to strings, allowing you to designate
+avatars by name.  You do this by entering an expression of the form:
+.IP
+\fCa '\fIname\fC'\fR
+.LP
+For example
+.IP
+\fCa 'chip'\fR
+.LP
+designates the avatar named ``chip'' (that's me!) while
+.IP
+\fCa 'spblives'\fR
+.LP
+designates the avatar named ``spblives''.  In contexts where a string value is
+not allowed but an avatar number \fIis\fP allowed, \fBGhu\fR will
+automatically try to treat a string value as an avatar name.
+.SH
+\s+4Values and Expressions\s-4
+.LP
+Note: this is fairly advanced stuff.  If you are just using \fBGhu\fP casually
+you can skip ahead to the next section, \fBThe Commands\fR.
+.LP
+The above description of \fIthings\fP and types referred to a ``global ID
+number''.  In the examples that were given, we actually used a number, just as
+you would expect.  However, wherever a \fBGhu\fP command calls for the use of
+a numeric value of any sort (or a string value or a bit value, for that
+matter), you can use a symbolic name or an expression instead.  Furthermore,
+you can enter numbers in hexadecimal, octal, quaternary or binary bases
+instead of the normal decimal, if for some reason you wish to do so.
+.LP
+In general, the command descriptions below will refer to a \fIvalue\fP.  A
+\fIvalue\fR can be a number, a string, a bit-string, a symbolic name (which
+you create using the \fCname\fR command), or an expression.  Each of these
+will be described in what follows.
+.SH
+\s+2Numbers\s-2
+.LP
+A number may be specified in a variety of different formats.  For the sake of
+eliminating arguments about which is ``better'' (and at the expense of some
+minor complication) we have chosen to adopt both the Unix-derived
+representations that we use at Lucasfilm and the PL/1 derived representation
+used by Quantum, since both can be handled at the same time without
+significant ambiguity.
+.IP "\ \ \ \ \(bu\ "
+Decimal \(em a decimal number is represented by a sequence of decimal digits
+(i.e., \fC0\fP through \fC9\fP).  The only restriction is that the first digit
+may not be a \fC0\fP.  Examples: \fC47  3  123786432333\fP
+.IP "\ \ \ \ \(bu\ "
+Octal \(em an octal number is represented by a sequence of octal digits (i.e.,
+\fC0\fP through \fC7\fP), the first of which \fImust\fP be a \fC0\fP digit.
+Examples: \fC0377  022  0  047\fP
+.IP
+Alternatively, a sequence of octal digits enclosed in apostrophes and followed
+by \fCb3\fP may be used.  Examples: \fC'377'b3  '22'b3  '0'b3  '47'b3\fP
+.IP "\ \ \ \ \(bu\ "
+Hexadecimal \(em a hex number is represented by a sequence of hex digits
+(i.e., \fC0\fP through \fC9\fP and \fCa\fP through \fCf\fP) preceded by
+\fC0x\fR or \fC0X\fR.  Examples: \fC0xf000  0x80  0X10FF  0x0\fP
+.IP
+Note that case is not significant in the hex digits \fCa\fP through \fCf\fP
+(i.e., \fCa\fP is the same as \fCA\fP).  Alternatively, a sequence of hex
+digits enclosed in apostrophes and followed by \fCb4\fP may be used.
+Examples: \fC'f000'b4  '80'b4  '10ff'b4  '0'b4\fP
+.IP "\ \ \ \ \(bu\ "
+Binary \(em a binary number is represented by a sequence of binary digits
+(i.e., \fC0\fP and \fC1\fP) preceded by \fC0b\fP or \fC0B\fP.  Examples:
+\&\fC0b10101010  0B111  0b10001\fP
+.IP "\ \ \ \ \(bu\ "
+Quarters \(em a quarter is represented by a sequence of quaternary digits
+(i.e., \fC0\fP through \fC3\fP) preceded by \fC0q\fP or \fC0Q\fP.  Examples:
+\fC0q1230  0q2020  0Q0013\fP
+.IP
+Alternatively, a series of quaternary digits enclosed in apostrophes and
+followed by \fCb2\fP may be used.  Examples: \fC'1230'b2  '2020'b2
+'0013'b2\fP
+.SH
+\s+2Bit-strings\s-2
+.LP
+A bit-string is represented by a series of binary digits (i.e., \fC0\fP and
+\fC1\fP) enclosed in apostrophes and followed by the letter \fCb\fP.
+Examples: \fC'1011101'b  '1'b  '0'b  '1111'b\fR
+.LP
+A bit-string is \fInot\fP the same as an ordinary number specified in a binary
+format, as described above under \fBNumbers\fP.
+.SH
+\s+2Strings\s-2
+.LP
+A string is represented by a series of characters enclosed in apostrophes or
+quotation marks (e.g., \fC"hello world."\fR or \fC'this is a string'\fR).
+Non-printing and special characters may be embedded in the string by using the
+backslash character (``\fC\\\fR'') as an escape followed by an indicator
+character (we are borrowing this convention from Unix).  The escape characters
+include, for example:
+.nf
+
+	\fC\\n\fR		newline
+	\fC\\t\fR		horizontal tab
+	\fC\\b\fR		backspace
+	\fC\\\\\fR		backslash
+	\fC\\'\fR		apostrophe
+	\fC\\"\fR		quote
+	\fC\\^\fIc\fR		CONTROL-\fIc\fR (where \fIc\fR is any character).
+	\fC\\\fIddd\fR		arbitrary byte (where \fIddd\fR is one, two or three octal digits).
+	\fC\\x\fIhh\fR		arbitrary byte (where \fIhh\fR is one or two hexadecimal digits).
+
+.fi
+Additionally, a variety of escape codes that represent the Habitat sign
+formatting characters are recognized.  A complete list of all the escape codes
+is given in \fBAppendix A\fR at the end of this document.
+.SH
+\s+2Names\s-2
+.LP
+A symbolic name is represented as a sequence of alphanumeric characters, the
+first of which may not be a decimal digit.  Names may also contain the
+characters underscore (``\fC_\fR'') and dollar sign (``\fC$\fR'').  The case
+of alphabetic characters in symbolic names \fIis\fP significant (i.e.,
+\fCfoo\fR, \fCFOO\fR and \fCFoO\fR are \fInot\fP the same name).  The value of
+a symbolic name in an expression will be either the value defined for that
+name using the \fCname\fP or \fCset\fP commands, or, if the name is the name
+of a field of the current-default-thing (see the description of the
+current-default-thing under \fBGeneral Database Handling Commands\fR below),
+then the value will be the current value of that field.
+.SH
+Special Names
+.LP
+A few symbolic names are pre-defined by \fBGhu\fP and have a special meaning
+all their own.
+.IP "\fCtoday\fR \(em "
+is a number that represents the system time code of today's date (i.e., the
+time as of midnight).
+.IP "\fCnow\fR \(em "
+is a number that is the system time code for whatever time it is when the
+expression containing it is evaluated.
+.IP "\fClast_textid\fR \(em "
+is always set to the text id of the most recently written text database entry.
+.IP "\fCpage_count\fR \(em "
+is always set to the page count of the most recently read or written text
+database entry.
+.IP "\fCuser_name\fR \(em "
+is a string that is the Stratus user name of the user running \fBGhu\fP.
+.IP "\fCgeneral_access\fR \(em "
+is a number that is TRUE (i.e., 1) if the user running \fBGhu\fP is on the
+``general access'' list and FALSE (i.e., 0) if not.  (See \fBAccess Control\fR
+below.)
+.IP "\fCrandom\fR \(em "
+is a random number.  It is a different random number every time it is used.
+.IP "\fCindex\fR \(em "
+is used only inside integer \fCfor\fP loops (see the \fIfor\fR command below)
+and is the current value of the loop counter.
+.IP "\fCcontents\fR \(em "
+may be used as an array field of any container object, and represents the
+contents of that object.  For example
+.br
+	\fCo 15446.contents(3)\fR
+.br
+represents the object that is contained in slot 3 of object #15446.  (See the
+discussion of fields and arrays below.)
+.SH
+\s+2Expressions\s-2
+.LP
+In general, any place where a \fIvalue\fR is called for an expression may be
+given.  There is a variety of expression operators that you can use.
+.SH
+Arithmetic operators
+.IP
+\fIexpression\fC +  \fIexpression\fR
+.br
+\fIexpression\fC -  \fIexpression\fR
+.br
+\fIexpression\fC *  \fIexpression\fR
+.br
+\fIexpression\fC /  \fIexpression\fR
+.br
+\fC- \fIexpression\fR
+.LP
+These correspond to addition, subtraction, multiplication, division and
+negation respectively.  The addition operator (``\fC+\fR'') is also the string
+concatenation operator, i.e., ``adding'' two strings concatenates them.  For
+example,
+.IP
+\fC"foo" + "bar"\fR
+.LP
+is equal to
+.IP
+\fC"foobar"\fR
+.SH
+Logical operators
+.IP
+\fIexpression\fC &&  \fIexpression\fR
+.br
+\fIexpression\fC and  \fIexpression\fR
+.br
+\fIexpression\fC ||  \fIexpression\fR
+.br
+\fIexpression\fC or  \fIexpression\fR
+.br
+\fC! \fIexpression\fR
+.br
+\fCnot \fIexpression\fR
+.LP
+Logical values are used in \fBGhu\fP's conditional statement, \fCif\fP.  A
+logical value is represented in \fBGhu\fP by an ordinary number.  A value of
+\&\fC0\fP is interpreted as FALSE.  Any other value is interpreted as TRUE.
+The logical operators for AND, OR and NOT are each represented in two forms:
+as symbolic operators and as keywords.  Use whichever form you feel most
+comfortable with (the symbolic operators are derived from the programming
+language \fBC\fR).
+.SH
+Comparison operators
+.IP
+\fIexpression\fC <  \fIexpression\fR
+.br
+\fIexpression\fC lt  \fIexpression\fR
+.br
+\fIexpression\fC <=  \fIexpression\fR
+.br
+\fIexpression\fC leq  \fIexpression\fR
+.br
+\fIexpression\fC ==  \fIexpression\fR
+.br
+\fIexpression\fC eq  \fIexpression\fR
+.br
+\fIexpression\fC !=  \fIexpression\fR
+.br
+\fIexpression\fC neq  \fIexpression\fR
+.br
+\fIexpression\fC >=  \fIexpression\fR
+.br
+\fIexpression\fC geq  \fIexpression\fR
+.br
+\fIexpression\fC >  \fIexpression\fR
+.br
+\fIexpression\fC gt  \fIexpression\fR
+.LP
+The comparison operators may be used to compare the values of numbers,
+strings, or bit-strings.  As with the logical operators, there are two forms
+for each comparison, one symbolic and the other a keyword.  The comparisons
+supported are less-than, less-than-or-equal, equal, not-equal,
+greater-than-or-equal, and greater-than.  The result of a comparison will be
+either \fC0\fP or \fC1\fP, representing FALSE or TRUE respectively.
+.SH
+Bit operators
+.IP
+\fIexpression\fC &  \fIexpression\fR
+.br
+\fIexpression\fC |  \fIexpression\fR
+.br
+\fIexpression\fC ^  \fIexpression\fR
+.br
+\fC~ \fIexpression\fR
+.br
+\fC^ \fIexpression\fR
+.LP
+The bit operators work on bit-strings and numbers.  The operators shown are
+(respectively) AND, OR, XOR, NOT and NOT.  There are two forms of the NOT
+operator, one derived from \fBC\fR and the other from PL/1.
+.SH
+Test operator
+.IP
+\fC? \fIexpression\fR
+.LP
+is used to determine what sort of thing \fIexpression\fP is.  Its value is a
+number that encodes \fIexpression\fP's type: \fC0\fP means it is a region,
+\&\fC1\fP means it is an avatar, \fC2\fP means it is an object, and any other
+value means it is none of these.
+.SH
+Field selection
+.LP
+The database entries for objects, avatars and regions have various fields,
+each of which is named.  You can extract the value from a field using the
+``\fC.\fR'' operator:
+.IP
+\fIexpression \fC.  \fIfieldname\fR
+.LP
+where \fIexpression\fP is the global ID of the thing you are interested in and
+\fIfieldname\fP is the name of the field you want.  For example:
+.IP
+\fCa 435679123.x\fR
+.LP
+refers to the x-coordinate field of avatar #435679123.  Additionally, some
+fields are \fIarrays\fP of values, and these arrays may be indexed:
+.IP
+\fIexpression1 \fC( \fIexpression2 \fC)\fR
+.LP
+where the \fIexpression1\fP identifies the thing and field in question and
+\fIexpression2\fP is the array index.  For example:
+.IP
+\fCo 634989100.nitty_bits(5)\fR
+.LP
+refers to the fifth element of object #634989100's \fCnitty_bits\fP field.
+.SH
+Other stuff
+.LP
+In addition to the operators, there are a few more things that need to be
+mentioned regarding expressions.
+.LP
+All of the operators described above have the sort of precedences you would
+expect them to have (e.g., multiplication and division before addition and
+subtraction).  The exact operator precedences are listed in \fBAppendix B\fR.
+Parentheses:
+.IP
+\fC( \fIexpression\fC )\fR
+.LP
+may be used at any point to override the normal precedences of the operators.
+.LP
+Note that since there is only one string operator, concatenation, most
+expressions involving strings per se are rather silly (you \fIcan\fP treat
+objects' string fields as arrays of characters and index them, however).  In
+arithmetic expressions, we treat a single character string as a number whose
+value is the value of the 8-bit ASCII code for the character in the string.
+Similarly, two-character strings represent 16-bit numbers and so on.  We do
+\fInot\fP adopt the nearly useless PL/1 convention of trying to convert the
+string containing the characters \fC'4'\fR and \&\fC'7'\fR into the number 47.
+.SH
+\s+4The Commands\s-4
+.LP
+The specifics of the various commands will be described shortly.  First, some
+general information:
+.LP
+The command names have been chosen so that they are unique in the first few
+characters.  Single letter abbreviations are often possible.  However, any
+unambiguous initial substring of a command name is an acceptable abbreviation.
+.LP
+In general, commands are terminated by the end of the line, but multiple
+commands may be given on a line separated by semicolons (``\fC;\fR'').  For
+example, the line:
+.IP
+\fCdisplay r 5001; contents r 5001; quit\fR
+.LP
+is equivalent to entering each of the three commands separately on its own
+line.
+.LP
+A single command may be spread over multiple lines by ending all but the final
+line with a backslash (``\fC\\\fR'').  For example:
+.IP
+\fCadd class_teleport = r 5000, 40, 150,\\
+.br
+0, 0, 200,\\
+.br
+0, '1'b, "Foon St"\fR
+.LP
+is the same as
+.IP
+\fCadd class_teleport = r 5000, 40, 150, 0, 0, 200, 0, '1'b, "Foon St"\fR
+.LP
+Usually this is only worth bothering with for very long command lines, which
+are relatively rare.
+.LP
+Any command may be followed by
+.IP
+\fCinto \fIfilename\fR
+.LP
+in which case the printed output generated by the command is written to the
+given file instead of to the terminal.  For example:
+.IP
+\fCcontents r 5000 into dumpfile.out\fR
+.LP
+would output a list of the contents of region #5000 into the file
+``\fCdumpfile.out\fR''.
+.LP
+\fBA comment on notation:\fR  Each of the command descriptions that follow
+begin with a summary of the syntax of the command.  Things that are to be
+entered literally, such as keywords and delimiter characters, will be written
+in a \fCtypewriter-like typeface such as this\fR.  Things which you are
+supposed to substitute an expression or value of your own will be written in
+an \fIitalic typeface such as this\fR.  Things which are optional will be
+enclosed with funny brackets \*[ like this. \*]  Sometimes you will also see
+things enclosed in brackets \*[ like this \*Z which means that the thing
+within the brackets may be repeated zero or more times.
+.SH
+\s+2Important Basic Commands\s-2
+.LP
+These two commands should be all you need to know to at merely survive using
+\fBGhu\fP.
+.sp
+.SH
+\s+1help\s-1
+.IP
+\fChelp \fR\*[ \fIcommand\fR \*]
+.LP
+If no \fIcommand\fR is given, \fChelp\fP prints out a list of all the
+available commands along with a quick one-liner description of each.  If a
+\fIcommand\fR is given, it prints an explanation of that command.  For
+example:
+.IP
+\fChelp display\fR
+.LP
+prints an explanation of the \fCdisplay\fP command.
+.sp
+.SH
+\s+1quit\s-1
+.IP
+\fCquit\fR
+.LP
+Exits \fBGhu\fR and returns to the Stratus system command level.
+.SH
+\s+2General Database Handling Commands\s-2
+.LP
+These commands often refer to something called the ``current-default-thing''.
+The current-default-thing is a thing (object, avatar or region) that \fBGhu\fP
+keeps in memory.  Various commands implicitly or explicitly change which thing
+is the current default, and other commands operate on the
+current-default-thing unless explicitly told otherwise.  This should become
+clearer as you read the command descriptions themselves.
+.sp
+.SH
+\s+1add\s-1
+.IP
+\fCadd \fR\*[ \fIclass\fR \*[ \fC= \fIvalue\fR \*[\fC, \fIvalue\fR \*Z \*] \*]
+.LP
+Creates a new thing of the given class (note: regions have class 0 and avatars
+have class 1).  You can specify the class and the values of the new thing's
+property fields (in order) directly on the command line.  Alternatively, if
+any of these are omitted \fBGhu\fP will prompt you for them.  The new thing
+becomes the current-default-thing.  For an example of the use of the \fCadd\fP
+command, see the discussion on page 6 of line continuation using backslashes.
+.sp
+.SH
+\s+1contents\s-1
+.IP
+\fCcontents \fIvalue\fR \*[ \fCfull\fR \*]
+.LP
+The \fCcontents\fP command prints a list of the things contained by the thing
+specified by \fIvalue\fR (a region by default).  Each thing is listed on a
+line with its global ID and the values of its fundamental properties (x-y
+position, orientation, etc.).  If the keyword \fCfull\fP is given, it also
+lists the contents of each container inside \fIvalue\fP, and each container
+inside those, and so on.  For example:
+.IP
+\fCcontents r 8100
+.LP
+would print a list of the things contained in region #8100, whereas
+.IP
+\fCcontents r 8100 full
+.LP
+would print not only the things contained by region #8100, but any things
+contained by those things, and any things contained by \fIthose\fP things, and
+so on.
+.sp
+.SH
+\s+1display\s-1
+.IP
+\fCdisplay \fR\*[ \fIvalue\fR \*] \*[\fC . \*]
+.LP
+The \fCdisplay\fP command displays the thing indicated by \fIvalue\fP.  If
+value designates an object, avatar or region, it makes the indicated thing the
+current-default-thing and then prints the values of all of its fields.  If
+\fIvalue\fP is not a thing (e.g., if it is simply a string or a number)
+\fIvalue\fP itself is printed out.  If \fIvalue\fP is omitted, the
+current-default-thing is displayed.  If the \fCdisplay\fP command is ended
+with a period, \fBGhu\fP withholds printing a newline after displaying the
+value.  For example:
+.IP
+\fCdisplay r 9164
+.LP
+would print out a description of region #9164.  Whereas
+.IP
+\fCdisplay o 17007.container
+.LP
+would print out a description of the region, object or avatar that contains
+object #17007 (compare this to the similar example given under the description
+of the \fCvalue\fP command above).
+.sp
+.SH
+\s+1find\s-1
+.IP
+\fCfind \fIvalue\fR
+.LP
+Prints out the chain of containership from the thing indicated by \fIvalue\fR
+(an object by default, though it may also be an avatar) to the outermost
+containing region, listing the global ID and class of each container in the
+chain.  For example, the command
+.IP
+\fCfind o 17659
+.LP
+might result in output of the form
+.IP
+\fCObject 17659 (flashlight) currently in object 1005131
+.br
+Object 1005131 (box) currently in avatar 255538382
+.br
+Avatar 255538382 (chip) currently in region 9132\fR
+.sp
+.SH
+\s+1get\s-1
+.IP
+\fCget \fIvalue\fR
+.LP
+The \fCget\fP command makes the thing indicated by \fIvalue\fR the
+current-default-thing.  In this respect it operates like the \fCdisplay\fP
+command, except that it doesn't print out a description of the thing.  By
+default, \fIvalue\fP is an object, though it may also be a region or an
+avatar.  For example:
+.IP
+\fCget a 453124989
+.LP
+would make avatar #453124989 the current-default-thing, while
+.IP
+\fCget 1609
+.LP
+would get object #1609.
+.sp
+.SH
+\s+1set\s-1
+.IP
+\fCset \fIlvalue\fC = \fIvalue\fR  \*[\fC! \fR\*]
+.LP
+Sets \fIlvalue\fP to have the value \fIvalue\fP.  \fIlvalue\fP must be one of
+three things: (1) a symbolic name or (2) the name of a field of the
+current-default-thing or (3) an expression designating a field of some other
+\fIthing\fP.  If it is a field, then \fIvalue\fR must have a type that matches
+\fBGhu\fP's internal definition for that field (see the descriptions of the
+\fCclass\fP and \fCdefine\fP commands below).  If \fIlvalue\fP designates a
+field of some thing other than the current-default-thing, the thing designated
+is first made the current-default-thing before the field's value is set.  If
+the command is terminated with an exclamation point (``\fC!\fR''), it
+immediately writes the new version of the thing changed to the database as if
+an \fCupdate\fP command had been issued.  For example
+.IP
+\fCset foobar = 47
+.LP
+would set the value of the symbolic name \fCfoobar\fP to be the number
+\fC47\fP.
+.IP
+\fCset a 'fred'.region = 9173
+.LP
+would set the value of the avatar named ``fred'''s \fCregion\fP field to
+region #9173.  The avatar named ``fred'' would also become the
+current-default-thing.  In contrast
+.IP
+\fCset a 'fred'.region = 9173!
+.LP
+would do all of the above \fIand\fP write the changed avatar record back out
+to the database file.  Note that you cannot set the special pre-defined field
+\fCcontents\fR.  For example,
+.IP
+\fCset a 'fred'.contents(3) = o 47
+.LP
+will not work!
+.sp
+.SH
+\s+1update\s-1
+.IP
+\fCupdate\fR
+.LP
+Writes the current-default-thing out to its associated database. 
+.sp
+.SH
+\s+1value\s-1
+.IP
+\fCvalue \fIvalue\fR \*[\fC .  \fR\*]
+.LP
+Simply prints out the value \fIvalue\fR.  If the \fCvalue\fP command is ended
+with a period, \fBGhu\fP withholds printing a newline after printing the value
+(this can be useful in writing macros that want to display data in formats of
+the macros' choosing).  Examples:
+.IP
+\fCvalue 42+5
+.LP
+would print out
+.IP
+\fC47
+.LP
+whereas
+.IP
+\fCvalue o 17007.container
+.LP
+might print out
+.IP
+\fCr 9164
+.LP
+The sequence of commands
+.IP
+\fCvalue "The container is " .
+.br
+value o 10024.container .
+.br
+value " and it is of class " .
+.br
+value o 10024.container.class
+.LP
+would print out something like:
+.IP
+\fCThe container is o 17007 and it is of class 13\fR
+.LP
+If \fIvalue\fP is the name of a macro, the definition of the macro will be
+printed.
+.SH
+\s+2Specialized Database Handling Commands\s-2
+.sp
+.SH
+\s+1list\s-1
+.IP
+\fClist \fR\*[ \fIvalue1\fR \*] \*[ \fC--  \fR\*] \*[ \fIvalue2\fR \*]
+.LP
+Prints a list of the existing regions in the range from \fIvalue1\fR to
+\fIvalue2\fR (inclusive).  If \fIvalue1\fR is omitted, it defaults to the
+first region in the database.  If \fIvalue2\fR is omitted, it defaults to the
+last region in the database.  If only one \fIvalue\fR is given and the
+\fC--\fR is omitted, only the one region specified is listed.  If both
+\fIvalue\fRs are omitted the \fC--\fR may be omitted as well.  Omitting both
+\fIvalue\fPs means that the entire region database is to be listed.  For each
+region, the \fClist\fP command prints a line containing the region ID number,
+those of its four neighbors (or -1 if there is no neighbor in a particular
+direction), and the region's orientation.  For example:
+.IP
+\fClist 5       \fRlists region number 5
+.br
+\fClist 5--10   \fRlists regions 5 through 10
+.br
+\fClist 5--     \fRlists from region 5 to the end of the database
+.br
+\fClist --10    \fRlists from the start of the database to region 10
+.br
+\fClist --      \fRlists all regions
+.br
+\fClist         \fRalso lists all regions
+.LP
+thus, the command
+.IP
+\fClist 9100--9103
+.LP
+would result in output looking something like
+.nf
+\fC
+	REGION           WEST       NORTH          EAST       SOUTH
+	  9100             -1        9101             -1          -1
+	  9101             -1        9102           9113        9100
+	  9102             -1          -1             -1        9101
+	  9103             -1          -1           9108          -1\fR
+.fi
+.sp
+.SH
+\s+1newturf\s-1
+.IP
+\fCnewturf \fIvalue\fR
+.LP
+Adds the region number specified by \fIvalue\fP to Habitat's internal list of
+regions available to be allocated as turfs for new users.
+.sp
+.SH
+\s+1nuke\s-1
+.IP
+\fCnuke \fIvalue1\fR \*[ \fC-- \fIvalue2\fR \*]
+.LP
+Removes the specified regions (and any objects contained within them) from the
+database.  The regions are specified as in the \fClist\fP command, except that
+any range of regions must have explicit start and end numbers.  For example
+.IP
+\fCnuke 500--999
+.LP
+would delete all the regions with ID's in the range 500 to 999.  If there are
+avatars in the regions being \fCnuke\fP'd, it will ask if you wish to delete
+them.  Note that if you don't delete them, you had better move them to regions
+that still exist before allowing any of their associated players to enter
+Habitat.
+.sp
+.SH
+\s+1oracle\s-1
+.IP
+\fCoracle \fIvalue\fR \*[ \fCdump\fR \*] \*[ \fCsince \fIdate \fR \*]
+.LP
+or
+.IP
+\fCoracle all \*[ \fCdump\fR \*] \*[ \fCsince \fIdate \fR \*]
+.LP
+Prints the oracle question database entries associated with the oracle object
+identified by \fIvalue\fP.  Alternatively, the keyword \fCall\fP may be given,
+in which case the entries for all oracle objects are printed.  If the keyword
+\fCdump\fP is given, it simply prints the entries in sequence, listing the
+oracle ID, the time and date of the question, the avatar asking the question,
+and the text of the question itself.  If the keyword \fCdump\fP is omitted, it
+prints each question individually and then prompts for an action to take.  The
+allowed actions are:
+.IP
+\fCquit\fR \(em stop printing questions and return to \fBGhu\fP command level.
+.IP
+\fCdelete\fR \(em remove this question from the database and display the next
+one.
+.IP
+\fCanswer \fR\*[ \fIfilename \fR\*] \(em send a Habitat mail message to the
+avatar asking the question.  \fBGhu\fP will prompt the terminal for the text
+of the message, or, if \fIfilename\fP is given, the text will be taken from
+that file.  After sending this message the question is then removed from the
+database.
+.IP
+\fCnext\fR \(em print the next question.
+.LP
+For convenience, abbreviations to any of these answers are allowed.
+Furthermore, simply entering a carriage return in response to the action
+prompt will be taken as a \fCnext\fP action.
+.LP
+You can limit the questions by date by specifying \fCsince \fIdate\fR, where
+\fIdate\fP is either a numeric time-code or a string that will be interpreted
+as a standard VOS date/time string, i.e., \fC"87-12-22 17:43"\fR.
+.sp
+.SH
+\s+1pages\s-1
+.IP
+\fCpages \fIvalue1 \fC= \fIvalue2\fR
+.LP
+The \fCpages\fP command truncates the page count of a document.  \fIvalue1\fR
+is taken as a text entry ID.  \fIvalue2\fP is taken as a page count.  The page
+count of the document indicated by \fIvalue1\fP is set to be no more that the
+value indicated by \fIvalue2\fP.  In other words, any additional pages
+exceeding the page count are deleted from the document.  For example, if
+document #1009 is a seven page document, the command
+.IP
+\fCpages 1009 = 5
+.LP
+would truncate it to five pages, discarding pages 6 and 7.
+.sp
+.SH
+\s+1read\s-1
+.IP
+\fCread \fR\*[ \fIvalue1\fR \*[ \fC, \fIvalue2\fR \*] \*]
+.LP
+The \fCread\fP command prints out the text of a document.  If \fIvalue1\fP
+designates an object, it must be a paper, book or plaque object, and that
+object's text entry is printed.  Otherwise, \fIvalue1\fP should be a plain
+number, which will be taken as the text database ID number of a text entry to
+be printed.  \fIvalue2\fP, if given, specifies a page number within the chosen
+text entry to print.  If \fIvalue2\fP is omitted, all pages of the chosen
+entry are printed.
+.sp
+.SH
+\s+1readmail\s-1
+.IP
+\fCreadmail \fIvalue\fR
+.LP
+Will display mail messages waiting for the avatar designated by \fIvalue\fP.
+It prints each mail message individually and the prompts for an action to
+take.  The allowed actions are:
+.IP
+\fCquit\fR \(em stop printing mail messages and return to \fBGhu\fP command
+level.
+.IP
+\fCdelete\fR \(em remove this message from the mail database and display the
+next one.
+.IP
+\fCanswer \fR\*[ \fIfilename \fR\*] \(em send a reply mail message to the
+avatar who send the message just displayed.  \fBGhu\fP will prompt the
+terminal for the text of the message, or, if \fIfilename\fP is given, the text
+will be taken from that file.
+.IP
+\fCnext\fR \(em print the next message.
+.LP
+For convenience, abbreviations to any of these answers are allowed.
+Furthermore, simply entering a carriage return in response to the action
+prompt will be taken as a \fCnext\fP action.
+.LP
+For example
+.IP
+\fCreadmail 'chip'
+.LP
+would read any Habitat mail waiting for Chip.
+.sp
+.SH
+\s+1remturf\s-1
+.IP
+\fCremturf \fIvalue\fR
+.LP
+Removes the region number specified by \fIvalue\fP from Habitat's internal
+list of regions available to be allocated as turfs to new users.  If
+\fIvalue\fP is not on this list, \fBGhu\fP will give you an error message.
+.sp
+.SH
+\s+1sendmail\s-1
+.IP
+\fCsendmail \fIvalue1 \fR\*[ \fCfrom \fIvalue2 \fR\*] \*[ \fCfile \fIfilename\fR\*]
+.LP
+Sends mail to the avatar designated by \fIvalue1\fP.  \fIvalue2\fP, if given,
+designates the avatar from whom the mail is supposed to be sent.  If
+\fIvalue2\fP is omitted, the mail will be from ``The Oracle''.  Ordinarily,
+the text of the message will be taken from the terminal, just as when entering
+text for a piece of paper using the \fCwrite\fP command.  If a \fIfilename\fP
+is given, the text will be taken from that file instead.  For example
+.IP
+\fCsendmail 'chip'
+.LP
+would send a mail message to Chip from The Oracle.  On the other hand,
+.IP
+\fCsendmail 'chip' from 'spblives'
+.LP
+would send a mail message to Chip from SPBlives.  The command
+.IP
+\fCsendmail 'chip' from 'spblives' file form_letter
+.LP
+would send the message with the text taken from the file ``form_letter''.
+.sp
+.SH
+\s+1teleport\s-1
+.IP
+\fCteleport \fIvalue1 \fR\*[ \fC= \fIvalue2\fR \*]
+.LP
+\fIvalue1\fP is taken as a teleport address (and so it should be a string
+value).  If \fIvalue2\fP is not given, the \fCteleport\fP command prints out
+the teleport database entry associated with the given address (\fBGhu\fP will
+automatically add the area code if you don't explicitly give one).  For example
+.IP
+\fCteleport 'Bleem St Cross'
+.LP
+might output
+.IP
+\fCTeleport  "pop-bleemstcross    " --> o 2344
+.LP
+Also, when simply displaying a teleport entry, you can give an address of the
+form
+.IP
+\fIstring\fC*
+.LP
+and \fBGhu\fP will display all teleports with address that start with the
+string \fIstring\fP.  For example:
+.IP
+\fCteleport 'Bleem*'
+.LP
+might display this
+.IP
+\fCTeleport  "pop-bleemstcross    " --> o 2344
+.br
+Teleport  "pop-bleemstnend     " --> o 2226
+.LP
+\fIvalue2\fP, if given, may be a region ID or the object ID of a teleport
+booth or elevator object.  If \fIvalue2\fP is given, the \fCteleport\fP
+command sets the teleport database entry associated with the address
+\fIvalue1\fP to point to the region indicated by \fIvalue2\fP.  If
+\fIvalue2\fP identifies a teleport booth or elevator object, the ID of region
+containing the booth or elevator is used.  For example,
+.IP
+\fCteleport 'secretaddress' = o 2344
+.LP
+would make the teleport address ``\fCsecretaddress\fP'' (or ``\fCSecret
+Address\fR'', since case and whitespace are squeezed out in use) a synonym for
+``\fCbleemstcross\fP''.
+.sp
+.SH
+\s+1titles\s-1
+.IP
+\fCtitles \fR\*[ \fIvalue1\fR \*] \*[ \fC--  \fR\*] \*[ \fIvalue2\fR \*]
+.LP
+Prints the titles of documents in the text database for documents in the range
+from \fIvalue1\fP to \fIvalue2\fP.  If \fIvalue1\fP is omitted, it defaults to
+0.  If \fIvalue2\fP is omitted it defaults to 100,000 (this way you won't see
+peoples' mail).
+.sp
+.SH
+\s+1turfs\s-1
+.IP
+\fCturfs\fR
+.LP
+Prints a list of all the region numbers in Habitat's internal list of regions
+available to be allocated as turfs to new users.
+.sp
+.SH
+\s+1write\s-1
+.IP
+\fCwrite \*[ \fIvalue1\fR \*[ \fC, \fIvalue2\fR \*] \*] \*[\fCfile  \fIfilename\fR \*]
+.LP
+The \fCwrite\fP command is the opposite of the \fCread\fP command.
+\fIvalue1\fP and \fIvalue2\fR are taken as a document identifier and page
+number, respectively, just as in the \fCread\fP command.  The \fCwrite\fP
+command, however, \fIwrites\fP the text of the indicated document.  If a
+\fIfilename\fP is given, the text is taken from that file.  Otherwise,
+\fBGhu\fP prompts the terminal for the new text.
+.LP
+There is a limit of 16 lines per page with no more than 40 characters per line
+allowed.  All the standard \fCGhu\fP backslash (`\fC\\\fR') escapes are
+recognized, in order to allow you to put Habitat graphic characters into
+documents; each such escape sequence, of course, only counts as one character
+towards the 40 character limit.  Page breaks may be indicated by lines
+beginning with the pound-sign (`\fC#\fR') character.  These lines do not go
+into the text database and do not count towards the 16 line per page limit.
+When entering text from the terminal, the end of the text is indicated by a
+line consisting of a lone period character (`\fC.\fR').  When reading the text
+from a file, the end of text is indicated by the end of the input file.
+.LP
+If a page number is given, pages in the indicated document are replaced
+starting with the given page number.  As many pages as you provide text for
+will be replaced, while remaining pages that were already in the document will
+not be touched.  For example, suppose document #1009 contains 7 pages and you
+entered the command
+.IP
+\fCwrite 1009, 3\fR
+.LP
+and then provided two pages worth of text.  The two pages starting with page 3
+(i.e., pages 3 and 4) would be replaced, while pages 1 and 2 and 5 through 7
+would be left unchanged.
+.LP
+If no page number is given, the entire document is replaced by the new text
+you provide.  Thus, in the above example, if you had instead entered the
+command
+.IP
+\fCwrite 1009\fR
+.LP
+and then provided the same two pages worth of text, the new document #1009
+would be a two page document containing just the two new pages you entered.
+The old contents of pages 1 through 7 would be deleted.
+.LP
+Note that the format of the output from the \fCread\fP command matches the
+format of the input expected by the \fCwrite\fP command.  Thus you can extract
+the text from one document and put it into another using a temporary file as
+an intermediary.  For example:
+.IP
+\fCread 2000 into tempfile
+.br
+write 2500 file tempfile\fR
+.LP
+would copy the text from document 2000 into document 2500.  Using a Stratus
+file outside of \fBGhu\fP in this fashion is also useful if you need to do
+extensive editing on a document, e.g.,
+.IP
+\fCread 2000 into tempfile
+.br
+quit
+.br
+\fIedit tempfile using Stratus editor
+.br
+\fCghu
+.br
+write 2000 file tempfile
+.LP
+Note that the input and output formats used by \fCread\fP and \fCwrite\fP are
+set up so that this will work even with multi-page documents.
+.SH
+\s+2Class Definition Handling Commands\s-2
+.LP
+\fBGhu\fP maintains an internal table that describes the names and data types
+of the fields of each class of object in the system (it also describes the
+fields of avatars and regions).  This table is saved away in a secret file
+that \fBGhu\fP reads every time it starts up.  \fBGhu\fP provides commands
+that let you examine and update this table.  (In general, you should never
+change this table yourself, unless you are making changes to the Habitat
+software also, such as adding a new object class.)
+.sp
+.SH
+\s+1class\s-1
+.IP
+\fCclass \fIvalue\fR
+.LP
+Prints out the current class definition for class number \fIvalue\fP.  Note
+that the class definitions for ordinary objects do not include the fields that
+are common to all objects.  The definition of \fIthese\fP fields may be
+displayed by entering a class value of \fC-1\fR.  For example, entering the
+command
+.IP
+\fCclass 74
+.LP
+in the current system would give you the following output:
+.IP
+\fC---- Class 74 (teleport) ----
+.br
+  state:                  bin15 = 0
+.br
+  take:                   bin31 = 0
+.br
+  address(20):            character = "                    "
+.sp
+.SH
+\s+1define\s-1
+.IP
+\fCdefine \fIvalue  string
+.br
+	fielddefinitions
+.br
+\fCenddefine\fR
+.LP
+Adds or changes one of \fBGhu\fP's internal class definitions.  \fIvalue\fP
+indicates the class number of the class being defined.  \fIstring\fP indicates
+the name to be given the class (this is the name that is printed out in
+contents lists and so on).  \fIfielddefinitions\fP are a list of field
+definitions, one for each field of the class.  Note that regions are class
+\fC0\fP, avatars are class \fC1\fP, and objects have class numbers greater
+than \fC1\fP.  Also, the class definitions for ordinary objects do not include
+the fields that are common to all objects.  These are defined by the
+``pseudo-class'' number \fC-1\fR.
+.LP
+The field definitions themselves are a series of lines, each with the
+following form:
+.IP
+\*[ \fC#\fR \*] \fIname\fR \*[ \fC( \fIvalue1\fC ) \fR\*] \fC: \fItype\fR \*[ \fC= \fIvalue2\fR \*]
+.LP
+where \fIname\fP is the name of the field and \fItype\fP is the field's data
+type (the allowed types will be given momentarily).  \fIvalue1\fP, if given,
+indicates the dimension of an array or string field.  It should be a number.
+\fIvalue2\fP, if given, indicates a default initial value for the field.  This
+value will be used when new instances of this class are created (e.g., using
+the \fCadd\fP command).  If the field is an array field, \fIvalue2\fP may
+actually be a list of values separated by commas, one value for each entry in
+the array.  The ``\fC#\fR'' character at the start of the line, if given,
+indicates that this is an ``invisible'' field.  Such fields are not displayed
+when the \fCdisplay\fP command displays a thing (though invisible fields can
+be displayed by asking for them explicitly).
+.LP
+The allowed data types for fields are the following:
+.IP
+\fCcharacter\fR \(em A character or character string value.  The dimension
+indicates the length of the string.
+.IP
+\fCbin15\fR \(em A bin(15) value, i.e., a 2-byte integer.
+.IP
+\fCbin31\fR \(em A bin(31) value, i.e., a 4-byte integer.
+.IP
+\fCbit\fR \(em A bit or bit-string value.  The dimension, if given, indicates
+the length (in bits) of the bit-string.
+.IP
+\fCwords\fR \(em A character or character string, in which each character is
+placed in its own 2-byte word (this is required for any character string which
+is to be transmitted to the Commodore 64).  The dimension indicates the length
+(in words/characters) of the string.
+.IP
+\fCregid\fR \(em A region ID number.
+.IP
+\fCobjid\fR \(em An object ID number.
+.IP
+\fCavaid\fR \(em An avatar ID number.
+.IP
+\fCfatword\fR \(em A 2-byte integer value in which each byte is placed in its
+own 2-byte word (this is required for any word value that is to be transmitted
+to the Commodore 64).
+.IP
+\fCentity\fR \(em A database ID of some sort.  It is stored as a 4-byte ID
+number together with a 2-byte code that indicates whether it is an object,
+avatar or region ID number.
+.IP
+\fCvarstring\fR \(em A PL/1 style variable length character string.  The
+dimension, if given, indicates the maximum length of the string.
+.IP
+\fCbyte\fR \(em A 1-byte integer value.
+.LP
+For example, the following command would \fCdefine\fP the display case object
+as it is currently constituted:
+.IP
+\fCdefine 22 'display case'
+.br
+  open_flags:      bin15 = 3
+.br
+  key:             fatword = 0
+.br
+  owner:           avaid = 0
+.br
+  locked(5):       bit = 0, 0, 0, 0, 0
+.br
+# filler(11):      bit
+.br
+enddefine\fR
+.LP
+note that the unused ``filler'' bits are flagged as invisible, since they are
+ordinarily of no interest.
+.SH
+\s+2Power User Commands\s-2
+.LP
+These commands enable you to create macros and command files and to tell
+\fBGhu\fP to perform operations repetitively or conditionally.  Although
+everyone will probably make use of macros that are defined for them, most of
+these facilities are for more advanced \fBGhu\fP users.
+.sp
+.SH
+\s+1alias\s-1
+.IP
+\fCalias \fR\*[ \fIname\fR \*[ \fC= \fIstring\fR \*] \*]
+.LP
+Defines \fIname\fP to be a command alias (abbreviation) for the string
+\fIstring\fP.  Whenever \fIname\fP is found at the beginning of a command line
+it is textually replace by \fIstring\fP.  If \fIstring\fP is omitted, the
+\fCalias\fP command prints out the current alias definition for \fIname\fP.
+If both \fIname\fP and \fIstring\fP are omitted, the \fCalias\fP command
+prints out a list of all currently defined command aliases.  For example
+.IP
+\fCalias odump = "oracle all dump"
+.LP
+would define the alias \fCodump\fP to be a command that would give a complete
+dump of the oracle question database.
+.sp
+.SH
+\s+1allmacros\s-1
+.IP
+\fCallmacros\fR
+.LP
+Prints out the names and definitions of all macros currently defined.  See the
+discussion of the \fCmacro\fP command, below.
+.sp
+.SH
+\s+1allnames\s-1
+.IP
+\fCallnames\fR
+.LP
+Prints a list of all the symbolic names currently defined, with their values
+and associated types.  See the discussion of the \fCname\fP command below.
+.sp
+.SH
+\s+1break\s-1
+.IP
+\fCbreak\fR
+.LP
+The \fCbreak\fP command provides a convenient way to exit from a loop or a
+macro.  The \fCbreak\fP command simply aborts the innermost containing
+\fCfor\fP loop or macro call.  For example:
+.IP
+\fCfor all o
+.br
+	if (class == box)
+.br
+			value "Hey!  I found a box, id=".
+.br
+			value ident
+.br
+			break
+.br
+	endif
+.br
+endfor\fR
+.LP
+This will look through the object database until it finds the first box
+object, at which point it will print a message and stop.
+.sp
+.SH
+\s+1execute\s-1
+.IP
+\fCexecute \fIfilename\fR
+.LP
+Reads and executes \fBGhu\fR commands from the indicated file, resuming
+command input from the terminal upon reaching the end of the file or
+encountering an error in one of the commands in it.  For example
+.IP
+\fCexecute mymacros.ghu
+.LP
+would execute the commands in the file ``\fCmymacros.ghu\fR''.  One warning
+about \fCexecute\fP: the reading and execution of the commands in the given
+file will only take place after all commands on the line containing the
+\fCexecute\fP command have been processed.  Thus the command line
+.IP
+\fCdisplay foo; execute myfyle; display bar\fR
+.LP
+would first display the value of \fCfoo\fP, then set up the file
+``\fCmyfyle\fP'' to be executed, then display the value of \fCbar\fP, and only
+\fIthen\fP read and execute whatever is in ``\fCmyfyle\fP''.  Thus you must be
+careful in your use of the \fCexecute\fP command.  In particular, if the macro
+\fCverify_user\fR were to be defined in the file ``\fCmacros.ghu\fR'', then
+the following would generate an error:
+.IP
+\fCexecute macros.ghu; verify_user\fR
+.LP
+since \fCverify_user\fR will not be defined until after the whole line is
+processed.  Putting these two commands on separate lines is the right way to
+handle this situation.  Similarly,
+.IP
+\fCexecute some_stuff; quit\fR
+.LP
+will process the \fCquit\fP command (and thus exit \fBGhu\fP) \fIbefore\fP the
+file ``\fCsome_stuff\fP'' is ever read.  For the same reason, you cannot use
+the \fCexecute\fP command in a command string passed to \fBGhu\fP from VOS
+command level using the \fC-command\fR option (described below in the section
+\fBThe Ghu Command Line\fR).
+.sp
+.SH
+\s+1for\s-1
+.IP
+\fCfor \fIvalue1 \fCto \fIvalue2
+.br
+	commands\fC
+.br
+endfor\fR
+.LP
+or
+.IP
+\fCfor all \fItype
+.br
+	commands\fC
+.br
+endfor\fR
+.LP
+.or
+.IP
+\fCforr all \fItype \fCin \fIvalue
+.br
+	commands\fC
+.br
+endfor\fR
+.LP
+The \fCfor\fP command provides a looping facility.  There are three forms of
+the \fCfor\fP command.  The first form loops from \fIvalue1\fP to
+\fIvalue2\fP.  These values may be object, avatar or region identifiers or
+they may be plain integer numbers.  If they are object, avatar or region
+identifiers, then they must both be identifiers of the same type (e.g., both
+are region identifiers).  In the case of the loop bounds being object, avatar
+or region identifiers, \fBGhu\fP executes the commands \fIcommands\fP once for
+each object, avatar or region in the given range, with the
+current-default-thing set to each object, avatar or region in the range in
+turn.  If the loop bounds are plain integer numbers, then \fBGhu\fP executes
+\fIcommands\fP once for each value in the range, with the special symbolic
+name \fCindex\fP set to this value each time through.
+.LP
+The second form of the \fCfor\fP command allows you to loop through all
+objects, avatars, or regions in the database.  \fItype\fP should be one of the
+type specifiers \fCa\fP, \fCo\fP or \fCr\fP.
+.LP
+The third form of the \fCfor\fP command allows you to loop through all objects
+or avatars contained in a particular region or container.  \fItype\fR should
+be one of the type specifiers \fCa\fP or \fCo\fP.  \fIvalue\fR should be the
+identifier of a region, avatar or container object.
+.LP
+Examples:
+.IP
+\fCfor all a
+.br
+	value screen_name
+.br
+endfor\fR
+.LP
+prints the screen name of every avatar in the database.
+.IP
+\fCfor r 1000 to r 5000
+.br
+	display
+.br
+endfor\fR
+.LP
+displays all the regions in the range 1000 to 5000.
+.IP
+\fCfor 1 to 20
+.br
+	value index
+.br
+endfor\fR
+.LP
+will print the numbers from 1 to 20 (a trivial example).
+.IP
+\fCfor all o in r 9164
+.br
+	value class
+.br
+endfor\fR
+.LP
+will print the class numbers of all the objects in region 9164.
+.sp
+.SH
+\s+1if\s-1
+.IP
+\fCif \fIvalue1
+.br
+	commands1\fR
+.br
+\*[ \fCelseif \fIvalue2
+.br
+	commands2\fR \*Z
+.br
+\*[ \fCelse\fI
+.br
+	commands3\fR \*]
+.br
+\fCendif\fR
+.LP
+The \fCif\fP command provides a conditional command execution facility.  If
+\fIvalue1\fP evaluates to TRUE (i.e., non-zero), the commands \fIcommands1\fP
+are executed.  Else if \fIvalue2\fP evaluates to TRUE, then the commands
+\fIcommands2\fP are executed.  Otherwise, the commands \fIcommands3\fP are
+executed.  There may be any number of \fCelseif\fP clause (or none at all).
+The final \fCelse\fP clause may be omitted as well.  For example
+.IP
+\fCif region == turf
+.br
+	value "The avatar is already home"
+.br
+else
+.br
+	region = turf!
+.br
+	value "The avatar has been moved home"
+.br
+endif\fR
+.LP
+would make sure that the default thing (assumed to be an avatar) is home,
+printing out an appropriate message in either case.
+.sp
+.SH
+\s+1macro\s-1
+.IP
+\fCmacro \fIname
+.br
+	\fIcommands
+.br
+\fCendmacro\fR
+.LP
+Defines the macro \fIname\fP as the series of \fBGhu\fP commands given by
+\fIcommands\fR.  The symbol \fIname\fP may then be used as a \fBGhu\fP command
+whose function is to perform whatever actions would be performed by
+\fIcommands\fP.
+.LP
+When macros are called, you can pass arguments to them.  In the text of the
+macro itself you can refer to the variable names \fC$1\fR, \fC$2\fR, \fC$3\fR,
+etc., which refer to the first, second, third, etc. arguments of the macro
+call.  Here is an example:
+.IP
+\fCmacro reset
+.br
+	get a $1
+.br
+	set region = turf
+.br
+	set bank_balance = $2
+.br
+	update
+.br
+endmacro\fR
+.LP
+This macro will move an avatar back to his turf and set his bank balance to a
+specified amount.  You would call it with a command such as this:
+.IP
+\fCreset 'chip', 100\fR
+.LP
+or
+.IP
+\fCreset 145322919, 500\fR
+.LP
+The first example would move the avatar named ``chip'' home and set his bank
+balance to 100 tokens, while the second example would move avatar #145322919
+home and set his bank balance to 500 tokens.
+.LP
+All macros defined using the \fCmacro\fP command are saved in \fBGhu\fP's
+environment file when you quit, and are read in again when you start \fBGhu\fP
+up again.  Thus, any macro you create will be available for use anytime you
+run \fBGhu\fP in the future.  See the section below on \fBThe Ghu Command
+Line\fR for more details about environment files.
+.sp
+.SH
+\s+1name\s-1
+.IP
+\fCname \fIname \fC=  \fIvalue\fR
+.LP
+Creates the global symbolic name \fIname\fR with the type and value specified
+by \fIvalue\fR.  For example
+.IP
+\fCname library = r 9164
+.LP
+would define the name \fClibrary\fP and give it the value \fCr 9164\fR.
+.LP
+All names defined using the \fCname\fP command are saved in \fBGhu\fP's
+environment file when you quit, and are read in again when you start \fBGhu\fP
+up again.  Thus, any value you name using the \fCname\fP command will be
+available for use anytime you run \fBGhu\fP in the future.  See the section
+below on \fBThe Ghu Command Line\fR for more details about environment files.
+.LP
+Certain names are predefined by \fBGhu\fP automatically.  These include all
+the class numbers, represented by symbols such as \fCteleport\fR or \fCbox\fR,
+in addition to the special symbols such as \fCnow\fP and \fCrandom\fP
+described earlier in the section on expressions.
+.sp
+.SH
+\s+1start_logging\s-1
+.IP
+\fCstart_logging \fIfilename\fR \*[ \fCcontinue \fR \*]
+.LP
+Starts logging all \fBGhu\fP output to the file \fIfilename\fP.  This logging
+is done using the Stratus logging facility, and is a global modification to
+your Stratus environment.  In particular, if you start logging within
+\fBGhu\fP and then exit, terminal output will continue to be logged in
+\fIfilename\fP outside of \fBGhu\fP as well.
+.LP
+If the \fCcontinue\fP keyword is given, the log file is appended to rather
+than written afresh.
+.sp
+.SH
+\s+1stop_loggin\s-1
+.IP
+\fCstop_logging\fR
+.LP
+Stops any logging that had previously been started by a \fCstart_logging\fR
+command.
+.sp
+.SH
+\s+1unname\s-1
+.IP
+\fCunname \fIname\fR
+.LP
+Deletes the symbolic name \fIname\fP from \fBGhu\fP's symbol table and removes
+it from the environment file.  In effect, this command undoes the work of the
+\fCname\fP or \fCmacro\fP commands.
+.SH
+\s+2Obscure Lucasfilm Tools Commands\s-2
+.LP
+These commands are used in conjunction with several of the region creation and
+editing utilities we use at Lucasfilm.  The Stratus user probably does not
+need to be concerned with these commands, but we are documenting them in the
+interest of completeness.
+.sp
+.SH
+\s+1cook\s-1
+.IP
+\fCcook \fIfilename\fR
+.LP
+Translates the file full of ``raw'' format object and region definitions named
+by \fIfilename\fP into a collection of new entries in the region and object
+databases.
+.LP
+There is an internal array that \fBGhu\fP allocates which limits the maximum
+size of the ``raw'' file that the \fCcook\fP command can handle.  By default,
+this limit is set at 10,000 regions and objects (total).  If you need to cook
+a larger ``raw'' file, you can set the array size larger by using the
+\fC-cooksize\fR option on the \fBGhu\fP command line (see below).
+.sp
+.SH
+\s+1griddle\s-1
+.IP
+\fCgriddle \fIvalue\fR \*[ \fCfull\fR \*]
+.LP
+The \fCgriddle\fP command dumps the object, region or avatar specified by
+\fIvalue\fP in ``Griddle'' format.  (``Griddle'' format is a special text
+format for describing database entries.  It is used by some of the region
+creation utilities at Lucasfilm.)  If \fCfull\fP is specified, it dumps not
+only the thing specified but any things contained within it, and any things
+contained within \fIthose\fP, and so on.
+.sp
+.SH
+\s+1raw\s-1
+.IP
+\fCraw \fIvalue\fR \*[ \fCfull\fR \*]
+.LP
+The \fCraw\fP command dumps the object, region or avatar specified by
+\fIvalue\fP in ``raw'' format.  (``raw'' format is a special text format for
+describing database entries.  It is used by some of the region creation
+utilities at Lucasfilm.)  If \fCfull\fP is specified, it dumps not only the
+thing specified but any things contained within it, and any things contained
+within \fIthose\fP, and so on.
+.SH
+\s+4The Ghu Command Line\s-4
+.LP
+The \fBGhu\fP command issued from VOS command level on the Stratus has the
+following form:
+.IP
+\fCghu\fR \*[ \fIdatabasedir\fR \*] \*[ \fC-command \fIcommandstring\fR \*]
+\*[ \fC-env \fIenvironmentfile\fR \*]
+.br
+	\*[ \fC-no_automacro\fR \*] \*[ \fC-cooksize \fIsize \fR \*]
+.LP
+where \fIdatabasedir\fP is the pathname of a directory in which the various
+database files for a running Habitat system will be found.  If omitted it
+defaults to whatever the directory containing the current operational system
+is.  \fI(Note: for the time being it defaults to a \fBGhu\fP test directory.
+You have to enter the name of the production system directory yourself.)\fR
+.LP
+\fIcommandstring\fP is an optional string of \fBGhu\fP commands that will be
+parsed like an ordinary \fBGhu\fP command line.  If the \fC-command\fR option
+is used, the commands in \fIcommandstring\fP will be executed and then
+\fBGhu\fP will exit.  If \fC-command\fP is not given, \fBGhu\fP will come up
+in interactive mode and start reading command lines from the terminal until a
+\fCquit\fP command or an end-of-file is encountered.
+.LP
+\fIenvironmentfile\fR is the name of a file from which to read (and into which
+to store) the \fBGhu\fP environment.  If omitted it defaults (for the time
+being) to \fC#d010>lucas>toolbox>default.env\fR.  We recommend that anyone
+doing any serious work with \fBGhu\fP keep their own environment file.  Stored
+in the environment file are symbolic name and macro definitions.  Whenever you
+define a symbolic name using the \fCname\fP command or a macro using the
+\fCmacro\fP command, it is saved in the environment file.  When you start up a
+\fBGhu\fP session, this file is read in automatically and all the names and
+macros are available to you.
+.LP
+When an environment file is read (either the default file or the one specified
+with the \fC-env\fR option), \fBGhu\fP looks in the file for a macro named
+\fCautomacro\fP.  If it finds such a macro, it executes it before starting to
+read commands from the user.  The execution of the \fCautomacro\fP can be
+circumvented by supplying the \fC-no_automacro\fR option on the \fCGhu\fP
+command line.  However, you must have general access (see the next section) to
+be allowed to use this option.
+.LP
+The default size of the internal array used by the \fCcook\fP command (see
+above) may be adjusted using the \fC-cooksize\fR option.  The default is
+10,000, but it is sometimes necessary to set it to a larger value when
+``cooking'' huge realms.
+.SH
+\s+4Access Control\s-4
+.LP
+\fCGhu\fP provides a simple but powerful mechanism for controlling access to
+the various Habitat databases and to the manipulations to these databases that
+\fCGhu\fP enables.  There are two categories of access that \fCGhu\fP
+recognizes, which we call "general access" and "restricted access".   A user
+is allowed general access if his or her Stratus account name is listed in the
+access control file, \fC#d010>lucas>toolbox>ghu_access\fR.  If the user name
+is not in this file, then \fBGhu\fP assumes restricted access.
+.LP
+A general access user may do any of the operations described in this document.
+A restricted access user may only issue macro calls or execute the \fCquit\fP
+command.  Note that in order for a restricted access user to be able to do
+anything useful, this mechanism requires that there be macros pre-defined for
+him or her to use.  These macros come from an environment file that is set up
+for the user by someone else with general access.  Access to environment files
+is regulated via the \fCautomacro\fP mechanism described in the previous
+section.  Typically, an environment file will contain an \fCautomacro\fP that
+looks something like this:
+.IP
+\fCmacro automacro
+.br
+	if user_name != 'joe.user' and !general_access
+.br
+		value 'Hey, you are not the right guy!'
+.br
+		quit
+.br
+	endif
+.br
+endmacro\fR
+.LP
+This macro will throw the user off unless he has user name \fCjoe.user\fR or
+he is a privileged (general access) account.  Typically, environment files
+should be set up containing macros to perform various special but limited sets
+of operations.  For example, someone who was responsible for publishing the
+\fIRant\fP would be given macros for this purpose.
+.SH
+\s+4Using Ghu With The Real Database\s-4
+.LP
+This section discusses the current Habitat databases in some detail.  The
+information given here describes the database records of the significant
+object classes, including any important constraints on the values allowed in
+the various fields.  Eventually, \fBGhu\fP will attempt to enforce these
+constraints automagically.  For the time being, however, it only performs the
+most minimal checks on the data you give it, so you need this information to
+help you avoid breaking things.
+.LP
+In the descriptions that follow, we will describe each field using the syntax
+of the \fCdefine\fP command, described above.  This will provide the name,
+dimension, data type, and so on.  We will follow this with descriptive text
+giving other details about the field.
+.SH
+\s+2The Basic Object\s-2
+.LP
+These are the fields of the ``basic object''.  All objects have these fields,
+regardless of class.  Some objects also have additional, class-specific
+fields, which will be discussed later.
+.IP
+\fC# ident:          objid
+.LP
+This is the global ID number of the object.  DO NOT CHANGE THIS VALUE UNDER
+ANY CIRCUMSTANCES.
+.IP
+\fC# class:          bin31
+.LP
+This is the class of the object.  This is always a number in the range 2 to
+255.  Not all of the numbers in this range are currently used, however, and
+the \fCclass\fP field should always have a value that corresponds to an
+existing class number.  In general, you should never change the value of this
+field, except in the most specialized of circumstances.  If you need to change
+the class of an existing object, consult your local Habitat guru.
+.IP
+\fC  container:      entity
+.LP
+This is the ID of the thing containing this object.  All objects are contained
+by something.  This ID should correspond to an actual object, avatar or region
+somewhere in the database, with the following exception: \fCr 99\fR (region
+#99) is the ``container'' for deleted objects.  That is, objects which are
+destroyed are not actually removed from the database.  Instead, they are moved
+to region #99.  There is no region #99, so if you try to display it you will
+get an error message from \fBGhu\fP.  However, you \fIcan\fP look at its
+contents with the \fCcontents\fP command (amazing, huh?) and see the list of
+deleted objects (this will be a \fIlong\fP list!).
+.IP
+\fC  x:              bin15
+.LP
+This is the horizontal position of the object on the screen.  It should be a
+positive number less than 160 (sometimes a larger value will be used to place
+an object ``off stage'', but this should not be done in regular practice).
+Furthermore, this value \fImust\fR be a multiple of 4.  A value of 0
+corresponds to the left-hand edge of the screen, while 156 (the maximum
+allowed value in general) corresponds to the right-hand edge.  The
+x-coordinate is only relevant if the object is contained by a region.  If the
+object is contained by an avatar or another object, then the x-coordinate is
+ignored.
+.IP
+\fC  y:              bin15
+.LP
+This is (in general) the vertical position of the object on the screen.
+However, the interpretation of this field's value is a little bit complicated.
+.LP
+If the object is contained by a region, the \fCy\fP field indicates the
+vertical screen position of the object.  The allowed vertical screen positions
+are in the range from 0 to 127, with 0 indicating the bottom of the screen and
+127 indicating the top (actually, the top of the Habitat graphics window, not
+the top of the screen itself).  However, objects may be placed in either the
+\fIforeground\fP or the \fIbackground\fP.  Background objects are not redrawn
+every frame, so it is advantageous, in terms of frame rate, to have as many of
+the objects in the region as possible be in the background.  However, objects
+that move around cannot be placed in the background, and avatars cannot walk
+behind background objects.  Thus a lamp post on a street corner, for example,
+should be placed in the foreground.  Background objects are given \fCy\fP
+values in the range 0 to 127 corresponding directly to their vertical screen
+positions.  Foreground objects are given \fCy\fP values in the range 128 to
+255, corresponding to their vertical screen positions plus 128 (i.e., 128 is
+the bottom of the screen and 255 is the top).  Note also that foreground
+objects should never be placed higher than the region's horizon line
+(indicated by the region's \fCdepth\fP field, described below).
+.LP
+If the object is contained by an avatar or another object, rather than by a
+region, the \fCy\fP field encodes the object's position within its container.
+Each container object has a limited number of containment ``slots''.  The
+exact number varies with the class of the container object.  The \fCy\fP field
+of the contained object must be a positive number that is less than the
+maximum number of slots in the container.  Furthermore, you should be careful
+that no more than one object goes into a particular slot (i.e., no two objects
+in the same container have the same \fCy\fP value).
+.IP
+\fC  style:          bin15
+.LP
+This is the graphic style of the object.  The graphic style encodes which of a
+number of possible graphic images will be displayed for the object.  Many
+objects only have a single possible style, so this value is usually 0.  The
+number of available styles for any class of objects is usually quite small in
+any case.  What the style numbers actually mean in terms of any particular
+object varies depending on the class.  Consult the \fBHabitat Object Manual\fR
+for details.
+.IP
+\fC  gr_state:       bin15
+.LP
+This is the graphic state of the object.  The graphic state encodes which of a
+small number of variations of a particular image is to be displayed.  Graphic
+state variations often correspond to functional state variations of the object
+itself.  For example, the two states of a door image, 0 and 1, correspond to
+the door closed and the door open respectively.  As with graphic style,
+consult the \fBHabitat Object Manual\fR for the specific graphic state
+information about each available class.
+.IP
+\fC  orient:         bin15
+.LP
+This field contains the orientation of the object (i.e., whether it is facing
+right or left).  The \fCorient\fP field also controls the color or pattern
+that the object will be displayed with.  The value for \fCorient\fP is
+computed as
+.IP
+\fCpatcol*128 + color*8 + orientation
+.LP
+where \fCorientation\fP is 0 if the object is to have normal orientation
+(facing right) or 1 if the object is to have reversed orientation (facing
+left); \fCcolor\fP is the color or pattern number for the object (the colors
+are just the normal 16 Commodore 64 colors; the patterns are the 16 we've all
+come to know and love); and \fCpatcol\fP is 1 if \fCcolor\fP is to be
+interpreted as a color and 0 if \fCcolor\fP is to be interpreted as a pattern
+number.
+.IP
+\fC  gr_width:       bin15
+.LP
+This field is obsolete.  In the future it may be renamed and then reused for
+another purpose.  Until then, ignore it.
+.IP
+\fC  restricted:     bit
+.LP
+This is a bit-flag that, if set, indicates that the object is ``restricted''.
+The restriction mechanism is used, for example, to keep library books in the
+library and board game pieces in the arcade.  If an object's \fCrestricted\fP
+bit is set, the system enforces the following limitations on the behavior of
+an avatar holding it: (1) he cannot put the object in his pocket nor into any
+sort of portable container, (2) he cannot turn into a ghost, and (3) he cannot
+leave a region through any exit which has its corresponding exit restriction
+bit set in the region record.
+.IP
+\fC  nitty_bits(31): bit
+.LP
+These are 31 general purpose bit-flags that are not allocated to any
+particular purpose.  They will be used up as features are added to the system.
+In addition, they may be used for various short-term purposes by games that we
+might invent which would run for perhaps a few days and then be removed from
+the system.  Ordinarily, however, you need not be concerned with these bits.
+.IP
+\fC# fillers(5):     bin15
+.LP
+This field is simply a place holder.  Don't touch it.
+.IP
+\fC# prop_length:    bin15
+.LP
+This field is used internally.  ABSOLUTELY NEVER ALTER THIS FIELD!
+.IP
+\fC# property_data:  bin15
+.LP
+This is a dummy field that is used internally as a place-holder for the
+class-specific fields, if there are any.  Don't mess with it.
+.SH
+\s+2The Avatar\s-2
+.LP
+These are the fields of the avatar record.
+.IP
+\fC# ident:           avaid
+.LP
+This is the global ID number of the avatar.  DO NOT CHANGE THIS VALUE UNDER
+ANY CIRCUMSTANCES
+.IP
+\fC  region:          regid
+.LP
+This is the region ID number of the region where the avatar is currently
+located.  It should, of course, be the ID of an actual region.
+.IP
+\fC  container:       objid
+.LP
+This is the global ID number of an object containing the avatar.  This is used
+to handle avatars sitting in chairs and the like.  If the avatar is not
+sitting in a chair (i.e., usually), then this field should be set to 0.
+.IP
+\fC  x:               bin15
+.LP
+This is the horizontal position of the avatar on the screen.  It is
+interpreted in the same way as the \fCx\fP field of an object (see above),
+with one exception.  The exception is that an \fCx\fP value of -1 indicates
+that the avatar is currently a ghost.
+.IP
+\fC  y:               bin15
+.LP
+This is the vertical position of the avatar on the screen.  It is interpreted
+in exactly the same way as the \fCy\fP field of an object (see above).
+.IP
+\fC# not_really_turf: regid
+.LP
+This is an historical artifact.  Ignore it.
+.IP
+\fC  gr_state:        bin15
+.LP
+This is the graphic state of the avatar.  Its value is computed as
+.IP
+\fCinvisible*128 + onhold*64 + moonwalk
+.LP
+where \fCinvisible\fP is 1 or 0 corresponding to whether or not the avatar is
+to be invisible; \fCmoonwalk\fP is similarly 1 or 0 corresponding to whether
+or not the avatar is supposed to moonwalk (i.e., face backwards when walking);
+and \fConhold\fP indicates whether the avatar is waiting to be displayed in a
+region.  The only avatars who should ever be made invisible are oracle avatars
+in oracle regions; anything else would be inviting people to invade each
+others' privacy.  Also, you should NEVER set the \fConhold\fP bit.
+.IP
+\fC  gr_width:        bin15
+.LP
+This field is obsolete.  In the future it may be renamed and then reused for
+another purpose.  Until then, ignore it.
+.IP
+\fC  genl_flags(32):  bit
+.LP
+These are 32 general purpose bit-flags that are not allocated to any
+particular purpose.  However, for the time being it is preferable to use the
+\fCnitty_bits\fP (see below), so don't touch these.
+.IP
+\fC  orient:          bin15
+.LP
+This field contains the orientation of the avatar.  It is similar to the
+\fCorient\fP field of an object (see above).  However the interpretation of
+the number is somewhat different.  The value is computed as
+.IP
+\fCsex*128 + height*8 + orientation
+.LP
+where \fCorientation\fP is 0 if the avatar is to face right or 1 if the avatar
+is to face left (facing front or back is controlled by the \fCactivity\fP
+field, described below); \fCheight\fP is the height of the avatar in the range
+0 to 15; and \fCsex\fP is 1 if the avatar is female and 0 if the avatar is
+male.
+.IP
+\fC# prof_length:     bin15
+.LP
+This field is used internally.  ABSOLUTELY NEVER ALTER THIS FIELD!
+.IP
+\fC  style:           byte
+.LP
+This field tells what sort of avatar this is (e.g., regular avatar, penguin,
+dragon, etc.).  Ordinarily it is 0 (meaning a regular avatar body).  See
+the \fBHabitat Object Manual\fR for details about the available avatar styles.
+.IP
+\fC# filler(27):      character
+.LP
+This field is simply a place holder.  Don't touch it.
+.IP
+\fC  name(10):        character = ""
+.LP
+This is the name of the avatar in ``internal'' form, i.e., all characters
+converted to lower case and all spaces squeezed out.  You can look but DON'T
+EVER CHANGE THIS VALUE.
+.IP
+\fC  screen_name(10): character = ""
+.LP
+This is the name of the avatar as the user entered it.  As with the \fCname\fP
+field, you can look at this value but DON'T EVER CHANGE IT.
+.IP
+\fC  activity:        bin15
+.LP
+This field encodes the posture or gesture that the avatar is currently
+assuming.  See the \fBHabitat Object Manual\fR for details on the possible
+values.  In general, however, you should not alter the value of this field
+yourself except in specialized circumstances.
+.IP
+\fC  action:          bin15
+.LP
+This is an internal value used for animation on the Commodore 64.  Don't touch
+it.
+.IP
+\fC  health:          bin15
+.LP
+This field indicates the relative physical health of the avatar.  Allowed
+values are in the range 0 to 255, with a value of 255 indicating perfect
+health and a value of 0 indicating that the avatar is dead.
+.IP
+\fC  restrainer:      bin15
+.LP
+This is an historical artifact.  Don't mess with it.
+.IP
+\fC  custom(3):       bin15
+.LP
+These three values encode the customization parameters of the avatar.
+\fCcustom(1)\fR is
+.IP
+\fCtorsoPattern*16 + armPattern
+.LP
+where \fCtorsoPattern\fP is the pattern number to be applied to the avatar's
+upper body and \fCarmPattern\fP is the pattern for the arms.  Both of these
+pattern numbers can take values in the range from 0 to 15.  Similarly,
+\fCcustom(2)\fR is just
+.IP
+\fClegPattern
+.LP
+i.e., the pattern to apply to the avatar's legs (again, in the range 0 to 15).
+\fCcustom(3)\fR is currently reserved for future use.
+.IP
+\fC  bank_balance:    bin31
+.LP
+This is the avatar's bank account balance.  Be careful how much money you give
+people.
+.IP
+\fC  turf:            regid
+.LP
+This is the region ID of the region that is the avatar's turf.  Changing this
+value changes where the avatar lives.
+.IP
+\fC  stun_count:      bin15
+.LP
+This is a counter that is used to implement stun guns and magic which
+temporarily disables the avatar.  If this field has a value greater than 0,
+then the avatar cannot move.  Each time the avatar tries to move, the value of
+\fCstun_count\fR is decremented by one, until it reaches 0 and then avatar can
+move again.  As a rule of thumb, it should never be set to more than 3.
+.IP
+\fC  nitty_bits(31):  bit
+.LP
+These are 31 general purpose bit-flags that are not allocated to any
+particular purpose.  They will be used up as features are added to the system.
+In addition, they may be used for various short-term purposes by games that we
+might invent which would run for perhaps a few days and then be removed from
+the system.  Ordinarily, however, you need not be concerned with these bits.
+.IP
+\fC  curse_immune:    bit
+.LP
+This bit indicates that the avatar is currently immune to curses.  Ordinarily
+it is set by being cured of a curse, and then cleared daily by a batch
+process.  By this means you can only get cursed once per day.
+.IP
+\fC  true_orient:     bin15
+.LP
+This field holds the ``true'' value of the \fCorient\fP field, i.e., the value
+that it was set to when the avatar was hatched.  Ordinarily you should not
+change it.  This field (and the other \fCtrue_\fIxxx\fR fields below) allow us
+to restore an avatar to his normal state after having been changed by magic
+and such.
+.IP
+\fC  true_head_style: bin15
+.LP
+This field holds the ``true'' \fCstyle\fP value of the avatar's head.  This is
+set when the avatar is hatched and changed whenever the avatar changes his
+head voluntarily.  However, if the avatar's head is changed by magic or other
+involuntary means, this field is \fInot\fP updated.  This way we can figure
+out what the avatar's head is really supposed to be.
+.IP
+\fC  true_custom(3):  bin15
+.LP
+These fields hold the ``true'' values of the \fCcustom\fP fields (described
+above).
+.IP
+\fC  curse_type:      bin15
+.LP
+This is the curse that the avatar is currently inflicted with, if any.  If the
+avatar is not cursed (that is, almost always), this field should be set to 0.
+If the avatar \fIis\fP cursed, then the number here corresponds to what curse
+he has.  You shouldn't set this field to a non-zero value unless you know what
+curse you are giving.
+.IP
+\fC  curse_counter:   bin15
+.LP
+This is a counter that is used for the maintainance of curses.  It is the
+number of ``tags'' that the avatar must issue before being freed of the curse.
+Ordinarily it has values such as 1 or 2.
+.IP
+\fC  last_on:         bin31
+.LP
+This field holds the time that the avatar last signed on.  The \fCdisplay\fP
+command will decode it into a readable time and date.  You should never change
+this value yourself.
+.SH
+\s+2The Region\s-2
+.IP
+\fC  ident:             regid
+.LP
+This is the global ID number of the region.  DO NOT CHANGE THIS VALUE UNDER
+ANY CIRCUMSTANCES
+.IP
+\fC  owner:             avaid = -1
+.LP
+This is the avatar ID of the avatar who ``owns'' this region, i.e., whose turf
+this region is.  Most regions (``public regions'') are not owned by anyone.
+This is indicated by setting this field to -1.  Setting this field to 0
+indicates that this region is reserved to be a turf region, but has not yet
+been assigned to anyone.
+.IP
+\fC  light_level:       bin15 = 0
+.LP
+This is the illumination level that is ``natural'' for the region.  A value of
+0 or more indicates that the region is lit, while -1 or less indicates that
+the region is dark.  Turning on a light in the region increments this value by
+one; turning the light off again decrements it.  Normally, this value will be
+set to 0 or -1.  Other values result in confusion for players.
+.IP
+\fC  depth:             bin15 = 32
+.LP
+This field indicates how ``deep'' the region is.  That is, how far back from
+the front of the screen the region extends.  In practical terms, this is the
+y-position of the region's horizon line.  The normal value for this field is
+32, although specialized regions may deviate from this.
+.IP
+\fC  east_neighbor:     regid
+.br
+\fC  west_neighbor:     regid
+.br
+\fC  north_neighbor:    regid
+.br
+\fC  south_neighbor:    regid
+.LP
+These fields are the region IDs of the adjoining regions in each of the given
+directions.  A value of -1 indicates that there is no region in that
+direction.
+.IP
+\fC  class_group:       bin15
+.LP
+This is for future use.  Ignore it for the time being.
+.IP
+\fC  orient:            bin15
+.LP
+This is the region's orientation, or facing, with respect to the Habitat
+compass.  The region's orientation is the direction that is up, or to the
+back, when the region is displayed on the screen.  The possibles values are 0
+through 3, with 0=west, 1=north, 2=east and 3=south.
+.IP
+\fC  entry_proc:        bin15
+.br
+\fC  exit_proc:         bin15
+.LP
+These are code numbers for special procedures to be executed whenever an
+avatar enters or leaves the region.  For the time being, these fields should
+always be set to 0.
+.IP
+\fC  east_exit:         bin15
+.br
+\fC  west_exit:         bin15
+.br
+\fC  north_exit:        bin15
+.br
+\fC  south_exit:        bin15
+.LP
+These are ``exit types'' for each of the specified directions.  Special
+actions can thus be associated with each exit.  For the time being, however,
+these fields should always be set to 0.
+.IP
+\fC  east_restriction:  bit
+.br
+\fC  west_restriction:  bit
+.br
+\fC  north_restriction: bit
+.br
+\fC  south_restriction: bit
+.LP
+These are bit-flags that indicate restrictions on each of the respective exits
+from the region.  If an exit's restriction bit is set, the system will not
+allow an avatar to leave in that direction if he is holding an object whose
+\fCrestriction\fP bit is set.
+.IP
+\fC  weapons_free:      bit
+.LP
+This is a bit-flag that, if set, indicates that this is a weapons-free zone
+region.  In such regions the system will not allow weapons to do any damage.
+.IP
+\fC  theft_free:        bit
+.LP
+This is a bit-flag that, if set, indicates that this is a theft-free zone
+region.  In such regions the system will not allow avatars to grab things out
+of other avatars' hands.
+.IP
+\fC  nitty_bits(26):    bit
+.LP
+These are 26 general purpose bit-flags that are not allocated to any
+particular purpose.  They will be used up as features are added to the system.
+In addition, they may be used for various short-term purposes by games that we
+might invent which would run for perhaps a few days and then be removed from
+the system.  Ordinarily, however, you need not be concerned with these bits.
+.IP
+\fC  name(20):          character = ""
+.LP
+This is the ``name'' of the region.  It is a string that is given when the
+player asks for HELP for the region.  It should identify the region's
+location, if you want the player to be able to find this out.  If the player
+is supposed to be lost when in this region, then set this to a blank string.
+.IP
+\fC  avatars:           byte
+.LP
+This is the maximum number of avatars allowed in the region.  It should almost
+always be 6.  It should NEVER be greater than 6.
+.IP
+\fC# filler(35):        character
+.LP
+This field is simply a place holder.  Don't touch it.
+.SH
+\s+2Other Objects\s-2
+.LP
+Each class of object may have fields which are unique to the class.  However,
+there are several groups of important classes that are similar to one another
+and so are treated uniformly by much of the Habitat software.  For complete
+details, see the \fBHabitat Object Manual\fR.  However, the important cases
+are described below:
+.sp
+.SH
+\s+1magic\s-1
+.LP
+The amulet (class 2), gemstone (33), knick-knack (43), magic staff (46), magic
+wand (47), ring (60), and switch (97) are magical.  All magical objects have
+these fields:
+.IP
+\fC  magic_type:      bin15
+.br
+  magic_data:      bin31
+.LP
+\fCmagic_type\fR indicates what sort of magic this item has.  A value of 0
+means that it is not magical after all.  \fCmagic_data\fR is a general-purpose
+data word whose meaning depends on the type of magic.  The allowed magic types
+will not be described here.  Consult your local guru (eventually this will be
+documented, but it isn't yet).
+.sp
+.SH
+\s+1containers\s-1
+.LP
+The bag (class 5), box (13), chest (135), garbage can (32), hole (88), safe
+(150) are all containers that may be open or closed, locked or unlocked.
+Furthermore, the bed (class 130), bureaucrat (158), chair (134), couch (137),
+countertop* (18), display case* (22), glue* (98), pawn machine(96), table
+(155), vendo front* (85), and vendo inside* (86) are also containers, though
+they are always open.  In addition, the door (class 23), while not a
+container, obeys the same open/close, locked/unlocked rules as containers do,
+and so can be treated as a container for many purposes.  Containers all have
+these fields (the classes marked ``*'' also have additional fields which are
+not discussed here; please consult the \fBHabitat Object Manual\fR).
+.IP
+\fC  open_flags:      bin15 = 0
+.br
+  key:             fatword = 0
+.LP
+\fCopen_flags\fR encodes whether the container is open or closed, locked or
+unlocked.  Its value is computed as
+.IP
+\fCunlocked*2 + open
+.LP
+Where \fCunlocked\fP is 1 or 0 depending on whether the container is unlocked
+or locked, and \fCopen\fP is 1 or 0 depending on whether the container is open
+or closed.  Note that if the container is open, the value of \fCunlocked\fP is
+really irrelevant.  \fCkey\fP is the key number of the key that locks and
+unlocks this container.  If there is no key for this container, this should be
+0.  The containers which are listed above as being permanently open should
+always have their \fCopen_flags\fP field set to 3 and their \fCkey\fP field
+set to 0.
+.sp
+.SH
+\s+1books and paper\s-1
+.LP
+The book (class 10), plaque (55) and paper (54) objects all have a field
+.IP
+\fC  text_id:         bin31
+.LP
+that is the text database ID of the document to be displayed for the text of
+the object.  Text IDs greater than 100,000 are reserved for mail.  (The book
+and plaque objects have other fields in addition to this one; ignore them.)
+.sp
+.SH
+\s+1buildings and doors\s-1
+.LP
+The building (class 132) and the door (class 23) have a field
+.IP
+\fC  connection:      regid = -1
+.LP
+that indicates which region the door or building is ``connected to''.  Walking
+to a building or through an open door will take an avatar to this region.  A
+value of -1 in this field indicates the default, which is whatever region is
+adjoining in the ``up'' direction from the region containing the building or
+door.
+.sp
+.SH
+\s+1teleports\s-1
+.LP
+The elevator (class 28) and the teleport (class 74) have these fields
+.IP
+\fC  state:           bin15 = 0
+.br
+  take:            bin31 = 0
+.br
+  address(20):     character = ""
+.LP
+The only one of these which is important is \fCaddress\fP.  This is the
+teleport address as it should be displayed by the player HELP (F7) function.
+\fCstate\fP and \fCtake\fP are irrelevant for the elevator.  In the teleport
+they encode whether the teleport is active or not (don't touch this yourself)
+and how much money the booth has taken in, respectively.
+.sp
+.SH
+\s+1plants and rocks\s-1
+.LP
+The plant (class 58) and the rock (class 61) have a field
+.IP
+\fC  mass:            bin15 = 1
+.LP
+This indicates whether or not the plant or rock can be picked up by an avatar.
+A \fCmass\fP of 0 means that it \fIcan\fP be picked up, a value of 1 means
+that it cannot.
+.bp
+.CD
+\s+5\fBAppendix A: Character Escape Codes\s-5\fR
+.DE
+.sp
+.LP
+These are the character escape codes that you may use in strings to represent
+non-printing characters and Habitat sign formatting symbols:
+.nf
+
+	\fC\\n\fR		newline
+	\fC\\t\fR		horizontal tab
+	\fC\\b\fR		backspace
+	\fC\\r\fR		carriage return
+	\fC\\f\fR		form feed
+	\fC\\e\fR		escape
+	\fC\\\\\fR		backslash
+	\fC\\'\fR		apostrophe
+	\fC\\"\fR		quote
+	\fC\\ \fR		(backslash-space) half space
+	\fC\\#\fR		double space
+	\fC\\+\fR		increment text width
+	\fC\\-\fR		decrement text width
+	\fC\\(\fR		increment text height
+	\fC\\)\fR		decrement text height
+	\fC\\h\fR		half size characters
+	\fC\\R\fR		sign carriage return
+	\fC\\d\fR		move half character space down
+	\fC\\i\fR		shift to inverse video
+	\fC\\>\fR		cursor right
+	\fC\\<\fR		cursor left
+	\fC\\^\fR		cursor up
+	\fC\\v\fR		cursor down
+	\fC\\^\fIc\fR		CONTROL-\fIc\fR (where \fIc\fR is any character).
+	\fC\\\fIddd\fR		arbitrary byte (where \fIddd\fR is one, two or three octal digits).
+	\fC\\x\fIhh\fR		arbitrary byte (where \fIhh\fR is one or two hexadecimal digits).
+.fi
+.bp
+.CD
+\s+5\fBAppendix B: Operator Precedences\s-5\fR
+.DE
+.sp
+.LP
+These are the precedences of the various expression operators.  From highest
+to lowest:
+.nf
+
+	\fC( )
+	?
+	a o r
+	.
+	- ~ ^             \fR(unary \fC-\fR and \fC^\fR)\fC
+	* /
+	+ -               \fR(binary \fC-\fR)\fC
+	&
+	^                 \fR(binary \fC^\fR)\fC
+	|
+	< lt > gt == eq <= leq >= geq != neq
+	! not
+	&& and
+	|| or
+.fi
+

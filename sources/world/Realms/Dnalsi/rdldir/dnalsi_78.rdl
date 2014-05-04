@@ -1,0 +1,14 @@
+@region $ dnalsi_78 {
+    north: dnalsi_79.l;
+    west: dnalsi_68.l;
+    region_orientation: FACE_EAST;
+    [
+        @flat { x:0; y:4; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @tree { x:28; y:22; or:237; style:2; }
+        @tree { x:72; y:27; or:173; style:2; }
+        @ground { x:204; y:4; or:188; style:1; }
+    ]
+}

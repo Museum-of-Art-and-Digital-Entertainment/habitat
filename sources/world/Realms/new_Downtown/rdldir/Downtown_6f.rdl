@@ -1,0 +1,26 @@
+@region $ Downtown_6f {
+    north: Downtown_6g.l;
+    south: Downtown_6e.l;
+    east: Downtown_7f.l;
+    west: Downtown_5f.l;
+    region_orientation: FACE_WEST;
+    [
+        @flat { x:0; y:4; or:220; 
+            8:2;
+        }
+        @sky { x:0; y:0; or:244; style:4; }
+        @trapezoid { x:4; y:27; or:104; 
+            8:2;
+            9:249;
+            10:155;
+            11:248;
+            12:155;
+            13:21;
+        }
+        @streetlamp { x:72; y:160; or:0; }
+        @street { x:68; y:12; or:8; gr_state:6; 
+            8:0;
+            9:0;
+        }
+    ]
+}

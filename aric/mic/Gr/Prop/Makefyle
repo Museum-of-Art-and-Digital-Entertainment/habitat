@@ -1,0 +1,33 @@
+.SILENT:
+
+.SUFFIXES:	.m .bin .cel
+
+OBJECTS = \
+
+text.bin sun.bin target.bin undefined.bin\
+
+amulet.bin ans.bin atm.bin bag.bin ball1.bin bedb.bin bedf.bin beds.bin \
+beep.bin bell.bin booke.bin bookf.bin bottle.bin box1.bin bpack.bin brang.bin\
+bridgef.bin bridges.bin bush1.bin bush2.bin bwall.bin cage2.bin \
+car4.bin carb.bin carf.bin cassette.bin cat.bin cave.bin cbolt.bin ccard.bin \
+chairfb.bin chairs.bin chestb.bin chestf.bin chests.bin compass.bin\
+cinder.bin club2.bin coke1.bin coke2.bin couchfb.bin couchs.bin \
+counter.bin dcase.bin doll.bin door1.bin door2.bin escaper.bin exit.bin \
+fare.bin fence1.bin flag.bin flamp.bin flat.bin flite.bin floor.bin \
+fortun.bin fount2.bin fris.bin ftank2.bin gcan.bin gem.bin gren.bin \
+gun1.bin gun2.bin gun3.bin hand.bin hottub.bin juke.bin kcan.bin key1.bin \
+key2.bin kk1.bin kk2.bin kk3.bin knife1.bin knife2.bin luggagef.bin \
+luggages.bin mag.bin maus.bin mbikes.bin mbikef.bin mbikeb.bin\
+mbox.bin mdrop.bin meter.bin \
+mlamp2.bin mpill.bin mring.bin mstaff.bin news.bin palm2.bin paper.bin \
+pencil.bin peng.bin phone1.bin phone2.bin phoneb5.bin pillbot.bin \
+plant1.bin plant2.bin plant3.bin port7.bin poster.bin pyramid.bin radio.bin \
+rduk.bin rock1.bin rock2.bin rock3.bin safe1.bin saw.bin sboard.bin sky.bin \
+scase.bin security.bin sensor.bin sign.bin slite1.bin slite2.bin tapep.bin \
+tbear.bin ticbooth.bin ticket.bin tok.bin towel.bin trchest.bin tree1.bin \
+tree2.bin vase.bin walky.bin wand1.bin wand2.bin window1.bin window3.bin
+
+
+prop: $(OBJECTS)
+.m.bin:
+	mtobin	$*

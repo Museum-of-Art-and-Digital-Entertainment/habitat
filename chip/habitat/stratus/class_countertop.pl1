@@ -1,0 +1,44 @@
+/*
+ *   class_countertop.pl1
+ *
+ *   Behavior module for object class countertop.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace COUNTERTOP_CAPACITY by 5;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_countertop: procedure;
+
+     %replace COUNTERTOP_REQUESTS by 5;
+
+     declare a(0:COUNTERTOP_REQUESTS) entry based;
+     declare class_countertop_actions pointer;
+     declare 1 countertop based %include struct_countertop;
+
+     %replace I by CLASS_COUNTERTOP;
+
+     Class_Table(I).capacity = COUNTERTOP_CAPACITY;
+     Class_Table(I).max_requests = COUNTERTOP_REQUESTS;
+     Class_Table(I).alloc_size = size(countertop);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_countertop_actions);
+     Class_Table(I).actions = class_countertop_actions;
+
+     Class_Table(I).actions->a(HELP)          = generic_HELP;          /* 0 */
+     Class_Table(I).actions->a(1)             = illegal;               /* 1 */
+     Class_Table(I).actions->a(2)             = illegal;               /* 2 */
+     Class_Table(I).actions->a(3)             = illegal;               /* 3 */
+     Class_Table(I).actions->a(CLOSECONTAINER)= generic_CLOSECONTAINER;/* 4 */
+     Class_Table(I).actions->a(OPENCONTAINER) = generic_OPENCONTAINER; /* 5 */
+end initialize_class_countertop;

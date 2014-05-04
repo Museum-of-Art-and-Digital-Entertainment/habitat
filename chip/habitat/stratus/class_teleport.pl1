@@ -1,0 +1,157 @@
+/*
+ *   class_teleport.pl1
+ *
+ *   Object behavior module for class teleport.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_teleport: procedure;
+
+     %replace TELEPORT_REQUESTS by 5;
+
+     declare a(0:TELEPORT_REQUESTS) entry based;
+     declare class_teleport_actions pointer;
+     declare 1 teleport based %include struct_teleport;
+
+     %replace I by CLASS_TELEPORT;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = TELEPORT_REQUESTS;
+     Class_Table(I).alloc_size = size(teleport);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_teleport_actions);
+     Class_Table(I).actions = class_teleport_actions;
+
+     Class_Table(I).actions->a(HELP)  = teleport_HELP;      /* 0 */
+     Class_Table(I).actions->a(1)     = illegal;            /* 1 */
+     Class_Table(I).actions->a(2)     = illegal;            /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;            /* 3 */
+     Class_Table(I).actions->a(PAY)   = teleport_PAY;       /* 4 */
+     Class_Table(I).actions->a(ZAPTO) = teleport_ZAPTO;     /* 5 */
+
+end initialize_class_teleport;
+
+%replace TELEPORT_COST by 10;
+
+%replace PORT_READY by 0;
+%replace PORT_ACTIVE by 1;
+
+teleport_PAY: procedure;
+     declare success binary(15);
+     declare 1 self based(selfptr) %include struct_teleport;
+
+     if ((self.state = PORT_READY) & (spend(TELEPORT_COST) = TRUE)) then do;
+          self.state = PORT_ACTIVE;
+          self.gr_state = PORT_ACTIVE;
+          self.gen_flags(MODIFIED) = true;
+          call b_msg_4(null(),FIDDLE_$,self.noid,C64_gr_state_offset,1,PORT_ACT
++IVE);
+          success = TRUE;
+          self.take = self.take + TELEPORT_COST;
+          call n_msg_3(selfptr, PAY$, avatar.noid, TELEPORT_COST, 0);
+     end; else
+          success = FALSE;
+     call r_msg_3(success, TELEPORT_COST, 0);
+end teleport_PAY;
+
+teleport_ZAPTO: procedure;
+     declare port_number character(20) varying;
+
+     request_string = squish(request_string);
+     if (request_string = 'home') then do;
+          call activate_teleporter(avatar.turf, 72, 130);
+          return;
+     end;
+     if (index(request_string, '-') = 0) then
+          port_number = area_code(selfptr) || request_string;
+     else
+          port_number = request_string;
+     call identify_teleport(port_number);
+end teleport_ZAPTO;
+
+squish: procedure(instr) returns(character(256) varying);
+     declare instr character(*) varying;
+     declare outstr character(256) varying;
+     declare i binary(15);
+
+     outstr = '';
+     do i=1 to length(instr);
+          if (substr(instr, i, 1) ^= ' ') then
+               outstr = outstr || substr(instr, i, 1);
+     end;
+     outstr = translate(outstr,
+          'abcdefghijklmnopqrstuvwxyz',
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     return(outstr);
+end squish;
+
+activate_teleporter: procedure (destination, x_value, y_value);
+     declare destination   binary(31);
+     declare x_value       binary(15);
+     declare y_value       binary(15);
+     declare 1 self        based(selfptr) %include struct_teleport;
+
+     if (adjacent(selfptr) & (self.state = PORT_ACTIVE |
+                    self.class = CLASS_ELEVATOR)) then do;
+          if (destination ^= NULL) then do;
+               if (self.class = CLASS_ELEVATOR) then do;
+                    avatar.y = y_value - 5;
+                    avatar.x = x_value + 12;
+               end; else /* if (self.class = CLASS_TELEPORT) then */ do;
+                    avatar.y = y_value + 3;
+                    avatar.x = x_value + 8;
+               end;
+               call goto_new_region(avatarptr, destination, 0, 1);
+               call inc_record(avatarptr, HS$teleports);
+               call n_msg_0(selfptr, ZAPTO$);
+               if (self.class = CLASS_TELEPORT) then do;
+                    self.state = PORT_READY;
+                    self.gr_state = PORT_READY;
+                    self.gen_flags(MODIFIED) = true;
+                    call n_msg_4(null(),FIDDLE_$,self.noid,C64_gr_state_offset,
++1,PORT_READY);
+               end;
+               return;
+          end;
+     end;
+     if (self.class = CLASS_TELEPORT) then
+          call object_say(self.noid, 'There is no such place.  Please check the
++ area code and address and try again.');
+     else
+          call object_say(self.noid, 'There is no such floor.  Please check the
++ number and try again.');
+     call r_msg_1(FALSE);
+end activate_teleporter;
+
+area_code: procedure(portptr) returns(character(20) varying);
+     declare portptr pointer;
+     declare 1 port based(portptr) %include struct_teleport;
+     declare mark binary(15);
+
+     mark = index(port.address, '-');
+     if (mark = 0) then
+          return('pop-');
+     else
+          return(squish(substr(port.address, 1, mark)));
+end area_code;
+
+teleport_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_teleport;
+
+     call r_msg_s('TELEPORT: PUT tokens here to activate, point at booth and ty
++pe desired destination address followed by RETURN.');
+     call object_say(self.noid, 'This is TelePort "' || ltrim(rtrim(self.addres
++s)) || '"');
+end teleport_HELP;

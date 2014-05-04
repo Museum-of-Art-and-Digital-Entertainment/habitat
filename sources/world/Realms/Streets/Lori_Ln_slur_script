@@ -1,0 +1,159 @@
+echo Lori_Ln_w_end
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_w_end.reg \
+     -o rdldir/Lori_Ln_w_end.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_w_end \
+     -e Lori_Ln_113_front
+echo Lori_Ln_113_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_113_front.reg \
+     -o rdldir/Lori_Ln_113_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_113_front \
+     -n Lori_Ln_113_interior \
+     -e Lori_Ln_213_front \
+     -w Lori_Ln_w_end
+echo Lori_Ln_113_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_113_interior.reg \
+     -o rdldir/Lori_Ln_113_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_113_interior \
+     -s Lori_Ln_113_front
+echo Lori_Ln_213_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_213_front.reg \
+     -o rdldir/Lori_Ln_213_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_213_front \
+     -n Lori_Ln_213_interior \
+     -e Lori_Ln_313_front \
+     -w Lori_Ln_113_front
+echo Lori_Ln_213_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_213_interior.reg \
+     -o rdldir/Lori_Ln_213_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_213_interior \
+     -s Lori_Ln_213_front
+echo Lori_Ln_313_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_313_front.reg \
+     -o rdldir/Lori_Ln_313_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_313_front \
+     -n Lori_Ln_313_interior \
+     -e Lori_Ln_413_front \
+     -w Lori_Ln_213_front
+echo Lori_Ln_313_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_313_interior.reg \
+     -o rdldir/Lori_Ln_313_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_313_interior \
+     -s Lori_Ln_313_front
+echo Lori_Ln_413_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_413_front.reg \
+     -o rdldir/Lori_Ln_413_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_413_front \
+     -n Lori_Ln_413_interior \
+     -e Lori_Ln_513_front \
+     -w Lori_Ln_313_front
+echo Lori_Ln_413_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_413_interior.reg \
+     -o rdldir/Lori_Ln_413_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_413_interior \
+     -s Lori_Ln_413_front
+echo Lori_Ln_513_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_513_front.reg \
+     -o rdldir/Lori_Ln_513_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_513_front \
+     -n Lori_Ln_513_interior \
+     -e Lori_Ln_cross \
+     -w Lori_Ln_413_front
+echo Lori_Ln_513_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_513_interior.reg \
+     -o rdldir/Lori_Ln_513_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_513_interior \
+     -s Lori_Ln_513_front
+echo Lori_Ln_cross
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_cross.reg \
+     -o rdldir/Lori_Ln_cross.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_cross \
+     -e Lori_Ln_613_front \
+     -w Lori_Ln_513_front
+echo Lori_Ln_613_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_613_front.reg \
+     -o rdldir/Lori_Ln_613_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_613_front \
+     -n Lori_Ln_613_interior \
+     -e Lori_Ln_713_front \
+     -w Lori_Ln_cross
+echo Lori_Ln_613_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_613_interior.reg \
+     -o rdldir/Lori_Ln_613_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_613_interior \
+     -s Lori_Ln_613_front
+echo Lori_Ln_713_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_713_front.reg \
+     -o rdldir/Lori_Ln_713_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_713_front \
+     -n Lori_Ln_713_interior \
+     -e Lori_Ln_813_front \
+     -w Lori_Ln_613_front
+echo Lori_Ln_713_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_713_interior.reg \
+     -o rdldir/Lori_Ln_713_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_713_interior \
+     -s Lori_Ln_713_front
+echo Lori_Ln_813_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_813_front.reg \
+     -o rdldir/Lori_Ln_813_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_813_front \
+     -n Lori_Ln_813_interior \
+     -e Lori_Ln_913_front \
+     -w Lori_Ln_713_front
+echo Lori_Ln_813_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_813_interior.reg \
+     -o rdldir/Lori_Ln_813_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_813_interior \
+     -s Lori_Ln_813_front
+echo Lori_Ln_913_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_913_front.reg \
+     -o rdldir/Lori_Ln_913_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_913_front \
+     -n Lori_Ln_913_interior \
+     -e Lori_Ln_1013_front \
+     -w Lori_Ln_813_front
+echo Lori_Ln_913_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_913_interior.reg \
+     -o rdldir/Lori_Ln_913_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_913_interior \
+     -s Lori_Ln_913_front
+echo Lori_Ln_1013_front
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_1013_front.reg \
+     -o rdldir/Lori_Ln_1013_front.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_1013_front \
+     -n Lori_Ln_1013_interior \
+     -e Lori_Ln_e_end \
+     -w Lori_Ln_913_front
+echo Lori_Ln_1013_interior
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_1013_interior.reg \
+     -o rdldir/Lori_Ln_1013_interior.rdl \
+     -d FACE_SOUTH \
+     -r Lori_Ln_1013_interior \
+     -s Lori_Ln_1013_front
+echo Lori_Ln_e_end
+/u0/chip/microcosm/slur/slur regdir/Lori_Ln_e_end.reg \
+     -o rdldir/Lori_Ln_e_end.rdl \
+     -d FACE_NORTH \
+     -r Lori_Ln_e_end \
+     -w Lori_Ln_1013_front

@@ -1,0 +1,34 @@
+/*
+ *   class_streetlamp.pl1
+ *
+ *   Sign object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   7-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_streetlamp: procedure;
+     declare a(0:0) entry based;
+     declare 1 streetlamp based %include struct_streetlamp;
+     declare class_streetlamp_actions pointer;
+
+     %replace STREETLAMP_REQUESTS by 0;
+
+     %replace I by CLASS_STREETLAMP;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_streetlamp_actions);
+     Class_Table(I).actions = class_streetlamp_actions;
+     Class_Table(I).max_requests = STREETLAMP_REQUESTS;
+     Class_Table(I).alloc_size = size(streetlamp);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;
+end initialize_class_streetlamp;

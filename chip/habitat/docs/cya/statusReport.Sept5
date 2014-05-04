@@ -1,0 +1,106 @@
+From chip Fri Sep  5 22:30:06 1986
+Received: by moth; 05 SEP 86 22:30:06 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: sda
+Cc: chip
+Subject: Status report
+Status: R
+
+We had the interview with the Japanese TV folk.  It went well, I think, though
+they were pretty loose in their shooting, so I'm not sure what the result will
+look like.  (In general the Japanese media seems to prefer to produce a lot of
+material quickly and with less polish, whereas their American counterparts are
+more conscious of style and produce a smaller volume of more carefully crafted
+stuff -- I've noticed this about the Japanese magazines and the TV people
+seemed the same way.  Comparative sociology at work!)
+
+Randy got a call from Janet early this morning, just before she disappeared
+off to wherever she's going.  She said that she was finally able to login to
+our system (she'd been having problems yesterday) and transfer the stuff over
+that we wanted them to have (more regions for Populopolis and the data tables
+for the memory capacity handler).  (I asked her to leave me a message on their
+system telling me where all the material relating to this component is so that
+I can work on it myself if necessary.  She does not appear to have done this.)
+
+Randy mentioned to Janet that we had been thinking about a scheme to allow
+more objects to occupy memory at the same time by selectively not loading
+their imagery and behavior code under certain circumstances (this is the thing
+we mentioned to you Thursday) but that it would cost a week or two to
+implement.  In spite of the inherent delay, she was intrigued.  Randy suspects
+he knows what he's going to be doing next week.
+
+She called back a short while later, said she had talked to Marc, and that he
+was entertaining the notion of delaying beta to put this in, and that you and
+I should call him to discuss it!  Unfortunately, you weren't here.
+
+I could have called him on my own, but I felt very strongly that I should
+consult with you before undertaking discussion of this with Quantum, since it
+seems rather drastic, possibly threatening getting the product out for
+Christmas -- frankly I felt that I would be a little over my head to call Marc
+on my own and start discussing this, since I am unclear, in particular, on the
+specifics of the timing constraints we are under.
+
+In other words, I didn't call Marc back and take it up with him by myself
+because you weren't here and I was afraid to make any kind of commitments one
+way or the other on my own initiative.  This may have been a mistake, since it
+*is* Friday (thus the decision gets delayed over the weekend instead of just
+overnight), but I suspect not, since Randy won't really be able to begin work
+on the thing in earnest until Monday anyhow.  Nevertheless, you and I need to
+talk about this ASAP, then contact Marc.  I will be in the office Saturday
+afternoon for sure and either Saturday evening or Sunday afternoon also
+(probably both...).
+
+From chip Fri Sep  5 23:04:13 1986
+Received: by moth; 05 SEP 86 23:04:13 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: sda
+Cc: chip
+Subject: Status report addenda
+Status: R
+
+One thing I forgot to include in the previous message:
+
+I met this morning with Jamie Williams.  I gave her the latest draft of the
+manual to look over, and told her the things that I thought needed adding that
+I'd like to have her work on.  I also asked her to proof the thing for
+stylistic consistency, since I have rewritten large chunks of it in the time
+between when she last worked on it and now.  I want to make sure that the
+clear and direct style which she adopted is also reflected in the parts I have
+added or substantially changed.
+
+I showed her the promo tape (do we have a name for that thing, by the way?)
+and gave her a live demo of the system.
+
+We then talked about the press conference and about the sort of
+demonstration/presentation I should be giving and how it should be structured
+to cover the items on the agenda that I am supposed to talk about (suitably
+modified by our own idea of appropriateness by adding some things to and
+removing one or two things from the list that Quantum sent us).  We roughed
+out a basic demo structure which she is going to take as a starting point.  I
+also gave her copies of the "Funativity" and "Machiavelli" documents to give
+her some general idea of the various kinds of activities we are thinking of
+having in Habitat, beyond the rather vague notion of "adventuring".
+
+She is going to work on these things and send (by messenger service) the
+manual revisions and a first draft demo/presentation on Monday or Tuesday.
+I'll give her feedback by phone (she has some job she has to be at those days)
+and she'll then work on whatever adjustments to the presentation we deem
+necessary.  She will come back in person on Wednesday or Thursday to start
+finalizing the presentation.
+
+It all looks good to me.  Jamie's a real pro.
+
+I had gotten the feeling from our earlier conversations that you had some
+things that *you* wanted her to work on for the press conference also, but I
+had no idea what, if anything, these might be, so we obviously didn't cover
+them.  If I am mistaken, great.  If not, you'd best contact her.
+
+By the way, did you notice that the proposed press conference agenda that
+Quantum sent us allocates 5 minutes for our 8 minute tape?
+
+Oh, also:  I got a call today from Rob Fulop.  He wants to come up and visit
+us Tuesday.  He's interested in various things, including mutual support
+developing software for Quantum, development tools for 6502 machines, and of
+course various Habitat tie-in things (creative and/or technological).  I think
+he will contact you directly to arrange something official.
+

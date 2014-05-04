@@ -1,0 +1,159 @@
+echo Pam_Pl_w_end
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_w_end.reg \
+     -o rdldir/Pam_Pl_w_end.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_w_end \
+     -e Pam_Pl_114_front
+echo Pam_Pl_114_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_114_front.reg \
+     -o rdldir/Pam_Pl_114_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_114_front \
+     -n Pam_Pl_114_interior \
+     -e Pam_Pl_214_front \
+     -w Pam_Pl_w_end
+echo Pam_Pl_114_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_114_interior.reg \
+     -o rdldir/Pam_Pl_114_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_114_interior \
+     -s Pam_Pl_114_front
+echo Pam_Pl_214_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_214_front.reg \
+     -o rdldir/Pam_Pl_214_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_214_front \
+     -n Pam_Pl_214_interior \
+     -e Pam_Pl_314_front \
+     -w Pam_Pl_114_front
+echo Pam_Pl_214_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_214_interior.reg \
+     -o rdldir/Pam_Pl_214_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_214_interior \
+     -s Pam_Pl_214_front
+echo Pam_Pl_314_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_314_front.reg \
+     -o rdldir/Pam_Pl_314_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_314_front \
+     -n Pam_Pl_314_interior \
+     -e Pam_Pl_414_front \
+     -w Pam_Pl_214_front
+echo Pam_Pl_314_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_314_interior.reg \
+     -o rdldir/Pam_Pl_314_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_314_interior \
+     -s Pam_Pl_314_front
+echo Pam_Pl_414_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_414_front.reg \
+     -o rdldir/Pam_Pl_414_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_414_front \
+     -n Pam_Pl_414_interior \
+     -e Pam_Pl_514_front \
+     -w Pam_Pl_314_front
+echo Pam_Pl_414_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_414_interior.reg \
+     -o rdldir/Pam_Pl_414_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_414_interior \
+     -s Pam_Pl_414_front
+echo Pam_Pl_514_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_514_front.reg \
+     -o rdldir/Pam_Pl_514_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_514_front \
+     -n Pam_Pl_514_interior \
+     -e Pam_Pl_cross \
+     -w Pam_Pl_414_front
+echo Pam_Pl_514_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_514_interior.reg \
+     -o rdldir/Pam_Pl_514_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_514_interior \
+     -s Pam_Pl_514_front
+echo Pam_Pl_cross
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_cross.reg \
+     -o rdldir/Pam_Pl_cross.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_cross \
+     -e Pam_Pl_614_front \
+     -w Pam_Pl_514_front
+echo Pam_Pl_614_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_614_front.reg \
+     -o rdldir/Pam_Pl_614_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_614_front \
+     -n Pam_Pl_614_interior \
+     -e Pam_Pl_714_front \
+     -w Pam_Pl_cross
+echo Pam_Pl_614_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_614_interior.reg \
+     -o rdldir/Pam_Pl_614_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_614_interior \
+     -s Pam_Pl_614_front
+echo Pam_Pl_714_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_714_front.reg \
+     -o rdldir/Pam_Pl_714_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_714_front \
+     -n Pam_Pl_714_interior \
+     -e Pam_Pl_814_front \
+     -w Pam_Pl_614_front
+echo Pam_Pl_714_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_714_interior.reg \
+     -o rdldir/Pam_Pl_714_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_714_interior \
+     -s Pam_Pl_714_front
+echo Pam_Pl_814_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_814_front.reg \
+     -o rdldir/Pam_Pl_814_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_814_front \
+     -n Pam_Pl_814_interior \
+     -e Pam_Pl_914_front \
+     -w Pam_Pl_714_front
+echo Pam_Pl_814_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_814_interior.reg \
+     -o rdldir/Pam_Pl_814_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_814_interior \
+     -s Pam_Pl_814_front
+echo Pam_Pl_914_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_914_front.reg \
+     -o rdldir/Pam_Pl_914_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_914_front \
+     -n Pam_Pl_914_interior \
+     -e Pam_Pl_1014_front \
+     -w Pam_Pl_814_front
+echo Pam_Pl_914_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_914_interior.reg \
+     -o rdldir/Pam_Pl_914_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_914_interior \
+     -s Pam_Pl_914_front
+echo Pam_Pl_1014_front
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_1014_front.reg \
+     -o rdldir/Pam_Pl_1014_front.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_1014_front \
+     -n Pam_Pl_1014_interior \
+     -e Pam_Pl_e_end \
+     -w Pam_Pl_914_front
+echo Pam_Pl_1014_interior
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_1014_interior.reg \
+     -o rdldir/Pam_Pl_1014_interior.rdl \
+     -d FACE_SOUTH \
+     -r Pam_Pl_1014_interior \
+     -s Pam_Pl_1014_front
+echo Pam_Pl_e_end
+/u0/chip/microcosm/slur/slur regdir/Pam_Pl_e_end.reg \
+     -o rdldir/Pam_Pl_e_end.rdl \
+     -d FACE_NORTH \
+     -r Pam_Pl_e_end \
+     -w Pam_Pl_1014_front

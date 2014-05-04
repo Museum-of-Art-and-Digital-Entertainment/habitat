@@ -1,0 +1,14 @@
+/*
+ *   struct_coke_machine.incl.pl1
+ *
+ *   Struct stub for coke_machine instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+/* Host private: */
+           3   take           binary(31);

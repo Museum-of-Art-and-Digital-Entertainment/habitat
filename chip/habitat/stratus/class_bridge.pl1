@@ -1,0 +1,36 @@
+/*
+ *   class_bridge.pl1
+ *
+ *   Bridge object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_bridge: procedure;
+
+     %replace BRIDGE_REQUESTS by 0;
+
+     declare a(0:0) entry based;
+     declare 1 bridge based %include struct_bridge;
+     declare class_bridge_actions pointer;
+
+     %replace I by CLASS_BRIDGE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = BRIDGE_REQUESTS;
+     Class_Table(I).alloc_size = size(bridge);
+     Class_Table(I).pc_state_bytes = 2;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_bridge_actions);
+     Class_Table(I).actions = class_bridge_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;
+end initialize_class_bridge;

@@ -1,0 +1,106 @@
+.lg 1
+.ds D March 10, 1986
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Report
+
+March 10, 1986\s-9
+.AU
+``Because we thought you'd want to know''
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+.ds LH MONTHLY REPORT
+.ds CH \\*D
+.ds RH MicroCosm Project
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+1Introduction\s-1
+.PP
+This is the fourth in a series of monthly reports detailing the progress on
+the \fBMicroCosm\fP project at Lucasfilm.  This report describes events and
+achievements during the month of February, 1985.
+.SH
+\s+1Work In Progress/Tasks Accomplished\s-1
+.PP
+The Project Schedule calls for us to meet one deliverable for mid-February.
+This to provide a videotape showing the completed artwork and animation for a
+portion of the MicroCosm object set.  This deliverable has been met.  We had
+planned to deliver artwork for approximately half of the objects, and we ended
+up with something more like 85% of them, so corresponding deliverable for
+mid-March calling for the other half of the object artwork will be somewhat
+smaller due to things being slightly ahead of schedule in this particular
+area.
+.PP
+Aric Wilmunder has completed the first-draft version of the graphics
+sub-system.  He is now working on the motion control sequencer that will drive
+the complex motions of the avatars on the screen.
+.PP
+Gary Winnick, our artist in residence, has designed a large volume of imagery
+for the many different kinds of objects.  By now you will have seen most of
+these on the mid-February demo tape.  The design process resulted in a lot of
+ideas for new objects, which are being incorporated into our plans.  Imagery
+for some of these new objects will appear in the mid-March demo tape.
+.PP
+Randy Farmer has finished the sound-effects driver routines and the primitive
+sound-effects editor CHEESE.  We have discovered some deficiencies in the
+communications routines as supplied and he is now in the process of correcting
+and optimizing them.  This should result in a communications package that is
+both smaller by nearly a half and substantially faster and less CPU intensive.
+.PP
+Ron Gilbert has designed and coded the object-oriented database system that
+will handle memory and disk space management and the various critical data
+structures that hold the whole system together.  He is presently debugging it.
+.PP
+I have nearly completed the detailed specification of the internal behavior of
+the entire object set.  This has proven to be a massive undertaking.  Though
+the resulting document is enormous (150 pages at last count), it has already
+proven a useful aid in clarifying the underlying functions of the system.
+.SH
+\s+1Tasks For March\s-1
+.PP
+The essential task for March is system integration.  We intend to merge the
+three streams of development (communications, graphics and database) into a
+single functioning system with each part working in concert with the others.
+.PP
+In addition, we intend to finish formal definition of the behavior of the
+objects and begin actual implementation of them.  During late March or early
+April I plan to use this definition to produce the actual host-system behavior
+code for the basic object set.
+.PP
+The development schedule lists three milestones for us to reach by March 15.
+The first is completion of the animation and graphics sub-system, demonstrated
+by a videotape of the software in action.  We will reach this goal without
+difficulty (we have essentially reached it already).
+.PP
+The second milestone is further imagery and artwork for the objects.  This we
+will also have.  Included in this will be the more-or-less complete package of
+animations that define the motions and actions which avatars can perform.  It
+is becoming clear, however, that we will continue to think up new kinds of
+objects for as long as the project lasts, and we will continue to incorporate
+these into the system for as long as we have the time and the resources to do
+so.  Thus, until the final delivery, there will continue to be new imagery
+appearing from time to time.
+.PP
+The final milestone is to have some functional objects.  This implies system
+integration, since for objects to function we must have a complete causal
+chain from player to internal definition to the host internal definition and
+back to the Commodore and finally to state changes and visible action on the
+screen.  However, we are not going to have a working host database system to
+interact with until (at best) a few days before the delivery deadline, so what
+we are going to deliver will be a demonstration of an integrated system that
+communicates with the host but which does not actually have interactions with
+host objects.
+.SH
+\s+1Quantum Comments\s-1
+.PP
+We were hoping to see a preliminary host database processor working at the
+Quantum end of the network by the end of February.  For various reasons, this
+has not come to pass.  However, for the time being we are satisfied that the
+host work is proceeding and that we will have something that we can work with
+at the Quantum end by the time we \fIreally\fP need it.  If the host system is
+ready for the incorporation of actual object behavior code by the end of the
+month, the overall schedule should not be significantly perturbed.

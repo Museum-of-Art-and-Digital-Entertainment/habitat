@@ -1,0 +1,36 @@
+/*
+ *   class_super_trapezoid.pl1
+ *
+ *   Super trapezoid object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-August-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+declare ground_HELP entry;
+
+initialize_class_super_trapezoid: procedure;
+     declare a(0:0) entry based;
+     declare 1 super_trapezoid based %include struct_super_trapezoid;
+     declare class_super_trapezoid_actions pointer;
+
+     %replace SUPER_TRAPEZOID_REQUESTS by 0;
+
+     %replace I by CLASS_SUPER_TRAPEZOID;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_super_trapezoid_actions);
+     Class_Table(I).actions = class_super_trapezoid_actions;
+     Class_Table(I).max_requests = SUPER_TRAPEZOID_REQUESTS;
+     Class_Table(I).alloc_size = size(super_trapezoid);
+     Class_Table(I).pc_state_bytes = 40;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = ground_HELP;
+end initialize_class_super_trapezoid;

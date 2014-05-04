@@ -1,0 +1,6 @@
+#! /bin/csh -f
+
+sb	key_override 2
+sleep	1
+upl start_cv_data +512 > $1.reg
+echo 

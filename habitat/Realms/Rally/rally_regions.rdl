@@ -1,0 +1,5 @@
+
+fountain_region		= 9032;
+region_rally		= 6400;
+victory_region		= 6401;
+fail_region		= 6402;

@@ -1,0 +1,88 @@
+/*
+ *   actions_container.pl1
+ *
+ *   Behavior routines for the container protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+/*
+ *  %include 'microcosm.incl.pl1';
+ *  %include 'defs_helper.incl.pl1';
+ */
+generic_CLOSECONTAINER: procedure;
+     declare success binary(15);
+     declare have_key bit(1);
+     declare 1 key based %include struct_key;
+     declare 1 self based(selfptr) %include struct_gen_container;
+
+     have_key = (holding_class(CLASS_KEY) &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_hi = self.key_hi &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_lo = self.key_lo);
+     if (/*^elsewhere(selfptr) &*/ test_bit(self.open_flags, OPEN_BIT)) then do;
+          call clear_bit(self.open_flags, OPEN_BIT);
+          self.gr_state = 0;
+          if (have_key) then
+               call clear_bit(self.open_flags, UNLOCKED_BIT);
+          else
+               call set_bit(self.open_flags, UNLOCKED_BIT);
+          call n_msg_2(avatarptr, CLOSECONTAINER$, self.noid, self.open_flags);
+          call close_container(self.noid);
+          self.gen_flags(MODIFIED) = true;
+          success = TRUE;
+     end; else
+          call r_msg_1(FALSE);
+/*          success = FALSE;
+     call r_msg_1(success);*/
+end generic_CLOSECONTAINER;
+
+generic_OPENCONTAINER: procedure;
+     declare have_key bit(1);
+     declare 1 self based(selfptr) %include struct_gen_container;
+     declare 1 key based %include struct_key;
+
+     have_key = (holding_class(CLASS_KEY) &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_hi = self.key_hi &
+          ObjList(avatar.contents->c(HANDS))->key.key_number_lo = self.key_lo);
+     if (/*^elsewhere(selfptr) &*/ ^test_bit(self.open_flags, OPEN_BIT) &
+               (have_key | test_bit(self.open_flags, UNLOCKED_BIT)) &
+               self.container = THE_REGION) then
+          call get_container_contents(self.noid);
+     else do;
+          call object_say(self.noid, 'It is locked.');
+          call r_msg_1_s(FALSE, '');
+     end;
+end generic_OPENCONTAINER;
+
+generic_SET_OPEN_BITS: procedure;
+     declare 1 self based(selfptr) %include struct_gen_container;
+
+          call set_bit(self.open_flags, OPEN_BIT);
+          call set_bit(self.open_flags, UNLOCKED_BIT);
+          self.gr_state = 1;
+          self.gen_flags(MODIFIED) = true;
+
+end generic_SET_OPEN_BITS;
+
+lock_HELP: procedure(item_name, key_number, open_flags);
+     declare item_name character(*) varying;
+     declare key_number binary(31);
+     declare open_flags binary(15);
+     declare msg character(114) varying;
+
+     msg = item_name || ': DO while standing next to it to open, close (it is ';
+     if (test_bit(open_flags, OPEN_BIT)) then
+          msg = msg || 'open now).';
+     else
+          msg = msg || 'closed now).';
+     if (key_number ^= 0) then do;
+          msg = msg || '  Uses key #' || ltrim(key_number);
+          if (test_bit(open_flags, UNLOCKED_BIT)) then
+               msg = msg || ' but is currently unlocked.';
+          else
+               msg = msg || ' and is currently locked.';
+     end;
+     call r_msg_s(msg);
+end lock_HELP;

@@ -1,0 +1,896 @@
+
+granularity: each sample hit covers 4 byte(s) for 0.02% of 99.50 seconds
+
+	@(#)flat.blurb 1.1 83/08/29 SMI
+
+
+flat profile:
+
+%time     the percentage of the total running time of the
+          program used by this function.
+
+cumsecs   a running sum of the number of seconds accounted
+          for by this function and those listed above it.
+
+seconds   the number of seconds accounted for by this
+          function alone.  This is the major sort for this
+          listing.
+
+calls     the number of times this function was invoked, if
+          this function is profiled, else blank.
+
+name      the name of the function.  This is the minor sort
+          for this listing.
+
+%time cumsecs seconds   calls name    
+ 18.5   18.40   18.40     452 _stat
+ 18.4   36.72   18.32     452 _open
+ 14.4   51.08   14.36         mcount
+ 10.7   61.75   10.67   17822 _yylook
+  5.4   67.17    5.42    3901 __doprnt
+  4.1   71.23    4.06    1349 _tableItem
+  3.4   74.57    3.34     474 _read
+  3.1   77.65    3.08   61127 _strcmp
+  2.9   80.55    2.90   74975 _outputByte
+  2.5   83.01    2.46       1 _yyparse
+  2.1   85.10    2.09   76469 _toLowerCase
+  2.0   87.10    2.00     452 _outputFileData
+  1.6   88.72    1.62     460 _fstat
+  1.4   90.16    1.44     458 _close
+  1.0   91.16    1.00    3522 _strcmplc
+  0.9   92.01    0.85    1852 _hashString
+  0.8   92.83    0.82    1562 _comment
+  0.6   93.39    0.56   17155 _strlen
+  0.6   93.95    0.56      41 _write
+  0.5   94.49    0.54    5463 _yylex
+  0.5   94.98    0.49   12934 _malloc
+  0.5   95.43    0.45     155 _morecore
+  0.4   95.83    0.40    6305 ldivt
+  0.4   96.21    0.38         _brk
+  0.4   96.57    0.36    6382 lmodt
+  0.3   96.91    0.34         _moncontrol
+  0.3   97.21    0.30       6 _creat
+  0.3   97.46    0.25    3545 _buildItem
+  0.2   97.64    0.18    2468 _strcpy
+  0.2   97.82    0.18    1349 _lookupThing
+  0.2   97.98    0.16    3541 _buildItemList
+  0.2   98.13    0.15    3037 _fillInFromItem
+  0.1   98.27    0.14       4 _outputThings
+  0.1   98.37    0.10    3037 _countItemSize
+  0.1   98.47    0.10    1350 _lookupSymbol
+  0.1   98.55    0.08    2468 _buildString
+  0.1   98.63    0.08    1308 _printThing
+  0.1   98.71    0.08     453 _decodeNumber
+  0.1   98.77    0.06    3785 _printf
+  0.1   98.83    0.06    1462 _countItemListSize
+  0.1   98.88    0.05     501 _decodeString
+  0.0   98.92    0.04    1462 _fillInFromItemList
+  0.0   98.96    0.04     712 _decodeDigit
+  0.0   99.00    0.04     474 __filbuf
+  0.0   99.04    0.04     458 _fclose
+  0.0   99.08    0.04     458 _free
+  0.0   99.12    0.04     339 _buildNumberList
+  0.0   99.16    0.04     113 _outputOneClass
+  0.0   99.20    0.04     113 _printClass
+  0.0   99.24    0.04       1 _outputClasses
+  0.0   99.28    0.04         _yyback
+  0.0   99.30    0.02    1853 _buildItemSource
+  0.0   99.32    0.02    1845 _outputWord
+  0.0   99.34    0.02    1349 _installOrLookupItem
+  0.0   99.36    0.02     502 _installSymbol
+  0.0   99.38    0.02     502 _newSymbol
+  0.0   99.40    0.02     458 _fopen
+  0.0   99.42    0.02     339 _countNumberListSize
+  0.0   99.44    0.02       6 ulmodt
+  0.0   99.46    0.02       1 _initializeStuff
+  0.0   99.48    0.02         _sbrk
+  0.0   99.49    0.01     502 _addLabelToItem
+  0.0   99.50    0.01     339 _fillInByte
+  0.0   99.50    0.00     712 lmult
+  0.0   99.50    0.00     458 _fflush
+  0.0   99.50    0.00     452 _fileSize
+  0.0   99.50    0.00     339 _fillInBytes
+  0.0   99.50    0.00     116 _fprintf
+  0.0   99.50    0.00     113 _assignClassNumber
+  0.0   99.50    0.00     113 _buildClass
+  0.0   99.50    0.00     113 _buildClassHeader
+  0.0   99.50    0.00     113 _computeClassSize
+  0.0   99.50    0.00     113 _fillInClassDescriptor
+  0.0   99.50    0.00     113 _noteClass
+  0.0   99.50    0.00     113 _processOneClass
+  0.0   99.50    0.00      70 _dysize
+  0.0   99.50    0.00      42 __flsbuf
+  0.0   99.50    0.00       6 _openFile
+  0.0   99.50    0.00       5 _ct_numb
+  0.0   99.50    0.00       4 uldivt
+  0.0   99.50    0.00       2 _gettimeofday
+  0.0   99.50    0.00       2 _gmtime
+  0.0   99.50    0.00       2 _ioctl
+  0.0   99.50    0.00       2 _isatty
+  0.0   99.50    0.00       2 _sunday
+  0.0   99.50    0.00       1 _asctime
+  0.0   99.50    0.00       1 _ctime
+  0.0   99.50    0.00       1 _localtime
+  0.0   99.50    0.00       1 _main
+  0.0   99.50    0.00       1 _outputResults
+  0.0   99.50    0.00       1 _processClasses
+  0.0   99.50    0.00       1 _profil
+  0.0   99.50    0.00       1 _time
+  0.0   99.50    0.00       1 _yywrap
+
+	@(#)callg.blurb 1.1 83/08/29 SMI
+
+
+call graph profile:
+          The sum of self and descendents is the major sort
+          for this listing.
+
+          function entries:
+
+index     the index of the function in the call graph
+          listing, as an aid to locating it (see below).
+
+%time     the percentage of the total time of the program
+          accounted for by this function and its
+          descendents.
+
+self      the number of seconds spent in this function
+          itself.
+
+descendents
+          the number of seconds spent in the descendents of
+          this function on behalf of this function.
+
+called    the number of times this function is called (other
+          than recursive calls).
+
+self      the number of times this function calls itself
+          recursively.
+
+name      the name of the function, with an indication of
+          its membership in a cycle, if any.
+
+index     the index of the function in the call graph
+          listing, as an aid to locating it.
+
+
+
+          parent listings:
+
+self*     the number of seconds of this function's self time
+          which is due to calls from this parent.
+
+descendents*
+          the number of seconds of this function's
+          descendent time which is due to calls from this
+          parent.
+
+called**  the number of times this function is called by
+          this parent.  This is the numerator of the
+          fraction which divides up the function's time to
+          its parents.
+
+total*    the number of times this function was called by
+          all of its parents.  This is the denominator of
+          the propagation fraction.
+
+parents   the name of this parent, with an indication of the
+          parent's membership in a cycle, if any.
+
+index     the index of this parent in the call graph
+          listing, as an aid in locating it.
+
+
+
+          children listings:
+
+self*     the number of seconds of this child's self time
+          which is due to being called by this function.
+
+descendent*
+          the number of seconds of this child's descendent's
+          time which is due to being called by this
+          function.
+
+called**  the number of times this child is called by this
+          function.  This is the numerator of the
+          propagation fraction for this child.
+
+total*    the number of times this child is called by all
+          functions.  This is the denominator of the
+          propagation fraction.
+
+children  the name of this child, and an indication of its
+          membership in a cycle, if any.
+
+index     the index of this child in the call graph listing,
+          as an aid to locating it.
+
+
+
+          * these fields are omitted for parents (or
+          children) in the same cycle as the function.  If
+          the function (or child) is a member of a cycle,
+          the propagated times and propagation denominator
+          represent the self time and descendent time of the
+          cycle as a whole.
+
+          ** static-only parents and children are indicated
+          by a call count of 0.
+
+
+
+          cycle listings:
+          the cycle as a whole is listed with the same
+          fields as a function entry.  Below it are listed
+          the members of the cycle, and their contributions
+          to the time and call counts of the cycle.
+
+
+granularity: each sample hit covers 4 byte(s) for 0.02% of 85.14 seconds
+
+                                  called/total       parents 
+index  %time    self descendents  called+self    name    	index
+                                  called/total       children
+
+                                                     <spontaneous>
+[1]     99.1    0.00       84.36                 start [1]
+                0.00       84.36       1/1           _main [2]
+
+-----------------------------------------------
+
+                0.00       84.36       1/1           start [1]
+[2]     99.1    0.00       84.36       1         _main [2]
+                0.00       55.64       1/1           _outputResults [3]
+                2.46       14.91       1/1           _yyparse [10]
+                0.00       11.06       1/1           _processClasses [13]
+                0.02        0.27       1/1           _initializeStuff [53]
+
+-----------------------------------------------
+
+                0.00       55.64       1/1           _main [2]
+[3]     65.4    0.00       55.64       1         _outputResults [3]
+                0.14       49.03       4/4           _outputThings [4]
+                0.04        6.43       1/1           _outputClasses [23]
+
+-----------------------------------------------
+
+                0.14       49.03       4/4           _outputResults [3]
+[4]     57.8    0.14       49.03       4         _outputThings [4]
+                2.00       27.61     452/452         _outputFileData [5]
+                0.00       18.40     452/452         _fileSize [7]
+                0.01        0.82     464/3785        _printf [22]
+                0.02        0.12    1476/1845        _outputWord [59]
+                0.03        0.00     904/74975       _outputByte [28]
+                0.00        0.01       4/458         _fclose [34]
+
+-----------------------------------------------
+
+                2.00       27.61     452/452         _outputThings [4]
+[5]     34.8    2.00       27.61     452         _outputFileData [5]
+                0.02       18.38     452/458         _fopen [6]
+                0.04        4.75     453/474         __filbuf [25]
+                2.62        0.23   67830/74975       _outputByte [28]
+                0.04        1.54     452/458         _fclose [34]
+
+-----------------------------------------------
+
+                0.00        0.24       6/458         _openFile [54]
+                0.02       18.38     452/458         _outputFileData [5]
+[6]     21.9    0.02       18.62     458         _fopen [6]
+               18.32        0.00     452/452         _open [9]
+                0.30        0.00       6/6           _creat [52]
+
+-----------------------------------------------
+
+                0.00       18.40     452/452         _outputThings [4]
+[7]     21.6    0.00       18.40     452         _fileSize [7]
+               18.40        0.00     452/452         _stat [8]
+
+-----------------------------------------------
+
+               18.40        0.00     452/452         _fileSize [7]
+[8]     21.6   18.40        0.00     452         _stat [8]
+
+-----------------------------------------------
+
+               18.32        0.00     452/452         _fopen [6]
+[9]     21.5   18.32        0.00     452         _open [9]
+
+-----------------------------------------------
+
+                2.46       14.91       1/1           _main [2]
+[10]    20.4    2.46       14.91       1         _yyparse [10]
+                0.54       12.42    5463/5463        _yylex [11]
+                0.02        0.77     502/502         _newSymbol [39]
+                0.25        0.26    3545/3545        _buildItem [44]
+                0.16        0.26    3541/3541        _buildItemList [47]
+                0.02        0.13    1853/1853        _buildItemSource [62]
+                0.04        0.02     339/339         _buildNumberList [66]
+                0.01        0.00     502/502         _addLabelToItem [79]
+                0.00        0.01     113/113         _buildClassHeader [82]
+                0.00        0.00     113/113         _noteClass [162]
+                0.00        0.00     113/113         _buildClass [161]
+
+-----------------------------------------------
+
+                0.54       12.42    5463/5463        _yyparse [10]
+[11]    15.2    0.54       12.42    5463         _yylex [11]
+               10.67        0.18   17822/17822       _yylook [16]
+                0.82        0.04    1562/1562        _comment [38]
+                0.06        0.35    1967/2468        _buildString [43]
+                0.05        0.12     501/501         _decodeString [60]
+                0.08        0.04     453/453         _decodeNumber [64]
+                0.00        0.00       1/1           _yywrap [168]
+
+-----------------------------------------------
+
+                0.00       11.06     113/113         _processClasses [13]
+[12]    13.0    0.00       11.06     113         _processOneClass [12]
+                0.00       10.87     113/113         _fillInClassDescriptor [15]
+                0.00        0.18     113/113         _computeClassSize [58]
+                0.00        0.00     113/12934       _malloc [37]
+                0.00        0.00     113/113         _assignClassNumber [160]
+
+-----------------------------------------------
+
+                0.00       11.06       1/1           _main [2]
+[13]    13.0    0.00       11.06       1         _processClasses [13]
+                0.00       11.06     113/113         _processOneClass [12]
+
+-----------------------------------------------
+
+[14]    12.8    0.19       10.68     113+4386    <cycle 2 as a whole>	[14]
+                0.15       10.68    3037             _fillInFromItem	<cycle 2> [17]
+                0.04        0.00    1462             _fillInFromItemList	<cycle 2> [68]
+
+-----------------------------------------------
+
+                0.00       10.87     113/113         _processOneClass [12]
+[15]    12.8    0.00       10.87     113         _fillInClassDescriptor [15]
+                0.19       10.68     113/113         _fillInFromItemList	<cycle 2> [68]
+
+-----------------------------------------------
+
+               10.67        0.18   17822/17822       _yylex [11]
+[16]    12.7   10.67        0.18   17822         _yylook [16]
+                0.00        0.18      17/474         __filbuf [25]
+
+-----------------------------------------------
+
+                                    3037             _fillInFromItemList	<cycle 2> [68]
+[17]    12.7    0.15       10.68    3037         _fillInFromItem	<cycle 2> [17]
+                0.18       10.49    1349/1349        _lookupThing [18]
+                0.00        0.01     339/339         _fillInBytes [81]
+                                    1349             _fillInFromItemList	<cycle 2> [68]
+
+-----------------------------------------------
+
+                0.18       10.49    1349/1349        _fillInFromItem	<cycle 2> [17]
+[18]    12.5    0.18       10.49    1349         _lookupThing [18]
+                0.02        7.14    1349/1349        _installOrLookupItem [19]
+                0.10        3.23    1350/1350        _lookupSymbol [27]
+
+-----------------------------------------------
+
+                0.02        7.14    1349/1349        _lookupThing [18]
+[19]     8.4    0.02        7.14    1349         _installOrLookupItem [19]
+                4.06        3.08    1349/1349        _tableItem [20]
+
+-----------------------------------------------
+
+                4.06        3.08    1349/1349        _installOrLookupItem [19]
+[20]     8.4    4.06        3.08    1349         _tableItem [20]
+                3.08        0.00   61127/61127       _strcmp [29]
+
+-----------------------------------------------
+
+                0.16        0.04     116/3901        _fprintf [55]
+                5.26        1.43    3785/3901        _printf [22]
+[21]     8.1    5.42        1.47    3901         __doprnt [21]
+                0.46        0.00   14186/17155       _strlen [42]
+                0.40        0.00    6298/6305        ldivt [48]
+                0.36        0.00    6298/6382        lmodt [50]
+                0.00        0.25      21/42          __flsbuf [45]
+
+-----------------------------------------------
+
+                0.00        0.22     126/3785        _outputClasses [23]
+                0.01        0.82     464/3785        _outputThings [4]
+                0.02        2.31    1308/3785        _printThing [30]
+                0.03        3.33    1887/3785        _printClass [24]
+[22]     7.9    0.06        6.68    3785         _printf [22]
+                5.26        1.43    3785/3901        __doprnt [21]
+
+-----------------------------------------------
+
+                0.04        6.43       1/1           _outputResults [3]
+[23]     7.6    0.04        6.43       1         _outputClasses [23]
+                0.04        5.77     113/113         _printClass [24]
+                0.00        0.22     126/3785        _printf [22]
+                0.00        0.20     113/116         _fprintf [55]
+                0.04        0.12     113/113         _outputOneClass [61]
+                0.00        0.02     256/1845        _outputWord [59]
+                0.00        0.01       2/458         _fclose [34]
+
+-----------------------------------------------
+
+                0.04        5.77     113/113         _outputClasses [23]
+[24]     6.8    0.04        5.77     113         _printClass [24]
+                0.03        3.33    1887/3785        _printf [22]
+                0.08        2.33    1308/1308        _printThing [30]
+
+-----------------------------------------------
+
+                0.00        0.04       4/474         _comment [38]
+                0.00        0.18      17/474         _yylook [16]
+                0.04        4.75     453/474         _outputFileData [5]
+[25]     5.9    0.04        4.97     474         __filbuf [25]
+                3.34        0.00     474/474         _read [26]
+                1.60        0.00     453/460         _fstat [33]
+                0.02        0.02     453/12934       _malloc [37]
+                0.00        0.00       1/2           _isatty [165]
+
+-----------------------------------------------
+
+                3.34        0.00     474/474         __filbuf [25]
+[26]     3.9    3.34        0.00     474         _read [26]
+
+-----------------------------------------------
+
+                0.10        3.23    1350/1350        _lookupThing [18]
+[27]     3.9    0.10        3.23    1350         _lookupSymbol [27]
+                0.88        1.19    3104/3522        _strcmplc [31]
+                0.62        0.54    1350/1852        _hashString [35]
+
+-----------------------------------------------
+
+                0.03        0.00     904/74975       _outputThings [4]
+                0.10        0.01    2551/74975       _outputOneClass [61]
+                0.14        0.01    3690/74975       _outputWord [59]
+                2.62        0.23   67830/74975       _outputFileData [5]
+[28]     3.7    2.90        0.25   74975         _outputByte [28]
+                0.00        0.25      21/42          __flsbuf [45]
+
+-----------------------------------------------
+
+                3.08        0.00   61127/61127       _tableItem [20]
+[29]     3.6    3.08        0.00   61127         _strcmp [29]
+
+-----------------------------------------------
+
+                0.08        2.33    1308/1308        _printClass [24]
+[30]     2.8    0.08        2.33    1308         _printThing [30]
+                0.02        2.31    1308/3785        _printf [22]
+
+-----------------------------------------------
+
+                0.12        0.16     418/3522        _installSymbol [40]
+                0.88        1.19    3104/3522        _lookupSymbol [27]
+[31]     2.8    1.00        1.35    3522         _strcmplc [31]
+                1.35        0.00   49516/76469       _toLowerCase [32]
+
+-----------------------------------------------
+
+                0.74        0.00   26953/76469       _hashString [35]
+                1.35        0.00   49516/76469       _strcmplc [31]
+[32]     2.5    2.09        0.00   76469         _toLowerCase [32]
+
+-----------------------------------------------
+
+                0.02        0.00       7/460         __flsbuf [45]
+                1.60        0.00     453/460         __filbuf [25]
+[33]     1.9    1.62        0.00     460         _fstat [33]
+
+-----------------------------------------------
+
+                0.00        0.01       2/458         _outputClasses [23]
+                0.00        0.01       4/458         _outputThings [4]
+                0.04        1.54     452/458         _outputFileData [5]
+[34]     1.9    0.04        1.56     458         _fclose [34]
+                1.44        0.00     458/458         _close [36]
+                0.00        0.08     458/458         _fflush [65]
+                0.04        0.00     458/458         _free [70]
+
+-----------------------------------------------
+
+                0.23        0.20     502/1852        _installSymbol [40]
+                0.62        0.54    1350/1852        _lookupSymbol [27]
+[35]     1.9    0.85        0.74    1852         _hashString [35]
+                0.74        0.00   26953/76469       _toLowerCase [32]
+
+-----------------------------------------------
+
+                1.44        0.00     458/458         _fclose [34]
+[36]     1.7    1.44        0.00     458         _close [36]
+
+-----------------------------------------------
+
+                0.00        0.00       7/12934       __flsbuf [45]
+                0.00        0.00     113/12934       _buildClassHeader [82]
+                0.00        0.00     113/12934       _processOneClass [12]
+                0.01        0.01     339/12934       _buildNumberList [66]
+                0.02        0.02     453/12934       __filbuf [25]
+                0.02        0.02     502/12934       _newSymbol [39]
+                0.07        0.06    1853/12934       _buildItemSource [62]
+                0.09        0.09    2468/12934       _buildString [43]
+                0.13        0.12    3541/12934       _buildItemList [47]
+                0.13        0.12    3545/12934       _buildItem [44]
+[37]     1.1    0.49        0.45   12934         _malloc [37]
+                0.45        0.00     155/155         _morecore [46]
+
+-----------------------------------------------
+
+                0.82        0.04    1562/1562        _yylex [11]
+[38]     1.0    0.82        0.04    1562         _comment [38]
+                0.00        0.04       4/474         __filbuf [25]
+
+-----------------------------------------------
+
+                0.02        0.77     502/502         _yyparse [10]
+[39]     0.9    0.02        0.77     502         _newSymbol [39]
+                0.02        0.71     502/502         _installSymbol [40]
+                0.02        0.02     502/12934       _malloc [37]
+
+-----------------------------------------------
+
+                0.02        0.71     502/502         _newSymbol [39]
+[40]     0.9    0.02        0.71     502         _installSymbol [40]
+                0.23        0.20     502/1852        _hashString [35]
+                0.12        0.16     418/3522        _strcmplc [31]
+
+-----------------------------------------------
+
+                0.08        0.00       6/41          _fflush [65]
+                0.48        0.00      35/41          __flsbuf [45]
+[41]     0.7    0.56        0.00      41         _write [41]
+
+-----------------------------------------------
+
+                0.02        0.00     501/17155       _decodeString [60]
+                0.08        0.00    2468/17155       _buildString [43]
+                0.46        0.00   14186/17155       __doprnt [21]
+[42]     0.7    0.56        0.00   17155         _strlen [42]
+
+-----------------------------------------------
+
+                0.02        0.09     501/2468        _decodeString [60]
+                0.06        0.35    1967/2468        _yylex [11]
+[43]     0.6    0.08        0.44    2468         _buildString [43]
+                0.18        0.00    2468/2468        _strcpy [57]
+                0.09        0.09    2468/12934       _malloc [37]
+                0.08        0.00    2468/17155       _strlen [42]
+
+-----------------------------------------------
+
+                0.25        0.26    3545/3545        _yyparse [10]
+[44]     0.6    0.25        0.26    3545         _buildItem [44]
+                0.13        0.12    3545/12934       _malloc [37]
+
+-----------------------------------------------
+
+                0.00        0.25      21/42          _outputByte [28]
+                0.00        0.25      21/42          __doprnt [21]
+[45]     0.6    0.00        0.50      42         __flsbuf [45]
+                0.48        0.00      35/41          _write [41]
+                0.02        0.00       7/460         _fstat [33]
+                0.00        0.00       7/12934       _malloc [37]
+                0.00        0.00       1/2           _isatty [165]
+
+-----------------------------------------------
+
+                0.45        0.00     155/155         _malloc [37]
+[46]     0.5    0.45        0.00     155         _morecore [46]
+
+-----------------------------------------------
+
+                0.16        0.26    3541/3541        _yyparse [10]
+[47]     0.5    0.16        0.26    3541         _buildItemList [47]
+                0.13        0.12    3541/12934       _malloc [37]
+
+-----------------------------------------------
+
+                0.00        0.00       2/6305        _gmtime [74]
+                0.00        0.00       5/6305        _ct_numb [84]
+                0.40        0.00    6298/6305        __doprnt [21]
+[48]     0.5    0.40        0.00    6305         ldivt [48]
+
+-----------------------------------------------
+
+                                                     <spontaneous>
+[49]     0.4    0.38        0.00                 _brk [49]
+
+-----------------------------------------------
+
+                0.00        0.00       2/6382        _sunday [78]
+                0.00        0.00       2/6382        _gmtime [74]
+                0.00        0.00      10/6382        _ct_numb [84]
+                0.00        0.00      70/6382        _dysize [83]
+                0.36        0.00    6298/6382        __doprnt [21]
+[50]     0.4    0.36        0.00    6382         lmodt [50]
+
+-----------------------------------------------
+
+                                                     <spontaneous>
+[51]     0.4    0.34        0.00                 _moncontrol [51]
+                0.00        0.00       1/1           _profil [166]
+
+-----------------------------------------------
+
+                0.30        0.00       6/6           _fopen [6]
+[52]     0.4    0.30        0.00       6         _creat [52]
+
+-----------------------------------------------
+
+                0.02        0.27       1/1           _main [2]
+[53]     0.3    0.02        0.27       1         _initializeStuff [53]
+                0.00        0.24       6/6           _openFile [54]
+                0.00        0.03       1/1           _ctime [72]
+                0.00        0.01       3/116         _fprintf [55]
+                0.00        0.00       1/1           _time [167]
+
+-----------------------------------------------
+
+                0.00        0.24       6/6           _initializeStuff [53]
+[54]     0.3    0.00        0.24       6         _openFile [54]
+                0.00        0.24       6/458         _fopen [6]
+
+-----------------------------------------------
+
+                0.00        0.01       3/116         _initializeStuff [53]
+                0.00        0.20     113/116         _outputClasses [23]
+[55]     0.2    0.00        0.20     116         _fprintf [55]
+                0.16        0.04     116/3901        __doprnt [21]
+
+-----------------------------------------------
+
+[56]     0.2    0.16        0.02     113+4386    <cycle 1 as a whole>	[56]
+                0.10        0.02    3037             _countItemSize	<cycle 1> [63]
+                0.06        0.00    1462             _countItemListSize	<cycle 1> [67]
+
+-----------------------------------------------
+
+                0.18        0.00    2468/2468        _buildString [43]
+[57]     0.2    0.18        0.00    2468         _strcpy [57]
+
+-----------------------------------------------
+
+                0.00        0.18     113/113         _processOneClass [12]
+[58]     0.2    0.00        0.18     113         _computeClassSize [58]
+                0.16        0.02     113/113         _countItemListSize	<cycle 1> [67]
+
+-----------------------------------------------
+
+                0.00        0.01     113/1845        _outputOneClass [61]
+                0.00        0.02     256/1845        _outputClasses [23]
+                0.02        0.12    1476/1845        _outputThings [4]
+[59]     0.2    0.02        0.16    1845         _outputWord [59]
+                0.14        0.01    3690/74975       _outputByte [28]
+
+-----------------------------------------------
+
+                0.05        0.12     501/501         _yylex [11]
+[60]     0.2    0.05        0.12     501         _decodeString [60]
+                0.02        0.09     501/2468        _buildString [43]
+                0.02        0.00     501/17155       _strlen [42]
+
+-----------------------------------------------
+
+                0.04        0.12     113/113         _outputClasses [23]
+[61]     0.2    0.04        0.12     113         _outputOneClass [61]
+                0.10        0.01    2551/74975       _outputByte [28]
+                0.00        0.01     113/1845        _outputWord [59]
+
+-----------------------------------------------
+
+                0.02        0.13    1853/1853        _yyparse [10]
+[62]     0.2    0.02        0.13    1853         _buildItemSource [62]
+                0.07        0.06    1853/12934       _malloc [37]
+
+-----------------------------------------------
+
+                                    3037             _countItemListSize	<cycle 1> [67]
+[63]     0.1    0.10        0.02    3037         _countItemSize	<cycle 1> [63]
+                0.02        0.00     339/339         _countNumberListSize [76]
+                                    1349             _countItemListSize	<cycle 1> [67]
+
+-----------------------------------------------
+
+                0.08        0.04     453/453         _yylex [11]
+[64]     0.1    0.08        0.04     453         _decodeNumber [64]
+                0.04        0.00     712/712         _decodeDigit [69]
+                0.00        0.00     712/712         lmult [86]
+
+-----------------------------------------------
+
+                0.00        0.08     458/458         _fclose [34]
+[65]     0.1    0.00        0.08     458         _fflush [65]
+                0.08        0.00       6/41          _write [41]
+
+-----------------------------------------------
+
+                0.04        0.02     339/339         _yyparse [10]
+[66]     0.1    0.04        0.02     339         _buildNumberList [66]
+                0.01        0.01     339/12934       _malloc [37]
+
+-----------------------------------------------
+
+                                    1349             _countItemSize	<cycle 1> [63]
+                0.16        0.02     113/113         _computeClassSize [58]
+[67]     0.1    0.06        0.00    1462         _countItemListSize	<cycle 1> [67]
+                                    3037             _countItemSize	<cycle 1> [63]
+
+-----------------------------------------------
+
+                                    1349             _fillInFromItem	<cycle 2> [17]
+                0.19       10.68     113/113         _fillInClassDescriptor [15]
+[68]     0.0    0.04        0.00    1462         _fillInFromItemList	<cycle 2> [68]
+                                    3037             _fillInFromItem	<cycle 2> [17]
+
+-----------------------------------------------
+
+                0.04        0.00     712/712         _decodeNumber [64]
+[69]     0.0    0.04        0.00     712         _decodeDigit [69]
+
+-----------------------------------------------
+
+                0.04        0.00     458/458         _fclose [34]
+[70]     0.0    0.04        0.00     458         _free [70]
+
+-----------------------------------------------
+
+                                                     <spontaneous>
+[71]     0.0    0.04        0.00                 _yyback [71]
+
+-----------------------------------------------
+
+                0.00        0.03       1/1           _initializeStuff [53]
+[72]     0.0    0.00        0.03       1         _ctime [72]
+                0.00        0.02       1/1           _localtime [73]
+                0.00        0.00       1/1           _asctime [85]
+
+-----------------------------------------------
+
+                0.00        0.02       1/1           _ctime [72]
+[73]     0.0    0.00        0.02       1         _localtime [73]
+                0.00        0.01       2/2           _sunday [78]
+                0.00        0.01       1/2           _gmtime [74]
+                0.00        0.00       1/2           _gettimeofday [163]
+
+-----------------------------------------------
+
+                0.00        0.01       1/2           _localtime [73]
+                0.00        0.01       1/2           _sunday [78]
+[74]     0.0    0.00        0.02       2         _gmtime [74]
+                0.02        0.00       6/6           ulmodt [75]
+                0.00        0.00      68/70          _dysize [83]
+                0.00        0.00       2/6305        ldivt [48]
+                0.00        0.00       2/6382        lmodt [50]
+                0.00        0.00       4/4           uldivt [87]
+
+-----------------------------------------------
+
+                0.02        0.00       6/6           _gmtime [74]
+[75]     0.0    0.02        0.00       6         ulmodt [75]
+
+-----------------------------------------------
+
+                0.02        0.00     339/339         _countItemSize	<cycle 1> [63]
+[76]     0.0    0.02        0.00     339         _countNumberListSize [76]
+
+-----------------------------------------------
+
+                                                     <spontaneous>
+[77]     0.0    0.02        0.00                 _sbrk [77]
+
+-----------------------------------------------
+
+                0.00        0.01       2/2           _localtime [73]
+[78]     0.0    0.00        0.01       2         _sunday [78]
+                0.00        0.01       1/2           _gmtime [74]
+                0.00        0.00       2/70          _dysize [83]
+                0.00        0.00       2/6382        lmodt [50]
+
+-----------------------------------------------
+
+                0.01        0.00     502/502         _yyparse [10]
+[79]     0.0    0.01        0.00     502         _addLabelToItem [79]
+
+-----------------------------------------------
+
+                0.01        0.00     339/339         _fillInBytes [81]
+[80]     0.0    0.01        0.00     339         _fillInByte [80]
+
+-----------------------------------------------
+
+                0.00        0.01     339/339         _fillInFromItem	<cycle 2> [17]
+[81]     0.0    0.00        0.01     339         _fillInBytes [81]
+                0.01        0.00     339/339         _fillInByte [80]
+
+-----------------------------------------------
+
+                0.00        0.01     113/113         _yyparse [10]
+[82]     0.0    0.00        0.01     113         _buildClassHeader [82]
+                0.00        0.00     113/12934       _malloc [37]
+
+-----------------------------------------------
+
+                0.00        0.00       2/70          _sunday [78]
+                0.00        0.00      68/70          _gmtime [74]
+[83]     0.0    0.00        0.00      70         _dysize [83]
+                0.00        0.00      70/6382        lmodt [50]
+
+-----------------------------------------------
+
+                0.00        0.00       5/5           _asctime [85]
+[84]     0.0    0.00        0.00       5         _ct_numb [84]
+                0.00        0.00      10/6382        lmodt [50]
+                0.00        0.00       5/6305        ldivt [48]
+
+-----------------------------------------------
+
+                0.00        0.00       1/1           _ctime [72]
+[85]     0.0    0.00        0.00       1         _asctime [85]
+                0.00        0.00       5/5           _ct_numb [84]
+
+-----------------------------------------------
+
+                0.00        0.00     712/712         _decodeNumber [64]
+[86]     0.0    0.00        0.00     712         lmult [86]
+
+-----------------------------------------------
+
+                0.00        0.00       4/4           _gmtime [74]
+[87]     0.0    0.00        0.00       4         uldivt [87]
+
+-----------------------------------------------
+
+                0.00        0.00     113/113         _processOneClass [12]
+[160]    0.0    0.00        0.00     113         _assignClassNumber [160]
+
+-----------------------------------------------
+
+                0.00        0.00     113/113         _yyparse [10]
+[161]    0.0    0.00        0.00     113         _buildClass [161]
+
+-----------------------------------------------
+
+                0.00        0.00     113/113         _yyparse [10]
+[162]    0.0    0.00        0.00     113         _noteClass [162]
+
+-----------------------------------------------
+
+                0.00        0.00       1/2           _localtime [73]
+                0.00        0.00       1/2           _time [167]
+[163]    0.0    0.00        0.00       2         _gettimeofday [163]
+
+-----------------------------------------------
+
+                0.00        0.00       2/2           _isatty [165]
+[164]    0.0    0.00        0.00       2         _ioctl [164]
+
+-----------------------------------------------
+
+                0.00        0.00       1/2           __filbuf [25]
+                0.00        0.00       1/2           __flsbuf [45]
+[165]    0.0    0.00        0.00       2         _isatty [165]
+                0.00        0.00       2/2           _ioctl [164]
+
+-----------------------------------------------
+
+                0.00        0.00       1/1           _moncontrol [51]
+[166]    0.0    0.00        0.00       1         _profil [166]
+
+-----------------------------------------------
+
+                0.00        0.00       1/1           _initializeStuff [53]
+[167]    0.0    0.00        0.00       1         _time [167]
+                0.00        0.00       1/2           _gettimeofday [163]
+
+-----------------------------------------------
+
+                0.00        0.00       1/1           _yylex [11]
+[168]    0.0    0.00        0.00       1         _yywrap [168]
+
+-----------------------------------------------
+

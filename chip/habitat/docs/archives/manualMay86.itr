@@ -1,0 +1,1031 @@
+.so /usr/lfl/lib/doctemps/papdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i				\" line length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 5n				\" paragraph indent - 5 characters
+.HM 1i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.TA 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.ds T \v'-3p'\s-5TM\s+5\v'3p'  \" \*T in document
+.ds S \v'-9p'\s-9\s-6TM\s+9\s+6\v'9p' \" \*S in title
+.na
+.nh
+.if !n .ps 11			\"use large font size if itroff/ditroff
+.if !n .vs 15			\"and use larger vertical spacing
+.if !n .nr PS 11
+.if !n .nr VS 15p
+.nf
+.ce 4
+\fBTHE OFFICIAL AVATAR HANDBOOK
+
+A Comprehensive Guide to Understanding 
+the Habitat\*T
+May 29, 1986
+
+\fI``Look Theodophilus, a book for us!''\fR
+.fi
+
+\fITABLE OF CONTENTS\fR
+
+\fIGETTING THERE\fR...page \l'5'.
+.LP
+A basic introduction to the Habitat...Understanding the joystick and
+commands...Some basic rules to live by...How certain things work.
+
+\fITHE ORACLE FACTOR\fR...page \l'5'.
+.LP
+The mystique...the adventure...the possiblities explained...sort of.
+
+\fIDATES TO REMEMBER\fR...page \l'5'.
+.LP
+Great moments in Habitat history.
+
+\fIAVATARS I HAVE KNOWN\fR...page \l'5'.
+.LP
+How, what and why Avatars are named.
+
+\fITHE SOCIAL LIFE\fR...page \l'5'.
+.LP
+How Avatars spend their plentiful spare time...Dos and don'ts...Adventuring
+explained.
+
+\fITHE ARE SOME THINGS WE JUST DON'T TALK ABOUT\fR...page \l'5'.
+.LP
+Where the money comes from...the Token as currency...``What, me work?''
+
+\fITHE WELL-DRESSED AVATAR\fR...page \l'5'.
+.LP
+How to assemble a wardrobe that'll put him or her on the cover of
+\fIAvatar's Wear Daily\fR...Customization: how it works.
+
+\fITHE WELL-READ AVATAR\fR...page \l'5'.
+.LP
+Must reading for every Avatar.
+
+\fICINEMA AVATAR\fR...page \l'5'.
+.LP
+The films that have put the Habitat on the cinematic map.
+
+\fITURF, SWEET TURF\fR...page \l'5'.
+.LP
+Why an Avatar's home is his castle...The law of minimums...how customization
+works.
+
+\fITHE IMPORTANCE OF ETIQUETTE\fR...page \l'5'.
+.LP
+The manners that will put an Avatar on the ``A'' list for parties and
+adventures.
+
+\fIHALL OF RECORDS\fR...page \l'5'.
+.LP
+Notable Avatars... and how they got that way.
+
+\fIWHAT HAPPENS WHEN YOU DIE\fR...page \l'5'.
+.LP
+We've all got to go sometime...the exit interview.
+
+\fITHE AVATAR GLOSSARY\fR...page \l'5'.
+.LP
+The expressions that separate the Avatars from the boys, so to speak.
+
+.bp
+.ce
+\fBAN INTRODUCTION\fR
+
+.LP
+We don't know all that much about the Habitat, or Avatars, the human-like
+inhabitants of that world.
+
+.LP
+What we do know is that Avatars share a rich social, intellectual and cultural
+history that sets them apart from most higher life forms.  The detailing of
+their culture was made possible through the work of Platorius Crum and
+Henrietta E. Figwash, two notable Avatar anthropologists from Thelonius
+University.  Professors Crum and Figwash graciously agreed to compile this
+manual, assembling the information necessary to ``introduce'' you to their
+society.  The rest, as they say, is up to you.
+
+.LP
+We hope the data provided herein will assist you as you explore the
+Habitat.  We think you'll find, as we have, that Avatars can be a lot like
+us...some of the time.
+
+.nf
+The Editors
+Marin County, California
+June, 1986
+.fi
+
+.bp
+.ce
+\fBSOME BACKGROUND\fR
+
+.ce
+\fIWhy You're Here\fR
+
+.LP
+As Avatars, we feel it necessary to explain to you why we, in essence, are
+allowing you to take our form and enter our society.
+
+.LP
+The early Avatars were adventurers like none other.  If you read through
+Habitat history, you will find stories of grand expeditions, the discovery
+of magnificent treasures, and tales of bravery and valor that would challenge
+those of your King Arthur with his Knights of the Round Table.
+
+.LP
+But, as the years passed, Avatars changed.  The spirit of adventuring died
+away, and we became more and more content to do nothing...
+
+.LP
+You see, the Avatars, when left to themselves, have become basically lazy
+creatures that would be only too happy to sit or sleep all day and night,
+eating sweets, reading magazines or books, or phoning friends, but never
+getting out to see the world because it would take too much effort.
+
+.LP
+The Oracle, who both watches over and directs life in the Habitat (you
+will read more about It later), eventually became quite bored with this state
+of affairs and decided to take some action.
+
+.LP
+As Mystical Beings sometimes will, the Oracle decided that a Drastic Measure
+was in order, and allowed the discovery of our world by yours.  The result,
+It hoped, would be for things, as you humans say, ``to start hopping''.
+
+.LP
+Once over the shock of intrusion, we Avatars came to agree with the Oracle.
+Our long period of inactivity has made most of us eager for some adventure,
+some intrigue, and some exercise.
+
+.LP
+In other words, we're game if you are...
+
+.bp
+.ce
+\fBCHAPTER ONE
+
+.ce
+GETTING THERE\fR
+
+\fIA Basic Introduction to the Habitat\fR
+
+.LP
+Getting to the Habitat is accomplished by (insert proper menu sequence).
+
+
+.LP
+When you enter for the first time, you will see your Avatar waiting for you in
+your ``Turf'', or home.  Go for a ``test drive'' by trying out some or all of
+the basic commands, which follow.
+
+\fIUsing the Joystick\fR
+
+.LP
+Avatars understand and respond to five basic joystick commands: \fBGO, DO,
+GET, PUT\fR and \fBTALK.\fR
+
+.LP
+To initiate any of these actions (except \fBTALK\fR), you must press the
+button on your joystick, at which time a question mark and four arrows will
+appear on the screen.  Toggle the joystick to the command you wish to give,
+and then release the button to select it.  Your Avatar will then undertake
+the action.
+
+\fIThe Commands \(em How They Work\fR
+
+.LP
+\fBGO\fR: This command directs your Avatar in motion.  If you wish to go
+somewhere, point the cursor to the spot you wish to go to, and press the
+joystick button.  Then toggle the you stick to the \fBGO\fP position (the
+\fBGO\fP command icon will appear on the screen), and release the button.
+Your Avatar will walk to the spot indicated.  In this way you can cross a
+room, explore the countryside, or just take a leisurely stroll.
+
+.LP
+\fIThe phone rang, and Winona crossed the room to answer it.  It was Samantha.
+``Hey, Win!  Smedley just called.  A gang is getting together over at his Turf
+for a little soak.''
+.LP
+\fI``I think I'll pass on that one,'' Winona blushed.  ``After that last party
+I swore I'd never get near Smedley's hot tub again.''
+
+.LP
+\fBGET\fR: The Habitat is littered with objects, some of which you will
+need or want.  To \fBGET\fP one of them, point the cursor at it, press the
+button, select the \fBGET\fP command, and release the button.  Your Avatar
+will bend over and pick up the object.
+
+.LP
+If the object you wish to \fBGET\fP appears on the screen with you, you don't
+need to command your Avatar to \fBGO\fR to it.  Just point the cursor at the
+object in question, press the button, choose \fBGET\fR, release the button and
+you will cross the space to the object and take it into your hand.
+
+.LP
+It is important to remember that you can only hold one object in your hand at
+one time.
+
+.LP
+\fINorbert snickered with Broderick, as the two watched the new Avatar on the
+block trying out the \fBGET\fP command.  ``You can always tell a greenhorn,''
+Norbert chuckled.  ``They have no concept of the laws of physics \(em I just
+saw this guy try to pick up the phone booth!''
+
+.LP
+\fBPUT\fR:  Obviously, the opposite of \fBGET\fP.  To use \fBPUT\fP, point to
+the place you wish to put an object in your possession, press the button,
+choose \fBPUT\fR and release the button.  Your Avatar will drop the object at
+the indicated spot, crossing the room if need be.
+
+.LP
+\fICynthia and Ralphie were having a teensie-weensie little disagreement about
+how she should arrange her turf.
+.LP
+\fI``I mean it, Cyn,'' Ralphie insisted, ``if you put the lamp on the left
+side of the room, you're crazy!''
+.LP
+\fICynthia smiled sweetly.  ``Do you know where you can put the lamp,
+Ralphie?''
+
+.LP
+\fBDO\fR: This ``catch-all'' command directs your Avatar to take some kind of
+action, either \fIwith\fP an object, or \fIto\fP an object.  The action taken
+depends on what object you are pointing at.  Press the button and select
+\fBDO\fP, then release the button.  The object you point to will make the
+appropriate response.  For example, the door will open or close, or the lamp
+will turn on or off. 
+
+.LP
+\fI``Gee, look what I found!'' Sedgewick said.
+.LP
+\fI``Sedge,'' stammered Noah, ``where did you get that...that...gun?''
+.LP
+\fI``Golly,'' Sedgewick smiled evilly, ``what do you think would happen if I
+pointed this at you and hit the \fBDO\fP command?''
+
+.LP
+\fBTALK\fR: This is the only command that doesn't involve using the joystick
+button.  To \fBTALK\fP to another Avatar, point at them with the cursor,
+type your message on the keyboard, and press Return when finished.  You
+can also talk to certain objects, like the Oracle or a telephone.  Just point
+the cursor to the object (the Oracle's Fountain or the phone), and type the
+message on the keyboard.  Again, press Return when finished.
+
+.LP
+If you want to talk to a group of Avatars, simply point the cursor to the sky
+or ground, and type the message in.  Everyone will receive it.
+
+.LP
+\fI``Talk to me baby,'' the Avastud leered at the innocent young girl.
+``What's your sign?  Come here often?  What's a nice Avatar like you doing in
+a place like this?  Didn't we know each other in another life?  How am I
+doing?''
+.LP
+\fI``Isn't it past your bedtime?'' she coolly asked, and walked away.
+.LP
+\fI``I think she really likes me,'' he said to no one in particular, and took
+up the chase.
+
+\fIMatters of Posture\fR
+
+.LP
+There are certain body movements you can control, such as standing up, sitting
+down, and laying down.  Point the cursor at your Avatar and press the button.
+Choose \fBGO\fR and watch him cycle his body posture among those three
+positions.  You can make gestures by pressing the various function keys.
+Certain gestures have not been included, so improvise when appropriate.
+
+\fIContainers\fR
+
+.LP
+Some objects, like suitcases and boxes, are containers that hold other
+objects.  To put something in a container, point at the container and select
+\fBPUT\fP.  A container will only hold a certain number of objects, depending
+on its size.  If it has reached its limit, you will not be able to add
+anything more without first removing something from it using \fBGET\fP.
+
+.LP
+To \fBGET\fP an object from a container, point at the container, press the
+button, and choose \fBGET\fP.  A picture will appear on your screen, showing
+you each of the objects in the container.  Choose the one you want with the
+cursor, pressing the button to indicate your choice.  If you don't want one of
+the objects after all, point the cursor to empty space and press the button.
+In either case, once a choice has been made, the picture will disappear.  If
+you selected an object, you will \fBGET\fR it out of the container.
+
+.LP
+\fI``Now, have I got everything for my adventure?'' Rodney mused as he packed
+his suitcase.  ``Boomerang, check.  Compass, check.  Grenade, check.  Magic
+staff, check.  And a change of clothes.  Good \(em enough room left for the
+Orb of Oshtemo...if and when I find it...''
+
+\fILocks and Keys\fR
+
+.LP
+There are some things you will be able to lock, such as certain containers,
+and the door to your Turf.  To lock or unlock these objects, you must be
+holding the key when you select the \fBDO\fR function to open or close the
+door or container.  If a door or container is locked and you do not have the
+key, you simply will be unable to open it.
+
+\fIReading and Writing\fR
+
+.LP
+If you want to read something, such as a newspaper or a letter from a friend,
+point at it and select \fBDO\fP.  The text will appear on the screen.
+When you are finished reading, press the joystick button and select the
+\fBEXIT\fP function.  If the thing you are reading has more than one page, you
+can flip the pages back and forth by pressing the joystick button and
+selecting the \fBNEXT\fP or \fBBACK\fP functions.
+
+.LP
+If you are holding a piece of paper, you can write on it in addition to
+reading it.  Point at the paper and select \fBDO\fP.  Again, the text will
+appear on the screen.  If it is a fresh piece of paper, the screen will be
+blank.  You ``write'' by typing on the keyboard.  You can control where on the
+page you are writing by moving the cursor around with the joystick.  You can
+erase text with the backspace key.  When you are finished writing, press the
+joystick button and select \fBEXIT\fP.
+
+.LP
+\fI``To Chuck Von Hoobermotter III
+.LP
+\fI``My dearest Chuckles,'' wrote Daphne, ``You are the Avatar of my eye.  Oh,
+Chucklette, when will I see you again?''
+.LP
+\fIShe signed her name amid countless X's and O's, dropped the letter in the
+nearest mailbox, and sent it on its way.  When Chuck got the letter, he tossed
+his cookies.
+
+\fIUsing the Phone\fR
+
+.LP
+To use the phone, you must \fBGET\fP the receiver, point the cursor at the
+phone, and dial by typing the phone number on the keyboard.  Phones in the
+Habitat work much the same way as on earth, by sound cues.  You'll hear
+dial tones, ringing or busy signals.
+
+.LP
+Payphones are a little different.  You can call a friend while away from home
+by going to an unoccupied payphone, \fBGET\fRting a Token out of your pocket,
+\fBPUT\fRting the token into the phone, \fBGET\fRting the receiver, dialing
+and \fBTALK\fRing.
+
+\fIGetting Out\fR
+
+.LP
+The thing to remember when you're getting out of the Habitat is that you
+don't just switch your Avatar off when you exit the world.  We can't emphasize
+enough that leaving him in the middle of a sticky situation won't resolve the
+problem....it might even intensify it.
+
+.LP
+The best thing to do when you're leaving the Habitat is to take a nap \(em
+it'll keep your Avatar out of trouble.  To take a nap, just lay down on a bed
+and you will automatically exit from the Habitat.  If you happen to be a
+long way from your Turf and need to get out, you'll find hotels and inns where
+you can stay.
+
+.LP
+If, by chance, there is a problem in your system, or a power failure, the
+Oracle will sense it and will protect you by turning you into a pillar of
+stone.  Logging back in will reanimate you to continue your activity.
+
+.bp
+.ce
+\fBCHAPTER TWO
+
+.ce
+THE ORACLE FACTOR\fR
+
+\fI``Tell me, oh Wise One,'' said Platypus Hogg to the Oracle, ``will there
+be even greater adventure and riches in my future?'' The answer from the
+Oracle was as foreboding as it was mysterious.
+
+.nf
+``Your greed is such
+That you may find
+All you dare to seek.
+In faroff lands
+With seven seas
+And one, gigantic peak,
+You'll find the riches
+But Beware
+The ghastly Fendersneek.''
+.fi
+
+``Oh, thank you, Oracle!'' Platypus cried, and ran home to prepare for the
+adventure, little realizing that it would be his last.
+
+.LP
+There is one pervasive factor in every Avatar's life: the Oracle, the great,
+all-knowing, mysterious power residing in the Habitat.  No one knows where
+It came from \(em but then again, no one really cares.
+
+.LP
+What Avatars do care about is the fun, intrigue and adventure that the Oracle
+provides.  In return, they support It with donations.
+
+.LP
+The Oracle grants wishes, sends Avatars on quests and adventures, and has
+been known to play a trick or two.
+
+.LP
+The Oracle is as unpredictable as It is mysterious, and should never, never
+be taken for granted.
+
+.bp
+.ce
+\fBCHAPTER THREE
+
+.ce
+DATES TO REMEMBER\fR
+
+.LP
+At first, there was only the Oracle.  Tired of playing solitaire and having
+the world all to Itself, the Oracle created Avatars for Its amusement.  All
+time in the Habitat dates from the creation of Avatars, the Oracle
+referring to the time before them as ``The Great Boredom.''
+
+.LP
+What follows are great moments in Habitat history:
+
+.LP
+1 A.C. (After Creation) The Great Boredom ends as the Oracle creates Avatars.
+
+.LP
+373 A.C.  The great Blumbeach Wars against the tyrannies of Duke Falrouche.
+
+.LP
+765 A.C.  The Oracle hands down The National Leisure Edict, providing for
+``life, liberty and the pursuit of quality leisure time'' for all Avatars.
+Each Avatar is granted a trust fund from the Oracle, removing the need to
+work for a living.
+
+.LP
+1329 A.C.  The explorer Christophilus Columbus discovers the continent of New
+Marin, uncovering riches beyond his wildest dreams.  Hundreds of Avatars
+follow in search of more treasure.
+
+.LP
+1537 A.C.  The Grand Quest for the Holy Walnut lures thousands in search of
+adventure and riches.  The object is never found, and few return alive.
+
+.LP
+1724 A.C.  The ``War to End All Wars, I Think'' is fought after a faction of
+Avatars, led by Fredrich the Ill-Mannered, tries to overthrow the authority
+of the Oracle.  The attempt fails.
+
+.LP
+1867 A.C.  TelePorts are introduced in the Habitat, ushering in a new era
+in travel.
+
+.LP
+1950 A.C.  Televisions become instant antiques when the Oracle, tiring of
+people sitting and watching moving pictures on a box, blows up all the
+television stations.
+
+.LP
+1986 A.C.  The Habitat is made accessible to Earth.
+
+.bp
+.ce
+\fBCHAPTER FOUR
+
+.ce
+AVATARS I HAVE KNOWN\fR
+
+\fIHow, what and why Avatars are named.\fR
+
+.LP
+\fI``The time has come,'' she thought, ``for me to get myself a name.'' So she
+sat, and pondered.  ``Hmmm.'' she thought, ``what will it be? Terwilliger?
+Marietta? Miranda? So many choices...I just can't decide!''
+
+.LP
+One of the most important things in the Habitat is your sense of
+identity...especially with a name that sets you apart from the others.
+
+.LP
+The rule of thumb is, the more distinctive the name, the better.  Try to keep
+it under 40 letters in length.
+
+.LP
+What follows are some inadvisable and advisable names for Avatars.  Study
+them closely before choosing a moniker for yours!
+
+.TS
+tab (/) ;
+l10 l10 l10 l .
+\fIOUT\fR//\fIIN\fR/
+///
+Jane/Bob/Prunella/Norbert
+Mary/Steve/Plantasia/Osgood
+Susan/Chuck/Henrietta/Heronymous
+Jamie/Mike/Hermione/Filbert
+Ellen/Chip/Millicent/Cornelius
+Sarah/Randy/Veronique/Phineas
+Buffy/Eric/Cassandra/Milhurst
+Helen/Ron/Phillipa/Bronson
+Babs/Gary/Marietta/Heathcliff
+Laura/Larry/Annalise/Theodosis
+.TE
+
+.bp
+.ce
+\fBCHAPTER FIVE
+
+.ce
+THE SOCIAL LIFE\fR
+
+\fI``How do you think we're going to get out of this one, Dredmitch?'' Cosmo
+asked as the two Avatars crouched in terror at the entrance to the cave.
+.LP
+\fI``Oh, that's right,'' Dredmitch replied, ``blame it on me, you slimewad!''
+.LP
+\fI``And why shouldn't I? As I recall, it was your idea to go in search of the
+Jewelled Horn of the Green Bleem...''
+.LP
+\fI``Cosmo,'' whispered Dredmitch frantically, ``stop whining!  Listen!  Do
+you hear that?''
+.LP
+\fI``Oh no,'' Cosmo moaned, ``it's that monster...that disgustingly slimy
+green \fRthing\fP...and it sounds like it's getting closer...''
+
+.LP
+Ah, adventure \(em The lifeblood of the Avatar.  Like many Avatars, you'll
+quickly turn amusing yourself into a fine art.
+
+.LP
+There are, however, several dos and don'ts when it comes to amusement in the
+Habitat:
+
+\fIDOS\fR
+
+.LP
+\fIMake new friends.\fR  And lots of them.  Avatars love meeting other
+Avatars, and consider themselves fortunate in having a large circle of
+acquaintances.  Just think about where Cosmo and Dredmitch would be if they
+hadn't met each other.
+
+.LP
+\fIBuying things.\fR  Avatars also love presents.  Sometimes you buy presents
+for friends, sometimes you buy them for yourself.  After all, you've got to do
+something with all that trust fund money...
+
+.LP
+\fITelePorting\fR  Just the thing that Cosmo and Dredmitch wish they had
+quick access to.  A TelePort is a lot like a telephone, except that, instead
+of sending your voice, you send yourself.  Costs a little more than a phone,
+but how else can you travel 3,000 miles in a split second?
+
+.LP
+\fIHanging out at the Oracle.\fB The\fR place to see and be seen.  When you
+connect into the Habitat, you'll want to go down to the Oracle to see
+which of your friends are hanging out there.  And, if no one you know is
+around, it's a great opportunity to meet someone new.
+
+.LP
+\fIPhone calls.\fR  Phones aren't there for decoration!  If you haven't got
+anything to do, just pick up the phone and give old Smedley a call.  Smedley
+might be on his way to a new adventure and need a hand.
+
+.LP
+\fIAdventures.\fR  The rallying cry of the Avatar.  A great way to spend a
+day...a week...or longer.  Much longer.  (Remember old Cosmo and Dredmitch?)
+There are several ways to plan an adventure.  You can let the Oracle chart
+your course, give you clues and send you on your way.  You can keep up with
+the latest adventure classified ads in the Habitat Weekly newspaper.  You
+can go it alone, or you can team up with a band of fearless mercenaries.  Or,
+you could always wait until Cosmo and Dredmitch get back...
+
+.LP
+\fIExploring.\fR  Kind of like adventuring, but without the risk.  The
+Habitat is a big place \(em what better way to learn about it than to go
+out and explore the surrounding neighborhoods?  It's also a great way to meet
+other Avatars.
+
+\fBDON'TS:\fR
+
+.LP
+\fIOrganized Sports.\fR  Avatars detest them.  They would much rather create
+fun of their own than have a bunch of rules dictate how they behave.
+
+.LP
+\fITelevision.\fR  Nobody watches it.
+
+.LP
+\fICard Playing.\fR  Playing cards don't exist in the Habitat, and
+repeated attempts to introduce them have failed.
+
+.LP
+\fIDriving Vehicles.\fR  Why ride when you can walk or TelePort?  The car and
+motorcycle as a mode of transportation died out hundreds of years ago,
+although you can find the occasional skateboard.
+
+.LP
+\fIMaterialism.\fR  Not the way to impress your friends.  A lot of possessions
+just overburden you, and slow you and your friends down.  Oh, it's fine to
+have little items you can call your own, but don't overdo it.  The average
+Avatar just isn't overwhelmed or impressed by lavish displays of wealth.
+
+.LP
+\fIOver-Extend Your Avatar's Hospitality.\fR  Fact is, ever since the ``War
+to End All Wars, I Think'' the Oracle won't allow gatherings of more than six
+Avatars in one place at one time.  So, next time you decide to hold a hot-tub
+party, remember the ``five guests only'' rule.  If you try to go someplace
+that is already filled to capacity, the Oracle won't admit you and you will
+bounce off.
+
+.bp
+
+.ce
+\fBCHAPTER SIX
+
+.ce
+THERE ARE SOME THINGS WE JUST DON'T TALK ABOUT...\fR
+
+
+.LP
+\fI``You know, Filbert,'' Alendale said quietly, ``you could easily buy your
+way out of this little...jam...with a few tokens...say 1000?''
+.LP
+\fI``You know I don't have that kind of money,'' Filbert replied, fear in his
+voice.  ``I can't afford your protection money.  So go ahead, beat me up.''
+.LP
+\fI``You know I never do the dirty work,'' Alendale said with an evil smile.
+``The boys will be by tomorrow night...unless you can somehow raise the
+money you owe.  And Filbert,'' he chuckled, ``don't try to hide.  We'll find
+you.  We always do.''
+
+.LP
+Money.  What society could survive without it?  Avatars are lucky...all their
+basic financial concerns were taken care of when the National Leisure Laws
+were enacted and trust funds, lifetime trust funds, were established for
+each one of them.  \fINo\fR Avatar has to work for a living.
+
+.LP
+Yet, if there's one thing Avatars don't talk about, it's where they get the
+money.  The trust funds are an accepted fact, and it's considered \fIgauche\fP
+to discuss it.  Unless, of course, you're a petty thief like Alendale.
+However, you don't have an infinite supply of cash.  At regular intervals,
+your bank account will accumulate interest, which you may spend.  You may
+\fInot\fP spend the principle.  And, interest is accrued according to how much
+time you spend in the Habitat.  So you can never be broke, but you can be
+short on cash.
+
+.LP
+The Token is the currency standard in the Habitat.  Since an you can only
+hold one object in your hand at one time, a Token object can represent any
+amount of cash from one Token to whatever.  Anytime you spend money, a window
+pops up on the screen, telling you how much the Token represents, and asks how
+much you want to spend.
+
+.LP
+Credit cards work much the same way.  Pull out the card, and the window
+appears with your credit limit and an inquiry of how much you want to spend.
+The credit card amount is then deducted from your bank account.  And for those
+times when you find yourself running a little short of pocket money, you can
+always visit an automatic teller to withdraw more with the credit card.
+
+.LP
+There \fIare\fP other ways to get money.  Consider the fortunes of Alexander
+Arnquirt, who went off in search of treasure and came back with one of the
+most sacred of MicroCosmic relics \(em the bronze candlestick of Demetrius the
+Blind.  The enterprising Mr. Arnquirt opened a private museum, drew thousands
+of Avatars, and made a small fortune.  Which he promptly spent in his next
+quest for sunken treasure off the coast of Andoverland.
+
+.LP
+Tokens also come from unexpected sources, depending on the Oracle's generous
+streak on any given day.  Jeanette Woodgrain once found a Token worth T5,000
+stuck in a crack in the sidewalk.
+
+.LP
+Avatars also raise quick cash at the pawn shop \(em a seedy if necessary
+establishment on the outskirts of most towns.
+
+.LP
+Money's not a problem, in short.  Unless you choose to make it a problem.  But
+then, there's always Alendale.
+
+.bp
+.ce
+\fBCHAPTER SEVEN
+
+.ce
+THE WELL-DRESSED AVATAR\fR
+
+.LP
+\fI``Oh, brother,'' Wilhelmina whispered to Prunella, ``here comes old
+fashionplate again.'' Prunella looked over to see devastatingly handsome
+Berford Clotheshorse sauntering up in the latest Oscy De La Rooster style.
+``Who does he think he is?'' Whilhelmina hissed.
+.LP
+\fI``The Oracle's gift to Avatars,'' Prunella sighed, stars in her eyes.
+``The Oracle's gift to Avatars.''
+
+.LP
+One of the really fun things you can do when you enter the Habitat is
+customize your appearance.  What you get to help you in this task is a
+customization kit that will allow you to make the kind of alterations that
+would make a Beverly Hills plastic surgeon cry.
+
+.LP
+Clothing works a little differently.  Your Avatar will come attired, though a
+little blandly.  It's easy to build a wardrobe...just head down to the store,
+find something that suits you and buy it.
+
+.LP
+Put it on by using the \fBGET\fR and \fBPUT\fR commands, remembering that you can only wear one shirt, pair of pants, and so on, at a time.
+
+.LP
+The most popular forms of dress in the Habitat appear below:
+
+(illustration of male and female avatars, wearing various apparel items,
+which will be called out in text.)
+
+.bp
+.ce
+\fBCHAPTER EIGHT
+
+.ce
+THE WELL-READ AVATAR\fR
+
+.LP
+\fIJuliette scanned the classified ads in the Habitat Weekly Rant.
+Someone selling clues to a fabulous treasure...someone getting together an
+expedition to go in search of the magic gopher, someone looking for a lost
+key...but wait!  What was this?  ``Fabulous diamond and ruby necklace,
+recently discovered and recovered in adventure, T15,000 or B/O. Phone
+555-000.'' Scrambling for the phone, all Juliette could think was, ``I've got
+to have it...I've got to have it...''
+
+.LP
+You know how to read, don't you?  In the Habitat there are letters, which
+were discussed earlier, as well as newspapers and magazines.  The Habitat
+Weekly Rant, the local newspaper, is the best place to look for the latest
+news, as well as classified ads about treasure-hunting expeditions, clues to
+mysteries, and relics or valuable items for sale.
+
+.bp
+.ce
+\fBCHAPTER NINE
+
+.ce
+CINEMA AVATAR\fR
+
+.pp
+One of the most thriving of all Avatar art forms is, what else? the movies.
+
+.LP
+Noted Avatar film critics Signorney Fledmich and Hobert Blattwork, co-writers
+of the popular newspaper column, ``Still At The Movies'', have put together
+a list of all-time great Habitat movies:
+
+STARE WARS:  A cosmic action/adventure classic about space optometrists.
+
+GOING, GOING, GONE WITH THE WIND:  A turbulent love story set in the
+background of the Great Auction Wars.
+
+CASA DE BLANCA:  Another wartime love story, featuring the immortal line,
+``Play it again, Smedley.''
+
+BERFORD CASSIDY AND THE SUNSHINE KID:  Rollicking, comic tale of the two
+cow-atars, legendary bankrobbers of the old west.
+
+THE ORACLE OF OZ:  Family adventure about a young Avatar's adventures in a
+strange land called Kansas.
+
+CAWS:  How a gigantic seagull terrorizes a small beach community one summer.
+
+LOOKING FOR MR. FOOBAR:  The seedy world of singles, as seen through the eyes
+of an aging, jaded software designer.
+
+THE BAGEL THAT ATE 47TH STREET:  Classic 1950's `B' horror flick about
+a yeast experiment gone awry in a major metropolitan bakery/think-tank.
+
+.bp
+.ce
+\fBCHAPTER TEN
+
+.ce
+THE IMPORTANCE OF ETIQUETTE\fR
+
+(This awaits your input)
+
+.bp
+.ce
+\fBCHAPTER ELEVEN
+
+.ce
+TURF, SWEET TURF\fR
+
+.LP
+\fI``Oh, heck'' MacGruder thought, ``if Chrysanthemum and Penelope are coming
+for tea, I suppose I really should spruce the place up.'' He quickly
+straightened up his Turf, and gazing around, grew more and more dissatisfied
+with the looks of the place.  ``I know!'' he exclaimed, snapping his fingers,
+``I'll redecorate!''\fR
+
+.LP
+Decorating, or, as is MacGruder's case, redecorating, is accomplished with a
+Turf Customization Kit.  You can use it to choose the colors, styles and
+furniture best suited to your personality.
+
+.LP
+Your Turf will come with some furniture, leaving it up to you to make just the
+right touches in decor.  Maybe you'll find them in the form of artifacts you
+bring back from your adventures.  Maybe you'll have to go out and buy them.
+
+.LP
+The law of minimums apply in the home Turf as well as anywhere else \(em
+don't be extravagent, and don't try to crowd too many objects into one
+area.  No one will be impressed, and it will limit the number of people you
+can entertain.  Only a certain amount of ``stuff'', be it Avatars or objects,
+can exist in the same space at the same time.
+
+.bp
+.ce
+\fBCHAPTER TWELVE
+
+.ce
+THE AVATAR GLOSSARY\fR
+
+.LP
+All the Expressions that Separate the Avatars from the Boys, so to Speak.
+
+.TS
+tab (/) ;
+l8 l .
+ADVENTURING:/Going in search of intrigue, riches, and danger.
+//
+AVATAR:/The basic lifeform in the Habitat.
+//
+CUSTOMIZING:/Altering the appearance of your Avatar or Turf to suit your own
+taste or the whims of fashion.
+//
+HEAD DOWN TO THE O:/Slang term for visiting the Oracle
+/to see who's hanging out.
+//
+MULEHEAD:/An evil Avatar whose means justify his end.
+//
+ORACLE:/The all-knowing being that controls life in the Habitat.
+//
+PENNIES:/Slang term for stray Tokens found laying on the
+/ground in public places.  Since these Tokens are presumably
+/left by the Oracle, the term derives from the old expression
+/``pennies from heaven.''
+//
+PORT:/As a noun, an electronic TelePorting system 
+/for Avatars.  Kind of like a plane of a train, only
+/better.
+/As a verb, the act of being TelePorted to another
+/location in the Habitat.  Common usage: ``Say, Mirabella,
+/why don't you Port on over for some fun and games?''
+//
+PULLING A DREDMITCH:/Getting into a sticky situation.
+//
+SIXED OUT:/When you've met your limit on the ``five guests
+only rule''
+//
+TOKEN:/Monetary unit of the Habitat.
+//
+TRUST FUND:/Where money comes from.
+//
+TURF:/The Avatar's home.  Basis of the well known
+/expression, ``An Avatar's Turf is his castle.''
+//
+WEEKLY RANT:/The Habitat weekly newspaper.
+.TE
+.bp
+
+.ce
+\fBCHAPTER THIRTEEN
+
+.ce
+HALL OF RECORDS\fR
+
+
+.LP
+Avatars pride themselves at being the best.  Because of that drive, they
+established a ``Hall of Records'' in which categories of distinction are as
+diverse as the activities they participate in.
+
+.LP
+Included here is a list of some of the ``Guilderness Book of Records'' title
+holders, with their record-making facts and figures.
+
+.LP
+\fILONGEST TIME ON AN ADVENTURE WITH NO REWARD:\fR Thigglemas Dingleberry, 5
+years, 27 days.
+
+.LP
+\fIOLDEST AVATAR:\fR ``Old Stinky'' Planterret, 247 years, 237 days.
+
+.LP
+\fIWEALTHIEST AVATAR:\fR ``Tokenbags'' Bleenquit, lifetime fortune of T37
+billion, mostly from adventuring.
+
+.LP
+\fIMOST WISHES GRANTED FROM THE ORACLE:\fR Synthetica Sandlebury, 337.
+
+.LP
+\fIMOST TOKENS SPENT IN ONE DAY:\fR Bronswetta Q. Fishurst, 627,000 on a
+shopping spree.
+
+.LP
+\fIMOST MILEAGE IN A TELEPORTER:\fR Maxwell Zapmeister, .3 light years.
+
+.LP
+\fIMOST REINCARNATIONS:\fR Ferdinand ``Moose'' Baxwax, 4,177.
+
+.LP
+\fIMOST REGIONS VISITED:\fR Grizelda Grodwort, 50,002 different regions.
+
+.LP
+\fIMOST NEW TERRITORY EXPLORED:\fR Grizelda Grodwort, 10,145 regions never
+before visited.
+
+.LP
+\fIMOST UNUSUAL NAME:\fR Melinda Miroslav Mortsweller Mbwebwe A. B. C. D. E. F. G. H. I. J. K.
+L. M. N. O. P. Q. R. S. T. U. V. W. X. Y. Z. Friedman Birdbasher III
+
+.LP
+\fIMOST TIME IN THE HABITAT:\fR Rosetta Pololobololobos, 24,111 hrs.
+
+.LP
+\fIMOST NOTORIOUS:\fR Phlebitus Footsore, infamous bandit, swindler, TelePort
+pirate and litterbug.
+
+.LP
+\fIMOST OFTEN IN THE NEWS:\fR Rubin Snide III, rabble rousing attorney for the
+law firm Snide, Snide, Cromfelter and Snide.
+
+.LP
+\fILARGEST ARSENAL:\fR Buggonimer ``Bugsy'' N.R.A. Piffle, over 200 different
+guns, knives and other destructive implements.
+
+.LP
+\fIBEST DRESSED:\fR Berford Clotheshorse, by unanimous choice of the editors
+of \fIAvatar's Wear Daily\fR.
+.bp
+
+.ce
+\fBCHAPTER FOURTEEN
+
+.ce
+WHAT HAPPENS WHEN YOU DIE\fR
+
+.LP
+\fIPhilemon found himself standing at the pearly gates, waiting to meet his
+Maker.  In due time the Oracle appeared, stared at Philemon long and hard,
+and finally asked,
+.LP
+\fI``So, worm, how did you end up in this predicament?'' Philemon swallowed
+hard and began to explain...\fR
+
+.LP
+Sometimes, even in the Habitat, the unthinkable happens and your Avatar
+may ``bite the dust''.  Not a pleasant thought, to say the least.
+
+.LP
+But if it happens, what do you do? It all depends on the Oracle.  For
+example, look at what happened to Philemon.  After terrorizing small
+communities of Avatars for months, one of his victims got hold of a gun and
+nailed Philemon with it.  He appeared before the Oracle, tried to weasle his
+way out of it, and got promptly slapped down.
+
+.LP
+\fI``I know what you are and I know what you did,'' the Oracle declared.
+``And I sentence you to wear the head of mule forevermore.  This will warn
+other Avatars about you.''
+
+.LP
+The Oracle varies on his sentencing of evil Avatars.  Some are fated to go
+through life with the heads of mules.  Some are required to pay heavy fines
+from their trust funds to the Oracle.  Some are ``grounded'', or forbidden to
+leave their Turf for a certain amount of time.
+
+.LP
+If an Avatar is a victim of the violence of other Avatars, he may have a
+chance to ``plead his case'' in an ``exit interview'' with the Oracle.  The
+probability of this happening, however, is extremely small.  In most cases, he
+will just be reincarnated to his Turf.  The Oracle is known, however, for
+being rough on those who are foolish enough to get themselves killed, and may
+extract a payment of all the Avatar's savings for the favor of reincarnating
+him.
+
+.LP
+An exit interview, if you are granted one, can be a lot like an IRS audit (as
+Philemon learned).  You go into one hoping that even if you did something
+wrong, it'll all turn out for the best.  You may end up better off than when
+you started, but then again, you may end up looking like a mule.
+
+.LP
+The best advice, then, is to avoid having to meet the Maker.  Be careful, know
+who your friends are, and watch over your shoulder.
+
+
+

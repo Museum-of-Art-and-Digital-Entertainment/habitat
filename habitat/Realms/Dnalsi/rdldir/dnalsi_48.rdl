@@ -1,0 +1,22 @@
+@region $ dnalsi_48 {
+    north: dnalsi_49.l;
+    south: dnalsi_47.l;
+    east: dnalsi_58.l;
+    west: dnalsi_38.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @bush { x:128; y:39; or:9; style:4; gr_state:2; }
+        @flat { x:0; y:12; or:188; style:1; 
+            8:2;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:48; y:133; or:9; style:4; gr_state:2; }
+        @bush { x:128; y:35; or:8; style:4; gr_state:2; }
+    ]
+}

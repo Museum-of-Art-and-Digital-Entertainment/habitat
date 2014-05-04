@@ -1,0 +1,33 @@
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9\(rh MicroLANd\*M \(lh\s-9
+.AU
+A ``LUCASFILM UNIVERSE'' PROPOSAL
+for a new form of interactive entertainment
+by
+Chip Morningstar
+.AI
+Lucas\(film Ltd. Games Division
+\\*(DY
+.ds LH MICROLAND
+.ds CH \\*(DY
+.ds RH Concept Document
+.ds LF Lucas\(film Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+\fBMicroLANd\*T\fR will be a multi-person interactive simulation of an
+imaginary alternate world.  The simulation will be spread over a number of
+personal computers connected together with a local area network (LAN).  Each
+computer will simulate a particular region of the world.  Collectively, the
+whole network of machines simulates the entire world.  A player sits at each
+computer which acts as his window on the world.  The player can then interact
+directly with the local simulation and indirectly, by means of the LAN, with
+the simulations being run on other machines.  Interaction with remote
+machines, either by entering their simulations or by having their players
+enter the simulation on your machine, can involve interaction with the other
+players as well.

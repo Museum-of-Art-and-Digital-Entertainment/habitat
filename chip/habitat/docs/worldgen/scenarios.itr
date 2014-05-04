@@ -1,0 +1,73 @@
+.AM
+.ds Dq July 8, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+Scenarios\s-9
+.AU
+some specific activities for the first round Habitat\*T release
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH SCENARIOS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 23
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Scenario #1: \f(BIFind Your Way Out, If You Can\s-3
+.PP
+Orienteering
+.SH
+\s+3Scenario #2: \f(BIAvatar At The Great Game\s-3
+.PP
+Capture The Flag
+.SH
+\s+3Scenario #3: \f(BIUs vs. Them\s-3
+.PP
+Survival Game
+.SH
+\s+3Scenario #4: \f(BIKill Or Be Killed\s-3
+.PP
+Assassin
+.SH
+\s+3Scenario #5: \f(BII'll Trade You 3 Boxes Of Pink Rocks For Your Shirt\s-3
+.PP
+Scavenger Hunt
+.SH
+\s+3Scenario #6: \f(BIQuest For The Jewelled Horn of The Green Bleem\*T\s-3
+.PP
+Treasure Hunt
+.SH
+\s+3Scenario #7: \f(BIBuy Low, Sell High\s-3
+.PP
+Habitat Stock Exchange
+.SH
+\s+3Scenario #8: \f(BIAllegorical Symbol Resolution In Howard The Duck\s-3
+.PP
+Cafe Bozart
+.SH
+\s+3Scenario #9: \f(BICome Here Often?\s-3
+.PP
+Chuck's Bar and Grill
+.SH
+\s+3Scenario #10: \f(BIKing For A Day\s-3
+.PP
+The Kingdom
+.SH
+\s+3Scenario #11: \f(BIIf Elected I Promise To\s-3
+.PP
+The Democracy
+.SH
+\s+3Scenario #12: \f(BIDo You Know The Way To Populopolis?\s-3
+.PP
+The Map Game
+.SH
+\s+3Scenario #13: \f(BIStorytellers' Anonymous
+.PP
+Tale Spinning

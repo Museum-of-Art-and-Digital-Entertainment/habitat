@@ -1,0 +1,149 @@
+use region r_9152 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9160
+  west_neighbor: r -1
+  north_neighbor: r r_9153
+  south_neighbor: r r_9151
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7203 {
+  container: r r_9152
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_7204 {
+  container: r r_9152
+  x: 160
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 127
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 85, 85, 86, 165, 89, 89, 101, 86, 101, 86, 85, 86, 85, 86, 85, 89, 8
+5, 101, 85, 149, 85, 149, 85, 149, 85, 85, 85, 149, 86, 101, 85, 149
+}
+use street o_7205 {
+  container: r r_9152
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 6
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use door o_7206 {
+  container: r r_9152
+  x: 8
+  y: 33
+  style: 0
+  gr_state: 1
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use sign o_7207 {
+  container: r r_9152
+  x: 52
+  y: 238
+  style: 0
+  gr_state: 6
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\( $  $  $  $\R\R$  $  $  $\R              "
+}
+use sign o_7208 {
+  container: r r_9152
+  x: 52
+  y: 238
+  style: 0
+  gr_state: 10
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(  $  $  $\R$         $\R  $  $  $\R      "
+}
+use sign o_7209 {
+  container: r r_9152
+  x: 60
+  y: 93
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(QuizShows\R\R   Inc                     "
+}
+use trapezoid o_7210 {
+  container: r r_9152
+  x: 44
+  y: 40
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 4
+  upper_right_x: 102
+  lower_left_x: 4
+  lower_right_x: 102
+  height: 200
+}
+use sign o_7211 {
+  container: r r_9152
+  x: 52
+  y: 238
+  style: 0
+  gr_state: 14
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\($  $  $  $\R\R $  $  $  $\R              "
+}

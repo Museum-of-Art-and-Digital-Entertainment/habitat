@@ -1,0 +1,20 @@
+/*
+ *   struct_gen_magic.incl.pl1
+ *
+ *   Struct stub for generic magical object instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *
+ *   New fields added F. Randall Farmer 9-March-88
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   magic_type     binary(15),
+           3   charges        binary(31),
+           3   magic_data     binary(31),
+           3   magic_data2    binary(31),
+           3   magic_data3    binary(31),
+           3   magic_data4    binary(31),
+           3   magic_data5    binary(31);

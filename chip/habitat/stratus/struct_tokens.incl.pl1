@@ -1,0 +1,14 @@
+/*
+ *   struct_tokens.incl.pl1
+ *
+ *   Struct stub for tokens instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   denom_lo       binary(15),
+           3   denom_hi       binary(15);

@@ -1,0 +1,761 @@
+/*
+ * envcode.pl1 -- Macro environment routines for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 17-November-1987
+ *
+ * These routines handle the saving and restoring of macros in the environment
+ *  file.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'command_struct.incl.pl1';
+%include 'expr_struct.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'environ.incl.pl1';
+%include 'expr.incl.pl1';
+
+%replace EXP$NULL      by  0;
+%replace EXP$NUMBER    by  1;
+%replace EXP$STRING    by  2;
+%replace EXP$BITSTRING by  3;
+%replace EXP$LVALUE    by  4;
+%replace EXP$OBJTYPE   by  5;
+%replace EXP$UMINUS    by  6;
+%replace EXP$UBITNOT   by  7;
+%replace EXP$ULOGNOT   by  8;
+%replace EXP$ADD       by  9;
+%replace EXP$SUB       by 10;
+%replace EXP$DIV       by 11;
+%replace EXP$MUL       by 12;
+%replace EXP$BAND      by 13;
+%replace EXP$BOR       by 14;
+%replace EXP$BXOR      by 15;
+%replace EXP$LT        by 16;
+%replace EXP$LEQ       by 17;
+%replace EXP$EQ        by 18;
+%replace EXP$NEQ       by 19;
+%replace EXP$GEQ       by 20;
+%replace EXP$GT        by 21;
+%replace EXP$LOGAND    by 22;
+%replace EXP$LOGOR     by 23;
+%replace EXP$TYPE      by 24;
+%replace EXP$NAME      by 25;
+%replace EXP$FIELD     by 26;
+%replace EXP$ARRAY     by 27;
+
+save_code: procedure(original_codeptr) returns(bit(1));
+     declare original_codeptr pointer;
+     declare codeptr pointer;
+     declare 1 code based(codeptr) like command_list_descriptor;
+
+     codeptr = original_codeptr;
+     do while (codeptr ^= null());
+          call buffer_command(code.command,code.filenamenum,code.append_flag);
+          codeptr = code.next;
+     end;
+     call buffer_bin15(0);
+     return(^buffer_overflow());
+end save_code;
+
+buffer_command: procedure(commandnum, filenamenum, append_flag);
+     declare commandnum binary(31);
+     declare commandptr pointer;
+     declare 1 command based(commandptr) like command_descriptor;
+     declare filenamenum binary(31);
+     declare append_flag bit(1);
+     declare command_func binary(15);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     commandptr = i2p(commandnum);
+     command_func = command.command_function;
+     call buffer_bin15(command_func);
+     if (filenamenum = 0) then
+          call buffer_string('');
+     else
+          call buffer_string(i2p(filenamenum)->symbol_value_str);
+     call buffer_bin15((append_flag));
+     arg1 = command.arg1;
+     arg2 = command.arg2;
+     goto case(command_func);
+
+     case(CMD$ADD_PROMPT):;
+     case(CMD$ALIAS_LIST):;
+     case(CMD$ALLMACROS):;
+     case(CMD$ALLNAMES):;
+     case(CMD$BREAK):;
+     case(CMD$DISPLAY_DEFAULT):;
+     case(CMD$ELSE):;
+     case(CMD$ENDFOR):;
+     case(CMD$ENDIF):;
+     case(CMD$ENDMACRO):;
+     case(CMD$FOR_ALL_A):;
+     case(CMD$FOR_ALL_O):;
+     case(CMD$FOR_ALL_R):;
+     case(CMD$HELP_GENERAL):;
+     case(CMD$PLAYERS):;
+     case(CMD$PROCESSES):;
+     case(CMD$QUIT):;
+     case(CMD$READ_IMPLICIT):;
+     case(CMD$STOP_LOGGING):;
+     case(CMD$TURFS):;
+     case(CMD$UPDATE):;
+     case(CMD$VOICE_IMPLICIT_PROMPT):;
+     case(CMD$WATCH_IMPLICIT):;
+     case(CMD$WATCH_OFF):
+          goto endcases;
+
+     case(CMD$CLASS):;
+     case(CMD$CONTENTS):;
+     case(CMD$CONTENTS_FULL):;
+     case(CMD$ELSEIF):;
+     case(CMD$FIND):;
+     case(CMD$FOR_ALL_A_IN):;
+     case(CMD$FOR_ALL_O_IN):;
+     case(CMD$GET):;
+     case(CMD$GRIDDLE):;
+     case(CMD$GRIDDLE_FULL):;
+     case(CMD$IF):;
+     case(CMD$KILL):;
+     case(CMD$NEWTURF):;
+     case(CMD$PAGES_LOOKUP):;
+     case(CMD$RAW):;
+     case(CMD$RAW_FULL):;
+     case(CMD$READMAIL):;
+     case(CMD$REMOVE):;
+     case(CMD$REMTURF):;
+     case(CMD$TELEPORT_LOOKUP):;
+     case(CMD$TITLES):;
+     case(CMD$UPDATE_EXPLICIT):;
+     case(CMD$VOICE_PROMPT):;
+     case(CMD$VOICE_IMPLICIT):;
+     case(CMD$WATCH):
+          call buffer_value(arg1);
+          goto endcases;
+
+     case(CMD$FOR_RANGE):;
+     case(CMD$LIST_ACTIVE):;
+     case(CMD$LIST):;
+     case(CMD$NUKE):;
+     case(CMD$ORACLE):;
+     case(CMD$ORACLE_DUMP):;
+     case(CMD$PAGES):;
+     case(CMD$READ):;
+     case(CMD$SET):;
+     case(CMD$SET_UPDATE):;
+     case(CMD$TELEPORT_SET):;
+     case(CMD$VOICE):
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+          goto endcases;
+
+     case(CMD$ADD):
+          call buffer_value(arg1);
+          call buffer_value_list(arg2);
+          goto endcases;
+
+     case(CMD$MACRO_CALL):
+          call buffer_name(arg1);
+          call buffer_value_list(arg2);
+          goto endcases;
+
+     case(CMD$ALIAS):
+          call buffer_name(arg1);
+          call buffer_string(i2p(arg2)->symbol_value_str);
+          goto endcases;
+
+     case(CMD$ALIAS_PRINT):;
+     case(CMD$MACRO):;
+     case(CMD$UNNAME):
+          call buffer_name(arg1);
+          goto endcases;
+
+     case(CMD$START_LOGGING):
+          call buffer_string(i2p(arg1)->symbol_value_str);
+          call buffer_bin15((arg2));
+          goto endcases;
+
+     case(CMD$COOK):;
+     case(CMD$EXECUTE):;
+     case(CMD$WRITE_NEW):
+          call buffer_string(i2p(arg1)->symbol_value_str);
+          goto endcases;
+
+     case(CMD$DEFINE):
+          call warning('can''t save DEFINE statement in environment file');
+          goto endcases;
+
+     case(CMD$DISPLAY):;
+     case(CMD$VALUE):
+          call buffer_value(arg1);
+          call buffer_bin15((arg2));
+          goto endcases;
+
+     case(CMD$HELP):
+          call buffer_bin15((arg1));
+          goto endcases;
+
+     case(CMD$NAME):
+          call buffer_name(arg1);
+          call buffer_value(arg2);
+          goto endcases;
+
+     case(CMD$SENDMAIL):;
+     case(CMD$WRITE):
+          call buffer_value_list(arg1);
+          call buffer_string(i2p(arg2)->symbol_value_str);
+          goto endcases;
+
+endcases:
+end buffer_command;
+
+unsave_code: procedure returns(pointer);
+     declare codeptr pointer;
+     declare 1 code based(codeptr) like command_list_descriptor;
+     declare newcodeptr pointer;
+     declare 1 newcode based(newcodeptr) like command_list_descriptor;
+     declare result pointer;
+     declare command_func binary(15);
+     declare filenameptr pointer;
+     declare filename based(filenameptr) character(1000) varying;
+
+     command_func = unbuffer_bin15();
+     result = null();
+     do while (command_func ^= 0);
+          newcodeptr = alloc(size(command_list_descriptor), 24);
+          filenameptr = unbuffer_string();
+          if (filename ^= '') then
+               newcode.filenamenum = p2i(filenameptr);
+          else do;
+               newcode.filenamenum = 0;
+               call free(filenameptr);
+          end;
+          newcode.append_flag = (unbuffer_bin15() ^= 0);
+          newcode.command = p2i(unbuffer_command(command_func));
+          newcode.next = null();
+          if (result = null()) then
+               result = newcodeptr;
+          else
+               code.next = newcodeptr;
+          codeptr = newcodeptr;
+          command_func = unbuffer_bin15();
+     end;
+     return(result);
+end unsave_code;
+
+unbuffer_command: procedure(command_func) returns(pointer);
+     declare command_func binary(15);
+     declare commandptr pointer;
+     declare 1 command based(commandptr) like command_descriptor;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     commandptr = alloc(size(command_descriptor), 25);
+     command.command_function = command_func;
+     arg1 = 0;
+     arg2 = 0;
+
+     goto case(command_func);
+
+     case(CMD$ADD_PROMPT):;
+     case(CMD$ALIAS_LIST):;
+     case(CMD$ALLMACROS):;
+     case(CMD$ALLNAMES):;
+     case(CMD$BREAK):;
+     case(CMD$DISPLAY_DEFAULT):;
+     case(CMD$ELSE):;
+     case(CMD$ENDFOR):;
+     case(CMD$ENDIF):;
+     case(CMD$ENDMACRO):;
+     case(CMD$FOR_ALL_A):;
+     case(CMD$FOR_ALL_O):;
+     case(CMD$FOR_ALL_R):;
+     case(CMD$HELP_GENERAL):;
+     case(CMD$PLAYERS):;
+     case(CMD$PROCESSES):;
+     case(CMD$QUIT):;
+     case(CMD$READ_IMPLICIT):;
+     case(CMD$STOP_LOGGING):;
+     case(CMD$TURFS):;
+     case(CMD$UPDATE):;
+     case(CMD$VOICE_IMPLICIT_PROMPT):;
+     case(CMD$WATCH_IMPLICIT):;
+     case(CMD$WATCH_OFF):
+          goto endcases;
+
+     case(CMD$CLASS):;
+     case(CMD$CONTENTS):;
+     case(CMD$CONTENTS_FULL):;
+     case(CMD$ELSEIF):;
+     case(CMD$FIND):;
+     case(CMD$FOR_ALL_A_IN):;
+     case(CMD$FOR_ALL_O_IN):;
+     case(CMD$GET):;
+     case(CMD$GRIDDLE):;
+     case(CMD$GRIDDLE_FULL):;
+     case(CMD$IF):;
+     case(CMD$KILL):;
+     case(CMD$NEWTURF):;
+     case(CMD$PAGES_LOOKUP):;
+     case(CMD$RAW):;
+     case(CMD$RAW_FULL):;
+     case(CMD$READMAIL):;
+     case(CMD$REMOVE):;
+     case(CMD$REMTURF):;
+     case(CMD$TELEPORT_LOOKUP):;
+     case(CMD$TITLES):;
+     case(CMD$UPDATE_EXPLICIT):;
+     case(CMD$VOICE_PROMPT):;
+     case(CMD$VOICE_IMPLICIT):;
+     case(CMD$WATCH):
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(CMD$FOR_RANGE):;
+     case(CMD$LIST_ACTIVE):;
+     case(CMD$LIST):;
+     case(CMD$NUKE):;
+     case(CMD$ORACLE):;
+     case(CMD$ORACLE_DUMP):;
+     case(CMD$PAGES):;
+     case(CMD$READ):;
+     case(CMD$SET):;
+     case(CMD$SET_UPDATE):;
+     case(CMD$TELEPORT_SET):;
+     case(CMD$VOICE):
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(CMD$ADD):
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value_list();
+          goto endcases;
+
+     case(CMD$MACRO_CALL):
+          arg1 = unbuffer_name();
+          arg2 = unbuffer_value_list();
+          goto endcases;
+
+     case(CMD$ALIAS):
+          arg1 = unbuffer_name();
+          arg2 = p2i(unbuffer_string());
+          goto endcases;
+
+     case(CMD$ALIAS_PRINT):;
+     case(CMD$MACRO):;
+     case(CMD$UNNAME):
+          arg1 = unbuffer_name();
+          goto endcases;
+
+     case(CMD$START_LOGGING):
+          arg1 = p2i(unbuffer_string());
+          arg2 = unbuffer_bin15();
+          goto endcases;
+
+     case(CMD$COOK):;
+     case(CMD$EXECUTE):;
+     case(CMD$WRITE_NEW):
+          arg1 = p2i(unbuffer_string());
+          goto endcases;
+
+     case(CMD$DEFINE):
+          call error('BOTCH: DEFINE statement in environment file!');
+          goto endcases;
+
+     case(CMD$DISPLAY):;
+     case(CMD$VALUE):
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_bin15();
+          goto endcases;
+
+     case(CMD$HELP):
+          arg1 = unbuffer_bin15();
+          goto endcases;
+
+     case(CMD$NAME):
+          arg1 = unbuffer_name();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(CMD$SENDMAIL):;
+     case(CMD$WRITE):
+          arg1 = unbuffer_value_list();
+          arg2 = p2i(unbuffer_string());
+          goto endcases;
+
+endcases:
+     command.arg1 = arg1;
+     command.arg2 = arg2;
+     return(commandptr);
+end unbuffer_command;
+
+buffer_value_list: procedure(listnum);
+     declare listnum binary(31);
+     declare listptr pointer;
+     declare 1 value_list based(listptr) like value_list_descriptor;
+
+     listptr = i2p(listnum);
+     do while (listptr ^= null());
+          call buffer_value(value_list.value);
+          listptr = value_list.next;
+     end;
+     call buffer_bin15(0);
+end buffer_value_list;
+
+unbuffer_value_list: procedure returns(binary(31));
+     declare listptr pointer;
+     declare 1 list based(listptr) like value_list_descriptor;
+     declare newlistptr pointer;
+     declare 1 newlist based(newlistptr) like value_list_descriptor;
+     declare resultptr pointer;
+     declare exprnum binary(15);
+
+     exprnum = unbuffer_bin15();
+     resultptr = null();
+     do while (exprnum ^= 0);
+          newlistptr = alloc(size(value_list_descriptor), 26);
+          newlist.value = unbuffer_value_lookahead(exprnum);
+          newlist.next = null();
+          if (resultptr = null()) then
+               resultptr = newlistptr;
+          else
+               list.next = newlistptr;
+          listptr = newlistptr;
+          exprnum = unbuffer_bin15();
+     end;
+     return(p2i(resultptr));
+end unbuffer_value_list;
+
+unbuffer_value: procedure recursive returns(binary(31));
+     return(unbuffer_value_lookahead(unbuffer_bin15()));
+end unbuffer_value;
+
+buffer_value: procedure(valuenum) recursive;
+     declare valuenum binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like expr_struct;
+     declare func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     valueptr = i2p(valuenum);
+     if (valueptr = null()) then do;
+          call buffer_bin15(EXP$NULL);
+          return;
+     end;
+     func = value.eval_func;
+     arg1 = value.arg1;
+     arg2 = value.arg2;
+
+     if (func = eval_number_value) then do;
+          call buffer_bin15(EXP$NUMBER);
+          call buffer_bin31(arg1);
+     end; else if (func = eval_string_value) then do;
+          call buffer_bin15(EXP$STRING);
+          call buffer_string(i2p(arg1)->symbol_value_str);
+     end; else if (func = eval_bitstring_value) then do;
+          call buffer_bin15(EXP$BITSTRING);
+          call buffer_bitstring(i2p(arg1));
+     end; else if (func = value_from_lvalue) then do;
+          call buffer_bin15(EXP$LVALUE);
+          call buffer_value(arg1);
+     end; else if (func = objtype) then do;
+          call buffer_bin15(EXP$OBJTYPE);
+          call buffer_value(arg1);
+     end; else if (func = anegate) then do;
+          call buffer_bin15(EXP$UMINUS);
+          call buffer_value(arg1);
+     end; else if (func = bnegate) then do;
+          call buffer_bin15(EXP$UBITNOT);
+          call buffer_value(arg1);
+     end; else if (func = lnegate) then do;
+          call buffer_bin15(EXP$ULOGNOT);
+          call buffer_value(arg1);
+     end; else if (func = add) then do;
+          call buffer_bin15(EXP$ADD);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = sub) then do;
+          call buffer_bin15(EXP$SUB);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = div) then do;
+          call buffer_bin15(EXP$DIV);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = mul) then do;
+          call buffer_bin15(EXP$MUL);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = band) then do;
+          call buffer_bin15(EXP$BAND);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = bor) then do;
+          call buffer_bin15(EXP$BOR);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = bxor) then do;
+          call buffer_bin15(EXP$BXOR);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_lt) then do;
+          call buffer_bin15(EXP$LT);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_leq) then do;
+          call buffer_bin15(EXP$LEQ);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_eq) then do;
+          call buffer_bin15(EXP$EQ);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_neq) then do;
+          call buffer_bin15(EXP$NEQ);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_geq) then do;
+          call buffer_bin15(EXP$GEQ);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = cmp_gt) then do;
+          call buffer_bin15(EXP$GT);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = land) then do;
+          call buffer_bin15(EXP$LOGAND);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = lor) then do;
+          call buffer_bin15(EXP$LOGOR);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else if (func = attach_type) then do;
+          call buffer_bin15(EXP$TYPE);
+          call buffer_bin15((arg1));
+          call buffer_value(arg2);
+     end; else if (func = eval_name_value) then do;
+          call buffer_bin15(EXP$NAME);
+          call buffer_name(arg1);
+     end; else if (func = lookup_field) then do;
+          call buffer_bin15(EXP$FIELD);
+          call buffer_value(arg1);
+          call buffer_name(arg2);
+     end; else if (func = lookup_array) then do;
+          call buffer_bin15(EXP$ARRAY);
+          call buffer_value(arg1);
+          call buffer_value(arg2);
+     end; else
+          call error('BOTCH: bad expr type in save macro');
+end buffer_value;
+
+buffer_name: procedure(namenum);
+     declare namenum binary(31);
+     declare nameptr pointer;
+     declare 1 name based(nameptr) like symbol_table_entry;
+
+     nameptr = i2p(namenum);
+     if (name.symbol_type = SYM$PARAMETER) then
+          call buffer_string('$' || name.symbol_nameptr->symbol_name);
+     else
+          call buffer_string(name.symbol_nameptr->symbol_name);
+end buffer_name;
+
+unbuffer_value_lookahead: procedure(expr_func) recursive returns(binary(31));
+     declare expr_func binary(15);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like expr_struct;
+     declare func entry(bin(31), bin(31)) returns(pointer) variable;
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     if (expr_func = EXP$NULL) then
+          return(p2i(null()));
+
+     valueptr = alloc(size(expr_struct), 27);
+     goto case(expr_func);
+
+     case(EXP$NUMBER):
+          func = eval_number_value;
+          arg1 = unbuffer_bin31();
+          goto endcases;
+
+     case(EXP$STRING):
+          func = eval_string_value;
+          arg1 = p2i(unbuffer_string());
+          goto endcases;
+
+     case(EXP$BITSTRING):
+          func = eval_bitstring_value;
+          arg1 = p2i(unbuffer_bitstring());
+          goto endcases;
+
+     case(EXP$LVALUE):
+          func = value_from_lvalue;
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$OBJTYPE):
+          func = objtype;
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$UMINUS):
+          func = anegate;
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$UBITNOT):
+          func = bnegate;
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$ULOGNOT):
+          func = lnegate;
+          arg1 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$ADD):
+          func = add;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$SUB):
+          func = sub;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$DIV):
+          func = div;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$MUL):
+          func = mul;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$BAND):
+          func = band;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$BOR):
+          func = bor;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$BXOR):
+          func = bxor;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$LT):
+          func = cmp_lt;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$LEQ):
+          func = cmp_leq;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$EQ):
+          func = cmp_eq;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$NEQ):
+          func = cmp_neq;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$GEQ):
+          func = cmp_geq;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$GT):
+          func = cmp_gt;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$LOGAND):
+          func = land;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$LOGOR):
+          func = lor;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$TYPE):
+          func = attach_type;
+          arg1 = unbuffer_bin15();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+     case(EXP$NAME):
+          func = eval_name_value;
+          arg1 = unbuffer_name();
+          goto endcases;
+
+     case(EXP$FIELD):
+          func = lookup_field;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_name();
+          goto endcases;
+
+     case(EXP$ARRAY):
+          func = lookup_array;
+          arg1 = unbuffer_value();
+          arg2 = unbuffer_value();
+          goto endcases;
+
+endcases:
+     value.eval_func = func;
+     value.arg1 = arg1;
+     value.arg2 = arg2;
+     return(p2i(valueptr));
+end unbuffer_value_lookahead;
+
+unbuffer_name: procedure returns(binary(31));
+     declare stringptr pointer;
+     declare string character(256) varying based(stringptr);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like symbol_table_entry;
+
+     stringptr = unbuffer_string();
+     if (substr(string, 1, 1) = '$') then do;
+          resultptr = lookup_or_install_symbol(substr(string, 2));
+          result.symbol_type = SYM$PARAMETER;
+          result.symbol_value = binary(substr(string, 2), 31);
+     end; else
+          resultptr = lookup_or_install_symbol(string);
+     return(p2i(resultptr));
+end unbuffer_name;

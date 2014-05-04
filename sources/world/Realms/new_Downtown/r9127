@@ -1,0 +1,474 @@
+use region r_9127 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9128
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6910 {
+  container: r r_9127
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid o_6911 {
+  container: r r_9127
+  x: 0
+  y: 88
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 159
+  lower_left_x: 0
+  lower_right_x: 159
+  height: 144
+}
+use trapezoid o_6912 {
+  container: r r_9127
+  x: 0
+  y: 48
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 0
+  upper_right_x: 159
+  lower_left_x: 0
+  lower_right_x: 159
+  height: 144
+}
+use wall o_6913 {
+  container: r r_9127
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use glue o_6914 {
+  container: r r_9127
+  x: 0
+  y: 103
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 28
+  y_offset_1: 255
+  x_offset_2: 13
+  y_offset_2: 255
+  x_offset_3: 23
+  y_offset_3: 255
+  x_offset_4: 2
+  y_offset_4: 255
+  x_offset_5: 17
+  y_offset_5: 255
+  x_offset_6: 8
+  y_offset_6: 255
+}
+use glue o_6921 {
+  container: r r_9127
+  x: 0
+  y: 103
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 5
+  y_offset_1: 3
+  x_offset_2: 20
+  y_offset_2: 3
+  x_offset_3: 10
+  y_offset_3: 5
+  x_offset_4: 32
+  y_offset_4: 5
+  x_offset_5: 25
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use glue o_6927 {
+  container: r r_9127
+  x: 64
+  y: 64
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 14
+  y_offset_1: 0
+  x_offset_2: 7
+  y_offset_2: 0
+  x_offset_3: 11
+  y_offset_3: 7
+  x_offset_4: 3
+  y_offset_4: 3
+  x_offset_5: 1
+  y_offset_5: 1
+  x_offset_6: 10
+  y_offset_6: 0
+}
+use countertop o_6934 {
+  container: r r_9127
+  x: 12
+  y: 151
+  style: 0
+  gr_state: 0
+  orient: 156
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  whoput: a a_155858034, a a_516404632, a a_850528328, a a_336917356, a a_74335
+5540
+}
+use chair o_6935 {
+  container: r r_9127
+  x: 96
+  y: 138
+  style: 0
+  gr_state: 0
+  orient: 88
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_6936 {
+  container: r r_9127
+  x: 68
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 88
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_6937 {
+  container: r r_9127
+  x: 128
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 89
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use plant o_6915 {
+  container: o o_6914
+  x: 2
+  y: 2
+  style: 1
+  gr_state: 0
+  orient: 172
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6916 {
+  container: o o_6914
+  x: 0
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 172
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6917 {
+  container: o o_6914
+  x: 1
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 244
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6918 {
+  container: o o_6914
+  x: 3
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 204
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6919 {
+  container: o o_6914
+  x: 5
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6920 {
+  container: o o_6914
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6922 {
+  container: o o_6921
+  x: 0
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 32
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6923 {
+  container: o o_6921
+  x: 1
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 72
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6924 {
+  container: o o_6921
+  x: 2
+  y: 2
+  style: 1
+  gr_state: 0
+  orient: 48
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6925 {
+  container: o o_6921
+  x: 3
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 24
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6926 {
+  container: o o_6921
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6928 {
+  container: o o_6927
+  x: 5
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6929 {
+  container: o o_6927
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6930 {
+  container: o o_6927
+  x: 0
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 236
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6931 {
+  container: o o_6927
+  x: 1
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 172
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6932 {
+  container: o o_6927
+  x: 3
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 24
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use plant o_6933 {
+  container: o o_6927
+  x: 2
+  y: 2
+  style: 1
+  gr_state: 0
+  orient: 8
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  mass: 1
+}
+use paper o_1005017 {
+  container: o o_6934
+  x: 0
+  y: 4
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1001013
+}
+use paper o_1005015 {
+  container: o o_6934
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1000792
+}
+use paper o_1005283 {
+  container: o o_6934
+  x: 0
+  y: 3
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1000863
+}
+use paper o_1005041 {
+  container: o o_6934
+  x: 0
+  y: 1
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1000804
+}
+use paper o_1004468 {
+  container: o o_6934
+  x: 0
+  y: 2
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1000708
+}

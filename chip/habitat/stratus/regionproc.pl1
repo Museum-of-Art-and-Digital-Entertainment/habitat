@@ -1,0 +1,5455 @@
+%replace true                           by   '1'b;
+%replace false                          by   '0'b;
+
+%replace SUCCESS                        by      1;
+%replace FAILURE                        by      0;
+%replace BOING_FAILURE                  by      2;
+%replace ASYNC_header                   by    250;
+%replace GHOST                          by    255;
+%replace HANDS                          by      5;
+%replace HEAD                           by      6;
+%replace MODIFIED                       by      2;
+%replace NORM                           by      0;
+%replace RESTRICTED                     by      1;
+
+%replace SPEAK$                         by     14;
+%replace OBJECTSPEAK$                   by     15;
+
+%replace MB$threshold by 320;         /* in bits (40 bytes) */
+%replace MB$chunk_size by 40;         /* in bytes, but same as threshold */
+
+%replace wait_forever                   by     -1;
+%replace Separation_Char                by    144;
+%replace e$invalid_eventid              by   1183;
+
+%replace reg_msg_size                   by    256;
+%replace big_msg_size                   by   1024;
+%replace obj_fixed                      by     26;
+
+%replace DEBUGGING            by '1'b;
+
+declare  ascii_qid             entry (bin(31)) returns (char(10) var);
+declare  hex                   entry (bin(31), bin(15)) returns (char(8) var);
+
+declare  s$allocate            entry (bin(31), pointer);
+declare  s$create_keep_module  entry (char(256) var, pointer, bin(15));
+declare  s$cv_to_int_date_time entry (char(*)var, bin(31), bin(15));
+declare  s$cv_to_string_date_time
+                               entry (bin(31), char(32)var);
+declare  s$expand_path         entry (char(256) var, char(32) var, 
+                                      char(256) var, bin(15));
+declare  s$free                entry (pointer);
+declare  s$get_process_id      entry (bin(31));
+declare  s$int_date_time       entry (bin(31));
+declare  s$parse_command       entry (char(*)var, bin(15),
+                                      char(*)var, char(*)var,
+                                      char(*)var, bit(1) aligned, char(*)var);
+declare  s$set_task_wait_info  entry (bin(31), bin(15), bin(15), bin(15));
+declare  s$task_setup_wait     entry (bin(31), bin(15), bin(15), bin(31),
+                                      bin(31), bin(31), bin(15), bin(15));
+declare  s$task_wait_event     entry (bin(31), bin(31), bin(15), bin(31),
+                                     bin(15), bin(31), bin(31), bin(15));
+
+
+%nolist;  %include 'Messages.incl.pl1';        %list;
+%nolist;  %include 'Queues.incl.pl1';          %list;
+%nolist;  %include 'Debug.incl.pl1';           %list;
+%nolist;  %include 'Lists.incl.pl1';           %list;
+%nolist;  %include 'Lists.strux.incl.pl1';     %list;
+%nolist;  %include 'TimeAfterTime.incl.pl1';   %list;
+%nolist;  %include 'Stat.strux.incl.pl1';      %list;
+
+/* %nolist;  %include 'system_io_constants';      %list; */
+%nolist;  %include 'defs_class.incl.pl1';      %list;
+%nolist;  %include 'defs_statistics.incl.pl1'; %list;
+
+%page;
+%include 'region.defs.incl.pl1';
+%nolist; %include 'capacity.incl.pl1'; %list;
+%include 'region.structs.incl.pl1';
+%include 'class.externals.incl.pl1';
+%include 'descriptor.structs.incl.pl1';
+%include 'object_disk.incl.pl1';
+
+declare 1 hstat external,
+%include 'stat_buffer.incl.pl1';
+
+declare BUGON                           bit(1) static external initial(false);
+declare BUGON_high                      bit(1) static external initial(false);
+declare BUGON_ptr                       bit(1) static external initial(false);
+declare record_collecting               bit(1) static external initial(false);
+declare yes_mod          bin(31) static external initial(0);
+declare no_mod           bin(31) static external initial(0);
+
+/*      Circular buffer of regionproc commands - removed 9/24/87           */
+/*
+declare history (300) char(5) static external;
+declare ftnote  binary(15) static external initial(1);
+*/
+/*
+declare cmd_tick(1:421) binary(15) static external initial ((421) 0);
+*/
+
+%page;
+
+declare  decode_string        entry (char(*) var);
+declare  encode_string        entry (char(*) var, char(*) var);
+declare  encode_byte          entry (bin(15)) returns (char(2) var);
+
+%replace MAX_PROCESSES        by 32;
+declare  object_id_array      fixed bin(15) external static;
+declare  1 next(-1:MAX_PROCESSES-1) based(addr (object_id_array)),
+           2 object_id             bin(31),
+           2 text_id               bin(31);
+
+declare  tot_users (no_summary_stats)   binary (15)   external; /* summ stats */
+declare  tot_time  (no_summary_stats)   binary (31)   external; /* summ stats */
+
+declare  random_seed                    binary (31)   external;
+declare  today_start_time               binary (31)   external;
+
+declare  process_number                 char   (10)   varying external;
+
+%replace server_event                   by    1;
+%replace subsys_event                   by    2;
+%replace master_event                   by    3;
+%replace habitat_event                  by    4;
+%replace db_event                       by    5;
+%replace tact_event                     by    6;
+%replace obn_event                      by    7;
+%replace super_event                    by    8;
+%replace stat_event                     by    9;
+%replace records_event                  by    10;
+%replace max_events                     by    10;
+
+declare  MainQ                          pointer external initial(null()) ;
+declare  SubSysQ                        pointer external initial(null()) ;
+declare  McosmMastQ                     pointer external initial(null()) ;
+declare  habitatQ                       pointer external initial(null()) ;
+declare  habitat_dbQ                    pointer external initial(null()) ;
+declare  SuperQ                         pointer external initial(null()) ;
+declare  recordsQ                       pointer external initial(null()) ;
+
+declare  ec (64)                        binary (31)   static   external;
+declare  ei (64)                        binary (31)   static   external;
+
+declare shared_file_path                char(256) var external;
+declare shared_file_port                bin(15) external;
+
+declare content                         char(1150) var external;
+declare databytes                       char(1150) var external;
+declare ContList                        char(1150) var external;
+
+declare prefix                          char(6) var external;
+declare response                        char(2048) var external;
+declare encoded                         char(2048) var external;
+
+declare element(0:255)                  bin(15) based;
+
+declare leave_region                    char(4) var external;
+
+declare partial_input                   pointer external initial(null());
+declare Updates                         pointer external initial(null());
+
+declare Daymessage                      char(100) var external init('');
+declare Mailmessage                     char(33) var external init(
+                                        '* You have MAIL in your pocket. *');
+
+declare 1 instance_head based
+%include 'instance_head';;
+
+%page;
+regionproc:  procedure  options (main);
+   declare  event_index                 binary (15);
+   declare  code                        binary (15);
+   declare  index                       binary (15);
+   declare  task                        binary (15);
+   declare  event                       binary (31);
+   declare  count                       binary (31);
+   declare  status                      binary (31);
+
+   call initialize_roomer;
+   call calculate_today_start (null());
+
+   do  while (true);
+       call s$task_wait_event (Master_ei, wait_forever, task, event,
+                               event_index, count, status, code);
+       if (code ^= 0)  then do;
+           call debug_msg (code, 'task_wait_event ' || 'task = ' || ltrim(task)
+                                 || ' index = ' || ltrim(event_index));
+           if (code = e$invalid_eventid   &
+               task ^= 0   &   task ^= tact_event)  then do;
+               call s$task_setup_wait (Master_ei, task, 0, tact_ei, tact_ec,
+                                       wait_forever, index, code);
+               if (code ^= 0)  then  call debug_msg (code, 'err task setup wait');
+               end;
+           end;
+
+         else if (task = server_event)   then  call handle_msg (task);
+         else if (task = subsys_event)   then  call handle_msg (task);
+
+         else if (task = db_event)       then  call resend_msg (habitat_dbQ);
+         else if (task = habitat_event)  then  call resend_msg (habitatQ);
+         else if (task = master_event)   then  call resend_msg (McosmMastQ);
+         else if (task = super_event)    then  call resend_msg (SuperQ);
+         else if (task = records_event)  then  call resend_msg (recordsQ);
+         else
+           if (task = tact_event) then do;
+               call ProcessTact;
+               call GetTactInfo (tact_ei, tact_ec);
+               call s$task_setup_wait (Master_ei, tact_event, 1, tact_ei, tact_ec,
+                                       wait_forever, index, code);
+               if (code ^= 0)  then  call debug_msg (code, 'Tact task setup');
+               end;
+         else if (task = obn_event)   then  call resend_msg (Q_ptrs (event_index));
+         else if (task = stat_event)  then  call resend_msg (stat_queue_ptr);
+         end;
+
+end  regionproc;
+
+%page;
+initialize_roomer:  procedure;
+   declare  i                           binary (15);
+   declare  mask                        binary (31);
+   declare  pid                         binary (31); 
+   declare  buf                         char    (4)   defined  (pid);
+   declare  qp                          pointer;
+   declare  code                        binary (15);
+   declare  tstr                        char    (8);
+   declare  queue_id                    bin(31);
+   declare  habitat_log                 bit(1) aligned;
+
+
+   call s$parse_command ('regionproc', code,
+                         'ProcessNumber:string,required', process_number,
+                         'switch(-subsys_log),=1', habitat_log,
+                          'end');
+   if (code ^= 0)  then  call die_msg (code, 'regionproc - bad paramter');
+
+   if (habitat_log) then call set_debug_queue ('habitat_debug');
+   call initialize_queues_and_tasks ('region.'  ||  process_number, MainQ,
+                                     max_events, obn_event, tact_event);
+   call make_server_queue ('region_big.'  ||  process_number, subsys_event,
+                           SubSysQ, queue_id);
+
+   allocate  summary_stats  set (summ_ptr);
+   call init_stats (stat_event);
+   call init_stat_summary ;
+   call Tact (send_summary_stats,      summ_ptr,      summ_minutes*60);
+   hstat.count = 0;
+
+   do  RoomNumber = 1 to regions_per_process;
+       allocate  RoomDBank  set (RoomPtr);
+       RoomPtrs (RoomNumber)       = RoomPtr;
+       RoomDBank.initialized       = false;
+       RoomDBank.total_ghosts      = 0;
+       RoomDBank.avatars_coming    = 0;
+       RoomDBank.waiting_list      = null();
+       RoomDBank.GhostList         = null();
+       RoomDBank.Block_addr        = null();
+       current_region.object_count = 0;
+       oracle.object  = 0;
+       oracle.person  = 0;
+       oracle.control = null();
+       do  i = 1 to UsersPerRegion;
+           UserList (i) = null ();
+           end;
+       do  i = 0 to ObjectsPerRegion;
+           ObjList (i) = null ();
+           end;
+       allocate RoomCMon set (CapMonPtr);
+       CapMonPtrs(RoomNumber) = CapMonPtr;
+       call make_sub_server_queue ('region.' || process_number, 
+                                    server_event, RoomNumber, qp, RoomQId);
+       call make_sub_server_queue ('region_big.' || process_number, 
+                                    subsys_event, RoomNumber, qp, RoomBQId);
+       end;
+
+   /* Preallocate for slot 10 since its most likely to be used. */
+   allocate Memory_Block set (RoomDBank.Block_addr);
+   Block_addr->Memory_Block.free = 'ffffffffffffffff'b4;
+
+   call make_sender_queue ('MCosmMasterQueue', master_event,  McosmMastQ);
+   call make_sender_queue ('habitat_big',      habitat_event, habitatQ);
+   call make_sender_queue ('habitat_db',       db_event,      habitat_dbQ);
+   call make_sender_queue ('SuperProcess',     super_event,   SuperQ);
+   call make_sender_queue ('records',          records_event, recordsQ);
+
+   call request_welcome_text;
+   call initialize_shared_memory;
+   call initialize_structs;
+
+   do i = 1 to MAX_CLASS_NUMBER;
+      classes(i).resources = null();
+      end;
+   call initialize_resource_pointers;
+   leave_region = encode_byte(0) || encode_byte(2);
+
+   call s$int_date_time (random_seed);
+
+   call s$get_process_id (pid) ;
+   call trace_msg ('Process Id is '  ||  ltrim (string (pid)));
+   call send_message (McosmMastQ, message$process_going, buf, 4, 0, 0);
+
+end  initialize_roomer;
+%page;
+request_welcome_text: procedure;
+declare 1 req,
+          2 db_function       bin(15);
+declare req_str defined(req) char(2);
+
+     req.db_function = MC$dbf_init_welcome;
+     call send_message (habitat_dbQ, msg$db_lookup, req_str, 2, 0, RoomBQId);
+
+end request_welcome_text;
+
+
+
+initialize_welcome_text: procedure(buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 msg_len      bin(15),
+          2 msg_text     char(100);
+
+   Daymessage = substr(msg_text,1,msg_len);
+
+end initialize_welcome_text;
+%page;
+initialize_shared_memory: procedure;
+
+dcl  s$attach_port            entry (char(32) var, char(256) var, bin (15),
+                                     bin (15), bin (15));
+dcl  s$connect_vm_region      entry (bin (15), bin (15), bin (15), bin (31),
+                                     bin (15), bin (15), bin (15));
+dcl  s$open                   entry (bin (15), bin (15), bin (15), bin (15),
+                                     bin (15), bin (15), char(32) var, bin (15));
+
+%replace DONT_HOLD                 by 0;
+%replace FIXED_FILE                by 1;
+%replace IMPLICIT_LOCKING          by 4;
+%replace NO_COPY_ON_REF            by 0;
+%replace ONE_PAGE                  by 1;
+%replace STARTING_WITH_1ST         by 1;
+%replace UPDATE_TYPE               by 4;
+%replace VM_ACCESS_MODE            by 7;
+%replace VM_READ_AND_WRITE_ACCESS  by 2;
+
+declare code bin(15);
+
+   call s$expand_path ('MC_object_ids', '', shared_file_path,code);
+   if (code ^= 0) then call die_msg (code, 'expanding VM path');
+   call s$attach_port ('', shared_file_path, DONT_HOLD, shared_file_port, code);
+   if (code ^= 0) then call die_msg (code, 'attaching VM port');
+
+   call s$open (shared_file_port, FIXED_FILE, 4096, UPDATE_TYPE,
+               IMPLICIT_LOCKING, VM_ACCESS_MODE, '', code);
+   if (code ^= 0) then call die_msg (code, 'open VM file');
+   call s$connect_vm_region (shared_file_port, object_id_array,
+               ONE_PAGE, STARTING_WITH_1ST,
+               VM_READ_AND_WRITE_ACCESS, NO_COPY_ON_REF, code);
+   if (code ^= 0) then call die_msg (code, 'connecting to VM region');
+
+end initialize_shared_memory;
+%page;
+initialize_structs: procedure;
+declare i bin(15);
+declare instance_head_size bin(15);
+declare props_size bin(15);
+
+  do i = 0 to 255;
+     Class_Table(i).known  = false;
+     end;
+
+  call initialize_class_amulet;
+  call initialize_class_aquarium;
+  call initialize_class_atm;
+  call initialize_class_avatar;
+  call initialize_class_bag;
+  call initialize_class_ball;
+  call initialize_class_bed;
+  call initialize_class_book;
+  call initialize_class_bottle;
+  call initialize_class_box;
+  call initialize_class_bridge;
+  call initialize_class_building;
+  call initialize_class_bureaucrat;
+  call initialize_class_bush;
+  call initialize_class_chair;
+  call initialize_class_changomatic;
+  call initialize_class_chest;
+  call initialize_class_club;
+  call initialize_class_coke_machine;
+  call initialize_class_compass;
+  call initialize_class_couch;
+  call initialize_class_countertop;
+  call initialize_class_crystal_ball;
+  call initialize_class_die;
+  call initialize_class_display_case;
+  call initialize_class_door;
+  call initialize_class_dropbox;
+  call initialize_class_drugs;
+  call initialize_class_elevator;
+  call initialize_class_escape_dev;
+  call initialize_class_fake_gun;
+  call initialize_class_fence;
+  call initialize_class_flag;
+  call initialize_class_flashlight;
+  call initialize_class_flat;
+  call initialize_class_floor_lamp;
+  call initialize_class_fortune_machine;
+  call initialize_class_fountain;
+  call initialize_class_frisbee;
+  call initialize_class_game_piece;
+  call initialize_class_garbage_can;
+  call initialize_class_gemstone;
+  call initialize_class_ghost;
+  call initialize_class_glue;
+  call initialize_class_grenade;
+  call initialize_class_ground;
+  call initialize_class_gun;
+  call initialize_class_hand_of_god;
+  call initialize_class_head;
+  call initialize_class_hole;
+  call initialize_class_hot_tub;
+  call initialize_class_house_cat;
+  call initialize_class_key;
+  call initialize_class_knick_knack;
+  call initialize_class_knife;
+  call initialize_class_magic_lamp;
+  call initialize_class_magic_staff;
+  call initialize_class_magic_wand;
+  call initialize_class_mailbox;
+  call initialize_class_matchbook;
+  call initialize_class_movie_camera;
+  call initialize_class_paper;
+  call initialize_class_pawn_machine;
+  call initialize_class_picture;
+  call initialize_class_plant;
+  call initialize_class_plaque;
+  call initialize_class_pond;
+  call initialize_class_region;
+  call initialize_class_ring;
+  call initialize_class_rock;
+  call initialize_class_safe;
+  call initialize_class_sensor;
+  call initialize_class_sex_changer;
+  call initialize_class_short_sign;
+  call initialize_class_shovel;
+  call initialize_class_sign;
+  call initialize_class_sky;
+  call initialize_class_spray_can;
+  call initialize_class_street;
+  call initialize_class_streetlamp;
+  call initialize_class_stun_gun;
+  call initialize_class_super_trapezoid;
+  call initialize_class_switch;
+  call initialize_class_table;
+  call initialize_class_teleport;
+  call initialize_class_ticket;
+  call initialize_class_tokens;
+  call initialize_class_trapezoid;
+  call initialize_class_tree;
+  call initialize_class_vendo_front;
+  call initialize_class_vendo_inside;
+  call initialize_class_wall;
+  call initialize_class_window;
+  call initialize_class_windup_toy;
+
+  instance_head_size = size(object) - 40;
+  do i = 0 to 255;
+     if (Class_Table(i).known) then do;
+        if (Class_Table(i).alloc_size < instance_head_size) then do;
+           call trace_msg ('Class ' || ltrim(i) || ' has bad alloc_size');
+           Class_Table(i).alloc_size = instance_head_size;
+           end;
+        props_size = Class_Table(i).alloc_size - instance_head_size;
+        props_size = divide(props_size,8,15);
+        if (Class_Table(i).capacity ^= 0)
+           then props_size = props_size - 4;
+        Class_Table(i).class_bytes = props_size;
+        end;
+     else Class_Table(i).actions = null();
+     end;
+  Class_Table(CLASS_AVATAR).class_bytes = 
+           Class_Table(CLASS_AVATAR).class_bytes + 10; /* Allow for name */
+
+  call initialize_sensors;
+  call initialize_magic;
+  call initialize_drugs;
+
+  call initialize_object_disk_patches;
+
+/*                                           history buffer...
+  do ftnote = 1 to 200;
+     history(ftnote) = '';
+     end;
+  ftnote = 1;
+*/
+end initialize_structs;
+%nolist; %include 'initialize_resources.incl.pl1'; %list;
+%page;
+handle_msg:  procedure (task);
+declare task             binary(15);
+declare event_index      binary(15);
+declare mtype            binary(31);
+declare len              binary(31);
+declare uid              binary(31);
+declare qid              binary(31);
+declare sub_addr         binary(15);
+declare code             binary(15);
+declare buffer           character(1024);
+declare obuf             character(1024) varying;
+declare f_cnt            binary (15);
+declare f_list(UsersPerRegion)  binary (15);
+
+   do while (true);
+     if (task = server_event)
+        then call get_sub_message (MainQ, event_index, mtype, buffer, 
+                  length(buffer), len, uid, qid, sub_addr, f_cnt, f_list);
+        else call get_sub_message (SubSysQ, event_index, mtype, buffer, 
+                  length(buffer), len, uid, qid, sub_addr, f_cnt, f_list);
+     if (mtype = -1) then return;
+
+     obuf = substr(buffer,1,len);
+
+     RoomNumber = sub_addr;
+     RoomPtr    = RoomPtrs(RoomNumber); 
+     CapMonPtr  = CapMonPtrs(RoomNumber); 
+
+     if (mtype = message$terminal_message)
+         then call process_input (obuf, uid, qid); 
+
+     else if (mtype = message$start_room) 
+         then call process_start_room (addr(buffer));
+
+     else if (mtype = msg$lookup_results) 
+         then call process_lookup_results (addr(buffer),uid,qid);
+
+     else if (mtype = msg$add_objects) then do;
+         call process_users_objects (addr(buffer));
+         call process_add_user (addr(q_context.holding_area),uid,qid);
+         end;
+
+     else if (mtype = msg$add_user)
+/*       then call process_add_user (addr(buffer),uid,qid);      */
+         then call trace_msg ('Received msg$add_user!');
+
+     else if (mtype = message$user_enter_room) 
+         then call process_enter_room (obuf,uid,qid);
+
+     else if (mtype = msg$change_room_result) 
+         then call process_change_result (addr(buffer),uid,qid);
+
+     else if (mtype = message$change_room_failed)
+         then call process_changeroom_fail (uid,qid);
+
+     else if (mtype = message$found_id) 
+         then call process_messager_name_result (addr(buffer),uid);
+
+     else if (mtype = msg$habitat_olm) 
+         then /* call send_messager_msg (addr(buffer)) */ ;
+
+     else if (mtype = msg$user_stats) then do;
+         call format_player_list (addr(buffer));
+         call send_latest_players (uid,qid);
+         end;
+
+     else if (mtype = message$user_unplugged)
+         then call process_unplugged (uid,qid);
+
+     else if (mtype = msg$mail_arrived)
+         then call process_new_mail (addr(buffer),uid);
+
+     else if (mtype = message$statflush) then do;
+/*       call making_history (byte(RoomNumber) || byte(2) || byte(40) || '  '); */
+         call send_summary_stats(summ_ptr);
+         call send_stats;
+         end;
+
+     else if (mtype = message$debug_msg) then do;
+/*       call making_history (byte(RoomNumber) || byte(2) || byte(43) || '  '); */
+         call debug_on (buffer,len);
+         end;
+
+     else call trace_msg (' Unknown msg type = '  ||  ltrim (mtype)  ||
+                                       ' uid = '  ||  ltrim (uid)    ||
+                                       ' qid = '  ||  ascii_qid (qid));
+   end;
+
+end handle_msg;
+%page;
+process_start_room: procedure (buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 region_id    bin(31),
+          2 starter      bin(31),
+          2 pub_pri      char(1);
+declare obuf_str char(10);
+declare 1 obuf defined (obuf_str),          /*msg format - db lookup request*/
+          2 db_function       bin(15),
+          2 region_number     bin(31),
+          2 transaction       bin(31),
+          2 who               bin(31);
+declare short_id(4) char(1) defined(buff_olay.region_id);
+
+/*   call making_history (byte(RoomNumber) || byte(2) || byte(15) ||
+                          short_id(3) || short_id(4));
+*/
+
+    RoomDBank.initialized = false;
+    if (RoomDBank.Block_addr = null())
+       then allocate Memory_Block set (RoomDBank.Block_addr);
+    Block_addr->Memory_Block.free = 'ffffffffffffffff'b4;
+
+    obuf.db_function   = MC$dbf_desc_region;
+    obuf.region_number = region_id;
+    obuf.who           = starter;
+    obuf.transaction   = 0;
+    call send_message (habitat_dbQ, msg$db_lookup, obuf_str, 14, 0, RoomBQId);
+
+    call cleanup_region_lists;
+    call initialize_capacity_monitor;
+
+    Region               = region_id;
+    oracle.object        = 0;
+    oracle.person        = 0;
+    oracle.control       = null();
+    RoomDBank.last_noid  = 0;
+    RoomDBank.owner_here = false;
+    if (BUGON | BUGON_ptr) then
+       call trace_msg ('Starting region ' || ltrim(region_id) || '/' ||
+                       ltrim(RoomNumber));
+
+end process_start_room;
+%page;
+cleanup_region_lists: procedure;
+declare i                binary(15);
+declare le               pointer;
+declare ptr              pointer;
+
+     do i = 1 to UsersPerRegion;
+          if (UserList(i) ^= null()) then do;
+             if (UserList(i)->player.online)
+                then call trace_msg ('Recycle region w/user online: '  ||
+                               ltrim(UserList(i)->player.U_Id) || '/' ||
+                               ltrim(Region));
+             free UserList(i) -> player;
+             UserList(i) = null();
+          end;
+    end;
+
+    do i = 0 to ObjectsPerRegion;
+       if (ObjList(i) ^= null()) then do;
+          if (Class_Table(ObjList(i)->object.class).capacity ^= 0) then do;
+             call my_free (ObjList(i)->object.param1);
+             if (BUGON_ptr) then 
+                call trace_msg ('FREE ' || ltrim(RoomNumber) || '/' || ltrim(i));
+             end;
+          call my_free (ObjList(i));
+          ObjList(i) = null();
+          end;
+    end;
+
+    le = RoomDBank.GhostList;
+    do while (le ^= null());
+       ptr = le->le_content;
+       le  = le->le_next;
+       free ptr -> player;
+       end;
+
+    le = RoomDBank.waiting_list;
+    do while (le ^= null());
+       ptr = le->le_content;
+       le  = le->le_next;
+       if (ptr->enter_info.type = 1)
+          then free ptr -> enter_info;
+          else free ptr -> mug_shot;
+       end;
+
+    RoomDBank.GhostList      = null();
+    RoomDBank.waiting_list   = null();
+    RoomDBank.total_ghosts   = 0;
+    RoomDBank.avatars_coming = 0;
+    current_region.lighting  = 0;
+
+end cleanup_region_lists;
+%page;
+my_free: procedure (where);
+declare where pointer;
+
+declare ptr       pointer;
+declare usage(64) bit(1) based(ptr);
+declare i         bin(15);
+declare found     bit(1) aligned;
+
+   ptr = addrel(RoomDBank.Block_addr, MB$chunk_size * 64);
+   if (where > RoomDBank.Block_addr  &  where < ptr) then do;
+      found = false;
+      ptr = addrel(RoomDBank.Block_addr,8);
+      do i = 1 to 64 while (^found);
+         if (where = addrel(ptr,(i-1)*MB$chunk_size)) then do;
+            ptr = RoomDBank.Block_addr;
+            usage(i) = true;
+            found = true;
+            end;
+         end;
+      if (^found) then call trace_msg ('Tried to free ' || show_ptr(where) ||
+                                       ', block starts at ' || 
+                                       show_ptr(RoomDBank.Block_addr));
+      end;
+   else do;
+      call s$free(where);
+      end;
+
+end my_free;
+%page;
+initialize_capacity_monitor: procedure;
+declare i bin(15);
+
+    class_ref_count(0) = 0;
+    do i = 1 to MAX_CLASS_NUMBER;
+       class_ref_count(i) = 0;
+       resource_ref_count(i)= 0;
+       end;
+    do i = (MAX_CLASS_NUMBER + 1) to NUMBER_OF_RESOURCES;
+       resource_ref_count(i)= 0;
+       end;
+
+    current_region.space_usage  = 0;
+    current_region.object_count = 0;
+
+end initialize_capacity_monitor;
+%page;
+process_lookup_results: procedure (buff,uid,qid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 container    bin(31),
+          2 count        bin(15);
+
+declare uid              binary(31);
+declare qid              binary(31);
+declare i                binary(15);
+
+/*                                           history buffer...
+     call making_history (byte(RoomNumber) || byte(2) || byte(80) ||
+                          byte(function) || ' ');
+*/
+
+     goto lookup(function);
+
+lookup(MC$dbf_desc_region):                        /*   1   */
+     call add_objects_to_region (buff);
+     return;
+
+lookup(MC$dbf_contents):                           /*   2   */
+     call add_container_contents (buff);
+     return;
+
+lookup(MC$dbf_read_text):                          /*   3   */
+     call send_text (buff,uid);
+     return;
+
+lookup(MC$dbf_locate_teleport):                    /*   4   */
+     call process_teleport (buff,uid);
+     return;
+
+lookup(MC$dbf_mail_check):                         /*   7   */
+     call handle_mail_check (buff);
+     return;
+
+lookup(MC$dbf_avatar_desc):                        /*   8  */
+     call complete_switch_from_ghost (buff,uid);
+     return;
+
+lookup(MC$dbf_oracle_msg):                         /*   9  */
+     call process_oracle_msg (buff);
+     return;
+
+lookup(MC$dbf_read_title):                         /*  10  */
+     call process_book_title (buff,uid);
+     return;
+
+lookup(MC$dbf_init_welcome):                       /*  11  */
+     call initialize_welcome_text (buff);
+     return;
+
+lookup(MC$dbf_name_region):                        /*  12  */
+     call process_region_name (buff,uid);
+     return;
+
+lookup(MC$dbf_locate_player):                      /*  13  */
+     /* call process_player_location (buff,uid);   */
+     return;
+
+/*  end of process_lookup_results code */
+
+%page;
+add_objects_to_region: procedure(buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 container    bin(31),
+          2 count        bin(15),
+          2 transaction  bin(31);
+
+declare op pointer;
+
+declare (i,j,k)          bin(15);
+declare umember          bin(15);
+
+     op = addrel(buff,12);
+     do i = 1 to count;
+
+        if (op->obj_desc.class = byte(CLASS_REGION)) then do;
+           if (i ^= count) then call trace_msg ('Region ' || 
+                            ltrim(op->obj_desc.id) || ' not last in init!!!');
+           call initialize_region;
+           call clear_waiting_list;
+           return;
+           end;
+
+        call initialize_object;
+        op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+    end;
+
+%page;
+initialize_region: procedure;
+declare allocation  bin(31);
+
+declare  1 region_props defined (op->obj_desc.props),
+           2 links(4)    bin(31),
+           2 exits(4)    bin(15),
+           2 area        char(20),
+           2 to_town     char(1),
+           2 to_port     char(1);
+declare (usernoid,i) bin(15);
+
+    RoomDBank.initialized   = true;
+    RoomDBank.noid_wrap     = false;
+
+    allocation = Class_Table(0).alloc_size;
+    if (allocation < size(object)-40)
+       then allocation = size(object) - 40;
+
+    call my_allocate (allocation,ObjList(0));
+    ObjList(0)->object.noid       = 0;
+    ObjList(0)->object.obj_id     = op->obj_desc.id;
+    ObjList(0)->object.class      = CLASS_REGION;
+    ObjList(0)->object.position   = 0;
+    ObjList(0)->object.x          = 0;
+    ObjList(0)->object.y          = 0;
+    ObjList(0)->object.style      = 0;
+    ObjList(0)->object.avatarslot = 0;
+    ObjList(0)->object.container  = 0;
+    ObjList(0)->object.gr_state   = 0;
+    ObjList(0)->object.gr_width   = 0;
+    ObjList(0)->object.gen_flags  = copy(false,32);
+
+    call note_object_creation (0,0);
+    if (^ mem_checks_ok (0))
+       then call trace_msg ('Dreaded MEM FAULT for region ' || ltrim(Region));
+
+    Region_name = area;
+    current_region.lighting     = current_region.lighting + op->obj_desc.x_pos;
+    current_region.depth        = rank(op->obj_desc.y_pos);
+    current_region.owner        = op->obj_desc.container;
+    current_region.orientation  = rank(op->obj_desc.orientation);
+    current_region.entry_proc   = rank(op->obj_desc.graph_state);
+    current_region.exit_proc    = rank(op->obj_desc.graph_width);
+    current_region.neighbor(1)  = links(3);
+    current_region.neighbor(2)  = links(1);
+    current_region.neighbor(3)  = links(4);
+    current_region.neighbor(4)  = links(2);
+    current_region.exit_type(1) = exits(3);
+    current_region.exit_type(2) = exits(1);
+    current_region.exit_type(3) = exits(4);
+    current_region.exit_type(4) = exits(2);
+    current_region.town_dir     = to_town;
+    current_region.port_dir     = to_port;
+
+    current_region.max_avatars  = rank(op->obj_desc.position);
+    if (current_region.max_avatars > UsersPerRegion) then do;
+       current_region.max_avatars = UsersPerRegion;
+       call trace_msg ('WARNING: Region ' || ltrim(Region) || 
+                       ' has illegal avatar limit.');
+       end;
+
+    current_region.restriction(1) = op->obj_desc.gen_flags(1);
+    current_region.restriction(2) = op->obj_desc.gen_flags(2);
+    current_region.restriction(3) = op->obj_desc.gen_flags(3);
+    current_region.restriction(4) = op->obj_desc.gen_flags(4);
+
+    do i = 1 to 28;
+       current_region.nitty_bits(i) = op->obj_desc.gen_flags(i+4);
+       end;
+
+    if (current_region.owner = -1)
+       then RoomDBank.private = false;
+       else RoomDBank.private = true;
+
+end initialize_region;
+%page;
+clear_waiting_list: procedure;
+declare ei pointer;
+
+    do while (RoomDBank.waiting_list ^= null());
+       call get_from_head_of_list (RoomDBank.waiting_list,ei);
+       call retry_user_enter (ei);
+       end;
+
+end clear_waiting_list;
+%page;
+initialize_object: procedure;
+
+    call next_available_noid(j);
+    if (j < 0) then return;
+    call create_object_entry (op,j,true,true);
+
+    if (op->obj_desc.class = byte(CLASS_FLASHLIGHT) |
+        op->obj_desc.class = byte(CLASS_FLOOR_LAMP))
+       then call increment_lighting (ObjList(j));
+
+end initialize_object;
+%page;
+increment_lighting: procedure (ptr);
+declare ptr  pointer;
+declare cptr pointer;
+
+declare 1 light based (ptr)
+%include 'struct_flashlight';
+
+   if (light.on = 0) then return;
+   cptr = ObjList(light.container);
+   if (cptr ^= null())
+      then if (container_is_opaque (cptr->object.class,light.position))
+          then return;
+
+   current_region.lighting = current_region.lighting + 1;
+
+end increment_lighting;
+end add_objects_to_region;
+end process_lookup_results;
+%page;
+set_mail_object_values: procedure (i);
+declare i           bin(15);
+declare my_noid     bin(15);
+declare paper_noid  bin(15);
+declare properstate bin(15);
+
+   if (UserList(i)->player.has_mail)
+      then properstate = 2;
+      else properstate = 0;
+
+   my_noid = UserList(i)->player.object_slot;
+   paper_noid = ObjList(my_noid)->object.param1->element(4);
+   if (paper_noid = 0  |  ObjList(paper_noid) = null()) then do;
+      call trace_msg ('No mail object for user ' || 
+                      ltrim(UserList(i)->player.U_Id));
+      return;
+      end;
+   if (ObjList(paper_noid)->object.class ^= CLASS_PAPER) then do;
+      call trace_msg ('No mail object for user ' || 
+                      ltrim(UserList(i)->player.U_Id));
+      return;
+      end;
+
+   ObjList(paper_noid)->object.gr_state = properstate;
+   return;
+
+end set_mail_object_values;
+%page;
+make_a_ghost: procedure;
+
+   if (ObjList(GHOST) ^= null()) then return;
+
+   call my_allocate (size(object),ObjList(GHOST));
+   ObjList(GHOST)->object.noid        = 255;
+   ObjList(GHOST)->object.obj_id      = 0;
+   ObjList(GHOST)->object.class       = CLASS_GHOST;
+   ObjList(GHOST)->object.position    = 0;
+   ObjList(GHOST)->object.orientation = 0;
+   ObjList(GHOST)->object.x           = 4;
+   ObjList(GHOST)->object.y           = 240;
+   ObjList(GHOST)->object.style       = 0;
+   ObjList(GHOST)->object.avatarslot  = 0;
+   ObjList(GHOST)->object.container   = 0;
+   ObjList(GHOST)->object.gr_state    = 0;
+   ObjList(GHOST)->object.gr_width    = 0;
+   ObjList(GHOST)->object.gen_flags   = copy(false,32);
+
+end make_a_ghost;
+%page;
+create_object_entry: procedure (ptr,j,increment,clear_mod);
+declare ptr    pointer;
+declare j      bin(15);
+declare increment bit(1);
+declare clear_mod bit(1);
+
+declare propsptr              pointer;
+declare object_props          char(80) based(propsptr);
+declare max_contents          bin(15);
+declare k                     bin(15);
+declare allocation            bin(31);
+declare this_class            bin(15);
+
+     this_class = rank(ptr->obj_desc.class);
+     allocation = Class_Table(this_class).alloc_size;
+     if (allocation < size(object)-40) then do;
+         call trace_msg ('Class_Table.alloc_size is < min for class ' ||
+                          ltrim(this_class));
+         allocation = size(object) - 40;
+         end;
+     call my_allocate (allocation,ObjList(j));
+
+     ObjList(j)->object.noid       = j;
+     ObjList(j)->object.obj_id     = ptr->obj_desc.id;
+     ObjList(j)->object.class      = this_class;
+     ObjList(j)->object.position   = rank(ptr->obj_desc.position);
+     ObjList(j)->object.x          = ptr->obj_desc.x_pos;
+     ObjList(j)->object.y          = rank(ptr->obj_desc.y_pos);
+     ObjList(j)->object.style      = rank(ptr->obj_desc.style);
+     ObjList(j)->object.orientation = rank(ptr->obj_desc.orientation);
+     ObjList(j)->object.gr_state   = rank(ptr->obj_desc.graph_state);
+     ObjList(j)->object.gr_width   = rank(ptr->obj_desc.graph_width);
+     ObjList(j)->object.gen_flags  = ptr->obj_desc.gen_flags;
+
+     if (clear_mod = true)
+        then ObjList(j)->object.gen_flags(MODIFIED) = false;
+
+     if (this_class ^= CLASS_AVATAR) then do;
+        ObjList(j)->object.avatarslot = 0;
+        ObjList(j)->object.container = 
+                                 map_object_to_slot(ptr->obj_desc.container,
+                                                rank(ptr->obj_desc.contype));
+        if (ObjList(j)->object.container ^= 0) 
+           then call add_to_containers_list(ObjList(j)->object.container,j,
+                                         rank(ptr->obj_desc.position));
+        end;
+     else do;
+        ObjList(j)->object.avatarslot = map_avatar_to_slot(ptr);
+        ObjList(j)->object.container = 0;         /* for now... */
+        end;
+
+     max_contents = Class_Table(this_class).capacity;
+     if (max_contents = 0)
+        then propsptr = addr(ObjList(j)->object.param1);
+        else do;
+           propsptr = addr(ObjList(j)->object.param2);
+           call my_allocate ((max_contents * 16), ObjList(j)->object.param1);
+           do k = 0 to max_contents-1;
+              ObjList(j)->object.param1->element(k) = 0;
+              end;
+           if (BUGON_ptr) then
+              call trace_msg ('ALOC ' || ltrim(RoomNumber) || '/' || ltrim(j) ||
+                              ' param1=' || show_ptr(ObjList(j)->object.param1));
+           end;
+
+     if (this_class = CLASS_AVATAR)
+        then substr(object_props,1,ptr->obj_desc.prop_len-10) =
+             substr(ptr->obj_desc.props,11,ptr->obj_desc.prop_len-10);
+        else substr(object_props,1,ptr->obj_desc.prop_len) =
+             substr(ptr->obj_desc.props,1,ptr->obj_desc.prop_len);
+
+     if (oracular_object (this_class)  &  oracle.object = 0)
+        then call oracular_setup (j);
+
+     if (^increment) then return;
+
+     current_region.object_count = current_region.object_count + 1;
+     if (container_is_opaque (container_class(ObjList(j)->object.container),
+                              ObjList(j)->object.position))
+        then call note_instance_creation (ObjList(j)->object.class,
+                                          ObjList(j)->object.style);
+        else call note_object_creation (ObjList(j)->object.class,
+                                        ObjList(j)->object.style);
+
+end create_object_entry;
+%page;
+my_allocate: procedure (size,where);
+declare size   bin(31);
+declare where  pointer;
+
+declare which  bin(15);
+declare usage  bit(64) based(where);
+
+   if (size <= MB$threshold) then do;
+      where = RoomDBank.Block_addr;
+      which = index (usage, '1'b);
+      if (which ^= 0) then do;
+         substr(usage,which,1) = false;
+         which = ((which-1) * MB$chunk_size) + 8;
+         where = addrel (where,which);
+         return;
+         end;
+/*    call trace_msg ('No room in Memory Block:  ' || ltrim(Region) || 
+                      ', last_noid=' || ltrim(last_noid));                 */
+      end;
+
+   call s$allocate (size,where);
+   return;
+
+end my_allocate;
+%page;
+container_class: procedure (cnoid) returns (bin(15));
+declare cnoid bin(15);
+
+  if (cnoid = 0) then return (0);
+
+  if (ObjList(cnoid) ^= null())
+     then return (ObjList(cnoid)->object.class);
+     else do;
+        call trace_msg ('ERR: container_class called with invalid noid');
+        return (0);
+        end;
+
+end container_class;
+%page;
+container_is_opaque: procedure (class,pos) returns (bit(1) aligned);
+declare class  bin(15);
+declare pos    bin(15);
+
+  if (class = CLASS_AVATAR) then
+     if (pos = HANDS | pos = HEAD)
+        then return (false);
+        else return (true);
+
+  return (Class_Table(class).opaque_container);
+
+end container_is_opaque;
+%page;
+oracular_object: procedure (the_class) returns (bit(1) aligned);
+declare the_class bin(15);
+
+  if (the_class = CLASS_FOUNTAIN    |
+      the_class = CLASS_MAGIC_LAMP  |
+      the_class = CLASS_BUREAUCRAT  |
+      the_class = CLASS_CRYSTAL_BALL) then return (true);
+
+  return (false);
+
+end oracular_object;
+%page;
+oracular_setup: procedure (object_noid);
+declare object_noid bin(15);
+declare 1 obuf,                             /*msg format - db lookup request*/
+          2 db_function       bin(15),
+          2 oracles_id        bin(31);
+declare obuf_str char(6) defined (obuf);
+
+   oracle.object = object_noid;
+   if (ObjList(object_noid)->object.class ^= CLASS_FOUNTAIN) then return;
+
+   obuf.db_function = MC$dbf_oracle_msg;
+   obuf.oracles_id  = ObjList(object_noid)->object.obj_id;
+   call send_message (habitat_dbQ, msg$db_lookup,obuf_str,6,0,RoomBQId);
+
+end oracular_setup;
+%page;
+process_oracle_msg: procedure(buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 oracle_id    bin(31),
+          2 start_time   bin(31),
+          2 end_time     bin(31),
+          2 interval     bin(15),
+          2 msg_text     char(100) var;
+declare current_ts       bin(31);
+declare ptr              pointer;
+
+   if (buff_olay.oracle_id ^= ObjList(oracle.object)->object.obj_id)
+      then return;
+
+   call s$int_date_time (current_ts);
+   if (buff_olay.end_time < current_ts) then return;
+
+   if (oracle.control = null())
+      then allocate fountain set(oracle.control);
+   ptr = oracle.control;
+   ptr->fountain.type       = 1;
+   ptr->fountain.which_room = RoomNumber;
+   ptr->fountain.start_time = buff_olay.start_time;
+   ptr->fountain.end_time   = buff_olay.end_time;
+   ptr->fountain.interval   = buff_olay.interval;
+   ptr->fountain.msg_text   = buff_olay.msg_text;
+
+   if (ptr->fountain.start_time <= current_ts)
+      then current_ts = ptr->fountain.interval;
+      else current_ts = ptr->fountain.start_time - current_ts;
+
+   call Tact (broadcast_from_fountain,oracle.control,current_ts);
+
+end process_oracle_msg;
+%page;
+broadcast_from_fountain: procedure (ptr);
+declare ptr    pointer;
+declare current_ts binary(31);
+declare err    bin(15);
+
+   err = 0;
+   if (ptr->fountain.type = 1) then do;
+      RoomPtr = RoomPtrs(ptr->fountain.which_room);
+      CapMonPtr = CapMonPtrs(ptr->fountain.which_room);
+      end;
+   else err = 1;
+   if (err = 0)
+      then if (oracle.object = 0 | ObjList(oracle.object) = null())
+         then err = 1;
+   if (err = 0)
+      then if (ObjList(oracle.object)->object.class ^= CLASS_FOUNTAIN)
+         then err = 1;
+
+   if (err ^= 0) then do;
+      call s$free (ptr);
+      oracle.control = null();
+      return;
+      end;
+
+   call Build_Fan_List (0,false);
+   if (fan_cnt = 0) then return;
+
+   prefix = 'U' || byte(ASYNC_header);
+   response = byte(0) || byte(OBJECTSPEAK$) ||
+              byte(oracle.object) || ptr->fountain.msg_text;
+   call encode_string (response, encoded);
+
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+      call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                      length(prefix)+length(encoded),0,0);
+      end;
+   else call send_multiple_packets (null(),prefix,encoded,0,true);
+
+   call s$int_date_time (current_ts);
+   if (ptr->fountain.end_time <= current_ts) then do;
+      call s$free (ptr);
+      oracle.control = null();
+      return;
+      end;
+
+   call Tact (broadcast_from_fountain,ptr,ptr->fountain.interval);
+
+end broadcast_from_fountain;
+%page;
+cancel_oracle_timer: procedure;
+
+   if (oracle.control = null()) then return;
+
+   if (oracle.control->fountain.type < 1 | oracle.control->fountain.type > 2)
+       then do;
+       call trace_msg ('cancel_oracle_timer called with unknown type');
+       return;
+       end;
+
+   if (oracle.control->fountain.type = 1)
+      then call ClearTactByValue (broadcast_from_fountain,oracle.control);
+   else if (oracle.control->fountain.type = 2)
+      then /* call ClearTactByValue (what_chip_calls_it,oracle.control) */;
+
+   call s$free (oracle.control);
+   oracle.control = null();
+
+end cancel_oracle_timer;
+%page;
+add_to_containers_list: procedure (contain,obj,position);
+
+declare contain bin(15);
+declare obj     bin(15);
+declare position bin(15);
+declare bad     bin(15);
+
+    if (contain = 0) then return;
+
+    if (ObjList(contain)->object.param1->element(position) ^= 0) then do;
+       call trace_msg ('*ERR* Container ' || 
+                       ltrim(ObjList(contain)->object.obj_id) || '/' ||
+                       ltrim(contain) || ' has multiple objects in slot ' ||
+                       ltrim(position));
+       bad = ObjList(contain)->object.param1->element(position);
+       call trace_msg ('ORIGINAL: ' || ltrim(ObjList(bad)->object.obj_id) ||
+                       '/' || ltrim(bad) || ' TRIED TO ADD: ' ||
+                       ltrim(ObjList(obj)->object.obj_id) ||
+                       '/' || ltrim(obj));
+/*     ObjList(bad)->object.container = 0;        */
+       ObjList(obj)->object.container = 0;
+       ObjList(obj)->object.gen_flags(MODIFIED) = true;
+       return;
+       end;
+
+    if (position < 0  |
+        position > Class_Table(ObjList(contain)->object.class).capacity) then do;
+        call trace_msg ('*ERR* Position out of range for container ' ||
+                        ltrim(ObjList(contain)->object.obj_id));
+        ObjList(obj)->object.container = 0;
+        ObjList(obj)->object.gen_flags(MODIFIED) = true;
+        return;
+        end;
+
+    ObjList(contain)->object.param1->element(position) = obj;
+
+end add_to_containers_list;
+%page;
+next_available_noid: procedure (new_noid);
+declare new_noid     bin(15);
+declare highest_noid bin(15);
+
+     highest_noid = ObjectsPerRegion - 1;
+     if (RoomDBank.last_noid < highest_noid) then do;
+        do new_noid = (RoomDBank.last_noid+1) to highest_noid
+        while(ObjList(new_noid) ^= null());
+        end;
+        if (new_noid <= highest_noid) then do;
+           RoomDBank.last_noid = new_noid;
+           return;
+           end;
+        end;
+
+     call trace_msg ('WARNING: Noid wrap for region ' || ltrim(Region));
+
+     RoomDBank.noid_wrap = true;
+     do new_noid = 1 to (RoomDBank.last_noid-1)
+     while(ObjList(new_noid) ^= null());
+     end;
+
+     if (new_noid = RoomDBank.last_noid) then do;
+        call trace_msg ('DISASTER: ObjList full for region ' || ltrim(Region));
+        new_noid = -1;
+        return;
+        end;
+
+     RoomDBank.last_noid = new_noid;
+
+end next_available_noid;
+%page;
+add_to_userlist: procedure (Ulistslot,userID,where);
+declare Ulistslot   bin(15);
+declare userID      bin(31);
+declare where       bin(15);
+declare found       bit(1) aligned;
+declare up          pointer;
+
+    found = false;
+    do Ulistslot = 1 to UsersPerRegion while(^found);
+       if (UserList(Ulistslot) ^= null()) then
+          if (UserList(Ulistslot)->player.U_Id = userID)
+             then found = true;
+       end;
+
+    if (^found) then 
+       do Ulistslot = 1 to UsersPerRegion while(UserList(Ulistslot) ^= null());
+       end;                    /* Ulistslot = 1st empty slot in list */
+    else do;
+       call trace_msg ('User ' || ltrim(userID) || 
+                         ' already in user list, region ' || ltrim(Region) ||
+                         ', call ' || ltrim(where));
+       signal error;
+       end;
+
+    if (Ulistslot > UsersPerRegion) then do;
+       call trace_msg ('Region overflow!!!!');
+       Ulistslot = 0;
+       return;
+       end;
+
+    allocate player set (UserList(Ulistslot));
+    up = UserList(Ulistslot);
+
+    up->player.U_Name        = '';
+    up->player.U_version     = 0;
+    up->player.U_Id          = userID;
+    up->player.U_Q           = null();
+    up->player.U_Q_Id        = 0;
+    up->player.has_mail      = false; 
+    up->player.send_mail     = false; 
+    up->player.online        = false; 
+    up->player.incoming      = false; 
+    up->player.cr_pending    = false; 
+    up->player.ck_last_login = false; 
+    up->player.new_session   = false; 
+    up->player.last_cmd      = '';
+
+    up->player.esp.to_uid    = 0; 
+    up->player.esp.to_qid    = 0; 
+    up->player.esp.que       = null();
+
+    up->player.auto_destination = 0;
+    up->player.auto_mode        = 0;
+
+end add_to_userlist;
+%page;
+map_avatar_to_slot: procedure(p) returns (bin(15));
+declare p pointer;
+declare i bin(15);
+
+    if (p->obj_desc.class ^= byte(CLASS_AVATAR)) then return(0);
+    do i = 1 to UsersPerRegion;
+       if (UserList(i) ^= null()) then
+       if (UserList(i)->U_Id = p->obj_desc.id) then return(i);
+    end;
+
+    call trace_msg ('Avatar slot not initialized for ' || 
+                    ltrim(p->obj_desc.id));
+    return(0);
+
+end map_avatar_to_slot;
+
+
+
+map_object_to_slot: procedure(objects_id,object_type) returns (bin(15));
+declare objects_id  bin(31);
+declare object_type bin(15);
+declare i bin(15);
+
+     if (object_type = 0) then return(0);
+     do i = 1 to ObjectsPerRegion - 1;
+        if (ObjList(i) ^= null()) then
+        if (ObjList(i)->object.obj_id = objects_id  &
+           ((object_type = 1  &  ObjList(i)->object.class = 1) |
+           (object_type > 1  &  ObjList(i)->object.class > 1)))
+           then return(i);
+     end;
+
+     call trace_msg ('Unable to map ' || ltrim(objects_id) || ', type ' ||
+                     ltrim(object_type));
+     return(0);
+
+end map_object_to_slot;
+%page;
+get_container_contents: procedure(noid);
+declare noid   bin(15);
+
+declare tp     pointer;
+declare uno    bin(15);
+declare obuf_str char(10);
+declare 1 obuf defined (obuf_str),          /*msg format - db lookup request*/
+          2 db_function       bin(15),
+          2 container         bin(31),
+          2 transaction       bin(31);
+
+   uno = avatarptr->object.avatarslot;
+
+   obuf.db_function = MC$dbf_contents;
+   obuf.container   = ObjList(noid)->object.obj_id;
+   obuf.transaction = UserList(uno)->player.U_Id;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = 0;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, obuf_str, 10, 0, RoomBQId);
+
+end get_container_contents;
+%page;
+add_container_contents: procedure(buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 container    bin(31),
+          2 count        bin(15),
+          2 uid          bin(31);
+
+declare op               pointer;
+declare cur              pointer;
+declare (i,j,k)          bin(15);
+declare (umember,req)    bin(15);
+declare objs(40)         bin(15);
+declare cks_passed       bit(1) aligned;
+
+declare container_flags  bin(15);
+declare container_bit(16) bit(1) defined(container_flags);
+declare 1 container based %include 'struct_gen_container';
+%replace OPEN by 16;
+
+     call check_request_info (buff_olay.uid,req$open_container,userptr);
+     if (userptr = null()) then return;            /* Requester has departed */
+
+     container_flags = ObjList(current_noid)->container.open_flags;
+     if (container_bit(OPEN) = false  &  
+        ObjList(current_noid)->container.container = 0)
+        then cks_passed = contents_ok(0);
+        else cks_passed = false;
+
+     if (^cks_passed) then do;
+        response = 'U' || current_header || encode_byte(current_noid) || 
+                   encode_byte(current_request) || encode_byte(BOING_FAILURE);
+        call send_message(userptr->player.U_Q,message$normal,substr(response,1),
+                   length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+        return;
+        end;
+
+     ContList  = '';
+     databytes = '';
+     content   = byte(SUCCESS);
+     op = addrel(buff,12);
+
+     do i = 1 to count;
+        if (BUGON) then call trace_msg ('Adding to container, class: ' || 
+                        ltrim(rank(op->obj_desc.class)));
+        if (op->obj_desc.class = byte(CLASS_AVATAR))
+           then call add_to_userlist (umember,op->obj_desc.id,2);
+        call next_available_noid (j);
+        if (j < 0) then return;
+        call create_object_entry (op,j,false,true);
+        if (op->obj_desc.class = byte(CLASS_AVATAR) & umember ^= 0) then do;
+           UserList(umember)->player.object_slot = j;
+           UserList(umember)->player.U_Name = 
+                                       rtrim(substr(op->obj_desc.props,1,10));
+           end;
+        if (op->obj_desc.container = buff_olay.container)
+           then call build_vector_entry (j);
+        op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+     end;
+
+     current_region.object_count = current_region.object_count + count;
+     call generic_SET_OPEN_BITS;
+
+%page;
+     /* Respond to the requester:  */
+
+     prefix = 'U' || current_header || encode_byte(current_noid) || 
+             encode_byte(current_request);
+
+     response = content || byte(0) || databytes || ContList;
+     if (length(response) = 2) then response = byte(SUCCESS);
+     if (BUGON) then call trace_msg ('Contents: ' || response);
+     call encode_string (response, encoded);
+
+     if (length(prefix)+length(encoded) < 120) then do;
+        if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+        call send_message(userptr->player.U_Q,message$normal,
+                         prefix || encoded,length(prefix)+length(encoded),
+                         userptr->player.U_Id,userptr->player.U_Q_Id);
+        end;
+     else call send_multiple_packets (userptr,prefix,encoded,0,true);
+
+     /* Notify all others:  */
+
+     call Build_Fan_List (userptr->player.U_Q_Id,false);
+     if (fan_cnt = 0) then return;
+
+     prefix = 'U' || byte(ASYNC_header) ||
+               encode_byte(avatarptr->object.noid) || encode_byte(19);  
+     response = byte(selfptr->object.noid);
+     if (length(content) ^= 1  |  length(ContList) ^= 0)
+        then response = response || substr(content,2) || byte(0) || databytes
+                        || ContList;
+     call encode_string (response, encoded);
+
+     if (length(prefix)+length(encoded) < 120) then do;
+        if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+        call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                        length(prefix)+length(encoded),0,0);
+        end;
+     else call send_multiple_packets (null(),prefix,encoded,
+                                      userptr->player.U_Q_Id,true);
+
+     return;
+
+%page;
+contents_ok: procedure (dummy) returns (bit(1) aligned);
+declare dummy bin(15);
+declare contained(40) bin(15);
+declare contain_val bin(15);
+
+  contain_val = map_object_to_slot (buff_olay.container,2);
+  if (contain_val = 0) then return (false);
+  if (ObjList(contain_val) = null()) then return (false);
+  contain_val = ObjList(contain_val)->object.class * 256;
+
+  if ((buff_olay.count + current_region.object_count) >= ConcurrentObjects) then do;
+     call trace_msg (ltrim(userptr->player.U_Id) ||
+                     ':  container not opened (max objs), region ' ||
+                     ltrim(Region));
+     return (false);
+     end;
+
+  do j = 1 to 40;
+     objs(j) = 0;
+     contained(j) = contain_val;
+     end;
+  op = addrel(buff,12);
+  if (count > 40) then do;
+     call trace_msg ('Err: Container with more that 40 objects: ' ||
+                     ltrim(buff_olay.container));
+     count = 40;
+     end;
+  do j = 1 to count;
+     objs(j) = class_style (rank(op->obj_desc.class),rank(op->obj_desc.style));
+     op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+     end;
+
+  if (^space_available(objs,contained)) then do;
+     call trace_msg (ltrim(userptr->player.U_Id) ||
+                     ':  container not opened (mem), region ' || ltrim(Region));
+     return (false);
+     end;
+
+  return (true);
+
+end contents_ok;
+end add_container_contents;
+%page;
+print_elements: procedure (id) returns(char(120) var);
+declare id     bin(15);
+declare elist  char(120)var;
+declare ep     pointer;
+declare i      bin(15);
+
+  elist = '';
+  ep = ObjList(id)->object.param1;
+  do i = 1 to Class_Table(ObjList(id)->object.class).capacity-1;
+     elist = elist || ltrim(ep->element(i));
+     end;
+
+  return (elist);
+
+end print_elements;
+%page;
+switch_to_ghost: procedure;
+declare uno    bin(15);
+declare my_noid bin(15);
+declare gptr   pointer;
+declare tptr   pointer;
+declare str    char(10) var;
+
+%replace SUCCESS_NO_VECTOR by 2;
+
+   uno = avatarptr->object.avatarslot;
+   my_noid = avatarptr->object.noid;
+   gptr = UserList(uno);
+
+   if (oracle.person = my_noid) then oracle.person = 0;
+
+/* Now, remove the avatar object...        */
+   if (avatarptr->object.container ^= 0) then do;
+      tptr = ObjList(avatarptr->object.container)->object.param1;
+      tptr->element(avatarptr->object.position) = 0;
+      avatarptr->object.container = 0;
+      end;
+   avatarptr->object.x = -1;
+   avatarptr->object.y = 128;
+   avatarptr->object.gen_flags(MODIFIED) = true;
+   call checkpoint_object (Null_Region,my_noid);
+   call remove_object (my_noid);
+   call Build_Fan_List (current_qid,false);
+   if (fan_cnt > 0) then do;
+      str = 'U' || byte(ASYNC_header) || encode_byte(0) ||
+            encode_byte(9) || encode_byte(my_noid);
+      call send_fan_message(fan_list,fan_cnt,message$normal,substr(str,1),
+                            length(str),0,0);
+      end;
+   UserList(uno) = null();
+
+/* ...then add the ghost...                  */
+   call add_to_list (GhostList,gptr);
+   gptr->player.object_slot = GHOST;
+   total_ghosts = total_ghosts + 1;
+
+   if (ObjList(GHOST) ^= null()) then do;
+      response = 'U' || current_header || encode_byte(current_noid) || 
+                  encode_byte(current_request) || encode_byte(SUCCESS_NO_VECTOR) ||
+                  encode_byte(255) || encode_byte(0) || encode_byte(0) ||
+                  encode_byte(0) || encode_byte(0);
+      if (BUGON) then call trace_msg ('SEND: ' || response);
+      call send_message(gptr->player.U_Q,message$normal,substr(response,1),
+                     length(response),0,current_qid);
+      return;
+      end;
+
+   call make_a_ghost;
+
+   content   = '';
+   databytes = '';
+   ContList  = '';
+   call build_vector_entry (GHOST);
+   call build_contents_list (GHOST,true);
+   response = content || byte(0) || databytes || ContList;
+   call encode_string (response,encoded);
+
+   call Build_Fan_List (current_qid,false);
+   if (fan_cnt > 0) then do;
+      prefix    = 'U' || byte(ASYNC_header) || encode_byte(0) || encode_byte(8);
+      if (BUGON) then call trace_msg ('HEREIS: ' || prefix || encoded);
+      if (length(prefix)+length(encoded) < 120) then do;
+         call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                         length(prefix)+length(encoded),0,0);
+         end;
+      else call send_multiple_packets (null(),prefix,encoded,current_qid,true);
+      end;
+
+   prefix = 'U' || current_header || encode_byte(current_noid) || 
+              encode_byte(current_request);
+   response = encode_byte(SUCCESS) || encode_byte(GHOST) || encode_byte(0) || 
+              encode_byte(0) || encode_byte(0) || encode_byte(0) || encoded;
+   if (BUGON) then call trace_msg ('SEND: ' || prefix || response);
+   if (length(prefix)+length(encoded) < 120) then do;
+      call send_message(gptr->U_Q,message$normal,prefix || response,
+                  length(prefix)+length(response),0,current_qid);
+      end;
+   else do;
+      call Build_Fan_List (current_qid,false);
+      call send_multiple_packets (gptr,prefix,encoded,current_qid,true);
+      end;
+   
+end switch_to_ghost;
+%page;
+switch_from_ghost: procedure;
+declare tp     pointer;
+declare obuf_str char(10);
+declare 1 obuf defined (obuf_str),          /*msg format - db lookup request*/
+          2 db_function       bin(15),
+          2 transaction       bin(31);
+
+   if (avatar_count() >= current_region.max_avatars) then do;
+      response = 'U' || current_header || encode_byte(current_noid) || 
+               encode_byte(current_request) || encode_byte(FAILURE);
+      call send_message(userptr->player.U_Q,message$normal,substr(response,1),
+               length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+      return;
+      end;
+      
+
+   obuf.db_function = MC$dbf_avatar_desc;
+   obuf.transaction = userptr->player.U_Id;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = userptr->player.U_Id;
+   tp->snap_env.qid       = userptr->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = 0;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, obuf_str, 6, 0, RoomBQId);
+
+end switch_from_ghost;
+%page;
+complete_switch_from_ghost: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 container    bin(31),
+          2 count        bin(15),
+          2 curr_time    bin(31);
+
+declare uid bin(31);
+declare op               pointer;
+declare cur              pointer;
+declare (i,j,k)          bin(15);
+declare (umember,req)    bin(15);
+declare last_ghost       bin(15);
+declare my_noid          bin(15);
+declare objs(9)          bin(15);
+declare uptr             pointer;
+
+declare 1 avatar based
+%include 'struct_avatar.incl.pl1';
+declare money_bytes(4) char(1) defined (avatarptr->avatar.bank_account_balance);
+
+   call check_request_info (uid,req$avatar_switch,uptr);
+   if (uptr = null()) then return;               /* Requester has departed */
+
+   if (^room_for_avatar(0)) then do;
+      response = 'U' || current_header || encode_byte(current_noid) || 
+               encode_byte(current_request) || encode_byte(FAILURE);
+      call send_message(uptr->player.U_Q,message$normal,substr(response,1),
+               length(response),uptr->player.U_Id,uptr->player.U_Q_Id);
+      return;
+      end;
+
+   ContList  = '';
+   databytes = '';
+   content   = '';
+   op = addrel(buff,12);
+
+   do i = 1 to count;
+      if (BUGON) then call trace_msg ('Adding class: ' || 
+                      ltrim(rank(op->obj_desc.class)));
+      if (op->obj_desc.class = byte(CLASS_AVATAR))
+         then call add_to_userlist (umember,op->obj_desc.id,3);
+      call next_available_noid (j);
+      if (j < 0) then return;
+      call create_object_entry (op,j,false,true);
+      if (op->obj_desc.class = byte(CLASS_AVATAR) & umember ^= 0) then do;
+         call clear_bit (ObjList(j)->object.gr_state,7);
+         UserList(umember)->player.object_slot = j;
+         UserList(umember)->player.U_Name = 
+                                         rtrim(substr(op->obj_desc.props,1,10));
+         ObjList(j)->object.x = 8;
+         ObjList(j)->object.y = 128;
+         my_noid = j;
+         end;
+      op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+   end;
+
+   current_region.object_count = current_region.object_count + buff_olay.count;
+
+   UserList(umember)->player.U_Q          = uptr->player.U_Q;
+   UserList(umember)->player.U_Q_Id       = uptr->player.U_Q_Id;
+   UserList(umember)->player.U_version    = uptr->player.U_version;
+   UserList(umember)->player.has_mail     = uptr->player.has_mail;
+   UserList(umember)->player.send_mail    = uptr->player.send_mail;
+   UserList(umember)->player.last_mail_ts = uptr->player.last_mail_ts;
+   UserList(umember)->player.online       = true;
+
+   userptr = UserList(umember);
+   if (uptr->player.ck_last_login)
+      then call check_last_login;
+   call set_mail_object_values (umember);
+   ObjList(my_noid)->avatar.activity = 129;
+   call build_vector_entry (my_noid);
+   call build_contents_list (my_noid,true);
+
+   if (ObjList(my_noid)->avatar.gr_state = 1  &  oracle.person = 0)
+      then oracle.person = my_noid;
+
+%page;
+
+   call delete_from_list (GhostList,uptr);
+   free uptr->player;
+   total_ghosts = total_ghosts - 1;
+   if (ghost_count(1) = 0) then do;
+      last_ghost = 2;
+      call my_free (ObjList(GHOST));
+      ObjList(GHOST) = null();
+      end;
+   else last_ghost = 0;
+
+   /* Respond to the requester:  */
+   avatarptr = ObjList(UserList(umember)->player.object_slot);
+   prefix = 'U' || current_header || encode_byte(current_noid) || 
+           encode_byte(current_request);
+
+   response = byte(SUCCESS+last_ghost) || 
+              byte(UserList(umember)->player.object_slot) || money_bytes(4) ||
+              money_bytes(3) || money_bytes(2) || money_bytes(1) ||
+              content || byte(0) || databytes || ContList;
+   if (BUGON) then call trace_msg ('Contents: ' || response);
+   call encode_string (response, encoded);
+
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+      call send_message(UserList(umember)->player.U_Q,message$normal,
+                       prefix || encoded,length(prefix)+length(encoded),
+                       UserList(umember)->player.U_Id,
+                       UserList(umember)->player.U_Q_Id);
+      end;
+   else call send_multiple_packets (UserList(umember),prefix,encoded,0,true);
+
+/* call checkpoint_object (Null_Region,my_noid); */
+   call lights_on (ObjList(my_noid));
+
+   /* Notify all others:  */
+
+   call Build_Fan_List (UserList(umember)->player.U_Q_Id,false);
+   if (fan_cnt = 0) then return;
+
+   if (last_ghost = 2) then do;
+      response = 'U' || byte(ASYNC_header) || encode_byte(0) || encode_byte(9) ||
+                 encode_byte(GHOST);
+      call send_fan_message(fan_list,fan_cnt,message$normal,substr(response,1), 
+                      length(response),0,0);
+      end;
+
+   prefix = 'U' || byte(ASYNC_header) || encode_byte(0) || encode_byte(8);
+   response = content || byte(0) || databytes || ContList;
+   call encode_string (response, encoded);
+
+   call Build_Fan_List (UserList(umember)->player.U_Q_Id,false);
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+      call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                      length(prefix)+length(encoded),0,0);
+      end;
+   else call send_multiple_packets (null(),prefix,encoded,
+                                    UserList(umember)->player.U_Q_Id,true);
+
+   return;
+
+room_for_avatar: procedure (dummy) returns (bit(1) aligned);
+declare dummy bin(15);
+declare slot bin(15);
+declare positions(9) bin(15);
+
+  do slot = 1 to UsersPerRegion while (UserList(slot) ^= null());
+     end;
+  if (slot > UsersPerRegion) then return(false);
+
+  if ((buff_olay.count + current_region.object_count) >= ConcurrentObjects) then do;
+     call trace_msg (ltrim(uptr->player.U_Id) ||
+                     ':  ghost not switched (max objs), region ' ||
+                     ltrim(Region));
+     return (false);
+     end;
+
+  do j = 1 to 9;  
+     objs(j) = 0;
+     positions(j) = 0;
+     end;
+  op = addrel(buff,12);
+  do j = 1 to count;
+     objs(j) = class_style (rank(op->obj_desc.class),rank(op->obj_desc.style));
+     if (op->obj_desc.class = byte(CLASS_AVATAR))
+        then positions(j) = 0;
+        else positions(j) = 256 + rank(op->obj_desc.position);
+     op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+     end;
+
+  if (^space_available(objs,positions)) then do;
+     call trace_msg (ltrim(uptr->player.U_Id) ||
+                     ':  ghost not switched (mem), region ' || ltrim(Region));
+     return (false);
+     end;
+
+  return (true);
+
+end room_for_avatar;
+end complete_switch_from_ghost;
+%page;
+show_text_page: procedure (text_key,text_page,next_page);
+declare text_key    bin(31);
+declare text_page   bin(15);
+declare next_page   bin(15);
+declare uno         bin(15);
+declare tp          pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 object       bin(31),
+          2 page         bin(15);
+declare request_str char(8) defined(request);
+
+   uno = avatarptr->object.avatarslot;
+
+   request.db_function = MC$dbf_read_text;
+   request.object      = text_key;
+   request.page        = text_page;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = next_page;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 8,
+                      UserList(uno)->player.U_Id,RoomBQId);
+
+end show_text_page;
+%page;
+send_text: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 key          bin(31),
+          2 page         bin(15),
+          2 num_pages    bin(15),       /* only valid when page = 1 */
+          2 datalen      bin(15),
+          2 data         char(640);
+
+declare uid bin(31);
+declare bptr pointer;
+declare 1 book based(bptr) %include 'struct_book';
+
+   call check_request_info (uid,req$read_text,userptr);
+   if (userptr = null()) then return;              /* Requester has departed */
+
+   if (buff_olay.datalen = 0) then do;
+      response = 'U' || current_header || encode_byte(current_noid) || 
+                 encode_byte(current_request) || encode_byte(10) ||
+                 encode_byte(10) || encode_byte(10) || encode_byte(10);
+      call send_message(userptr->player.U_Q,message$normal,substr(response,1),
+               length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+      return;
+      end;
+
+   prefix = 'U' || current_header || encode_byte(current_noid) || 
+            encode_byte(current_request);
+   response =  substr(request_string,2,1) ||      /* next page number */
+               substr(buff_olay.data,1,buff_olay.datalen);
+   call encode_string (response, encoded);
+
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+      call send_message(userptr->player.U_Q,message$normal,
+                        prefix || encoded,length(prefix)+length(encoded),
+                        userptr->player.U_Id,userptr->player.U_Q_Id);
+      end;
+   else call send_multiple_packets (userptr,prefix,encoded,0,true);
+
+   if (buff_olay.page ^= 1) then return;
+   bptr = ObjList(current_noid);
+   if (bptr ^= null()) then do;
+      if (bptr->book.class = CLASS_BOOK | bptr->book.class = CLASS_PLAQUE)
+         then bptr->book.last_page = buff_olay.num_pages;
+      end;
+
+end send_text;
+%page;
+get_title_page: procedure (text_key,how_used);
+declare text_key    bin(31);
+declare how_used    bin(15);
+declare uno         bin(15);
+declare tp          pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 object       bin(31);
+declare request_str char(6) defined(request);
+
+   uno = avatarptr->object.avatarslot;
+
+   request.db_function = MC$dbf_read_title;
+   request.object      = text_key;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = how_used;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 6,
+                      UserList(uno)->player.U_Id,RoomBQId);
+
+end get_title_page;
+%page;
+process_book_title: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 key          bin(31),
+          2 datalen      bin(15),
+          2 data         char(40);
+
+declare uid bin(31);
+declare how_used bin(15);
+
+   call check_request_info (uid,req$read_text,userptr);
+   if (userptr = null()) then return;               /* Requester has departed */
+
+   how_used = rank(substr(request_string,2,1));
+   call send_book_title (substr(buff_olay.data,1,buff_olay.datalen),how_used);
+
+end process_book_title;
+%page;
+get_region_name: procedure (which);
+declare which       bin(31);
+declare uno         bin(15);
+declare tp          pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 region_id    bin(31);
+declare request_str char(8) defined(request);
+
+   uno = avatarptr->object.avatarslot;
+
+   request.db_function = MC$dbf_name_region;
+   request.region_id   = which;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = 0;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 6,
+                      UserList(uno)->player.U_Id,RoomBQId);
+
+end get_region_name;
+%page;
+process_region_name: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 region_id    bin(31),
+          2 region_name  char(20);
+
+declare uid bin(31);
+
+   call check_request_info (uid,req$name_region,userptr);
+   if (userptr = null()) then return;              /* Requester has departed */
+
+   call avatar_IDENTIFY_SELF (rtrim(buff_olay.region_name));
+
+end process_region_name;
+%page;
+send_mail_notice: procedure (my_noid);
+declare my_noid bin(15);
+
+     userptr->player.send_mail = false;
+     response = 'U' || encode_byte(ASYNC_header) ||
+                 encode_byte(0) || encode_byte(OBJECTSPEAK$) ||
+                 encode_byte(my_noid) || Mailmessage;
+     call send_message(userptr->player.U_Q, message$normal,substr(response,1),
+                 length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+
+end send_mail_notice;
+/* %page;
+locate_player: procedure (which);
+declare which       bin(31);
+declare uno         bin(15);
+declare tp          pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 player_id    bin(31);
+declare request_str char(8) defined(request);
+
+   uno = avatarptr->object.avatarslot;
+
+   request.db_function = MC$dbf_locate_player;
+   request.player_id   = which;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = 0;
+   tp->snap_env.parm2     = 0;
+
+   ...change this to go to habitatQ in case user is online...
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 6,
+                      UserList(uno)->player.U_Id,RoomBQId);
+
+end locate_player;
+%page;
+process_player_location: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 player_id    bin(31),
+          2 whereabouts  bin(31);
+
+declare uid bin(31);
+
+   call check_request_info (uid,req$name_region,userptr);
+   if (userptr = null()) then return;
+
+   call chips_routine (buff_olay.whereabouts);
+
+end process_player_location;
+*/
+%page;
+close_container: procedure (noid);
+declare noid          bin(15);
+
+declare ep            pointer;
+declare k             bin(15);
+
+declare 1 contain based(selfptr) %include 'struct_gen_container';
+
+   ep = ObjList(noid)->object.param1;
+   if (Class_Table(ObjList(noid)->object.class).capacity ^= 0) then
+   do k = 0 to Class_Table(ObjList(noid)->object.class).capacity-1;
+      if (ep->element(k) ^= 0) then do;
+         call reclaim_space (ObjList(ep->element(k)));
+         current_region.object_count = current_region.object_count - 1;
+         call my_free (ObjList(ep->element(k)));
+         ObjList(ep->element(k)) = null();
+         ep->element(k) = 0;
+         end;
+      end;
+
+   /* Respond to the requester:  */
+
+   response = 'U' || current_header || encode_byte(current_noid) || 
+              encode_byte(current_request) || encode_byte(SUCCESS);
+
+   if (BUGON) then call trace_msg ('SEND: ' || response);
+   call send_message(UserList(avatarptr->object.avatarslot)->U_Q,
+                     message$normal,substr(response,1),
+                     length(response),0,current_qid);
+
+   /* Notify all others:
+
+   call Build_Fan_List (current_qid,false);
+   if (fan_cnt = 0) then return;
+
+   response = 'U' || byte(ASYNC_header)           ||
+              encode_byte(avatarptr->object.noid) ||
+              encode_byte(current_request)        ||
+              encode_byte(selfptr->object.noid)   ||
+              encode_byte(contain.open_flags);
+
+   if (BUGON) then call trace_msg ('SEND: ' || response);
+   call send_fan_message(fan_list,fan_cnt,message$normal,substr(response,1),
+                        length(response),0,0);
+*/
+end close_container;
+%page;
+process_enter_room: procedure (str,uid,qid);
+declare str         character(*) varying;       /* screen name     */
+declare uid         bin (31);                   /* user id number  */
+declare qid         bin (31);                   /* queue id number */
+
+declare (i,j)   binary (15);
+declare version_str           character(2) defined(version);
+declare version               binary (15);
+declare object_cnt            binary (15);
+declare object_cnt_str        char(2) defined(object_cnt);
+declare screen_name           character(10) varying;
+declare login_request         character(10) varying;
+declare ei                    pointer;
+declare uptr                  pointer;
+declare chg_region_req        bit(1) aligned;
+
+declare 1 result,
+          2 code    bin(15),
+          2 roomq   bin(31),
+          2 ghost_flag char(1);
+declare result_str  char(7) defined (result);
+
+/*   call making_history (byte(RoomNumber) || byte(2) || byte(14) || '  '); */
+
+     if (^RoomDBank.initialized) then do;
+        if (BUGON) then call trace_msg ('Waiting for region initialization...');
+        allocate enter_info set(ei);
+        ei->enter_info.type     = 1;
+        ei->enter_info.room     = RoomNumber;
+        ei->enter_info.user     = uid;
+        ei->enter_info.que      = qid;
+        ei->enter_info.qc_name  = q_context.user_name;
+        ei->enter_info.qc_hold  = q_context.holding_area;
+        ei->enter_info.params   = str;
+        call add_to_list (RoomDBank.waiting_list,ei);
+        return;
+        end;
+
+     if (substr(str,3,2) ^= '--') then do;
+        call validate_change_request;
+        return;
+     end;
+
+     version_str = substr(str,1,2);
+     screen_name = rtrim(substr(str,5,10));
+     login_request = substr(str,15);
+
+     chg_region_req = (login_request = '');
+     if (chg_region_req) then do;
+        call GetPtr_by_uid (uid,uptr);
+        if (uptr = null()) then do;
+           call trace_msg ('Enter from unknown ' || ltrim(uid) || '/' ||
+                           ltrim(q_context.uid)  || ':' || 
+                           rtrim(q_context.user_name) || ', region ' ||
+                           ltrim(Region) || ' ' || str);
+           return;
+           end;
+        uptr->player.U_Q_Id = qid;
+        end;
+        else do;
+           call add_user_as_ghost (uid,qid,uptr);
+           call request_mail_status (uptr);
+           end;
+
+     uptr -> player.U_Name        = screen_name;
+     uptr -> player.U_version     = version;
+     uptr -> player.incoming      = true; 
+
+     call open_queue_from_number(qid,uptr->player.U_Q);
+     call switch_queues (uptr);
+
+     if (^chg_region_req) then do;
+        call process_input (login_request,uid,qid);
+        uptr->player.new_session   = true;
+        uptr->player.ck_last_login = true;
+        end;
+
+     if (screen_name ^= q_context.user_name)
+        then call trace_msg ('Initial name mismatch for ' || ltrim(uid) ||
+                             ': ' || ltrim(screen_name) || '/' ||
+                             ltrim(q_context.user_name));
+
+     return;
+
+%page;
+validate_change_request: procedure;
+
+declare 1 request             based(rptr),
+          2 region_num        bin(31),
+          2 total_cnt         bin(15),
+          2 ghost_flag        char(1),
+          2 unused            char(1),
+          2 objs(9)           bin(15),
+          2 positions(9)      bin(15);
+declare rptr pointer;
+
+     rptr = addrel(addr(str),2);
+     result.roomq = RoomBQId;
+     result.code  = 0;
+
+     if (request.ghost_flag = 'A') then do;
+        if ((request.total_cnt + current_region.object_count) >= ConcurrentObjects)
+           then do;
+           if (BUGON_high) 
+              then call trace_msg (ltrim(uid) || 
+                         ':  change region refused (cnt)');
+           result.code = 1;
+           end;
+        if (avatar_count() >= current_region.max_avatars) then do;
+           if (BUGON_high) 
+              then call trace_msg (ltrim(uid) || 
+                         ':  change region refused (user cnt)');
+           result.code = 1;
+           end;
+        end;
+
+     if (RoomDBank.private)
+        then if (current_region.owner ^= uid  &  ^RoomDBank.owner_here)
+        then result.code = 1;
+
+     if (^space_available(request.objs,request.positions)) then do; 
+        if (BUGON_high)                                     /* NOTE: This should ALWAYS be the last check to  */
+           then call trace_msg (ltrim(uid) ||               /* determine if user can come into this region.   */
+                      ':  change region refused, mem = ' || /* If it passes the space is reserved for the     */
+                      ltrim(current_region.space_usage));   /* user to come in.                               */
+        result.code = 1;
+        end;
+
+     if (result.code ^= 0) then do;
+        call send_message (habitatQ, msg$change_room_result, result_str,
+                           6,uid,qid);
+        call check_for_empty_region;
+        return;
+        end;
+
+     current_region.object_count = current_region.object_count + 
+                                   request.total_cnt;
+     result.code = 0;
+     if (BUGON_high) then call trace_msg (ltrim(uid) || 
+                 ': OK to enter region ' || ltrim(Region));
+     call send_message (habitatQ, msg$change_room_result, result_str,
+                        6,uid,qid);
+
+     call prepare_for_backout;
+     return;
+
+%page;
+prepare_for_backout: procedure;
+declare p pointer;
+
+     allocate mug_shot set(p);
+     p->mug_shot.type      = 2;
+     p->mug_shot.user      = uid;
+     p->mug_shot.que       = qid;
+     p->mug_shot.mail      = 0;
+     p->mug_shot.obj_cnt   = request.total_cnt;
+     p->mug_shot.obj_class = request.objs;
+     p->mug_shot.obj_pos   = request.positions;
+     call add_to_list (RoomDBank.waiting_list,p);
+
+     RoomDBank.avatars_coming = RoomDBank.avatars_coming + 1;
+
+end prepare_for_backout;
+end validate_change_request;
+end process_enter_room;
+%page;
+retry_user_enter: procedure (p);
+
+declare p pointer;
+
+     if (p->enter_info.type ^= 1) then do;
+        call trace_msg ('Bad type in retry_user_enter: ' || 
+                        ltrim(p->enter_info.type));
+        return;
+        end;
+
+     RoomNumber = p->enter_info.room;
+     RoomPtr    = RoomPtrs(RoomNumber);
+     CapMonPtr  = CapMonPtrs(RoomNumber); 
+
+     /*        Restore the important parts of q_context.    */
+     q_context.uid          = p->enter_info.user;
+     q_context.qid          = p->enter_info.que;
+     q_context.user_name    = p->enter_info.qc_name;
+     q_context.holding_area = p->enter_info.qc_hold;
+
+     call process_enter_room (p->enter_info.params,p->enter_info.user,
+                              p->enter_info.que);
+
+     free p -> enter_info;
+
+end retry_user_enter;
+%page;
+add_user_as_ghost: procedure (uid,qid,up);
+declare uid  binary(31);
+declare qid  binary(31);
+declare up   pointer;
+
+    allocate player set (up);
+    up->player.U_Name        = '';
+    up->player.U_version     = 0;
+    up->player.U_Id          = uid;
+    up->player.U_Q           = null();
+    up->player.U_Q_Id        = qid; 
+    up->player.online        = false;
+    up->player.incoming      = false;
+    up->player.cr_pending    = false;
+    up->player.ck_last_login = false;
+    up->player.object_slot   = GHOST;
+    up->player.last_cmd      = '';
+
+    up->player.has_mail      = false;
+    up->player.send_mail     = false;
+    up->player.last_mail_ts  = 0;
+
+    up->player.esp.to_uid    = 0;
+    up->player.esp.to_qid    = 0;
+    up->player.esp.que       = null();
+
+    call add_to_list (GhostList,up);
+    total_ghosts = total_ghosts + 1;
+
+end add_user_as_ghost;
+%page;
+request_mail_status: procedure (up);
+declare up pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 avatar_id    bin(31);
+declare request_str char(6) defined(request);
+declare tp pointer;
+
+   request.db_function = MC$dbf_check_mail;
+   request.avatar_id   = up->player.U_Id;
+
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 6,
+                         up->player.U_Id,RoomBQId);
+
+end request_mail_status;
+%page;
+process_input: procedure (str, uid, qid); 
+declare str              character(*) varying;
+declare uid              binary (31);
+declare qid              binary (31);
+declare uno              binary (15);
+declare command          binary (15);
+
+declare 1 req            defined(str),
+          2 char_cnt     bin(15),
+          2 U_char       char(1),
+          2 header       char(1),
+          2 obj_id       char(1),
+          2 function     char(1),
+          2 parm1        char(1),
+          2 parm2        char(1);
+declare 1 hdr            defined(req.header),
+          2 end_seq      bit(1),
+          2 fill1        bit(1),
+          2 start_seq    bit(1),
+          2 fill2        bit(1),
+          2 seq_number   bit(4);
+
+
+     call GetUserPtr (qid,userptr);
+     if (userptr = null()) then do;
+        if (req.U_char = 'M') then do;
+           call return_to_people_connection (str,uid,qid);
+           return;
+           end;
+        else if (req.U_char = 'U' & 
+                 substr(str,2,length(leave_region)) = leave_region) then do;
+           call reroute_thru_habitat (str,uid,qid);
+           return;
+           end;
+        else if (req.U_char = 'A') then return;   /* Chat msg could get here if we have delays */
+        else call trace_msg ('Input from unknown ' || ltrim(string(uid)) ||
+                             '/' || ltrim(Region) || ' ' || str);
+        return;
+     end;
+     current_qid = qid;
+
+     call decode_string (str);
+     if (BUGON) then call trace_msg ('RCV: ' || str);
+
+     if (req.U_char ^= 'U' & req.U_char ^= 'u') then do;
+        call trace_msg ('Discard-' || ltrim(uid) || '/' || ltrim(Region) ||
+                         ': ' || str);
+        return;
+        end;
+     if (^hdr.start_seq | ^hdr.end_seq) then do;
+        call handle_partial_request;
+        return;
+        end;
+
+     request_string = substr(str,5);
+     call process_request;
+     return;
+
+%page;
+process_request: procedure;
+
+declare cmd_offset(0:158) binary(15) static initial (1,
+9, 24, 29, 40, 43, 48, 54, 0, 0, 58, 0, 63, 69, 0, 0, 75, 82, 87, 0, 93, 
+98, 103, 109, 115, 121, 126, 131, 137, 143, 147, 153, 157, 164, 0, 169, 
+174, 175, 182, 0, 0, 0, 183, 187, 192, 199, 205, 212, 219, 225, 0, 0, 
+230, 0, 236, 243, 248, 249, 250, 0, 254, 259, 0, 0, 263, 0, 0, 0, 0, 268, 
+0, 0, 0, 0, 269, 275, 280, 0, 0, 0, 286, 0, 287, 0, 292, 297, 303, 304, 
+305, 311, 316, 321, 327, 328, 0, 329, 334, 341, 346, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 347, 
+0, 355, 360, 361, 362, 363, 364, 365, 371, 376, 377, 378, 384, 389, 0, 
+394, 395, 0, 0, 396, 0, 0, 397, 0, 403, 407, 408, 409, 415, 416, 417);
+/*  cmd_tick array bounds must be 1:421. */
+declare cmd binary(15);
+
+     current_noid = rank(req.obj_id);
+     current_request = rank(req.function);
+     if ((current_noid ^= 0 & ObjList(current_noid) = null())  | 
+         current_noid > ObjectsPerRegion) then do;
+        if (current_noid > last_noid  &  RoomDBank.noid_wrap = false  &
+           current_noid ^= GHOST)
+           then call force_user_dump ('Bad object id: ');
+        return;
+        end;
+
+     selfptr         = ObjList(current_noid);
+     avatarptr       = ObjList(userptr->player.object_slot);
+     current_header  = req.header;
+     if (current_request > Class_Table(selfptr->object.class).max_requests |
+         Class_Table(selfptr->object.class).actions = null()) then do;
+        call force_user_dump ('Bad request: ');
+        return;
+        end;
+
+/*   call making_history (byte(RoomNumber) || byte(1) || byte(current_noid) ||
+                          byte(selfptr->object.class) || byte(current_request)); */
+/*
+     cmd = cmd_offset(selfptr->object.class) + current_request;
+     cmd_tick(cmd) = cmd_tick(cmd) + 1;
+*/
+     call Class_Table(selfptr->object.class).actions->behavior(current_request);
+     userptr->player.last_cmd = str;
+     return;
+
+end process_request;
+%page;
+handle_partial_request: procedure;
+declare bp pointer;
+declare 1 hold_buffer based,
+          2 userq   bin(31),
+          2 bytes   bin(15),
+          2 data    char(644) var;
+
+     if (hdr.start_seq = true) then do;
+        allocate hold_buffer set (bp);
+        bp->hold_buffer.userq = qid;
+        bp->hold_buffer.bytes = length(str);
+        bp->hold_buffer.data  = str;
+        call add_to_list (partial_input,bp);
+        return;
+        end;
+
+     call retrieve_previous_input (qid,bp);
+     if (bp = null()) then do;
+        call trace_msg ('Missing previous input for ' || ltrim(uid) || '/' ||
+                        ltrim(Region));
+        return;
+        end;
+     
+     bp->hold_buffer.bytes = bp->hold_buffer.bytes + length(str) - 4;
+     bp->hold_buffer.data  = bp->hold_buffer.data || substr(str,5);
+     if (bp->hold_buffer.bytes > 646)
+        then call trace_msg ('Partial buffer too big (' || 
+                  ltrim(bp->hold_buffer.bytes) || ') for user ' || ltrim(uid) ||
+                  '/' || ltrim(Region));
+
+     if (hdr.end_seq = true) then do;
+        call delete_from_list (partial_input,bp);
+        str = substr(bp->hold_buffer.data,1,4);
+        request_string = substr(bp->hold_buffer.data,5);
+        free bp->hold_buffer;
+        call process_request;
+        end;
+     return;
+
+end handle_partial_request;
+end process_input;
+%page;
+retrieve_previous_input: procedure (qid,ptr);
+declare qid         bin(31);
+declare ptr         pointer;
+declare le          pointer;
+declare done        bit(1);
+declare partial_userq bin(31) based;
+
+     le = partial_input;
+     done = false;
+     do while (^done & le ^= null());
+        ptr = le->le_content;
+        le = le->le_next;
+        if (ptr->partial_userq = qid)
+              then done = true;
+     end;
+
+     if (^done) then do;
+        if (BUGON) then call trace_msg ('*ERR - No partial entry for ' || 
+                   ltrim(qid) || '/' || ltrim(Region));
+        ptr = null();
+        end;
+
+end retrieve_previous_input;
+%page;
+force_user_dump: procedure (tag);
+declare tag char(*) var;
+declare objects_class bin(15);
+
+     if (ObjList(current_noid) = null())
+        then objects_class = -1;
+        else objects_class = ObjList(current_noid)->object.class;
+
+     call trace_msg (tag ||
+                     ' noid='         || ltrim(current_noid) ||
+                     ' request='      || ltrim(current_request) || 
+                     ' class='        || ltrim(objects_class) ||
+                     ' region='       || ltrim(Region) ||
+                     ' uid='          || ltrim(userptr->player.U_Id));
+     call trace_msg ('Request data: ' || to_hex(request_string));
+
+     call dump_host_environment;
+
+     /*  Force user to dump - Fatal Error # 47   */
+     call send_message(userptr->player.U_Q,message$normal,
+                      'U' || byte(ASYNC_header) || byte(0) || byte(22), 4,
+                       userptr->player.U_Id,userptr->player.U_Q_Id);
+
+end force_user_dump;
+%page;
+dump_host_environment: procedure;
+declare work char(80) var;
+declare i bin(15);
+
+     work = '';
+     do i = 1 to GHOST;
+        if (ObjList(i) ^= null()) then do;
+           work = work || ltrim(i) || ':' || 
+                  ltrim(ObjList(i)->object.class);
+           if (ObjList(i)->object.class = 1)
+               then work = work || '-' || ltrim(ObjList(i)->object.obj_id);
+           work = work || ' ';
+           if (length(work) > 55) then do;
+               call trace_msg ('Host: ' || work);
+               work = '';
+               end;
+           end;
+        end;
+     if (length(work) ^= 0) then call trace_msg ('Host: ' || work);
+
+end dump_host_environment;
+%page;
+to_hex: procedure (data)  returns (char(80) var);
+declare data      char(*) var;
+declare work      char(80) var;
+declare (chars,i) bin(15);
+declare value     bin(31);
+
+   chars = min(length(data),80);
+   work  = '';
+   do i = 1 to chars;
+      value = rank(substr(data,i,1));
+      work = work || hex(value,2);
+      end;
+   return (work);
+
+end to_hex;
+%page;
+initialize_object_disk_patches: procedure;
+declare  die             entry (bin(15), char(*) var, char(*) var);
+declare  open_file       entry (char(*)var, bin(15), bin(15), bin(15), bin(15),
+                                bin(15), bin(15), char(*)var, bin(15));
+declare  s$close         entry (bin(15), bin(15));
+declare  s$seq_read      entry (bin(15), bin(15), bin(15), char(*), bin(15));
+%replace implicit_locking  by 4;
+%replace input_io          by 1;
+%replace sequential_org    by 3;
+%replace sequential_access by 1;
+declare port    bin(15);
+declare (i,bc,code)  bin(15);
+
+   call open_file ('MC_current_disk', port, sequential_org, 258, input_io,
+                   implicit_locking, sequential_access, '', code);
+   if (code ^= 0) then call die (code,'Open', 'object disk file');
+
+   do i = 1 to MAX_UPDATES;
+      call s$seq_read (port,258,bc,disk_patch(i),code);
+      if (code ^= 0) then call die (code,'initialize', 'object disk');
+      end;
+
+   call s$close (port,code);
+   if (code ^= 0) then call debug_msg (code,'close of object disk file');
+
+end initialize_object_disk_patches;
+%page;
+update_object_disk: procedure;
+declare version char(1);
+declare uno     bin(15);
+declare p       pointer;
+
+   version = substr(request_string,3,1);
+
+   uno = avatarptr->object.avatarslot;
+   call get_update_transaction (UserList(uno)->U_Q_Id,p);
+   if (p = null()) 
+      then call create_update_transaction (UserList(uno)->U_Q_Id,p);
+    
+   call next_track_sector_element (version,p->disk_update.which);
+   if (p->disk_update.which = -1) then do;
+      call delete_from_list (Updates,p);
+      free p->disk_update;
+      call send_region_contents;
+      end;
+
+   prefix = 'U' || byte(ASYNC_header) || encode_byte(0) /* 0 = region */ || 
+             encode_byte(11) /* UPDATE command */;
+   call encode_string (substr(disk_patch(p->disk_update.which),1), encoded);
+
+   call send_multiple_packets (UserList(avatarptr->object.avatarslot),prefix,
+                                    encoded,0,true);
+
+
+end update_object_disk;
+%page;
+next_track_sector_element: procedure (vers,last);
+declare vers   char(1);
+declare last   bin(15);
+
+/*   if (last = 0)      then last =  1;
+     else if (last = 1) then last =  2;
+     else if (last = 2) then last =  4;
+     else if (last = 4) then last = -1;      */
+
+     last = -1;     /* Shouldn't get here; if we do, just send region vector. */
+
+end next_track_sector_element;
+%page;
+get_update_transaction: procedure (qid,ptr);
+declare qid  bin(31);
+declare ptr  pointer;
+
+declare le               pointer;
+declare done             bit(1);
+
+     le = Updates;
+     done = false;
+     do while (^done & le ^= null());
+        ptr = le->le_content;
+        le = le->le_next;
+        if (ptr->disk_update.qid = qid)
+              then done = true;
+     end;
+
+     if (^done) then do;
+        if (BUGON) then call trace_msg ('*ERR - No update entry for ' || 
+                   ltrim(qid) || '/' || ltrim(Region));
+        ptr = null();
+        return;
+        end;
+
+end get_update_transaction;
+%page;
+create_update_transaction: procedure (qid,ptr);
+declare qid    bin(31);
+declare ptr    pointer;
+
+   allocate disk_update set(ptr);
+
+   ptr->disk_update.qid   = qid;
+   ptr->disk_update.which = 0;
+
+   call add_to_list (Updates,ptr);
+
+end create_update_transaction;
+%page;
+send_region_contents: procedure;
+declare ind         bin(15);
+declare ghost_arrived bit(1) aligned;
+
+declare 1 avatar based
+%include 'struct_avatar.incl.pl1';
+declare money_bytes(4) char(1) defined (avatarptr->avatar.bank_account_balance);
+
+%page;
+   ghost_arrived = false;
+/* content = byte(current_region.terrain) ||     */
+   content = byte(0) || 
+             byte(current_region.lighting + DayNight) ||
+             byte(current_region.depth)   || byte(current_region.class_group);
+   if (userptr->player.object_slot = GHOST & ObjList(GHOST) = null()) then do;
+      call make_a_ghost;
+      total_ghosts = 1;                /* total_ghosts + 1; chg 3/16/88 jdh */
+      avatarptr = ObjList(GHOST);
+      ghost_arrived = true;
+      end;
+
+   content = content || byte(avatarptr->avatar.noid) || money_bytes(4) ||
+             money_bytes(3) || money_bytes(2) || money_bytes(1);
+
+   databytes = '';
+   ContList  = '';
+
+   do ind = 1 to ObjectsPerRegion;
+      if (ObjList(ind) ^= null()) then do;
+         if (ObjList(ind)->object.container = 0) then do;
+            call build_vector_entry (ind);
+            if (Class_Table(ObjList(ind)->object.class).capacity ^= 0)
+               then call build_contents_list (ind,true);
+            end;
+         end;
+      end;
+
+   prefix = 'U' || current_header || encode_byte(current_noid) || 
+             encode_byte(current_request);
+
+   response = content || byte(0) || databytes || ContList;
+   if (length(response) = 1) then response = '';
+   call encode_string (response, encoded);
+
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || encoded);
+      call send_message(userptr->player.U_Q,
+                        msg$stop_comm,prefix || encoded,
+                        length(prefix)+length(encoded),0,current_qid);
+      end;
+   else call send_multiple_packets (userptr,prefix,encoded,0,false);
+
+   userptr->player.online   = true;
+   userptr->player.incoming = false;
+
+   if (avatarptr->object.gr_state = 1  &  oracle.person = 0)
+      then oracle.person = avatarptr->object.noid;
+
+   if (userptr->player.U_Id = current_region.owner)
+      then RoomDBank.owner_here = true;
+
+   call Build_Fan_List (current_qid,false);
+   if (ghost_arrived  & fan_cnt > 0) then do;
+      content   = '';
+      databytes = '';
+      ContList  = '';
+      call build_vector_entry (GHOST);
+      call build_contents_list (GHOST,true);
+      response = content || byte(0) || databytes || ContList;
+      call encode_string (response,encoded);
+      prefix    = 'U' || byte(ASYNC_header) || encode_byte(0) || encode_byte(8);
+      if (BUGON) then call trace_msg ('HEREIS: ' || prefix || encoded);
+      if (length(prefix)+length(encoded) < 120) then do;
+         call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                      length(prefix)+length(encoded),0,0);
+         end;
+      else call send_multiple_packets (null(),prefix,encoded,current_qid,true);
+      end;
+
+   if (userptr->player.new_session = true)
+      then call new_session_postvector;
+
+   return;
+
+end send_region_contents;
+%page;
+build_vector_entry: procedure (ndx);
+declare ndx         bin(15);
+declare ptr         pointer; 
+
+   content  = content || byte(ndx) || byte(ObjList(ndx)->object.class);
+
+   if (Class_Table(ObjList(ndx)->object.class).capacity = 0)
+      then ptr = addr(ObjList(ndx)->object.param1);
+      else ptr = addr(ObjList(ndx)->object.param2);
+
+   databytes = databytes || objects_data_descriptor (ndx,ptr);
+
+end build_vector_entry;
+%page;
+build_contents_list: procedure (noid,noid_flag);
+declare noid        bin(15);
+declare noid_flag   bit(1);
+
+declare ep          pointer;
+declare ptr         pointer;
+declare my_items    char(510) var;
+declare my_data     char(1024) var;
+declare i           bin(15);
+
+   my_items = '';
+   my_data  = '';
+   ep = ObjList(noid)->object.param1;
+
+   if (Class_Table(ObjList(noid)->object.class).capacity = 0) then return;
+
+   do i = 0 to Class_Table(ObjList(noid)->object.class).capacity-1;
+      if (ep->element(i) ^= 0) then do;
+         my_items = my_items || byte(ep->element(i)) || 
+                    byte(ObjList(ep->element(i))->object.class);
+
+         if (Class_Table(ObjList(ep->element(i))->object.class).capacity = 0)
+            then ptr = addr(ObjList(ep->element(i))->object.param1);
+            else ptr = addr(ObjList(ep->element(i))->object.param2);
+
+         my_data  = my_data || objects_data_descriptor (ep->element(i),ptr);
+         end;
+      end;
+
+   if (my_items = '') then return;
+
+   if (noid_flag)
+      then ContList = ContList || byte(noid) || my_items || byte(0) || my_data;
+      else ContList = ContList ||               my_items || byte(0) || my_data;
+
+   if (Class_Table(ObjList(noid)->object.class).capacity ^= 0) then
+   do i = 0 to Class_Table(ObjList(noid)->object.class).capacity-1;
+      if (ep->element(i) ^= 0) then
+         if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+            then call build_contents_list (ep->element(i),true);
+      end;
+
+end build_contents_list;
+%page;
+objects_data_descriptor: procedure (slot,ptr) returns (char(256) var);
+declare slot   bin(15);
+declare ptr    pointer;
+declare (x_value,y_value) bin(15);
+
+   if (ObjList(slot)->object.container = 0) 
+      then do;
+         x_value = ObjList(slot)->object.x;
+         y_value = ObjList(slot)->object.y;
+         end;
+      else do;
+         x_value = 0;
+         y_value = ObjList(slot)->object.position;
+         end;
+
+   return (byte(ObjList(slot)->object.style)       ||
+           byte(x_value)    || byte(y_value)       ||
+           byte(ObjList(slot)->object.orientation) ||
+           byte(ObjList(slot)->object.gr_state)    ||
+           byte(ObjList(slot)->object.container)   ||
+   state_elements(Class_Table(ObjList(slot)->object.class).pc_state_bytes,ptr));
+
+end objects_data_descriptor;
+
+
+
+
+
+state_elements: procedure (count,ptr) returns (char(80) var);
+declare count bin(15);
+declare ptr         pointer; 
+declare i     bin(15);
+declare state char(80) var;
+declare state_info(80)  bin(15) based(ptr);
+
+   state = '';
+   do i = 1 to count;
+      state = state || byte(state_info(i));
+      end;
+
+   return (state);
+
+end state_elements;
+%page;
+new_session_postvector: procedure;
+declare my_noid bin(15);
+
+   userptr->player.new_session = false;
+   my_noid = userptr->player.object_slot;
+
+   if (Daymessage ^= '') then do;
+      response = 'U' || encode_byte(ASYNC_header) ||
+                 encode_byte(0) || encode_byte(OBJECTSPEAK$) ||
+                 encode_byte(my_noid) || Daymessage;
+      call send_message(userptr->player.U_Q, message$normal,substr(response,1),
+                        length(response),userptr->player.U_Id,current_qid);
+      end;
+
+   if (userptr->player.send_mail)
+      then call send_mail_notice (my_noid);
+
+end new_session_postvector;
+%page;
+check_last_login: procedure;
+declare ap pointer;
+declare 1 avatar based(ap)
+%include 'struct_avatar';;
+
+   userptr->player.ck_last_login = false;
+   ap = ObjList(userptr->player.object_slot);
+   avatar.gen_flags(MODIFIED) = true;
+
+   if (avatar.last_login >= today_start_time) then do;
+       call s$int_date_time (avatar.last_login);
+       return;
+       end;
+
+   call s$int_date_time (avatar.last_login);
+/* call record_collection (userptr->player.U_Id,HS$adjust,HS$lifetime,1);  */
+
+   avatar.bank_account_balance = avatar.bank_account_balance + 100;
+/* call record_collection (userptr->player.U_Id,HS$set,HS$wealth,
+                           avatar.bank_account_balance);                   */
+
+end check_last_login;
+%page;
+calculate_today_start:  procedure (ptr);
+declare  ptr        pointer;
+
+declare  code       binary(15);
+declare  cur_time   binary(31);
+declare  wait_time  binary(31);
+declare  date_stg   char(32) var;
+
+
+   call s$int_date_time (cur_time);
+   call s$cv_to_string_date_time (cur_time, date_stg);
+   call s$cv_to_int_date_time (substr (date_stg, 1, 8), today_start_time, code);
+   if (code ^= 0)  then  call debug_msg (code, date_stg);
+
+
+/*    today is defined as starting at 10:00 am */
+/*    reset this value each day    at 10:00 am */
+
+   today_start_time = today_start_time - (14*60*60); /* previous day at 10:00 am */
+
+   if (cur_time - today_start_time  >=  24*60*60)  then  /* after 10:00 am ?  */
+       today_start_time = today_start_time + 24*60*60;   /* today at 10:00 am */
+
+   wait_time = 24*60*60 - (cur_time - today_start_time);
+
+   call Tact (calculate_today_start, null (), wait_time); /* wake up tomorrow */
+
+end  calculate_today_start;
+%page;
+return_to_people_connection: procedure (str,uid,qid);
+declare str char(*) var;
+declare uid bin(31);
+declare qid bin(31);
+
+   call send_message (SuperQ,message$main_menu,substr(str,1),
+                      length(str),uid,qid);
+
+end return_to_people_connection;
+
+
+
+reroute_thru_habitat: procedure (str,uid,qid);
+declare str char(*) var;
+declare uid bin(31);
+declare qid bin(31);
+
+   call send_message (habitatQ,msg$reroute,substr(str,1),
+                      length(str),uid,qid);
+
+end reroute_thru_habitat;
+%page;
+set_offline: procedure (uno);
+declare uno bin(15);
+declare why bin(15);
+declare code bin(15);
+declare kp_file char(256) var;
+
+   if (BUGON) then call trace_msg ('User ' || 
+                        ltrim(userptr->player.U_Id) || ' now offline');
+   userptr->player.online   = false;
+   userptr->player.incoming = false;
+
+   why = rank(substr(request_string,1,1));
+   if (why = 0) then return;
+
+   call trace_msg ('>>>FE ' || ltrim(why) || ' in ' || ltrim(Region) ||
+                   ', last request: ' || userptr->player.last_cmd);
+   call dump_host_environment;
+
+   if (why ^= 11) then return;
+   call s$expand_path ('region.FE11.kp','',kp_file,code);
+   call s$create_keep_module (kp_file,null(),code);
+   if (code ^= 0) then call debug_msg (code, 'FE11 kp file');
+
+end set_offline;
+%page;
+send_multiple_packets: procedure (uptr,prefix,info,exclude_qid,normal);
+declare uptr        pointer;
+declare prefix      char(*) var;
+declare info        char(*) var;
+declare exclude_qid bin(31);
+declare normal      bit(1) aligned;
+
+declare (first,sent,tobe_sent,maxdata,seg_len)    bin(15);
+declare mtype       bin(31);
+declare segment     char(256) var;
+
+declare header_byte(4)  char(1) defined(prefix);  /* 2 c var len + 2nd byte */
+declare header_bits(16) bit(1)  defined(header_byte(4));
+
+   header_bits(1) = false;         /* END of sequence bit   */
+   header_bits(2) = true;          /* Middle of sequence    */
+   header_bits(3) = true;          /* START of sequence bit */
+
+   sent      = 0;
+   first     = 1;
+   maxdata   = 119 - length(prefix);
+   tobe_sent = length(info);
+   mtype     = msg$frame_start;
+
+   if (uptr ^= null())
+      then call start_packed_msg (uptr->player.U_Q, uptr->player.U_Id, 
+                                  uptr->player.U_Q_Id);
+
+   do while (sent < tobe_sent);
+      if ( (tobe_sent - sent) <= maxdata) then do;
+         if (normal)
+            then mtype = msg$frame_stop;
+            else mtype = msg$frame_stop_comm;
+         segment = substr(info,first);
+         header_bits(1) = true;                   /* END-of-sequence bit */
+         if (BUGON) then call trace_msg ('SEND: ' || prefix || segment);
+         if (uptr ^= null()) then do;
+            call send_packed_msg (uptr->player.U_Q,mtype,
+                          prefix || segment, length(prefix)+length(segment),
+                          0,uptr->player.U_Q_Id);
+            call force_packed_msg (uptr->player.U_Q);
+            end;
+         else call send_fan_message(fan_list,fan_cnt,mtype,
+                          prefix || segment,length(prefix)+length(segment),0,0);
+         return;
+         end;
+      if (substr(info,(first+maxdata-1),1) = byte(93))
+         then seg_len = maxdata - 1;
+         else seg_len = maxdata;
+      segment = substr(info,first,seg_len);
+      first = first + seg_len;
+      sent = sent + seg_len;
+      if (BUGON) then call trace_msg ('SEND: ' || prefix || segment);
+      if (uptr ^= null())
+         then call send_packed_msg(uptr->player.U_Q,mtype,
+                        prefix || segment, length(prefix)+length(segment),
+                        0,uptr->player.U_Q_Id);
+         else do;
+              call send_fan_message(fan_list,fan_cnt,mtype,
+                        prefix || segment,length(prefix)+length(segment),0,0);
+              call Build_Fan_List (exclude_qid,false);
+              end;
+      header_bits(3) = false;                        /* START-of-sequence bit */
+      mtype = msg$frame_cont;
+      end;
+
+end send_multiple_packets;
+%page;
+switch_queues:  procedure (uptr);
+   declare  uptr                        pointer;
+
+   declare  room_qid                    binary (31);
+   declare  room_qid_str                char    (4)   defined   room_qid;
+
+
+   room_qid = RoomQId;
+
+   call send_message (uptr->player.U_Q, message$switch_queues,
+                      room_qid_str, 4, 0, uptr->player.U_Q_Id);
+
+end  switch_queues;
+
+%page;
+change_regions: procedure (who,rnumber,direction,transition);
+declare who                   binary(15);
+declare rnumber               binary(31);
+declare direction             binary(15);
+declare transition            binary(15);
+declare uno                   bin(15);
+declare tp                    pointer;
+declare (i,j,k)               bin(15);
+
+declare 1 request,
+          2 region_num        bin(31),
+          2 total_cnt         bin(15),
+          2 ghost_flag        char(1),
+          2 unused            char(1),
+          2 objs(9)           bin(15),
+          2 positions(9)      bin(15);
+declare request_stg           char(12) defined (request);
+
+     request.region_num = rnumber;
+     uno = ObjList(who)->object.avatarslot;
+     call count_my_possessions (who,request.total_cnt,request.objs);
+
+     if (who = GHOST)
+        then request.ghost_flag = 'G';
+        else do;
+           request.ghost_flag = 'A';
+           if (UserList(uno) = null()) then do;
+              call trace_msg ('Null userptr in chg reg, user=' ||
+                               ltrim(userptr->player.U_Id));
+              return;
+              end;
+           userptr = UserList(uno);
+           end;
+
+     do i = 1 to 9;
+        request.objs(i) = 0;
+        request.positions(i) = 0;
+        end;
+     if (who ^= GHOST) then do;
+        request.objs(1) = class_style (ObjList(who)->object.class,
+                                       ObjList(who)->object.style);
+        request.positions(1) = 0;
+        j = 2;
+        do i = 0 to 7;
+           k = ObjList(who)->object.param1->element(i);
+           if (k ^= 0) then do;
+              request.objs(j) = class_style (ObjList(k)->object.class,
+                                             ObjList(k)->object.style);
+              request.positions(j) = 256 + i;
+              j = j + 1;
+              end;
+           end;
+        end;
+
+     if (BUGON_high) then call trace_msg (ltrim(userptr->player.U_Id)
+                     || ': change from ' || ltrim(Region) || ' to '
+                     || ltrim(rnumber) || ' with '
+                     || ltrim(request.total_cnt) || ' objects.');
+
+     tp = addr(q_context.holding_area);
+     call s$int_date_time (tp->snap_env.timestamp);
+     tp->snap_env.uid       = userptr->player.U_Id;
+     tp->snap_env.qid       = userptr->player.U_Q_Id;
+     tp->snap_env.region_id = Region;
+     tp->snap_env.header    = current_header;
+     tp->snap_env.objectid  = current_noid;
+     tp->snap_env.function  = current_request;
+     tp->snap_env.parm1     = direction;
+     tp->snap_env.parm2     = transition;
+
+     call send_message (habitatQ, message$change_room, 
+                        request_stg, bytesize(request),
+                        userptr->player.U_Id, userptr->player.U_Q_Id);
+
+     userptr->player.cr_pending = true;
+
+end change_regions;
+%page;
+count_my_possessions: procedure (who,count,classes);
+declare who     bin(15);
+declare count   bin(15);
+declare classes (*) bin(15);
+
+declare ep pointer;
+declare i bin(15);
+
+   do i = 1 to dimension(classes,1);
+      classes(i) = 0;
+      end;
+
+   if (who = GHOST) then do;
+      count = 0;
+      return;
+      end;
+
+   count = 1;       /* Always at least me */
+   classes(count) = class_style (ObjList(who)->object.class,
+                                 ObjList(who)->object.style);
+   ep = ObjList(who)->object.param1;
+
+   if (Class_Table(CLASS_AVATAR).capacity ^= 0) then
+   do i = 0 to Class_Table(CLASS_AVATAR).capacity-1;
+      if (ep->element(i) ^= 0) then
+         if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+            then call count_contents (ep->element(i));
+            else do;
+               count = count + 1;
+               classes(count) = class_style (ObjList(ep->element(i))->object.class,
+                                         ObjList(ep->element(i))->object.style);
+               end;
+      end;
+
+   return;
+
+count_contents: procedure (obj) recursive;
+declare obj              bin(15);
+declare ep               pointer;
+declare i                bin(15);
+
+   count = count + 1;              /* For the container itself */
+   ep = ObjList(obj)->object.param1;
+
+   if (Class_Table(ObjList(obj)->object.class).capacity ^= 0) then
+   do i = 0 to Class_Table(ObjList(obj)->object.class).capacity-1;
+      if (ep->element(i) ^= 0) then
+         if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+            then call count_contents (ep->element(i));
+      end;
+
+end count_contents;
+end count_my_possessions;
+%page;
+class_style: procedure (the_class,the_style) returns (binary(15));
+declare the_class   bin(15);
+declare the_style   bin(15);
+
+declare result      bin(15);
+declare part(2)     char(1) defined(result);
+
+   part(1) = byte(the_class);
+   part(2) = byte(the_style);
+
+   return (result);
+
+end class_style;
+%page;
+process_users_objects: procedure (buff);
+declare buff             pointer;
+declare 1 obj            based(buff),
+          2 mail_time    bin(31),
+          2 count        bin(15),
+          2 list_data(1013) char(1);
+declare op pointer;
+declare (i,j,umember) bin(15);
+declare uptr          pointer;
+
+     op = addr(obj.list_data(1));
+
+     if (op->obj_desc.class = byte(CLASS_GHOST)) then do;
+        call add_to_ghostlist (uptr,op->obj_desc.id);
+        uptr->player.incoming = true;
+        uptr->player.last_mail_ts = obj.mail_time;
+        if (ObjList(GHOST) = null()) then
+           call make_a_ghost;
+        total_ghosts = total_ghosts + 1;
+        if (BUGON_high) then call trace_msg (ltrim(uptr->player.U_Id)
+                     || ': added to ' || ltrim(Region));
+/*      call making_history (byte(RoomNumber) || byte(2) || byte(82) ||
+                             byte(255) || byte(obj.count));             */
+        return;
+        end;
+
+     do i = 1 to obj.count;
+        if (op->obj_desc.class = byte(CLASS_AVATAR)) then do;
+           call add_to_userlist (umember,op->obj_desc.id,4);
+           if (BUGON_high) then call trace_msg (ltrim(op->obj_desc.id)
+                     || ': added to ' || ltrim(Region));
+           end;
+        call next_available_noid(j);
+/*      if (i = 1) then 
+           call making_history (byte(RoomNumber) || byte(2) || byte(82) ||
+                                byte(j) || byte(obj.count));                 */
+        if (j < 0) then return;
+        if (BUGON) then call trace_msg ('Adding noid: ' || ltrim(string(j)) || ' , class: ' ||
+                       ltrim(rank(op->obj_desc.class)));
+        call create_object_entry (op,j,false,false);
+        if (op->obj_desc.class = byte(CLASS_AVATAR) & umember ^= 0) then do;
+           UserList(umember)->player.object_slot = j;
+           UserList(umember)->player.U_Name =
+                                       rtrim(substr(op->obj_desc.props,1,10));
+           UserList(umember)->player.last_mail_ts = obj.mail_time;
+           end;
+
+        op = addrel(op,op->obj_desc.prop_len+obj_fixed);
+     end;
+
+end process_users_objects;
+%page;
+add_to_ghostlist: procedure (uptr,userID);
+declare uptr        pointer;
+declare userID      bin(31);
+
+    allocate player set (uptr);
+
+    uptr->player.U_Name        = '';
+    uptr->player.U_version     = 0;
+    uptr->player.U_Id          = userID;
+    uptr->player.U_Q           = null();
+    uptr->player.U_Q_Id        = 0; 
+    uptr->player.object_slot   = GHOST;
+    uptr->player.has_mail      = false; 
+    uptr->player.send_mail     = false; 
+    uptr->player.online        = false; 
+    uptr->player.incoming      = false;
+    uptr->player.cr_pending    = false;
+    uptr->player.ck_last_login = false;
+    uptr->player.new_session   = false;
+    uptr->player.last_cmd      = '';
+
+    uptr->player.esp.to_uid    = 0;    
+    uptr->player.esp.to_qid    = 0;    
+    uptr->player.esp.que       = null();
+
+    call add_to_list (GhostList,uptr);
+
+end add_to_ghostlist;
+%page;
+process_change_result: procedure (arg,uid,qid);
+declare arg  pointer;
+declare uid  bin(31);
+declare qid  bin(31);
+declare str  char(32) var;
+declare op   pointer;
+declare base   bin(15);
+declare 1 result based(arg),
+          2 code    bin(15),
+          2 roomq   bin(31);
+declare 1 obj,
+          2 roomq        bin(31),
+          2 mail_time    bin(31),
+          2 count        bin(15),
+          2 list_data(1013) char(1);
+declare obj_list         char(254) defined (obj);
+declare (uno,my_noid)    bin(15);
+declare other            bin(15);
+declare parameter        bin(15);
+declare parameter_str    char(2) defined (parameter);
+declare 1 cntl           based (cntl_ptr),
+          2 dont_use     char(1),
+          2 format       char(1),
+          2 mod_flag     (8) bit(1),
+          2 header       char(1),
+          2 object_id    bin(15),
+          2 function     bin(15),
+          2 direction    bin(15),
+          2 transition   bin(15),
+          2 orientation  bin(15),
+          2 from_region  bin(31);
+declare cntl_ptr pointer;
+declare cntl_mod_flag bit(8) defined (cntl.mod_flag);
+
+declare change_region_fail entry(binary(15));
+
+   call check_request_info (uid,req$change_region,userptr);
+   if (userptr = null()) then do;
+      call trace_msg ('No user on chg region result ' ||
+                      ltrim(uid) || '/' || ltrim(Region));
+      return;
+      end;
+
+/* call making_history (byte(RoomNumber) || byte(2) || byte(81) ||
+                        byte(current_noid) || byte(result.code));     */
+
+   if (result.code ^= 0) then do;
+      if (BUGON_high) then call trace_msg (ltrim(uid) || 
+                      ': cannot change region, remaining in' ||
+                      ltrim(Region));
+      call change_region_fail(current_noid);
+      str = 'U' || current_header || encode_byte(current_noid) ||
+            encode_byte(current_request) || encode_byte(BOING_FAILURE);
+      call send_message(userptr->player.U_Q,message$normal,substr(str,1),
+            length(str),uid,userptr->player.U_Q_Id);
+      return;
+      end;
+
+%page;
+
+   if (BUGON_high) then call trace_msg (ltrim(uid) || 
+                   ': OK to change region, leaving, ' || ltrim(Region));
+
+/* Must ask Chip about location of this call to ExitDaemon.  If it is here */
+/* we cannot prevent user from taking something with him.  If it is before */
+/* we will call ExitDaemon before we know if the user will be allowed to   */
+/* actually go to the new region.  Do we need two classes?                 */
+
+   if (current_region.exit_proc > 0) then
+      if (current_region.exit_proc <= MAX_ExitDaemon)
+         then call Daemons(current_region.exit_proc).ExitRoutine;
+         else call trace_msg ('*ERR* Illegal exit proc for region ' ||
+                              ltrim(Region));
+
+   my_noid = userptr->player.object_slot;
+
+   cntl_ptr = addr(q_context.holding_area);
+   cntl_mod_flag = '00'b4;
+   if (my_noid ^= GHOST) then do;
+      call set_bit (ObjList(my_noid)->object.gr_state, 7);
+      call lights_off (ObjList(my_noid));
+      cntl.mod_flag(1) = ObjList(my_noid)->object.gen_flags(MODIFIED);
+      other = ObjList(my_noid)->object.param1->element(HANDS);
+      if (other ^= 0)
+          then cntl.mod_flag(2) = ObjList(other)->object.gen_flags(MODIFIED);
+      other = ObjList(my_noid)->object.param1->element(HEAD);
+      if (other ^= 0)
+          then cntl.mod_flag(3) = ObjList(other)->object.gen_flags(MODIFIED);
+      end;
+   cntl.mod_flag(4) = userptr->player.has_mail;
+   cntl.mod_flag(5) = userptr->player.send_mail;
+
+   obj.roomq     = result.roomq;
+   obj.mail_time = userptr->player.last_mail_ts;
+   obj.count     = 0;
+   base = 1;
+   op = addr(obj.list_data(base));
+
+   if (my_noid = oracle.person) then oracle.person = 0;
+
+   if (my_noid = GHOST) 
+      then ObjList(GHOST)->object.obj_id = userptr->player.U_Id;
+   call create_descriptor (op,my_noid,my_noid,-1);
+   obj.count = obj.count + 1;
+   base = base + op->obj_desc.prop_len + obj_fixed;
+   op = addr(obj.list_data(base));
+
+   call add_description (my_noid);
+   if (my_noid = GHOST) then ObjList(GHOST)->object.obj_id = 0;
+
+   if (userptr->player.ck_last_login = true)
+       then cntl.format = byte(3);
+       else cntl.format = byte(1);
+   cntl.header      = current_header;
+   cntl.object_id   = current_noid;
+   cntl.function    = current_request;
+   cntl.orientation = current_region.orientation;
+   cntl.from_region = Region;
+
+   parameter_str   = substr(request_string,1,2);
+   cntl.direction  = parameter;
+   parameter_str   = substr(request_string,3,2);
+   cntl.transition = parameter;
+
+   call send_message (habitatQ, msg$add_objects, substr(obj_list,1,base+9),
+                        base+9,uid,userptr->player.U_Q_Id);
+
+   /* Tell everybody in old region that he left.        */
+
+   userptr->player.online   = false;
+   userptr->player.incoming = false;
+   if (userptr->player.U_Id = current_region.owner)
+      then RoomDBank.owner_here = false;
+
+   if (my_noid ^= GHOST  |  ghost_count(1) = 0) then do;
+      call Build_Fan_List (userptr->player.U_Q_Id,false);
+      if (fan_cnt > 0) then do;
+         str = 'U' || byte(ASYNC_header) || encode_byte(0) ||
+               encode_byte(9) || encode_byte(my_noid);
+         call send_fan_message(fan_list,fan_cnt,message$normal,substr(str,1),
+                            length(str),0,0);
+         end;
+      call remove_object (my_noid);
+      end;
+
+   if (my_noid ^= GHOST) then do;
+      call GetUserEntry (userptr->player.U_Q_Id,uno);
+      if (uno ^= 0) 
+         then UserList(uno) = null();
+         else call dump_userlist;
+      free userptr -> player;
+      end;
+   else do;
+      call delete_from_list (GhostList,userptr);
+      total_ghosts = total_ghosts - 1;
+      if (ghost_count(1) = 0) then do;
+         call my_free (ObjList(GHOST));
+         ObjList(GHOST) = null();
+         call Build_Fan_List (userptr->player.U_Q_Id,false);
+         if (fan_cnt ^= 0) then do;
+            response = 'U' || byte(ASYNC_header) || encode_byte(0) || 
+                       encode_byte(9) || encode_byte(GHOST);
+            call send_fan_message(fan_list,fan_cnt,message$normal,
+                       substr(response,1),length(response),0,0);
+            end;
+         end;
+      free userptr -> player;
+      end;
+
+   call check_for_empty_region;
+   return;
+
+add_description: procedure (noid); /* recursive; */
+declare noid bin(15);
+declare i    bin(15);
+
+declare vary_st_len bin(15);
+declare ep   pointer;
+
+   ep = ObjList(noid)->object.param1;
+   if (Class_Table(ObjList(noid)->object.class).capacity ^= 0) then
+   do i = 0 to Class_Table(ObjList(noid)->object.class).capacity-1;
+     if (ep->element(i) ^= 0) then do;
+        vary_st_len =
+            Class_Table(ObjList(ep->element(i))->object.class).class_bytes;
+        call create_descriptor (op,ep->element(i),my_noid,vary_st_len);
+        base = base + vary_st_len + obj_fixed;
+        op = addr (obj.list_data(base));
+        obj.count = obj.count + 1;
+/*      if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+           then call add_description (ep->element(i));                     */
+        end;
+     end;
+
+end add_description;
+dump_userlist: procedure;
+declare info char(80) var;
+declare user bin(15);
+
+     call trace_msg ('NO USERLIST ENTRY for ' || ltrim(userptr->player.U_Id) ||
+                     ltrim(userptr->player.U_Q_Id));
+     info = '';
+     do user = 1 to UsersPerRegion;
+        if (UserList(user) ^= null())
+           then info = info || ltrim(user) || ':' || 
+                       ltrim(UserList(user)->player.U_Id) || '/' ||
+                       ltrim(UserList(user)->player.U_Q_Id) || ' ';
+        end;
+     call trace_msg ('UL: ' || info);
+   
+end dump_userlist;
+end process_change_result;
+%page;
+ghost_count: procedure (type) returns (bin(15));
+declare type   bin(15);
+declare le     pointer;
+declare ptr    pointer;
+declare cnt    bin(15);
+
+   le = GhostList;
+   cnt = 0;
+
+   do while (le ^= null());
+      ptr = le->le_content;
+      le  = le->le_next;
+      if (ptr->player.online | ptr->player.incoming)
+         then if (type = 1  |  type = 3)
+              then cnt = cnt + 1;
+              else;
+         else if (type = 2  |  type = 3)
+              then cnt = cnt + 1;
+      end;
+
+   return (cnt);
+
+end ghost_count;
+
+
+
+
+avatar_count: procedure returns (bin(15));
+declare cnt    bin(15);
+declare i      bin(15);
+
+   cnt = RoomDBank.avatars_coming;
+
+   do i = 1 to UsersPerRegion;
+      if (UserList(i) ^= null())
+         then cnt = cnt + 1;
+      end;
+
+   if (cnt > current_region.max_avatars) then
+      call trace_msg ('WHOA! Too many avatars for ' || ltrim(Region) || ': ' ||
+                      ltrim(cnt)); 
+   return (cnt);
+
+end avatar_count;
+%page;
+create_descriptor: procedure (p,id,own,st_len);
+declare p      pointer;
+declare id     bin(15);
+declare own    bin(15);
+declare st_len bin(15);
+declare avatar_name char(10);
+
+declare propsptr pointer;
+declare state_values char(80) based(propsptr);
+
+   p->obj_desc.id          = ObjList(id)->object.obj_id;
+   p->obj_desc.class       = byte(ObjList(id)->object.class);
+   p->obj_desc.contype     = byte(0);
+   if (ObjList(id)->object.container = 0)
+      then p->obj_desc.container = 0;
+      else do;
+         p->obj_desc.container = ObjList(ObjList(id)->object.container)->
+                                                              object.obj_id;
+         p->obj_desc.contype = byte(min(2,   /* avatar=1, everything else=2 */
+                         ObjList(ObjList(id)->object.container)->object.class));
+         end;
+   p->obj_desc.position    = byte(ObjList(id)->object.position);
+   p->obj_desc.x_pos       = ObjList(id)->object.x;
+   p->obj_desc.y_pos       = byte(ObjList(id)->object.y);
+   p->obj_desc.style       = byte(ObjList(id)->object.style);
+   p->obj_desc.orientation = byte(ObjList(id)->object.orientation);
+   p->obj_desc.graph_state = byte(ObjList(id)->object.gr_state);
+   p->obj_desc.graph_width = byte(ObjList(id)->object.gr_width);
+   p->obj_desc.gen_flags   = ObjList(id)->object.gen_flags;
+   if (st_len = -1)
+      then st_len = Class_Table(ObjList(id)->object.class).class_bytes;
+   if (Class_Table(ObjList(id)->object.class).capacity = 0)
+      then propsptr = addr(ObjList(id)->object.param1);
+      else propsptr = addr(ObjList(id)->object.param2);
+   p->obj_desc.prop_len  = st_len;
+   if (p->obj_desc.class = byte(CLASS_AVATAR))
+      then do;
+         if (id = GHOST)
+            then avatar_name = '';
+         else do;
+            avatar_name = UserList(ObjList(id)->object.avatarslot)->U_Name;
+            end;
+         substr(p->obj_desc.props,1,st_len) = avatar_name ||
+                                              substr(state_values,1,st_len-10);
+      end;
+   else
+      substr(p->obj_desc.props,1,st_len) = substr(state_values,1,st_len);
+
+end create_descriptor;
+%page;
+remove_object: procedure (noid) recursive;
+declare noid bin(15);
+
+declare doid bin(15);
+declare i    bin(15);
+declare ep   pointer;
+
+   doid = noid;
+
+   if (doid = GHOST) then do;
+      call my_free (ObjList(GHOST));
+      ObjList(GHOST) = null();
+      return;
+      end;
+
+   if (Class_Table(ObjList(doid)->object.class).capacity ^= 0) then do;
+   ep = ObjList(doid)->object.param1;
+   do i = 0 to Class_Table(ObjList(doid)->object.class).capacity-1;
+     if (ep->element(i) ^= 0) then do;
+        if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+           then call remove_object (ep->element(i));
+           else if (ObjList(ep->element(i)) ^= null()) then do;
+              if (BUGON) then call trace_msg('Removing noid ' || 
+                                             ltrim(string(ep->element(i))));
+              if (ep->element(i) = 0) then signal error;
+              if (Class_Table(ObjList(ep->element(i))->object.class).capacity ^= 0)
+                then do;
+                call my_free (ObjList(ep->element(i))->object.param1);
+                if (BUGON_ptr) then 
+                   call trace_msg ('FREE ' || ltrim(RoomNumber) || '/' ||
+                                   ltrim(ep->element(i)));
+                end;
+              if (ObjList(ep->element(i))->object.noid = oracle.object)
+                 then do;
+                     oracle.object = 0;
+                     if (oracle.control ^= null())
+                        then call cancel_oracle_timer;
+                     end;
+              call reclaim_space (ObjList(ep->element(i)));
+              call my_free (ObjList(ep->element(i)));
+              ObjList(ep->element(i)) = null();
+              current_region.object_count = current_region.object_count - 1;
+              end;
+        end;
+   end;
+   end;
+
+   if (BUGON) then call trace_msg('Removing noid ' || ltrim(string(doid)));
+   if (doid = 0) then signal error;
+   if (Class_Table(ObjList(doid)->object.class).capacity ^= 0) then do;
+      call my_free (ObjList(doid)->object.param1);
+      if (BUGON_ptr) then 
+         call trace_msg ('FREE ' || ltrim(RoomNumber) || '/' || ltrim(doid));
+      end;
+   i = ObjList(doid)->object.container;
+   if (i ^= 0) then do;
+      ep = ObjList(i)->object.param1;
+      ep->element(ObjList(doid)->object.position) = 0;
+      end;
+   if (ObjList(doid)->object.noid = oracle.object) then do;
+      oracle.object = 0;
+      if (oracle.control ^= null())
+         then call cancel_oracle_timer;
+      end;
+   if (ObjList(doid)->object.noid = oracle.person)
+      then oracle.person = 0;
+   call reclaim_space (ObjList(doid));
+   call my_free (ObjList(doid));
+   ObjList(doid) = null();
+   current_region.object_count = current_region.object_count - 1;
+
+end remove_object;
+%page;
+disappear_object: procedure (which);
+declare which bin(15);
+
+   ObjList(which)->object.gen_flags(MODIFIED) = true;
+   call checkpoint_object (Dead_Region,which);      /* was LIMBO... */
+   call remove_object (which);                      /* need to replace calls */
+
+end disappear_object;
+%page;
+destroy_object: procedure (which);
+declare which bin(15);
+
+   ObjList(which)->object.gen_flags(MODIFIED) = true;
+   call checkpoint_object (Dead_Region,which);
+   call remove_object (which);
+
+end destroy_object;
+%page;
+create_object: procedure (ocls,osty,ox,oy,opos,oorient,ogrst,ocontain) 
+                                                              returns (pointer);
+
+declare (ocls,osty,ox,oy,opos,oorient,ogrst,ocontain) bin(15);
+declare (j,k)                 bin(15);
+declare propsptr              pointer;
+declare max_contents          bin(15);
+declare allocation            bin(31);
+declare new_obj(1)            bin(15);
+declare cont_class(1)         bin(15);
+declare bits                  bin(15);
+
+     if (ocls = CLASS_AVATAR | ocls = CLASS_REGION | ocls = CLASS_GHOST) then do;
+        call trace_msg('*ERR: Attempt to create region or avatar object - region='
+                        || ltrim(Region) || ', user=' || 
+                        ltrim(userptr->player.U_Id));
+        return (null());
+        end;
+
+     call next_available_noid (j);
+     if (j < 0) then return (null());
+
+     new_obj(1) = class_style(ocls,osty);
+     cont_class(1) = ObjList(ocontain)->object.class * 256;
+     if (^space_available(new_obj,cont_class)) then do;
+        call trace_msg('Insufficient mem to create class ' || ltrim(ocls) ||
+                       '/' || ltrim(osty) || ' in region ' || ltrim(Region));
+        return (null());
+        end;
+
+     allocation = Class_Table(ocls).alloc_size;
+     if (allocation < size(object)-40) then do;
+         call trace_msg ('Class_Table.alloc_size is < min for class ' ||
+                          ltrim(string(ocls)));
+         allocation = size(object) - 40;
+         end;
+     call my_allocate (allocation,ObjList(j));
+
+     ObjList(j)->object.noid        = j;
+     ObjList(j)->object.obj_id      = global_id(object_id_type);
+     ObjList(j)->object.class       = ocls;
+     ObjList(j)->object.container   = ocontain;
+     ObjList(j)->object.position    = opos;
+     ObjList(j)->object.x           = ox;
+     ObjList(j)->object.y           = oy;
+     ObjList(j)->object.style       = osty;
+     ObjList(j)->object.orientation = oorient;
+     ObjList(j)->object.gr_state    = ogrst;
+     ObjList(j)->object.gr_width    = 0;
+     ObjList(j)->object.avatarslot  = 0;
+
+     do bits = 1 to 32;
+          ObjList(j)->object.gen_flags(bits) = false;
+          end;
+     ObjList(j)->object.gen_flags(MODIFIED) = true;
+
+     if (ocontain ^= 0) 
+        then call add_to_containers_list(ObjList(j)->object.container,j,
+                                         opos);
+
+     max_contents = Class_Table(ocls).capacity;
+     if (max_contents = 0)
+        then propsptr = addr(ObjList(j)->object.param1);
+        else do;
+           propsptr = addr(ObjList(j)->object.param2);
+           call my_allocate ((max_contents * 16), ObjList(j)->object.param1);
+           do k = 0 to max_contents-1;
+              ObjList(j)->object.param1->element(k) = 0;
+              end;
+           if (BUGON_ptr) then
+              call trace_msg ('ALOC ' || ltrim(RoomNumber) || '/' || ltrim(j) ||
+                              ' param1=' || show_ptr(ObjList(j)->object.param1));
+           end;
+
+     current_region.object_count = current_region.object_count + 1;
+
+     return (ObjList(j));
+
+end create_object;
+%page;
+global_id: procedure (which) returns(bin(31));
+
+declare s$notify_path entry (char(256) var, bin(31), bin(15));
+declare s$sleep       entry (bin(31), bin(15));
+
+declare which       bin(15);
+declare my_process  bin(15);
+declare new_id      bin(31);
+declare code        bin(15);
+
+   my_process = binary(process_number,15);
+
+   if (my_process < 0  | my_process > MAX_PROCESSES) then do;
+      call trace_msg ('BAD process_number : ' || ltrim(my_process));
+      return (-1);
+      end;
+
+   if (which = object_id_type)
+      then new_id = next.object_id(my_process);
+      else new_id = next.text_id(my_process);
+
+   do while (new_id = 0);
+      call s$notify_path (shared_file_path,0,code);
+      if (code ^= 0) then call debug_msg (code,'trying to notify shared memory');
+      call s$sleep (5,code);       /* sleep for 5/1024 of a second */
+      if (which = object_id_type)
+         then new_id = next.object_id(my_process);
+         else new_id = next.text_id(my_process);
+      end;
+
+   if (which = object_id_type)
+      then next.object_id(my_process) = 0;
+      else next.text_id(my_process)   = 0;
+
+   call s$notify_path (shared_file_path,0,code);
+   if (code ^= 0) then call debug_msg (code,'trying to notify shared memory');
+
+   return (new_id);
+
+end global_id;
+%page;
+space_available: procedure (obj_desc,obj_pos) returns(bit(1) aligned);
+declare obj_desc(*) bin(15);
+declare obj_pos(*)  bin(15);
+declare the_class   bin(15);
+declare the_style   bin(15);
+declare cont_class  bin(15);
+declare cont_pos    bin(15);
+declare space_ok    bit(1) aligned;
+declare (i,j)       bin(15);
+
+   space_ok = true;
+   do i = 1 to dimension(obj_desc,1) while (space_ok);
+      if (obj_desc(i) ^= 0) then do;
+         call extract_nibbles (obj_desc(i),the_class,the_style);
+         call extract_nibbles (obj_pos(i),cont_class,cont_pos);
+         if (container_is_opaque (cont_class,cont_pos))
+            then call note_instance_creation (the_class,the_style);
+            else call note_object_creation (the_class,the_style);
+         space_ok = mem_checks_ok (the_class);
+         end;
+      end;
+
+   if (space_ok) then return (true);
+
+   do j = 1 to (i-1);
+      if (obj_desc(j) ^= 0) then do;
+         call extract_nibbles (obj_desc(j),the_class,the_style);
+         call extract_nibbles (obj_pos(j),cont_class,cont_pos);
+         if (container_is_opaque (cont_class,cont_pos))
+            then call note_instance_deletion (the_class,the_style);
+            else call note_object_deletion (the_class,the_style);
+         end;
+      end;
+
+   return (false);
+
+end space_available;
+%page;
+reclaim_space: procedure (optr);
+declare optr   pointer;
+declare cont_class bin(15);
+declare cont_pos   bin(15);
+
+  cont_class = ObjList(optr->object.container)->object.class;
+  cont_pos   = optr->object.position;
+  if (container_is_opaque (cont_class,cont_pos))
+      then call note_instance_deletion (optr->object.class,optr->object.style);
+      else call note_object_deletion (optr->object.class,optr->object.style);
+
+end reclaim_space;
+%page;
+extract_nibbles: procedure (encoded,high_byte,low_byte);
+declare encoded     bin(15);
+declare high_byte   bin(15);
+declare low_byte    bin(15);
+
+declare part(2)     char(1) defined (encoded);
+
+   high_byte = rank(part(1));
+   low_byte  = rank(part(2));
+
+end extract_nibbles;
+%page;
+process_add_user: procedure (ptr,uid,qid);
+declare ptr    pointer;
+declare uid    bin(31);
+declare qid    bin(31);
+declare uptr   pointer;
+declare msp    pointer;
+
+declare users_version char(2) defined(q_context.version);
+
+declare 1 cntl based(ptr),
+          2 dont_use     char(1),
+          2 format       char(1),
+          2 mod_flag     (8) bit(1),
+          2 header       char(1),
+          2 object       bin(15),
+          2 function     bin(15),
+          2 direction    bin(15),
+          2 transition   bin(15),
+          2 orientation  bin(15),
+          2 from_region  bin(31);
+declare cntl_format_bit(8) bit(1) defined(cntl.format);
+declare str    char(32) var;
+declare (me,other) bin(15);
+
+/* call making_history (byte(RoomNumber) || byte(2) || byte(83) || '  '); */
+
+   str = users_version || '--' || q_context.user_name;
+   call process_enter_room (str,uid,qid);
+   call GetUserPtr (qid,uptr);
+   if (uptr = null()) then do;
+      if (BUGON_high)
+         then call trace_msg ('add_user: user index = 0 for ' ||
+                              ltrim(uid) || '/' || ltrim(qid) || 'in region ' ||
+                              ltrim(Region));
+      return;
+      end;
+
+   if (cntl_format_bit(7) = true) then uptr->player.ck_last_login = true;
+   str = 'U' || cntl.header || encode_byte(cntl.object) || 
+         encode_byte(cntl.function) || encode_byte(SUCCESS);
+   if (BUGON) then call trace_msg ('SEND: ' || str);
+   call send_message(uptr->U_Q,message$normal,substr(str,1),
+           length(str),uid,qid);
+
+   avatarptr = ObjList(uptr->player.object_slot);
+   userptr   = uptr;
+   call region_entry_daemon (cntl.direction,cntl.transition,cntl.orientation,
+                             cntl.from_region);
+
+   me = uptr->player.object_slot;
+   if (me ^= GHOST) then do;
+      ObjList(me)->object.gen_flags(MODIFIED) = cntl.mod_flag(1);
+      other = ObjList(me)->object.param1->element(HANDS);
+      if (other ^= 0) then 
+          ObjList(other)->object.gen_flags(MODIFIED) = cntl.mod_flag(2);
+      other = ObjList(me)->object.param1->element(HEAD);
+      if (other ^= 0) then 
+          ObjList(other)->object.gen_flags(MODIFIED) = cntl.mod_flag(3);
+      call checkpoint_object (Null_Region,me);
+      end;
+   uptr->player.has_mail  = cntl.mod_flag(4);
+   uptr->player.send_mail = cntl.mod_flag(5);
+
+   if (current_region.entry_proc > 0) then
+      if (current_region.entry_proc <= MAX_EntryDaemon)
+         then call Daemons(current_region.entry_proc).EntryRoutine;
+         else call trace_msg ('*ERR* Illegal entry proc for region ' ||
+                              ltrim(Region));
+
+   if (user_on_waiting_list (qid,msp)) 
+      then call remove_incoming_user (msp);
+      else call trace_msg ('No waiting list entry for ' || ltrim(uid));
+
+   /* Let everybody else know this guy came in... */
+
+   call Build_Fan_List (qid,false);
+   if (fan_cnt = 0) then return;
+
+   if (me = GHOST)
+      then if (ghost_count(1) > 1) then return;
+
+   prefix    = 'U' || byte(ASYNC_header) || encode_byte(0) || encode_byte(8);
+   content   = '';
+   databytes = '';
+   ContList  = '';
+
+   call build_vector_entry (me);
+   call build_contents_list (me,true);
+
+   response = content || byte(0) || databytes || ContList;
+   call encode_string (response,encoded);
+
+   if (length(prefix)+length(encoded) < 120) then do;
+      if (BUGON) then call trace_msg ('HEREIS: ' || prefix || encoded);
+      call send_fan_message(fan_list,fan_cnt,message$normal,prefix || encoded, 
+                      length(prefix)+length(encoded),0,0);
+      end;
+   else call send_multiple_packets (null(),prefix,encoded,qid,true);
+
+end process_add_user;
+%page;
+remove_incoming_user: procedure (mp);
+declare mp pointer;
+
+   if (mp->mug_shot.mail = 1) then do;
+      userptr->player.has_mail  = true;
+      userptr->player.send_mail = true;
+      end;
+
+   call delete_from_list (RoomDBank.waiting_list,mp);
+   free mp->mug_shot;
+
+   RoomDBank.avatars_coming = RoomDBank.avatars_coming - 1;
+
+end remove_incoming_user;
+%page;
+process_changeroom_fail: procedure (uid,qid);
+declare uid              binary (31);
+declare qid              binary (31);
+declare str              character(32) var;
+declare change_region_fail entry(binary(15));
+
+     if (BUGON_high) then call trace_msg (ltrim(uid) || 
+                     ': change failed, remaining in ' ||
+                     ltrim(Region));
+
+     call check_request_info (uid,req$change_region,userptr);
+     if (userptr = null()) then do;
+        call trace_msg ('Can''t find user on change fail: '
+                        || ltrim(uid) || '/' || ltrim(Region));
+        return;
+        end;
+
+/*   call making_history (byte(RoomNumber) || byte(2) || byte(17) ||
+                          byte(current_noid) || ' ');                 */
+
+     userptr->player.cr_pending = false;
+   
+     call change_region_fail(current_noid);
+     str = 'U' || current_header || encode_byte(current_noid) ||
+           encode_byte(current_request) || encode_byte(FAILURE);
+     call send_message(userptr->player.U_Q,message$normal,substr(str,1),
+           length(str),uid,userptr->player.U_Q_Id);
+
+     return;
+
+end process_changeroom_fail;
+%page;
+request_player_list: procedure;
+declare tp        pointer;
+declare curr_time bin(31);
+
+     tp = addr(q_context.holding_area);
+     call s$int_date_time (tp->snap_env.timestamp);
+     tp->snap_env.uid       = userptr->player.U_Id;
+     tp->snap_env.qid       = userptr->player.U_Q_Id;
+     tp->snap_env.region_id = Region;
+     tp->snap_env.header    = current_header;
+     tp->snap_env.objectid  = current_noid;
+     tp->snap_env.function  = current_request;
+     tp->snap_env.parm1     = 0;
+     tp->snap_env.parm2     = 0;
+
+     call s$int_date_time (curr_time);
+     if ((curr_time - now_in.last) >= 30)
+        then call send_message (habitatQ, msg$user_stats, '', 0,
+                               userptr->player.U_Id,userptr->player.U_Q_Id);
+        else call send_latest_players (userptr->player.U_Id,userptr->player.U_Q_Id);
+
+end request_player_list;
+%page;
+format_player_list: procedure (buff);
+declare buff        pointer;
+declare 1 buf based (buff),
+          2 pos     bin(15),
+          2 name    (12) char(10);
+
+declare (i,j,k)     bin(15);
+
+     j = 0;
+     k = 0;
+     response = '';
+     do i = 1 to buf.pos;
+        response = response || buf.name(i) || '   ';
+        j = j + 1;
+        if (j = 3  |  i = buf.pos) then do;
+           k = k + 1;
+           response = substr(response,1,(length(response)-3));
+           call encode_string (response, now_in.line(k));
+           response = '';
+           j = 0;
+           end;
+        end;
+
+     now_in.count = k;
+     call s$int_date_time (now_in.last);
+
+end format_player_list;
+%page;
+send_latest_players: procedure (uid,qid);
+declare uid         binary (31);
+declare qid         binary (31);
+
+declare (i,j)     bin(15);
+
+     call check_request_info (uid,req$list_players,userptr);
+     if (userptr = null()) then return;
+     if (now_in.count = 0) then return;
+
+     call start_packed_msg (userptr->player.U_Q, userptr->player.U_Id, 
+                                  userptr->player.U_Q_Id);
+
+     response = 'U' || byte(ASYNC_header) || encode_byte(0) || 
+                encode_byte(OBJECTSPEAK$) || encode_byte(avatarptr->object.noid);
+
+     do i = 1 to now_in.count;
+        encoded = response || now_in.line(i);
+        call send_packed_msg(userptr->player.U_Q,message$normal,
+                   substr(encoded,1),length(encoded),userptr->player.U_Id,
+                   userptr->player.U_Q_Id);
+        end;
+
+     response = 'U' || current_header || encode_byte(current_noid) ||
+                encode_byte(current_request) || encode_byte(SUCCESS);
+     call send_packed_msg(userptr->player.U_Q,message$normal,substr(response,1),
+            length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+     call force_packed_msg (userptr->player.U_Q);
+
+end send_latest_players;
+%page;
+identify_players_here: procedure  returns(bit(1) aligned);
+declare (i,j)     bin(15);
+declare name_list char(78) var;
+declare more      bit(1) aligned;
+
+     if (^q_context.user_group.internal) then return (false);
+
+     call start_packed_msg (userptr->player.U_Q, userptr->player.U_Id, 
+                                  userptr->player.U_Q_Id);
+
+     response = 'U' || byte(ASYNC_header) || encode_byte(0) || 
+                encode_byte(OBJECTSPEAK$) || encode_byte(avatarptr->object.noid);
+
+     name_list = '';
+     do i = 1 to 6;
+        if (UserList(i) ^= null()) 
+           then name_list = name_list || blank_fill(UserList(i)->player.U_Name);
+        end;        
+
+     more = true;
+     do i = 1 to 2  while(more);
+        if (length(name_list) > 39) then do;
+           encoded = response || substr(name_list,1,36);
+           name_list = substr(name_list,40);
+           end;
+        else do;
+           encoded = response || substr(name_list,1,length(name_list)-3);
+           more = false;
+           end;
+        call send_packed_msg(userptr->player.U_Q,message$normal,
+                   substr(encoded,1),length(encoded),userptr->player.U_Id,
+                   userptr->player.U_Q_Id);
+        end;
+
+     response = 'U' || current_header || encode_byte(current_noid) ||
+                encode_byte(current_request) || encode_byte(SUCCESS);
+     call send_packed_msg(userptr->player.U_Q,message$normal,substr(response,1),
+            length(response),userptr->player.U_Id,userptr->player.U_Q_Id);
+     call force_packed_msg (userptr->player.U_Q);
+     return (true);
+
+end identify_players_here;
+
+
+blank_fill:  procedure (short_name) returns(char(13));
+declare short_name char(*) var;
+declare norm_name  char(13);
+
+     norm_name = short_name;
+     return (norm_name);
+
+end blank_fill;
+%page;
+identify_teleport: procedure (teleport);
+declare teleport  char(20) var;
+declare uno       bin(15);
+declare tp        pointer;
+
+declare 1 request,
+          2 db_function  bin(15),
+          2 teleport_num char(20);
+declare request_str char(22) defined(request);
+
+   uno = avatarptr->object.avatarslot;
+
+   request.db_function  = MC$dbf_locate_teleport;
+   request.teleport_num = teleport;
+
+   tp = addr(q_context.holding_area);
+   call s$int_date_time (tp->snap_env.timestamp);
+   tp->snap_env.uid       = UserList(uno)->player.U_Id;
+   tp->snap_env.qid       = UserList(uno)->player.U_Q_Id;
+   tp->snap_env.region_id = Region;
+   tp->snap_env.header    = current_header;
+   tp->snap_env.objectid  = current_noid;
+   tp->snap_env.function  = current_request;
+   tp->snap_env.parm1     = 0;
+   tp->snap_env.parm2     = 0;
+
+   call send_message (habitat_dbQ, msg$db_lookup, request_str, 22,
+                      UserList(uno)->player.U_Id,RoomBQId);
+
+end identify_teleport;
+%page;
+process_teleport: procedure(buff,uid);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 global_id    bin(31),
+          2 region       bin(31),
+          2 x_coord      bin(15),
+          2 y_coord      bin(15);
+
+declare uid bin(31);
+
+   call check_request_info (uid,req$get_teleport,userptr);
+   if (userptr = null()) then return;              /* Requester has departed */
+
+   call activate_teleporter (buff_olay.region,
+                           buff_olay.x_coord,buff_olay.y_coord);
+
+end process_teleport;
+%page;
+process_unplugged: procedure (uid,qid);
+declare uid              binary (31);
+declare qid              binary (31);
+declare uno              binary (15);
+declare uptr             pointer;
+declare tptr             pointer;
+declare my_noid          binary (15);
+
+     if (BUGON) then call trace_msg ('Disconnect for ' || ltrim(uid) ||
+                     '/' || ascii_qid(qid) || ' from region ' || ltrim(Region));
+     my_noid = 0;
+     call FindUser (qid,uptr);
+     if (uptr ^= null()) then do;
+        call check_exit_status (uptr);
+        uptr->player.U_version  = 0;
+        uptr->player.U_Q        = null();
+        uptr->player.U_Q_Id     = 0; 
+        uptr->player.online     = false; 
+        uptr->player.incoming   = false;
+        if (uptr->player.U_Id = current_region.owner)
+           then RoomDBank.owner_here = false;
+        my_noid = uptr->player.object_slot;
+        if (my_noid = oracle.person) then oracle.person = 0;
+        if (my_noid = GHOST   &  ghost_count(1) = 0) then do;
+           call my_free (ObjList(GHOST));
+           ObjList(GHOST) = null();
+           end;
+        call Build_Fan_List (uptr->player.U_Q_Id,false);
+        if (fan_cnt ^= 0) then do;
+           if (my_noid = GHOST)
+           then if (ghost_count(1) = 0) then do;
+              response = 'U' || byte(ASYNC_header) || encode_byte(0) || 
+                         encode_byte(9) || encode_byte(GHOST);
+              call send_fan_message(fan_list,fan_cnt,message$normal,
+                         substr(response,1),length(response),0,0);
+              end;
+              else; /* still ghosts here - do nothing */
+           else do;  /* not a ghost - avatar disappears */
+              call drop_restricted_object (my_noid);
+              response = 'U' || byte(ASYNC_header) || encode_byte(0) || 
+                         encode_byte(9) || encode_byte(my_noid);
+              call send_fan_message(fan_list,fan_cnt,message$normal,
+                         substr(response,1),length(response),0,0);
+              end;
+           end;
+
+        if (my_noid = GHOST)
+           then call checkpoint_current_region (uptr->player.U_Id);
+        if (my_noid ^= GHOST  &  total_ghosts < 200) then
+        if (/* ObjList(my_noid)->object.gr_state ^= 1 */ true) then do;
+           uno = ObjList(uptr->player.object_slot)->object.avatarslot;
+           ObjList(my_noid)->object.x = -1;
+           if (ObjList(my_noid)->object.container ^= 0) then do;
+              tptr = ObjList(ObjList(my_noid)->object.container)->object.param1;
+              tptr->element(ObjList(my_noid)->object.position) = 0;
+              ObjList(my_noid)->object.container = 0;
+              end;
+           ObjList(my_noid)->object.gen_flags(MODIFIED) = true;
+           call checkpoint_object (0,my_noid);
+           uptr->player.object_slot = GHOST;
+           total_ghosts = total_ghosts + 1;
+           call add_to_list (GhostList,uptr);
+           if (uno ^= 0) then UserList(uno) = null();
+           call remove_object (my_noid);
+           end;
+
+        if (uptr->player.cr_pending) then do;
+           call trace_msg ('Disconnect while changing region: ' ||
+                          ltrim(uptr->player.U_Id) || '/' || ltrim(Region));
+           uptr->player.cr_pending = false;
+           end;
+        if (uptr->player.ck_last_login) then do;
+           call trace_msg ('Ghost-only session for ' ||
+                          ltrim(uptr->player.U_Id));
+           uptr->player.cr_pending = false;
+           end;
+/*      call send_to_turf (uno);                  */
+     end;
+     else if (user_on_waiting_list (qid,uptr)) 
+          then call backout_incoming_avatar (uptr);
+     else call trace_msg ('No unplugged user: ' || ltrim(uid) || '/' ||
+                         ltrim(qid) || ' in Region ' || ltrim(Region));
+
+/*   call making_history (byte(RoomNumber) || byte(2) || byte(16) ||
+                         byte(my_noid) || ' ');                       */
+
+     call check_for_empty_region;
+
+end process_unplugged;
+%page;
+check_exit_status: procedure (uptr);
+declare uptr pointer;
+
+     if (uptr->player.online   = false &
+         uptr->player.incoming = false ) then return;  /* Shift Run/Stop exit */
+
+     call send_message(uptr->player.U_Q, msg$dump_circular, byte(32), 1,
+                       uptr->player.U_Id, uptr->player.U_Q_Id);
+
+     call trace_msg ('Disc (' || uptr->player.last_cmd || ') leaving ' ||
+                    ltrim(Region) || ', on ' || ascii_qid(uptr->player.U_Q_Id));
+
+end check_exit_status;
+%page;
+drop_restricted_object: procedure (me);
+declare me bin(15);
+declare what bin(15);
+  
+   what = ObjList(me)->object.param1->element(HANDS);
+   if (what = 0) then return;
+   if (ObjList(what)->object.gen_flags(RESTRICTED) = false) then return;
+
+   call drop_object_in_hand (ObjList(me));
+  
+end drop_restricted_object;
+%page;
+check_for_empty_region: procedure;
+declare region_empty     bit(1);
+declare uno              bin(15);
+declare (ptr,le)         pointer;
+
+   region_empty = true;
+   do uno = 1 to UsersPerRegion;
+      if (UserList(uno) ^= null())
+         then if (UserList(uno)->online  |  UserList(uno)->incoming) 
+             then return;
+      end;
+
+   le = GhostList;
+   do while (le ^= null());
+      ptr = le->le_content;
+      le  = le->le_next;
+      if (ptr->player.online | ptr->player.incoming) then return;
+      end;
+
+   call flush_region;
+
+end check_for_empty_region;
+%page;
+backout_incoming_avatar: procedure (p);
+declare p pointer;
+declare (the_class,the_style,cont_class,cont_pos) binary(15);
+declare i binary(15);
+
+   current_region.object_count = current_region.object_count -
+                                 p->mug_shot.obj_cnt;
+
+   RoomDBank.avatars_coming = RoomDBank.avatars_coming - 1;
+
+   do i = 1 to 9;
+      if (p->mug_shot.obj_class(i) ^= 0) then do;
+         call extract_nibbles (p->mug_shot.obj_class(i),the_class,the_style);
+         call extract_nibbles (p->mug_shot.obj_pos(i),cont_class,cont_pos);
+         if (container_is_opaque (cont_class,cont_pos))
+            then call note_instance_deletion (the_class,the_style);
+            else call note_object_deletion (the_class,the_style);
+         end;
+      end;
+
+end backout_incoming_avatar;
+%page;
+send_to_turf: procedure (uno);
+declare uno         bin(15);
+declare my_noid     bin(15);
+declare str         char(32) var;
+declare aptr        pointer;
+declare 1 avatar based(aptr)
+%include 'struct_avatar.incl.pl1';
+
+   my_noid = UserList(uno)->player.object_slot;
+   aptr    = ObjList(my_noid);
+   avatar.x         = 8;
+   avatar.y         = 128;
+   avatar.container = 0;
+   avatar.activity  = 129;
+   call checkpoint_object (avatar.turf,my_noid);
+
+   /* Tell everybody in old region that he left.        */
+
+   UserList(uno)->player.online   = false;
+   UserList(uno)->player.incoming = false;
+   call Build_Fan_List (UserList(uno)->player.U_Q_Id,false);
+   if (fan_cnt > 0) then do;
+      str = 'U' || byte(ASYNC_header) || encode_byte(0) ||
+            encode_byte(9) || encode_byte(my_noid);
+      call send_fan_message(fan_list,fan_cnt,message$normal,substr(str,1),
+                            length(str),0,0);
+      end;
+
+   /* must get these guys outa here now... */
+
+   call remove_object (my_noid);
+   free UserList(uno) -> player;
+   UserList(uno) = null();
+
+end send_to_turf;
+%page;
+Build_Fan_List: procedure (user_qid,to_user);
+
+declare user_qid         binary (31);
+declare to_user          bit(1);           /* send to user_qid user? */
+
+declare i                binary (15);
+declare le               pointer;
+declare ptr              pointer;
+
+     fan_cnt = 0;
+     do i = 1 to UsersPerRegion;
+        if (UserList(i) ^= null()) then do;
+           if ((to_user | UserList(i)->player.U_Q_Id ^= user_qid) & 
+              UserList(i)->player.online) then do;
+              fan_cnt = fan_cnt + 1;
+              fan_list(fan_cnt) = UserList(i) -> player.U_Q;
+              end; 
+           end;
+     end;
+
+     le = GhostList;
+     do while (le ^= null());
+        ptr = le->le_content;
+        le  = le->le_next;
+        if ((to_user | ptr->player.U_Q_Id ^= user_qid) & 
+           ptr->player.online) then do;
+           fan_cnt = fan_cnt + 1;
+           fan_list(fan_cnt) = ptr -> player.U_Q;
+           end; 
+        end;
+
+end Build_Fan_List;
+%page;
+user_on_waiting_list: procedure (qid,uptr)  returns(bit(1) aligned);
+declare qid              binary (31);
+declare uptr             pointer;
+declare le               pointer;
+
+    le = RoomDBank.waiting_list;
+    do while (le ^= null());
+       uptr = le->le_content;
+       le   = le->le_next;
+       if (uptr->mug_shot.que = qid) then return(true);
+       end;
+
+    uptr = null();
+    return (false);
+
+end user_on_waiting_list;
+%page;
+GetUserPtr: procedure (qid,uptr);
+declare qid              binary (31);
+declare uptr             pointer;
+declare le               pointer;
+declare j                binary (15);
+
+    do j = 1 to UsersPerRegion;
+        if (UserList(j) ^= null())
+        then if (UserList(j)->U_Q_Id = qid   &
+                (UserList(j)->online | UserList(j)->incoming))
+        then do;
+             uptr = UserList(j);
+             return;
+        end;
+    end;
+
+    le = GhostList;
+    do while (le ^= null());
+       uptr = le->le_content;
+       le   = le->le_next;
+       if (uptr->player.U_Q_Id = qid  &
+          (uptr->player.online | uptr->player.incoming))
+          then return;
+       end;
+
+    uptr = null();
+
+end GetUserPtr; 
+
+
+FindUser: procedure (qid,uptr);
+declare qid              binary (31);
+declare uptr             pointer;
+declare le               pointer;
+declare j                binary (15);
+
+    do j = 1 to UsersPerRegion;
+        if (UserList(j) ^= null())
+        then if (UserList(j)->U_Q_Id = qid) then do;
+           uptr = UserList(j);
+           return;
+        end;
+    end;
+
+    le = GhostList;
+    do while (le ^= null());
+       uptr = le->le_content;
+       le   = le->le_next;
+       if (uptr->player.U_Q_Id = qid)
+          then return;
+       end;
+
+    uptr = null();
+
+end FindUser; 
+
+/*
+
+GetUserIndex: procedure (qid,uno);
+declare qid              binary (31);
+declare uno              binary (15);
+declare le               pointer;
+declare j                binary (15);
+
+    do j = 1 to UsersPerRegion;
+        if (UserList(j) ^= null())
+        then if (UserList(j)->U_Q_Id = qid   &
+                (UserList(j)->online | UserList(j)->incoming))
+        then do;
+             uno = j;
+             return;
+        end;
+    end;
+
+    uno = 0;
+
+end GetUserIndex; 
+*/
+
+
+GetUserEntry: procedure (qid,i);
+declare qid              binary (31);
+declare i                binary (15);
+declare j                binary (15);
+
+    do j = 1 to UsersPerRegion;
+        if (UserList(j) ^= null())
+        then if (UserList(j)->U_Q_Id = qid)
+        then do;
+             i = j; 
+             return;
+        end;
+    end;
+
+    i = 0;
+
+end GetUserEntry; 
+
+
+
+GetPtr_by_uid: procedure (uid,uptr);
+declare uid              binary (31);
+declare uptr             pointer;
+declare j                binary (15);
+declare le               pointer;
+
+    do j = 1 to UsersPerRegion;
+        if (UserList(j) ^= null())
+        then if ( UserList(j) -> U_Id = uid) 
+        then do;
+             uptr = UserList(j);
+             return;
+        end;
+    end;
+
+    le = GhostList;
+    do while (le ^= null());
+       uptr = le->le_content;
+       le   = le->le_next;
+       if (uptr->player.U_Id = uid) then return;
+       end;
+
+    uptr = null();
+
+end GetPtr_by_uid;
+%page;
+check_request_info: procedure (uid,req_type,uptr);
+declare uid              bin(31);
+declare req_type         bin(15);
+declare uptr             pointer;
+
+declare request_ptr      pointer;
+declare parm             bin(15);
+declare parm_str         char(2) defined (parm);
+declare curr_time        bin(31);
+declare delta_time       bin(31);
+
+     request_ptr = addr(q_context.holding_area);
+
+     call s$int_date_time (curr_time);
+     delta_time = curr_time - request_ptr->snap_env.timestamp;
+     if (delta_time > 30) then
+        call trace_msg ('DELAY: user=' || ltrim(request_ptr->snap_env.uid) ||
+                        ', type= '     || ltrim(req_type) ||
+                        ', region= '   || ltrim(request_ptr->snap_env.region_id) ||
+                        ', delta= '    || ltrim(delta_time));
+
+     current_header  = request_ptr->snap_env.header;
+     current_noid    = request_ptr->snap_env.objectid;
+     current_request = request_ptr->snap_env.function;
+
+     parm = request_ptr->snap_env.parm1;
+     request_string = parm_str;
+     parm = request_ptr->snap_env.parm2;
+     request_string = request_string || parm_str;
+
+     if (request_ptr->snap_env.region_id ^= Region) then do;
+        call trace_msg ('Trans completed after region swap: ' || ltrim(uid) ||
+                        '/' || ltrim(request_ptr->snap_env.region_id) || ' type=' ||
+                        ltrim(req_type));
+        uptr = null();
+        return;
+        end;
+
+     call GetUserPtr (request_ptr->snap_env.qid,uptr);
+     if (uptr = null()) then do;
+        uptr = null();
+        call trace_msg ('User for trans not found: ' || ltrim(uid) || '/' ||
+                   ltrim(request_ptr->snap_env.qid) ||  '/' || ltrim(Region));
+        return;
+        end;
+
+     avatarptr = ObjList(uptr->player.object_slot);
+     if (avatarptr = null()) then do;
+        uptr = null();
+        call trace_msg ('ObjList for trans user has been cleared: ' ||
+                        ltrim(uid) || '/' || ltrim(Region));
+        return;
+        end;
+
+     current_qid = uptr->player.U_Q_Id;
+
+     if (uptr->player.online = false) then do;
+        if (BUGON) then 
+          call trace_msg ('Disconnect in mid transaction: ' || ltrim(uid) ||
+                        '/' || ltrim(Region));
+        uptr = null();
+        return;
+        end;
+
+     selfptr = ObjList(current_noid);
+     if (selfptr = null()) then do;
+        uptr = null();
+        call trace_msg ('ObjList for trans object has been cleared: ' ||
+                        ltrim(uid) || '/' || ltrim(Region));
+        return;
+        end;
+     userptr = uptr;
+
+end check_request_info;
+%page;
+checkpoint_object: procedure(to_region,noid);
+declare to_region bin(31);
+declare noid      bin(15);
+
+declare 1 request,
+          2 region_id    bin(31),
+          2 count        bin(15),
+          2 list_data(1019) char(1);
+declare obj_list char(1025) defined(request);
+declare op     pointer;
+declare base   bin(15);
+declare save_noid bin(15);
+declare all_objs bit(1) aligned;
+
+   if (to_region = 0)
+      then request.region_id = RoomDBank.Region;
+      else request.region_id = to_region;
+   request.count = 0;
+   base = 1;
+   op = addr(request.list_data(base));
+
+   if (noid > 0) then do;
+      if (ObjList(noid)->object.class = CLASS_AVATAR) then do;
+         all_objs = true;
+         call ckpt_description;
+         save_noid = noid;
+         noid = ObjList(save_noid)->object.param1->element(HANDS);
+         if (noid ^= 0) then call ckpt_description;
+         noid = ObjList(save_noid)->object.param1->element(HEAD);
+         if (noid ^= 0) then call ckpt_description;
+         noid = save_noid;
+         end;
+      else do;
+         all_objs = false;
+         call ckpt_description;
+         end;
+      if (request.count > 0) 
+          then call send_message (habitat_dbQ, msg$ckpoint_objects,
+                         substr (obj_list,1,base+5), base+5, 0, 0);
+      return;
+      end;
+   if (noid = 0) then do;
+      call trace_msg ('*ERR* Attempt to checkpoint region object ' ||
+                      ltrim(Region));
+      return;
+      end;
+
+   all_objs = true;
+   do noid = 1 to (ObjectsPerRegion-1);
+      if (ObjList(noid) ^= null()) then call ckpt_description;
+      end;
+   if (request.count > 0)
+      then call send_message (habitat_dbQ, msg$ckpoint_objects,
+                      substr (obj_list,1,base+5), base+5, 0, 0);
+
+ckpt_description: procedure;
+declare vary_st_len bin(15);
+
+   if (all_objs) then
+      if (^ object_has_changed(ObjList(noid))) then do;
+         no_mod = no_mod + 1;
+         return;
+         end;
+
+   yes_mod = yes_mod + 1;
+   vary_st_len = Class_Table(ObjList(noid)->object.class).class_bytes;
+   if (base + 5 + obj_fixed + vary_st_len  > big_msg_size) then do;
+      call send_message (habitat_dbQ, msg$ckpoint_objects,
+                         substr (obj_list,1,base+5), base+5, 0, 0);
+      call trace_msg ('MSG+> ' || ltrim(Region) || ', length=' || ltrim(base+5) ||
+                      ', count=' || ltrim(request.count));
+      request.count = 0;
+      base = 1;
+      op = addr(request.list_data(base));
+      end;
+   ObjList(noid)->object.gen_flags(MODIFIED) = false;
+   call create_descriptor (op,noid,0,vary_st_len);
+   if (to_region ^= 0  &  to_region ^= Null_Region) then do;
+      op->obj_desc.container = 0;
+      op->obj_desc.contype   = byte(0);
+      end;
+   base = base + vary_st_len + obj_fixed;
+   op = addr (request.list_data(base));
+   request.count = request.count + 1;
+ 
+end ckpt_description;
+end checkpoint_object;
+%page;
+checkpoint_current_region: procedure(uid);
+declare uid    bin(31);
+
+declare 1 request,
+          2 region_id    bin(31),
+          2 user_cnt     bin(15),
+          2 user_id      bin(31);
+declare obj_list char(10) defined(request);
+
+   request.region_id = Region;
+   request.user_cnt  = 1;
+   request.user_id   = uid;
+
+   substr(q_context.holding_area,1,2) = byte(0) || ' ';
+   call send_message (habitat_dbQ, msg$ckpoint_my_region,
+                      obj_list, 10, 0, 0);
+
+end checkpoint_current_region;
+%page;
+object_has_changed: procedure (op) returns(bit(1) aligned);
+declare op          pointer;
+declare its_class   bin(15);
+
+  its_class = op->object.class;
+  if (its_class = CLASS_TEST)      then return (true);
+  if (its_class = CLASS_ATM)       then return (false);
+
+  return (op->object.gen_flags(MODIFIED));
+
+end object_has_changed;
+%page;
+checkpoint_text: procedure (text_key,text_data);
+declare text_key    bin(31);
+declare text_data   char(*) var;
+
+declare 1 request,
+          2 function     bin(15),
+          2 id           bin(31),
+          2 page         bin(15),
+          2 data         char(640) var;
+declare request_str char(648) defined(request);
+
+  request.function = MC$dbf_write_text;
+  request.id       = text_key;
+  request.page     = 1;                         /* May need it later... */
+  request.data     = text_data;
+  
+  call send_message (habitat_dbQ, msg$db_lookup, request_str,
+                     length(text_data) + 10, 0, RoomBQId);
+
+end checkpoint_text;
+%page;
+send_mail_message: procedure (from,text_key) returns(binary(15));
+declare from        pointer;       /* to the ObjList entry for sender */
+declare text_key    bin(31);
+
+declare 1 request,
+          2 function     bin(15),
+          2 sender_name  char(10),
+          2 sender_uid   bin(31),
+          2 text_id      bin(31);
+declare request_str char(20) defined(request);
+
+%replace rejected   by 0;
+%replace accepted   by 1;
+
+  if (text_key = 0) then return (rejected);       /* No text in database */
+
+  request.function    = MC$dbf_send_mail;
+  request.sender_name = UserList(from->object.avatarslot)->player.U_Name;
+  request.sender_uid  = UserList(from->object.avatarslot)->player.U_Id;
+  request.text_id     = text_key;
+  
+  call send_message (habitat_dbQ, msg$db_lookup, request_str, 20, 0,
+                         RoomBQId);
+  return (accepted);
+
+end send_mail_message;
+%page;
+get_mail_message: procedure (who);
+declare who    pointer;
+
+declare 1 buff,
+          2 function     bin(15),
+          2 user_id      bin(31);
+declare buff_str char(6) defined(buff);
+declare tp     pointer;
+
+  buff.function = MC$dbf_mail_check;
+  buff.user_id  = who->object.obj_id;
+
+  tp = addr(q_context.holding_area);
+  call s$int_date_time (tp->snap_env.timestamp);
+  tp->snap_env.uid       = who->object.obj_id;
+  tp->snap_env.qid       = UserList(who->object.avatarslot)->player.U_Q_Id;
+  tp->snap_env.region_id = Region;
+  tp->snap_env.header    = current_header;
+  tp->snap_env.objectid  = current_noid;
+  tp->snap_env.function  = current_request;
+  tp->snap_env.parm1     = 0;
+  tp->snap_env.parm2     = 0;
+
+  call send_message (habitat_dbQ, msg$db_lookup, buff_str, 6,
+                     who -> object.obj_id, RoomBQId);
+
+end get_mail_message;
+%page;
+handle_mail_check: procedure(buff);
+declare buff             pointer;
+declare 1 buff_olay      based (buff),
+          2 function     bin(15),
+          2 reader_uid   bin(31),
+          2 text_id      bin(31),
+          2 more         bin(15),
+          2 curr_time    bin(31);
+
+   call check_request_info (reader_uid,req$read_mail,userptr);
+   if (userptr = null()) then return;               /* Requester has departed */
+
+   if (buff_olay.more = 1)
+      then userptr->player.has_mail = true;
+      else userptr->player.has_mail = false;
+   userptr->player.last_mail_ts = buff_olay.curr_time;
+   call generic_READMAIL_result (buff_olay.text_id,buff_olay.more);
+
+end handle_mail_check;
+%page;
+process_messager_name: procedure;
+declare sender pointer;
+declare tp     pointer;
+
+  sender = UserList(avatarptr->object.avatarslot);
+
+  tp = addr(q_context.holding_area);
+  call s$int_date_time (tp->snap_env.timestamp);
+  tp->snap_env.uid       = sender->player.U_Id;
+  tp->snap_env.qid       = sender->player.U_Q_Id;
+  tp->snap_env.region_id = Region;
+  tp->snap_env.header    = current_header;
+  tp->snap_env.objectid  = current_noid;
+  tp->snap_env.function  = current_request;
+  tp->snap_env.parm1     = 0;
+  tp->snap_env.parm2     = 0;
+
+  call send_message (habitatQ, message$find_name, substr(request_string,1),
+             length(request_string),sender->player.U_Id,sender->player.U_Q_Id);
+
+end process_messager_name;
+%page;
+process_messager_name_result: procedure(buff,uid);
+declare buff pointer;
+declare uid  bin(31);
+
+declare 1 buf based(buff),
+          2 list_name         character(10),
+          2 list_uid          binary(31),
+          2 list_qid          binary(31),
+          2 list_version      binary(15);
+
+   call check_request_info (uid,req$initiate_olm,userptr);
+   if (userptr = null()) then return;            /* Requester has departed */
+
+   if (buf.list_qid = 0) then do;
+      call speak_msg (avatarptr, SPEAK$,
+           'Cannot contact ' || rtrim(list_name) || '.', FAILURE); 
+      end;
+   else do;
+      call r_msg_1 (NORM, SUCCESS);
+      if (userptr->player.esp.to_qid ^= buf.list_qid) then do;
+         userptr->player.esp.to_uid = buf.list_uid;
+         userptr->player.esp.to_qid = buf.list_qid;
+         userptr->player.esp.que    = null();
+         end;
+      end;
+
+   userptr->player.esp.lines  = 0;
+
+/* if (buf.list_qid = 0)
+      then call making_history (byte(RoomNumber) || byte(2) || byte(33) ||
+                        byte(current_noid) || 'N');
+      else call making_history (byte(RoomNumber) || byte(2) || byte(33) ||
+                        byte(current_noid) || 'Y');
+*/
+end process_messager_name_result;
+%page;
+process_messager_msg: procedure;
+
+/*
+  call making_history (byte(RoomNumber) || byte(2) || byte(89) ||
+                       byte(who->object.noid) || ' ');              */
+
+  if (userptr->player.esp.que = null()) then do;
+     if (userptr->player.esp.to_qid = 0) then do;
+        call trace_msg ('Bad ESP from ' || userptr->player.U_Name ||
+                        ' to ' || userptr->player.to_uid || '/' ||
+                         show_ptr(userptr->player.que));
+        call trace_msg ('Previous cmd: ' || userptr->player.last_cmd);
+        return;
+        end;
+     call open_queue_from_number(userptr->player.esp.to_qid,
+                                 userptr->player.esp.que);
+     end;
+
+  call start_packed_msg (userptr->player.esp.que, userptr->player.esp.to_uid,
+                         userptr->player.esp.to_qid);
+
+  prefix = 'U' || byte(ASYNC_header);
+/*response = byte(who->object.noid) || byte(14) || 'ESP From:  ' ||   */
+  response = byte(0) || byte(OBJECTSPEAK$) || byte(0) || 'ESP From:  ' ||
+             userptr->player.U_Name;
+  call encode_string (response,encoded);
+  call send_packed_msg (userptr->player.esp.que,message$normal,
+             prefix || encoded, length(prefix)+length(encoded),
+             userptr->player.esp.to_uid, userptr->player.esp.to_qid);
+
+  prefix = 'U' || byte(ASYNC_header);
+  response = byte(0) || byte(OBJECTSPEAK$) || byte(0) || request_string;
+  call encode_string (response,encoded);
+  call send_packed_msg (userptr->player.esp.que,message$normal,
+             prefix || encoded, length(prefix)+length(encoded),
+             userptr->player.esp.to_uid, userptr->player.esp.to_qid);
+
+  call force_packed_msg (userptr->player.esp.que);
+  userptr->player.esp.lines = userptr->player.esp.lines + 1;
+
+end process_messager_msg;
+%page;
+process_new_mail: procedure(buff,uid);
+declare buff        pointer;
+declare uid         bin(31);
+declare uindex      bin(15);
+declare my_noid     bin(15);
+declare paper_noid  bin(15);
+
+declare 1 buf based(buff),
+          2 postmark     binary(31);
+
+%replace FIDDLE_$   by 12;
+%replace C64_GR_STATE_OFFSET by 10;
+
+   call GetPtr_by_uid (uid,userptr);
+   if (userptr = null()) then do;
+      call mail_for_incoming_user (uid);
+      return;
+      end;
+
+   my_noid = userptr->player.object_slot;
+/*
+   call making_history (byte(RoomNumber) || byte(2) || byte(96) ||
+                        byte(my_noid) || ' ');                     */
+
+   if (buf.postmark < userptr->player.last_mail_ts)           /* avoid race */
+      then return;                                            /* condition  */
+   if (userptr->player.has_mail = true) then return;
+
+   userptr->player.has_mail = true;
+   if (userptr->player.object_slot = GHOST) then do;
+      if (userptr->player.online) 
+         then call send_mail_notice (userptr->player.object_slot);
+         else userptr->player.send_mail = true;
+      return;
+      end;    
+
+   uindex = ObjList(my_noid)->object.avatarslot;
+   call set_mail_object_values (uindex);
+
+   paper_noid = ObjList(my_noid)->object.param1->element(4);
+   
+   if (^ userptr->player.online) then do;
+      userptr->player.send_mail = true;
+      return;
+      end;
+
+   response = byte(0) || byte(FIDDLE_$) || byte(paper_noid) || 
+              byte(C64_GR_STATE_OFFSET) || byte(1) || byte(2);
+   call encode_string (response,encoded);
+   encoded = 'U' || byte(ASYNC_header) || encoded;
+   call send_message(userptr->player.U_Q,message$normal,substr(encoded,1),
+           length(encoded),uid,userptr->player.U_Q_Id);
+
+   call send_mail_notice (my_noid);
+
+end process_new_mail;
+%page;
+mail_for_incoming_user: procedure (uid);
+declare uid    bin(31);
+declare p      pointer;
+declare le     pointer;
+
+    le = RoomDBank.waiting_list;
+    do while (le ^= null());
+       p  = le->le_content;
+       le = le->le_next;
+       if (p->mug_shot.user = uid) then do;
+          p->mug_shot.mail = 1;
+          return;
+          end;
+       end;
+
+end mail_for_incoming_user;
+%page;
+flush_region: procedure;
+
+   call checkpoint_object (0,-1);         /* Do em all! */
+/* RoomDBank.initialized = false;         leave it set till new room started */
+
+   if (BUGON) then 
+      call trace_msg ('Region ' || ltrim(Region) || ' no longer active.');
+
+end flush_region;
+%page;
+message_to_god: procedure (whatptr, whoptr, message);
+declare 1 what based(whatptr) 
+%nolist; %include 'struct_gen_object'; %list;
+declare whatptr pointer;
+declare 1 who based(whoptr) 
+%nolist; %include 'struct_avatar'; %list;
+declare whoptr pointer;
+declare message character(*) varying;
+declare uno    bin(15);
+declare 1 request,
+          2 asker        bin(31),
+          2 askee        bin(31),
+          2 text         char(128) var;
+declare request_str char(138) defined(request);
+
+   request.asker = who.obj_id;
+   request.askee = what.obj_id;
+   request.text  = message;
+
+   call send_message (habitat_dbQ,msg$oracle,request_str,length(request.text)+10, 
+                      0,0);
+
+   if (oracle.person = 0) then return;
+
+   if (ObjList(oracle.person) = null()) then goto reset_oracle;
+   uno = ObjList(oracle.person)->object.avatarslot;
+   if (UserList(uno) = null()) then goto reset_oracle;
+   if (UserList(uno)->player.incoming) then return;
+   if (^UserList(uno)->player.online) then goto reset_oracle;
+
+   call p_msg_s (NORM, whoptr, ObjList(oracle.person), SPEAK$, message);
+   return;
+
+reset_oracle:
+      oracle.person = 0;
+      return;
+                      
+end message_to_god;
+%page;
+record_collection: procedure (user_id,function,stats_id,stats_value);
+declare user_id     bin(31);
+declare function    bin(15);
+declare stats_id     bin(15);
+declare stats_value  bin(31);
+
+   record_collecting = true;
+   return;
+
+   hstat.count = hstat.count + 1;
+
+   hstat.entry(hstat.count).userid     = user_id;
+   hstat.entry(hstat.count).action     = function;
+   hstat.entry(hstat.count).stat_id    = stats_id;
+   hstat.entry(hstat.count).stat_value = stats_value;
+
+   if (hstat.count = 1)
+      then call Tact (send_record_collection, null(), 15*60);
+
+   if (hstat.count < 21) then return;
+
+   /* We're full, so cancel the timer and send it now.  */
+   call ClearTact (send_record_collection);
+   call send_record_collection (null());
+
+end record_collection;
+%page;
+send_record_collection: procedure (dummy);
+declare dummy       pointer;
+declare stat_string char(1) defined (hstat.count);
+declare send_bc     bin(31);
+
+   if (hstat.count = 0) then do;
+      call trace_msg ('send_records called with zero count.');
+      return;
+      end;
+
+   send_bc = (hstat.count * 12) + 2;
+   call send_message (recordsQ,msg$user_stats,stat_string,send_bc,0,0);
+
+   hstat.count = 0;
+
+end send_record_collection;
+%page;
+init_stat_summary: procedure;
+declare   i              binary (15);
+
+     do i = 1 to no_summary_stats;
+          tot_users (i) = 0;
+          tot_time (i) = 0;
+     end;
+
+end init_stat_summary;
+
+
+
+send_summary_stats: procedure (p);
+
+declare   p         pointer;
+declare   i         binary (15);
+declare   buff (2)  character(20)  defined (summ_ptr->summary_stats);
+     
+     do i = 1 to no_summary_stats;
+          summ_ptr->summary_users (i) = tot_users (i);
+          summ_ptr->summary_time (i) = divide(tot_time (i),60,5);
+     end;
+
+/*   call collect_stats (stat$summary,stat$sub_roomer,0,(buff(1)));  */
+     call init_stat_summary;
+
+     call Tact (send_summary_stats,p,5*60);
+
+end send_summary_stats;
+%page;
+update_room_summary: procedure (index);
+
+declare   index               binary (15);
+
+     tot_users (index) = tot_users (index) + 1;
+     tot_time (index) = 0;
+
+end update_room_summary;
+%page;
+handle_internal_trace: procedure (switch);
+declare switch char(*) var;
+declare str    char(32) var;
+
+   if (userptr->player.U_Id ^= 1027356163) then return;     /* Must be Janet */
+/*
+   if (switch = 'on') 
+       then str = byte(1) || byte(6) || 'tih.56' || byte(2) || byte(4) ||
+                  byte(1) || byte(6) || byte(1) ||  byte(254) || byte(255);
+   else if (switch = 'off') 
+       then str = byte(1) || byte(6) || 'tih.56' || byte(2) || byte(4) ||
+                  byte(0) || byte(6) || byte(0) ||  byte(254) || byte(255);
+*/
+   if (switch = 'on') then BUGON_ptr = true;
+   else if (switch = 'off') then BUGON_ptr = false;
+   else if (switch = 'ck')  then call check_pointers ('BPTR:  requested');
+   else return;
+
+/* USE THE FOLLOWING CALL WHEN TURNING ON TIH TRACING:
+   call send_message (userptr->player.U_Q,message$internal,substr(str,1),
+                      length(str),0,0);
+*/
+
+end handle_internal_trace;
+
+show_ptr:  procedure (ptr) returns(char(9));
+declare ptr     pointer;
+declare p_bin31 bin(31) defined(ptr);
+declare result  char(8);
+
+   result = hex (p_bin31,8);
+   return (result || 'x');
+
+end show_ptr;
+
+check_pointers: procedure (where_msg);
+declare where_msg    char(*) var;
+declare (i,j,maxele) bin(15);
+declare ep           pointer;
+declare obj_class    bin(15);
+declare first_pass   bit(1) aligned;
+
+declare err_flag     bin(15);
+declare saw_error    bin(15);
+
+declare hptr             pointer;
+declare 1 hdr            based (hptr),
+          2 prev_size    bin(31),
+          2 tag_chars    char(2),
+          2 curr_size    bin(31);
+
+     first_pass = true;
+     saw_error  = 0;
+
+     do i = 1 to 254;
+        err_flag   = 0;
+        if (ObjList(i) ^= null()) then do;
+           call check_object_ptr;
+           if (err_flag = 0) then do;
+              obj_class = ObjList(i)->object.class;
+              maxele = Class_Table(obj_class).capacity;
+              if (maxele ^= 0) then call check_param_ptr;
+              end;
+           if (err_flag ^= 0) then saw_error = 1;
+           end;
+        end;
+
+/*   call making_history (byte(RoomNumber) || byte(3) || byte(saw_error) || ' '); */
+     if (saw_error = 1) then call dump_history;
+     return;
+
+check_object_ptr: procedure;
+
+      hptr = addrel(ObjList(i),-10);
+      if (hdr.tag_chars ^= 'XX') then do;
+          call prt_error ('BPTR Oh' || ltrim(Region) || '/' ||
+                          ltrim(RoomNumber) || '/' || ltrim(i) ||
+                          ', param1=' || show_ptr(ObjList(i)));
+          call trace_msg ('HDR:  ' || ltrim(hdr.prev_size) || ', ' ||
+                          hdr.tag_chars || ', ' || ltrim(hdr.curr_size));
+          err_flag = 1;
+          end;
+      else if (ObjList(i)->object.noid ^= i) then do;
+          call prt_error ('BPTR Od' || ltrim(Region) || '/' ||
+                          ltrim(RoomNumber) || '/' || ltrim(i) ||
+                          ', param1=' || show_ptr(ObjList(i)));
+          err_flag = 1;
+          end;
+
+end check_object_ptr;
+
+check_param_ptr: procedure;
+
+      ep = ObjList(i)->object.param1;
+      hptr = addrel(ep,-10);
+      if (hdr.tag_chars ^= 'XX') then do;
+         call prt_error ('BPTR Ph ' || ltrim(Region) || '/' ||
+                      ltrim(RoomNumber) || '/' || ltrim(i) ||
+                      ' class=' || ltrim(obj_class) || ', param1=' ||
+                      show_ptr(ep));
+         call trace_msg ('HDR:  ' || ltrim(hdr.prev_size) || ', ' ||
+                      hdr.tag_chars || ', ' || ltrim(hdr.curr_size));
+         err_flag = 1;
+         return;
+         end;
+
+      do j = 1 to maxele-1;
+          if (ep->element(j) < 0  | ep->element(j) > 254) then do;
+             call prt_error ('BPTR Pd ' || ltrim(Region) || '/' ||
+                          ltrim(RoomNumber) || '/' || ltrim(i) ||
+                          ' class=' || ltrim(obj_class) || ', param1=' ||
+                          show_ptr(ep));
+             err_flag = 1;
+             end;
+          end;
+
+end check_param_ptr;
+
+prt_error: procedure (msg);
+declare msg char(*) var;
+
+     if (first_pass) then do;
+          call trace_msg (where_msg);
+          first_pass = false;
+          end;
+
+     call trace_msg (msg);
+
+end prt_error;
+end check_pointers;
+%page;
+making_history:  procedure (event);
+declare event char(5);
+/*
+     history(ftnote) = event;
+
+     ftnote = ftnote + 1;
+     if (ftnote > 300)
+        then ftnote = 1;
+*/
+end making_history;
+
+
+dump_history:  procedure;
+/* declare history_buff char(1) defined(history); */
+declare code bin(15);
+
+declare s$dump entry (bin(31), char(*), bin(15), bin(31), bin(15));
+/*
+     call trace_msg ('<<<History dumped, current offset=' || 
+                     ltrim((ftnote-1)*5) || '>>>');
+
+     call s$dump (0,history_buff,1500,'0006'b4,code);
+     if (code ^= 0) then call debug_msg (code,'dump history');
+*/
+end dump_history;
+%page;
+illegal: procedure;
+
+     call force_user_dump ('ILLEGAL behavior: ');
+
+end illegal;

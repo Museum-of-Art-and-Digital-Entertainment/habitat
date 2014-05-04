@@ -1,0 +1,787 @@
+/*
+ * world.pl1 -- World database commands for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 15-May-1987
+ *
+ * These routines handle the actual execution of various commands that
+ * actually manipulate the Habitat world databases.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+
+%include 'stdio.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'array_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'command.incl.pl1';
+%include 'database.incl.pl1';
+%include 'display.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'tables.incl.pl1';
+
+%replace THE_ORACLE by 958121855;
+/*%replace THE_ORACLE by 823679481; /* "Assurance" for the time being */
+
+declare environ_changed bit(1) static external;
+
+c$kill: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('kill not yet implemented');
+end c$kill;
+
+c$newturf: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare 1 value like value_descriptor;
+
+     call default_type(eval(arg1), SYM$REGION, value);
+     if (value.data_type ^= SYM$REGION) then
+          call error('newturf requires a region value');
+     else
+          call write_new_turf(ltrim(value.value));
+end c$newturf;
+
+c$readmail: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare to_whom binary(31);
+     declare got_mail bit(1);
+     declare advance bit(1);
+     declare action binary(15);
+     declare filename character(LINE_LENGTH) varying;
+     declare filenameptr pointer;
+     declare 1 work_mail like mail_struct;
+
+     to_whom = avatar_number(arg1);
+     if (to_whom < 0) then
+          return;
+     if (pos_mail(to_whom)) then do;
+          got_mail = true;
+          do while (got_mail & ^user_break_flag);
+               got_mail = get_next_mail(DB$TEMP);
+               work_mail = temp_mail;
+               if (got_mail & work_mail.addressee = to_whom) then do;
+                    call show_text((work_mail.text_id), 1);
+                    advance = false;
+                    do while (^advance);
+                         advance = true;
+                         action = query_user(filename);
+                         if (action = QUERY_QUIT) then
+                              got_mail = false;
+                         else if (action = QUERY_DELETE) then
+                              call delete_current_mail;
+                         else if (action = QUERY_ANSWER) then do;
+                              advance = false;
+                              if (filename ^= '') then
+                                   filenameptr = addr(filename);
+                              else
+                                   filenameptr = null();
+                              call execute_sendmail(work_mail.sender, to_whom,
+                                   filenameptr);
+                         end; else if (action = QUERY_PRINT) then do;
+                              advance = false;
+                              call show_text((work_mail.text_id), 1);
+                         end; /* else (action = QUERY_NEXT) */
+                    end;
+               end; else
+                    got_mail = false;
+          end;
+     end; else
+          call putline('no mail for a ' || ltrim(to_whom));
+     call set_prompt('ghu? ');
+end c$readmail;
+
+c$remturf: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare 1 value like value_descriptor;
+     declare turf_number character(80) varying;
+     declare len binary(15);
+
+     call default_type(eval(arg1), SYM$REGION, value);
+     if (value.data_type ^= SYM$REGION) then do;
+          call error('remturf requires a region value');
+          return;
+     end;
+     turf_number = ltrim(value.value);
+     call rewind_turfs;
+     len = get_next_turf(DB$TEMP);
+     do while (len ^= 0 & ^user_break_flag);
+          if (substr(temp_turf.turf_number, 1, len) = turf_number) then do;
+               call delete_current_turf;
+               return;
+          end;
+          len = get_next_turf(DB$TEMP);
+     end;
+     call error('unable to find turf ' || turf_number);
+end c$remturf;
+
+c$sendmail: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare value_listptr pointer;
+     declare 1 value_list based(value_listptr) like value_list_descriptor;
+     declare to_avatar binary(31);
+     declare from_avatar binary(31);
+
+     value_listptr = i2p(arg1);
+     to_avatar = avatar_number(value_list.value);
+     if (value_list.next = null()) then
+          from_avatar = THE_ORACLE;
+     else do;
+          value_listptr = value_list.next;
+          from_avatar = to_avatar;
+          to_avatar = avatar_number(value_list.value);
+     end;
+     if (to_avatar < 0 | from_avatar < 0) then
+          return;
+     call execute_sendmail(to_avatar, from_avatar, i2p(arg2));
+end c$sendmail;
+
+execute_sendmail: procedure(to_avatar, from_avatar, filenameptr);
+     declare to_avatar binary(31);
+     declare from_avatar binary(31);
+     declare filenameptr pointer;
+     declare mail_text_id binary(31);
+
+     mail_text_id = execute_write(generate_new_text_id(), 1, true,
+          filenameptr, true, 15);
+     if (mail_text_id < 0) then do;
+          call error('mail not sent');
+          return;
+     end;
+     call send_mail(from_avatar, to_avatar, mail_text_id);
+end execute_sendmail;
+
+c$nuke: procedure(arg1, arg2);
+     declare (arg1, arg2) binary(31);
+     declare 1 (value1, value2) like value_descriptor;
+     declare 1 value_array(1) like value_descriptor;
+     declare global_id binary(31);
+     declare done bit(1);
+
+     call default_type(eval(arg1), SYM$REGION, value1);
+     if (i2p(arg2) = null()) then
+          value2 = value1;
+     else
+          call default_type(eval(arg2), SYM$REGION, value2);
+     if (value1.value < 0 | value2.value < 0) then
+          return;
+     else if (value2.value < value1.value) then do;
+          call error('invalid value range');
+          return;
+     end;     
+     value1.data_type = resolve_types(value1.data_type, value2.data_type);
+     if (value1.data_type ^= SYM$AVATAR & value1.data_type ^= SYM$OBJECT &
+               value1.data_type ^= SYM$REGION) then do;
+          call error('invalid data types for nuke bounds');
+          return;
+     end;
+     done = false;
+     do while (^done & value1.value <= value2.value & ^user_break_flag);
+          value1.value = pos_by_value(value1, SYM$REGION, KEY_GTEQ);
+          if (0 <= value1.value & value1.value <= value2.value) then do;
+               value_array(1) = value1;
+               call nuke(value_array, 1);
+               value1.value = value1.value + 1;
+          end; else
+               done = true;
+     end;
+end c$nuke;
+
+nuke: procedure(values, value_count) recursive;
+     declare 1 values(*) like value_descriptor;
+     declare value_count binary(15);
+     declare 1 sub_values(100) like value_descriptor;
+     declare sub_count binary(15);
+     declare i binary(15);
+     declare global_id binary(31);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare query character(LINE_LENGTH) varying;
+
+     sub_count = 0;
+     do i = 1 to value_count while(^user_break_flag);
+          if (values(i).data_type = SYM$REGION) then do;
+               if (pos_region(values(i).value, KEY_EQUAL) ^= -1) then
+                    call delete_current_record(SYM$REGION);
+               if (pos_avatar_by_region(values(i).value, KEY_EQUAL) ^= -1) then do;
+                    global_id = get_next_avatar(avaptr, DB$TEMP);
+                    do while (global_id ^= -1 & ava.region = values(i).value);
+                         call putline('OK to delete avatar "' ||
+                              rtrim(ava.screen_name) || '"?');
+                         call set_prompt('Y or N? ');
+                         query = getline();
+                         call set_prompt('ghu? ');
+                         if (query = 'y' | query = 'yes' | query = 'Y' |
+                                   query = 'YES') then do;
+                              sub_count = sub_count + 1;
+                              sub_values(sub_count).data_type = SYM$AVATAR;
+                              sub_values(sub_count).value = ava.ident;
+                              call delete_current_record(SYM$AVATAR);
+                         end;
+                         global_id = get_next_avatar(avaptr, DB$TEMP);
+                    end;
+               end;
+          end; else if (values(i).data_type = SYM$OBJECT) then do;
+               if (pos_object(values(i).value, KEY_EQUAL) ^= -1) then
+                    call delete_current_record(SYM$OBJECT);
+          end;
+          if (pos_object_by_cont(values(i), KEY_EQUAL) ^= -1) then do;
+               global_id = get_next_object(objptr, DB$TEMP);
+               do while (global_id ^= -1 & obj.host = values(i).value &
+                         obj.type = values(i).data_type);
+                    sub_count = sub_count + 1;
+                    sub_values(sub_count).data_type = SYM$OBJECT;
+                    sub_values(sub_count).value = obj.ident;
+                    call delete_current_record(SYM$OBJECT);
+                    global_id = get_next_object(objptr, DB$TEMP);
+               end;
+          end;
+     end;
+     if (sub_count > 0 & ^user_break_flag) then
+          call nuke(sub_values, sub_count);
+end nuke;
+
+c$players: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('players not yet implemented');
+end c$players;
+
+c$processes: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('processes not yet implemented');
+end c$processes;
+
+c$remove: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('remove not yet implemented');
+end c$remove;
+
+c$set: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare dummy bit(1);
+
+     dummy = execute_set(arg1, arg2);
+end c$set;
+
+execute_set: procedure(arg1, arg2) returns(bit(1));
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare lvalueptr pointer;
+     declare 1 lvalue based(lvalueptr) like value_descriptor;
+     declare setvalueptr pointer;
+     declare 1 setvalue based(setvalueptr) like value_descriptor;
+     declare arrayptr pointer;
+     declare 1 array based(arrayptr) like array_descriptor;
+     declare result bit(1);
+
+     set_mode = DB$CURRENT;
+     lvalueptr = eval(arg1);
+     set_mode = DB$TEMP;
+     setvalueptr = eval(arg2);
+     result = false;
+     if (setvalue.data_type = SYM$UNDEFINED) then
+          call error('assignment of undefined value');
+     else if (lvalue.data_type = SYM$NAME) then
+          result = set_symbol_value(i2p(lvalue.value), setvalueptr);
+     else if (lvalue.data_type = SYM$FIELD) then
+          result = set_field_value(lvalueptr, setvalueptr, 0);
+     else if (lvalue.data_type = SYM$ARRAY) then do;
+          arrayptr = i2p(lvalue.value);
+          result = set_field_value(array.fieldptr, setvalueptr, array.index);
+     end; else
+          call error('can''t set one of those');
+     call free(lvalueptr);
+     call free(setvalueptr);
+     return(result);
+end execute_set;
+
+set_symbol_value: procedure(symbolptr, setvalueptr) returns(bit(1));
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare setvalueptr pointer;
+     declare 1 setvalue based(setvalueptr) like value_descriptor;
+     declare field_valueptr pointer;
+
+     field_valueptr = check_for_field(symbolptr);
+     if (field_valueptr ^= null()) then
+          return(set_field_value(field_valueptr, setvalueptr, 0));
+     else if (symbol.symbol_type = SYM$PARAMETER | symbol.symbol_type =
+               SYM$MACRO | symbol.symbol_type = SYM$ALIAS) then
+          call error('invalid symbol type for assignment');
+     else do;
+          symbol.symbol_type = setvalue.data_type;
+          symbol.symbol_value = setvalue.value;
+          if (symbol.symbol_persistent) then
+               environ_changed = true;
+          changed_flag(DB$CURRENT) = true;
+          return(true);
+     end;
+     return(false);
+end set_symbol_value;
+
+set_field_value: procedure(valueptr, setvalueptr, index) returns(bit(1));
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare fieldptr pointer;
+     declare 1 field based(fieldptr) like field_descriptor;
+     declare setvalueptr pointer;
+     declare 1 setvalue based(setvalueptr) like value_descriptor;
+     declare index binary(31);
+     declare iindex binary(31);
+     declare offset binary(15);
+     declare bit_offset binary(15);
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+     declare work_string character(256) varying;
+     declare dataptr pointer;
+     declare result binary(31);
+
+     fieldptr = i2p(value.value);
+     iindex = setup_index(fieldptr, index);
+     if (iindex < 1) then
+          return(false);
+     call setup_offsets(field.offset, offset, bit_offset);
+     dataptr = addrel(addr(info_buf(DB$CURRENT)), offset);
+     if (assign_field(dataptr, (iindex), bit_offset, index = 0,
+               field.data_type, field.dimension, setvalueptr)) then do;
+          changed_flag(DB$CURRENT) = true;
+          return(true);
+     end;
+     return(false);
+end set_field_value;
+
+set_wordstr: procedure(buf, offset, len, newstr);
+     declare buf character(*);
+     declare offset binary(15);
+     declare len binary(15);
+     declare newstr character(*) varying;
+     declare i binary(15);
+
+     do i = 1 to min(len, length(newstr));
+          substr(buf, offset + i*2 - 1, 1) = substr(newstr, i, 1);
+     end;
+end set_wordstr;
+
+c$set_update: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     if (execute_set(arg1, arg2)) then
+          call execute_update;
+end c$set_update;
+
+find_teleport: procedure(value);
+     declare 1 value like value_descriptor;
+     declare global_id binary(31);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+
+     if (pos_object_by_cont(value, KEY_EQUAL) ^= -1) then do;
+          global_id = get_next_object(objptr, DB$TEMP);
+          do while (global_id ^= -1 & obj.host = value.value & obj.type =
+                    SYM$REGION);
+               if (obj.class = CLASS_ELEVATOR | obj.class =
+                         CLASS_TELEPORT) then do;
+                    value.data_type = SYM$OBJECT;
+                    value.value = global_id;
+                    return;
+               end;
+               global_id = get_next_object(objptr, DB$TEMP);
+          end;
+     end;
+     value.data_type = SYM$UNDEFINED;
+end find_teleport;
+
+c$teleport_set: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare string character(20) varying;
+     declare 1 value like value_descriptor;
+
+     string = eval_teleport(arg1);
+     call default_type(eval(arg2), SYM$OBJECT, value);
+     if (value.data_type = SYM$REGION) then
+          call find_teleport(value);
+     if (value.data_type ^= SYM$OBJECT) then do;
+          call error('invalid data type for teleport identifier');
+          return;
+     end;
+     if (value.value > 0) then do;
+          if (get_teleport(string, DB$TEMP, false)) then do;
+               temp_teleport.device_id = value.value;
+               changed_flag(DB$TEMP) = true;
+               call update_record(DB$TEMP);
+          end; else do;
+               temp_teleport.device_id = value.value;
+               temp_teleport.key = string;
+               call write_new_record(DB$TEMP, -1);
+          end;
+          call dump_teleport(addr(temp_teleport));
+          if (get_object(value.value, DB$TEMP)) then do;
+               if (temp_object.class ^= CLASS_TELEPORT & temp_object.class ^=
+                         CLASS_ELEVATOR) then
+                    call warning('object ' || ltrim(value.value) ||
+                         ' is neither a teleport nor an elevator');
+          end; else
+               call warning('there is no object ' || ltrim(value.value));
+     end; else do;
+          call delete_teleport(string);
+     end;
+end c$teleport_set;
+
+c$update: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call execute_update;
+end c$update;
+
+execute_update: procedure;
+     call update_record(DB$CURRENT);
+end execute_update;
+
+c$update_explicit: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('update_explicit not yet implemented');
+end c$update_explicit;
+
+c$voice_implicit_prompt: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('voice_implicit_prompt not yet implemented');
+end c$voice_implicit_prompt;
+
+c$voice_prompt: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('voice_prompt not yet implemented');
+end c$voice_prompt;
+
+c$voice_implicit: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('voice_implicit not yet implemented');
+end c$voice_implicit;
+
+c$voice: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     call putline('voice not yet implemented');
+end c$voice;
+
+c$watch_implicit: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('watch_implicit not yet implemented');
+end c$watch_implicit;
+
+c$watch: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('watch not yet implemented');
+end c$watch;
+
+c$watch_off: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     call putline('watch_off not yet implemented');
+end c$watch_off;
+
+c$pages: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare document binary(31);
+     declare is_paper bit(1);
+     declare page binary(15);
+
+     document = extract_text_id(arg1, is_paper);
+     page = extract_page_number(arg2);
+     if (document < 0 | page < 0) then
+          return;
+     if (is_paper & page > 1) then
+          call warning('document on piece of paper should not exceed 1 page');
+     call end_document(document, page + 1, is_paper);
+end c$pages;
+
+c$pages_lookup: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare document binary(31);
+     declare is_paper bit(1);
+
+     document = extract_text_id(arg1, is_paper);
+     if (document < 0) then
+          return;
+     if (^get_page(document, 1, DB$CURRENT)) then
+          return;
+     call putline('Text ' || ltrim(document) || ' page count = ' ||
+          ltrim(cur_text.page_cnt));
+     if (is_paper & cur_text.page_cnt > 1) then
+          call warning('document on piece of paper should not exceed 1 page');
+end c$pages_lookup;
+
+c$write: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare page_number binary(15);
+     declare value_listptr pointer;
+     declare 1 value_list based(value_listptr) like value_list_descriptor;
+     declare document binary(31);
+     declare initial_page binary(15);
+     declare whole_document bit(1);
+     declare is_paper bit(1);
+     declare dummy binary(31);
+
+     value_listptr = i2p(arg1);
+     if (value_listptr = null()) then do;
+          document = get_text_id(DB$CURRENT, is_paper);
+          initial_page = 0;
+     end; else do;
+          document = extract_text_id(value_list.value, is_paper);
+          if (value_list.next = null()) then
+               initial_page = 0;
+          else do;
+               value_listptr = value_list.next;
+               initial_page = extract_page_number(value_list.value);
+               if (value_list.next ^= null()) then
+                    call warning('too many arguments to WRITE command');
+          end;
+     end;
+     if (document < 0 | initial_page < 0) then
+          return;
+     else if (initial_page = 0) then do;
+          page_number = 1;
+          whole_document = true;
+     end; else do;
+          page_number = initial_page;
+          whole_document = false;
+     end;
+     dummy = execute_write(document, page_number, whole_document, i2p(arg2),
+          is_paper, 16);
+end c$write;
+
+c$write_new: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare page_input file;
+     declare dummy binary(31);
+
+     dummy = execute_write(generate_new_text_id(), 1, true, i2p(arg1), false,
+          16);
+end c$write_new;
+
+execute_write: procedure(document, page_number, whole_document, inputptr,
+          is_paper, line_limit) returns(binary(31));
+     declare document binary(31);
+     declare page_number binary(15);
+     declare whole_document bit(1);
+     declare inputptr pointer;
+     declare is_paper bit(1);
+     declare line_limit binary(15);
+     declare filename based(inputptr) character(256) varying;
+     declare real_page_input file;
+     declare page_input file variable;
+     declare page_buffer character(640) varying;
+     declare line_number binary(15);
+     declare line character(256) varying;
+     declare done bit(1);
+     declare page_break bit(1);
+
+     if (inputptr ^= null()) then do;
+          on undefinedfile(real_page_input) goto page_input_open_failed;
+          open file(real_page_input) title(filename) stream input;
+          page_input = real_page_input;
+     end; else
+          page_input = sysin;
+     line_number = 1;
+     done = false;
+     page_break = false;
+     page_buffer = '';
+     do while (^done);
+          call set_prompt(ltrim(page_number) || ',' || ltrim(line_number) ||
+               ' ');
+          call read_page_line(line, page_input);
+          if (length(line) >= 1 & substr(line, 1, 1) = '#') then
+               page_break = true;
+          else if (line = '.') then
+               done = true;
+          else if (length(line) < 40) then
+               page_buffer = page_buffer || line || byte(NEWLINE);
+          else if (length(line) = 40) then
+               page_buffer = page_buffer || line;
+          else do;
+               call warning('line longer than 40 characters (truncated)');
+               page_buffer = page_buffer || substr(line, 1, 40);
+          end;
+          line_number = line_number + 1;
+          if (line_number > line_limit | page_break | done) then do;
+               if (line_number <= line_limit + 1) then
+                    page_buffer = page_buffer || copy(byte(NEWLINE),
+                         line_limit + 1 /*2?*/ - line_number);
+               if ((^done & ^page_break) | line_number > 2) then
+                    call write_page(page_buffer, document, page_number);
+               if (^page_break | line_number ^= 2 | done) then
+                    page_number = page_number + 1;
+               line_number = 1;
+               page_break = false;
+               page_buffer = '';
+          end;
+     end;
+     if (is_paper & page_number > 2) then
+          call warning('document on piece of paper should not exceed 1 page');
+     if (whole_document) then
+          call end_document(document, page_number, is_paper);
+     call set_prompt('ghu? ');
+     if (page_input ^= sysin) then
+          close file(page_input);
+     last_textid = document;
+     return(document);
+
+page_input_open_failed:
+     call error('unable to open text file ' || filename);
+     return(-1);
+end execute_write;
+
+string_type: procedure(type) returns(bit(1));
+     declare type binary(15);
+
+     return(type = SYM$STRING | type = SYM$AVA_NAME);
+end string_type;
+
+integer_type: procedure(type) returns(bit(1));
+     declare type binary(15);
+
+     return(type = SYM$INTEGER | type = SYM$AVATAR | type = SYM$OBJECT |
+            type = SYM$REGION  );
+end integer_type;
+
+assign_field: procedure(dataptr, index, bit_offset, whole_string, type,
+          dimension, valueptr) returns(bit(1));
+     declare dataptr pointer;
+     declare index binary(15);
+     declare bit_offset binary(15);
+     declare whole_string bit(1);
+     declare type binary(15);
+     declare dimension binary(15);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+     declare work_string character(256) varying;
+     declare 1 work_bits like vbit_struct;
+     declare result binary(31);
+
+     if (type = FIELD$CHARACTER | type = FIELD$WORDS |
+               type = FIELD$VARSTRING) then do;
+          if (string_type(value.data_type)) then do;
+               stringptr = i2p(value.value);
+               work_string = substr(string, 1, length(string));
+          end; else if (integer_type(value.data_type)) then
+               work_string = byte(value.value);
+          else do;
+               call error('invalid type to assign to character field');
+               return(false);
+          end;
+          if (whole_string) then do;
+               if (length(work_string) > dimension) then
+                    work_string = substr(work_string, 1, dimension);
+               else if (length(work_string) < dimension & type ^=
+                         FIELD$VARSTRING) then
+                    work_string = work_string || copy(' ', dimension -
+                         length(work_string));
+               if (type = FIELD$CHARACTER) then
+                    substr(dataptr->pstring, 1, dimension) = work_string;
+               else if (type = FIELD$WORDS) then
+                    call set_wordstr(dataptr->pstring, 1, dimension,
+                         work_string);
+               else
+                    dataptr->pvstring = work_string;
+          end; else do;
+               if (type = FIELD$CHARACTER) then
+                    substr(dataptr->pstring, index, 1) = substr(work_string,
+                         1, 1);
+               else if (type = FIELD$WORDS) then
+                    dataptr->pbin15(index) = rank(substr(work_string, 1, 1));
+               else
+                    substr(dataptr->pvstring, index, 1) = substr(work_string,
+                         1, 1);
+          end;
+          return(true);
+     end; else if (type = FIELD$BIT) then do;
+          if (integer_type(value.data_type)) then
+               call bit_value(value.value, work_bits);
+          else if (value.data_type = SYM$BITSTRING) then
+               work_bits = i2p(value.value)->vbit_struct;
+          else do;
+               call error('invalid type to assign to bit field');
+               return(false);
+          end;
+          if (whole_string) then do;
+               if (work_bits.len < dimension) then
+                    work_bits.bits = substr(work_bits.bits, 1, work_bits.len)
+                         || copy('0'b, dimension - work_bits.len);
+               work_bits.len = dimension;
+               substr(dataptr->pbit, bit_offset + 1, dimension) =
+                    substr(work_bits.bits, 1, dimension);
+          end; else do;
+               substr(dataptr->pbit, bit_offset + index, 1) =
+                    substr(work_bits.bits, 1, 1);
+          end;
+          return(true);
+     end;
+     if (string_type(value.data_type)) then
+          result = map_avatar_name_to_id(value.value);
+     else if (integer_type(value.data_type)) then
+          result = value.value;
+     else do;
+          call error('invalid type to assign to numeric field');
+          return(false);
+     end;
+     if (type = FIELD$BIN15) then
+          dataptr->pbin15(index) = result;
+     else if (type = FIELD$BYTE) then
+          dataptr->pchar(index) = byte(result);
+     else if (type = FIELD$BIN31 | type = FIELD$AVAID | type = FIELD$OBJID |
+               type = FIELD$REGID) then do;
+          dataptr->pbin31(index) = result;
+     end; else if (type = FIELD$ENTITY) then do;
+          if (string_type(value.data_type)) then
+               dataptr->pentity(index).type = SYM$AVATAR;
+          else if (value.data_type = SYM$INTEGER) then
+               dataptr->pentity(index).type = SYM$REGION;
+          else
+               dataptr->pentity(index).type = value.data_type;
+          dataptr->pentity(index).ident = result;
+     end; else /* if (type = FIELD$FATWORD) then */ do;
+          dataptr->pbin15((index*2) - 1) = mod(result, 256);
+          dataptr->pbin15((index*2)    ) = divide(result, 256, 15);
+     end;
+     return(true);
+end assign_field;

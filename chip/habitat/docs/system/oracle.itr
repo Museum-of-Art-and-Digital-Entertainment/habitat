@@ -1,0 +1,217 @@
+.AM
+.ds Dq November 10, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Oracle Capabilities\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH ORACLE
+.ds CH \\*(Dq
+.ds RH Habitat Document # 31
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the capabilities that need to be made available to the
+person playing the role of \fIHabitat\fP Oracle.  This is not a complete
+definition of a general operator's utility.  Rather, these functions relate
+solely to the Oracle's largely informational function within the system.
+.SH
+\s+3Types of Oracles\s-3
+.PP
+As mentioned in the previous document \fBHabitat Operations\fR there are four
+different ways the Oracle is manifested in the world:
+.DS
+\fIThe Fountain
+The Crystal Ball
+The Genie in The Magic Lamp
+The Bureaucrat-in-a-Box\fR
+.DE
+Each of these has a particular role to play in the operation of the world and
+a particular style of interaction that is characteristic of it.  However, they
+all share a common underlying information flow pattern: (1) the player says
+something to an Oracular object; (2) this utterance is recorded in a log file
+along with a time stamp, the identity of the player who spoke, and the
+identity of the particular Oracular object spoken to; (3) an operator
+periodically reviews this log file and (4) responds accordingly.  The response
+can take the form of a message to the player and/or changes to the world.
+Alternatively, the operator can choose not to respond at all.
+.PP
+In addition, the fountain and the crystal ball may, at the operator's option,
+be run ``live'', i.e., with the operator conversing directly with the players
+through the Oracular object.  However, this is strictly optional and is to be
+used for enrichment of the players' experience rather than as a cornerstone of
+system operation.
+.SH
+\s+3Player interaction\s-3
+.PP
+In order to understand the motivating needs of Oracle support software on the
+host, it is helpful to understand how the different types of Oracular objects
+work from the player's point of view.
+.SH
+\fIThe Fountain
+.PP
+The Fountain is the canonical form that the Oracle takes.  It appears to the
+players as a tacky town-square type fountain.  The players may ask questions
+or otherwise communicate with it by pointing to it and \fBTALK\fRing.  The
+Fountain can talk back to the players, and its utterances appear as word
+balloons over the water spout.
+.PP
+The Fountain is the classic oracle: its purpose is to answer questions about
+the present and future.  It only answers questions when it has some purpose in
+doing so.  In other words, it gives out information to manipulate the mortals,
+rather than to be a public service.  Its answers tend to be subtle and cryptic
+but they are consistently truthful.  The only exception is the rare ``false
+Oracle'' which consistently tells lies.
+.PP
+Ordinarily, the Fountain doesn't converse with Avatars.  Instead, their
+questions are answered a day or two later via mail messages, if the Oracle
+chooses to respond at all.  On rare occasions the Fountain \fIwill\fP converse
+with passers by.  More often, however, it may broadcast pronouncements,
+repeating a particular message every few minutes.
+.SH
+\fIThe Crystal Ball
+.PP
+The Crystal Ball looks just like what it is.  Other than being portable, it
+operates like the Fountain: you ask it questions by pointing and
+\fBTALK\fRing.  It can talk back to you live or respond via mail.
+.PP
+The Crystal Ball is rather like the Fountain, in that its purpose is to answer
+questions.  However, it is a captive resource in that it will only answer to
+the Avatar that it believes to be its ``owner''.  If you are the owner, you
+are much more likely to get an answer to a question asked of your Crystal Ball
+than of a Fountain (if you are not the owner, it will ignore you).  Like the
+fountain, its answers are subtle and cryptic.  Unlike the Oracle, they are
+often deliberately misleading, and while the Crystal Ball will not lie
+outright, it will sometimes bend the truth a bit to manipulate the unwary.
+The Crystal Ball is a somewhat more individualistic and malevolent persona
+than the Fountain, though it can be useful to the careful player.
+.PP
+The Crystal Ball's idea of its ``owner'' is simply the Avatar who has asked it
+the most questions lately.  Thus, if you come into possession of a Crystal
+Ball, it will tend to ignore you for the first few days until it gets to know
+you.  Also, the Crystal Ball is much more likely to be helpful and truthful if
+it decides it likes you.  If it doesn't like you it may try to get you to do
+things that will get you killed or try to get you to give it to somebody else.
+.SH
+\fIThe Genie in The Magic Lamp
+.PP
+The Genie is contained in a Magic Lamp (just like Aladdin's) that somebody
+finds somewhere.  A player who picks up the lamp can ``rub'' using \fBDO\fR,
+causing the Genie to appear.  The Genie comes out of the lamp in a puff of
+smoke and says, ``Your wish is my command.''  The Avatar who rubbed the lamp
+may then \fBTALK\fR to the Genie \fIonce\fP to make a wish (the Genie will
+ignore anyone else talking to it).  When the player makes his wish the Genie
+says ``I'll see what I can do.'' and disappears along with the lamp.  The
+Genie will also disappear saying ``Time's up, you lose!'' if the player takes
+too long (say, 10 minutes) before uttering his wish (n.b.: this timeout is not
+yet implemented).  Once the wish is recorded, the player need only wait.  It
+will be granted at some time in the future.
+.PP
+Note that the Genie guarantees to respond.  Fortunately for us, the player
+only gets one attempt to make a wish, and then the Genie and the lamp both
+disappear \(em it's a one-shot deal.  This means that is easy for us to limit
+the operator load generated by servicing wishes made to Genies by limiting the
+number of magic lamps we scatter around the world.
+.PP
+The only tricky part of handling the Genie, then, is actually granting the
+wishes.  This is because this will generally require direct alterations to the
+world (using \fITwiddle\fR or some descendant utility).  Such alterations may
+only be performed by a knowledgeable and trustworthy person.  This should not
+be an undue strain if the number of wishes to be granted is small.  Also, the
+person playing Genie may distort the wish as necessary for pragmatic reasons
+by such time worn devices as taking the wisher overly literally, subtly
+misconstruing what was said, and so on.
+.SH
+\fIThe Bureaucrat-in-a-Box
+.PP
+The Bureaucrat-in-a-Box is the representative of the more administrivial
+functions of the system operators.  In City Hall there are multiple
+Bureaucrats, each with a particular purpose.  However, they operate
+identically: the Bureaucrat initially appears as a desk-like box.  The player
+points at it and chooses \fBDO\fP, whereupon a head springs out and asks,
+``What do you want?''.  The player can then make a request by \fBTALK\fPing to
+the head, just as he or she would make a wish of a Genie.  The head says,
+``Well, we'll see what we can do.'' and pops back into its box.  Later on, the
+player receives a mail message informing him of the disposition of his
+business.
+.PP
+As mentioned above, each Bureaucrat has a particular purpose, which is
+indicated by a sign above it.  Each will only respond to requests that relate
+to its particular business; all others will be bounced back with a rude
+``that's not my job'' letter.  There are currently four Bureaucrats planned
+for Populopolis, to handle transfers of title to turves, posting of public
+advertisements, scheduling of public facilities, and allocation of business
+properties.  All will also respond to generic information inquiries with a
+canned letter describing the functions of the various Bureaucrats.
+.PP
+The operator handling a Bureaucrat needs to sift through the requests and deal
+with each by throwing it away, sending a form letter, or actually taking some
+substantive action.  In the case of the Bureaucrats currently defined, this
+substantive action can include: giving an Avatar the key to a particular piece
+of commercial real estate (and possibly making the interior of that
+establishment the Avatar's turf), changing the turf assignment of one or more
+Avatars, changing the text on public signs, and so on.  The exact rules and
+procedures for each will be defined as part of the detailed specification of
+adventures and activities that is to come in a future document.
+.SH
+\s+3Required Utilities\s-3
+.PP
+In light of the above discussion, the following capabilities and utilities
+are required:
+.IP "\ \ \ \ \(bu\ "
+Utterances made by players to Oracular objects must be logged appropriately as
+described above.  The object behavior routines on the host all funnel such
+utterances through a generic procedure named \fCmessage_to_god\fR, so all that
+is required is the actual logging mechanism.
+.IP "\ \ \ \ \(bu\ "
+The operator needs a way to filter the log file by Oracular object.  In other
+words, there should be a way to view the requests made to a particular
+manifestation of the Oracle.  Once a particular request is dealt with, there
+should be a way of removing it from the log or of marking it so that it does
+not further present itself to the operator's attention.
+.IP "\ \ \ \ \(bu\ "
+The operator needs a way to send \fIHabitat\fP mail messages to particular
+Avatars.  Ideally, there should be a way to interactively step through the
+request log and simply issue a command that says, in effect, ``mail to the
+Avatar who made this request''.  It is also desirable to be able to extract
+outgoing mail messages from a library of form letters written to handle common
+situations.  The mail messages sent by the Oracle should be postmarked with a
+``From'' line that identifies them as coming from the appropriate source
+(e.g., ``The Oracle'' (the Fountain), ``The *Real* Oracle'' (the false
+Oracle), ``Bureau of Commercial Property Management'' (a Bureaucrat), ``Your
+Crystal Ball'' (a Crystal Ball), etc.).
+.IP "\ \ \ \ \(bu\ "
+There should be a facility to connect an operator ``live'' to a particular
+Oracular object, so that anything said to it is transmitted to him immediately
+and anything he types appears as a word balloon over it.  These conversations
+should be logged for future reference.
+.IP "\ \ \ \ \(bu\ "
+There should be a way to set a Fountain to broadcasting a particular
+``canned'' message every few minutes to whoever is in the region with it.
+Ideally, this should be done with a scheduling mechanism that lets us set it
+up to, for example, send out this announcement, ``blah blah blah'', every five
+minutes from 7:00pm tonight until 10:00pm.
+.IP "\ \ \ \ \(bu\ "
+Operators handling the Genie or a Bureaucrat need a utility such as
+\fITwiddle\fR in order to make the requisite changes to the world required by
+the requests made to them.  Ultimately, a more powerful utility than
+\fITwiddle\fP will be needed in order to easily manipulate all the various
+elements of the world and to grant restricted access to selected subsets of
+the collection of possible such manipulations.  Ideally, for example, we would
+like to be able to configure the utility (using some sort of access and
+privilege control file, for example) for different purposes.  Thus the person
+handling turf allocations would be able to change Avatars' turf assignments
+and nothing else, while the person handling public advertising would only be
+able to change the text on particular signs.  Specification (let alone
+implementation) of such a utility is a future task however.  For the time
+being we will use \fITwiddle\fP.

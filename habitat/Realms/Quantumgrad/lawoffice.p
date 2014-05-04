@@ -1,0 +1,4 @@
+lo:
+	lawoffice
+
+start lo

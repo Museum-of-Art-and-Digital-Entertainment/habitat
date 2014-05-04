@@ -1,0 +1,16 @@
+/*
+ *   struct_elevator.incl.pl1
+ *
+ *   Struct stub for elevator instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   6-February-1987
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   state          binary(15),
+/* Host private: */
+           3   take           binary(31),
+           3   address        character(20);

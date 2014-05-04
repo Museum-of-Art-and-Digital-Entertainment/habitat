@@ -1,0 +1,3 @@
+declare 1 array_descriptor based,
+          2 fieldptr  pointer,
+          2 index     binary(31);

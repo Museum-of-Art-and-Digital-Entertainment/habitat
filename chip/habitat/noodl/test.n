@@ -1,0 +1,26 @@
+{
+	main() {
+		printf("C-stuff-1\n");
+	}
+}
+
+class foo (zip, zap, zim, zam)
+	snoz (arg1) {
+		printf("C-stuff-2\n");
+	}
+	sneez () {
+		printf("C-stuff-3\n");
+	}
+	snuuuz (arg1, arg2, arg3) {
+		printf("C-stuff-4\n");
+	}
+!
+
+class bar (oop)
+	wop () {
+		printf("C-stuff-5\n");
+	}
+	bop (foo) {
+		printf("C-stuff-6\n");
+	}
+!

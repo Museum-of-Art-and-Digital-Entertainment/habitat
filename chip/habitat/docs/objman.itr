@@ -1,0 +1,4692 @@
+.de Ob
+.IP "\\fHObject: "
+.ft B
+.nr PD 0
+.nr PS +1
+..
+.de De
+.nr PS -1
+.IP "    \\fHDescription: "
+.ft R
+..
+.de Fu
+.IP "    \\fHFunction: "
+.ft R
+..
+.de No
+.IP "    \\fHNotes: "
+.ft R
+..
+.de Cl
+.IP "    \\fHClass: \\fC\\$1"
+..
+.de Sy
+.IP "    \\fHStyles: "
+.RS
+..
+.de St
+.IP "    \\fC\\$1\fR \\(em \\$2"
+..
+.de Pr
+.RE
+.IP "    \\fHProperties: "
+.RS
+.ft R
+..
+.de Pp
+.IP "\\fC\\$1\\fR \\(em "
+..
+.de Co
+.RE
+.IP "    \\fHCommand Behavior: "
+..
+.de Do
+.IP "        \\fHDo: "
+.ft C
+..
+.de Go
+.IP "        \\fHGo: "
+.ft C
+..
+.de Ge
+.IP "        \\fHGet: "
+.ft C
+..
+.de Pu
+.IP "        \\fHPut: "
+.ft C
+..
+.de Ta
+.IP "        \\fHTalk: "
+.ft C
+..
+.de Re
+.IP "        \\fHReversed Do: "
+.ft C
+..
+.de As
+.IP "    \\fHAsynchronous actions: "
+.ft R
+..
+.de En
+.nr PD 3.6p
+.sp
+\l'68'
+.sp
+.bp
+..
+.ds Da April 22, 1987
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Habitat Object Manual\s-9
+.AU
+the Habitat object set described in excruciating detail
+.AI
+Chip Morningstar
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH OBJECT MANUAL
+.ds CH \\*(Da
+.ds RH Habitat Document # 43
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.TA 5n
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the set of objects from which the Habitat fantasy
+worlds may be constructed.  This document describes what the various objects
+are and specifies them in sufficient detail that they may be used in region
+design.
+.SH
+\s+3The Object Environment\s-3
+.PP
+Each object is a member of some \fIclass\fP of objects, i.e., it is one of a
+group of objects that are all of the same basic type.  An object's class
+determines what its behavior is going to be and how it is going to look on the
+screen.  Any actual object is an \fIinstance\fP of a particular class.  This
+abstract model of classes and instances is used both in the C64 and in the
+host system.  
+.PP
+The information describing a class consists of three kinds of \fIresources\fR:
+\fIimagery\fP, \fIsounds\fR and \fIbehavior\fP.  A class is described by a
+\fIclass descriptor\fR which is just a data structure that points at these
+resources.  The actual resources themselves are stored separately.  This way,
+classes can share resources when they overlap between classes (which, in the
+case of behavior, is common).
+.PP
+\fIImagery\fP consists of the animation cels or graphics driver tables
+required for the graphics software to display the object.  Most objects
+consist of a single static image.  A few have a small number of images, one of
+which is displayed at any given time depending on the state of the object.
+Some have a more complex set of images that are used to vary the appearance of
+the object according to some parameter (so that all objects of the class will
+not appear identical on the screen) or to animate the behavior of the object
+(Avatars are the primary example of this).
+.PP
+\fISounds\fR consist of the tables of data required to control the sound
+driver in creating various sound effects.
+.PP
+\fIBehavior\fP consists of a set of executable routines that are called by the
+object database software.  These include the code to respond to any of the
+verbs used in the player interface.  Other routines are specific to particular
+classes and will be called as the result of messages from the opposite end of
+the communications line (the host if this is the C64 system, and vice-versa).
+.PP
+An object's instance contains the object's \fCproperties\fP.  The properties
+are simply a set of values which describe that object as distinguished from
+other objects of the same class.  There are certain properties which are
+possessed by all objects, regardless of class, while others are
+class-specific.  The common properties are:
+.IP "\fCobj_id \fR\(em "
+A global identifier in the object database (a 32-bit integer).
+.IP "\fCstyle \fR\(em "
+Which of several possible variations of the class this is.
+.IP "\fCx \fR\(em "
+The X-coordinate of the object's position in the region.  If the object is
+inside a container, this value is ignored.
+.IP "\fCy \fR\(em "
+The Y-coordinate of the object's position in the region.  If the object is
+inside a container, this value contains the position within the container that
+the object occupies.  If the object is not in a container, the high-order bit
+(the 128's bit) encodes whether the object is in the background or the
+foreground.  A 1 in this place indicates foreground, while a 0 indicates
+background.  Background objects are not redrawn on the screen every frame, and
+so cannot be visually in front of any foreground objects, nor can they move
+around on the screen.
+.IP "\fCorientation \fR\(em "
+This byte encodes a number of different pieces of information, as follows:
+.LD
+	\fC0b00000001\ \ \ \fRscreen orientation: 1=face left, 0=face right
+	\fC0b00000010\ \ \ \fRscreen orientation: 1=forward, 0=back (Avatar only)
+	\fC0b00000100\ \ \ \fRcurrently not used
+	\fC0b01111000\ \ \ \fRchoice of one of 16 patterns or Commodore 64 colors
+	\fC0b10000000\ \ \ \fRdecides between pattern (=0) or color (=1)
+.DE
+.IP "\fCgr_state \fR\(em "
+Is the graphic state of the object.  Usually this is zero, but may vary
+depending on the class and style of the object.  The interpretation of this
+for each class will be described with the classes themselves below.
+.IP "\fCcontainer \fR\(em "
+The global ID of the object, avatar or region that contains this object.
+.IP "\fCrestricted \fR\(em "
+A bit that flags whether this object is ``restricted''.  Restricted object may
+not be carried through restricted region exits nor may they be placed in
+unrestricted containers.  This provides a mechanism for preventing, for
+example, library books from being removed from the Library.
+.ds LH OBJECT DESCRIPTION
+.bp
+.SH
+\s+3The Object Descriptions\s-3
+.PP
+What follows is a series of object descriptions, one for each class of objects
+in the basic object set.  Each description has the following form:
+.IP "\fHObject: "
+.nr PD 0
+.nr PS +1
+\fBname of object\fP
+.De
+A brief description of the object.
+.Fu
+The object's purpose in the Habitat world.
+.No
+Anything else that needs to be said about the object.
+.Cl "\fRclass number"
+.Sy
+\fRStylistic variations possible for this object.  In the format:
+.Pp 0
+image style 0
+.St 0 "image for state #0"
+.St 1 "image for state #1"
+.St 2 "etc."
+.Pp 1
+image style 1
+.Pp 2
+and so on
+.Pr
+Properties that this object possesses.  In the format:
+.Pp foobar
+description of the foobar property
+.Pp bazbletch
+description of the bazbletch property
+.Pp etc
+and so on
+.Co
+.Do
+\fRThe action to take for the verb \fBdo\fP.
+.Go
+\fRThe action to take for the verb \fBgo\fP.
+.Ge
+\fRThe action to take for the verb \fBget\fP.
+.Pu
+\fRThe action to take for the verb \fBput\fP.
+.Ta
+\fRThe action to take for the verb \fBtalk\fP.
+.Re
+\fRThe action to take for the verb \fBreversed do\fP.
+.As
+\fROther behavior that the object should be capable of as a result of
+asynchronous messages from the host or calls from other objects or other parts
+of the system.
+.nr PD 3.6p
+.sp
+\l'68'
+.ds LH C64 SYSTEM FUNCTIONS
+.bp
+.SH
+\s+3C64 System Standard Actions\s-3
+.PP
+In the object descriptions that follow, these actions are often used for
+object behaviors.  These standard actions are provided because the objects
+share a common underlying world model and there is much redundancy in the user
+interface.  They provide both consistency and a significant reduction in the
+amount of code which must be created and stored.
+.SH
+\fCadjacentOpenCloseContainer
+.PP
+If player is adjacent to container, try to open/close it.  Otherwise,
+\fCdepends\fP.  Open fails if the container is locked and the Avatar isn't
+holding the key.  If the Avatar is holding the key while closing it, the
+container will be locked.
+.SH
+\fCaskOracle
+.PP
+Send the player's text message to the Oracle, marked with the identity of the
+sender and the oracular object spoken to.
+.SH
+\fCbroadcast
+.PP
+Broadcast the typed text to everyone in region (as speech).
+.SH
+\fCdepends
+.PP
+Punt to the \fBreversed do\fR behavior of the object in the Avatar's hands, if
+there is one.  If the Avatar is empty handed, \fCnoEffect\fP.
+.SH
+\fCdoMagic
+.PP
+If holding the item, activate its (host defined) magical function, whatever
+that may be.  If not holding it, \fCdepends\fP.
+.SH
+\fCdoMagicIfMagic
+.PP
+Like \fCdoMagic\fP, except that nothing happens if the item is not magical.
+.SH
+\fCflatGo
+.PP
+If ground or wall, \fCgoToCursor\fP (for wall the Y-coordinate will be clamped
+at the base of the object); for sky, \fCgoToSky\fP; and for impassable,
+\fCnoEffect\fP.
+.SH
+\fCgetMass
+.PP
+If the mass of the object is 0, try to walk to the object and pick it up.  If
+the mass is 1, fail.
+.SH
+\fCgoTo
+.PP
+Walk to nearest position adjacent to the object's location, if the path is not
+obstructed.
+.SH
+\fCgoToAndDropAt
+.PP
+Walk to the indicated location and put the item in the Avatar's hand (if any) at that spot.
+.SH
+\fCgoToAndDropInto
+.PP
+If holding something in hand, walk to the designated item (which is a
+container) and try to put the object in hand into it.
+.SH
+\fCgoToAndDropIntoIfOpen
+.PP
+If holding something in hand and the designated object (which is a container)
+is open, walk to the container and try to put the object in hand into it.
+.SH
+\fCgoToAndFill
+.PP
+Walk to the designated object if you can; then, if the object in the avatar's
+hand is an empty container, fill it up with water.
+.SH
+\fCgoToAndGet
+.PP
+Walk to the object and pick it up, if possible.
+.SH
+\fCgoToAndPickFrom
+.PP
+Walk to the designated object (which is a container) and try to get something
+out of it.  The object is guaranteed to be open.
+.SH
+\fCgoToAndPickFromIfOpen
+.PP
+Walk to the designated object (which is a container) and try to get something
+out of it.  Fails if the object is not open.
+.SH
+\fCgoToAndPickFromOrGet
+.PP
+Walk to the designated item (which is a container).  If it is open, try to get
+something out of it.  If it is closed, try to pick it up.
+.SH
+\fCgoToCursor
+.PP
+Go to the location designated by the cursor.
+.SH
+\fCgoToFurniture
+.PP
+If adjacent to the indicated piece of furniture, sit in it.  If already
+sitting in it, stand up.  Otherwise, walk to it.
+.SH
+\fCgoToSky
+.PP
+Walk the Avatar to the region indicated by the object's \fCconnection\fP
+property.
+.SH
+\fCillegal
+.PP
+Does nothing, but should never happen.
+.SH
+\fCnoEffect
+.PP
+Do nothing.
+.SH
+\fCrdoMagic
+.PP
+Activate the item's (host defined) magical function, whatever that may be, and
+direct the magic at whatever the player is pointing at.
+.SH
+\fCrdoMagicIfMagic
+.PP
+Like \fCrdoMagic\fP, except that nothing happens if the item is not magical.
+.SH
+\fCshoot
+.PP
+Attack the designated item or avatar with a firearm.  Does damage to the
+person or thing appropriate to the sort of gun it is.
+.SH
+\fCstrike
+.PP
+Attack somebody or something with a close-range melee weapon.  Does damage to
+the person or thing appropriate to the sort of weapon it is.  Player must be
+standing next to the target in order to strike it.
+.SH
+\fCthrow
+.PP
+Throw the item in hand to the location the player is pointing at.
+.SH
+\fCORACLESPEAK
+.PP
+Utter asynchronous text message from the host when an oracle says something.
+.SH
+\s+3The Objects\s-3
+.ds LH THE OBJECTS
+.PP
+The object descriptions follow on the proceeding pages:
+.bp
+.Ob
+amulet
+.De
+A hang-around-the neck type amulet.
+.Fu
+Generic magic talisman.
+.No
+Amulets are always magical.  An amulet will do something special and powerful.
+The magical function may vary.  Amulets are particularly rare and contain
+unusually powerful forms of magic.  For the time being, amulets are merely
+artifacts, i.e., Avatars can't wear them, just hold them.  They are magical
+without being worn.
+.Cl 2
+.Sy
+.Pp 0
+amulet
+.Pr
+.Pp magic_type
+Sort of magic this amulet contains.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+rdoMagic
+.As
+None.
+.En
+.Ob
+aquarium
+.De
+Your basic fish tank.
+.Fu
+Household decoration.
+.No
+The aquarium is just a visual joke.
+.Cl 129
+.Sy
+.Pp 0
+aquarium
+.St 0 "empty fish tank"
+.St 1 "fish swimming in tank"
+.St 2 "fish swimming without tank"
+.Pr
+None
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.En
+.Ob
+atm
+.De
+\fBA\fPutomatic \fBT\fPoken \fBM\fPachine.
+.Fu
+Dispenses tokens.
+.No
+Every player in the Habitat has a bank account.  Money that is in your bank
+account cannot be taken from you by force (i.e., it doesn't protect you from
+blackmail, fraud, etc.).  The ATM is a device for accessing the account.
+.Cl 4
+.Sy
+.Pp 0
+atm
+.St 0 "free standing"
+.St 1 "wall mounted"
+.Pr
+None.
+.Co
+.Do
+\fRCauses the machine to tell you your account balance.
+.Go
+goTo
+.Ge
+\fRPrompts you for an amount, then withdraws that many tokens from your bank
+account and puts it in your Avatar's hand as a Token object.  If you ask for
+more money than you have available, it gives you what it can (i.e., your
+entire remaining balance).
+.Pu
+\fRIf you are holding any tokens, they are deposited into your bank account.
+The machine then tells you your new balance.
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+avatar
+.De
+You or somebody else.
+.Fu
+The animated figure.
+.No
+The avatar object is one of the keystones of the system.  Everything that
+happens is oriented around one or another avatars performing some action.  As
+a result, the state information associated with an avatar is quite complex.
+.Cl 1
+.Sy
+.Pp 0
+ordinary avatar
+.Pp 17
+penquin
+.Pp 18
+spider
+.Pp 19
+dragon
+.Pr
+.Pp health
+A number from 0 to 255 that indicates how healthy the Avatar is.  255 is the
+peak of health while 0 means the Avatar is dead.
+.Pp bank_account_balance
+How many tokens are in the player's bank account.
+.Pp turf
+The region number of the Avatar's Turf.
+.Pp stun_count
+The Avatar's current stun count.  Usually this will be 0 indicating that the
+Avatar is not stunned at all.  If stunned, the count will be a low number such
+as 2 or 3.
+.Pp customize(3)
+Three bytes containing the Avatar's current customization information.  The
+low nybble of \fCcustomize(1)\fR is the pattern of the Avatar's arms, while
+the high nybble is the pattern of the Avatar's torso.  The low nybble of
+\fCcustomize(2)\fR contains the pattern of the Avatars's legs.  The high
+nybble is not used yet, nor is any of \fCcustomize(3)\fR.
+.Pp curse_immunity
+This bit is set to indicate that the Avatar is immune to curses for the rest
+of the day.
+.Pp true_orientation
+A ``permanent'' value for the Avatar's \fCorientation\fP property, so that we
+can change the latter and then restore it.
+.Pp true_head_style
+A ``permanent'' value for the style of the Avatar's head, so that we can
+change it and then put it back.
+.Pp true_custom(3)
+``Permanent'' values for the Avatar's \fCcustomize(3)\fR properties so we can
+change them and then restore them.
+.Pp curse_type
+The Avatar's current curse, if any.  If the Avatar is not cursed (which will
+usually be the case), this is 0.
+.Pp curse_counter
+A counter which is interpreted based on \fCcurse_type\fR.
+.Co
+.Do
+\fRIf the Avatar indicated is you, execute the \fBdo\fP behavior associated
+with the object in hand, if any (this makes pointing simpler).  If the Avatar
+is somebody else, ``tag'' them if you are empty handed or punt to
+\fCdepends\fP if you are not.
+.Go
+\fRIf the Avatar indicated is you, change your posture (currently cycles
+between sitting and standing positions).  If it is someone else, \fCgoTo\fP
+them.
+.Ge
+\fRIf the Avatar indicated is you, pick an item out of your pockets (fails if
+memory overflows).  If it is someone else, try to grab whatever is in their
+hands (fails if they aren't holding anything).  Fails in either case if you
+are already holding something.
+.Pu
+\fRIf the Avatar indicated is you, try to put whatever you are holding into
+your pockets (fails if your pockets are full), unless it is a head, in which
+case you want to try to put it on (fails if you already have a head).  If the
+Avatar is someone else, try to hand whatever you are holding to them (fails if
+they are already holding something).  Fails in all cases if you are empty
+handed.
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+bag
+.De
+The sack.
+.Fu
+Can carry multiple items using only one hand.
+.No
+A bag is simply an object carrier that can be carried in the hands.  It can
+hold up to 5 objects.
+.Cl 6
+.Sy
+.Pp 0
+bag
+.St 0 "empty (closed)"
+.St 1 "full (open)"
+.Pp 1
+suitcase
+.St 0 "closed"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the bag is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked,
+0=locked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the bag
+.Pp key_lo
+The low byte of the key number to lock/unlock the bag
+.Co
+.Do
+adjacentOpenCloseContainer
+.Go
+goTo
+.Ge
+goToAndPickFromOrGet
+.Pu
+goToAndDropIntoIfOpen
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+ball
+.De
+Your standard spherical throwing toy.
+.Fu
+For playing games.
+.No
+The ball is relatively inert.  You can pick it up and throw it.
+.Cl 7
+.Sy
+.Pp 0
+ball
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+bed
+.De
+An ordinary bed.
+.Fu
+Can be sat on.
+.No
+The bed is a type of scenic object, usually found in building interiors.  Up
+to two Avatars can sit on it.  This doesn't really change anything, it's just
+for appearance.
+.Cl 130
+.Sy
+.Pp 0
+bed (side view)
+.St 0 "with pillow"
+.St 1 "without pillow"
+.Pr
+.Pp open_flags
+Flags showing whether the bed is open and/or unlocked.  Should be permanently
+set to 3 (open and unlocked).
+.Co
+.Do
+depends
+.Go
+goToFurniture
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+book/newspaper
+.De
+A readable document.
+.Fu
+Displays text or artwork on paper.
+.No
+A book's contents are kept in the host.  These are downloaded (in pieces) on
+demand when the player tries to read them.  We use the full-screen text editor
+routines that are used for mail and pieces of paper, but we use them in a
+read-only mode that allows us to handle larger documents (since the contents
+may be discarded after they have scrolled off the screen).
+.Cl 10
+.Sy
+.Pp 0
+book end view
+.Pp 1
+book side view
+.Pp 2
+magazine
+.Pp 3
+newspaper
+.Pp 4
+sheet of paper
+.St 0 "blank paper"
+.St 1 "paper with writing"
+.St 2 "envelope"
+.Pp 5
+candelabra
+.Pp 6
+bottle
+.St 0 "empty (laying on side)"
+.St 1 "full (standing up)"
+.Pp 7
+stone tablets
+.Pp 8
+stock certificate
+.Pr
+.Pp text_id
+Which document in the text database this book represents.
+.Pp current_page
+The page of this document currently being read (or most recently read).
+.Pp last_page
+The last page which may be read in this document.
+.Co
+.Do
+\fRIf the player is holding the book, try to read it.  Otherwise
+\fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+boomerang
+.De
+Your standard Australian throwing toy.
+.Fu
+Joke.
+.Cl 11
+.Sy
+.Pp 0
+boomerang
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.En
+.Ob
+bottle
+.De
+A glass bottle.
+.Fu
+Holds water, other liquids.
+.No
+The bottle can hold liquids.  There is only one liquid substance defined right
+now, water, but we may add others as the design evolves (e.g., oil, fuel,
+etc.).  The bottle is either filled or empty.  There are no in-between states.
+.Cl 12
+.Sy
+.Pp 0
+bottle
+.St 0 "empty (laying on side)"
+.St 1 "full (standing up)"
+.Pr
+.Pp filled
+Flag telling whether bottle is filled (=1) or empty (=0).
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+Pour the contents of the bottle on the indicated spot.  Of course, you can
+only do this with a full bottle.
+.As
+None.
+.En
+.Ob
+box
+.De
+Your basic box.
+.Fu
+Can carry more than one item using only one set of hands.
+.No
+A box is simply an object carrier that can be carried in the hands.  It is
+like a bag, but it has a larger capacity (10 instead of 5).
+.Cl 13
+.Sy
+.Pp 0
+box
+.St 0 "closed"
+.St 1 "open"
+.Pp 1
+treasure chest
+.St 0 "closed"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the box is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked,
+0=locked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the box
+.Pp key_lo
+The low byte of the key number to lock/unlock the box
+.Co
+.Do
+adjacentOpenCloseContainer
+.Go
+goTo
+.Ge
+goToAndPickFromOrGet
+.Pu
+goToAndDropIntoIfOpen
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+bridge
+.De
+Your basic small foot or highway bridge.
+.Fu
+Provides a pathway across water.
+.No
+This is a large scenic background object.
+.Cl 131
+.Sy
+.Pp 0
+bridge side view
+.St 0 "entire side view"
+.St 1 "left end"
+.St 2 "center section"
+.St 3 "right end"
+.St 4 "left end with center section"
+.Pp 1
+bridge end view
+.St 0 "entire end view"
+.St 1 "left side"
+.St 2 "center section"
+.St 3 "right side"
+.St 4 "left side with center section"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToCursor
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+building
+.De
+A house or building.
+.Fu
+A background object to represent turfs and other structures.
+.Cl 132
+.Sy
+.Pp 0
+house
+.St 0 "entire house, all details"
+.St 1 "walkway only"
+.St 2 "house body, no details"
+.St 3 "entire house, no body windows"
+.St 4 "body windows only"
+.St 5 "doorway, no roof"
+.St 6 "roof, no chimney"
+.St 7 "roof, with chimney"
+.St 8 "doorway, with roof"
+.St 9 "chimney only"
+.St 10 "house body with windows and chimney, no doorway"
+.Pr
+.Pp connection
+The region to go to when \fBGO\fPing to the building.  If 0, the region
+adjacent to the current region in the direction of the building is used.
+.Co
+.Do
+depends
+.Go
+goToSky
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+bureaucrat-in-a-box
+.De
+Your basic Habitat civil servant.
+.Fu
+An interface between the players and the sysops.
+.No
+The bureaucrat-in-a-box is a special type of Oracle.  It is a container than
+can hold one thing, which should be a head.  This head is displayed as the
+bureaucrat's face.
+.Cl 158
+.Sy
+.Pp 0
+jack-in-the-box bureaucrat
+.Pr
+.Pp open_flags
+Flags showing whether the bureaucrat is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+askOracle
+.Re
+illegal
+.As
+None
+.En
+.Ob
+bush
+.De
+Your basic bushy plant.
+.Fu
+Scenic element.  Obstruction.
+.No
+This is a fairly inert scenic element, provided almost entirely for visual
+appeal.
+.Cl 133
+.Sy
+.Pp 0
+round bush
+.St 0 "with trunk"
+.St 1 "without trunk"
+.Pp 1
+``flaming'' bush
+.Pp 2
+spindly bush
+.St 0 "without leaves"
+.St 1 "with leaves"
+.St 2 "with blinking leaves"
+.Pp 3
+mushrooms
+.St 0 "patch of 4 mushrooms"
+.St 1 "group of 3 mushrooms on left"
+.St 2 "single mushroom on right"
+.Pp 4
+grass
+.St 0 "tall and short"
+.St 1 "tall only"
+.St 2 "short only"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+chair
+.De
+Your basic chair.
+.Fu
+Can be sat in.
+.No
+The chair is a type of scenic object, usually found in building interiors.  An
+Avatar can sit in it.  This doesn't really change anything, it's just for
+appearance.
+.Cl 134
+.Sy
+.Pp 0
+chair front view
+.Pp 1
+chair side view
+.Pp 2
+bar stool (``front view'')
+.Pp 3
+bar stool (``side view'' \(em but really same as front view)
+.Pr
+.Pp open_flags
+Flags showing whether the chair is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+depends
+.Go
+goToFurniture
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+change-o-matic
+.De
+An amazing gadget.
+.Fu
+Allows players to customize the color and pattern of items in their turves.
+.Cl 84
+.Sy
+.Pp 0
+change-o-matic
+.St 0 "quiescent machine"
+.St 1 "device operating"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+\fRChange the color/pattern of the object pointed to to the next color/pattern
+in a pre-determined sequence.  This only works inside your turf with immovable
+objects and with buildings immediately outside your turf.
+.As
+None.
+.En
+.Ob
+chest
+.De
+A chest of drawers.
+.Fu
+Can hold stuff.
+.No
+The chest of drawers is both a piece of furniture, for scenic purposes, and a
+container.  It can hold up to 20 items.
+.Cl 135
+.Sy
+.Pp 0
+chest of drawers, front view
+.St 0 "closed"
+.St 1 "open"
+.Pp 1
+door (closet)
+.St 0 "closed"
+.St 1 "open"
+.Pp 2
+chest of drawers, side view
+.Pr
+.St 0 "closed"
+.St 1 "open"
+.Pp open_flags
+Flags showing whether the chest is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked,
+0=locked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the chest
+.Pp key_lo
+The low byte of the key number to lock/unlock the chest
+.Co
+.Do
+adjacentOpenCloseContainer
+.Go
+goTo
+.Ge
+goToAndPickFromIfOpen
+.Pu
+goToAndDropIntoIfOpen
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+club
+.De
+The most basic weapon.
+.Fu
+Pain and injury at close range.
+.No
+The club is the simplest weapon.  You go up to somebody and you hit them with
+it.
+.Cl 16
+.Sy
+.Pp 0
+club
+.St 0 "horizontal"
+.St 1 "diagonal"
+.St 2 "vertical"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+strike
+.As
+None.
+.En
+.Ob
+coke machine
+.De
+Soda pop vending machine.
+.Fu
+Decorative scenic object, joke.
+.No
+The coke machine mostly just sits there.  If you put a Token in it it will
+take it, but it will never actually give you a coke.
+.Cl 136
+.Sy
+.Pp 0
+coke machine
+.Pr
+.Pp take
+The cumulative income generated by this machine.  This value should not be
+altered manually.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+\fRTry to buy a coke (nothing will happen except the payment).
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+compass
+.De
+Your basic pointer to the West Pole.
+.Fu
+Tells absolute direction.
+.No
+The compass doesn't actually DO anything.  It is simply displayed in a manner
+which indicates the direction that is West.
+.Cl 17
+.Sy
+.Pp 0
+compass
+.St 0 "pointing up"
+.St 1 "pointing right"
+.St 2 "pointing down"
+.St 3 "pointing left"
+.St 4 "pointer spinning"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+couch
+.De
+Your basic living room couch.
+.Fu
+Like chair, but can be sat in by multiple avatars.
+.No
+A couch works just like a chair, but it can hold two avatars.
+.Cl 137
+.Sy
+.Pp 0
+couch, front view
+.Pp 1
+couch, side view (not supported)
+.Pr
+.Pp open_flags
+Flags showing whether the couch is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+depends
+.Go
+goToFurniture
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+countertop
+.De
+Store counter.
+.Fu
+Can support things.  Mediates transactions.
+.No
+The countertop is a mechanism for mediating transactions.  Objects placed on
+the counter follow a slightly different protocol when being picked up by
+passers by.  If you place an object on the counter, you can pick it up again.
+However, if somebody else places an object on the counter, you can only pick
+it up if you already placed an item of your own on the counter.  This
+interlock is mediated by the host, when it decides whether a GET operation has
+succeeded or not.  The countertop can contain up to 5 items.
+.Cl 18
+.Sy
+.Pp 0
+countertop
+.Pr
+.Pp open_flags
+Flags showing whether the countertop is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Pp whoput(5)
+The global ID's of the Avatars who put things down on the counter.  There is
+one entry for each slot in the container.  These values ordinarily should not
+be altered manually.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndPickFrom \fR(subject to transaction constraints described above.)
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+crystal ball
+.De
+Your basic crystal ball.
+.Fu
+Oracle and diviner.
+.No
+The crystal ball functions rather like the fountain, but on a more personal
+level.  It answers questions, makes predictions, and generally does all of the
+things that oracles are supposed to do.  However, it is, by tradition, subtle
+and not completely reliable.  Sometimes it answers your questions immediately.
+Sometimes it even carries on a conversation with you.  Most of the time
+though, it takes quite a while to get an answer: you have to come back several
+days later.  Occasionally it says things spontaneously.  Such things are
+usually important.  Anyone in the region with the crystal ball can hear what
+it says.  Of course, the minds behind the ball are our own.  Somebody has to
+respond, but the nature of the oracle business is such that a response need
+not be timely, nor need all questions be answered.
+.Cl 20
+.Sy
+.Pp 0
+crystal ball
+.St 0 "plain"
+.St 1 "sparkling"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+askOracle
+.Re
+throw
+.As
+ORACLESPEAK
+.En
+.Ob
+die
+.De
+A six-sided die.
+.Fu
+For gambling, games.
+.No
+The die is a simple object, like the compass, whose only real function is to
+display its own state.
+.Cl 21
+.Sy
+.Pp 0
+single die
+.St 0 "rolling"
+.St "1-6" "1 through 6"
+.Pp 1
+pair of dice
+.St 0 "single die rolling"
+.St "1-6" "single die 1 through 6"
+.St 7 "pair rolling"
+.St "8-43" "pairs 1-1 through 6-6"
+.Pr
+None.
+.Co
+.Do
+\fRRoll the die (dice).
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+display case
+.De
+Store display case.
+.Fu
+Can hold things visibly but safely, even if unattended.
+.No
+The display case is a transaction mediator similar to the countertop.  It has
+an owner.  The protocol that it obeys is that objects placed in it by the
+owner may only be picked up again by owner.  Thus, objects can be left open to
+view with impunity, even if unattended.  The display case may hold up to 5
+items.
+.Cl 22
+.Sy
+.Pp 0
+display case
+.St 0 "entire case"
+.St 1 "without legs"
+.St 2 "without shelf"
+.St 3 "without center shelf"
+.Pr
+.Pp open_flags
+Flags showing whether the display case is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Pp owner
+The global ID of the Avatar who owns this display case (0 if unowned).
+.Pp locked(5)
+Bits that encode whether the corresponding slots in the contents list contain
+objects which may only be removed by the owner.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndPickFrom \fR(subject to the constraints of the above protocol.)
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+door
+.De
+The conventional door.
+.Fu
+Graphic element in buildings.  Passageway through wall.
+.No
+A door is like a wall section, except that it can be opened to allow passage
+through it.  You can only open a door if it is unlocked or if you have the
+key.
+.Cl 23
+.Sy
+.Pp 0
+plain door
+.St 0 "closed"
+.St 1 "open"
+.Pp 1
+door with window
+.St 0 "closed"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the door is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked,
+0=locked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the door
+.Pp key_lo
+The low byte of the key number to lock/unlock the door
+.Pp connection
+The region to go to when \fBGO\fPing through the door.  If 0, the region
+adjacent to the current region in the direction of the door is used.
+.Co
+.Do
+\fRIf adjacent, open/close the door.  Otherwise, depends.  Open fails if the
+door is locked and the Avatar isn't holding the key.  If the Avatar is holding
+the key while closing it, the door will be locked.
+.Go
+\fRIf the door is closed or the player is pointing at the frame or the door
+itself (as opposed to the empty opening), walk to the door.  Otherwise, walk
+through the door to the region it is connected to.
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+dropbox
+.De
+A convenient roadside mail drop box.
+.Fu
+Obsolete interface to mail system.
+.No
+This used to be an object for mailing letters.  Now it is just scenic.
+.Cl 24
+.Sy
+.Pp 0
+dropbox
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+drugs
+.De
+Little pills.
+.Fu
+A magic-like hook for arbitrary effects.
+.No
+A drug object is represented as a pill bottle.  The bottle contains a certain
+number of pills.  This number is decremented each time you take one.  When
+they run out the bottle is no longer effective.  Taking a pill causes
+something to happen.  There are a variety of possible effects.
+.Cl 25
+.Sy
+.Pp 0
+pill bottle
+.Pr
+.Pp count
+How many pills are left.
+.Pp effect
+The effect of the pills.  This number selects one of several different
+possible effects.
+.Co
+.Do
+\fRTake a pill and apply it's (host defined) effect, if any.  Decrement the
+pill count.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+elevator
+.De
+It takes you up and down.
+.Fu
+A form of limited-range teleport that doesn't require money to use.
+.No
+An elevator operates like a teleport, but you don't activate it with a token.
+Instead, it is just sort of ``permanently active''.  In addition, elevators
+use a special two-part area code (the first part of which is invisible to the
+players) so that you can't jump from elevators to teleports (i.e., cadge free
+teleport rides off of the system) but only go from floor to floor within a
+building.
+.Cl 28
+.Sy
+.Pp 0
+jump tube
+.St 0 "entire elevator"
+.St 1 "without control box"
+.St 2 "without ground skirt"
+.St 3 "without control box or ground skirt"
+.St 4 "without ground skirt or rivets"
+.St 5 "without control box, ground skirt, or rivets"
+.Pr
+.Pp address
+The ``teleport address'' of the elevator.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+\fR``Teleport'' the player to the address that is the talk string typed by the
+player.
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+escape device
+.De
+Your basic panic button.
+.Fu
+Gets you out of a jam, fast.
+.No
+This device is very rare and expensive.  It is a little box with a button on
+it.  If you press the button, you are instantly teleported back to your turf.
+Since this is such a powerful device, it is given only a limited charge.  Each
+teleport uses one unit of charge.  When the charge level reaches zero, the
+device stops working.  Note that the typical charge found in practice should
+be 1.
+.Cl 26
+.Sy
+.Pp 0
+escape device
+.Pr
+.Pp charge
+How many teleports are left in this device before it runs out.
+.Co
+.Do
+\fRIf the player is holding the device, press the button and bug out.  If not
+holding, \fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+fake gun
+.De
+A pistol (almost).
+.Fu
+Apparant death and destruction from a distance, but not really.
+.No
+The fake gun works like the real gun, except when you shoot with it a flag
+that says "BANG!" comes out instead of actually shooting somebody.
+.Cl 27
+.Sy
+.Pp 0
+fake gun
+.St 0 "plain"
+.St 1 "with ``BANG'' flag"
+.Pr
+None
+.Co
+.Do
+\fRIf the player is holding the gun and the flag is out, reset it.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+\fRAct as if shooting the gun, then have the flag pop out.
+.As
+None.
+.En
+.Ob
+fence
+.De
+A section of an impassable, man-made barrier.
+.Fu
+Linear obstruction.
+.No
+Each fence object is a single section of fence, running horizontally with
+respect to the viewpoint.  Fence sections are of a standard size.  A fence
+blocks passage across the line that it runs on.  For visual stylistic reasons,
+there are several different styles of fencing available.
+.Cl 138
+.Sy
+.Pp 0
+chain-link fence
+.St 0 "left post and fencing"
+.St 1 "post only"
+.St 2 "fencing only"
+.Pr
+None
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+flag
+.De
+The colors.
+.Fu
+Scenic decoration.
+.No
+A flag is a decoration as well as a marker that can be carried around.
+.Cl 29
+.Sy
+.Pp 0
+flag
+.St 0 "phase A"
+.St 1 "phase B"
+.St 2 "phase C"
+.Pr
+.Pp mass
+A flag that indicates whether or not the object can be picked up.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+getMass
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None
+.En
+.Ob
+flashlight
+.De
+Your basic hand torch.
+.Fu
+Portable light source at night.
+.No
+The Habitat can follow a cycle of day and night.  When it is night-time,
+the screen is displayed in darkened colors, which makes things hard to see.
+Having a flashlight in the region makes the region appear like daytime
+(provided that the light is turned on, of course), even if it is night
+elsewhere.  We may wish to consider requiring batteries, but for now it just
+works forever.
+.Cl 30
+.Sy
+.Pp 0
+flashlight
+.St 0 "off"
+.St 1 "on (actually, same as off)"
+.Pp 1
+torch
+.St 0 "unlit"
+.St 1 "burning"
+.Pp 2
+candelabra
+.St 0 "off"
+.St 1 "on (actually, same as off)"
+.Pr
+.Pp on
+Flag telling whether the light is on (=1) or off (=0).
+.Co
+.Do
+\fRIf the player is holding the flashlight, turn it on or off.  Otherwise,
+\fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+flat
+.De
+Your basic background.
+.Fu
+Provide the backdrop for regions.
+.No
+A flat is a multi-purpose background object.  It comes in several different
+size variants, however it is basically just a colored rectangle.  There are
+four different types of flat.  A flat's type governs how it is treated for
+purposes of walking.  The four types correspond to the notions of ground, sky,
+wall and impassable ground.
+.Cl 93
+.Sy
+.Pp 0
+tall ground rectangle
+.Pp 1
+short ground rectangle
+.Pp 2
+``mod'' pattern wall
+.Pp 3
+short wall rectangle
+.Pp 4
+plain wall
+.Pp 5
+brick wall
+.Pp 6
+``mod'' sky
+.Pp 7
+medium sky rectangle
+.Pp 8
+mountain
+.St 0 "with snowcap"
+.St 1 "without snowcap"
+.St 2 "snowcap only"
+.Pp 9
+cave mouth
+.St 0 "rounded top"
+.St 1 "square top"
+.Pp 10
+ball
+.Pp 11
+tree/cloud
+.St 0 "entire cloud"
+.St 1 "upper right corner"
+.St 2 "lower left corner"
+.St 3 "right half"
+.St 4 "bottom half"
+.Pp 12
+pipes
+.St 0 "full regalia"
+.St 1 "horizontal pipe section"
+.St 2 "horizontal section with fitting"
+.St 3 "horizontal section with upward elbow on left"
+.St 4 "L-shaped secton"
+.St 5 "vertical section with elbow at bottom"
+.St 6 "vertical section with fitting"
+.St 7 "horizontal fitting only"
+.St 8 "vertical fitting with small section"
+.St 9 "vertical elbow only"
+.St 10 "vertical section with elbow"
+.St 11 "vertical fitting only"
+.St 12 "horizontal section with corner on right"
+.St 13 "valve"
+.St 14 "vertical section with fitting"
+.St 15 "right corner"
+.St 16 "short vertical section"
+.St 17 "vertical elbow"
+.Pr
+.Pp flat_type
+What sort of flat this is: 0=sky, 1=wall, 2=ground, 3=impassable.
+.Co
+.Do
+depends
+.Go
+flatGo
+.Ge
+noEffect
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+floor lamp
+.De
+A household floor lamp.
+.Fu
+Provides light at night.
+.No
+The Habitat can follow a cycle of day and night.  When it is night-time,
+the screen is displayed in darkened colors, which makes things hard to see.
+Having a floor lamp in the region makes the region appear like daytime
+(provided that the lamp is turned on, of course), even if it is night
+elsewhere.  The floor lamp is a decorative furniture object also.
+.Cl 139
+.Sy
+.Pp 0
+floor lamp
+.St 0 "off, with shade"
+.St 1 "on, with shade"
+.St 2 "off, without shade"
+.St 3 "on, without shade"
+.St 4 "off, with shade and bent neck"
+.St 5 "on, with shade and bent neck"
+.St 6 "off, with bent neck, no shade"
+.St 7 "on, with bent neck, no shade"
+.St 8 "off, bent neck and shade, no base"
+.St 9 "on, bent neck and shade, no base"
+.St 10 "off, bent neck, no shade, no base"
+.St 11 "on, bent neck, no shade, no base"
+.Pr
+.Pp on
+Flag telling whether or not the lamp is turned on (1=on).
+.Co
+.Do
+\fRWalk to the lamp if not already adjacent to it, and turn it on or off.
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+fortune machine
+.De
+A vending machine that tells your fortune.
+.Fu
+Humor.
+.No
+The fortune machine is a little like the oracle, but less profound.  You give
+it money and it tells you a fortune.  The fortunes are little proverbs,
+sayings, predictions and pieces of advice in the tradition of fortune cookie
+programs everywhere.
+.Cl 140
+.Sy
+.Pp 0
+fortune machine
+.St 0 "globe, box, pedestal and base"
+.St 1 "globe, pedestal and base"
+.St 2 "parking meter with pedestal and base"
+.St 3 "globe only"
+.St 4 "globe and pedestal"
+.St 5 "globe and box"
+.Pr
+.Pp take
+The cumulative income generated by this machine.  This value should not be
+altered manually.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+\fRIf holding tokens, put money into the machine and buy a fortune.  The price
+of the fortune will be deducted from the amount in hand and the fortune itself
+will appear in a balloon message.
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+fountain
+.De
+Generic looking tacky town square fountain.
+.Fu
+Scenic element.  Water source.  Oracle.
+.No
+The fountain is a major scenic element, but its most dramatic function is as
+oracle.  The oracle answers questions, makes predictions, and generally does
+all of the things that oracles are supposed to do.  However, it is, by
+tradition, subtle and not completely reliable.  Sometimes it answers your
+questions immediately.  Sometimes it even carries on a conversation with you.
+Most of the time though, it takes quite a while to get an answer: you have to
+come back several days later.  Occasionally it says things spontaneously.
+Such things are usually important.  Anyone in the region with the oracle can
+hear what it says.  Of course, the minds behind the oracle are our own.
+Somebody has to respond, but the nature of the oracle business is such that a
+response need not be timely, nor need all questions be answered.
+.Cl 141
+.Sy
+.Pp 0
+fountain
+.St 0 "with cherub and spout"
+.St 1 "spout, no cherub"
+.St 2 "no spout, no cherub"
+.St 3 "cherub only"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndFill
+.Pu
+noEffect
+.Ta
+askOracle
+.Re
+illegal
+.As
+ORACLESPEAK
+.En
+.Ob
+frisbee
+.De
+Your standard disk throwing toy.
+.Fu
+For playing games.
+.No
+The frisbee is relatively inert.  You can pick it up and throw it.  For the
+time being, frisbee operates just like the ball.
+.Cl 31
+.Sy
+.Pp 0
+frisbee
+.St 0 "edge view"
+.St 1 "top view"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+game piece
+.De
+A typical board game marker.
+.Fu
+Enables board games such as checkers, chess and backgammon.
+.No
+The game piece is a simple marker that can be moved around.
+.Cl 5
+.Sy
+.Pp 0
+game piece
+.St 0 "pawn"
+.St 1 "bishop"
+.St 2 "knight"
+.St 3 "rook"
+.St 4 "king"
+.St 5 "queen"
+.St 6 "checker"
+.St 7 "checker king"
+.St 8 "backgammon piece"
+.St 9 "backgammon piece"
+.Pr
+None.
+.Co
+.Do
+\fRChange the game piece's state depending on its current state and what style
+of piece it is.  Thus checker pieces are turned into kings while reversi
+pieces simply change color.
+.Go
+goTo
+.Ge
+\fRPick the object up telekinetically.
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+garbage can
+.De
+Conventional garbage can or wastebasket.
+.Fu
+Makes things disappear.
+.No
+The garbage can is a means for getting rid of things.  It operates like any
+other container, except that upon command it will cause to disappear anything
+inside it.  The garbage can will hold up to 20 items.
+.Cl 32
+.Sy
+.Pp 0
+garbage can
+.St 0 "closed"
+.St 1 "open"
+.Pp 1
+kitchen wastebasket
+.St 0 "closed"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the garbage can is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+\fRFlush the garbage can, causing any objects inside it to disappear.
+.Go
+goTo
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None
+.En
+.Ob
+gemstone
+.De
+Like a rock, only worth more.
+.Fu
+Valuable.  May contain magic.
+.No
+Some objects in the Habitat are magical.  A magical object is one that
+does something special and powerful in addition to whatever other things the
+object would do intrinsically.  The magical function may vary.
+.Cl 33
+.Sy
+.Pp 0
+gemstone
+.St 0 "plain"
+.St 1 "sparkling"
+.Pr
+.Pp magic_type
+Sort of magic this gemstone contains.  0 if not magical.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagicIfMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+rdoMagicIfMagic
+.As
+None.
+.En
+.Ob
+ghost
+.De
+Invisible Avatars who act like they're not there.
+.Fu
+Avoids traffic jams and allows theaters to operate.
+.No
+The ghost object simply holds the graphic image for the icon that appears
+when there are ghost(s) in the region with you.
+.Cl 3
+.Sy
+.Pp 0
+ghost icon
+.Pr
+None.
+.Co
+.Do
+noEffect
+.Go
+noEffect
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+glue
+.De
+Invisible substance.
+.Fu
+Holds objects together as if they were a single object.
+.No
+Glue is used to fasten down non-scenic object in order to use them as part of
+the scenery.  The user interface should never allow players to point to glue.
+The glue may hold up to six items, each with an individual (x,y) offset
+position from the glue's position.
+.Cl 98
+.Sy
+.Pp 0
+invisible glue
+.Pr
+.Pp open_flags
+Flags showing whether the glue is open and/or unlocked.  Should be permanently
+set to 3 (open and unlocked).
+.Pp x_offset_1
+The X-offset from the glue's position of the first item in the glue's contents
+list.
+.Pp y_offset_1
+The Y-offset from the glue's position of the first item in the glue's contents
+list.
+.Pp x_offset_2
+The X-offset from the glue's position of the second item in the glue's
+contents list.
+.Pp y_offset_2
+The Y-offset from the glue's position of the second item in the glue's
+contents list.
+.Pp x_offset_3
+The X-offset from the glue's position of the third item in the glue's contents
+list.
+.Pp y_offset_3
+The Y-offset from the glue's position of the third item in the glue's contents
+list.
+.Pp x_offset_4
+The X-offset from the glue's position of the fourth item in the glue's
+contents list.
+.Pp y_offset_4
+The Y-offset from the glue's position of the fourth item in the glue's
+contents list.
+.Pp x_offset_5
+The X-offset from the glue's position of the fifth item in the glue's contents
+list.
+.Pp y_offset_5
+The Y-offset from the glue's position of the fifth item in the glue's contents
+list.
+.Pp x_offset_6
+The X-offset from the glue's position of the sixth item in the glue's contents
+list.
+.Pp y_offset_6
+The Y-offset from the glue's position of the sixth item in the glue's contents
+list.
+.Co
+.Do
+illegal
+.Go
+illegal
+.Ge
+illegal
+.Pu
+illegal
+.Ta
+illegal
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+grenade
+.De
+A little bomb that goes boom.
+.Fu
+Death and mayhem in quantity.
+.No
+A grenade has a pin.  It is harmless unless the pin is pulled.  If the pin is
+pulled, then it will explode the next time it leaves the avatar's hand,
+blowing up everything at or near the destination location.  Also, once the pin
+is pulled it may not be reinserted.
+.Cl 35
+.Sy
+.Pp 0
+grenade
+.Pr
+.Pp pinpulled
+Flag that the pin has been pulled.
+.Co
+.Do
+\fRIf the player is holding the grenade, pull the pin.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+\fRExplodes after awhile, damaging nearby objects and avatars as if they'd
+been shot.
+.En
+.Ob
+ground
+.De
+The basic background below the horizon.
+.Fu
+Can be walked on.  Can be pointed at, returning a location.
+.Cl 36
+.Sy
+.Pp 0
+tall ground rectangle
+.Pp 1
+short ground rectangle
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToCursor
+.Ge
+noEffect
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+gun
+.De
+A pistol.
+.Fu
+Death and destruction from a distance.
+.No
+A gun works pretty much as you would expect.  You shoot by pointing at the
+target and selecting \fBdo\fP.  We should decide if requiring ammunition would
+be a good idea.
+.Cl 37
+.Sy
+.Pp 0
+gun type #1
+.Pp 1
+gun type #2
+.Pp 2
+gun type #3
+.Pp 3
+mauser
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+shoot
+.As
+None.
+.En
+.Ob
+hand of god
+.De
+The finger of doom.
+.Fu
+A probably impractical system management tool.
+.No
+The hand of god is a giant animated hand that comes down off the top of the
+screen and fires a lightning bolt off its finger at a target, resulting a
+large explosion that leaves a small pile of smoking cinders in its wake.
+However, due to the size of the image we will probably never make it work.
+.Cl 38
+.Sy
+.Pp 0
+hand of god with animating lightning bolt
+.Pp 1
+pile of cinders
+.Pr
+None.
+.Co
+\fRNone: it is never selectable on the screen.
+.As
+None.
+.En
+.Ob
+head
+.De
+Your basic head.
+.Fu
+Decorative.  Helps distinguish one avatar from another.
+.No
+A head is simply an object that serves to personalize an avatar.  It is
+represented by a cel that simply follows the avatar's neck around.
+.Cl 127
+.Sy
+.Pp 0
+There are numerous head styles.  See the appendix.
+.Pr
+None.
+.Co
+.Do
+\fRIf wearing the head, punt to the \fBdo\fP operation for the avatar itself;
+otherwise \fCdepends\fP,
+.Go
+goTo
+.Ge
+\fRIf wearing the head, take it off.  Otherwise, try to pick it up.  Fails if
+the Avatar is not empty-handed or if the head is being worn by somebody else.
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+hole
+.De
+A hole in the ground.
+.Fu
+Allows us to hide things in plain sight.
+.No
+A hole is simply a container that is invisible when it is closed.
+.Cl 88
+.Sy
+.Pp 0
+hole
+.St 0 "closed (invisible)"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the hole is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked \(em
+the hole should be permanently unlocked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the hole (should be permanently
+set to 0).
+.Pp key_lo
+The low byte of the key number to lock/unlock the hole (should be permanently
+set to 0).
+.Co
+.Do
+\fROpens/closes the hole, but only if you are adjacent to it and holding a
+shovel.
+.Go
+goTo
+.Ge
+goToAndPickFromIfOpen
+.Pu
+goToAndDropIntoIfOpen
+.Ta
+broadcast
+.Re
+noEffect
+.As
+None.
+.En
+.Ob
+hot tub
+.De
+A touch of Marin.
+.Fu
+A place to hang out.
+.No
+The hot tub is a silly in-joke.  In spite of its esoteric appearance, it
+actually operates more or less like ordinary ground.  The only difference is
+that it has a front part and a back part so that the avatars can be sandwiched
+in between and thus look like they are in the water.  It's also a water
+source.
+.Cl 144
+.Sy
+.Pp 0
+hot tub
+.St 0 "entire tub"
+.St 1 "front half"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToCursor
+.Ge
+goToAndFill
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+house cat
+.De
+A lazy cat that lays around the house.
+.Fu
+Scenic element.  Puzzle with no solution.
+.No
+The housecat just lays there and sleeps.  Every evening it moves to a
+different spot.  You can't pick it up or move it.
+.Cl 143
+.Sy
+.Pp 0
+house cat
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+instant object pill
+.De
+A little pill, until you use it.
+.Fu
+Add water, it turns into some object.
+.No
+A instant object pill looks like an ordinary pill, until you pour water on it,
+at which point it transforms into some other sort of object.  A instant object
+pill can, conceivably, turn into anything.
+.Cl 40
+.Sy
+.Pp 0
+instant object pill
+.Pr
+.Pp instant_what
+Class of object that this turns into.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+jukebox
+.De
+The all-American Rockola.
+.Fu
+Plays music.
+.No
+The jukebox is supposed to be a coin operated music machine.  Currently it's
+just an inert scenic object.  Someday this may change.
+.Cl 145
+.Sy
+.Pp 0
+jukebox
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+key
+.De
+A key for our unpickable locks.
+.Fu
+Opens locked doors, containers.
+.No
+Each key object has a key number, as does each object with a lock (doors,
+containers, and so on).  You can open locks with a key whose number matches
+that of the lock.  It is possible for there to be more than one key object in
+the world with given key number, so that a lock can have multiple keys.
+To use a key, all you have to do is have it in your hand when you try to open
+the locked thing.
+.Cl 42
+.Sy
+.Pp 0
+ordinary key
+.St 0 "type #1"
+.St 1 "type #2"
+.Pp 1
+card key
+.Pr
+.Pp key_number_hi
+The high byte of the key number of this key.
+.Pp key_number_lo
+The low byte of the key number of this key.
+.Co
+.Do
+\fRDisplays the key number of the key.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+knick knack
+.De
+Your basic gewgaw.
+.Fu
+Scenic element.  Possibly magical.
+.No
+Knick knacks are usually inert scenic objects, intended only to clutter up a
+scene for purposes of visual variety.  Occasionally, a knick-knack will be
+magical.  The set of possible gewgaws is nearly infinite.  We will pick a
+reasonable sample of several different styles.
+.Cl 43
+.Sy
+.Pp 0
+candelabra
+.Pp 1
+trophy
+.Pp 2
+knick-knack
+.Pp 3
+vase of flowers
+.St 0 "vase only"
+.St 1 "vase with flowers"
+.St 2 "flowers only"
+.St 3 "vase with flowers"
+.Pp 4
+juggling balls
+.St 0 "in a pile"
+.St 1 "juggling"
+.Pp 5
+chainsaw
+.St 0 "off"
+.St 1 "on"
+.Pp 6
+teddy bear
+.Pp 7
+rubber ducky
+.Pp 8
+answering machine
+.St 0 "light off"
+.St 1 "light on"
+.St 2 "light blinking"
+.Pp 9
+telephone
+.Pp 10
+towel
+.Pp 11
+microphone
+.Pp 12
+road pizza
+.Pp 13
+cups
+.St 0 "goblet"
+.St 1 "mug"
+.St 2 "wine glass"
+.St 3 "hi-ball glass"
+.St 4 "fancy drink glass"
+.Pr
+.Pp magic_type
+Sort of magic this knick-knack contains.  0 if not magical.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagicIfMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+rdoMagicIfMagic
+.As
+None.
+.En
+.Ob
+knife
+.De
+Sharp pointy thing.
+.Fu
+Death and injury at close range.
+.No
+The knife works like a club: you go up to somebody and attack them with it.
+.Cl 44
+.Sy
+.Pp 0
+knife type #1
+.Pp 1
+knife type #2
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+strike
+.As
+None.
+.En
+.Ob
+magic lamp
+.De
+Just like Aladdin had...
+.Fu
+Rub it and a genie appears to grant a wish.
+.No
+The magic lamp object represents both the magic lamp and the genie.  You rub
+on the lamp and the genie appears.  The first thing you say to it is
+interpreted as your wish and then the genie disappears.  The genie operates
+like the oracle: it takes down your request; at some point one of our system
+people reviews the request and does something in response.  It may take a
+while for your wish to be answered, and even then the answer may not be what
+you want or expect.  The genie only grants one wish per person.  Once the
+genie has noted your wish he disappears, and the lamp disappears with him.  If
+you need to make another wish you must find another lamp (and another genie).
+.Cl 45
+.Sy
+.Pp 0
+magic lamp
+.St 0 "plain lamp"
+.St 1 "genie appearing (and staying)"
+.St 2 "genie talking"
+.St 3 "genie disappearing"
+.Pr
+.Pp lamp_state
+What state the lamp is in, internally.  Should be initialized to zero and then
+not altered manually.
+.Pp wisher
+The global ID of the Avatar making a wish, once the wishing starts.
+.Co
+.Do
+\fRIf you are the one holding the lamp, rub it and make the genie appear.
+Otherwise, \fCdepends\fR.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+\fRIf the speaker is the person making a wish, interpret the message as the
+wish; otherwise, \fCbroadcast\fP.
+.Re
+throw
+.As
+\fRAfter a certain amount of time, if a player has rubbed the lamp but has not
+made a wish, the Genie gives up and leaves, causing the lamp to disappear.
+.En
+.Ob
+magic staff
+.De
+A stick about as tall as an avatar.
+.Fu
+Generic magic talisman.
+.No
+Staves are usually magical.  An staff will do something special and powerful.
+The magical function may vary.  Staves are relatively rare and contain
+unusually powerful forms of magic.
+.Cl 46
+.Sy
+.Pp 0
+magic staff
+.Pr
+.Pp magic_type
+Sort of magic this staff contains.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+rdoMagic
+.As
+None.
+.En
+.Ob
+magic wand
+.De
+Just like your fairy godmother has.
+.Fu
+Generic magic talisman.
+.No
+Wands are usually magical.  A wand will do something special but it not as
+powerful as a staff.  The magical function may vary.  Wands are relatively
+common as magical objects go (which is not very common at all) and usually
+contain fairly ordinary forms of magic.
+.Cl 47
+.Sy
+.Pp 0
+high-tech wand
+.Pp 1
+traditional magician's wand
+.Pp 2
+teddy bear
+.Pr
+.Pp magic_type
+Sort of magic this wand contains.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+rdoMagic
+.As
+None.
+.En
+.Ob
+mailbox
+.De
+A conventional household roadside mailbox.
+.Fu
+Obsolete interface to mail system.
+.No
+This used to be an object for sending and receiving mail.  Now it is just
+scenic.
+.Cl 48
+.Sy
+.Pp 0
+mailbox
+.St 0 "flag down"
+.St 1 "flag up"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+matchbook
+.De
+An empty book of matches
+.Fu
+Has an ad that you can read.
+.No
+The matchbook is actually an information carrying device.  There are never any
+matches.
+.Cl 49
+.Sy
+.Pp 0
+matchbook
+.Pr
+.Pp text
+Up to 114 characters of text message.
+.Co
+.Do
+\fRRead the text on the matchbook.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+movie/television camera
+.De
+The basic tool of journalism and drama.
+.Fu
+Provides a way to record ongoing events.
+.No
+Eventually, we would like this to be a way of recording the events in a
+region.  For the time being it is just a prop.
+.Cl 52
+.Sy
+.Pp 0
+movie camera
+.St 0 "camera only"
+.St 1 "camera with tripod"
+.St 2 "tripod only"
+.Pr
+None.
+.Co
+.Do
+\fRSwitch it between tripod mode and hand-held mode.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+paper
+.De
+A piece of paper.
+.Fu
+Can be written upon and then retrieved.
+.No
+Any piece of paper whose text begins ``to: \fIname\fR'' can be sent as a mail
+message.
+.Cl 54
+.Sy
+.Pp 0
+piece of paper
+.Pr
+.Pp text_id
+Which document in the text database this paper represents.
+.Co
+.Do
+\fRIf holding the piece of paper, open it up and read its contents (and allow
+the player possibly to write on it); otherwise, \fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+pawn machine
+.De
+A strange device found in pawnshops.
+.Fu
+Allows players to recycle objects, converting them into tokens.
+.No
+The pawn machine operates like a box that can contain at most one item.
+However, an item placed in it may be converted into cash.
+.Cl 96
+.Sy
+.Pp 0
+pawn machine
+.St 0 "quiescent"
+.St 1 "operating"
+.Pr
+.Pp open_flags
+Flags showing whether the machine is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+\fRIf the player is adjacent to the machine and there is something in it,
+cause the contents of the machine to disappear and then dispense a token of
+the value of the object that was in the machine; otherwise, \fCnoEffect\fP.
+.Go
+goTo
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+picture
+.De
+A picture to display.
+.Fu
+Displays artwork or text on wall or in space.
+.No
+A picture displays one of several static images stored on the object disk.
+.Cl 152
+.Sy
+.Pp 0
+variable sized picture frame
+.St 0 "small bordered rectangle"
+.St 1 "large rectangle, borders on left and top"
+.St 2 "large rectangle, no borders"
+.St 3 "small rectangle, borders on right and bottom"
+.St 4 "large rectangle, borders on left and bottom"
+.St 5 "large rectangle, borders on left, top and bottom"
+.Pp 1
+exit sign
+.Pp 2
+Island Vacation poster
+.Pp 3
+``Turf Sweet Turf'' sign
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+plant
+.De
+Your basic generic plant.
+.Fu
+Scenic element.  Obstruction.
+.No
+This is a fairly inert scenic element, provided almost entirely for visual
+appeal.
+.Cl 58
+.Sy
+.Pp 0
+plant type #1
+.Pp 1
+plant type #2
+.Pp 2
+plant type #3
+.Pr
+.Pp mass
+A flag that indicates whether or not the plant can be picked up.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+getMass
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+plaque
+.De
+An informative plaque
+.Fu
+Provides detailed information where the text required would not fit on a sign.
+.No
+This is a fairly inert scenic element, provided almost entirely for visual
+appeal.
+.Cl 55
+.Sy
+.Pp 0
+television monitor
+.Pp 1
+window
+.St 0 "whole window"
+.St 1 "without sash"
+.St 2 "without left side"
+.St 3 "without left side, sash"
+.St 4 "without left side, bottom"
+.St 5 "without left side, sash, bottom"
+.St 6 "without right side, bottom"
+.St 7 "without right side, sash, bottom"
+.Pp 2
+plaque
+.Pr
+.Pp text_id
+Which document in the text database this plaque represents.
+.Pp current_page
+The page of this document currently being read (or most recently read).
+.Pp last_page
+The last page which may be read in this document.
+.Co
+.Do
+\fRRead the text off the plaque (going into the book/paper interface to do
+so).
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+pond
+.De
+A small (within the region) body of water.
+.Fu
+Water source.  Water obstruction.
+.Cl 147
+.Sy
+.Pp 0
+pond
+.St 0 "entire pond"
+.St 1 "water only"
+.St 2 "water and stone"
+.St 3 "water and grass"
+.St 4 "stone only"
+.St 5 "grass only"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndFill
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+region
+.De
+A place in the world.
+.Fu
+The basic building block of Habitat topography.
+.No
+The region is not really an object, but we have an object that represents it
+so that the host can send messages to it.  Basically, all it does is contain
+things.  It also has a few other properties that are used for background
+graphics rendering.  Note that some of the region's generic properties are
+interpreted slightly differently.  In particular, the \fCy\fP position encodes
+the vertical screen position of the horizon line.
+.Cl 0
+.Sy
+None.
+.Pr
+None.
+.Co
+\fRNone: it is not a selectable object on the screen.
+.As
+None.
+.En
+.Ob
+ring
+.De
+Your basic magic ring.
+.Fu
+Generic magic talisman.
+.No
+Rings are always magical.  A ring will do something special and powerful.  The
+magical function may vary.  Rings, like amulets, cannot be worn, though the
+magic they contain may be used.
+.Cl 60
+.Sy
+.Pp 0
+ring
+.St 0 "plain"
+.St 1 "sparkling"
+.Pr
+.Pp magic_type
+Sort of magic this ring contains.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+doMagic
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+rdoMagic
+.As
+None.
+.En
+.Ob
+river
+.De
+Body of water flowing through a region.
+.Fu
+Water source.  Linear water obstruction.
+.Cl 148
+.Sy
+.Pp 0
+missing image
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndFill
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+rock
+.De
+Your basic rock.
+.Fu
+Scenic element.  If small can be picked up, thrown.
+.Cl 61
+.Sy
+.Pp 0
+small rock
+.Pp 1
+medium rock
+.Pp 2
+large rock
+.Pr
+.Pp mass
+A flag that indicates whether or not the rock can be picked up.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+getMass
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+safe
+.De
+Your basic office or household safe.
+.Fu
+Stores things under lock and key.
+.No
+The safe is both a piece of furniture, for scenic purposes, and a container.
+It has two states, open and closed, and it can be locked.  The safe can hold
+up to 10 items.
+.Cl 150
+.Sy
+.Pp 0
+safe
+.St 0 "closed"
+.St 1 "open"
+.Pr
+.Pp open_flags
+Flags showing whether the safe is open and/or unlocked.  The 1's bit encodes
+open (1=open, 0=closed) while the 2's bit encodes unlocked (2=unlocked,
+0=locked).
+.Pp key_hi
+The high byte of the key number to lock/unlock the safe
+.Pp key_lo
+The low byte of the key number to lock/unlock the safe
+.Co
+.Do
+adjacentOpenCloseContainer
+.Go
+goTo
+.Ge
+goToAndPickFromIfOpen
+.Pu
+goToAndDropIntoIfOpen
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+security device
+.De
+Another miscellaneous gadget.
+.Fu
+Provides a way to make a region safe from intrusion.
+.No
+The security device provides a way to protect your avatar and property from
+harm.  When the security device is turned on, no one else can enter or leave
+the region it is in.  It only works in selected regions (like hotel rooms).
+The device indicates its operation by means of both an indicator light and a
+humming sound.  Note: this object is not currently operational.
+.Cl 63
+.Sy
+.Pp 0
+security device
+.St 0 "light off"
+.St 1 "light on"
+.St 2 "light blinking"
+.Pr
+.Pp on
+Flag that the device is turned on.
+.Co
+.Do
+\fRIf the player is holding the device, turn it on or off.  Otherwise,
+\fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+sensor
+.De
+Another miscellaneous gadget.
+.Fu
+Tells some property of a region, object or avatar.
+.No
+The sensor can scan for information which is not always directly perceptible
+to an avatar or, for that matter, to the player's home system.  What it scans
+for depends on what type of sensor it is.  For example, a weapon sensor will
+tell if any of the avatars in the region is carrying a weapon, even if the
+weapon is inside a bag or similar container.  The sensing is performed by
+the host, so it is guaranteed to be ``honest''.
+.Cl 64
+.Sy
+.Pp 0
+sensor
+.St 0 "lights off"
+.St 1 "lights on"
+.St 2 "lights blinking"
+.Pr
+.Pp scan_type
+What this sensor senses.
+.Co
+.Do
+\fRIf the player is holding the device, operate its sensing function.
+Otherwise, \fCdepends\fP.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+sex changer
+.De
+A bizarre device.
+.Fu
+Enables Avatars to change from male to female and back.
+.Cl 90
+.Sy
+.Pp 0
+sex changer
+.St 0 "quiescent"
+.St 1 "operating"
+.Pr
+None.
+.Co
+.Do
+\fRIf the player is standing next to the device, change the player's sex (with
+appropriate histrionics); otherwise, \fCdepends\fP.
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+short sign
+.De
+A sign.
+.Fu
+Conveys information.
+.No
+A short sign is like a sign, but its text is limited to 10 characters (this
+cuts down on bandwidth requirements, since most signs are short).
+.Cl 56
+.Sy
+.Pp 0
+small rectangular sign
+.St 0 "rectangle, black text"
+.St 1 "no rectangle, black text"
+.St 2 "rectangle, blue text"
+.St 3 "no rectangle, blue text"
+.St 4 "rectangle, pink text"
+.St 5 "no rectangle, pink text"
+.Pp 1
+hanging needle-point sign
+.St 0 "entire sign"
+.St 1 "without hanger"
+.St 2 "without needlepoint decoration"
+.St 3 "without hanger or needlepoint decoration"
+.Pp 2
+diamond traffic sign
+.St 0 "with post"
+.St 1 "without post"
+.Pp 3
+hanging tavern sign
+.St 0 "entire sign"
+.St 1 "without post"
+.St 2 "without hangers or post"
+.St 3 "post only"
+.Pp 4
+long, narrow sign
+.St 0 "medium length"
+.St 1 "medium length, shadow text"
+.St 2 "long"
+.St 3 "long, shadow text"
+.Pp 5
+street sign
+.St 0 "tall post, normal sign"
+.St 1 "medium post, normal sign"
+.St 2 "short post, normal sign"
+.St 3 "very short post, normal sign"
+.St 4 "tall post, wide sign"
+.St 5 "medium post, wide sign"
+.St 6 "short post, wide sign"
+.St 7 "very short post, wide sign"
+.St 8 "no post, normal sign"
+.St 9 "no post, wide sign"
+.Pp 5
+highway sign
+.St 0 "entire sign, black"
+.St 1 "entire sign, shadow text"
+.St 2 "no legs, black"
+.St 3 "no legs, shadow text"
+.St 4 "no sign, black text"
+.St 5 "no sign, shadow text"
+.Pr
+.Pp text
+What the sign says (10 characters or fewer).
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+shovel
+.De
+Your basic digging implement.
+.Fu
+Allows players to open and close holes.
+.No
+The shovel object operates in tandem with the hole object.
+.Cl 89
+.Sy
+.Pp 0
+shovel
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+\fRIf the player is pointing at a hole, open or close the hole.
+.As
+None.
+.En
+.Ob
+sign
+.De
+A sign.
+.Fu
+For public safety and information.
+.Cl 57
+.Sy
+.Pp 0
+small rectangular sign
+.St 0 "rectangle, black text"
+.St 1 "no rectangle, black text"
+.St 2 "rectangle, blue text"
+.St 3 "no rectangle, blue text"
+.St 4 "rectangle, pink text"
+.St 5 "no rectangle, pink text"
+.Pp 1
+hanging needle-point sign
+.St 0 "entire sign"
+.St 1 "without hanger"
+.St 2 "without needlepoint decoration"
+.St 3 "without hanger or needlepoint decoration"
+.Pp 2
+diamond traffic sign
+.St 0 "with post"
+.St 1 "without post"
+.Pp 3
+hanging tavern sign
+.St 0 "entire sign"
+.St 1 "without post"
+.St 2 "without hangers or post"
+.St 3 "post only"
+.Pp 4
+long, narrow sign
+.St 0 "medium length"
+.St 1 "medium length, shadow text"
+.St 2 "long"
+.St 3 "long, shadow text"
+.Pp 5
+street sign
+.St 0 "tall post, normal sign"
+.St 1 "medium post, normal sign"
+.St 2 "short post, normal sign"
+.St 3 "very short post, normal sign"
+.St 4 "tall post, wide sign"
+.St 5 "medium post, wide sign"
+.St 6 "short post, wide sign"
+.St 7 "very short post, wide sign"
+.St 8 "no post, normal sign"
+.St 9 "no post, wide sign"
+.Pp 5
+highway sign
+.St 0 "entire sign, black"
+.St 1 "entire sign, shadow text"
+.St 2 "no legs, black"
+.St 3 "no legs, shadow text"
+.St 4 "no sign, black text"
+.St 5 "no sign, shadow text"
+.Pr
+.Pp text
+What the sign says (40 characters or fewer).
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+sky
+.De
+The basic background above the horizon.
+.Fu
+Can be pointed at, returning a location.
+.Cl 69
+.Sy
+.Pp 0
+tall ground rectangle
+.Pp 1
+short ground rectangle
+.Pp 2
+``mod'' pattern wall
+.Pp 3
+short wall rectangle
+.Pp 4
+plain wall
+.Pp 5
+brick wall
+.Pp 6
+``mod'' sky
+.Pp 7
+medium sky rectangle
+.Pp 8
+mountain
+.St 0 "with snowcap"
+.St 1 "without snowcap"
+.St 2 "snowcap only"
+.Pp 9
+cave mouth
+.St 0 "rounded top"
+.St 1 "square top"
+.Pp 10
+ball
+.Pp 11
+tree/cloud
+.St 0 "entire cloud"
+.St 1 "upper right corner"
+.St 2 "lower left corner"
+.St 3 "right half"
+.St 4 "bottom half"
+.Pp 12
+pipes
+.St 0 "full regalia"
+.St 1 "horizontal pipe section"
+.St 2 "horizontal section with fitting"
+.St 3 "horizontal section with upward elbow on left"
+.St 4 "L-shaped secton"
+.St 5 "vertical section with elbow at bottom"
+.St 6 "vertical section with fitting"
+.St 7 "horizontal fitting only"
+.St 8 "vertical fitting with small section"
+.St 9 "vertical elbow only"
+.St 10 "vertical section with elbow"
+.St 11 "vertical fitting only"
+.St 12 "horizontal section with corner on right"
+.St 13 "valve"
+.St 14 "vertical section with fitting"
+.St 15 "right corner"
+.St 16 "short vertical section"
+.St 17 "vertical elbow"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToSky
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+spray bottle
+.De
+A body paint sprayer.
+.Fu
+Allows players to change the color/texture of different parts of their
+Avatars' bodies.
+.Cl 95
+.Sy
+.Pp 0
+body sprayer
+.Pr
+None.
+.Co
+.Do
+\fRChanges the color pattern of the indicated part of the Avatar's body to
+that of the sprayer itself.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+noEffect
+.As
+None.
+.En
+.Ob
+street
+.De
+Your basic roadway.
+.Fu
+Can be walked on.
+.No
+Each street object is a portion of pathway pattern.  It behaves just like
+ground.
+.Cl 153
+.Sy
+.Pp 0
+street
+.St 0 "cross"
+.St 1 "down"
+.St 2 "up"
+.St 3 "left"
+.St 4 "right"
+.St 5 "vertical"
+.St 6 "horizontal"
+.St 7 "left-down"
+.St 8 "right-down"
+.St 9 "left-up"
+.St 10 "right-up"
+.St 11 "left T"
+.St 12 "right T"
+.St 13 "down T"
+.St 14 "up T"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToCursor
+.Ge
+noEffect
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+streetlamp
+.De
+Conventional streetlamp.
+.Fu
+Scenic element.  Provides light at night.
+.No
+The Habitat can follow a cycle of day and night.  When it is night-time,
+the screen is displayed in darkened colors, which makes things hard to see.
+Having a streetlamp in the region makes the region appear like daytime, even
+if it is night elsewhere.
+.Cl 154
+.Sy
+.Pp 0
+old-fashion streetlamp
+.Pp 1
+modern streetlamp
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+stun gun
+.De
+Looks like a gun.
+.Fu
+Delays other players and gives you time to do stuff to them or to escape from
+them.
+.No
+The stun gun operates like a gun.  However, instead of killing or wounding the
+target Avatar, it ``stuns'' them.  When an Avatar is stunned, it cannot walk
+for three tries and cannot use weapons.
+.Cl 91
+.Sy
+.Pp 0
+stun gun
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+\fRStun the designated Avatar.
+.As
+None.
+.En
+.Ob
+super trapezoid
+.De
+A fancy background object.
+.Fu
+Allows the definition of very sophisticated backgrounds.
+.No
+A super trapezoid is like a regular trapezoid, except that instead of using
+one of the standard color patterns, it carries its own color/pattern
+information with it.  Additionally, this pattern may be larger and fancier
+than any of the standard ones, so we can create elaborate textile-like
+patterns of various sorts.
+.Cl 92
+.Sy
+.Pp 0
+super trapezoid
+.Pr
+.Pp trapezoid_type
+What sort of trapezoid this is: 0=sky, 1=wall, 2=ground, 3=impassable.
+.Pp upper_left_x
+The upper left X coordinate of the trapezoid.
+.Pp upper_right_x
+The upper right X coordinate of the trapezoid.
+.Pp lower_left_x
+The lower left X coordinate of the trapezoid.
+.Pp lower_right_x
+The lower right X coordinate of the trapezoid.
+.Pp height
+The height of the trapezoid.
+.Pp pattern_x_size
+The width of the repeating texture map.
+.Pp pattern_y_size
+The height of the repeating texture map.
+.Pp pattern(32)
+The texture map (32 bytes of 2-bit pixels).
+.Co
+.Do
+depends
+.Go
+flatGo
+.Ge
+noEffect
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+switch
+.De
+A switch that you can throw.
+.Fu
+Generic magic talisman.
+.No
+Switches operate rather like magic wands, except that they are immobile.  They
+can be used both for magic and for machinery, though the underlying mechanism
+is the same in either case.
+.Cl 97
+.Sy
+.Pp 0
+ball
+.Pp 1
+switch
+.St 0 "switch panel, off"
+.St 1 "switch panel, on"
+.St 2 "single switch, off"
+.St 3 "single switch, on"
+.St 4 "knife switch, off"
+.St 5 "knife switch, on"
+.Pp 2
+dials
+.St 0 "round dial, indicator left"
+.St 1 "round dial, indicator center"
+.St 2 "round dial, indicator right"
+.St 3 "meter dial, indicator left"
+.St 4 "meter dial, indicator center"
+.St 5 "meter dial, indicator right"
+.Pp 3
+``flaming'' bush
+.Pp 4
+spindly bush
+.St 0 "without leaves"
+.St 1 "with leaves"
+.St 2 "with blinking leaves"
+.Pp 5
+mushrooms
+.St 0 "patch of 4 mushrooms"
+.St 1 "group of 3 mushrooms on left"
+.St 2 "single mushroom on right"
+.Pp 6
+old-fashion streetlamp
+.Pp 7
+medium rock
+.Pp 8
+large rock
+.Pp 9
+pond
+.St 0 "entire pond"
+.St 1 "water only"
+.St 2 "water and stone"
+.St 3 "water and grass"
+.St 4 "stone only"
+.St 5 "grass only"
+.Pp 10
+flag
+.St 0 "phase A"
+.St 1 "phase B"
+.St 2 "phase C"
+.Pp 11
+coke machine
+.Pp 12
+plant type #3
+.Pp 13
+deciduous tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage lower right corner"
+.St 3 "foliage right half"
+.St 4 "foliage upper half"
+.Pp 14
+evergreen tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage only"
+.St 3 "foliage lower left portion"
+.St 4 "foliage lower right portion"
+.Pp 15
+palm tree
+.St 0 "entire tree"
+.St 1 "lower 2/3 of trunk"
+.St 2 "upper 1/3 of trunk"
+.St 3 "fronds"
+.St 4 "whole trunk only"
+.Pp 16
+dead tree
+.St 0 "entire tree"
+.St 1 "trunk"
+.St 2 "upper branches"
+.St 3 "center branches"
+.St 4 "right branches"
+.Pp 17
+large mushroom
+.St 0 "entire mushroom"
+.St 1 "without shadow"
+.St 2 "top only"
+.St 3 "stalk only"
+.Pp 18
+cactus
+.St 0 "entire cactus"
+.St 1 "barrel only"
+.St 2 "left branch"
+.St 3 "branches only"
+.St 4 "barrel without shadow"
+.Pp 19
+round tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage only"
+.Pp 20
+pipes
+.St 0 "full regalia"
+.St 1 "horizontal pipe section"
+.St 2 "horizontal section with fitting"
+.St 3 "horizontal section with upward elbow on left"
+.St 4 "L-shaped secton"
+.St 5 "vertical section with elbow at bottom"
+.St 6 "vertical section with fitting"
+.St 7 "horizontal fitting only"
+.St 8 "vertical fitting with small section"
+.St 9 "vertical elbow only"
+.St 10 "vertical section with elbow"
+.St 11 "vertical fitting only"
+.St 12 "horizontal section with corner on right"
+.St 13 "valve"
+.St 14 "vertical section with fitting"
+.St 15 "right corner"
+.St 16 "short vertical section"
+.St 17 "vertical elbow"
+.Pr
+.Pp magic_type
+Sort of magic this switch contains.
+.Pp magic_data
+A 32-bit number interpreted by the magic routines.  It's meaning varies
+depending on \fCmagic_type\fR.
+.Co
+.Do
+If adjacent to the switch, activate its (host defined) magical function,
+whatever that may be.  If not adjacent, \fCdepends\fP.
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+table
+.De
+A common table.
+.Fu
+Can support things (hold them off the floor).
+.No
+The table is a form of container whose contents are always visible and
+accessible (i.e., it is permanently ``open'').  Things can be placed on it and
+picked up off of it.  The table can hold up to 5 items.
+.Cl 155
+.Sy
+.Pp 0
+table
+.St 0 "entire table"
+.St 1 "legs only"
+.Pp 1
+countertop
+.Pp 2
+display case
+.St 0 "entire case"
+.St 1 "without legs"
+.St 2 "without shelf"
+.St 3 "without center shelf"
+.Pr
+.Pp open_flags
+Flags showing whether the table is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndPickFrom
+.Pu
+goToAndDropInto
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+teleport booth
+.De
+Like a phone booth, but it carries all of you instead of just your voice.
+.Fu
+Zaps avatars and their possessions elsewhere instantaneously.
+.No
+The teleport booth is fairly complex.  However, it operates very much like a
+pay phone.  The only difference is that you get transported to the
+destination.
+.Cl 74
+.Sy
+.Pp 0
+teleport booth
+.St 0 "quiescent"
+.St 1 "active"
+.Pr
+.Pp state
+The state of the booth: 0=inactive, 1=active.
+.Pp take
+The cumulative income generated by this booth.  This value should not be
+altered manually.
+.Pp address
+The teleport address of this booth.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+\fRIf the item in hand is a token, and the denomination is greater than the
+cost of a teleport trip, activate the teleport and deduct the price from the
+token.  Otherwise, \fCnoEffect\fP.
+.Ta
+\fRIf the Avatar is standing in the booth and the booth is active, interpret
+the string typed as a teleport address and teleport the player there.
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+ticket
+.De
+A ticket to the show.
+.Fu
+Your avatar's admission to special events.
+.No
+Tickets are used to control admission to certain regions.  You have to have
+the ticket that corresponds to an event in such a regions in order to be let
+in.
+.Cl 75
+.Sy
+.Pp 0
+ticket
+.Pr
+.Pp event
+A number indicating the event this ticket is admission for.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+tokens
+.De
+Filthy lucre.
+.Fu
+Money in the Habitat.
+.No
+The standard unit of currency in the Habitat is the Token.  On one side it
+says \fIGood For One Fare\fR.  On the other side it says \fIFiat Lucre\fR.  A
+single token object can denote any amount of money.  The \fCdenomination\fP
+property tells how much money a token is currently representing.  Certain
+machines in the Habitat world are coin operated.  Dropping a token into them
+will cause the appropriate amount of money to be consumed.  If there is any
+left over it is left in the avatar's hand.  Other sorts of transactions
+require that the quantity be specified by the player.
+.Cl 76
+.Sy
+.Pp 0
+token
+.Pr
+.Pp denom_lo
+The low-byte of the token's denomination: how much money this token
+represents.
+.Pp denom_hi
+The high-byte of the token's denomination.
+.Co
+.Do
+\fRDisplay the denomination of the token.
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+\fRIf the indicated object is an avatar to whom the player is adjacent, prompt
+the player for a number of tokens and then pay the designated avatar that many
+tokens from the amount in hand.  This will fail, of course, if the player
+specifies more tokens then he is carrying at the time.
+.As
+None.
+.En
+.Ob
+trapezoid
+.De
+A generic background object.
+.Fu
+Allows the definition of plain backgrounds.
+.No
+A trapezoid is a general-purpose background object.  We use trapezoids because
+they are more versatile than mere rectangles, but to not have the overhead
+associated with arbitrary polygons.  The trapezoid's properties define its
+size and shape, and it may be colored/textured with any of the standard
+patterns.
+.Cl 87
+.Sy
+.Pp 0
+plain trapezoid
+.Pp 1
+rock-pattern trapzoid rock
+.Pr
+.Pp trapezoid_type
+What sort of trapezoid this is: 0=sky, 1=wall, 2=ground, 3=impassable.
+.Pp upper_left_x
+The upper left X coordinate of the trapezoid.
+.Pp upper_right_x
+The upper right X coordinate of the trapezoid.
+.Pp lower_left_x
+The lower left X coordinate of the trapezoid.
+.Pp lower_right_x
+The lower right X coordinate of the trapezoid.
+.Pp height
+The height of the trapezoid.
+.Co
+.Do
+depends
+.Go
+flatGo
+.Ge
+noEffect
+.Pu
+goToAndDropAt
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+tree
+.De
+Your basic tree.
+.Fu
+Scenic element.  Obstruction.
+.No
+This is a fairly inert scenic element, provided almost entirely for visual
+appeal.
+.Cl 156
+.Sy
+.Pp 0
+deciduous tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage lower right corner"
+.St 3 "foliage right half"
+.St 4 "foliage upper half"
+.Pp 1
+evergreen tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage only"
+.St 3 "foliage lower left portion"
+.St 4 "foliage lower right portion"
+.Pp 2
+palm tree
+.St 0 "entire tree"
+.St 1 "lower 2/3 of trunk"
+.St 2 "upper 1/3 of trunk"
+.St 3 "fronds"
+.St 4 "whole trunk only"
+.Pp 3
+dead tree
+.St 0 "entire tree"
+.St 1 "trunk"
+.St 2 "upper branches"
+.St 3 "center branches"
+.St 4 "right branches"
+.Pp 4
+large mushroom
+.St 0 "entire mushroom"
+.St 1 "without shadow"
+.St 2 "top only"
+.St 3 "stalk only"
+.Pp 5
+cactus
+.St 0 "entire cactus"
+.St 1 "barrel only"
+.St 2 "left branch"
+.St 3 "branches only"
+.St 4 "barrel without shadow"
+.Pp 6
+round tree
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage only"
+.Pp 7
+log
+.St 0 "entire log"
+.St 1 "left half"
+.St 2 "right half"
+.Pp 8
+fire hydrant
+.Pp 9
+tree/cloud
+.St 0 "entire cloud"
+.St 1 "upper right corner"
+.St 2 "lower left corner"
+.St 3 "right half"
+.St 4 "bottom half"
+.Pp 10
+deciduous tree type #2
+.St 0 "entire tree"
+.St 1 "trunk only"
+.St 2 "foliage only"
+.St 3 "foliage upper left"
+.St 4 "foliage upper right"
+.Pp 11
+grass
+.St 0 "tall and short"
+.St 1 "tall only"
+.St 2 "short only"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+vendroid front
+.De
+The visible portion of a vending machine.
+.Fu
+Sells stuff in the absence of a human shopkeeper.
+.No
+The vending machine is our general mechanism for distributing goods to
+players.  The vendroid front object operates in tandem with the vendroid
+interior object.  These two classes are always found in pairs.  The vendroid
+front contains a list of items that can be displayed, along with their prices.
+It also has a property which say which of those items is currently on display.
+The vendroid interior contains two objects: the vendroid front and the actual
+item on display.  When we change the item on display, we move items between
+the two parts of the vendroid.
+.Cl 85
+.Sy
+.Pp 0
+store vendroid front
+.St 0 "machine with sign panel"
+.St 1 "machine without sign panel"
+.St 2 "wall mount without sign panel"
+.St 3 "wall mount with sign panel"
+.Pp 1
+news vendroid front
+.Pr
+.Pp open_flags
+Flags showing whether the vendroid is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).  _price \fR\(em The price of the
+item currently on display.
+.P
+\fR\(em A number from 0 to 9 indicating which item is currently on display.
+.Pp prices(0:9)
+The prices of the items in the contents list.
+.Co
+.Do
+\fR``Rotate'' the vending machine, moving the item currently on display from
+the vending machine interior to its place in the \fCcontents\fP list, moving
+the next item in the \fCcontents\fP list into the display slot (incrementing
+\fCcurrentItem\fP as we do this), and displaying the price of the new item.
+The Avatar must be adjacent to the machine to do this.  If he is not, he will
+walk to it.
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+\fRPurchases the item currently on display.  The Avatar must be holding a
+token object of sufficient denomination to pay for the item.  The price of the
+item is deducted from the tokens in hand and a clone of the item on display
+appears on the ground in front of the machine.
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+vendroid interior
+.De
+The other part of a vending machine.
+.Fu
+Helps us sell stuff.
+.No
+See the description of the vendroid front object \(em it does all the work.
+.Cl 86
+.Sy
+.Pp 0
+store vendroid interior
+.St 0 "entire machine"
+.St 1 "glass panel only"
+.St 2 "glass panel and drop slot"
+.Pp 1
+news vendroid interior
+.St 0 "with ``NEWS'' sign"
+.St 1 "without sign"
+.St 2 "with blank sign"
+.St 3 "without sign but with sign mounting"
+.Pr
+.Pp open_flags
+Flags showing whether the vendroid is open and/or unlocked.  Should be
+permanently set to 3 (open and unlocked).
+.Co
+.Do
+illegal
+.Go
+illegal
+.Ge
+illegal
+.Pu
+illegal
+.Ta
+illegal
+.Re
+illegal
+.As
+None
+.En
+.Ob
+wall
+.De
+An interior or exterior wall section.
+.Fu
+Graphic element in buildings.  Obstruction.
+.No
+A wall is just an opaque rectangle that sits edgewise on the ground.  The edge
+that sits on the ground defines an impenetrable linear barrier.  The only way
+past a wall is to go through a door (or go around it if it is small, of
+course).
+.Cl 80
+.Sy
+.Pp 0
+tall ground rectangle
+.Pp 1
+short ground rectangle
+.Pp 2
+``mod'' pattern wall
+.Pp 3
+short wall rectangle
+.Pp 4
+plain wall
+.Pp 5
+brick wall
+.Pp 6
+``mod'' sky
+.Pp 7
+medium sky rectangle
+.Pp 8
+mountain
+.St 0 "with snowcap"
+.St 1 "without snowcap"
+.St 2 "snowcap only"
+.Pp 9
+cave mouth
+.St 0 "rounded top"
+.St 1 "square top"
+.Pp 10
+tree/cloud
+.St 0 "entire cloud"
+.St 1 "upper right corner"
+.St 2 "lower left corner"
+.St 3 "right half"
+.St 4 "bottom half"
+.Pp 11
+pipes
+.St 0 "full regalia"
+.St 1 "horizontal pipe section"
+.St 2 "horizontal section with fitting"
+.St 3 "horizontal section with upward elbow on left"
+.St 4 "L-shaped secton"
+.St 5 "vertical section with elbow at bottom"
+.St 6 "vertical section with fitting"
+.St 7 "horizontal fitting only"
+.St 8 "vertical fitting with small section"
+.St 9 "vertical elbow only"
+.St 10 "vertical section with elbow"
+.St 11 "vertical fitting only"
+.St 12 "horizontal section with corner on right"
+.St 13 "valve"
+.St 14 "vertical section with fitting"
+.St 15 "right corner"
+.St 16 "short vertical section"
+.St 17 "vertical elbow"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goToCursor\fR, but the Y-coordinate is clamped at the wall's base.
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En
+.Ob
+windup toy
+.De
+Your basic windup doll or robot.
+.Fu
+You wind it up and it walks across the floor.
+.No
+Some day we'd like the windup toy to be able to walk on its own.  Right now it
+is more like a knick-knack.
+.Cl 82
+.Sy
+.Pp 0
+windup doll
+.St 0 "still"
+.St 1 "walking"
+.Pp 1
+windup penguin
+.St 0 "still"
+.St 1 "walking"
+.Pr
+.Pp wind_level
+how wound up this doll is.
+.Co
+.Do
+\fRIf the player is holding the doll, increment its wind count (to a maximum
+of 4).
+.Go
+goTo
+.Ge
+goToAndGet
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+throw
+.As
+None.
+.En
+.Ob
+window
+.De
+A conventional house window.
+.Fu
+Graphic element in buildings.
+.No
+Window objects are used to decorate the outside of buildings.  They are rather
+inert.
+.Cl 157
+.Sy
+.Pp 0
+window type #1
+.St 0 "whole window"
+.St 1 "without sash"
+.St 2 "without left side"
+.St 3 "without left side, sash"
+.St 4 "without left side, bottom"
+.St 5 "without left side, sash, bottom"
+.St 6 "without right side, bottom"
+.St 7 "without right side, sash, bottom"
+.Pp 1
+window type #2
+.St 0 "entire window"
+.St 1 "lower part"
+.St 2 "upper part"
+.Pp 2
+crack
+.St 0 "medium"
+.St 1 "very large"
+.St 2 "large"
+.St 3 "small"
+.Pp 3
+barred window
+.St 0 "with backing"
+.St 1 "without backing"
+.St 2 "backing only"
+.Pr
+None.
+.Co
+.Do
+depends
+.Go
+goTo
+.Ge
+noEffect
+.Pu
+noEffect
+.Ta
+broadcast
+.Re
+illegal
+.As
+None.
+.En

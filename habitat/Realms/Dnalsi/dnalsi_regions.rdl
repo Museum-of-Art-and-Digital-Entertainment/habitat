@@ -1,0 +1,117 @@
+dnalsi_02		= 4200;
+dnalsi_03		= 4201;
+dnalsi_04		= 4202;
+dnalsi_05		= 4203;
+dnalsi_08		= 4204;
+dnalsi_09		= 4205;
+dnalsi_0a		= 4206;
+
+dnalsi_11		= 4207;
+dnalsi_12		= 4208;
+dnalsi_15		= 4209;
+dnalsi_18		= 4210;
+dnalsi_19		= 4211;
+dnalsi_1a		= 4212;
+dnalsi_1b		= 4213;
+dnalsi_1c		= 4214;
+dnalsi_1d		= 4215;
+
+dnalsi_21		= 4216;
+dnalsi_25		= 4217;
+dnalsi_26		= 4218;
+dnalsi_28		= 4219;
+dnalsi_29		= 4220;
+dnalsi_2a		= 4221;
+dnalsi_2b		= 4222;
+dnalsi_2c		= 4223;
+dnalsi_2d		= 4224;
+
+dnalsi_30		= 4225;
+dnalsi_31		= 4226;
+dnalsi_36		= 4227;
+dnalsi_37		= 4228;
+dnalsi_38		= 4229;
+dnalsi_39		= 4230;
+dnalsi_3a		= 4231;
+dnalsi_3b		= 4232;
+dnalsi_3c		= 4233;
+dnalsi_3d		= 4234;
+
+dnalsi_40		= 4235;
+dnalsi_47		= 4236;
+dnalsi_48		= 4237;
+dnalsi_49		= 4238;
+dnalsi_4a		= 4239;
+dnalsi_4b		= 4240;
+dnalsi_4c		= 4241;
+
+dnalsi_50		= 4242;
+dnalsi_57		= 4243;
+dnalsi_58		= 4244;
+dnalsi_59		= 4245;
+dnalsi_5a		= 4246;
+dnalsi_5b		= 4247;
+dnalsi_5c		= 4248;
+
+dnalsi_60		= 4249;
+dnalsi_61		= 4250;
+dnalsi_63		= 4251;
+dnalsi_62		= 4252;
+dnalsi_64		= 4253;
+dnalsi_65		= 4254;
+dnalsi_66		= 4255;
+dnalsi_67		= 4256;
+dnalsi_68		= 4257;
+dnalsi_69		= 4258;
+dnalsi_6a		= 4259;
+dnalsi_6b		= 4260;
+dnalsi_6c		= 4261;
+
+dnalsi_71		= 4262;
+dnalsi_72		= 4263;
+dnalsi_73		= 4264;
+dnalsi_74		= 4265;
+dnalsi_75		= 4266;
+dnalsi_76		= 4267;
+dnalsi_78		= 4268;
+dnalsi_79		= 4269;
+dnalsi_7a		= 4270;
+dnalsi_7b		= 4271;
+dnalsi_7c		= 4272;
+
+dnalsi_82		= 4273;
+dnalsi_83		= 4274;
+dnalsi_84		= 4275;
+dnalsi_85		= 4276;
+dnalsi_92		= 4277;
+dnalsi_93		= 4278;
+dnalsi_94		= 4279;
+
+
+
+dnalsi_cave1_0a		= 4280;
+dnalsi_cave1_0b		= 4281;
+dnalsi_cave1_1a		= 4282;
+dnalsi_cave1_1b		= 4283;
+
+dnalsi_cave2_0c		= 4284;
+dnalsi_cave2_0d		= 4285;
+dnalsi_cave2_1a		= 4286;
+dnalsi_cave2_1b		= 4287;
+dnalsi_cave2_1c		= 4288;
+dnalsi_cave2_1d		= 4289;
+dnalsi_cave2_1e		= 4290;
+dnalsi_cave2_2a		= 4291;
+dnalsi_cave2_2b		= 4292;
+dnalsi_cave2_2c		= 4293;
+dnalsi_cave2_2d		= 4294;
+dnalsi_cave2_2e		= 4295;
+dnalsi_cave2_3a		= 4296;
+
+dnalsi_cave3_0c		= 4297;
+dnalsi_cave3_1a		= 4298;
+dnalsi_cave3_1c		= 4299;
+dnalsi_cave3_2a		= 4300;
+dnalsi_cave3_2b		= 4301;
+dnalsi_cave3_2c		= 4302;
+dnalsi_cave3_3c		= 4303;

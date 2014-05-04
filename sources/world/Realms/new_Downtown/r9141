@@ -1,0 +1,286 @@
+use region r_9141 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9142
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7081 {
+  container: r r_9141
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_7082 {
+  container: r r_9141
+  x: 8
+  y: 26
+  style: 0
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_7091 {
+  container: r r_9141
+  x: 112
+  y: 26
+  style: 0
+  gr_state: 0
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use short_sign o_7101 {
+  container: r r_9141
+  x: 64
+  y: 63
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\ $50    "
+}
+use wall o_7102 {
+  container: r r_9141
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_7103 {
+  container: r r_9141
+  x: 52
+  y: 113
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\( We'll paint\h\R  ANY\R\hbody for only:    "
+}
+use vendo_front o_7083 {
+  container: o o_7082
+  x: 184
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 59
+  display_item: 1
+  prices: 53, 59, 50, 65, 53, 51, 72, 0, 0, 0
+}
+use spray_can o_7087 {
+  container: o o_7082
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_front o_7092 {
+  container: o o_7091
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 47
+  display_item: 5
+  prices: 49, 51, 72, 69, 55, 47, 61, 53, 0, 0
+}
+use spray_can o_7099 {
+  container: o o_7091
+  x: 5
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 88
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7089 {
+  container: o o_7083
+  x: 2
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 112
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7084 {
+  container: o o_7083
+  x: 3
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7088 {
+  container: o o_7083
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7085 {
+  container: o o_7083
+  x: 5
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 40
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7086 {
+  container: o o_7083
+  x: 6
+  y: 6
+  style: 0
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7090 {
+  container: o o_7083
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7095 {
+  container: o o_7092
+  x: 7
+  y: 7
+  style: 0
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7100 {
+  container: o o_7092
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 72
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7096 {
+  container: o o_7092
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 24
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7093 {
+  container: o o_7092
+  x: 2
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 64
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7098 {
+  container: o o_7092
+  x: 3
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 96
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can o_7097 {
+  container: o o_7092
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

@@ -1,0 +1,272 @@
+use region r_9106 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r r_9114
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6668 {
+  container: r r_9106
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_6669 {
+  container: r r_9106
+  x: 8
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_6677 {
+  container: r r_9106
+  x: 112
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use sign o_6682 {
+  container: r r_9106
+  x: 48
+  y: 101
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\(\(\hNO\h Haggling!\R\)\)(If you have\Rto ASK  "
+}
+use wall o_6683 {
+  container: r r_9106
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_6684 {
+  container: r r_9106
+  x: 48
+  y: 70
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "       for the\Rprice, It is\RTOO MUCH!)  "
+}
+use sign o_6685 {
+  container: r r_9106
+  x: 8
+  y: 107
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\(Trinkets                  MegaPower    "
+}
+use vendo_front o_6670 {
+  container: o o_6669
+  x: 184
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 1145
+  display_item: 1
+  prices: 5000, 1145, 4500, 3200, 8500, 1200, 0, 0, 0, 0
+}
+use escape_dev o_6673 {
+  container: o o_6669
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 12
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  charge: 10
+}
+use vendo_front o_6678 {
+  container: o o_6677
+  x: 181
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 16959
+  display_item: 1
+  prices: 999, 16959, 1495, 1800, 0, 0, 0, 0, 0, 0
+}
+use crystal_ball o_6679 {
+  container: o o_6677
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  live: '0'b
+}
+use gemstone o_6672 {
+  container: o o_6670
+  x: 2
+  y: 2
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use ring o_6674 {
+  container: o o_6670
+  x: 3
+  y: 3
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use gemstone o_6675 {
+  container: o o_6670
+  x: 4
+  y: 4
+  style: 0
+  gr_state: 1
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use amulet o_6671 {
+  container: o o_6670
+  x: 5
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use gemstone o_6676 {
+  container: o o_6670
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}
+use magic_wand o_15501 {
+  container: o o_6678
+  x: 0
+  y: 2
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 2
+  magic_data: 0
+}
+use magic_wand o_15876 {
+  container: o o_6678
+  x: 0
+  y: 3
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 11
+  magic_data: 0
+}
+use magic_wand o_6681 {
+  container: o o_6678
+  x: 1
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  magic_type: 1
+  magic_data: 0
+}

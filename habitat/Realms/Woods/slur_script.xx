@@ -1,0 +1,1992 @@
+
+echo Woods_0i
+slur regdir/Woods_0i.reg \
+	-o rdldir/Woods_0i.rdl \
+	-d FACE_WEST \
+	-r Woods_0i \
+	-w Woods_0i \
+	-e Woods_1i \
+	-s Woods_0i \
+	-n Woods_0j 
+
+
+
+
+
+
+echo Woods_0j
+slur regdir/Woods_0j.reg \
+	-o rdldir/Woods_0j.rdl \
+	-d FACE_WEST \
+	-r Woods_0j \
+	-w Woods_0k \
+	-e Woods_1j \
+	-s Woods_0i \
+	-n Woods_0k 
+
+
+
+
+
+
+echo Woods_0k
+slur regdir/Woods_0k.reg \
+	-o rdldir/Woods_0k.rdl \
+	-d FACE_WEST \
+	-r Woods_0k \
+	-w Woods_0j \
+	-e Woods_1k \
+	-s Woods_0j \
+	-n Woods_1k 
+
+
+
+
+
+
+echo Woods_1i
+slur regdir/Woods_1i.reg \
+	-o rdldir/Woods_1i.rdl \
+	-d FACE_WEST \
+	-r Woods_1i \
+	-w Woods_0i \
+	-e Woods_2i \
+	-s Woods_2i \
+	-n Woods_1j 
+
+
+
+
+
+
+echo Woods_1j
+slur regdir/Woods_1j.reg \
+	-o rdldir/Woods_1j.rdl \
+	-d FACE_WEST \
+	-r Woods_1j \
+	-w Woods_0j \
+	-e Woods_2j \
+	-s Woods_1i \
+	-n Woods_1k 
+
+
+
+
+
+
+echo Woods_1k
+slur regdir/Woods_1k.reg \
+	-o rdldir/Woods_1k.rdl \
+	-d FACE_WEST \
+	-r Woods_1k \
+	-w Woods_0k \
+	-e Woods_2k \
+	-s Woods_1j \
+	-n Woods_0k 
+
+
+
+
+
+
+echo Woods_2f
+slur regdir/Woods_2f.reg \
+	-o rdldir/Woods_2f.rdl \
+	-d FACE_WEST \
+	-r Woods_2f \
+	-w Woods_xx \
+	-e Woods_3f \
+	-s Woods_xx \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_2i
+slur regdir/Woods_2i.reg \
+	-o rdldir/Woods_2i.rdl \
+	-d FACE_WEST \
+	-r Woods_2i \
+	-w Woods_1i \
+	-e Woods_3i \
+	-s Woods_1i \
+	-n Woods_2j 
+
+
+
+
+
+
+echo Woods_2j
+slur regdir/Woods_2j.reg \
+	-o rdldir/Woods_2j.rdl \
+	-d FACE_WEST \
+	-r Woods_2j \
+	-w Woods_1j \
+	-e Woods_3j \
+	-s Woods_2i \
+	-n Woods_2k 
+
+
+
+
+
+
+echo Woods_2k
+slur regdir/Woods_2k.reg \
+	-o rdldir/Woods_2k.rdl \
+	-d FACE_WEST \
+	-r Woods_2k \
+	-w Woods_1k \
+	-e Woods_3k \
+	-s Woods_2j \
+	-n Woods_3k 
+
+
+
+
+
+
+echo Woods_3c
+slur regdir/Woods_3c.reg \
+	-o rdldir/Woods_3c.rdl \
+	-d FACE_WEST \
+	-r Woods_3c \
+	-w Woods_xx \
+	-e Woods_5f \
+	-s Woods_xx \
+	-n Woods_3d 
+
+
+
+
+
+
+echo Woods_3d
+slur regdir/Woods_3d.reg \
+	-o rdldir/Woods_3d.rdl \
+	-d FACE_WEST \
+	-r Woods_3d \
+	-w Woods_xx \
+	-e Woods_5g \
+	-s Woods_3c \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_3f
+slur regdir/Woods_3f.reg \
+	-o rdldir/Woods_3f.rdl \
+	-d FACE_WEST \
+	-r Woods_3f \
+	-w Woods_2f \
+	-e Woods_4f \
+	-s Woods_4f \
+	-n Woods_4g 
+
+
+
+
+
+
+echo Woods_3i
+slur regdir/Woods_3i.reg \
+	-o rdldir/Woods_3i.rdl \
+	-d FACE_WEST \
+	-r Woods_3i \
+	-w Woods_2i \
+	-e Woods_4i \
+	-s Woods_4h \
+	-n Woods_3j 
+
+
+
+
+
+
+echo Woods_3j
+slur regdir/Woods_3j.reg \
+	-o rdldir/Woods_3j.rdl \
+	-d FACE_WEST \
+	-r Woods_3j \
+	-w Woods_2j \
+	-e Woods_4j \
+	-s Woods_3i \
+	-n Woods_3k 
+
+
+
+
+
+
+echo Woods_3k
+slur regdir/Woods_3k.reg \
+	-o rdldir/Woods_3k.rdl \
+	-d FACE_WEST \
+	-r Woods_3k \
+	-w Woods_2k \
+	-e Woods_4k \
+	-s Woods_3j \
+	-n Woods_2k 
+
+
+
+
+
+
+echo Woods_4f
+slur regdir/Woods_4f.reg \
+	-o rdldir/Woods_4f.rdl \
+	-d FACE_WEST \
+	-r Woods_4f \
+	-w Woods_3f \
+	-e Woods_4g \
+	-s Woods_3f \
+	-n Woods_4g 
+
+
+
+
+
+
+echo Woods_4g
+slur regdir/Woods_4g.reg \
+	-o rdldir/Woods_4g.rdl \
+	-d FACE_WEST \
+	-r Woods_4g \
+	-w Woods_3f \
+	-e Woods_4f \
+	-s Woods_4f \
+	-n Woods_4h 
+
+
+
+
+
+
+echo Woods_4h
+slur regdir/Woods_4h.reg \
+	-o rdldir/Woods_4h.rdl \
+	-d FACE_WEST \
+	-r Woods_4h \
+	-w Woods_3i \
+	-e Woods_5h \
+	-s Woods_4g \
+	-n Woods_4i 
+
+
+
+
+
+
+echo Woods_4i
+slur regdir/Woods_4i.reg \
+	-o rdldir/Woods_4i.rdl \
+	-d FACE_WEST \
+	-r Woods_4i \
+	-w Woods_3i \
+	-e Woods_5i \
+	-s Woods_4h \
+	-n Woods_4j 
+
+
+
+
+
+
+echo Woods_4j
+slur regdir/Woods_4j.reg \
+	-o rdldir/Woods_4j.rdl \
+	-d FACE_WEST \
+	-r Woods_4j \
+	-w Woods_3j \
+	-e Woods_5j \
+	-s Woods_4i \
+	-n Woods_4k 
+
+
+
+
+
+
+echo Woods_4k
+slur regdir/Woods_4k.reg \
+	-o rdldir/Woods_4k.rdl \
+	-d FACE_WEST \
+	-r Woods_4k \
+	-w Woods_3k \
+	-e Woods_5k \
+	-s Woods_4j \
+	-n Woods_4l 
+
+
+
+
+
+
+echo Woods_4l
+slur regdir/Woods_4l.reg \
+	-o rdldir/Woods_4l.rdl \
+	-d FACE_WEST \
+	-r Woods_4l \
+	-w Woods_4m \
+	-e Woods_5l \
+	-s Woods_4k \
+	-n Woods_4m 
+
+
+
+
+
+
+echo Woods_4m
+slur regdir/Woods_4m.reg \
+	-o rdldir/Woods_4m.rdl \
+	-d FACE_WEST \
+	-r Woods_4m \
+	-w Woods_4l \
+	-e Woods_5m \
+	-s Woods_4l \
+	-n Woods_5r 
+
+
+
+
+
+echo Woods_4t
+slur regdir/Woods_4t.reg \
+	-o rdldir/Woods_4t.rdl \
+	-d FACE_WEST \
+	-r Woods_4t \
+	-w Woods_xx \
+	-e Woods_5t \
+	-s Woods_5s \
+	-n Woods_4u 
+
+
+
+
+echo Woods_4u
+slur regdir/Woods_4u.reg \
+	-o rdldir/Woods_4u.rdl \
+	-d FACE_WEST \
+	-r Woods_4u \
+	-w Woods_4u \
+	-e Woods_5u \
+	-s Woods_xx \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_5a
+slur regdir/Woods_5a.reg \
+	-o rdldir/Woods_5a.rdl \
+	-d FACE_WEST \
+	-r Woods_5a \
+	-w Woods_xx \
+	-e Woods_6a \
+	-s Woods_xx \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_5b
+slur regdir/Woods_5b.reg \
+	-o rdldir/Woods_5b.rdl \
+	-d FACE_WEST \
+	-r Woods_5b \
+	-w Woods_5c \
+	-e Woods_6b \
+	-s Woods_5b \
+	-n Woods_5c 
+
+
+
+
+
+
+echo Woods_5c
+slur regdir/Woods_5c.reg \
+	-o rdldir/Woods_5c.rdl \
+	-d FACE_WEST \
+	-r Woods_5c \
+	-w Woods_5b \
+	-e Woods_6c \
+	-s Woods_5b \
+	-n Woods_5d 
+
+
+
+
+
+
+echo Woods_5d
+slur regdir/Woods_5d.reg \
+	-o rdldir/Woods_5d.rdl \
+	-d FACE_WEST \
+	-r Woods_5d \
+	-w Woods_5e \
+	-e Woods_6d \
+	-s Woods_5c \
+	-n Woods_5e 
+
+
+
+
+
+
+echo Woods_5e
+slur regdir/Woods_5e.reg \
+	-o rdldir/Woods_5e.rdl \
+	-d FACE_WEST \
+	-r Woods_5e \
+	-w Woods_5d \
+	-e Woods_6e \
+	-s Woods_5d \
+	-n Woods_5e 
+
+
+
+
+
+
+echo Woods_5f
+slur regdir/Woods_5f.reg \
+	-o rdldir/Woods_5f.rdl \
+	-d FACE_WEST \
+	-r Woods_5f \
+	-w Woods_3c \
+	-e Woods_6f \
+	-s Woods_xx \
+	-n Woods_5g 
+
+
+
+
+
+
+echo Woods_5g
+slur regdir/Woods_5g.reg \
+	-o rdldir/Woods_5g.rdl \
+	-d FACE_WEST \
+	-r Woods_5g \
+	-w Woods_3d \
+	-e Woods_6g \
+	-s Woods_5f \
+	-n Woods_5h 
+
+
+
+
+
+
+echo Woods_5h
+slur regdir/Woods_5h.reg \
+	-o rdldir/Woods_5h.rdl \
+	-d FACE_WEST \
+	-r Woods_5h \
+	-w Woods_4h \
+	-e Woods_6h \
+	-s Woods_5g \
+	-n Woods_5i 
+
+
+
+
+
+
+echo Woods_5i
+slur regdir/Woods_5i.reg \
+	-o rdldir/Woods_5i.rdl \
+	-d FACE_WEST \
+	-r Woods_5i \
+	-w Woods_4i \
+	-e Woods_6i \
+	-s Woods_5h \
+	-n Woods_5j 
+
+
+
+
+
+
+echo Woods_5j
+slur regdir/Woods_5j.reg \
+	-o rdldir/Woods_5j.rdl \
+	-d FACE_WEST \
+	-r Woods_5j \
+	-w Woods_4j \
+	-e Woods_6j \
+	-s Woods_5i \
+	-n Woods_5k 
+
+
+
+
+
+
+echo Woods_5k
+slur regdir/Woods_5k.reg \
+	-o rdldir/Woods_5k.rdl \
+	-d FACE_WEST \
+	-r Woods_5k \
+	-w Woods_4k \
+	-e Woods_6k \
+	-s Woods_5j \
+	-n Woods_5l 
+
+
+
+
+
+
+echo Woods_5l
+slur regdir/Woods_5l.reg \
+	-o rdldir/Woods_5l.rdl \
+	-d FACE_WEST \
+	-r Woods_5l \
+	-w Woods_4l \
+	-e Woods_6l \
+	-s Woods_5k \
+	-n Woods_5l 
+
+
+
+
+
+
+echo Woods_5m
+slur regdir/Woods_5m.reg \
+	-o rdldir/Woods_5m.rdl \
+	-d FACE_WEST \
+	-r Woods_5m \
+	-w Woods_4m \
+	-e Woods_6m \
+	-s Woods_5l \
+	-n Woods_5n 
+
+
+
+
+
+
+echo Woods_5n
+slur regdir/Woods_5n.reg \
+	-o rdldir/Woods_5n.rdl \
+	-d FACE_WEST \
+	-r Woods_5n \
+	-w Woods_5o \
+	-e Woods_6n \
+	-s Woods_5m \
+	-n Woods_5o 
+
+
+
+
+
+
+echo Woods_5o
+slur regdir/Woods_5o.reg \
+	-o rdldir/Woods_5o.rdl \
+	-d FACE_WEST \
+	-r Woods_5o \
+	-w Woods_5n \
+	-e Woods_6o \
+	-s Woods_5n \
+	-n Woods_5p 
+
+
+
+
+
+
+echo Woods_5p
+slur regdir/Woods_5p.reg \
+	-o rdldir/Woods_5p.rdl \
+	-d FACE_WEST \
+	-r Woods_5p \
+	-w Woods_5q \
+	-e Woods_6p \
+	-s Woods_5o \
+	-n Woods_5q 
+
+
+
+
+
+
+echo Woods_5q
+slur regdir/Woods_5q.reg \
+	-o rdldir/Woods_5q.rdl \
+	-d FACE_WEST \
+	-r Woods_5q \
+	-w Woods_5p \
+	-e Woods_6q \
+	-s Woods_5p \
+	-n Woods_5r 
+
+
+
+
+
+
+echo Woods_5r
+slur regdir/Woods_5r.reg \
+	-o rdldir/Woods_5r.rdl \
+	-d FACE_WEST \
+	-r Woods_5r \
+	-w Woods_4m \
+	-e Woods_6r \
+	-s Woods_5q \
+	-n Woods_5s 
+
+
+
+
+
+
+echo Woods_5s
+slur regdir/Woods_5s.reg \
+	-o rdldir/Woods_5s.rdl \
+	-d FACE_WEST \
+	-r Woods_5s \
+	-w Woods_4t \
+	-e Woods_6s \
+	-s Woods_5r \
+	-n Woods_5t 
+
+
+
+
+
+
+echo Woods_5t
+slur regdir/Woods_5t.reg \
+	-o rdldir/Woods_5t.rdl \
+	-d FACE_WEST \
+	-r Woods_5t \
+	-w Woods_4t \
+	-e Woods_6t \
+	-s Woods_5s \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_5u
+slur regdir/Woods_5u.reg \
+	-o rdldir/Woods_5u.rdl \
+	-d FACE_WEST \
+	-r Woods_5u \
+	-w Woods_4u \
+	-e Woods_6u \
+	-s Woods_xx \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_5v
+slur regdir/Woods_5v.reg \
+	-o rdldir/Woods_5v.rdl \
+	-d FACE_WEST \
+	-r Woods_5v \
+	-w Woods_5w \
+	-e Woods_6v \
+	-s Woods_5w \
+	-n Woods_5w 
+
+
+
+
+
+
+echo Woods_5w
+slur regdir/Woods_5w.reg \
+	-o rdldir/Woods_5w.rdl \
+	-d FACE_WEST \
+	-r Woods_5w \
+	-w Woods_5v \
+	-e Woods_6w \
+	-s Woods_5v \
+	-n Woods_5v 
+
+
+
+
+
+
+
+
+echo Woods_6a
+slur regdir/Woods_6a.reg \
+	-o rdldir/Woods_6a.rdl \
+	-d FACE_WEST \
+	-r Woods_6a \
+	-w Woods_5a \
+	-e Woods_7a \
+	-s Woods_xx \
+	-n Woods_6b 
+
+
+
+
+
+
+echo Woods_6b
+slur regdir/Woods_6b.reg \
+	-o rdldir/Woods_6b.rdl \
+	-d FACE_WEST \
+	-r Woods_6b \
+	-w Woods_5b \
+	-e Woods_7b \
+	-s Woods_6a \
+	-n Woods_6c 
+
+
+
+
+
+
+echo Woods_6c
+slur regdir/Woods_6c.reg \
+	-o rdldir/Woods_6c.rdl \
+	-d FACE_WEST \
+	-r Woods_6c \
+	-w Woods_5c \
+	-e Woods_7c \
+	-s Woods_6b \
+	-n Woods_6d 
+
+
+
+
+
+
+echo Woods_6d
+slur regdir/Woods_6d.reg \
+	-o rdldir/Woods_6d.rdl \
+	-d FACE_WEST \
+	-r Woods_6d \
+	-w Woods_5d \
+	-e Woods_7d \
+	-s Woods_6c \
+	-n Woods_6e 
+
+
+
+
+
+
+echo Woods_6e
+slur regdir/Woods_6e.reg \
+	-o rdldir/Woods_6e.rdl \
+	-d FACE_WEST \
+	-r Woods_6e \
+	-w Woods_5e \
+	-e Woods_7e \
+	-s Woods_6d \
+	-n Woods_6f 
+
+
+
+
+
+
+echo Woods_6f
+slur regdir/Woods_6f.reg \
+	-o rdldir/Woods_6f.rdl \
+	-d FACE_WEST \
+	-r Woods_6f \
+	-w Woods_5f \
+	-e Woods_7f \
+	-s Woods_6e \
+	-n Woods_6g 
+
+
+
+
+
+
+echo Woods_6g
+slur regdir/Woods_6g.reg \
+	-o rdldir/Woods_6g.rdl \
+	-d FACE_WEST \
+	-r Woods_6g \
+	-w Woods_5g \
+	-e Woods_7g \
+	-s Woods_6f \
+	-n Woods_6h 
+
+
+
+
+
+
+echo Woods_6h
+slur regdir/Woods_6h.reg \
+	-o rdldir/Woods_6h.rdl \
+	-d FACE_WEST \
+	-r Woods_6h \
+	-w Woods_5h \
+	-e Woods_xx \
+	-s Woods_6g \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_6i
+slur regdir/Woods_6i.reg \
+	-o rdldir/Woods_6i.rdl \
+	-d FACE_WEST \
+	-r Woods_6i \
+	-w Woods_5i \
+	-e Woods_6i \
+	-s Woods_6i \
+	-n Woods_6j 
+
+
+
+
+
+
+echo Woods_6j
+slur regdir/Woods_6j.reg \
+	-o rdldir/Woods_6j.rdl \
+	-d FACE_WEST \
+	-r Woods_6j \
+	-w Woods_5j \
+	-e Woods_7k \
+	-s Woods_6i \
+	-n Woods_6k 
+
+
+
+
+
+
+echo Woods_6k
+slur regdir/Woods_6k.reg \
+	-o rdldir/Woods_6k.rdl \
+	-d FACE_WEST \
+	-r Woods_6k \
+	-w Woods_5k \
+	-e Woods_7k \
+	-s Woods_6j \
+	-n Woods_6l 
+
+
+
+
+
+
+echo Woods_6l
+slur regdir/Woods_6l.reg \
+	-o rdldir/Woods_6l.rdl \
+	-d FACE_WEST \
+	-r Woods_6l \
+	-w Woods_5l \
+	-e Woods_7l \
+	-s Woods_6k \
+	-n Woods_6m 
+
+
+
+
+
+
+echo Woods_6m
+slur regdir/Woods_6m.reg \
+	-o rdldir/Woods_6m.rdl \
+	-d FACE_WEST \
+	-r Woods_6m \
+	-w Woods_5m \
+	-e Woods_7m \
+	-s Woods_6l \
+	-n Woods_6n 
+
+
+
+
+
+
+echo Woods_6n
+slur regdir/Woods_6n.reg \
+	-o rdldir/Woods_6n.rdl \
+	-d FACE_WEST \
+	-r Woods_6n \
+	-w Woods_5n \
+	-e Woods_7n \
+	-s Woods_6m \
+	-n Woods_6o 
+
+
+
+
+
+
+echo Woods_6o
+slur regdir/Woods_6o.reg \
+	-o rdldir/Woods_6o.rdl \
+	-d FACE_WEST \
+	-r Woods_6o \
+	-w Woods_5o \
+	-e Woods_7o \
+	-s Woods_6n \
+	-n Woods_6p 
+
+
+
+
+
+
+echo Woods_6p
+slur regdir/Woods_6p.reg \
+	-o rdldir/Woods_6p.rdl \
+	-d FACE_WEST \
+	-r Woods_6p \
+	-w Woods_5p \
+	-e Woods_7p \
+	-s Woods_6o \
+	-n Woods_6q 
+
+
+
+
+
+
+echo Woods_6q
+slur regdir/Woods_6q.reg \
+	-o rdldir/Woods_6q.rdl \
+	-d FACE_WEST \
+	-r Woods_6q \
+	-w Woods_5q \
+	-e Woods_7q \
+	-s Woods_6p \
+	-n Woods_6q 
+
+
+
+
+
+
+echo Woods_6r
+slur regdir/Woods_6r.reg \
+	-o rdldir/Woods_6r.rdl \
+	-d FACE_WEST \
+	-r Woods_6r \
+	-w Woods_5r \
+	-e Woods_7r \
+	-s Woods_6q \
+	-n Woods_6s 
+
+
+
+
+
+
+echo Woods_6s
+slur regdir/Woods_6s.reg \
+	-o rdldir/Woods_6s.rdl \
+	-d FACE_WEST \
+	-r Woods_6s \
+	-w Woods_5s \
+	-e Woods_7s \
+	-s Woods_6r \
+	-n Woods_6t 
+
+
+
+
+
+
+echo Woods_6t
+slur regdir/Woods_6t.reg \
+	-o rdldir/Woods_6t.rdl \
+	-d FACE_WEST \
+	-r Woods_6t \
+	-w Woods_5t \
+	-e Woods_7t \
+	-s Woods_6s \
+	-n Woods_6u 
+
+
+
+
+
+
+echo Woods_6u
+slur regdir/Woods_6u.reg \
+	-o rdldir/Woods_6u.rdl \
+	-d FACE_WEST \
+	-r Woods_6u \
+	-w Woods_5u \
+	-e Woods_7u \
+	-s Woods_6t \
+	-n Woods_6v 
+
+
+
+
+
+
+echo Woods_6v
+slur regdir/Woods_6v.reg \
+	-o rdldir/Woods_6v.rdl \
+	-d FACE_WEST \
+	-r Woods_6v \
+	-w Woods_5v \
+	-e Woods_7v \
+	-s Woods_6u \
+	-n Woods_6w 
+
+
+
+
+
+
+echo Woods_6w
+slur regdir/Woods_6w.reg \
+	-o rdldir/Woods_6w.rdl \
+	-d FACE_WEST \
+	-r Woods_6w \
+	-w Woods_5w \
+	-e Woods_7w \
+	-s Woods_6v \
+	-n Woods_6x 
+
+
+
+
+
+
+echo Woods_6x
+slur regdir/Woods_6x.reg \
+	-o rdldir/Woods_6x.rdl \
+	-d FACE_WEST \
+	-r Woods_6x \
+	-w Woods_xx \
+	-e Woods_xx \
+	-s Woods_6w \
+	-n Woods_xx 
+
+
+
+
+
+
+
+
+echo Woods_7a
+slur regdir/Woods_7a.reg \
+	-o rdldir/Woods_7a.rdl \
+	-d FACE_WEST \
+	-r Woods_7a \
+	-w Woods_6a \
+	-e Woods_7b \
+	-s Woods_xx \
+	-n Woods_7b 
+
+
+
+
+
+
+echo Woods_7b
+slur regdir/Woods_7b.reg \
+	-o rdldir/Woods_7b.rdl \
+	-d FACE_WEST \
+	-r Woods_7b \
+	-w Woods_6b \
+	-e Woods_7a \
+	-s Woods_7a \
+	-n Woods_7c 
+
+
+
+
+
+
+echo Woods_7c
+slur regdir/Woods_7c.reg \
+	-o rdldir/Woods_7c.rdl \
+	-d FACE_WEST \
+	-r Woods_7c \
+	-w Woods_6c \
+	-e Woods_7d \
+	-s Woods_7b \
+	-n Woods_7d 
+
+
+
+
+
+
+echo Woods_7d
+slur regdir/Woods_7d.reg \
+	-o rdldir/Woods_7d.rdl \
+	-d FACE_WEST \
+	-r Woods_7d \
+	-w Woods_6d \
+	-e Woods_7c \
+	-s Woods_7c \
+	-n Woods_7e 
+
+
+
+
+
+
+echo Woods_7e
+slur regdir/Woods_7e.reg \
+	-o rdldir/Woods_7e.rdl \
+	-d FACE_WEST \
+	-r Woods_7e \
+	-w Woods_6e \
+	-e Woods_7f \
+	-s Woods_7e \
+	-n Woods_7f 
+
+
+
+
+
+
+echo Woods_7f
+slur regdir/Woods_7f.reg \
+	-o rdldir/Woods_7f.rdl \
+	-d FACE_WEST \
+	-r Woods_7f \
+	-w Woods_6f \
+	-e Woods_7e \
+	-s Woods_7e \
+	-n Woods_7g 
+
+
+
+
+
+
+echo Woods_7g
+slur regdir/Woods_7g.reg \
+	-o rdldir/Woods_7g.rdl \
+	-d FACE_WEST \
+	-r Woods_7g \
+	-w Woods_6g \
+	-e Woods_8g \
+	-s Woods_7f \
+	-n Woods_7h 
+
+
+
+
+
+
+echo Woods_7h
+slur regdir/Woods_7h.reg \
+	-o rdldir/Woods_7h.rdl \
+	-d FACE_WEST \
+	-r Woods_7h \
+	-w Woods_7h \
+	-e Woods_8h \
+	-s Woods_7g \
+	-n Woods_7h 
+
+
+
+
+
+
+echo Woods_7k
+slur regdir/Woods_7k.reg \
+	-o rdldir/Woods_7k.rdl \
+	-d FACE_WEST \
+	-r Woods_7k \
+	-w Woods_6k \
+	-e Woods_7l \
+	-s Woods_6j \
+	-n Woods_7l 
+
+
+
+
+
+
+echo Woods_7l
+slur regdir/Woods_7l.reg \
+	-o rdldir/Woods_7l.rdl \
+	-d FACE_WEST \
+	-r Woods_7l \
+	-w Woods_6l \
+	-e Woods_7k \
+	-s Woods_7k \
+	-n Woods_7m 
+
+
+
+
+
+
+echo Woods_7m
+slur regdir/Woods_7m.reg \
+	-o rdldir/Woods_7m.rdl \
+	-d FACE_WEST \
+	-r Woods_7m \
+	-w Woods_6m \
+	-e Woods_7k \
+	-s Woods_7k \
+	-n Woods_7n 
+
+
+
+
+
+
+echo Woods_7n
+slur regdir/Woods_7n.reg \
+	-o rdldir/Woods_7n.rdl \
+	-d FACE_WEST \
+	-r Woods_7n \
+	-w Woods_6n \
+	-e Woods_7m \
+	-s Woods_7m \
+	-n Woods_7n 
+
+
+
+
+
+
+echo Woods_7o
+slur regdir/Woods_7o.reg \
+	-o rdldir/Woods_7o.rdl \
+	-d FACE_WEST \
+	-r Woods_7o \
+	-w Woods_6o \
+	-e Woods_8q \
+	-s Woods_9q \
+	-n Woods_7p 
+
+
+
+
+
+
+echo Woods_7p
+slur regdir/Woods_7p.reg \
+	-o rdldir/Woods_7p.rdl \
+	-d FACE_WEST \
+	-r Woods_7p \
+	-w Woods_6p \
+	-e Woods_9q \
+	-s Woods_7o \
+	-n Woods_7q 
+
+
+
+
+
+
+echo Woods_7q
+slur regdir/Woods_7q.reg \
+	-o rdldir/Woods_7q.rdl \
+	-d FACE_WEST \
+	-r Woods_7q \
+	-w Woods_6q \
+	-e Woods_8q \
+	-s Woods_7p \
+	-n Woods_7r 
+
+
+
+
+
+
+echo Woods_7r
+slur regdir/Woods_7r.reg \
+	-o rdldir/Woods_7r.rdl \
+	-d FACE_WEST \
+	-r Woods_7r \
+	-w Woods_6r \
+	-e Woods_8r \
+	-s Woods_7q \
+	-n Woods_7s 
+
+
+
+
+
+
+echo Woods_7s
+slur regdir/Woods_7s.reg \
+	-o rdldir/Woods_7s.rdl \
+	-d FACE_WEST \
+	-r Woods_7s \
+	-w Woods_6s \
+	-e Woods_8s \
+	-s Woods_7r \
+	-n Woods_8s 
+
+
+
+
+
+
+echo Woods_7t
+slur regdir/Woods_7t.reg \
+	-o rdldir/Woods_7t.rdl \
+	-d FACE_WEST \
+	-r Woods_7t \
+	-w Woods_6t \
+	-e Woods_7u \
+	-s Woods_7w \
+	-n Woods_7u 
+
+
+
+
+
+
+echo Woods_7u
+slur regdir/Woods_7u.reg \
+	-o rdldir/Woods_7u.rdl \
+	-d FACE_WEST \
+	-r Woods_7u \
+	-w Woods_6u \
+	-e Woods_7t \
+	-s Woods_7t \
+	-n Woods_7v 
+
+
+
+
+
+
+echo Woods_7v
+slur regdir/Woods_7v.reg \
+	-o rdldir/Woods_7v.rdl \
+	-d FACE_WEST \
+	-r Woods_7v \
+	-w Woods_6w \
+	-e Woods_7w \
+	-s Woods_7u \
+	-n Woods_7w 
+
+
+
+
+
+
+echo Woods_7w
+slur regdir/Woods_7w.reg \
+	-o rdldir/Woods_7w.rdl \
+	-d FACE_WEST \
+	-r Woods_7w \
+	-w Woods_6w \
+	-e Woods_7v \
+	-s Woods_7v \
+	-n Woods_7t 
+
+
+
+
+
+
+
+
+
+echo Woods_8g
+slur regdir/Woods_8g.reg \
+	-o rdldir/Woods_8g.rdl \
+	-d FACE_WEST \
+	-r Woods_8g \
+	-w Woods_7g \
+	-e Woods_8g \
+	-s Woods_8g \
+	-n Woods_8h 
+
+
+
+
+
+
+echo Woods_8h
+slur regdir/Woods_8h.reg \
+	-o rdldir/Woods_8h.rdl \
+	-d FACE_WEST \
+	-r Woods_8h \
+	-w Woods_7h \
+	-e Woods_8h \
+	-s Woods_8g \
+	-n Woods_8h 
+
+
+
+
+
+
+echo Woods_8q
+slur regdir/Woods_8q.reg \
+	-o rdldir/Woods_8q.rdl \
+	-d FACE_WEST \
+	-r Woods_8q \
+	-w Woods_7q \
+	-e Woods_9q \
+	-s Woods_7o \
+	-n Woods_8r 
+
+
+
+
+
+
+echo Woods_8r
+slur regdir/Woods_8r.reg \
+	-o rdldir/Woods_8r.rdl \
+	-d FACE_WEST \
+	-r Woods_8r \
+	-w Woods_7r \
+	-e Woods_9r \
+	-s Woods_8q \
+	-n Woods_8s 
+
+
+
+
+
+
+echo Woods_8s
+slur regdir/Woods_8s.reg \
+	-o rdldir/Woods_8s.rdl \
+	-d FACE_WEST \
+	-r Woods_8s \
+	-w Woods_7s \
+	-e Woods_9s \
+	-s Woods_8r \
+	-n Woods_7s 
+
+
+
+
+
+
+echo Woods_9q
+slur regdir/Woods_9q.reg \
+	-o rdldir/Woods_9q.rdl \
+	-d FACE_WEST \
+	-r Woods_9q \
+	-w Woods_8q \
+	-e Woods_7o \
+	-s Woods_7p \
+	-n Woods_9r 
+
+
+
+
+
+
+echo Woods_9r
+slur regdir/Woods_9r.reg \
+	-o rdldir/Woods_9r.rdl \
+	-d FACE_WEST \
+	-r Woods_9r \
+	-w Woods_8r \
+	-e Woods_ar \
+	-s Woods_9q \
+	-n Woods_9s 
+
+
+
+
+
+
+echo Woods_9s
+slur regdir/Woods_9s.reg \
+	-o rdldir/Woods_9s.rdl \
+	-d FACE_WEST \
+	-r Woods_9s \
+	-w Woods_8s \
+	-e Woods_as \
+	-s Woods_9r \
+	-n Woods_as 
+
+
+
+
+
+
+echo Woods_ap
+slur regdir/Woods_ap.reg \
+	-o rdldir/Woods_ap.rdl \
+	-d FACE_WEST \
+	-r Woods_ap \
+	-w Woods_aq \
+	-e Woods_bp \
+	-s Woods_bp \
+	-n Woods_aq 
+
+
+
+
+
+
+echo Woods_aq
+slur regdir/Woods_aq.reg \
+	-o rdldir/Woods_aq.rdl \
+	-d FACE_WEST \
+	-r Woods_aq \
+	-w Woods_ap \
+	-e Woods_bq \
+	-s Woods_ap \
+	-n Woods_ar 
+
+
+
+
+
+
+echo Woods_ar
+slur regdir/Woods_ar.reg \
+	-o rdldir/Woods_ar.rdl \
+	-d FACE_WEST \
+	-r Woods_ar \
+	-w Woods_9r \
+	-e Woods_br \
+	-s Woods_aq \
+	-n Woods_as 
+
+
+
+
+
+
+echo Woods_as
+slur regdir/Woods_as.reg \
+	-o rdldir/Woods_as.rdl \
+	-d FACE_WEST \
+	-r Woods_as \
+	-w Woods_9s \
+	-e Woods_cs \
+	-s Woods_ar \
+	-n Woods_9s 
+
+
+
+
+
+
+
+echo Woods_bp
+slur regdir/Woods_bp.reg \
+	-o rdldir/Woods_bp.rdl \
+	-d FACE_WEST \
+	-r Woods_bp \
+	-w Woods_ap \
+	-e Woods_cp \
+	-s Woods_ap \
+	-n Woods_bq 
+
+
+
+
+
+
+echo Woods_bq
+slur regdir/Woods_bq.reg \
+	-o rdldir/Woods_bq.rdl \
+	-d FACE_WEST \
+	-r Woods_bq \
+	-w Woods_aq \
+	-e Woods_cq \
+	-s Woods_bp \
+	-n Woods_br 
+
+
+
+
+
+
+echo Woods_br
+slur regdir/Woods_br.reg \
+	-o rdldir/Woods_br.rdl \
+	-d FACE_WEST \
+	-r Woods_br \
+	-w Woods_ar \
+	-e Woods_cr \
+	-s Woods_bq \
+	-n Woods_bs 
+
+
+
+
+
+
+echo Woods_bs
+slur regdir/Woods_bs.reg \
+	-o rdldir/Woods_bs.rdl \
+	-d FACE_WEST \
+	-r Woods_bs \
+	-w Woods_xx \
+	-e Woods_xx \
+	-s Woods_br \
+	-n Woods_xx 
+
+
+
+
+
+
+echo Woods_cm
+slur regdir/Woods_cm.reg \
+	-o rdldir/Woods_cm.rdl \
+	-d FACE_WEST \
+	-r Woods_cm \
+	-w Woods_xx \
+	-e Woods_xx \
+	-s Woods_xx \
+	-n Woods_cn 
+
+
+
+
+
+
+echo Woods_cn
+slur regdir/Woods_cn.reg \
+	-o rdldir/Woods_cn.rdl \
+	-d FACE_WEST \
+	-r Woods_cn \
+	-w Woods_bp \
+	-e Woods_co \
+	-s Woods_cm \
+	-n Woods_co 
+
+
+
+
+
+
+echo Woods_co
+slur regdir/Woods_co.reg \
+	-o rdldir/Woods_co.rdl \
+	-d FACE_WEST \
+	-r Woods_co \
+	-w Woods_ap \
+	-e Woods_cp \
+	-s Woods_cn \
+	-n Woods_cp 
+
+
+
+
+
+
+echo Woods_cp
+slur regdir/Woods_cp.reg \
+	-o rdldir/Woods_cp.rdl \
+	-d FACE_WEST \
+	-r Woods_cp \
+	-w Woods_bp \
+	-e Woods_dq \
+	-s Woods_co \
+	-n Woods_cq 
+
+
+
+
+
+
+echo Woods_cq
+slur regdir/Woods_cq.reg \
+	-o rdldir/Woods_cq.rdl \
+	-d FACE_WEST \
+	-r Woods_cq \
+	-w Woods_bq \
+	-e Woods_dq \
+	-s Woods_cp \
+	-n Woods_cr 
+
+
+
+
+
+
+echo Woods_cr
+slur regdir/Woods_cr.reg \
+	-o rdldir/Woods_cr.rdl \
+	-d FACE_WEST \
+	-r Woods_cr \
+	-w Woods_br \
+	-e Woods_dr \
+	-s Woods_cq \
+	-n Woods_cs 
+
+
+
+
+
+
+echo Woods_cs
+slur regdir/Woods_cs.reg \
+	-o rdldir/Woods_cs.rdl \
+	-d FACE_WEST \
+	-r Woods_cs \
+	-w Woods_as \
+	-e Woods_ds \
+	-s Woods_cr \
+	-n Woods_ds 
+
+
+
+
+
+
+echo Woods_dq
+slur regdir/Woods_dq.reg \
+	-o rdldir/Woods_dq.rdl \
+	-d FACE_WEST \
+	-r Woods_dq \
+	-w Woods_cq \
+	-e Woods_eq \
+	-s Woods_cp \
+	-n Woods_dr 
+
+
+
+
+
+
+echo Woods_dr
+slur regdir/Woods_dr.reg \
+	-o rdldir/Woods_dr.rdl \
+	-d FACE_WEST \
+	-r Woods_dr \
+	-w Woods_cr \
+	-e Woods_er \
+	-s Woods_dq \
+	-n Woods_ds 
+
+
+
+
+
+
+echo Woods_ds
+slur regdir/Woods_ds.reg \
+	-o rdldir/Woods_ds.rdl \
+	-d FACE_WEST \
+	-r Woods_ds \
+	-w Woods_cs \
+	-e Woods_es \
+	-s Woods_dr \
+	-n Woods_cs 
+
+
+
+
+
+
+echo Woods_dt
+slur regdir/Woods_dt.reg \
+	-o rdldir/Woods_dt.rdl \
+	-d FACE_WEST \
+	-r Woods_dt \
+	-w Woods_dt \
+	-e Woods_et \
+	-s Woods_ds \
+	-n Woods_dt 
+
+
+
+
+
+
+echo Woods_eq
+slur regdir/Woods_eq.reg \
+	-o rdldir/Woods_eq.rdl \
+	-d FACE_WEST \
+	-r Woods_eq \
+	-w Woods_dq \
+	-e Woods_eq \
+	-s Woods_eq \
+	-n Woods_er 
+
+
+
+
+
+
+echo Woods_er
+slur regdir/Woods_er.reg \
+	-o rdldir/Woods_er.rdl \
+	-d FACE_WEST \
+	-r Woods_er \
+	-w Woods_dr \
+	-e Woods_fr \
+	-s Woods_eq \
+	-n Woods_es 
+
+
+
+
+
+
+echo Woods_es
+slur regdir/Woods_es.reg \
+	-o rdldir/Woods_es.rdl \
+	-d FACE_WEST \
+	-r Woods_es \
+	-w Woods_ds \
+	-e Woods_fs \
+	-s Woods_er \
+	-n Woods_et 
+
+
+
+
+
+
+echo Woods_et
+slur regdir/Woods_et.reg \
+	-o rdldir/Woods_et.rdl \
+	-d FACE_WEST \
+	-r Woods_et \
+	-w Woods_dt \
+	-e Woods_ft \
+	-s Woods_es \
+	-n Woods_ft 
+
+
+
+
+
+
+echo Woods_fq
+slur regdir/Woods_fq.reg \
+	-o rdldir/Woods_fq.rdl \
+	-d FACE_WEST \
+	-r Woods_fq \
+	-w Woods_fq \
+	-e Woods_gq \
+	-s Woods_fq \
+	-n Woods_fr 
+
+
+
+
+
+
+echo Woods_fr
+slur regdir/Woods_fr.reg \
+	-o rdldir/Woods_fr.rdl \
+	-d FACE_WEST \
+	-r Woods_fr \
+	-w Woods_er \
+	-e Woods_gr \
+	-s Woods_fq \
+	-n Woods_fs 
+
+
+
+
+
+
+echo Woods_fs
+slur regdir/Woods_fs.reg \
+	-o rdldir/Woods_fs.rdl \
+	-d FACE_WEST \
+	-r Woods_fs \
+	-w Woods_es \
+	-e Woods_ft \
+	-s Woods_fr \
+	-n Woods_ft 
+
+
+
+
+
+
+echo Woods_ft
+slur regdir/Woods_ft.reg \
+	-o rdldir/Woods_ft.rdl \
+	-d FACE_WEST \
+	-r Woods_ft \
+	-w Woods_et \
+	-e Woods_fs \
+	-s Woods_fs \
+	-n Woods_et 
+
+
+
+
+
+
+echo Woods_gq
+slur regdir/Woods_gq.reg \
+	-o rdldir/Woods_gq.rdl \
+	-d FACE_WEST \
+	-r Woods_gq \
+	-w Woods_fq \
+	-e Woods_gq \
+	-s Woods_gq \
+	-n Woods_gr 
+
+
+
+
+
+
+echo Woods_gr
+slur regdir/Woods_gr.reg \
+	-o rdldir/Woods_gr.rdl \
+	-d FACE_WEST \
+	-r Woods_gr \
+	-w Woods_fr \
+	-e Woods_gs \
+	-s Woods_gq \
+	-n Woods_gs 
+
+
+
+
+
+
+echo Woods_gs
+slur regdir/Woods_gs.reg \
+	-o rdldir/Woods_gs.rdl \
+	-d FACE_WEST \
+	-r Woods_gs \
+	-w Woods_gs \
+	-e Woods_gr \
+	-s Woods_gr \
+	-n Woods_gs 
+
+
+
+
+
+
+
+
+
+
+
+

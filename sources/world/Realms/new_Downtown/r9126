@@ -1,0 +1,403 @@
+use region r_9126 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r r_9125
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6887 {
+  container: r r_9126
+  x: 0
+  y: 0
+  style: 5
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6888 {
+  container: r r_9126
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use display_case o_6889 {
+  container: r r_9126
+  x: 16
+  y: 32
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use display_case o_6890 {
+  container: r r_9126
+  x: 16
+  y: 70
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use display_case o_6893 {
+  container: r r_9126
+  x: 60
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use display_case o_6894 {
+  container: r r_9126
+  x: 60
+  y: 70
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use display_case o_6895 {
+  container: r r_9126
+  x: 104
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  owner: a 0
+  locked: '00000'b
+}
+use wall o_6907 {
+  container: r r_9126
+  x: 0
+  y: 160
+  style: 4
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use pawn_machine o_6908 {
+  container: r r_9126
+  x: 124
+  y: 138
+  style: 0
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use knick_knack o_6891 {
+  container: r r_9126
+  x: 136
+  y: 75
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6899 {
+  container: r r_9126
+  x: 16
+  y: 161
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6898 {
+  container: r r_9126
+  x: 108
+  y: 73
+  style: 5
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6901 {
+  container: r r_9126
+  x: 28
+  y: 42
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6902 {
+  container: r r_9126
+  x: 36
+  y: 41
+  style: 3
+  gr_state: 0
+  orient: 24
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use windup_toy o_1007718 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007717 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007716 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007715 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007714 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007713 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007712 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007711 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use windup_toy o_1007710 {
+  container: r r_9126
+  x: 36
+  y: 0
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  wind_level: 0
+}
+use paper o_1009675 {
+  container: r r_9126
+  x: 10
+  y: 154
+  style: 0
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text_id: 1001441
+}
+use knick_knack o_6892 {
+  container: o o_6889
+  x: 112
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6897 {
+  container: o o_6889
+  x: 128
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6896 {
+  container: o o_6890
+  x: 124
+  y: 0
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6903 {
+  container: o o_6893
+  x: 68
+  y: 1
+  style: 4
+  gr_state: 0
+  orient: 16
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_6904 {
+  container: o o_6893
+  x: 84
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 48
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use head o_1000034 {
+  container: o o_6907
+  x: 134
+  y: 6
+  style: 74
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

@@ -1,0 +1,68 @@
+#! /bin/csh -f
+
+
+
+set fred = 66 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 67 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 68 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 78 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 79 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 7a ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 7b ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 7c ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 6c ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 5c ; regwait $fred ; echo 'press return' ; set foo = $<
+
+set fred = 4c ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 3c ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 3d ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 2d ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 1d ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 1c ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 1b ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 1a ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 0a ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 09 ; regwait $fred ; echo 'press return' ; set foo = $<
+
+set fred = 08 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 18 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 28 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 38 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 37 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 36 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 26 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 25 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 15 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 05 ; regwait $fred ; echo 'press return' ; set foo = $<
+
+set fred = 04 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 03 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 02 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 12 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 11 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 21 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 31 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 30 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 40 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 50 ; regwait $fred ; echo 'press return' ; set foo = $<
+
+set fred = 60 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 61 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 71 ; regwait $fred ; echo 'press return' ; set foo = $<
+
+
+set fred = 72 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 73 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 63 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 64 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 74 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 84 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 83 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 82 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 92 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 93 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 94 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 84 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 85 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 75 ; regwait $fred ; echo 'press return' ; set foo = $<
+set fred = 76 ; regwait $fred ; echo 'press return' ; set foo = $<

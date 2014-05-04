@@ -1,0 +1,134 @@
+use region r_9130 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9142
+  west_neighbor: r r_9119
+  north_neighbor: r r_9131
+  south_neighbor: r r_9129
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6976 {
+  container: r r_9130
+  x: 0
+  y: 1
+  style: 6
+  gr_state: 0
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6977 {
+  container: r r_9130
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window o_6978 {
+  container: r r_9130
+  x: 56
+  y: 36
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window o_6979 {
+  container: r r_9130
+  x: 92
+  y: 36
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_6980 {
+  container: r r_9130
+  x: 16
+  y: 32
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use window o_6981 {
+  container: r r_9130
+  x: 128
+  y: 36
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use street o_6982 {
+  container: r r_9130
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use sign o_6983 {
+  container: r r_9130
+  x: 56
+  y: 104
+  style: 4
+  gr_state: 2
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " Kerri's Knick Knacks                   "
+}
+use short_sign o_6984 {
+  container: r r_9130
+  x: 124
+  y: 21
+  style: 5
+  gr_state: 9
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Rodeo Dr  "
+}

@@ -1,0 +1,64 @@
+/*
+ *   class_elevator.pl1
+ *
+ *   Object behavior module for class elevator.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   6-February-1987
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_elevator: procedure;
+
+     %replace ELEVATOR_REQUESTS by 5;
+
+     declare a(0:ELEVATOR_REQUESTS) entry based;
+     declare class_elevator_actions pointer;
+     declare 1 elevator based %include struct_elevator;
+
+     %replace I by CLASS_ELEVATOR;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = ELEVATOR_REQUESTS;
+     Class_Table(I).alloc_size = size(elevator);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_elevator_actions);
+     Class_Table(I).actions = class_elevator_actions;
+
+     Class_Table(I).actions->a(HELP)  = elevator_HELP;      /* 0 */
+     Class_Table(I).actions->a(1)     = illegal;            /* 1 */
+     Class_Table(I).actions->a(2)     = illegal;            /* 2 */
+     Class_Table(I).actions->a(3)     = illegal;            /* 3 */
+     Class_Table(I).actions->a(4)     = illegal;            /* 4 */
+     Class_Table(I).actions->a(ZAPTO) = elevator_ZAPTO;     /* 5 */
+
+end initialize_class_elevator;
+
+elevator_ZAPTO: procedure;
+     declare port_number char(20) varying;
+     declare squish entry(char(*) varying) returns(char(256) varying);
+     declare area_code entry(pointer) returns(character(20) varying);
+
+     request_string = translate(request_string,
+          'abcdefghijklmnopqrstuvwxyz',
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     request_string = squish(request_string);
+     port_number = 'otis-' || area_code(selfptr) || request_string;
+     call identify_teleport(port_number);
+end elevator_ZAPTO;
+
+elevator_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_elevator;
+
+     call r_msg_s('ELEVATOR: stand in elevator and type desired floor followed by RETURN.');
+     call object_say(self.noid, 'This is elevator "' || ltrim(rtrim(self.address)) || '"');
+end elevator_HELP;

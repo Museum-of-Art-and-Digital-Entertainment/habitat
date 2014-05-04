@@ -1,0 +1,55 @@
+@region $ dnalsi_59 {
+    north: dnalsi_5a.l;
+    south: dnalsi_58.l;
+    east: dnalsi_69.l;
+    west: dnalsi_49.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:0;
+        }
+        @bush { x:80; y:158; or:9; style:4; gr_state:2; }
+        @hole { x:56; y:156; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @bottle { x:6; y:6; or:0; 
+                    8:0;
+                }
+                @bottle { x:5; y:5; or:0; 
+                    8:0;
+                }
+                @bottle { x:4; y:4; or:0; 
+                    8:0;
+                }
+                @bottle { x:3; y:3; or:0; 
+                    8:0;
+                }
+                @bottle { x:2; y:2; or:0; 
+                    8:0;
+                }
+                @bottle { x:1; y:1; or:0; 
+                    8:0;
+                }
+                @bottle { x:0; y:0; or:0; 
+                    8:0;
+                }
+            ]
+        }
+        @flat { x:0; y:12; or:188; style:1; 
+            8:2;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:52; y:143; or:25; style:4; gr_state:2; }
+        @bush { x:128; y:42; or:56; style:4; gr_state:2; }
+        @bush { x:104; y:44; or:56; style:4; gr_state:2; }
+        @bush { x:80; y:42; or:56; style:4; gr_state:2; }
+        @bush { x:80; y:44; or:57; style:4; gr_state:2; }
+        @bush { x:44; y:44; or:57; style:4; gr_state:2; }
+    ]
+}

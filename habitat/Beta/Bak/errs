@@ -1,0 +1,9 @@
+/u0/chip/habitat/muddle/muddle < beta.mud > beta.list
+can't read file 'Images/pothead.bin'
+Unix says: No such file or directory
+can't read file 'Images/bem3.bin'
+Unix says: No such file or directory
+getpic 0 7800 <image.dat >image1.dat
+getpic 7800 7800 <image.dat >image2.dat
+getpic 0 7800 <head.dat >head1.dat
+getpic 7800 6500 <head.dat >head2.dat

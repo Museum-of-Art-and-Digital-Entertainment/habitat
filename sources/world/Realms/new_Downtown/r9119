@@ -1,0 +1,115 @@
+use region r_9119 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9130
+  west_neighbor: r r_1960
+  north_neighbor: r r_9120
+  south_neighbor: r r_9118
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_6832 {
+  container: r r_9119
+  x: 0
+  y: 1
+  style: 6
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_6833 {
+  container: r r_9119
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_6834 {
+  container: r r_9119
+  x: 56
+  y: 32
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use sign o_6835 {
+  container: r r_9119
+  x: 20
+  y: 70
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "  \ La\R \ Vous\R  New                      "
+}
+use door o_6836 {
+  container: r r_9119
+  x: 96
+  y: 32
+  style: 1
+  gr_state: 0
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 2
+  key: 0
+  connection: r 0
+}
+use short_sign o_6837 {
+  container: r r_9119
+  x: 124
+  y: 21
+  style: 5
+  gr_state: 9
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Rodeo Dr  "
+}
+use street o_6838 {
+  container: r r_9119
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

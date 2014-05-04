@@ -1,0 +1,18 @@
+cd /u0/farmer/mic/Obj
+cat debug_on >frf_equates.m
+cat farmers_equates.m >>frf_equates.m
+rm loader.obj
+rm auto.obj
+rm main.obj
+rm keys.obj
+rm protocol.obj
+rm fastlink.obj
+rm vblank.obj
+cd /u0/farmer/mic
+make new
+grep voice_bit all.sym
+echo '^ must be less than 0x4000^'
+grep end_of_program all.sym
+echo '^ must be less than 0x9f00^'
+cp all.out Q3.out
+cp all.sym Q3.sym

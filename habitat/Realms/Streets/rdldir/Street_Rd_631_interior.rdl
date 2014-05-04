@@ -1,0 +1,28 @@
+@region $ Street_Rd_631_interior {
+    east: Street_Rd_631_front.l;
+    region_owner: 0.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:4; or:0; style:1; }
+        @wall { x:0; y:0; or:72; style:4; }
+        @table { x:48; y:153; or:204; 
+            8:3;
+            9:0;
+            10:0;
+        }
+        @chest { x:112; y:32; or:196; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @floor_lamp { x:140; y:135; or:48; 
+            8:1;
+        }
+        @door { x:8; y:33; or:156; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @bed { x:84; y:131; or:244; }
+    ]
+}

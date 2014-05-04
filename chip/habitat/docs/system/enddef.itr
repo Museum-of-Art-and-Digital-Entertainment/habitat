@@ -1,0 +1,376 @@
+.AM
+.ds Dq November 1, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Definition of
+
+Public Release Habitat\*M System\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH RELEASE DEFINITION
+.ds CH \\*(Dq
+.ds RH Habitat Document # 28
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This is a summary document defining the overall \fIHabitat\fP system.  It
+describes Commodore 64 software, host software, world design and generation,
+operations setup, and documentation.  The material that follows discusses the
+intended state of the system in both the beta release version and the
+public release version.
+.SH
+\s+3Commodore 64 Software\s-3
+.PP
+The Commodore 64 software consists of two major components: the program disk
+and the object disk.  Since these have been detailed in previous documents, we
+will not describe them in much depth here.  Briefly, however, the program disk
+contains the main \fIHabitat\fP program, which manages memory, graphics,
+animation, communications, disk I/O, and the user interface.  There are no
+differences between the beta release and public release versions of the
+program disk other than bug fixes.  The object disk contains the imagery,
+sound effects definitions, and behavior code for all of the objects that can
+appear in the \fIHabitat\fP world.  A complete list of these objects and what
+they do is given in Appendix A.  The only differences between the beta release
+and public release versions of the object disk are a few objects which are
+intended to be added during the beta test period.  These are indicated in the
+appendix.
+.SH
+\s+3Host Software\s-3
+.PP
+The host software consists of a collection of object behavior routines
+produced by Lucasfilm that implement the host portion of the behavior of the
+various objects that can appear in the world and several processes produced by
+Quantum which manage the running system.
+.PP
+The set of objects implemented on the host matches the set implemented on the
+Commodore 64, though, of course, the division of functionality between the
+host and the Commodore means that the two sides of the system do different
+things.
+.PP
+The primary Quantum-originated processes include the following:
+.IP "\ \ \ \ \(bu\ "
+\fIRegion processor\fR \(em responsible for managing communications with and
+between the players, for controlling execution of the host-resident object
+behavior code, for providing run-time services required by the host-resident
+object behavior code, and for implementing \fIHabitat\fP functions that
+require complicated system interface operations.  The latter include
+teleportation, region transition, ESP, and ghosting.  The Lucasfilm-originated
+host behavior code for the objects run as part of the region processor.
+.IP "\ \ \ \ \(bu\ "
+\fIDatabase processor\fR \(em responsible for transferring information between
+the \fIHabitat\fP disk databases and the region processor's memory.
+.IP "\ \ \ \ \(bu\ "
+\fIHabitat master process\fR \(em responsible for managing the overall
+operation of the system, coordinating the execution of the other processes and
+the communications between them.
+.LP
+In addition, the host software includes other ancillary processes, such as the
+process which initializes new users and all of the various processes that are
+part of the regular Q-Link system which are required for \fIHabitat\fP to
+have an environment in which to operate.
+.PP
+There should be no differences between the Quantum-originated host software in
+the beta release version and the public release version with the possible
+exception of bug fixes and performance enchancements.  The
+Lucasfilm-originated host object behavior code will be augmented during
+beta test by the addition of the new objects mentioned previously.
+.SH
+\s+3The World\s-3
+.PP
+The habitat world in the beta release version consists of one major city,
+Populopolis, and surrounding environs.  The surrounding area includes sites
+for the first few adventures as well as a number of social areas and
+interesting places to simply explore.  In addition, for public release we are
+creating a Habitat Master Geographic Plan describing the locations for new
+residential areas and new cities to be installed as needed, and the plan for
+``plugging'' new realms into the world as they are created during the normal
+operation of the system.
+.PP
+For public release, we must generate a world capable of supporting several
+thousands of players.  In order to accomplish this, we are creating a number
+of automated tools to facilitate world building.  These include:
+.IP "\ \ \ \ \(bu\ "
+\fIAutomatic apartment complex generator\fR \(em This is a program that will
+combine a small number of pre-designed regions into the 20,000 turves and
+supporting hallways, elevators, and so on that we wish to initially generate.
+This is a simple utility that will be created quickly during the beta test
+period so that the initial batch of turves can be ready for the public release
+date.  After public release we will port it to host system so that new
+apartments can be generated on demand as needed.
+.IP "\ \ \ \ \(bu\ "
+\fIGeneralized city generator\fR \(em This is a generalization of the
+apartment generator that will enable the quick generation of areas built out
+of standard ``component'' regions according to specifications given in a very
+simple layout language.
+.IP "\ \ \ \ \(bu\ "
+\fIRealm editor\fR \(em This is actually a family of programs, evolving out of
+our present development system and leading ultimately to a stand-alone utility
+for the Commodore 64.  The realm editor allows a designer to interactively lay
+out regions on a map and then to edit the contents and appearance of those
+regions individually, using the full power of the \fIHabitat\fP object set and
+graphic engine.  For the two releases under discussion here we will use it in
+its present form, an integral part of our current Lucasfilm software
+development system.  As a follow-on project we would like to modify it into a
+stand-alone program that could be used by third parties.
+.IP "\ \ \ \ \(bu\ "
+\fIStochastic region generator\fR \(em This is a program that will generate
+large numbers of variations-on-a-theme regions to flesh out the world for
+public release.  It will be used to create highways, forests, wilderness, and
+other areas whose regions can be described according to a statistical model.
+.LP
+With the exception of the apartment generator, none of these tools are part of
+the \fIHabitat\fP release system per se.  They are simply mechanisms that will
+enable us to generate the large numbers of regions that will be required to
+support the public release version of the system.
+.SH
+\s+3The Beta Release World\s-3
+.PP
+These are the elements we have either finished or are working on for the
+beta release \fIHabitat\fP world.  They are described in greater detail in the
+earlier document \fBComing Attractions\fR.
+.SH
+Populopolis
+.PP
+\fIPopulopolis\fP is the name of \fIHabitat\fP's first town.  In its initial
+(beta release) form, it consists of a downtown area together with residential
+areas holding turves for up to 320 players.  Downtown contains some three
+dozen businesses to serve the population, as well as a central plaza with the
+Oracle's fountain in the middle.
+.PP
+The downtown area includes:
+.IP "\ \ \ \ \(bu\ "
+Banks
+.IP "\ \ \ \ \(bu\ "
+News stands
+.IP "\ \ \ \ \(bu\ "
+Bars
+.IP "\ \ \ \ \(bu\ "
+Stores
+.IP "\ \ \ \ \(bu\ "
+A pawnshop
+.IP "\ \ \ \ \(bu\ "
+Theaters
+.IP "\ \ \ \ \(bu\ "
+The Arcade
+.IP "\ \ \ \ \(bu\ "
+Stock Exchange
+.IP "\ \ \ \ \(bu\ "
+Library
+.IP "\ \ \ \ \(bu\ "
+City Hall
+.IP "\ \ \ \ \(bu\ "
+Hall of Records
+.IP "\ \ \ \ \(bu\ "
+Storefronts for rent
+.SH
+Other Places
+.PP
+There are a number of realms for exploration and minor adventures.  These are:
+.IP "\ \ \ \ \(bu\ "
+\fIThe Forest Road\fR \(em an outdoors realm consisting of a branching road
+that goes deep into the heart of a mysterious forest.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Really Quite Confusing Desert\fR \(em a maze puzzle.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Beach\fR \(em a simple social area, designed to look like a beach.
+.IP "\ \ \ \ \(bu\ "
+\fIThe Back Forty\fR \(em 40 regions of forest, mostly empty, but home to a
+pair of mysterious wizards who figure prominently in various \fIHabitat\fP intrigues.
+.SH
+Things To Do
+.PP
+In addition to the above geographic areas available for general exploration
+and treasure hunting, we have also designed a number of more specialized
+things to do, some of which have special places of their own associated with
+them.  These activities will be coming online progressively during the the
+beta test period.  They include:
+.IP "\ \ \ \ \(bu\ "
+Randy's Region Rally
+.IP "\ \ \ \ \(bu\ "
+D'nalsi Island Adventure
+.IP "\ \ \ \ \(bu\ "
+Capture The Flag
+.IP "\ \ \ \ \(bu\ "
+The Quest for The Tome of Wealth and Fame
+.IP "\ \ \ \ \(bu\ "
+Talk Show
+.IP "\ \ \ \ \(bu\ "
+Game Show
+.IP "\ \ \ \ \(bu\ "
+The Bijou Theater
+.IP "\ \ \ \ \(bu\ "
+Costello's Comedy Club
+.IP "\ \ \ \ \(bu\ "
+Speakers' Corner
+.IP "\ \ \ \ \(bu\ "
+Board Games \(em chess, checkers, backgammon and othello
+.IP "\ \ \ \ \(bu\ "
+The Game Of Cooties
+.IP "\ \ \ \ \(bu\ "
+The Game Of Machiavelli
+.IP "\ \ \ \ \(bu\ "
+The Habitat Stock Market
+.SH
+\s+3The Public Release World\s-3
+.PP
+For public release, we will generate turves for 20,000 inhabitants together
+with associated hallways, streets, and business areas as are required to
+support that many players.  These will be placed, or made ready for placement,
+according to the Habitat Master Geographic Plan that will also be drafted
+during the beta test period.  In addition, we will add wilderness regions and
+other adventure realms and activities for these players.  The specific nature
+and number of such regions and activities, however, remains to be determined.
+.SH
+\s+3Operations Setup\s-3
+.PP
+A utility to manipulate and monitor the world in operation will be required on
+the host for the use of both system operators and world generators such as
+ourselves.  The functions required of this utility have been described in the
+earlier document \fBFunctional Specs for Ghu\fR.  Since the tasks to be
+performed by this utility require a high degree of host-system interface
+programming, its development will be Quantum's responsibility.  The utility
+will need to be in operation for public release.
+.SH
+\s+3Documentation\s-3
+.PP
+In addition to the various working documents generated during the
+specification, design, and implementation of the project, the completed set of
+\fIHabitat\fP documentation will include the following:
+.IP "\ \ \ \ \(bu\ "
+\fIThe Official Avatar Handbook\fR \(em this is the players' manual.  It
+describes everything that we wish to tell the player about \fIHabitat\fP: how
+to get into and out of the system, how the controls work, how important
+objects work, and so on.  It will be completed for beta release.
+.IP "\ \ \ \ \(bu\ "
+\fIGuidebook To The Oracle\fR \(em this is the system operators' manual.  It
+describes everything related to behind-the-scenes operation of the system:
+how the system is organized, how to use the operators' utilities, guidelines
+for acting as Oracle, economic policy, editorial policy, and general rules and
+guidelines for operations.  It will be developed during beta test on the basis
+of our experiences operating the system.  The first draft will be completed
+for public release, though we expect it to continue to evolve for some time on
+the basis of operational experience.
+.IP "\ \ \ \ \(bu\ "
+\fIHabitat Master Geographic Plan\fR \(em this is the evolving plan for the
+expansion of the \fIHabitat\fP world.  A very rough draft will be completed
+for beta release, with a ``final'' draft in time for public release.  However,
+as with the system operators' manual, we do not expect this to be a static
+document, as the needs of the system will change with system growth and
+operational experience.
+.IP "\ \ \ \ \(bu\ "
+\fISecret Procedings of The Adventure Masters' Guild\fR \(em this is the
+manual for the ``Adventure Masters'', the special class of empowered users
+ranking a level above ordinary players but below the Oracle Itself.  This
+manual will be finished during the initial phases of public operation, as the
+role and powers of the Adventure Masters are defined.
+.bp
+.CD
+\s+5\fBAppendix A \(em Habitat Object Classes\fR\s-5
+.PP
+These are the objects to be supported in the public release version of
+\fIHabitat\fP.  Those objects tagged with an asterisk (*) will not be
+operation at the start of beta test.
+.nf
+
+amulet \(em general purpose magic item
+aquarium \(em turf decoration
+atm \(em access to bank account
+avatar \(em represents the player himself
+bag \(em general purpose container
+ball \(em throwing around
+bed \(em turf decoration, seat
+body sprayer \(em changes color/pattern of avatar
+book \(em information or amusement for players
+bottle \(em water for instant objects
+box \(em  general purpose container
+bridge \(em scenic object
+building \(em scenic object, access to other regions
+bush \(em scenic object
+chair \(em seat
+changomatic \(em changes appearance of turf
+chest \(em general purpose container (stationary)
+club \(em weapon
+coke machine \(em joke
+compass \(em direction sensor
+couch \(em seat
+countertop \(em object container (stationary)
+crystal ball \(em oracular frontend
+display case \(em object container (stationary)
+door \(em access to other regions
+dropbox \(em sending mail
+drugs \(em highly flexible form of magic
+elevator \(em special intra-building teleport (costs nothing to use)*
+escape device \(em teleports avatar back to turf
+fake gun \(em joke
+fence \(em scenic object
+flag \(em scenic object, capture-the-flag prop
+flashlight \(em portable illumination
+flat \(em scenic foundation
+floor lamp \(em stationary illumination
+fortune machine \(em humor
+fountain \(em primary oracular frontend
+frisbee \(em throwing
+game piece \(em general purpose marker for board games*
+garbage can \(em makes objects disappear forever
+gemstone \(em valuable, general purpose magic object
+ghost \(em icon for indicating presence of ghosts
+glue \(em internal use object for scenic purposes
+grenade \(em weapon*
+ground \(em scenic foundation
+gun \(em weapon
+head \(em avatar head
+hole \(em concealable container
+hot tub \(em social spot
+house cat \(em joke
+instant object pill \(em mystery object
+key \(em access to locked doors and containers
+knick knack \(em decoration
+knife \(em weapon
+magic immobile \(em general purpose magic item (stationary), also implements switches and buttons
+magic lamp \(em oracular frontend (grants wishes)
+magic staff \(em general purpose magic item, weapon
+magic wand \(em general purpose magic item
+mailbox \(em sending and receiving mail
+matchbook \(em joke
+movie camera \(em hook for ``bugging'' regions*
+paper \(em user writable text support
+pawn machine \(em converts objects to money*
+picture \(em decoration
+plant \(em scenic object
+pond \(em scenic object
+region \(em internal structuring aid
+rock \(em scenic object
+safe \(em lockable container
+security device \(em exclusion mechanism*
+sensor \(em general purpose information collector
+sex changer \(em switches avatars between male and female
+shovel \(em opens and closes holes
+sign \(em conveys information
+short sign \(em conveys information in fewer bytes
+sky \(em scenic foundation
+street \(em scenic object
+streetlamp \(em scenic object
+stun gun \(em non-lethal weapon
+table \(em container (stationary)
+teleport booth \(em gets avatars from place-to-place quickly
+test \(em internal object for testing system
+ticket \(em regulates access to special realms
+tokens \(em money
+trapezoid \(em general purpose scenic object
+super trapezoid \(em very general purpose scenic object
+tree \(em scenic object
+vendo front \(em half of vending machine, sells things
+vendo inside \(em other half of vending machine
+wall \(em scenic foundation
+window \(em scenic object
+zone \(em and internal object used in the realm editor

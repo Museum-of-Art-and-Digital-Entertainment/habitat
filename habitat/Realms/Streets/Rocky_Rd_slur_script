@@ -1,0 +1,159 @@
+echo Rocky_Rd_e_end
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_e_end.reg \
+     -o rdldir/Rocky_Rd_e_end.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_e_end \
+     -w Rocky_Rd_115_front
+echo Rocky_Rd_115_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_115_front.reg \
+     -o rdldir/Rocky_Rd_115_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_115_front \
+     -s Rocky_Rd_115_interior \
+     -w Rocky_Rd_215_front \
+     -e Rocky_Rd_e_end
+echo Rocky_Rd_115_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_115_interior.reg \
+     -o rdldir/Rocky_Rd_115_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_115_interior \
+     -n Rocky_Rd_115_front
+echo Rocky_Rd_215_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_215_front.reg \
+     -o rdldir/Rocky_Rd_215_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_215_front \
+     -s Rocky_Rd_215_interior \
+     -w Rocky_Rd_315_front \
+     -e Rocky_Rd_115_front
+echo Rocky_Rd_215_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_215_interior.reg \
+     -o rdldir/Rocky_Rd_215_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_215_interior \
+     -n Rocky_Rd_215_front
+echo Rocky_Rd_315_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_315_front.reg \
+     -o rdldir/Rocky_Rd_315_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_315_front \
+     -s Rocky_Rd_315_interior \
+     -w Rocky_Rd_415_front \
+     -e Rocky_Rd_215_front
+echo Rocky_Rd_315_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_315_interior.reg \
+     -o rdldir/Rocky_Rd_315_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_315_interior \
+     -n Rocky_Rd_315_front
+echo Rocky_Rd_415_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_415_front.reg \
+     -o rdldir/Rocky_Rd_415_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_415_front \
+     -s Rocky_Rd_415_interior \
+     -w Rocky_Rd_515_front \
+     -e Rocky_Rd_315_front
+echo Rocky_Rd_415_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_415_interior.reg \
+     -o rdldir/Rocky_Rd_415_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_415_interior \
+     -n Rocky_Rd_415_front
+echo Rocky_Rd_515_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_515_front.reg \
+     -o rdldir/Rocky_Rd_515_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_515_front \
+     -s Rocky_Rd_515_interior \
+     -w Rocky_Rd_cross \
+     -e Rocky_Rd_415_front
+echo Rocky_Rd_515_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_515_interior.reg \
+     -o rdldir/Rocky_Rd_515_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_515_interior \
+     -n Rocky_Rd_515_front
+echo Rocky_Rd_cross
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_cross.reg \
+     -o rdldir/Rocky_Rd_cross.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_cross \
+     -w Rocky_Rd_615_front \
+     -e Rocky_Rd_515_front
+echo Rocky_Rd_615_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_615_front.reg \
+     -o rdldir/Rocky_Rd_615_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_615_front \
+     -s Rocky_Rd_615_interior \
+     -w Rocky_Rd_715_front \
+     -e Rocky_Rd_cross
+echo Rocky_Rd_615_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_615_interior.reg \
+     -o rdldir/Rocky_Rd_615_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_615_interior \
+     -n Rocky_Rd_615_front
+echo Rocky_Rd_715_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_715_front.reg \
+     -o rdldir/Rocky_Rd_715_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_715_front \
+     -s Rocky_Rd_715_interior \
+     -w Rocky_Rd_815_front \
+     -e Rocky_Rd_615_front
+echo Rocky_Rd_715_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_715_interior.reg \
+     -o rdldir/Rocky_Rd_715_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_715_interior \
+     -n Rocky_Rd_715_front
+echo Rocky_Rd_815_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_815_front.reg \
+     -o rdldir/Rocky_Rd_815_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_815_front \
+     -s Rocky_Rd_815_interior \
+     -w Rocky_Rd_915_front \
+     -e Rocky_Rd_715_front
+echo Rocky_Rd_815_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_815_interior.reg \
+     -o rdldir/Rocky_Rd_815_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_815_interior \
+     -n Rocky_Rd_815_front
+echo Rocky_Rd_915_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_915_front.reg \
+     -o rdldir/Rocky_Rd_915_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_915_front \
+     -s Rocky_Rd_915_interior \
+     -w Rocky_Rd_1015_front \
+     -e Rocky_Rd_815_front
+echo Rocky_Rd_915_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_915_interior.reg \
+     -o rdldir/Rocky_Rd_915_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_915_interior \
+     -n Rocky_Rd_915_front
+echo Rocky_Rd_1015_front
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_1015_front.reg \
+     -o rdldir/Rocky_Rd_1015_front.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_1015_front \
+     -s Rocky_Rd_1015_interior \
+     -w Rocky_Rd_w_end \
+     -e Rocky_Rd_915_front
+echo Rocky_Rd_1015_interior
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_1015_interior.reg \
+     -o rdldir/Rocky_Rd_1015_interior.rdl \
+     -d FACE_NORTH \
+     -r Rocky_Rd_1015_interior \
+     -n Rocky_Rd_1015_front
+echo Rocky_Rd_w_end
+/u0/chip/microcosm/slur/slur regdir/Rocky_Rd_w_end.reg \
+     -o rdldir/Rocky_Rd_w_end.rdl \
+     -d FACE_SOUTH \
+     -r Rocky_Rd_w_end \
+     -e Rocky_Rd_1015_front

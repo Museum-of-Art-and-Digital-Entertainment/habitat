@@ -1,0 +1,159 @@
+echo Baker_St_w_end
+/u0/chip/microcosm/slur/slur regdir/Baker_St_w_end.reg \
+     -o rdldir/Baker_St_w_end.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_w_end \
+     -e Baker_St_121_front
+echo Baker_St_121_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_121_front.reg \
+     -o rdldir/Baker_St_121_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_121_front \
+     -n Baker_St_121_interior \
+     -e Baker_St_221_front \
+     -w Baker_St_w_end
+echo Baker_St_121_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_121_interior.reg \
+     -o rdldir/Baker_St_121_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_121_interior \
+     -s Baker_St_121_front
+echo Baker_St_221_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_221_front.reg \
+     -o rdldir/Baker_St_221_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_221_front \
+     -n Baker_St_221_interior \
+     -e Baker_St_321_front \
+     -w Baker_St_121_front
+echo Baker_St_221_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_221_interior.reg \
+     -o rdldir/Baker_St_221_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_221_interior \
+     -s Baker_St_221_front
+echo Baker_St_321_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_321_front.reg \
+     -o rdldir/Baker_St_321_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_321_front \
+     -n Baker_St_321_interior \
+     -e Baker_St_421_front \
+     -w Baker_St_221_front
+echo Baker_St_321_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_321_interior.reg \
+     -o rdldir/Baker_St_321_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_321_interior \
+     -s Baker_St_321_front
+echo Baker_St_421_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_421_front.reg \
+     -o rdldir/Baker_St_421_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_421_front \
+     -n Baker_St_421_interior \
+     -e Baker_St_521_front \
+     -w Baker_St_321_front
+echo Baker_St_421_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_421_interior.reg \
+     -o rdldir/Baker_St_421_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_421_interior \
+     -s Baker_St_421_front
+echo Baker_St_521_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_521_front.reg \
+     -o rdldir/Baker_St_521_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_521_front \
+     -n Baker_St_521_interior \
+     -e Baker_St_cross \
+     -w Baker_St_421_front
+echo Baker_St_521_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_521_interior.reg \
+     -o rdldir/Baker_St_521_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_521_interior \
+     -s Baker_St_521_front
+echo Baker_St_cross
+/u0/chip/microcosm/slur/slur regdir/Baker_St_cross.reg \
+     -o rdldir/Baker_St_cross.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_cross \
+     -e Baker_St_621_front \
+     -w Baker_St_521_front
+echo Baker_St_621_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_621_front.reg \
+     -o rdldir/Baker_St_621_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_621_front \
+     -n Baker_St_621_interior \
+     -e Baker_St_721_front \
+     -w Baker_St_cross
+echo Baker_St_621_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_621_interior.reg \
+     -o rdldir/Baker_St_621_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_621_interior \
+     -s Baker_St_621_front
+echo Baker_St_721_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_721_front.reg \
+     -o rdldir/Baker_St_721_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_721_front \
+     -n Baker_St_721_interior \
+     -e Baker_St_821_front \
+     -w Baker_St_621_front
+echo Baker_St_721_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_721_interior.reg \
+     -o rdldir/Baker_St_721_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_721_interior \
+     -s Baker_St_721_front
+echo Baker_St_821_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_821_front.reg \
+     -o rdldir/Baker_St_821_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_821_front \
+     -n Baker_St_821_interior \
+     -e Baker_St_921_front \
+     -w Baker_St_721_front
+echo Baker_St_821_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_821_interior.reg \
+     -o rdldir/Baker_St_821_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_821_interior \
+     -s Baker_St_821_front
+echo Baker_St_921_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_921_front.reg \
+     -o rdldir/Baker_St_921_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_921_front \
+     -n Baker_St_921_interior \
+     -e Baker_St_1021_front \
+     -w Baker_St_821_front
+echo Baker_St_921_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_921_interior.reg \
+     -o rdldir/Baker_St_921_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_921_interior \
+     -s Baker_St_921_front
+echo Baker_St_1021_front
+/u0/chip/microcosm/slur/slur regdir/Baker_St_1021_front.reg \
+     -o rdldir/Baker_St_1021_front.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_1021_front \
+     -n Baker_St_1021_interior \
+     -e Baker_St_e_end \
+     -w Baker_St_921_front
+echo Baker_St_1021_interior
+/u0/chip/microcosm/slur/slur regdir/Baker_St_1021_interior.reg \
+     -o rdldir/Baker_St_1021_interior.rdl \
+     -d FACE_SOUTH \
+     -r Baker_St_1021_interior \
+     -s Baker_St_1021_front
+echo Baker_St_e_end
+/u0/chip/microcosm/slur/slur regdir/Baker_St_e_end.reg \
+     -o rdldir/Baker_St_e_end.rdl \
+     -d FACE_NORTH \
+     -r Baker_St_e_end \
+     -w Baker_St_1021_front

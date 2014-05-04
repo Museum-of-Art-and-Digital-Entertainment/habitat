@@ -1,0 +1,54 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+Exhibit B of the MicroCosm agreement calls for us to make three deliveries for
+mid-March: 1) demonstration of the graphics and animation sub-system, 2)
+artwork for additional objects and 3) demonstration of an integrated system
+interacting with the Quantum Link host.  Enclosed you will find a VHS video
+tape that should cover all three of these.  
+
+The first portion of the tape shows a few additional objects.  As we said in
+the most recent progress report, the bulk of the imagery was delivered last
+month, so what you see here is just a few additional objects which we have
+concocted since then.  Also shown is a more or less complete demonstration of
+the avatar animation.  The range of expressiveness depicted should be
+sufficient for almost any series of behaviors we wish the avatars to exhibit.
+
+The second portion of the tape shows the integrated system running in
+communication with Q-Link.  It also demonstrates the graphics sub-system.
+Everything you see in the graphics window, including the backdrop wall and the
+floor, is an object fetched off of the disk.  Three avatars are shown moving
+around and the state of background objects (in this case the door) is shown
+being altered.  We also demonstrate text interaction with the host while the
+animation is running.  The only missing link is the causal connection between
+object behavior, the host and the state of the display.  This will be our next
+step.
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+enc: tape
+
+cc:  Steve Arnold
+     Jim Kimsey
+     Marc Seriff
+     Clive Smith

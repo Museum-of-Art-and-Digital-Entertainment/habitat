@@ -1,0 +1,165 @@
+.lg 1
+.ds Da January 20, 1986
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm Host Databases\s-9
+.AU
+What we store in the host
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH DATABASES
+.ds CH \\*(Da
+.ds RH MicroCosm Document # 19
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.SH
+\s+3Introduction\s-3
+.PP
+This document is a rough requirements list for the \fBMicroCosm\fP host
+databases.  It describes the various databases and what they must contain.  It
+is intended to be advisory to Quantum in their preparation of the exact
+internal data representation.
+.SH
+\s+3The Databases\s-3
+.PP
+A very abstract representation of the world could express the entire contents
+of the \fBMicroCosm\fP in terms of generic objects and containment
+relationships between them.  This would be the approach to follow in a system
+built on top of, say, Smalltalk-80.  However, we are using a more prosaic
+technology and furthermore we need to be quite efficient.  We will therefor
+recognize a few important special cases and represent the world by having the
+host maintain four basic databases:
+.IP "  \(bu "
+The Region Database
+.IP "  \(bu "
+The Avatar Database
+.IP "  \(bu "
+The Object Class Database
+.IP "  \(bu "
+The Object Database
+.SH
+\s+3Region Database\s-3
+.PP
+The Region Database contains one entry for each region in the \fBMicroCosm\fP
+(see the documents \fIMicroCosm Coordinate Systems and Topology\fP and \fIA
+Mapmaker's Guide to the MicroCosm\fP).  Each region record contains:
+.IP "  \(bu "
+Region number (an integer, size currently indeterminate; primary key for
+region database)
+.IP "  \(bu "
+Name (a string; \fBoptional\fP)
+.IP "  \(bu "
+Region X size (a byte)
+.IP "  \(bu "
+Region Y size (a byte)
+.IP "  \(bu "
+Terrain type (a byte)
+.IP "  \(bu "
+West neighbor (a pointer to another region or NIL)
+.IP "  \(bu "
+East neighbor (a pointer to another region or NIL)
+.IP "  \(bu "
+North neighbor (a pointer to another region or NIL)
+.IP "  \(bu "
+South neighbor (a pointer to another region or NIL)
+.IP "  \(bu "
+Owner (a pointer to an avatar or indicator that region is public)
+.IP "  \(bu "
+Contents (a list of pointers to objects)
+.SH
+\s+3Avatar Database\s-3
+.PP
+The Avatar Database contains one entry for each avatar currently living in the
+\fBMicroCosm\fP.  Each Q-Link user name may have an avatar associated with it
+(or, more to the point, no user name may have more than one avatar).  Each
+avatar record contains:
+.IP "  \(bu "
+Avatar number (an integer, size currently indeterminate; primary key for
+avatar database)
+.IP "  \(bu "
+Location, consisting of
+.RS
+.IP "  \(sq "
+Region (a pointer to a region)
+.IP "  \(sq "
+X position (a byte)
+.IP "  \(sq "
+Y position (a byte)
+.RE
+.IP "  \(bu "
+Customization vector (several bytes, exact number currently undecided)
+.IP "  \(bu "
+Owner (a user name or user account number; another key for the avatar
+database)
+.IP "  \(bu "
+Contents (a list of pointers to objects)
+.IP "  \(bu "
+Name (a string; \fBoptional\fP)
+.SH
+\s+3Object Class Database\s-3
+.PP
+The Object Class Database contains one entry for each type of object found in
+the \fBMicroCosm\fP (see the document \fIMicroCosm Minimal Object Set\fP).
+Each object is a member of some class of objects all of which have the same
+behavior protocol.  This database thus contains all object information which
+is invariant across instances of a given class of objects.  Each object class
+record contains:
+.IP "  \(bu "
+Class number (two bytes: a terrain code and a class code; primary key for
+object class database).
+.IP "  \(bu "
+Class name (a string; \fBoptional\fP)
+.IP "  \(bu "
+Instance property record size (an integer)
+.IP "  \(bu "
+Important instance property record size (an integer)
+.IP "  \(bu "
+Capability vector (an array of procedure entry points)
+.IP "  \(bu "
+Capability routines (a series of executable procedures; probably not stored in
+the database itself but merely referenced by the capability vector)
+.IP "  \(bu "
+Imagery (a set of animation frames or static images, suitable for downloading
+;basically an array of bytes)
+.IP "  \(bu "
+Imagery last changed date (a time stamp of some sort)
+.IP "  \(bu "
+Home system behavior (a collection of C64 code, suitable for downloading
+;basically an array of bytes)
+.IP "  \(bu "
+Behavior last changed date (a time stamp of some sort)
+.SH
+\s+3Object Database\s-3
+.PP
+The Object Database contains one entry for each object extant in the
+\fBMicroCosm\fP.  It contains the state-dependent properties of each object.
+There are a few general properties which all objects contain.  However, the
+remaining properties depend on the class of the object.  Each object record
+contains:
+.IP "  \(bu "
+Object identifier (an integer, size to be determined; primary key for object
+database)
+.IP "  \(bu "
+Short identifier (a byte or NIL)
+.IP "  \(bu "
+Class (a class number)
+.IP "  \(bu "
+Location, consisting of
+.RS
+.IP "  \(sq "
+Container (a pointer to a region or an avatar or an object)
+.IP "  \(sq "
+X position (a byte)
+.IP "  \(sq "
+Y position (a byte)
+.RE
+.IP "  \(bu "
+Owner (a pointer to an avatar or indicator that object is public)
+.IP "  \(bu "
+Properties (a series of bytes whose length and interpretation depends upon the
+object's class)

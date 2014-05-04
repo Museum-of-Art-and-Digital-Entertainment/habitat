@@ -1,0 +1,30 @@
+@region $ dnalsi_66 {
+    north: dnalsi_67.l;
+    south: dnalsi_65.l;
+    east: dnalsi_76.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:1; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @ground { x:88; y:2; or:188; }
+        @rock { x:60; y:159; or:16; style:1; 
+            8:1;
+        }
+        @tree { x:48; y:28; or:172; style:2; }
+        @tree { x:128; y:27; or:173; style:2; }
+        @plant { x:96; y:131; or:16; 
+            8:1;
+        }
+        @ground { x:0; y:4; or:188; style:1; }
+        @sky { x:88; y:1; or:0; style:4; }
+        @plant { x:104; y:131; or:16; 
+            8:1;
+        }
+        @plant { x:120; y:131; or:16; 
+            8:1;
+        }
+        @plant { x:132; y:133; or:16; 
+            8:1;
+        }
+    ]
+}

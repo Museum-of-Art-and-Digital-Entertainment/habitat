@@ -1,0 +1,13 @@
+/*
+ *   struct_die.incl.pl1
+ *
+ *   Struct stub for die instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   state          binary(15);

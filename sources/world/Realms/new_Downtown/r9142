@@ -1,0 +1,165 @@
+use region r_9142 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r r_9153
+  west_neighbor: r r_9130
+  north_neighbor: r r_9143
+  south_neighbor: r r_9141
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use wall o_7104 {
+  container: r r_9142
+  x: 0
+  y: 1
+  style: 6
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground o_7105 {
+  container: r r_9142
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign o_7106 {
+  container: r r_9142
+  x: 12
+  y: 115
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(Oil Bribe's\R\R\RBody Paints             "
+}
+use door o_7107 {
+  container: r r_9142
+  x: 116
+  y: 32
+  style: 1
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use street o_7108 {
+  container: r r_9142
+  x: 68
+  y: 8
+  style: 0
+  gr_state: 6
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}
+use glue o_7109 {
+  container: r r_9142
+  x: 36
+  y: 67
+  style: 0
+  gr_state: 1
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 0
+  y_offset_1: 0
+  x_offset_2: 249
+  y_offset_2: 248
+  x_offset_3: 0
+  y_offset_3: 0
+  x_offset_4: 0
+  y_offset_4: 0
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use trapezoid o_7112 {
+  container: r r_9142
+  x: 12
+  y: 48
+  style: 0
+  gr_state: 0
+  orient: 204
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 0
+  upper_right_x: 91
+  lower_left_x: 0
+  lower_right_x: 91
+  height: 200
+}
+use short_sign o_7113 {
+  container: r r_9142
+  x: 0
+  y: 21
+  style: 5
+  gr_state: 9
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Rodeo Dr  "
+}
+use spray_can o_7110 {
+  container: o o_7109
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 81
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head o_7111 {
+  container: o o_7109
+  x: 1
+  y: 1
+  style: 2
+  gr_state: 0
+  orient: 81
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

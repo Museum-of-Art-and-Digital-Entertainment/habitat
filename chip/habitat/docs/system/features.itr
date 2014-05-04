@@ -1,0 +1,166 @@
+.ds Da October 14, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9MicroCosm\*M Features\s-9
+.AU
+A ``LUCASFILM UNIVERSE'' DOCUMENT
+the various features and components of the \fBMicroCosm\fP system
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH MICROCOSM FEATURES
+.ds CH \\*(Da
+.ds RH The Lucasfilm Universe
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the various software features and components that make
+up the complete \fBMicroCosm\fP system.
+.SH
+\s+3\(*b-Test Release Features and Components\s-3
+.PP
+The \(*b-test release of the \fBMicroCosm\fP system, currently scheduled for
+May 15, 1986 includes preliminary versions of the following features and
+components:
+.IP "\(sq \fIBaseline home system\fP \(em "
+The essential software which resides in the player's home computer.  Consists
+of:
+.RS
+.IP "\(bu Graphics "
+routines to animate avatars and render backgrounds and objects.
+.IP "\(bu Communications "
+routines to handle the network packet protocols and the \fBMicroCosm\fP
+object-message protocols.
+.IP "\(bu The player interface "
+that allows a player to control his avatar using the joystick and keyboard.
+.IP "\(bu Disk I/O "
+routines to handle the storage of objects and imagery on the home system's
+disk drive.
+.IP "\(bu Local object "
+database processor to invoke the behavior of the various objects.
+.RE
+.IP "\(sq \fIBaseline host system\fP \(em "
+The essential software which resides in the network host computer.  Consists
+of:
+.RS
+.IP "\(bu Communications "
+routines to handle the \fBMicroCosm\fP object-message protocols.
+.IP "\(bu Message switcher "
+to handle routing of messages between the various players and the internal
+components of the host system.
+.IP "\(bu Transaction monitor "
+to serialize transactions going into the database.
+.IP "\(bu Database controller "
+to lookup objects in the host database and execute their functionality.
+.RE
+.IP "\(sq \fIBasic object set\fP \(em "
+The basic collection of 30 to 150 common objects that all players know about
+and require to exist in this world.  Includes (but is not limited to) the
+following:
+.RS
+.IP "\(bu Turf environment objects (walls, doors, windows, etc.)"
+.IP "\(bu Clothing"
+.IP "\(bu Weapons"
+.IP "\(bu Basic transportation devices"
+.IP "\(bu Money and other tokens of exchange"
+.RE
+.IP
+Each object consists of three elements:
+.RS
+.IP "\(bu Imagery to represent it on the display screen of the home system."
+.IP "\(bu Software to execute its functions in the home system."
+.IP "\(bu Software to execute its functions in the host system."
+.RE
+.SH
+\s+3Public Release Features and Components\s-3
+.PP
+The public release of the \fBMicroCosm\fP system, currently scheduled for July
+15, 1986 includes the final versions of the above features and components,
+plus the following:
+.IP "\(sq \fIAvatar personalization kit\fP \(em "
+Interactive package to allow a player to customize the appearance of his
+avatar:
+.RS
+.IP "\(bu Alter the "
+proportions of the various body parts with respect to each other.
+.IP "\(bu Change the color and texture of things."
+.IP "\(bu Change clothing."
+.RE
+.IP "\(sq \fITurf personalization kit\fP \(em "
+Interactive package to allow a player to customize the appearance and layout
+of his turf:
+.RS
+.IP "\(bu Control the "
+placement and selection of scenic objects on the turf (walls, furniture, etc.)
+.IP "\(bu Establish entry "
+and exit points connecting the turf to the rest of the world.
+.IP "\(bu Establish the point of view from which the turf is to be displayed."
+.RE
+.IP "\(sq \fISystem managers' package\fP \(em "
+An interactive interface to the host system to allow privileged accounts
+(e.g., system managers) to intervene in the activities of an ongoing universe
+by such manipulations as:
+.RS
+.IP "\(bu Altering the properties of existing objects"
+.IP "\(bu Adding new objects and new classes of objects"
+.IP "\(bu Destroying existing objects"
+.IP "\(bu Adding and removing players"
+.IP "\(bu Sending messages to players"
+.RE
+.SH
+\s+3Additional Features and Components\s-3
+.PP
+These are additional desirable features and components of the \fBMicroCosm\fP
+system which are not accounted for under the current development plan:
+.IP "\(sq \fIAdvanced object set\fP \(em "
+An additional collection of 30 to 150 uncommon objects that are not required
+for the basic operation of the world but which enrich the detail and texture
+of the experience.  Includes (but is not limited to) the following:
+.RS
+.IP "\(bu Rare treasures"
+.IP "\(bu Specialized tools"
+.IP "\(bu Unusual buildings"
+.IP "\(bu Exotic vehicles"
+.RE
+.IP "\(sq \fIObject construction kit\fP \(em "
+Software to allow developers to add new objects to the universe.  This is for
+updating an existing universe by modifying or extending the fantasy elements
+which are already present in it.  Includes:
+.RS
+.IP "\(bu A standard interactive paint package for creating imagery."
+.IP "\(bu A utility "
+for converting images into the form used internally inside \fBMicroCosm\fP.
+.IP "\(bu A library "
+of routines for programming the behavior of an object inside the home system.
+.IP "\(bu A library "
+of routines for programming the behavior of an object inside the host system.
+.IP "\(bu A utility for installing objects into the host database."
+.IP "\(bu Documentation "
+on the conventions and procedures for creating objects.
+.RE
+.IP "\(sq \fIUniverse construction kit\fP \(em "
+Software to allow developers to create additional universes.  This builds on
+top of the \fIobject construction kit\fR described above.  Includes:
+.RS
+.IP "\(bu A map-making utility "
+for indicating the layout and placement of objects in the world and for
+determining the world's geography.
+.IP "\(bu A library of routines for "
+programming the home system graphics for the background elements used to
+render the world to the player.
+.IP "\(bu A utility "
+for integrating all the various components of a universe into a single
+\fBMicroCosm\fP universe home system disk.
+.IP "\(bu Documentation "
+on the conventions and procedures for creating universes.
+.RE
+.IP "\(sq \fIGateway developers' kit\fP \(em "
+Software package to allow developers to use the \fBMicroCosm\fP universe as a
+gateway into software of their own creation.  This consists of a subroutine
+library and a package of documentation.

@@ -1,0 +1,63 @@
+/*
+ *   class_plaque.pl1
+ *
+ *   Object behavior module for class plaque.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   20-January-1987
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_plaque: procedure;
+
+     %replace PLAQUE_REQUESTS by 4;
+
+     declare a(0:PLAQUE_REQUESTS) entry based;
+     declare class_plaque_actions pointer;
+     declare 1 plaque based %include struct_plaque;
+
+     %replace I by CLASS_PLAQUE;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = PLAQUE_REQUESTS;
+     Class_Table(I).alloc_size = size(plaque);
+     Class_Table(I).pc_state_bytes = 1;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_plaque_actions);
+     Class_Table(I).actions = class_plaque_actions;
+
+     Class_Table(I).actions->a(HELP)  = plaque_HELP;    /* 0 */
+     Class_Table(I).actions->a(GET)   = illegal;        /* 1 */
+     Class_Table(I).actions->a(PUT)   = illegal;        /* 2 */
+     Class_Table(I).actions->a(THROW) = illegal;  /* 3 */
+     Class_Table(I).actions->a(READ)  = plaque_READ;    /* 4 */
+
+end initialize_class_plaque;
+
+plaque_READ: procedure;
+     declare 1 self based(selfptr) %include struct_plaque;
+     declare page_to_read binary(15);
+
+     page_to_read = rank(request(FIRST));
+     if (page_to_read > self.last_page) then
+          page_to_read = 1;
+     else if (page_to_read = 0) then
+          page_to_read = self.current_page;
+     self.current_page = page_to_read +1;
+     call show_text_page(self.text_id, page_to_read, self.current_page);
+end plaque_READ;
+
+plaque_HELP: procedure;
+     call r_msg_s('PLAQUE: DO reads the plaque.  While reading, pointing at NEX
++T and pressing the button flips to the next page.');
+     call object_say(self.noid, 'Similarly, BACK flips to the previous page and
++ QUIT stops reading.');
+end plaque_HELP;

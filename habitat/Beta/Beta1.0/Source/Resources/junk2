@@ -1,0 +1,1 @@
+cat *.m | rmcomments | tr -cs A-Za-z0-9_ '\012' | sort | comm -23 - opcodelist | uniq -c | sort -n

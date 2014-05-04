@@ -1,0 +1,107 @@
+/*
+ * main.pl1 -- Main for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 1-April-1987
+ *
+ * This is the entry point for Ghu.  Here we take care of initialization and
+ * then plunge into the parser, which actually does all the work.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'add.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'class.incl.pl1';
+%include 'command.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'database.incl.pl1';
+%include 'environ.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'symbols.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+
+declare s$parse_command entry(char(*) var, bin(15),
+     char(*) var, char(*) var,
+     char(*) var, char(*) var,
+     char(*) var, bit(1) aligned,
+     char(*) var, bit(1) aligned,
+     char(*) var, char(*) var, bin(15),
+     char(*) var, bin(31),
+     char(*) var);
+
+declare yyparse entry returns(bit(1));
+
+declare immediate_command character(256) varying external;
+declare immediate_command_given binary(15) external;
+
+declare save_prompt character(8) varying static;
+
+declare dump_flag bit(1) aligned static;
+declare automacro_flag bit(1) aligned static;
+
+ghu: procedure options(main);
+     declare dummy_result bit(1);
+     declare rc binary(15);
+
+     call init_alloc_monitor;
+     call setup_file_pointers;
+     database_directory_path = '%cvideo#d010>lucas>microcosm>Ghu>testdbs';
+     env_path = '%cvideo#d010>lucas>toolbox>ghu_default.env';
+     call s$parse_command('Ghu', rc,
+          'database_directory:pathname,value', database_directory_path,
+          'option(-env),pathname,value', env_path,
+          'switch(debug),=0', dump_flag,
+          'switch(automacro),=1', automacro_flag,
+          'option(-command),string,length(256),given', immediate_command,
+               immediate_command_given,
+          'option(-cooksize),number,longword,=100000', relative_id_limit,
+          'end');
+     if (rc ^= 0 | database_directory_path = '') then stop;
+
+     call putline('Ghu version 0.30');
+     call set_keyword_minlengths;
+     call init_command_table;
+
+     call discover_ports;
+     save_prompt = get_prompt();
+     call set_prompt('ghu? ');
+
+     call open_habitat_files;
+
+     contents_symbolptr = define_symbol('contents', SYM$INTEGER, 0, false);
+     index_symbolptr = define_symbol('index', SYM$INTEGER, 0, false);
+     now_symbolptr = define_symbol('now', SYM$INTEGER, 0, false);
+     today_symbolptr = define_symbol('today', SYM$INTEGER, 0, false);
+     random_symbolptr = define_symbol('random', SYM$INTEGER, 0, false);
+     last_textid_symbolptr = define_symbol('last_textid', SYM$INTEGER, 0,
+          false);
+     last_textid = 0;
+     page_count_symbolptr = define_symbol('page_count', SYM$INTEGER, 0,
+          false);
+     page_count = 0;
+
+     call verify_access;
+     call unsave_environ;
+     call init_random;
+
+     if (read_class_info()) then do;
+          on break begin;
+               call intercept_break;
+          end;
+          if (^general_access | automacro_flag) then
+               call execute_automacro;
+          dummy_result = yyparse();
+     end;
+     call exit_ghu;
+end ghu;
+
+exit_ghu: procedure;
+     if (dump_flag) then
+          call print_alloc_monitor;
+     call set_prompt(save_prompt);
+     stop;
+end exit_ghu;

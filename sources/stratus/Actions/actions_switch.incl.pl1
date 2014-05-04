@@ -1,0 +1,44 @@
+/*
+ *   actions_switch.pl1
+ *
+ *   Behavior routines for the switch protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+generic_OFF: procedure;
+     declare 1 self based(selfptr) %include struct_gen_switch;
+
+     if (^elsewhere(selfptr) & self.on = TRUE) then do;
+          call r_msg_1(TRUE);
+          self.on = FALSE;
+          self.gen_flags(MODIFIED) = true;
+          if (self.class = CLASS_FLASHLIGHT | self.class = CLASS_FLOOR_LAMP) then
+               current_region.lighting = current_region.lighting - 1;
+          call n_msg_0(selfptr, OFF$);
+          if (self.class = CLASS_FLASHLIGHT) then self.gr_state = FALSE;
+     end;
+     else call r_msg_1(FALSE);
+end generic_OFF;
+
+generic_ON: procedure;
+     declare 1 self based(selfptr) %include struct_gen_switch;
+
+     if (^elsewhere(selfptr) & self.on = FALSE) then do;
+          call r_msg_1(TRUE);
+          self.on = TRUE;
+          self.gen_flags(MODIFIED) = true;
+          if (self.class = CLASS_FLASHLIGHT | self.class = CLASS_FLOOR_LAMP) then
+               current_region.lighting = current_region.lighting + 1;
+          call n_msg_0(selfptr, ON$);
+          if (self.class = CLASS_FLASHLIGHT) then self.gr_state = TRUE;
+     end;
+     else call r_msg_1(FALSE);
+end generic_ON;

@@ -1,0 +1,10 @@
+declare yylex entry returns(binary(31));
+declare is_digit entry(binary(15)) returns(bit(1));
+declare is_alpha entry(binary(15)) returns(bit(1));
+declare decode_digit entry(binary(15), binary(15)) returns(binary(15));
+declare set_keyword_minlengths entry;
+declare unescape entry(character(1)) returns(character(4) varying);
+declare read_page_line entry(character(*) varying, file);
+declare getval entry(bit(1), bit(1)) returns(pointer);
+
+declare inside_define bit(1) static external;

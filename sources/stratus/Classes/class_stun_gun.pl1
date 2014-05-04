@@ -1,0 +1,60 @@
+/*
+ *   class_stun_gun.pl1
+ *
+ *   Stun gun object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   30-July-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_stun_gun: procedure;
+
+     %replace STUN_GUN_REQUESTS by 5;
+
+     declare a(0:STUN_GUN_REQUESTS) entry based;
+     declare class_stun_gun_actions pointer;
+     declare 1 stun_gun based %include struct_stun_gun;
+
+     %replace I by CLASS_STUN_GUN;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = STUN_GUN_REQUESTS;
+     Class_Table(I).alloc_size = size(stun_gun);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_stun_gun_actions);
+     Class_Table(I).actions = class_stun_gun_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;   /* 0 */
+     Class_Table(I).actions->a(GET)  = generic_GET;    /* 1 */
+     Class_Table(I).actions->a(PUT)  = generic_PUT;    /* 2 */
+     Class_Table(I).actions->a(3)    = illegal;        /* 3 */
+     Class_Table(I).actions->a(4)    = illegal;        /* 4 */
+     Class_Table(I).actions->a(STUN) = stun_gun_STUN;  /* 5 */
+
+end initialize_class_stun_gun;
+
+stun_gun_STUN: procedure;
+     declare target_id binary(15);
+     declare 1 target based(targetptr) %include struct_avatar;
+     declare targetptr pointer;
+
+     target_id = rank(request(FIRST));
+     targetptr = ObjList(target_id);
+     if (holding(selfptr) & target.class = CLASS_AVATAR) then
+          if (UserList(target.avatarslot)->u.online) then do;
+               target.stun_count = 3;
+               call n_msg_2(avatarptr, ATTACK$, target_id, 0);
+               call r_msg_1(TRUE);
+               return;
+          end;
+     call r_msg_1(FALSE);
+end stun_gun_STUN;

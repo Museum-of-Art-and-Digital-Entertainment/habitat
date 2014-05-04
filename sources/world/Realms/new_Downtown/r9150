@@ -1,0 +1,289 @@
+use region r_9150 {
+  owner: a -1
+  light_level: 0
+  depth: 24
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r r_9151
+  south_neighbor: r -1
+  class_group: 0
+  orient: 3
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7172 {
+  container: r r_9150
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside o_7173 {
+  container: r r_9150
+  x: 12
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_7178 {
+  container: r r_9150
+  x: 60
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_inside o_7183 {
+  container: r r_9150
+  x: 108
+  y: 24
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use wall o_7189 {
+  container: r r_9150
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use sign o_7190 {
+  container: r r_9150
+  x: 12
+  y: 104
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: " Stocks      \ Bonds      \ Commods       "
+}
+use vendo_front o_7174 {
+  container: o o_7173
+  x: 184
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 400
+  display_item: 0
+  prices: 400, 512, 679, 0, 0, 0, 0, 0, 0, 0
+}
+use book o_7176 {
+  container: o o_7173
+  x: 1
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use vendo_front o_7179 {
+  container: o o_7178
+  x: 181
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 798
+  display_item: 2
+  prices: 987, 834, 798, 0, 0, 0, 0, 0, 0, 0
+}
+use book o_7180 {
+  container: o o_7178
+  x: 2
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 24
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use vendo_front o_7184 {
+  container: o o_7183
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 675
+  display_item: 0
+  prices: 675, 564, 489, 822, 0, 0, 0, 0, 0, 0
+}
+use book o_7187 {
+  container: o o_7183
+  x: 2
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7177 {
+  container: o o_7174
+  x: 1
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7175 {
+  container: o o_7174
+  x: 2
+  y: 2
+  style: 8
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7181 {
+  container: o o_7179
+  x: 1
+  y: 0
+  style: 8
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7182 {
+  container: o o_7179
+  x: 1
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 32
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7188 {
+  container: o o_7184
+  x: 1
+  y: 1
+  style: 8
+  gr_state: 0
+  orient: 40
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7186 {
+  container: o o_7184
+  x: 1
+  y: 2
+  style: 8
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}
+use book o_7185 {
+  container: o o_7184
+  x: 3
+  y: 3
+  style: 8
+  gr_state: 0
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 0
+  text_id: 96
+  last_page: -1
+}

@@ -1,0 +1,171 @@
+use region r_9161 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9153
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7280 {
+  container: r r_9161
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use window o_7282 {
+  container: r r_9161
+  x: 0
+  y: 112
+  style: 2
+  gr_state: 1
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use wall o_7283 {
+  container: r r_9161
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use glue o_7284 {
+  container: r r_9161
+  x: 44
+  y: 70
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  x_offset_1: 248
+  y_offset_1: 0
+  x_offset_2: 20
+  y_offset_2: 0
+  x_offset_3: 5
+  y_offset_3: 227
+  x_offset_4: 4
+  y_offset_4: 239
+  x_offset_5: 0
+  y_offset_5: 0
+  x_offset_6: 0
+  y_offset_6: 0
+}
+use chair o_7289 {
+  container: r r_9161
+  x: 140
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 25
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7290 {
+  container: r r_9161
+  x: 92
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 24
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7291 {
+  container: r r_9161
+  x: 0
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 24
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use chair o_7292 {
+  container: r r_9161
+  x: 44
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 25
+  gr_width: 24
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use table o_17657 {
+  container: r r_9161
+  x: 56
+  y: 152
+  style: 1
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use knick_knack o_7285 {
+  container: o o_7284
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}
+use knick_knack o_7286 {
+  container: o o_7284
+  x: 1
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 3
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  is_magic: 0
+}

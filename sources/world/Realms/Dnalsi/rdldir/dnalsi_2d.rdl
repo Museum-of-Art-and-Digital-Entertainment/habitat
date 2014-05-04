@@ -1,0 +1,23 @@
+@region $ dnalsi_2d {
+    south: dnalsi_2c.l;
+    east: dnalsi_3d.l;
+    west: dnalsi_1d.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @tree { x:28; y:132; or:237; style:2; }
+        @tree { x:36; y:67; or:236; style:2; gr_state:3; }
+        @tree { x:48; y:21; or:172; style:2; gr_state:1; }
+        @tree { x:80; y:29; or:189; style:2; }
+        @tree { x:128; y:21; or:173; style:2; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @hole { x:128; y:143; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @bush { x:88; y:137; or:16; style:4; gr_state:2; }
+        @bush { x:64; y:135; or:16; style:4; gr_state:2; }
+    ]
+}

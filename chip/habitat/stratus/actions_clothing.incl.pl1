@@ -1,0 +1,38 @@
+/*
+ *   actions_clothing.pl1
+ *
+ *   Behavior routines for the clothing protocols.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   22-May-1986
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+generic_WEAR: procedure;
+     declare success binary(15);
+
+     /* obsolete: */
+     if (holding(selfptr)) then do;
+          success = TRUE;
+          call n_msg_0(avatarptr, WEAR$);
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+end generic_WEAR;
+
+generic_REMOVE: procedure;
+     declare success binary(15);
+
+     success = FALSE;
+     if (wearing(selfptr) & empty_handed(avatarptr)) then
+          if (change_containers(self.noid, avatar.noid, HANDS)) then do;
+               success = TRUE;
+               call n_msg_1(avatarptr, REMOVE$, self.noid);
+          end;
+     call r_msg_1(success);
+end generic_REMOVE;

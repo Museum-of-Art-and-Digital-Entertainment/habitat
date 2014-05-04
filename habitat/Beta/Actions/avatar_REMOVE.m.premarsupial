@@ -1,0 +1,33 @@
+;
+;	avatar_REMOVE.m
+;
+;	Action code for the asynchronous avatar remove clothing behavior.
+;
+;	This file should be assembled as position independent code.
+;
+;	Chip Morningstar
+;	Lucasfilm Ltd.
+;	22-May-1986
+;
+	include	"action_head.i"
+	include "class_equates.m"
+
+; These are the parameters of the REMOVE message
+define REMOVE_WHAT = 0
+
+	actionStart
+
+	getResponse REMOVE_WHAT
+	jsr v_get_subject_object
+	sound	CLOTHES_DOFFED, subject_noid
+	getProp subject, OBJECT_class_pointer
+	cmp #CLASS_HEAD
+	if (equal) {
+		newImage subject_noid, HEAD_OFF
+	}
+	changeContainers 0, AVATAR_HAND, actor_noid
+	lda	#0
+	putProp	actor, AVATAR_background_actitviy
+	rts
+
+	actionEnd

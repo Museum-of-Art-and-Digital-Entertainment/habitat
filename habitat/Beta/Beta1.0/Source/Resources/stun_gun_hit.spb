@@ -1,0 +1,8 @@
+; stun_gun_hit_pw
+	; Pulsewidth Ramp starts here
+	byte	0x4		;Ramp 
+	byte	0xff,0xfe,0xd0,0x1,0xea,0xff	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

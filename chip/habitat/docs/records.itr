@@ -1,0 +1,225 @@
+.AM
+.ds Dq November 11, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Hall of Records\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH RECORDS
+.ds CH \\*(Dq
+.ds RH Habitat Document # 32
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the records we plan to keep in the Hall of Records and
+the set of statistics that we will need to collect in order to maintain these
+records.  This specification is intended to be the starting point for the Hall
+of Records implementation.  It is \fInot\fP intended to be a rigid and final
+declaration.  We expect that the passage of time will reveal additional
+information that we would like to keep track of and that experience will
+reveal that some of the records chosen here to be of little interest to the
+players.
+.SH
+\s+3How The Hall Of Records Works\s-3
+.PP
+The Hall of Records is actually a repository for the Book of Records
+(sometimes called the \fIGuilderness Book of Records\fR for obscure reasons).
+This book operates like any other \fIHabitat\fP book in terms of its user
+interface and so on.  However, several copies of it are on permanent display
+in the Hall of Records region \(em a special region exit daemon (which we will
+write) will keep Avatars from removing the copies from the Hall.  Personal
+copies of the Book can be made available at a news stand, if anyone cares
+enough to lug it around with them.  (Aside: a future embellishment may be to
+create an object class representing a plaque or a television set.  This would
+operate in a fashion similar to a book, but it would be fastened to the wall,
+and Avatars would not pick it up to read it.  Furthermore, multiple Avatars
+could be reading it at the same time without collision.  This is probably a
+better model for the way the Hall of Records should work.  This, however, is a
+complication best introduced later.)
+.PP
+The Book is an ordinary book containing text describing the various records
+and listing the record holders.  The Book is generated automatically every day
+by a batch process that runs during the \fIHabitat\fP night (i.e., during the
+daytime).  This batch process filters the Avatar database records, extracts
+the top record holders in each category, and generates a file containing the
+next day's Book of Records text.  This text is then associated with the text
+identifier carried by the actual Book objects, causing all existing copies to
+be automagically updated.
+.SH
+\s+3The Records\s-3
+.PP
+These are the records which we have defined so far.  In each category we will
+list the 10 top (or bottom, depending on the nature of the record) Avatars.
+.SH
+\fIWealthiest
+.PP
+For purposes of keeping this record, an Avatar's wealth is defined as his or
+her bank account balance at the end of the day.  List: name, rank and amount.
+.SH
+\fIAll-Time Wealthiest
+.PP
+This record is like \fIWealthiest\fP, but is a high water mark: the
+\fIWealthiest\fR list can fluctuate from day to day, since Avatars can become
+poorer.  List: name, rank and amount.
+.SH
+\fIPoorest
+.PP
+Measuring the most poverty-stricken Avatar is tricky, since the simplest
+measure (lowest bank account balance) gives new users a distinct edge.
+Getting on the \fIPoorest\fP list should be something you have to work at.  We
+therefore define poverty as average daily bank account balance divided by
+lifetime in days.  List: name and rank.  We don't list the poverty measurement
+directly since it is such a bizarre metric.
+.SH
+\fILongest Lived
+.PP
+Lifetime is measured in days since incarnation, i.e., since the Avatar first
+logged into the system or since he was last reincarnated after being killed.
+We only count days that the player actually logs in, however briefly.  List:
+name, rank and lifetime.
+.SH
+\fIAll-Time Longest Lived
+.PP
+This record is like \fILongest Lived\fR but is a high water mark: your place
+on this record stays even if you get killed (until somebody else lives
+longer).  List: name, rank and lifetime.
+.SH
+\fIMost Times Killed
+.PP
+This is a simple count that gets incremented with each death.  By definition
+it is simultaneously a present-day and an all-time list.  List: name, rank and
+count.
+.SH
+\fIMost Travelled
+.PP
+This record is derived from counting each time an Avatar makes a region
+transition.  It gets zeroed out if the Avatar is killed.  List: name, rank and
+count.
+.SH
+\fIAll-Time Most Travelled
+.PP
+This record is like \fIMost Travelled\fR, but is a high water mark: your place
+on this record stays even if you get killed (until somebody else travels
+more).  List: name, rank and count.
+.SH
+\fIMost Active TelePorter
+.PP
+This record is like \fIMost Travelled\fR except that we only count TelePort
+rides.  It also gets zeroed on death, but it's too minor a record to bother to
+keep an all-time list.  List: name, rank and count.
+.SH
+\fIMost Territory Explored
+.PP
+We should keep a visitor counter in each region that gets incremented each
+time an Avatar enters that region.  This will enable us to monitor what
+regions are being frequently visited and which are being ignored or missed.
+For this record we keep a counter with each Avatar that gets incremented any
+time he enters a region that has never been entered before (i.e., one whose
+visitor count is zero).  This record sticks with an Avatar across
+reincarnations.  List: name, rank and count.
+.SH
+\fIMost Time In Habitat
+.PP
+Each Avatar keeps a duration counter that gets updated every time he
+disconnects from the system or leaves \fIHabitat\fP.  The counter is kept in
+terms of whatever time units the system currently uses to track usage
+(minutes?).  This record survives reincarnation.  List: name, rank and time.
+.SH
+\fIBest Dressed
+.PP
+This record is a joke.  Ten Avatars are chosen at random each day, with some
+fancy footwork in the random selection mechanism to bias it in favor of
+choosing previous members of the \fIBest Dressed\fR list.  List: name and
+rank.
+.SH
+\fIMost Treasures Found
+.PP
+We add a ``found'' bit to each treasure object (gemstones, magical items,
+tokens, and knick-knacks) that is cleared to 0 when the item is hidden.  We
+keep a counter with each Avatar, initially 0 also.  Any time an Avatar picks
+up a treasure object with a 0 ``found'' bit, we set the bit to 1 and increment
+the Avatar's counter.  Obviously, commonly dispensed items found in vendo
+machines or money obtained from an ATM comes with the ``found'' bit pre-set.
+List: name, rank and count.
+.SH
+\fIMost Outspoken
+.PP
+For each Avatar we count characters of \fBTALK\fP messages sent.  List: name,
+rank and count divided by some fudge factor to make the numbers look
+reasonable (say 1000).
+.SH
+\fIMost Active
+.PP
+This record is computed by dividing each Avatar's region transition counter by
+his lifetime.  The result is a measure of how much the Avatar moves around.
+List: name and rank.
+.SH
+\fIMost Sedate
+.PP
+This record uses the same statistic as \fIMost Active\fR except that we take
+the \fIbottom\fP ten Avatars.
+.SH
+\fIMost Expressive
+.PP
+This record is a count of mail messages sent.  List: name and rank.
+.SH
+\fIBiggest Thief
+.PP
+We can tell whenever one Avatar steals something from another Avatar because
+it is a special \fBGET\fP behavior.  For each Avatar we count the number of
+times this behavior is successfully executed.  List: name, rank and count.
+.SH
+\fIMost Dangerous
+.PP
+We count each time an Avatar kills another Avatar.  List: name, rank and
+count.
+.SH
+\fIMost Cowardly
+.PP
+This is a count of escape device uses.  List: name, rank and count.
+.SH
+\fIMost Ghostlike
+.PP
+Just as we keep track of time spent in the \fIHabitat\fP as a whole, we should
+track the amount of time each Avatar spends as a ghost.  This record is a list
+of the Avatars with the largest amount of time spent as ghosts in proportion
+to their overall time in \fIHabitat\fP.  List: name, rank and percentage.
+.SH
+\fILeast Ghostlike
+.PP
+This record is based on the same statistic as \fIMost Ghostlike\fR except that
+we list the Avatars with the \fIleast\fP time spent as ghosts in proportion to
+their overall time in \fIHabitat\fP.  List: name, rank and percentage.
+.SH
+\fIBiggest Chameleon
+.PP
+This record is derived by counting each time an Avatar puts on a new head or
+uses a body sprayer and dividing by lifetime.  Gets zeroed on death.  List:
+name and rank.
+.SH
+\fIMost Telepathic
+.PP
+This record is derived by counting ESP messages sent and dividing by lifetime.
+Gets zeroed on death.  List: name and rank.
+.SH
+\fIMost Popular
+.PP
+This record is derived by counting mail, ESP and point-to-point \fBTALK\fP
+messages \fIreceived\fP and dividing by lifetime.  Gets zeroed on death.
+List: name and rank.
+.SH
+\fIBusiest
+.PP
+This record is derived by counting the total number of requests sent from the
+Commodore 64 for the player and dividing by lifetime.  Gets zeroed on death.
+List: name and rank.

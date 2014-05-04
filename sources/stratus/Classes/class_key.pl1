@@ -1,0 +1,49 @@
+/*
+ *   class_key.pl1
+ *
+ *   Key object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_key: procedure;
+
+     %replace KEY_REQUESTS by 3;
+
+     declare a(0:KEY_REQUESTS) entry based;
+     declare class_key_actions pointer;
+     declare 1 key based %include struct_key;
+
+     %replace I by CLASS_KEY;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = KEY_REQUESTS;
+     Class_Table(I).alloc_size = size(key);
+     Class_Table(I).pc_state_bytes = 2;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_key_actions);
+     Class_Table(I).actions = class_key_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+
+end initialize_class_key;
+
+key_vendo_info: procedure(keyptr) returns(character(114) varying);
+     declare keyptr pointer;
+     declare 1 key based(keyptr) %include struct_key;
+
+     return('KEY #' || ltrim(key.key_number_hi*256 + key.key_number_lo) ||
+          '.');
+end key_vendo_info;

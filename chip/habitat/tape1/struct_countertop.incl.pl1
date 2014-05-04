@@ -1,0 +1,18 @@
+/*
+ *   struct_countertop.incl.pl1
+ *
+ *   Struct stub for countertop instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ *   revised 12-March-1987 CM
+ *
+ */
+,    2    common_head         like instance_head,
+     2    contents            pointer,
+     2    class_specific      ,
+           3   open_flags     binary(15),
+           3   key_hi         binary(15),
+           3   key_lo         binary(15),
+           3   whoput(5)      binary(31); /* 5 = COUNTERTOP_CAPACITY */

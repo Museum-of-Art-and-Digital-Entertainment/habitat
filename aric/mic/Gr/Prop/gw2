@@ -1,0 +1,5 @@
+#! /bin/csh -f
+
+set fred = `basename $1 .bin`
+echo $fred
+getwidth `grep -w $fred Object_data` < $fred.cel > $fred.wid

@@ -1,0 +1,45 @@
+/*
+ *   class_display_case.pl1
+ *
+ *   Behavior module for object class display_case.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace DISPLAY_CASE_CAPACITY by 5;
+
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_display_case: procedure;
+
+     %replace DISPLAY_CASE_REQUESTS by 5;
+
+     declare a(0:DISPLAY_CASE_REQUESTS) entry based;
+     declare class_display_case_actions pointer;
+     declare 1 display_case based %include struct_display_case;
+
+     %replace I by CLASS_DISPLAY_CASE;
+
+     Class_Table(I).capacity = DISPLAY_CASE_CAPACITY;
+     Class_Table(I).max_requests = DISPLAY_CASE_REQUESTS;
+     Class_Table(I).alloc_size = size(display_case);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_display_case_actions);
+     Class_Table(I).actions = class_display_case_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(1)              = illegal;               /* 1 */
+     Class_Table(I).actions->a(2)              = illegal;               /* 2 */
+     Class_Table(I).actions->a(3)              = illegal;               /* 3 */
+     Class_Table(I).actions->a(CLOSECONTAINER) = generic_CLOSECONTAINER;/* 4 */
+     Class_Table(I).actions->a(OPENCONTAINER)  = generic_OPENCONTAINER; /* 5 */
+
+end initialize_class_display_case;

@@ -1,0 +1,102 @@
+.AM
+.ds Dq November 10, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9First Magic for Habitat\*M\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH FIRST MAGIC
+.ds CH \\*(Dq
+.ds RH Habitat Document # 30
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Some technical background\s-3
+.PP
+In the Habitat implementation, we have left a number of general-purpose
+``hooks'' for special-case situations.  One of these is magic.  A magical item
+carries a ``magic type'' value in the host database record that describes it.
+This value is simply an integer that is used to index into an array of entry
+points to magical procedures.  Each of these procedures then takes whatever
+action or actions may be appropriate for the particular kind of magic that it
+is trying to represent.  Adding a new type of magic requires that we create a
+new magical procedure and install it in the array.  However, it requires no
+change to the Commodore 64 software at all.  From the Commodore 64's point of
+view, a magic item is a magic item.  All the Commodore knows how to do is
+trigger its magical function, whatever that may be.  It is up to the host to
+use the appropriate series of asynchronous messages to the Commodore to bring
+about the desired effect.
+.PP
+This mechanism has been tested and works.  However, there are currently no
+non-trivial magical procedures (i.e., ones that do more than simply exercise
+the mechanism to verify that it works correctly) implemented.  We would like
+to have some magic in the world in order to get user feedback from beta-test
+on the efficacy of the mechanism.  Adding some magic will also make the world
+a more interesting place by adding things that an Avatar can do.  We have
+therefore decided to define and implement a small number (we have chosen four
+to start with) of magical procedures that can be bound to magic items for the
+players to use.  The purpose of this document is to describe the magical
+mechanism in general and to specify the first magical procedures that we will
+implement.
+.SH
+\s+3Types of magic\s-3
+.PP
+These classes of objects currently have the sort of ``hook'' for conditional
+installation of arbitrary procedures:
+.DS
+magic wand
+magic staff
+amulet
+gemstone
+switch (stationary magic)
+drugs
+sensor
+.DE
+Of these, drugs and sensor each have independent procedure lookup arrays,
+since they follow slightly different behavior protocols than the others.
+Functionally, there is no other distinction between the various types of magic
+item.  Creatively, however, we will generally choose to assign them to
+thematic groups:  Magic wands and staves can do pretty much anything, with
+staves typically being more powerful.  Amulets generally provide information.
+Gemstones are only rarely magical (i.e., an ordinary gemstone's magical
+procedure is effectively a no-op), but when they \fIare\fP magical the magic
+is of a particularly rare and powerful sort.
+.PP
+The switch or stationary magic item is used in a couple of different ways,
+depending on the graphical style used.  On the one hand, it is a hook for
+implementing various sorts of switches and controls that will not ordinarily
+be thought of by the player as magic.  This includes such things as triggering
+the end of a Capture-The-Flag game or resetting the board in a chess region as
+well as implementing puzzles involving complex control panels, baroque
+machines, and the like.  On the other hand, if associated with more magical
+looking graphics or with natural features of various sorts (such as trees, for
+example) it lets us implement site-based magic.  For example, we could create
+an enchanted forest in which certain trees held special powers.
+.SH
+\s+3First Magic\s-3
+.PP
+We have decided to implement four magical procedures initially in order to try
+out the mechanism on the world.  Here are the ones we have chosen:
+.IP "\ \ \ \ \(bu\ "
+\fIChange height\fR \(em Each time it is used, it increases the height of the
+user Avatar by 4 units, wrapping to the minimum height when the maximum height
+is exceeded.
+.IP "\ \ \ \ \(bu\ "
+\fIMake people jump\fR \(em Makes the Avatar at whom it is aimed jump up in
+the air as if he or she had issued a JUMP gesture with the gesture keys.
+.IP "\ \ \ \ \(bu\ "
+\fIMake everyone turn blue\fR \(em Turns everyone in the region (except the
+user) blue, i.e., \fIall\fP their body pattern nybbles are set to the blue
+value.
+.IP "\ \ \ \ \(bu\ "
+\fISend avatar home\fR \(em TelePorts the Avatar at whom it is aimed back to
+his or her home turf.  Operates like an escape device, except that it works on
+someone else rather than on yourself.

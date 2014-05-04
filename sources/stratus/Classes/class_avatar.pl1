@@ -1,0 +1,483 @@
+/*
+ *   class_avatar.pl1
+ *
+ *   Avatar object behavior module for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+declare process_messager_name entry;
+declare process_messager_msg entry;
+declare request_player_list entry;
+declare handle_internal_trace entry (char(*) var);
+
+%replace SIT_GROUND by 132;
+%replace SIT_CHAIR by 133;
+%replace SIT_FRONT by 157;
+%replace STAND_FRONT by 146;
+%replace STAND_LEFT by 251;
+%replace STAND_RIGHT by 252;
+%replace STAND by 129;
+%replace FACE_LEFT by 254;
+%replace FACE_RIGHT by 255;
+
+%replace COLOR_POSTURE by 253;
+
+initialize_class_avatar: procedure;
+
+     %replace AVATAR_REQUESTS by 14;
+
+     declare a(0:AVATAR_REQUESTS) entry based;
+     declare class_avatar_actions pointer;
+     declare 1 avatar based %include struct_avatar;
+
+     %replace I by CLASS_AVATAR;
+
+     Class_Table(I).capacity = AVATAR_CAPACITY;
+     Class_Table(I).max_requests = AVATAR_REQUESTS;
+     Class_Table(I).alloc_size = size(avatar);
+     Class_Table(I).pc_state_bytes = 6;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_avatar_actions);
+     Class_Table(I).actions = class_avatar_actions;
+
+     Class_Table(I).actions->a(HELP) = avatar_IDENTIFY;     /* 0 */
+     Class_Table(I).actions->a(1) = illegal;                /* 1 */
+     Class_Table(I).actions->a(2) = illegal;                /* 2 */
+     Class_Table(I).actions->a(3) = illegal;                /* 3 */
+     Class_Table(I).actions->a(GRAB) = avatar_GRAB;         /* 4 */
+     Class_Table(I).actions->a(HAND) = avatar_HAND;         /* 5 */
+     Class_Table(I).actions->a(POSTURE) = avatar_POSTURE;   /* 6 */
+     Class_Table(I).actions->a(SPEAK) = avatar_SPEAK;       /* 7 */
+     Class_Table(I).actions->a(WALK) = avatar_WALK;         /* 8 */
+     Class_Table(I).actions->a(NEWREGION) = avatar_NEWREGION;/* 9 */
+     Class_Table(I).actions->a(DISCORPORATE) = avatar_DISCORPORATE;/*10 */
+     Class_Table(I).actions->a(ESP) = avatar_ESP;           /* 11 */
+     Class_Table(I).actions->a(SIT) = avatar_SITORSTAND;    /* 12 */
+     Class_Table(I).actions->a(TOUCH) = avatar_TOUCH;       /* 13 */
+     Class_Table(I).actions->a(FNKEY) = avatar_FNKEY;  /* 14 */
+
+end initialize_class_avatar;
+
+avatar_DISCORPORATE: procedure;
+     if (holding_class(CLASS_MAGIC_LAMP)) then do;
+          if (ObjList(avatar.contents->c(HANDS))->o.gr_state =
+                    MAGIC_LAMP_GENIE) then
+               call object_say(self.noid, 'You can''t turn into a ghost while you are holding the Genie.');
+     end; else if (holding_restricted_object(avatarptr)) then do;
+          call object_say(self.noid, 'You can''t turn into a ghost while you are holding that.');
+     end; else do;
+          call lights_off(avatarptr);
+          call switch_to_ghost;
+          return;
+     end;
+     call r_msg_1(FALSE);
+end avatar_DISCORPORATE;
+
+avatar_GRAB: procedure;
+     declare item_noid binary(15);
+     declare 1 self based(selfptr) %include struct_avatar;
+     declare 1 item based(itemptr) %include struct_gen_object;
+     declare itemptr pointer;
+
+     item_noid = NULL;
+     if (empty_handed(avatarptr) & ^empty_handed(selfptr)) then do;
+          item_noid = self.contents->c(HANDS);
+          itemptr = ObjList(item_noid);
+          if (^grabable(itemptr)) then do;
+               call r_msg_1(NULL);
+               if (current_region.nitty_bits(STEAL_FREE)) then
+                    call object_say(self.noid,'This is a theft-free zone.');
+               return;
+          end;
+          if (^UserList(self.avatarslot)->u.online) then do;
+               call r_msg_1(NULL);
+               return;
+          end;
+          if (^ change_containers(item_noid, avatar.noid, HANDS, true)) then do;
+               call r_msg_1(NULL);
+               return;
+          end;
+          call n_msg_1(avatarptr, GRABFROM$, self.noid);
+          call inc_record(avatarptr, HS$grabs);
+     end;
+     call r_msg_1(item_noid);
+end avatar_GRAB;
+
+avatar_HAND: procedure;
+     declare success binary(15);
+     declare item_noid binary(15);
+     declare 1 self based(selfptr) %include struct_avatar;
+
+     if (self.class = CLASS_MAGIC_LAMP & self.gr_state =
+               MAGIC_LAMP_GENIE) then do;
+          call object_say(item_noid, 'You can''t give away the Genie!');
+          success = FALSE;
+     end; else if (^empty_handed(avatarptr) & empty_handed(selfptr) &
+               self.container = THE_REGION) then do;
+          success = TRUE;
+          item_noid = avatar.contents->c(HANDS);
+          if (^change_containers(item_noid, self.noid, HANDS, true)) then
+               success = FALSE;
+          else do;
+               self.activity = STAND;
+               self.gen_flags(MODIFIED) = true;
+               call n_msg_1(selfptr, GRABFROM$, avatar.noid);
+          end;
+     end; else do;
+          success = FALSE;
+     end;
+     call r_msg_1(success);
+end avatar_HAND;
+
+avatar_POSTURE: procedure;
+     declare new_posture binary(15);
+
+     new_posture = rank(request(FIRST));
+     if (selfptr = avatarptr) then do;
+          if (0 <= new_posture & new_posture < 256) then do;
+               if (new_posture = SIT_GROUND | new_posture = SIT_CHAIR |
+                         new_posture = SIT_FRONT | new_posture = STAND |
+                         new_posture = STAND_FRONT | new_posture = STAND_LEFT|
+                         new_posture = STAND_RIGHT | new_posture = FACE_LEFT |
+                         new_posture = FACE_RIGHT) then
+                    avatar.activity = new_posture;
+               if (new_posture ^= COLOR_POSTURE) then
+                    call n_msg_1(avatarptr, POSTURE$, new_posture);
+               if (new_posture < STAND_LEFT | new_posture = COLOR_POSTURE) then
+                    call r_msg_1(TRUE);
+          end;
+     end;
+end avatar_POSTURE;
+
+avatar_SPEAK: procedure;
+     declare audience binary(15);
+     declare audienceptr pointer;
+     declare text character(TEXT_LENGTH) varying;
+
+     audience = rank(request(FIRST));
+     text = substr(request_string, 2);
+     if (length(text) < 4) then text = ' ' || text || ' ';
+     if (substr(text,1,3) = '=!T') then do;
+          call handle_internal_trace (substr(text,4));
+          call r_msg_1(FALSE);
+          return;
+     end;
+     if (index(text, 'TO:') = 1 | index(text, 'To:') = 1 |
+               index(text, 'to:') = 1) then do;
+          request_string = ltrim(substr(text, 4));
+          call process_messager_name;
+     end; else do;
+          if (avatar.curse_type = CURSE_SMILEY) then
+               text = 'Have a nice day!';
+          else if (avatar.curse_type = CURSE_FLY) then
+               text = buzzify(text);
+          call b_msg_s(avatarptr, SPEAK$, text); 
+/*        call n_msg_s(avatarptr, SPEAK$, text);
+          call r_msg_1_s(avatarptr, FALSE, text);  */
+          call inc_record(avatarptr, HS$talkcount);
+          call r_msg_1(FALSE);
+     end;
+end avatar_SPEAK;
+
+avatar_ESP: procedure;
+     if (length(request_string) <= 5) then
+          call r_msg_1(FALSE);
+     else do;
+          request_string = substr(request_string, 6); /* remove 'ESP:' */
+          if (length(request_string) < 4) then request_string = ' ' || request_string || ' ';
+          call inc_record(avatarptr, HS$esp_send_count);
+          call process_messager_msg;
+          call r_msg_1(TRUE);
+     end;
+end avatar_ESP;
+
+avatar_WALK: procedure;
+     declare x binary(15);
+     declare y binary(15);
+     declare walk_how binary(15);
+     declare destination_x binary(15);
+     declare destination_y binary(15);
+     declare flip_path bit(1) aligned;
+
+     x = rank(request(FIRST));
+     y = rank(request(SECOND));
+     walk_how = rank(request(THIRD));
+     if (selfptr ^= avatarptr) then do;
+          destination_x = avatar.x;
+          destination_y = avatar.y;
+     end; else if (avatar.stun_count > 0) then do;
+          avatar.stun_count = avatar.stun_count - 1;
+          call r_msg_3(avatar.x, avatar.y, walk_how);
+          if (avatar.stun_count >= 2) then
+               call p_msg_s(selfptr, selfptr, SPEAK$, 'I can''t move.  I am stunned.');
+          else if (avatar.stun_count = 1) then
+               call p_msg_s(selfptr, selfptr, SPEAK$, 'I am still stunned.');
+          else
+               call p_msg_s(selfptr, selfptr, SPEAK$, 'The stun effect is wearing off now.');
+          return;
+     end; else do;
+          call check_path(THE_REGION, x, y, destination_x, destination_y, flip_path);
+          if (flip_path) then
+               call set_bit(walk_how, 8);
+          else
+               call clear_bit(walk_how, 8);
+          if (destination_x ^= self.x | destination_y ^= self.y) then do;
+               self.x = destination_x;
+               self.y = destination_y;
+               call n_msg_3(selfptr, WALK$, destination_x, destination_y,
+                    walk_how);
+          end;
+     end;
+     call r_msg_3(destination_x, destination_y, walk_how);
+end avatar_WALK;
+
+avatar_NEWREGION: procedure;
+     declare direction binary(15);
+     declare new_region binary(31);
+     declare new_entry_mode binary(15);
+     declare direction_index binary(15);
+     declare passage_id binary(15);
+     declare passageptr pointer;
+     declare 1 passage based(passageptr) %include struct_door;
+
+     direction = rank(request(FIRST));
+     passage_id = rank(request(SECOND));
+     new_region = 0;
+     new_entry_mode = 0;
+     if (direction = AUTO_TELEPORT_DIR) then do;
+          if (UserList(self.avatarslot)->u.auto_destination ^= 0) then do;
+               new_region = UserList(self.avatarslot)->u.auto_destination;
+               UserList(self.avatarslot)->u.auto_destination = 0;
+               new_entry_mode = UserList(self.avatarslot)->u.auto_mode;
+          end; else do;
+               /* If we get here the user has hacked his C64.  By executing a
+                  return statement here, we don't respond to his message, thus
+                  hanging him. */
+               call object_say(self.noid, 'Hi hacker!');
+               return;
+          end;
+     end; else do;
+          passageptr = ObjList(passage_id);
+          if (passageptr ^= null()) then do;
+               if (passage.class = CLASS_DOOR |
+                         passage.class = CLASS_BUILDING) then do;
+                    if (passage.class = CLASS_DOOR) then do;
+                         if (^test_bit(passage.open_flags, OPEN_BIT) |
+                                   passage.gen_flags(
+                                   DOOR_AVATAR_RESTRICTED_BIT)) then do;
+                              call r_msg_1(FALSE);
+                              return;
+                         end;
+                    end;
+                    new_region = passage.connection;
+               end;
+          end;
+     end;
+
+     direction_index = mod(direction + current_region.orientation + 2, 4) + 1;
+
+     if (selfptr = avatarptr & 0 <= direction & direction <= 4) then do;
+          if (holding_class(CLASS_MAGIC_LAMP)) then
+               if (ObjList(avatar.contents->c(HANDS))->o.gr_state = 
+                         MAGIC_LAMP_GENIE) then do;
+                    if (direction = AUTO_TELEPORT_DIR) then
+                         call drop_object_in_hand(selfptr);
+                    else do;
+                         call object_say(self.noid,
+                         'You can''t leave while you are holding the Genie.');
+                         call r_msg_1(FALSE);
+                         return;
+                    end;
+               end;
+          if (holding_restricted_object(avatarptr)) then do;
+               if (direction = AUTO_TELEPORT_DIR) then
+                    call drop_object_in_hand(selfptr);
+               else if (current_region.restriction(direction_index)) then do;
+                    call object_say(self.noid,
+                         'You can''t leave while you are holding that.');
+                    call r_msg_1(FALSE);
+                    return;
+               end;
+          end;
+          if (new_region = 0) then
+               new_region = current_region.neighbor(direction_index);
+          if (new_region ^= 0 & new_region ^= -1) then do;
+               call n_msg_1(null(), WAITFOR_$, avatar.noid);
+               call goto_new_region(avatarptr, new_region, direction,
+                    new_entry_mode);
+               return;
+          end;
+     end;
+     call object_say(self.noid, 'There is nowhere to go in that direction.');
+     call r_msg_1(FALSE);
+end avatar_NEWREGION;
+
+holding_restricted_object: procedure(whoptr) returns(bit(1));
+     declare whoptr pointer;
+     declare 1 who based(whoptr) %include struct_avatar;
+     declare obj_noid binary(15);
+     declare objptr pointer;
+     declare 1 obj based(objptr) %include struct_gen_object;
+
+     obj_noid = who.contents->c(HANDS);
+     if (obj_noid ^= NULL) then do;
+          objptr = ObjList(obj_noid);
+          if (objptr ^= null()) then
+               return(obj.gen_flags(RESTRICTED));
+     end;
+     return(false);
+end holding_restricted_object;
+
+avatar_IDENTIFY: procedure;
+     declare selfname character(20) varying;
+     declare avatarname character(20) varying;
+     declare result character(256) varying;
+
+     selfname = ltrim(rtrim(UserList(self.avatarslot)->u.U_Name));
+     avatarname = ltrim(rtrim(UserList(avatar.avatarslot)->u.U_Name));
+     if (avatarptr = selfptr) then do;
+          result = 'Your name is ' || avatarname || '.  You are ';
+          if (avatar.stun_count > 0) then
+               result = result || 'stunned, and you are ';
+          if (avatar.health > 200) then
+               result = result || 'in the peak of health.';
+          else if (avatar.health > 150) then
+               result = result || 'in good health.';
+          else if (avatar.health > 100) then
+               result = result || 'in fair health.';
+          else if (avatar.health > 50) then
+               result = result || 'in poor health.';
+          else
+               result = result || 'near death.';
+     end; else do;
+          call p_msg_s(avatarptr, selfptr, SPEAK$, 'I am ' || avatarname);
+          if (UserList(self.avatarslot)->u.online) then
+               result = 'This is ' || selfname;
+          else
+               result = 'Turned to stone: ' || selfname;
+     end;
+     call r_msg_s(result);
+end avatar_IDENTIFY;
+
+%replace STAND_UP by 0;
+%replace SIT_DOWN by 1;
+
+avatar_SITORSTAND: procedure;
+     declare up_or_down binary(15);
+     declare seat_id binary(15);
+     declare 1 seat based(seatptr) %include struct_gen_container;
+     declare seatptr pointer;
+     declare i binary(15);
+
+     up_or_down = rank(request(FIRST));
+     seat_id = rank(request(SECOND));
+     seatptr = ObjList(seat_id);
+     if (seatptr ^= null()) then do;
+          if (seat.class = CLASS_CHAIR | seat.class = CLASS_COUCH |
+                    seat.class = CLASS_BED) then do;
+               if (up_or_down = STAND_UP) then do;
+                    if (avatar.container = seat_id) then do;
+                         if (^ change_containers(avatar.noid, THE_REGION, 
+                                                            0, false)) then do;
+                              call r_msg_2 (FALSE,0);
+                              return;
+                         end;
+                         avatar.activity = STAND;
+                         avatar.gen_flags(MODIFIED) = true;
+                         call checkpoint_object (0, avatar.noid);
+                         call r_msg_2(TRUE, 0);
+                         call n_msg_3(avatarptr, SIT$, STAND_UP, seat_id, 0);
+                         return;
+                    end;
+               end; else do;
+                    i = 0;
+                    do while (i < Class_Table(seat.class).capacity);
+                         if (seat.contents->c(i) = NULL) then do;
+                              if (^ change_containers(avatar.noid, seat_id, i, true)) then do;
+                                   call r_msg_2 (FALSE,0);
+                                   return;
+                              end;
+                              call r_msg_2(TRUE, i);
+                              call n_msg_3(avatarptr,SIT$,SIT_DOWN,seat_id,i);
+                              return;
+                         end;
+                         i = i + 1;
+                    end;
+               end;
+          end;
+     end;     
+     call r_msg_2(FALSE, 0);
+end avatar_SITORSTAND;
+
+avatar_TOUCH: procedure;
+     declare touchee_id binary(15);
+     declare toucheeptr pointer;
+     declare 1 touchee based(toucheeptr) %include struct_avatar;
+     declare new_posture binary(15);
+     declare 1 self based(selfptr) %include struct_avatar;
+
+     touchee_id = rank(request(FIRST));
+     new_posture = rank(request(SECOND));
+     toucheeptr = ObjList(touchee_id);
+     call n_msg_1(avatarptr, POSTURE$, new_posture);
+     call p_msg_s(selfptr, toucheeptr, SPEAK$, 'Gotcha!');
+     call p_msg_s(selfptr, avatarptr, SPEAK$, 'Gotcha!');
+     call r_msg_1(TRUE);
+     if (avatar.curse_type ^= 0) then
+          call curse_touch(avatarptr, toucheeptr);
+     else if (touchee.curse_type ^= 0) then
+          call curse_touch(toucheeptr, avatarptr);
+end avatar_TOUCH;
+
+buzzify: procedure(text) returns(character(TEXT_LENGTH) varying);
+     declare text character(*) varying;
+     declare result character(TEXT_LENGTH) varying;
+     declare resultstr(-1:TEXT_LENGTH) character(1) defined(result);
+     declare i binary(15);
+
+     result = translate(text,
+       'zzzzzzzzzzzzzzzzzzzzzzzzzzZZZZZZZZZZZZZZZZZZZZZZZZZZzzzzzzzzzz',
+       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+     do i=length(result) to 1 by -1;
+          if (((resultstr(i-1) ^= 'z' & resultstr(i-1) ^= 'Z') | i = 1) &
+               (resultstr(i) = 'z' | resultstr(i) = 'Z')) then do;
+               if (resultstr(i) = 'z') then
+                    resultstr(i) = 'b';
+               else
+                    resultstr(i) = 'B';
+          end;
+     end;
+     return(result);
+end buzzify;
+
+avatar_FNKEY: procedure;
+declare fn_key binary(15);
+declare ref_obj binary(15);
+
+%replace F3 by 11;
+%replace F4 by 12;
+%replace F5 by 13;
+%replace F8 by 16;
+
+     fn_key  = rank(request(FIRST));
+     ref_obj = rank(request(SECOND));
+
+   if (fn_key = F3)
+        then call request_player_list;
+          else if (fn_key = F4) then do; 
+               call p_msg_s(null(),avatarptr,20,'What is Sekrit Word?');
+               call r_msg_1(TRUE);
+               end;
+               else call r_msg_1(BOING_FAILURE);    
+
+end avatar_FNKEY;

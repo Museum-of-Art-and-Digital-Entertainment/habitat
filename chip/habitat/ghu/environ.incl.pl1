@@ -1,0 +1,16 @@
+declare verify_access entry;
+declare save_environ entry;
+declare unsave_environ entry;
+declare buffer_bin15 entry(binary(15));
+declare buffer_bin31 entry(binary(31));
+declare buffer_string entry(character(*) varying);
+declare buffer_bitstring entry(pointer);
+declare unbuffer_bin15 entry returns(binary(15));
+declare unbuffer_bin31 entry returns(binary(31));
+declare unbuffer_string entry returns(pointer);
+declare unbuffer_bitstring entry returns(pointer);
+declare buffer_overflow entry returns(bit(1));
+
+declare env_path character(256) varying external;
+declare general_access bit(1) external;
+declare automacro_codeptr pointer external;

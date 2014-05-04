@@ -1,0 +1,58 @@
+.ds Da October 18, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.TL
+\s+3Notes on MicroCosm\*T Screen Mockup Tape\s-3
+.AU
+A ``LUCASFILM UNIVERSE'' DOCUMENT
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Da
+.ds LH SCREEN MOCKUP NOTES
+.ds CH \\*(Da
+.ds RH MicroCosm
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.PP
+The accompanying video tape contains some screen mockups we did to get a
+preliminary idea of the visual style of \fBMicroCosm\fP.  The mockups were
+done using a simple paint program on an Atari 800.  Due to the limitations of
+the paint program and the differences between the Atari 800 and the Commodore
+64, there are some important differences between these images and what we
+envision the final product will look like.
+.PP
+The major difference is that the images here were restricted to four colors.
+Both the more sophisticated color display features of the Commodore 64 and
+various programming techniques will enable us to create a much more colorful
+display in the eventual product.  Also, the animation capabilities of the
+paint package used to render these pictures are quite primitive, and so only
+one of the screen mockups has animation, and that is of the most rudimentary
+sort.  The final product will also contain much a more animated display.  For
+an impression of our basic animation capabilities, you should look at the
+Lucasfilm games \fIThe Eidolon\fR and \fIKoronis Rift\fR.  In particular,
+\fIThe Eidolon\fR demonstrates our Cel Animation Engine that we will use to
+bring the avatars to life.
+.PP
+All four of the images on this tape are renderings of scenes from the
+collection of \fBMicroCosm\fP storyboards.  Comparing the pen and ink
+storyboard illustrations with the corresponding screen mockups will give an
+impression of how well the visual designs translate onto the computer screen.
+.PP
+The first image on the tape is the living room illustration, shown both with
+and without an avatar figure standing in the room.  In the actual system, the
+chairs and couch would be foreground objects, so that the avatar could, for
+example, walk behind them or move them around.
+.PP
+The second image shows a number of different avatars gathered in a public
+place.  Again, the picture is shown with and without the avatars.  This
+picture illustrates some of the variety of avatar figures that is possible.
+.PP
+The third image illustrates several avatars interacting with each other and
+manipulating objects of various kinds.
+.PP
+The fourth and final image is a study of a single avatar figure.  The forward
+facing figure is animated to wave his hand.  In the eventual system the figure
+would be fully articulated and would be capable of a wide range of motions,
+including walking, picking things up, gesturing in various ways, and so on.

@@ -1,0 +1,34 @@
+/*
+ *   class_building.pl1
+ *
+ *   Behavior module for object class building.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_building: procedure;
+     declare a(0:0) entry based;
+     declare 1 building based %include struct_building;
+     declare class_building_actions pointer;
+
+     %replace BUILDING_REQUESTS by 0;
+
+     %replace I by CLASS_BUILDING;
+
+     Class_Table(I).capacity = 0;
+     allocate a set(class_building_actions);
+     Class_Table(I).actions = class_building_actions;
+     Class_Table(I).max_requests = BUILDING_REQUESTS;
+     Class_Table(I).alloc_size = size(building);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP;
+end initialize_class_building;

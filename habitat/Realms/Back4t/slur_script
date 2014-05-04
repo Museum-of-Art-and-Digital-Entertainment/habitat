@@ -1,0 +1,430 @@
+
+#echo back4t_01
+#slur regdir/back4t_01.reg \
+#	-o rdldir/back4t_01.rdl \
+#	-d FACE_WEST \
+#	-r back4t_01 \
+#	-w back4t_ \
+#	-n back4t_ \
+#	-e back4t_ \
+#	-s back4t_ 
+
+echo back4t_01
+slur regdir/back4t_01.reg \
+	-o rdldir/back4t_01.rdl \
+	-d FACE_WEST \
+	-r back4t_01 \
+	-w back4t_11 \
+	-n back4t_11 \
+	-e back4t_02 \
+	-s back4t_02 
+
+echo back4t_11
+slur regdir/back4t_11.reg \
+	-o rdldir/back4t_11.rdl \
+	-d FACE_WEST \
+	-r back4t_11 \
+	-w back4t_01 \
+	-n back4t_21 \
+	-e back4t_12 \
+	-s back4t_01 
+
+echo back4t_21
+slur regdir/back4t_21.reg \
+	-o rdldir/back4t_21.rdl \
+	-d FACE_WEST \
+	-r back4t_21 \
+	-w back4t_20 \
+	-n back4t_31 \
+	-e back4t_22 \
+	-s back4t_11 
+
+
+
+echo back4t_31
+slur regdir/back4t_31.reg \
+	-o rdldir/back4t_31.rdl \
+	-d FACE_WEST \
+	-r back4t_31 \
+	-n back4t_41 \
+	-e back4t_32 \
+	-s back4t_21 
+
+echo back4t_41
+slur regdir/back4t_41.reg \
+	-o rdldir/back4t_41.rdl \
+	-d FACE_WEST \
+	-r back4t_41 \
+	-w back4t_51 \
+	-n back4t_51 \
+	-e back4t_42 \
+	-s back4t_31 
+
+echo back4t_51
+slur regdir/back4t_51.reg \
+	-o rdldir/back4t_51.rdl \
+	-d FACE_WEST \
+	-r back4t_51 \
+	-w back4t_41 \
+	-n back4t_61 \
+	-e back4t_52 \
+	-s back4t_41 
+
+echo back4t_61
+slur regdir/back4t_61.reg \
+	-o rdldir/back4t_61.rdl \
+	-d FACE_WEST \
+	-r back4t_61 \
+	-w back4t_71 \
+	-n back4t_71 \
+	-e back4t_62 \
+	-s back4t_51 
+
+echo back4t_71
+slur regdir/back4t_71.reg \
+	-o rdldir/back4t_71.rdl \
+	-d FACE_WEST \
+	-r back4t_71 \
+	-w back4t_61 \
+	-n back4t_72 \
+	-e back4t_72 \
+	-s back4t_61 
+
+echo back4t_02
+slur regdir/back4t_02.reg \
+	-o rdldir/back4t_02.rdl \
+	-d FACE_WEST \
+	-r back4t_02 \
+	-w back4t_01 \
+	-n back4t_12 \
+	-e back4t_03 \
+	-s back4t_01 
+
+echo back4t_12
+slur regdir/back4t_12.reg \
+	-o rdldir/back4t_12.rdl \
+	-d FACE_WEST \
+	-r back4t_12 \
+	-w back4t_11 \
+	-n back4t_22 \
+	-e back4t_13 \
+	-s back4t_02 
+
+echo back4t_22
+slur regdir/back4t_22.reg \
+	-o rdldir/back4t_22.rdl \
+	-d FACE_WEST \
+	-r back4t_22 \
+	-w back4t_21 \
+	-n back4t_32 \
+	-e back4t_23 \
+	-s back4t_12 
+
+echo back4t_32
+slur regdir/back4t_32.reg \
+	-o rdldir/back4t_32.rdl \
+	-d FACE_WEST \
+	-r back4t_32 \
+	-w back4t_31 \
+	-n back4t_42 \
+	-e back4t_33 \
+	-s back4t_22 
+
+echo back4t_42
+slur regdir/back4t_42.reg \
+	-o rdldir/back4t_42.rdl \
+	-d FACE_WEST \
+	-r back4t_42 \
+	-w back4t_41 \
+	-n back4t_52 \
+	-e back4t_43 \
+	-s back4t_32 
+
+echo back4t_52
+slur regdir/back4t_52.reg \
+	-o rdldir/back4t_52.rdl \
+	-d FACE_WEST \
+	-r back4t_52 \
+	-w back4t_51 \
+	-n back4t_62 \
+	-e back4t_53 \
+	-s back4t_42 
+
+echo back4t_62
+slur regdir/back4t_62.reg \
+	-o rdldir/back4t_62.rdl \
+	-d FACE_WEST \
+	-r back4t_62 \
+	-w back4t_61 \
+	-n back4t_72 \
+	-e back4t_63 \
+	-s back4t_52 
+
+echo back4t_72
+slur regdir/back4t_72.reg \
+	-o rdldir/back4t_72.rdl \
+	-d FACE_WEST \
+	-r back4t_72 \
+	-w back4t_71 \
+	-n back4t_71 \
+	-e back4t_73 \
+	-s back4t_62 
+
+echo back4t_03
+slur regdir/back4t_03.reg \
+	-o rdldir/back4t_03.rdl \
+	-d FACE_WEST \
+	-r back4t_03 \
+	-w back4t_02 \
+	-n back4t_13 \
+	-e back4t_04 \
+	-s back4t_04 
+
+echo back4t_13
+slur regdir/back4t_13.reg \
+	-o rdldir/back4t_13.rdl \
+	-d FACE_WEST \
+	-r back4t_13 \
+	-w back4t_12 \
+	-n back4t_23 \
+	-e back4t_14 \
+	-s back4t_03 
+
+echo back4t_23
+slur regdir/back4t_23.reg \
+	-o rdldir/back4t_23.rdl \
+	-d FACE_WEST \
+	-r back4t_23 \
+	-w back4t_22 \
+	-n back4t_33 \
+	-s back4t_13 
+
+echo back4t_33
+slur regdir/back4t_33.reg \
+	-o rdldir/back4t_33.rdl \
+	-d FACE_WEST \
+	-r back4t_33 \
+	-w back4t_32 \
+	-n back4t_43 \
+	-e back4t_34 \
+	-s back4t_23 
+
+echo back4t_43
+slur regdir/back4t_43.reg \
+	-o rdldir/back4t_43.rdl \
+	-d FACE_WEST \
+	-r back4t_43 \
+	-w back4t_42 \
+	-n back4t_53 \
+	-e back4t_44 \
+	-s back4t_33 
+
+echo back4t_53
+slur regdir/back4t_53.reg \
+	-o rdldir/back4t_53.rdl \
+	-d FACE_WEST \
+	-r back4t_53 \
+	-w back4t_52 \
+	-n back4t_63 \
+	-e back4t_54 \
+	-s back4t_43 
+
+echo back4t_63
+slur regdir/back4t_63.reg \
+	-o rdldir/back4t_63.rdl \
+	-d FACE_WEST \
+	-r back4t_63 \
+	-w back4t_62 \
+	-n back4t_73 \
+	-e back4t_64 \
+	-s back4t_53 
+
+echo back4t_73
+slur regdir/back4t_73.reg \
+	-o rdldir/back4t_73.rdl \
+	-d FACE_WEST \
+	-r back4t_73 \
+	-w back4t_72 \
+	-n back4t_74 \
+	-e back4t_74 \
+	-s back4t_63 
+
+echo back4t_04
+slur regdir/back4t_04.reg \
+	-o rdldir/back4t_04.rdl \
+	-d FACE_WEST \
+	-r back4t_04 \
+	-w back4t_03 \
+	-n back4t_14 \
+	-e back4t_05 \
+	-s back4t_03 
+
+echo back4t_14
+slur regdir/back4t_14.reg \
+	-o rdldir/back4t_14.rdl \
+	-d FACE_WEST \
+	-r back4t_14 \
+	-w back4t_13 \
+	-n back4t_24 \
+	-e back4t_15 \
+	-s back4t_04 
+
+echo back4t_24
+slur regdir/back4t_24.reg \
+	-o rdldir/back4t_24.rdl \
+	-d FACE_WEST \
+	-r back4t_24 \
+	-n back4t_34 \
+	-s back4t_14 
+
+echo back4t_34
+slur regdir/back4t_34.reg \
+	-o rdldir/back4t_34.rdl \
+	-d FACE_WEST \
+	-r back4t_34 \
+	-w back4t_33 \
+	-n back4t_44 \
+	-e back4t_35 \
+	-s back4t_24 
+
+echo back4t_44
+slur regdir/back4t_44.reg \
+	-o rdldir/back4t_44.rdl \
+	-d FACE_WEST \
+	-r back4t_44 \
+	-w back4t_43 \
+	-n back4t_54 \
+	-e back4t_45 \
+	-s back4t_34 
+
+echo back4t_54
+slur regdir/back4t_54.reg \
+	-o rdldir/back4t_54.rdl \
+	-d FACE_WEST \
+	-r back4t_54 \
+	-w back4t_53 \
+	-n back4t_64 \
+	-e back4t_55 \
+	-s back4t_44 
+
+echo back4t_64
+slur regdir/back4t_64.reg \
+	-o rdldir/back4t_64.rdl \
+	-d FACE_WEST \
+	-r back4t_64 \
+	-w back4t_63 \
+	-n back4t_74 \
+	-e back4t_65 \
+	-s back4t_54 
+
+echo back4t_74
+slur regdir/back4t_74.reg \
+	-o rdldir/back4t_74.rdl \
+	-d FACE_WEST \
+	-r back4t_74 \
+	-w back4t_73 \
+	-n back4t_73 \
+	-e back4t_75 \
+	-s back4t_64 
+
+echo back4t_05
+slur regdir/back4t_05.reg \
+	-o rdldir/back4t_05.rdl \
+	-d FACE_WEST \
+	-r back4t_05 \
+	-w back4t_04 \
+	-n back4t_15 \
+	-e back4t_05 \
+	-s back4t_05 
+
+echo back4t_15
+slur regdir/back4t_15.reg \
+	-o rdldir/back4t_15.rdl \
+	-d FACE_WEST \
+	-r back4t_15 \
+	-w back4t_14 \
+	-n back4t_25 \
+	-e back4t_25 \
+	-s back4t_05 
+
+echo back4t_25
+slur regdir/back4t_25.reg \
+	-o rdldir/back4t_25.rdl \
+	-d FACE_WEST \
+	-r back4t_25 \
+	-n back4t_35 \
+	-e back4t_15 \
+	-s back4t_15 
+
+echo back4t_35
+slur regdir/back4t_35.reg \
+	-o rdldir/back4t_35.rdl \
+	-d FACE_WEST \
+	-r back4t_35 \
+	-w back4t_34 \
+	-n back4t_45 \
+	-e back4t_45 \
+	-s back4t_25 
+
+echo back4t_45
+slur regdir/back4t_45.reg \
+	-o rdldir/back4t_45.rdl \
+	-d FACE_WEST \
+	-r back4t_45 \
+	-w back4t_44 \
+	-n back4t_55 \
+	-e back4t_35 \
+	-s back4t_35 
+
+echo back4t_55
+slur regdir/back4t_55.reg \
+	-o rdldir/back4t_55.rdl \
+	-d FACE_WEST \
+	-r back4t_55 \
+	-w back4t_54 \
+	-n back4t_65 \
+	-e back4t_56 \
+	-s back4t_45 
+
+echo back4t_65
+slur regdir/back4t_65.reg \
+	-o rdldir/back4t_65.rdl \
+	-d FACE_WEST \
+	-r back4t_65 \
+	-w back4t_64 \
+	-n back4t_75 \
+	-e back4t_75 \
+	-s back4t_55 
+
+echo back4t_75
+slur regdir/back4t_75.reg \
+	-o rdldir/back4t_75.rdl \
+	-d FACE_WEST \
+	-r back4t_75 \
+	-w back4t_74 \
+	-e back4t_65 \
+	-s back4t_65 
+
+echo back4t_20
+slur regdir/back4t_20.reg \
+	-o rdldir/back4t_20.rdl \
+	-d FACE_NORTH \
+	-r back4t_20 \
+	-n back4t_30 \
+	-e back4t_21 
+
+
+echo back4t_30
+slur regdir/back4t_30.reg \
+	-o rdldir/back4t_30.rdl \
+	-d FACE_NORTH \
+	-r back4t_30 \
+	-s back4t_20 
+
+echo back4t_56
+slur regdir/back4t_56.reg \
+	-o rdldir/back4t_56.rdl \
+	-d FACE_NORTH \
+	-r back4t_56 \
+	-w back4t_55 
+

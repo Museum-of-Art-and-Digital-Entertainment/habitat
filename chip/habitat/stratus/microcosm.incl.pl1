@@ -1,0 +1,121 @@
+/*
+ *   microcosm.incl.pl1
+ *
+ *   General purpose include file for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ */
+
+%include 'defs_message.incl.pl1';
+%include 'defs_class.incl.pl1';
+%include 'defs_struct.incl.pl1';
+%include 'defs_statistics.incl.pl1';
+
+%replace NULL  by 0;
+%replace FALSE by 0;
+%replace BOING_FAILURE by 2;
+%replace TRUE  by 1;
+%replace false by '0'b;
+%replace true  by '1'b;
+
+%replace TEXT_LENGTH by 256;
+%replace PAPER_LENGTH by 640;
+
+/* Avatar constants */
+%replace MAIL_SLOT by 4;
+%replace HANDS by 5;
+%replace HEAD by 6;
+%replace AVATAR_CAPACITY by 8;
+%replace UNWEARABLE by 0; /* historical aberration */
+
+/* Container constants */
+%replace OPEN_BIT by 1;
+%replace UNLOCKED_BIT by 2;
+
+/* Curse constants */
+%replace CURSE_NONE    by 0;
+%replace CURSE_COOTIES by 1;
+%replace CURSE_SMILEY  by 2;
+%replace CURSE_MUTANT  by 3;
+%replace CURSE_FLY     by 4;
+
+/* Magic lamp constants */
+%replace MAGIC_LAMP_WAITING by 0;
+%replace MAGIC_LAMP_GENIE by 1;
+
+/* instance_head general flag constants */
+%replace RESTRICTED by 1;
+%replace MODIFIED   by 2;
+
+/* region nitty_bits constants */
+%replace WEAPONS_FREE by 1;
+%replace STEAL_FREE by 2;
+
+/* avatar nitty_bit constants */
+%replace VOTED_FLAG by 3;
+%replace GOD_FLAG by 4;
+%replace MISC_FLAG1 by 5;
+%replace MISC_FLAG2 by 6;
+%replace MISC_FLAG3 by 7;
+
+/* object nitty-bits constants */
+%replace DOOR_AVATAR_RESTRICTED_BIT by 32;
+%replace DOOR_GHOST_RESTRICTED_BIT by 31;
+
+%replace THE_REGION by 0;
+
+%replace ObjectsPerRegion by 255;
+%replace UsersPerRegion by 6;
+%replace regions_per_process by 10;
+
+%include 'capacity.equates.incl.pl1';
+/*%replace C64_HEAP_SIZE                  by 14470;   Ver 4.3 - 3/13/87 */
+/*%replace C64_HEAP_SIZE                  by 14214;   Ver 5.2 - 5/22/87 */
+/*%replace C64_HEAP_SIZE                  by 14982;   Ver 5.6 - 6/22/87 */
+/*%replace C64_HEAP_SIZE                  by 16500;   Ver 5.9 - 7/17/87 */
+%replace C64_HEAP_SIZE                    by 16244;   /* Ver 6.3 - 10/5/87 */
+%include 'region.structs.incl.pl1';
+
+declare 1 o based %include struct_gen_object;
+declare 1 u based %include struct_user;
+
+declare 1 Class_Table(0:255) external %include struct_class;
+
+declare 1 avatar based(avatarptr) %include struct_avatar;
+declare 1 self based(selfptr) %include struct_gen_object;
+
+declare c(0:255) binary(15) based; /* Pointer qualifier for contents array */
+
+%include 'instance_head.def.incl.pl1';
+
+declare request(258) character(1) defined(request_string);
+declare put_success bit(1) aligned external;
+declare throw_success bit(1) aligned external;
+%replace FIRST by 3;
+%replace SECOND by 4;
+%replace THIRD by 5;
+%replace FOURTH by 6;
+%replace FIFTH by 7;
+
+declare COLLISION_ON bit(1) external init('1'b);
+declare ADJACENCY_ON bit(1) external init('1'b);
+
+%replace C64_XPOS_OFFSET           by  7;
+%replace C64_ypos_offset           by  8;
+%replace C64_orient_offset         by  9;
+%replace C64_gr_state_offset       by  10;
+%replace C64_contained_offset      by  11;
+%replace C64_TOKEN_denom_offset    by  15;
+%replace C64_text_offset           by  15;
+%replace C64_customize_offset      by  26;
+%replace C64_destx_offset          by  28;
+%replace C64_desty_offset          by  29;
+
+%replace OPERATE        by 152;
+
+%replace AUTO_TELEPORT_DIR by 4;
+%replace WALK_ENTRY by 0;
+%replace TELEPORT_ENTRY by 1;
+%replace DEATH_ENTRY by 2;

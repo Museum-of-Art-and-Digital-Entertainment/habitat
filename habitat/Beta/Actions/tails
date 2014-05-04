@@ -1,0 +1,3163 @@
+**********
+%%avatar_PUT.m
+********
+	getResponse /* PUT_X */
+	tax				; X-position
+	dey
+	getResponse /* PUT_CONTAINER */	; New container
+	ldy	desired_y		; Y-position or offset
+	rjsr	v_change_containers	; DROP IT!
+	pla				; Chore selected above
+	chainTo v_set_actor_chore
+
+	actionEnd
+ 
+**********
+%%avatar_WEAR.m
+********
+	lda in_hand_noid
+	jsr v_get_subject_object
+	sound	CLOTHES_DONNED, actor_noid
+	ldx #0
+	ldy #AVATAR_HEAD
+	lda actor_noid
+	chainTo v_change_containers
+
+	actionEnd
+
+ 
+**********
+%%avatar_get.m
+********
+			}
+			bne	skip		; preserve 'a'
+		}
+	}
+	lda	#0
+skip:
+	jsr	v_beep_or_boing
+	lda	#AV_ACT_stand
+	chainto	v_set_actor_chore
+	actionEnd
+ 
+**********
+%%die_do.m
+********
+	    	sendMsg pointed_noid, MSG_ROLL, 0
+		getResponse ROLL_STATE
+		putProp pointed, DIE_state
+		newImage pointed_noid
+		rts
+	}
+	chainTo v_depends	; Punt to 'depends' if not holding
+
+	actionEnd
+
+ 
+**********
+%%head_do.m
+********
+		    moveOb subject, pointed	; Become avatar whose this is
+		    lda #ACTION_DO		; Use avatar do.
+		    chainTo v_issue_nested_command
+		} else {
+		    chainTo	v_beep		; in hand?
+		}
+	}
+	chainTo v_depends
+
+	actionEnd
+ 
+**********
+BOING.m
+********
+;
+;	Lucasfilm Ltd.
+;
+	include	"action_head.i"
+
+	actionStart
+
+	chainTo v_boing
+
+	actionEnd
+ 
+**********
+GoToNewRegion.m
+********
+;
+;	Lucasfilm Ltd.
+;
+	include	"action_head.i"
+
+	actionStart
+
+	chainTo v_region_change
+
+	actionEnd
+ 
+**********
+answering_machine_TAKEMESSAGE.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	newImage actor_noid, ANSWERING_MACHINE_ON
+	lda #TRUE
+	putProp actor, ANSWERING_MACHINE_messageWaiting
+	rts
+
+	actionEnd
+ 
+**********
+answering_machine_do.m
+********
+			putProp pointed, ANSWERING_MACHINE_messageWaiting
+			newImage pointed_noid
+			incw response_data
+			movew response_data, source
+			chainTo	v_balloonMessage
+		}
+		chainTo v_beep
+
+	actionEnd
+
+ 
+**********
+answering_machine_talk.m
+********
+	; The only parameter to the SETANSWER request is the string itself,
+	;  which is pointed to by 'source'
+	lda	input_text_length	; Length from input
+	ldy	#MSG_SETANSWER		; SETANSWER request
+	ldx	pointed_noid		; Sent to the machine itself
+	clc				; No response expected
+	jsr	v_send_string		; Send the request...
+	chainTo	v_balloonMessage	; ...and echo it locally
+
+	actionEnd
+ 
+**********
+aquarium_do.m
+********
+			newImage pointed_noid
+			sendMsgN pointed_noid, MSG_FEED, 0
+			chore AV_ACT_hand_back
+			rts
+		} else {
+			chainTo v_beep
+		}
+	}
+	chainTo v_depends
+	actionEnd
+ 
+**********
+ask_for_help.m
+********
+	lda	pointed_noid		; pointing at diddly.
+	if (zero) {
+	    rts
+	}
+	sendMsg	pointed_noid, MSG_help, 0
+	movew response_data, source
+	moveb pointed_noid, actor_noid
+	chainTo	v_balloonMessage
+
+	actionEnd
+ 
+**********
+atm_do.m
+********
+
+	moveb pointed_noid, actor_noid
+	movew pointed_object, actor_object	; all this for who's talking
+	movew #bank_account_balance, printf_parameters
+	jsr v_balloon_printf
+	string "Balance: $#"
+	rts
+
+	actionEnd
+
+ 
+**********
+atm_get.m
+********
+		sta	y[@in_hand_object]
+		iny
+		lda	y[@in_hand_object]
+		adc	arguments+ACTUAL_WITHDRAWAL+1
+		sta	y[@in_hand_object]
+	}
+	rts				; New money appears asynchronously
+
+	actionEnd
+
+ 
+**********
+atm_put.m
+********
+
+	movew #bank_account_balance, printf_parameters
+	lda in_hand_noid
+	jsr v_delete_object
+	moveb pointed_noid, actor_noid		; provisional, cbm 1/23/87
+	jsr v_balloon_printf
+	string "New balance: $#"
+	rts
+
+	actionEnd
+ 
+**********
+avatar_ATTACK.m
+********
+	} else {
+		lda #AV_ACT_knife
+	}
+	jsr v_set_actor_chore
+	moveOb subject, actor
+	lda #AV_ACT_get_shot
+	chainTo v_set_actor_chore
+
+	actionEnd
+
+ 
+**********
+avatar_BASH.m
+********
+	jsr v_set_actor_chore
+	getResponse BASH_SUCCESS	; If damage actually occurred...
+	if (!zero) {			; (Non-zero encodes success)
+		getResponse BASH_TARGET
+		chainTo v_delete_object	; Nuke the target
+	}
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_BUGOUT.m
+********
+		lda in_hand_noid
+		chainTo v_delete_object	; ...nuke it
+	}
+	txa
+	putProp in_hand			; Otherwise just note new charge
+	sound	ESCAPE_DEVICE_ACTIVATES, in_hand_noid
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_CLOSE.m
+********
+	getResponse CLOSE_FLAGS
+	putProp subject, DOOR_flags
+	and #OPEN_BIT
+	newImage subject_noid
+	sound	EXIT_CLOSING, subject_noid
+	asyncAnimationWait
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+ 
+**********
+avatar_CLOSECONTAINER.m
+********
+	newImage subject_noid
+	
+	sound	CONTAINER_CLOSING, subject_noid
+	
+	chore AV_ACT_bend_back
+
+	lda subject_noid
+	chainTo v_purge_contents		; Flush its contents
+
+	actionEnd
+ 
+**********
+avatar_DIE.bad.m
+********
+		}
+		pla
+		tay
+		dey
+		cpy	#OBJECT_contents+AVATAR_LEGS
+	} while (geq)
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_DIE.m
+********
+	getProp	actor, OBJECT_x_position
+	tax					; new x
+	iny
+	getProp	actor
+	tay					; new y
+	lda	#THE_REGION_NOID		; what to put it in
+	chainTo	v_change_containers
+
+	actionEnd
+
+ 
+**********
+avatar_FILL.m
+********
+	jsr v_get_subject_object
+	lda #TRUE
+	putProp subject, BOTTLE_filled
+	newImage subject_noid
+	asyncAnimationWait
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_GET.m
+********
+	}
+	jsr v_set_actor_chore
+	asyncAnimationWait
+	getResponse GET_WHAT
+	jsr v_get_subject_object	; Noid in A
+	changeContainers 0, AVATAR_HAND, actor_noid
+	pla				; Chore selected above
+	chainTo v_set_actor_chore
+
+	actionEnd
+ 
+**********
+avatar_GRAB.m
+********
+	actionStart
+
+	chore AV_ACT_hand_out
+	getResponse GRAB_AVATAR
+	jsr v_get_subject_object
+	lda actor_noid
+	putProp subject, AVATAR_restrainer
+	rts
+
+	actionEnd
+ 
+**********
+avatar_GRABFROM.m
+********
+	getResponse GRABFROM_AVATAR
+	jsr v_get_subject_object
+	getProp subject, AVATAR_contents+AVATAR_HAND
+	jsr v_get_subject_object
+	changeContainers 0, AVATAR_HAND, actor_noid
+	asyncAnimationWait
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+ 
+**********
+avatar_LOAD.m
+********
+	actionStart
+
+	chore AV_ACT_bend_over
+	getResponse LOAD_TAPE
+	jsr v_get_subject_object
+	changeContainers 0, 0, in_hand_noid
+	lda #AV_ACT_bend_back
+	chainTo v_set_actor_chore
+	
+	actionEnd
+ 
+**********
+avatar_OPEN.m
+********
+	jsr v_get_subject_object
+	sound	EXIT_OPENING, subject_noid
+	lda #(OPEN_BIT | UNLOCKED_BIT)
+	putProp subject, DOOR_flags
+	and #OPEN_BIT
+	newImage subject_noid
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+ 
+**********
+avatar_OPENCONTAINER.m
+********
+	newImage subject_noid
+
+	addwwb response_data, response_data, #OPEN_CONTENTS
+	lda	subject_noid		; what is opening?
+	rjsr v_unpack_contents_vector	; Get the contents
+
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+ 
+**********
+avatar_PAID.m
+********
+	tay
+	getResponse	PAID_AMOUNT
+	jsr		v_spend				; make him pay!
+	addwwb response_data, response_data, #PAID_TOKEN
+	lda	#0				; pretend its the region
+	rjsr v_unpack_contents_vector
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_POSTURE.m
+********
+
+; This is the parameter used in the POSTURE message
+define NEW_POSTURE = 0
+
+	actionStart
+
+	getResponse NEW_POSTURE
+	chainTo	v_set_actor_chore
+
+	actionEnd
+ 
+**********
+avatar_POUR.m
+********
+	jsr v_get_subject_object
+	lda #FALSE
+	putProp subject, BOTTLE_filled
+	newImage subject_noid
+	asyncAnimationWait
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_PUT.m
+********
+	getResponse /* PUT_X */
+	tax				; X-position
+	dey
+	getResponse /* PUT_CONTAINER */	; New container
+	ldy	desired_y		; Y-position or offset
+	rjsr	v_change_containers	; DROP IT!
+	pla				; Chore selected above
+	chainTo v_set_actor_chore
+
+	actionEnd
+ 
+**********
+avatar_REINCARNATE.m
+********
+;
+	include	"action_head.i"
+
+	actionStart
+
+	moveb #2, region_trans_type
+	chainTo v_wait_for_region
+
+	actionEnd
+
+ 
+**********
+avatar_REMOVE.m
+********
+	jsr v_get_subject_object
+	sound	CLOTHES_DOFFED, actor_noid
+	chore	AV_ACT_stand
+	newImage subject_noid, HEAD_OFF
+	ldx #0
+	ldy #AVATAR_HAND
+	lda actor_noid
+	chainTo v_change_containers
+
+	actionEnd
+ 
+**********
+avatar_SITORGETUP.m
+********
+	lda	y[@subject_object]
+	and	#1
+	if (zero) {			; side view
+		lda	#AV_ACT_sit_front
+	} else {
+		lda	#AV_ACT_sit_chair
+	}
+	chainto	v_set_actor_chore
+
+	actionEnd
+ 
+**********
+avatar_TAKE.m
+********
+	dex					; Decrement
+	if (zero) {				; If all gone...
+		lda actor_noid
+		chainTo v_delete_object		; Nuke it
+	}
+	putProp actor			; Otherwise just note new count
+	rts
+
+	actionEnd
+
+ 
+**********
+avatar_THROW.m
+********
+	getResponse THROW_X
+	sta	desired_x
+	tax
+	getArgY TEMP_Y
+	lda #THE_REGION_NOID
+	rjsr v_change_containers
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+ 
+**********
+avatar_UNLOAD.m
+********
+	tax
+	getProp actor, OBJECT_y_position
+	tay
+	lda #THE_REGION_NOID		; Put it here
+	jsr v_change_containers
+	lda #NULL
+	putProp in_hand, STEREO_tape
+	rts
+
+	actionEnd
+ 
+**********
+avatar_WALK.m
+********
+	pha
+	getResponse WALK_TO_X
+	tax
+	iny
+	getResponse
+	tay
+	pla
+	chainTo	v_start_walk
+
+	actionEnd
+ 
+**********
+avatar_WEAR.m
+********
+
+	newImage	subject_noid, 0
+
+	ldx #0
+	ldy #AVATAR_HEAD
+	lda actor_noid
+	chainTo v_change_containers
+
+	actionEnd
+
+ 
+**********
+avatar_do.m
+********
+	    if (!zero)	{			; Hand must not be empty
+		jsr	v_get_subject_object	;; Try this
+		moveOb	subject, pointed	;;
+		lda	#ACTION_DO		; Perform in_hand's 'do'
+		chainTo v_issue_nested_command
+	    }
+	}
+	chainTo v_beep
+
+	actionEnd
+ 
+**********
+avatar_gesture.m
+********
+; 	in arguments = gesture requested.
+
+	getProp	actor,OBJECT_wait_state
+	if (zero) {
+	    lda	argmuents
+	    jsr	v_set_actor_chore
+	    sendMsgN	actor,MSG_POSTURE,1
+	    movew	#text_line, source
+	}
+	rts
+ 
+**********
+avatar_get.m
+********
+			rts			; Avoid beep below
+		}
+		bne	skip		; preserve 'a'
+	}
+	lda	#0
+skip:
+	jsr	v_beep_or_boing
+	lda	#AV_ACT_stand
+	chainto	v_set_actor_chore
+	actionEnd
+ 
+**********
+avatar_go.m
+********
+			lda	#AV_act_sit_floor
+		} else {
+			lda	#AV_act_stand
+		}
+		putArg	NEW_POSTURE
+		jsr	v_set_actor_chore
+		sendMsgN pointed_noid, MSG_POSTURE, 1
+		rts
+	}
+	actionEnd
+ 
+**********
+avatar_put.m
+********
+	} 
+try_to_put_in_pocket:
+	chore AV_ACT_unpocket
+	waitWhile animation_wait_bit
+	lda	me_noid
+	rjsr	v_putInto
+	lda	#AV_ACT_stand
+	chainTo	v_set_actor_chore
+
+	actionEnd
+ 
+**********
+avatar_talk.m
+********
+		ldx	pointed_noid
+		jsr	v_ESP_talk	; (Sends off a message & waits)
+		sound	ESP_MESSAGE_SENT
+		getResponse TALK_ESP_ON	; Did the host continue ESP mode?
+		bne	ESP_loop
+		sound	ESP_DEACTIVATES
+	}
+	rts
+
+	actionEnd
+ 
+**********
+beeper_BEEP.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda	#TRUE
+	putProp actor, BEEPER_beeping
+	/* do something with sound */
+	rts
+
+	actionEnd
+ 
+**********
+beeper_do.m
+********
+	cmp	pointed_noid
+	if (equal) {
+		lda	#FALSE
+		putProp	pointed, BEEPER_beeping
+		/* do something with sound */
+		rts
+	}
+	chainTo v_depends
+
+	actionEnd
+ 
+**********
+book_do.m
+********
+			rjsr v_text_handler		; Do it
+			and #TEXT_EXITED_BIT		; Test player for done
+		} while (zero)
+		lda #EXIT_TEXT_MODE_COMMAND		; Turn off text mode
+		chainTo v_text_handler
+	}
+	chainTo v_depends	; Punt to 'depends' if not holding
+
+	actionEnd
+
+ 
+**********
+boomerang_THROWAWAY.m
+********
+	jsr v_delete_object
+	
+	moveOb subject, actor
+	chore AV_ACT_throw
+	asyncAnimationWait
+	chore AV_ACT_hand_back
+
+	rts
+
+	actionEnd
+ 
+**********
+boomerang_rdo.m
+********
+
+	actionStart
+
+	chore AV_ACT_throw
+	sendMsgN pointed_noid, MSG_THROW, 1
+	chore AV_ACT_hand_back
+	lda pointed_noid
+	chainTo v_delete_object
+
+	actionEnd
+ 
+**********
+bottle_FILL.m
+********
+	jsr v_get_subject_object
+	lda #TRUE
+	putProp subject, BOTTLE_filled
+	newImage subject_noid
+	asyncAnimationWait
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+
+ 
+**********
+bottle_POUR.m
+********
+	jsr v_get_subject_object
+	lda #FALSE
+	putProp subject, BOTTLE_filled
+	newImage subject_noid
+	asyncAnimationWait
+	chore AV_ACT_hand_back
+	rts
+
+	actionEnd
+
+ 
+**********
+bottle_rdo.m
+********
+		if (!zero) {
+			lda #FALSE			; Yes, empty it
+			putProp	subject
+			newImage subject_noid
+			rts
+		}
+	}
+	chainTo	v_beep			; No, bitch at player
+
+	actionEnd
+ 
+**********
+button_CHANGESTATE.m
+********
+	jsr		v_set_up_actor_pointers
+	chore		AV_ACT_operate
+	asyncAnimationWait
+	complexSound	MAGIC, subject_noid
+	getArg		NEW_STATE
+	newImage	subject_noid		; the rest is async
+	rts
+
+	actionEnd
+
+ 
+**********
+change_player_color.m
+********
+; 	change_player_color
+
+	include	"action_head.i"
+
+	actionStart
+
+	chainTo	v_change_player_color
+
+	actionEnd	
+ 
+**********
+changomatic_CHANGE.m
+********
+	putProp subject, OBJECT_orientation	; ...and set it
+	getProp subject, OBJECT_y_position	; Is object in the background?
+	and #0x80				; It is if high bit is clear
+	if (zero) {
+		moveb #1, background_render	; If so, tell renderer to redo
+	}
+	rts
+
+	actionEnd
+
+ 
+**********
+changomatic_rdo.m
+********
+	putProp subject, OBJECT_orientation
+	getProp subject, OBJECT_y_position	; Is object in the background?
+	and #0x80				; It is if high bit is clear
+	if (zero) {
+		moveb #1, background_render	; If so, tell renderer to redo
+	}
+	rts
+
+	actionEnd
+
+ 
+**********
+class_equates.m
+********
+define class_river = 148
+define class_roof = 149
+define class_safe = 150
+define class_picture = 152
+define class_street = 153
+define class_streetlamp = 154
+define class_table = 155
+define class_tree = 156
+define class_window = 157
+define class_zone = 255
+ 
+**********
+coke_machine_PAY.m
+********
+
+	actionStart
+	
+	getResponse BUYER
+	tax
+	lda #COKE_COST
+	jsr v_spend
+	rts
+
+	actionEnd
+ 
+**********
+coke_machine_put.m
+********
+	actionStart
+
+	doMyAction	COKE_COINOP
+	getArg	COINOP_success
+	if (!zero) {
+	    complexSound	STINGY_COKE_MACHINE
+	}
+	rts
+
+	actionEnd
+ 
+**********
+credit_card_rdo.m
+********
+		if (!zero) {		; Yup, do the transaction
+			subllb bank_account_balance, bank_account_balance,
+				arguments+PAYTO_AMOUNT
+			rts		; All done, bye-bye
+		}
+	}
+	chainTo v_beep				; Complain on failure
+
+	actionEnd
+
+ 
+**********
+depends.m
+********
+		moveb	actor_variables_offset, pointed_variables_offset
+	} else {
+		moveb	in_hand_noid, pointed_noid
+		movew	in_hand_object, pointed_object
+		movew	in_hand_class, pointed_class
+		moveb	in_hand_variables_offset, pointed_variables_offset
+	}
+	lda #ACTION_RDO
+	jsr issue_nested_command
+	rts
+ 
+**********
+die_ROLL.m
+********
+define ROLL_STATE = 0
+
+	actionStart
+
+	getResponse ROLL_STATE
+	newImage actor_noid
+	rts
+
+	actionEnd
+
+ 
+**********
+die_do.m
+********
+	lda	#DIE_ROLLING				; animate die
+	newImage pointed_noid
+    	sendMsg pointed_noid, MSG_ROLL, 0
+	getResponse ROLL_STATE
+	newImage pointed_noid
+	rts
+
+
+	actionEnd
+
+ 
+**********
+do_a_gesture.m
+********
+	    ldy	#AV_ACT_stand_front
+	}
+	sty	arguments
+	tya
+	jsr		v_set_actor_chore		; do it
+	sendMsgN	actor_noid, MSG_POSTURE, 1	; send it!
+	waitWhile	animation_wait_bit
+	rts
+
+	actionEnd	
+ 
+**********
+drugs_TAKE.m
+********
+	if (zero) {				; If all gone...
+		lda actor_noid
+		chainTo v_delete_object		; Nuke it
+	}
+	txa
+	putProp actor				; Otherwise note new count
+	rts
+
+	actionEnd
+
+ 
+**********
+drugs_do.m
+********
+			chainTo v_delete_object		; Nuke it
+		}
+		txa
+		putProp pointed		; Otherwise just note new count
+		rts
+	}
+	chainTo v_depends	; If not holding
+
+	actionEnd
+
+ 
+**********
+elevator_ZAPIN.m
+********
+;	6-February-1987
+;
+	include	"action_head.i"
+
+	actionStart
+
+	complexSound	ELEVATOR_ARRIVAL, actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+elevator_ZAPOUT.m
+********
+;	6-February-1987
+;
+	include	"action_head.i"
+
+	actionStart
+
+	complexSound	ELEVATOR_DEPARTING, actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+elevator_talk.m
+********
+			complexSound	ELEVATOR_DEPARTING
+			moveb	#2, region_trans_type	; teleport sounds!
+			chainto	v_wait_for_region
+		}
+		chainTo	v_clear_text_line
+	}
+	ldx #0
+	chainTo v_talk			; Else talk to everybody about it
+
+	actionEnd
+ 
+**********
+escape_device_BUGOUT.m
+********
+;
+	include	"action_head.i"
+
+	actionStart
+
+	sound	ESCAPE_DEVICE_ACTIVATES, actor_noid
+	rts
+
+	actionEnd
+
+ 
+**********
+escape_device_do.m
+********
+		if (!zero) {				; Non-zero is success
+			moveb	#2, region_trans_type	; teleport sounds!
+			chainTo v_wait_for_region
+		}
+		chainTo v_boing	; Complain if we failed
+	}
+	chainTo v_depends	; If not holding
+
+	actionEnd
+
+ 
+**********
+fake_gun_FAKESHOOT.m
+********
+
+	actionStart
+
+	lda #FAKE_GUN_FIRED
+	putProp actor, FAKE_GUN_state
+	newImage	actor_noid
+	complexSound	JOKE_GUNSHOT,actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+fake_gun_RESET.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda #FAKE_GUN_READY
+	putProp actor, FAKE_GUN_state
+	newImage actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+fake_gun_do.m
+********
+				newImage pointed_noid
+				rts
+			}
+		}
+		chainTo v_beep
+	}
+	chainTo v_depends	; If not holding
+
+	actionEnd
+
+ 
+**********
+fake_gun_rdo.m
+********
+			putProp pointed, FAKE_GUN_state
+			newImage pointed_noid
+			complexSound JOKE_GUNSHOT
+			rts
+		}
+	}
+	chainTo v_beep
+
+	actionEnd
+
+ 
+**********
+fare_box_ARRIVAL.m
+********
+		lda y[@response_data]
+		putProp actor, FARE_BOX_nextStop
+		inx
+		cpx #BUS_STOP_NAME_LENGTH
+	} while (!equal)
+	jsr v_balloon_printf
+	string "Next stop @"
+	chainTo v_beep	/* for now */
+
+	actionEnd
+ 
+**********
+fare_box_DEPARTING.m
+********
+	addwwb printf_parameters, printf_parameters, #FARE_BOX_nextStop
+	lda #0
+	sta printf_parameters+2
+	getResponse DEPARTING_TIME
+	sta printf_parameters+3
+	jsr v_balloon_printf
+	string "Departing for @ in # minutes"
+	rts
+
+	actionEnd
+ 
+**********
+fare_box_DEPARTURE.m
+********
+
+	actionStart
+
+	movew actor_object, printf_parameters
+	addwwb printf_parameters, printf_parameters, #FARE_BOX_nextStop
+	jsr v_balloon_printf
+	string "Departing now for @"
+	rts
+
+	actionEnd
+ 
+**********
+fare_box_PAY.m
+********
+;	4-May-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	lda #BUS_FARE
+	chainTo	v_spend
+
+	actionEnd
+ 
+**********
+fare_box_do.m
+********
+
+	actionStart
+
+	movew pointed_object, printf_parameters
+	addwwb printf_parameters, printf_parameters, #FARE_BOX_nextStop
+	jsr v_balloon_printf
+	string "Next stop: @"
+	rts
+
+	actionEnd
+ 
+**********
+fare_box_put.m
+********
+;	4-May-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	lda #BUS_FARE
+	chainTo	v_pay_coinop_or_drop
+
+	actionEnd
+ 
+**********
+flashlight_do.m
+********
+			ldy #MSG_ON
+		}
+		; Set up host message only once!
+		lda #0			; No args
+		ldx pointed_noid	; Send to me
+		chainTo v_send_arguments
+	}
+	chainTo v_depends	; If not holding
+
+	actionEnd
+ 
+**********
+floor_lamp_do.m
+********
+			ldy #MSG_ON
+		}
+		; Set up host message only once!
+		lda #0
+		ldx pointed_noid
+		jsr v_send_arguments
+		chore AV_ACT_hand_back
+		rts
+
+	actionEnd
+ 
+**********
+fortune_machine_PAY.m
+********
+
+	actionStart
+	
+	getResponse BUYER
+	tax
+	lda #FORTUNE_COST
+	jsr v_spend
+	rts
+
+	actionEnd
+ 
+**********
+fortune_machine_put.m
+********
+		cmp	#PARKING_METER_grSTATE
+		if (equal) {
+		    complexSound	PARKING_METER_CRANK
+		} else {
+		    complexSound	FORTUNE_DISPENSED
+		}
+	}
+	rts
+
+	actionEnd
+ 
+**********
+garbage_can_FLUSH.m
+********
+	include	"action_head.i"
+	include "class_equates.m"
+
+	actionStart
+
+	sound	GARBAGE_FLUSH, actor_noid
+	lda actor_noid
+	chainTo v_purge_contents
+
+	actionEnd
+ 
+**********
+garbage_can_do.m
+********
+
+	actionStart
+
+	jsr	v_punt_if_not_adjacent
+	sound	GARBAGE_FLUSH
+	sendMsgN pointed_noid, MSG_FLUSH, 0
+	lda pointed_noid
+	chainTo v_purge_contents
+
+	actionEnd
+ 
+**********
+generic_ANSWER.m
+********
+	if (equal) {
+		lda #PHONE_OFF_HOOK
+	} else {
+		lda #PHONE_ACTIVE
+	}
+	putProp actor, TELEPHONE_state
+	/* sound effect of dial tone */
+	rts
+
+	actionEnd
+ 
+**********
+generic_ANSWERED.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda #PHONE_TALKING
+	putProp actor, TELEPHONE_state
+	/* sound effect of silence */
+	rts
+
+	actionEnd
+ 
+**********
+generic_CHANGESTATE.m
+********
+; This is the parameter used in the CHANGESTATE message:
+define NEW_STATE = 0
+
+	actionStart
+
+	getResponse NEW_STATE
+	newImage actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+generic_DIAL.m
+********
+		/* sound effect of phone line ring */
+		lda #PHONE_LINE_RING
+	} else {
+		/* sound effect of phone line busy */
+		lda #PHONE_LINE_BUSY
+	}
+	putProp actor, TELEPHONE_state
+	rts
+
+	actionEnd
+ 
+**********
+generic_HANG.m
+********
+			jsr v_refund
+		}
+	}
+	/* sound effect thump of phone hanging up */
+	/* sound of silence */
+	lda #PHONE_READY
+	putProp actor, TELEPHONE_state
+	rts
+
+	actionEnd
+ 
+**********
+generic_HUNGUP.m
+********
+		}
+		putProp actor, TELEPHONE_state
+		/* sound effect of dial tone */
+	} else {
+		lda #PHONE_READY
+		putProp actor
+	}
+	rts
+
+	actionEnd
+ 
+**********
+generic_OFF.m
+********
+
+	actionStart
+
+	lda	#OFF
+	putProp actor, GENERIC_on
+	newImage actor_noid
+	sound	SWITCHED_OFF,actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+generic_OFFLIGHT.m
+********
+	actionStart
+
+	sound	SWITCH_CLICK, actor_noid
+	lda	#OFF
+	putProp actor, GENERIC_on
+	newImage actor_noid
+	decLight
+	rts
+
+	actionEnd
+ 
+**********
+generic_ON.m
+********
+
+	actionStart
+
+	lda	#ON
+	putProp actor, GENERIC_on
+	newImage actor_noid
+	sound	SWITCHED_ON,actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+generic_ONLIGHT.m
+********
+	actionStart
+
+	sound	SWITCH_CLICK, actor_noid
+	lda	#ON
+	putProp actor, GENERIC_on
+	newImage actor_noid
+	incLight
+	rts
+
+	actionEnd
+ 
+**********
+generic_PAY.m
+********
+	actionStart
+	
+	getResponse BUYER
+	tax
+	getResponse COST
+	tay
+	getResponse COST+1
+	chainTo v_spend
+
+	actionEnd
+ 
+**********
+generic_PLAY.m
+********
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+	chainTo	v_beep			; Eventually will be silent
+	actionEnd
+
+
+ 
+**********
+generic_RING.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda #PHONE_RINGING
+	putProp actor, TELEPHONE_state
+	/* sound effect of phone ringing */
+	rts
+
+	actionEnd
+ 
+**********
+generic_SPEAK.m
+********
+;
+	include	"action_head.i"
+
+	actionStart
+
+	movew	response_data, source
+	chainTo	v_balloonMessage
+
+	actionEnd
+
+ 
+**********
+generic_UNHOOK.m
+********
+		lda #PHONE_OFF_HOOK
+	} else {
+		lda #PHONE_READY
+	}
+	putProp actor, TELEPHONE_state
+	/* sound effect of click-clunk */
+	/* sound effect of dial tone */
+	rts
+
+	actionEnd
+ 
+**********
+generic_adjacentDoMagic.m
+********
+	putArg	AFFECTED_OBJECT
+	chore	AV_ACT_operate
+	sendMsg pointed_noid, MSG_MAGIC, 1
+	complexSound	MAGIC
+	getResponse	NEW_STATE
+	newImage	pointed_noid		; the rest is async
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_adjacentOpenClose.m
+********
+		lda #(OPEN_BIT | UNLOCKED_BIT)		; Open it here too
+		putProp pointed, DOOR_flags
+		and #OPEN_BIT
+		newImage pointed_noid
+	    } else {
+		chainTo v_beep				; Else complain
+	    }
+	}
+	rts
+	actionEnd
+ 
+**********
+generic_adjacentOpenCloseContainer.m
+********
+		and #OPEN_BIT	; Only want open/close for imagery
+		newImage pointed_noid
+		addwwb response_data, response_data, #OPEN_CONTENTS
+		lda	pointed_noid
+		chainTo v_unpack_contents_vector
+	    } else {
+		chainTo v_beep_or_boing			; Else complain
+	    }
+	rts
+	actionEnd
+ 
+**********
+generic_askOracle.m
+********
+
+	; The only parameter to the ASK request is the string itself, which is
+	;  pointed to by 'source'
+	lda	input_text_length	; Length from input
+	ldy	#MSG_ASK		; ASK request
+	ldx	pointed_noid		; Sent to the oracle itself
+	jsr	v_send_string		; Send the request
+	chainTo	v_clear_text_line
+
+	actionEnd
+ 
+**********
+generic_broadcast.m
+********
+		ldx	#0
+		jsr	v_ESP_talk	; (Sends off a message & waits)
+		sound	ESP_MESSAGE_SENT, actor_noid
+		getResponse TALK_ESP_ON	; Did the host continue ESP mode?
+		bne	ESP_loop
+		sound	ESP_DEACTIVATES, actor_noid
+	}
+	rts
+
+	actionEnd
+ 
+**********
+generic_cease.m
+********
+;	Prettified by Chip Morningstar
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+	rts			; Return without doing anything.
+	actionEnd
+
+ 
+**********
+generic_changeState.m
+********
+	actionStart
+
+	sendMsg pointed_noid, MSG_MAGIC, 0
+	complexSound	MAGIC
+	getResponse	NEW_STATE
+	newImage	pointed_noid		; the rest is async
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_coinOp.m
+********
+		chainTo		v_spend
+	}
+	complexSound COIN_REJECTED
+
+coinOpFail:
+	lda #FALSE
+	putArg COINOP_SUCCESS
+	rts
+
+	actionEnd
+ 
+**********
+generic_depends.m
+********
+;	If I am empty handed, we want to execute the reverse-do behavior of
+;	 the avatar that is me; otherwise we wnat to execute the reverse-do
+;	 behavior of the object in my hand.  In either case, the subject
+;	 object should be set to the object pointed at, whatever that may be.
+;
+	include	"action_head.i"
+
+	actionStart
+	chainTo v_depends
+	actionEnd
+ 
+**********
+generic_destroy.m
+********
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+	chainTo	v_beep			; Eventually will be silent
+	actionEnd
+
+
+ 
+**********
+generic_doMagic.m
+********
+	if (equal) {		; Have to be holding object to perform magic
+		complexSound	MAGIC
+		lda	actor_noid
+		putArg	AFFECTED_OBJECT
+	    	sendMsg pointed_noid, MSG_MAGIC, 1	; Works asynchronously
+		rts
+	}
+	chainTo v_depends	; In not holding, punt to 'depends'
+	actionEnd
+
+ 
+**********
+generic_doMagicIfMagic.m
+********
+			putArg	AFFECTED_OBJECT
+		    	sendMsg pointed_noid, MSG_MAGIC, 1 ; Works asynch.
+			rts
+		}
+		chainTo v_beep	; Otherwise complain
+	}
+	chainTo v_depends	; If not holding, punt to 'depends'
+
+	actionEnd
+
+ 
+**********
+generic_enterOrExit.m
+********
+	sta	desired_y
+	
+	ldy	#Object_x_position
+	lda	y[@pointed_object]
+	adc	#8
+	sta	desired_x
+
+	chainTo	v_goXY			; Will actually execute move
+
+	actionEnd
+ 
+**********
+generic_getMass.m
+********
+		    jsr v_set_actor_chore
+	            rts
+		}
+	}
+	lda #AV_ACT_bend_back
+	jsr v_set_actor_chore
+	chainTo	v_beep				; If we get here we failed
+
+	actionEnd
+
+ 
+**********
+generic_goTo.m
+********
+
+	actionStart
+
+	jsr	v_find_goto_coords
+	sta	walk_how
+	stx	desired_x
+	sty	desired_y
+	chainTo	v_goXY				; Will actually execute move
+
+	actionEnd
+ 
+**********
+generic_goToAndDropAt.m
+********
+	doMyAction ACTION_GO			; My GO walks to this object
+	waitWhile animation_wait_bit		; Wait till we get there
+	jsr	v_face_cursor
+	chore AV_ACT_bend_over
+	lda	#THE_REGION_NOID		; Drop in the region
+	rjsr	v_putInto
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+ 
+**********
+generic_goToAndDropInto.m
+********
+	lda	pointed_noid
+	putArg SAVE_TARGET
+	chore AV_ACT_bend_over
+	waitWhile animation_wait_bit
+	getArg SAVE_TARGET
+	rjsr v_putInto
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+ 
+**********
+generic_goToAndDropIntoIfOpen.m
+********
+	lda	pointed_noid
+	putArg SAVE_TARGET
+	chore AV_ACT_bend_over
+	waitWhile animation_wait_bit
+	getArg SAVE_TARGET
+	rjsr v_putInto
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+ 
+**********
+generic_goToAndFill.m
+********
+	    	if (!zero) {			; Non-zero is success
+	    	    lda	#TRUE
+		    putProp in_hand, BOTTLE_filled
+		    newImage in_hand_noid
+	    	    rts				; Avoid beep below
+	    	}
+	}
+	chainTo	v_beep				; If we get here we failed
+	actionEnd
+
+ 
+**********
+generic_goToAndGet.m
+********
+	        changeContainers 0, AVATAR_HAND, actor_noid
+		lda #AV_ACT_bend_back
+		chainTo v_set_actor_chore
+;	        rts				; Avoid beep below
+	    }
+	}
+	chore AV_ACT_bend_back
+	chainTo	v_beep				; If we get here we failed
+	actionEnd
+
+ 
+**********
+generic_goToAndPickFrom.m
+********
+	    changeContainers 0, AVATAR_HAND, actor_noid
+	    lda #AV_ACT_bend_back
+	    chainTo v_set_actor_chore
+	}
+	jsr	v_beep_or_boing		; If we get here we failed
+	lda #AV_ACT_bend_back
+	chainTo v_set_actor_chore
+
+	actionEnd
+
+ 
+**********
+generic_goToAndPickFromIfOpen.m
+********
+	    changeContainers 0, AVATAR_HAND, actor_noid
+	    lda #AV_ACT_bend_back
+	    chainTo v_set_actor_chore
+	}
+	jsr	v_beep_or_boing		; If we get here we failed
+	lda	#AV_ACT_bend_back
+	chainTo v_set_actor_chore
+
+	actionEnd
+
+ 
+**********
+generic_goToAndPickFromOrGet.m
+********
+	    changeContainers 0, AVATAR_HAND, actor_noid
+	    lda #AV_ACT_bend_back
+	    chainTo v_set_actor_chore
+	}
+	jsr	v_beep_or_boing		; If we get here we failed
+	lda #AV_ACT_bend_back
+	chainTo v_set_actor_chore
+
+	actionEnd
+
+ 
+**********
+generic_goToCursor.m
+********
+	    }
+	}
+	rjsr	v_goXY			; Cursor is default motion target!
+	pla
+	sta	desired_y
+	pla
+	sta	desired_x		; restore 'put down' position
+	rts
+	actionEnd
+
+ 
+**********
+generic_goToFurniture.bad.m
+********
+		if (zero) {				; side view
+			lda	#AV_ACT_sit
+		} else {
+			lda	#AV_ACT_sit_front
+		}
+		chainto	v_set_chore
+	}
+	chainTo	v_beep
+
+	ACTionEnd
+ 
+**********
+generic_goToFurniture.m
+********
+			lda	#AV_ACT_sit_chair
+		}
+		putArg	NEW_POSTURE
+		jsr	v_set_actor_chore
+		sendMsgN actor_noid, MSG_POSTURE, 1	; so host knows!
+		rts
+	}
+	chainTo	v_beep
+
+	ActionEnd
+ 
+**********
+generic_goToOrPassThrough.m
+********
+		rjsr	v_goXY			; walk to desired spot
+		lda	#DIRECTION_UP
+		chainTo v_go_to_new_region
+	}
+	jsr	v_find_goto_coords
+	stx	desired_x
+	sty	desired_y
+	chainTo	v_goXY
+
+	actionEnd
+ 
+**********
+generic_patternSwap.m
+********
+	getArgY SWAP_OBJECT_OFFSET	; Save the avatar's old pattern in obj
+	putProp pointed	
+
+	andArg SWAP_MASK_COMP		; Mask junk out of present value
+	orArg SWAP_TEMP			; OR in new value
+
+	getArgY SWAP_AVATAR_OFFSET	; Set avatar pattern
+	putProp actor
+
+	rts
+ 
+**********
+generic_rdoMagic.m
+********
+
+	lda	subject_noid
+	putArg	AFFECTED_OBJECT
+	chore	Av_act_point
+	sendMsg pointed_noid, MSG_MAGIC, 1	; Works asynchronously
+	complexSound	MAGIC
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_rdoMagicIfMagic.m
+********
+	getProp pointed, GENERIC_isMagic
+	if (!zero) {	; Only do magical function if actually magical
+		complexSound	MAGIC
+		chore	Av_act_point
+	    	sendMsg pointed_noid, MSG_MAGIC, 1 ; Works asynch.
+		rts
+	}
+	chainTo v_beep	; Otherwise complain
+	actionEnd
+
+ 
+**********
+generic_read.m
+********
+	if (equal) {
+		sendMsg pointed_noid, MSG_READ, 0
+		movew response_data, source
+		moveb pointed_noid, actor_noid
+		chainTo	v_balloonMessage
+	}
+	chainTo v_depends
+
+	actionEnd
+
+ 
+**********
+generic_sendMail.m
+********
+				lda #AV_ACT_hand_back
+				jsr v_set_actor_chore
+				lda in_hand_noid
+				chainTo v_delete_object	; Paper goes away
+			}
+		}
+	}
+	chainTo v_beep		; Beep on error
+
+	actionEnd
+ 
+**********
+generic_shoot.m
+********
+	sendMsg pointed_noid, MSG_BASH, 1
+	getResponse BASH_success		; Did we smash it?
+	if (!zero) {				; Yes we did
+		lda subject_noid
+		chainTo v_delete_object		; Nuke the target
+	}
+	chainTo v_boing				; We missed
+
+	actionEnd
+
+ 
+**********
+generic_strike.m
+********
+		if (!zero) {				; Yes we did
+			lda subject_noid
+			chainTo v_delete_object		; Nuke the target
+		}
+		; Otherwise, we missed
+	}
+	; Otherwise, we couldn't reach the target...
+	chainTo v_beep
+	actionEnd
+
+ 
+**********
+generic_switch.m
+********
+			ldy #MSG_OFF
+		} else {		; Else tell host we're on
+			sound	SWITCHED_ON
+			ldy #MSG_ON
+		}
+		chainTo v_send_arguments
+	}
+	chainTo v_depends		; If not holding
+
+	actionEnd
+ 
+**********
+generic_test.m
+********
+;
+	include	"action_head.i"
+
+	actionStart
+
+    	sendMsg pointed_noid, 1, 0
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_throw.m
+********
+	sta	desired_x
+	tax
+	getArgY TEMP_NEW_Y
+	sty	desired_y
+	lda	#THE_REGION_NOID
+	rjsr	v_change_containers
+	chore	AV_ACT_hand_back
+	rts
+
+	actionEnd
+ 
+**********
+generic_wearHead.m
+********
+
+	actionStart
+
+	lda #AVATAR_HEAD
+	putArg WEAR_WHERE
+	doMyAction HEAD_WEAR_ACTION
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_wearLegs.m
+********
+
+	actionStart
+
+	lda #AVATAR_LEGS
+	putArg WEAR_WHERE
+	doMyAction LEGS_WEAR_ACTION
+	rts
+
+	actionEnd
+
+ 
+**********
+generic_wearOrGet.m
+********
+		}
+		lda #AV_ACT_bend_back
+		chainTo v_set_actor_chore
+	}
+	lda #AV_ACT_bend_back
+	jsr v_set_actor_chore
+	chainTo v_beep			; Complain on failure
+
+	actionEnd
+
+ 
+**********
+generic_wearTorso.m
+********
+
+	actionStart
+
+	lda #AVATAR_TORSO
+	putArg WEAR_WHERE
+	doMyAction TORSO_WEAR_ACTION
+	rts
+
+	actionEnd
+
+ 
+**********
+grenade_EXPLODE.m
+********
+
+	actionStart
+
+	/* Create an explosion on the screen */
+	complexSound	0,actor_noid		; BOOM!
+	lda actor_noid
+	chainTo v_delete_object		; Nuke the grenade itself
+
+	actionEnd
+
+ 
+**********
+grenade_do.m
+********
+				putProp pointed, GRENADE_pinPulled
+				rts
+			}
+		}
+		chainTo v_beep		; Complain if failed or already pulled
+	}
+	chainTo v_depends		; Punt to 'depends' if not holding
+
+	actionEnd
+
+ 
+**********
+gun_do.m
+********
+			sound GUN_SAFETY_OFF
+		} else {
+			sound GUN_SAFETY_ON
+		}
+		rts
+	}
+	chainTo v_depends	; If not holding
+
+	actionEnd
+
+ 
+**********
+hand_of_god_BLAST.m
+********
+
+	actionStart
+
+	lda #GOD_FIRING				; Put into blast mode
+	putProp actor, HAND_OF_GOD_state
+	getResponse BLAST_TARGET		; Zap the TARGET, not me!
+	chainTo v_delete_object			; Do it!
+	/* we need animation here */
+
+	actionEnd
+ 
+**********
+head_do.m
+********
+		    moveOb subject, pointed	; Become avatar whose this is
+		    lda #ACTION_DO		; Use avatar do.
+		    chainTo v_issue_nested_command
+		} else {
+		    chainTo	v_beep		; in hand?
+		}
+	}
+	chainTo v_depends
+
+	actionEnd
+ 
+**********
+head_get.m
+********
+    getResponse GET_SUCCESS
+    if (!zero) {			; Non-zero is success
+        lda pointed_noid
+        jsr v_get_subject_object; Put in hand
+        changeContainers 0, AVATAR_HAND, actor_noid
+        rts
+    }
+    chainTo v_beep			; Complain on failure
+
+    actionEnd
+ 
+**********
+head_put.m
+********
+		lda actor_noid
+		chainTo v_change_containers
+            }
+        }
+        chainTo v_beep			; Handle various errors
+    }
+    doMyAction	HEAD_INTERNAL_PUT	; otherwise normal drop
+    rts
+
+    actionEnd
+ 
+**********
+head_talk.m
+********
+			    lda #ACTION_TALK		; Use avatar talk.
+			    chainTo v_issue_nested_command
+			}
+		} else {
+			ldx	#0		; No, just talk to the air
+		}
+	}
+	chainTo	v_talk
+
+	actionEnd
+ 
+**********
+hole_do.m
+********
+	if (equal) {
+		doMyAction	ACTION_GO		; walk to hole
+		waitWhile	animation_wait_bit
+		doMyAction	action_OPENCLOSE	; change grstate!
+		rts
+	}
+	chainTo v_depends			; not shovel? depends
+
+	actionEnd
+
+ 
+**********
+illegal.m
+********
+;	Originally coded by Randy Farmer
+;	Prettified by Chip Morningstar
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+	chainTo	v_boing
+	actionEnd
+ 
+**********
+instant_object_TRANSFORM.m
+********
+;	5-May-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	lda actor_noid
+	chainTo v_delete_object		; New object appears by-and-by
+
+	actionEnd
+ 
+**********
+jukebox_do.m
+********
+	doMyAction ACTION_GO			; Go to the jukebox first
+	waitWhile animation_wait_bit		; Wait till we get there
+
+	sendMsg pointed_noid, MSG_CATALOG, 0	; Get the next catalog choice
+	movew response_data, source
+	moveb pointed_noid, actor_noid
+	chainTo	v_balloonMessage		; Display it
+
+	actionEnd
+
+ 
+**********
+jukebox_put.m
+********
+
+	doMyAction	JUKEBOX_COINOP
+	getArg COINOP_SUCCESS
+	if (!zero) {
+		lda	#1
+		putProp	pointed, JUKEBOX_playsToGo	; active
+	}
+	rts
+
+	actionEnd
+ 
+**********
+jukebox_talk.m
+********
+		getResponse SELECT_SUCCESS
+		if (!zero) {			; If it worked...
+			lda	#0
+			putProp pointed, JUKEBOX_playsToGo
+			rts
+		}
+	}
+	chainTo v_beep			; Complain on failure
+
+	actionEnd
+ 
+**********
+key_do.m
+********
+		putArg 3
+		movew #arguments, printf_parameters
+		jsr v_balloon_printf
+		string "Key number: #"
+		rts
+	}
+	chainTo v_beep			; ...bag it if not holding
+
+	actionEnd
+
+ 
+**********
+magic_lamp_GIVEUP.m
+********
+
+	actionStart
+
+	jsr	v_balloon_printf
+	string	"Time's up. You lose."
+	lda actor_noid
+	chainTo v_delete_object		; Nuke the lamp
+
+	actionEnd
+
+ 
+**********
+magic_lamp_RUB.m
+********
+	sound	GENIE_APPEARS, actor_noid
+	lda #MAGIC_LAMP_GENIE
+	putProp actor, MAGIC_LAMP_state
+	newImage actor_noid
+;	addwwb source, response_data, #RUB_MESSAGE
+	movew response_data, source
+	chainTo v_balloonMessage
+
+	actionEnd
+
+ 
+**********
+magic_lamp_WISH.m
+********
+
+;	addwwb	source, response_data, #WISH_MESSAGE
+	movew	response_data, source	; (since WISH_MESSAGE is 0)
+	jsr	v_balloonMessage
+	sound	GENIE_OUT, actor_noid
+	lda	actor_noid
+	chainTo v_delete_object		; Nuke the lamp
+
+	actionEnd
+
+ 
+**********
+magic_lamp_do.m
+********
+				moveb pointed_noid, actor_noid
+				chainTo v_balloonMessage
+			}
+		}
+		chainTo v_beep			; Gripe on failure
+	}
+	chainTo v_depends			; If not holding
+
+	actionEnd
+
+ 
+**********
+magic_lamp_talk.m
+********
+		lda	input_text_length	; Length from input
+		ldy	#MSG_WISH		; WISH request
+		ldx	pointed_noid		; Sent to the lamp
+		jsr	v_send_string		; Send the request
+		chainTo	v_clear_text_line
+	}
+	ldx #0					; Talk out loud if no genie
+	chainTo v_talk
+
+	actionEnd
+ 
+**********
+mailbox_MAILARRIVED.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda #TRUE
+	putProp actor, MAILBOX_mailArrived
+	newImage actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+mailbox_get.m
+********
+		newImage pointed_noid
+		getResponse READMAIL_SUCCESS
+		if (!zero) {
+			complexSound	MAIL_OUT_OF_MAILBOX
+			rts
+		}
+	}
+	chainTo v_beep		; Beep on error
+
+	actionEnd
+ 
+**********
+matchbook_do.m
+********
+	if (equal) {
+		sendMsg pointed_noid, MSG_READ, 0
+		movew response_data, source
+		moveb	pointed_noid, actor_noid
+		chainTo	v_balloonMessage
+	}
+	chainTo v_depends
+
+	actionEnd
+
+ 
+**********
+noEffect.m
+********
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+	chainTo	v_beep			; Eventually will be silent
+	actionEnd
+
+
+ 
+**********
+paper_do.m
+********
+		} else {
+		    jsr	v_beep
+		}
+	}
+exit_paper:
+	lda #EXIT_TEXT_MODE_COMMAND	; Turn off text mode
+	chainTo v_text_handler
+
+	actionEnd
+
+ 
+**********
+parking_meter_EXPIRE.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	lda #PARKING_METER_EXPIRED
+	putProp actor, PARKING_METER_state
+	newImage actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+parking_meter_PAY.m
+********
+
+	actionStart
+
+	lda #PARKING_METER_TICKING
+	putProp actor, PARKING_METER_state
+	newImage actor_noid
+	lda #PARKING_COST
+	chainTo	v_spend
+
+	actionEnd
+ 
+**********
+parking_meter_put.m
+********
+	lda #PARKING_COST
+	jsr v_pay_coinop_or_drop
+	if (carry) {
+		lda #PARKING_METER_TICKING
+		putProp pointed, PARKING_METER_state
+		newImage pointed_noid
+	}
+	rts
+
+	actionEnd
+ 
+**********
+pawn_machine_MUNCH.m
+********
+	jsr		v_set_up_actor_pointers
+	chore		AV_ACT_operate
+	newImage 	subject_noid, 1
+	asyncAnimationWait
+	chore		AV_ACT_hand_back
+	asyncAnimationWait
+	newImage	subject_noid, 0
+	rts
+
+	actionEnd
+ 
+**********
+pawn_machine_do.m
+********
+	chore	AV_ACT_hand_back
+	getResponse	MUNCH_SUCCESS
+	cmp	#SUCCESS_VALUE
+	if (equal) {
+	    lda pointed_noid
+	    chainTo v_purge_contents		; tokens arrive async.
+	}
+	chainTo	v_beep_or_boing
+
+	actionEnd
+ 
+**********
+phone_booth_do.m
+********
+;	6-May-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	jsr	v_punt_if_not_adjacent
+	chainTo v_hangup
+
+	actionEnd
+ 
+**********
+phone_booth_get.m
+********
+	actionStart
+
+	jsr	v_adjacency_check
+	if (!carry) {
+	    lda #PHONE_ACTIVE
+	    chainTo v_answer_or_unhook
+	}
+	chainTo v_beep
+
+	actionEnd
+ 
+**********
+phone_booth_put.m
+********
+				    rts
+				}
+			}
+		}
+	}
+	jsr v_hangup
+	lda #PHONE_CALL_COST
+	chainTo v_refund
+
+	actionEnd
+ 
+**********
+phone_booth_talk.m
+********
+	actionStart
+
+	jsr	v_adjacency_check
+	if (!carry) {
+		chainTo v_dial_or_talk
+	}
+	ldx #0
+	chainTo v_talk
+
+	actionEnd
+ 
+**********
+plaque_do.m
+********
+		lda #(TEXT_EXITABLE_MODE | TEXT_MULTIPAGE_MODE |
+			RECEIVE_PAGE_COMMAND)	; Book modes
+		rjsr v_text_handler		; Do it
+		and #TEXT_EXITED_BIT		; Test player for done
+	} while (zero)
+	lda #EXIT_TEXT_MODE_COMMAND		; Turn off text mode
+	chainTo v_text_handler
+
+	actionEnd
+
+ 
+**********
+sensor_SCAN.m
+********
+	getResponse SCAN_DETECTION
+	if (zero) {
+	    sound	SENSOR_DIDNT_FIND_IT, actor_noid
+	    rts
+	}
+	sound	SENSOR_FOUND_IT, actor_noid
+	rts
+
+	actionEnd
+
+ 
+**********
+sensor_do.m
+********
+			sound	SENSOR_DIDNT_FIND_IT
+			lda	#0
+		}
+		newImage pointed_noid
+		rts
+	}
+	chainTo v_depends			; If not holding
+
+	actionEnd
+
+ 
+**********
+sex_changer_SEXCHANGE.m
+********
+	eor	#SEX_BIT			; ...toggle it...
+	putProp actor				; ...and put it back
+	chore	AV_ACT_hand_back		; Make it show on screen
+	asyncAnimationWait
+	complexSound	SEX_CHANGER
+	newImage pointed_noid, 0
+	lda	#AV_ACT_get_shot
+	chainTo v_set_actor_chore
+
+	actionEnd
+ 
+**********
+sex_changer_do.m
+********
+	eor	#SEX_BIT			; ...toggle it...
+	putProp actor				; ...and put it back.
+	chore	AV_ACT_hand_back		; Make it show on screen
+	waitWhile animation_wait_bit
+	complexSound	SEX_CHANGER
+	newImage pointed_noid, 0
+	lda	#AV_ACT_get_shot
+	chainTo v_set_actor_chore
+
+	actionEnd
+ 
+**********
+sex_changer_go.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	jsr	v_find_goto_coords
+	stx	desired_x
+	sty	desired_y
+	chainTo	v_goXY				; Will actually execute move
+
+	actionEnd
+ 
+**********
+shovel_DIG.m
+********
+	sta		actor_noid
+	jsr		v_set_up_actor_pointers		; who is digging?
+	chore		AV_ACT_bend_over
+	asyncAnimationWait
+	chore		AV_ACT_bend_back
+	asyncAnimationWait
+	rts
+
+	actionEnd
+
+ 
+**********
+shovel_rdo.m
+********
+	sendMsgN	pointed_noid, MSG_DIG, 0	; tell others
+	chore	AV_ACT_bend_over
+	sound	DIGGING
+	waitWhile	animation_wait_bit
+	chore	AV_ACT_bend_back
+	waitWhile	animation_wait_bit
+	rts
+
+	actionEnd
+
+ 
+**********
+sky_go.m
+********
+	actionStart
+	rjsr	v_goXY
+	lda	new_region_flag
+	if (plus) {			; called by 'go left or right'?
+	    rts
+	}
+	lda	#direction_up
+	chainTo	v_go_to_new_region
+	actionEnd
+
+ 
+**********
+spend.m
+********
+	ldy	#TOKEN_denomination		; Get size of coin in hand
+	lda	y[@in_hand_object]
+	sec					; Subtract price
+	sbc	save_NRD
+	sta	y[@in_hand_object]		; Save new denomination
+	if (zero) {				; If coin is all used up...
+		lda in_hand_noid		; Nuke the sucker!
+		rjsr delete_object
+	}
+	rts					; Fini
+ 
+**********
+spray_can_SPRAY.m
+********
+	sound	SPRAY, actor_noid
+	getResponse SPRAY_SPRAYEE
+	jsr v_get_subject_object
+	getResponse SPRAY_CUSTOMIZE_0
+	putProp subject, AVATAR_customize
+	getResponse SPRAY_CUSTOMIZE_1
+	putProp subject, AVATAR_customize+1
+	rts
+
+	actionEnd
+ 
+**********
+spray_can_do.m
+********
+			getResponse SPRAY_CUSTOMIZE_0
+			putProp actor, AVATAR_customize
+			getResponse SPRAY_CUSTOMIZE_1
+			putProp actor, AVATAR_customize+1
+			rts
+		}
+	}
+	chainTo v_beep
+
+	actionEnd
+ 
+**********
+stereo_UNLOAD.m
+********
+	tax
+	getProp actor, OBJECT_y_position
+	tay
+	lda #THE_REGION_NOID		; Put it here
+	jsr v_change_containers
+	lda #NULL
+	putProp in_hand, STEREO_tape
+	rts
+
+	actionEnd
+ 
+**********
+stereo_get.m
+********
+	    	jsr v_get_subject_object
+	        changeContainers 0, AVATAR_HAND, actor_noid
+		lda #AV_ACT_bend_back
+		chainTo v_set_actor_chore
+;	        rts				; Avoid beep below
+	}
+	chore AV_ACT_bend_back
+	chainTo	v_beep				; If we get here we failed
+	actionEnd
+
+ 
+**********
+stereo_put.m
+********
+		}
+		lda #AV_ACT_bend_back
+		jsr v_set_actor_chore
+		chainTo v_beep			; Complain on failure
+	    }
+	    lda #THE_REGION_NOID		; Drop in region if not tape
+	    chainTo v_putInto
+
+	actionEnd
+
+ 
+**********
+stun_gun_rdo.m
+********
+			moveOb subject, actor
+			lda #AV_ACT_get_shot
+			chainTo v_set_actor_chore
+		}
+	}
+	sound	STUN_GUN_MISS
+	rts
+
+	actionEnd
+
+ 
+**********
+tape_LOAD.m
+********
+	jsr	v_set_up_actor_pointers
+	chore AV_ACT_bend_over
+	asyncAnimationWait
+	getResponse LOAD_TAPE
+	jsr v_get_subject_object
+	changeContainers 0, 0, in_hand_noid
+	lda #AV_ACT_bend_back
+	chainTo v_set_actor_chore
+	
+	actionEnd
+ 
+**********
+telekenesis_get.m
+********
+	if (!zero) {			; Non-zero is success
+	        lda pointed_noid
+	    	jsr v_get_subject_object
+	        changeContainers 0, AVATAR_HAND, actor_noid
+	        rts				; Avoid beep below
+	}
+	chainTo	v_beep				; If we get here we failed
+
+	actionEnd
+
+ 
+**********
+telephone_do.m
+********
+;	6-May-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	jsr	v_punt_if_not_adjacent
+	chainTo v_hangup
+
+	actionEnd
+ 
+**********
+telephone_get.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	doMyAction ACTION_GO			; My go walks to phone
+	waitWhile animation_wait_bit		; Wait till we get there
+	lda #PHONE_ACTIVE
+	chainTo v_answer_or_unhook
+
+	actionEnd
+ 
+**********
+telephone_put.m
+********
+					cmp #PHONE_TALKING
+					if (!equal) {
+						chainTo v_go_to_and_drop_at
+					}
+				}
+			}
+		}
+	}
+	chainTo v_hangup
+	actionEnd
+ 
+**********
+telephone_talk.m
+********
+	actionStart
+
+	jsr	v_adjacency_check
+	if (!carry) {
+		chainTo v_dial_or_talk
+	}
+	ldx #0
+	chainTo v_talk
+
+	actionEnd
+ 
+**********
+teleport_PAY.m
+********
+	lda	#TELEPORT_ACTIVE
+	putProp actor, TELEPORT_state
+	getResponse BUYER
+	tax
+	getResponse COST
+	tay
+	getResponse COST+1
+	chainTo v_spend
+
+	actionEnd
+ 
+**********
+teleport_ZAPIN.m
+********
+;	Lucasfilm Ltd.
+;
+	include	"action_head.i"
+
+	actionStart
+
+	complexSound	TELEPORT_ARRIVAL, actor_noid
+	rts
+
+	actionEnd
+ 
+**********
+teleport_ZAPOUT.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	complexSound	TELEPORT_DEPARTING, actor_noid
+	lda		#TELEPORT_READY
+	putProp 	actor, TELEPORT_state
+	rts
+
+	actionEnd
+ 
+**********
+teleport_put.m
+********
+		if (!zero) {
+			complexSound	TELEPORT_ACTIVATES
+			lda	#TELEPORT_ACTIVE
+			putProp pointed, TELEPORT_state
+		}
+		rts
+	}
+	chainTo v_beep		; Complain on failure
+
+	actionEnd
+ 
+**********
+teleport_talk.m
+********
+		}
+		jsr	v_clear_text_line
+		complexSound	TELEPORT_ACTIVATES
+		rts
+	}
+	}
+	ldx #0
+	chainTo v_talk			; Else talk to everybody about it
+
+	actionEnd
+ 
+**********
+toggle_ghost_mode.m
+********
+		if (!equal) {			; No! (Or we're now an avatar)
+			addwwb response_data, response_data, #CORPOREAL_BODY
+			lda	#0		; its in the region
+			chainTo v_unpack_contents_vector
+		}
+		rts
+	}
+	chainTo v_boing				; Just beep if it didn't work
+
+	actionEnd
+ 
+**********
+tokens_do.m
+********
+		putArg 3
+		movew #arguments, printf_parameters
+		jsr v_balloon_printf
+		string "Denomination: $#"
+		rts
+	}
+	chainTo v_beep			; ...bag it if not holding
+
+	actionEnd
+
+ 
+**********
+tokens_rdo.m
+********
+	pla
+	jsr	v_spend				; take away from me
+
+	addwwb response_data, response_data, #PAY_NEW_TOKEN
+	lda	#0				; container (not really)
+	chainTo	v_unpack_contents_vector
+
+
+	actionEnd
+
+ 
+**********
+transit_region.m
+********
+	}
+	dex				; 3 = teleport arrival
+	if (zero) {
+		complexSound	REGION_TELEPORT_ARRIVAL,#THE_REGION_NOID
+		rts	
+	}
+
+	rts
+
+	actionEnd
+ 
+**********
+trap_go.m
+********
+	include	"action_head.i"
+
+	actionStart
+
+	getProp	pointed, TRAP_type		; 0, 1 ,2 or ???
+	clc
+	adc	#TRAP_INTERNALS_OFFSET		;  get internal goto behavour
+	jmp	v_issue_nested_command		;  DO IT!
+
+	actionEnd
+ 
+**********
+trap_put.m
+********
+	doMyAction ACTION_GO			; My GO walks to this object
+	waitWhile animation_wait_bit		; Wait till we get there
+	jsr	v_face_cursor
+	chore AV_ACT_bend_over
+	lda	#THE_REGION_NOID		; Drop in the region
+	rjsr	v_putInto
+	chore AV_ACT_bend_back
+	rts
+
+	actionEnd
+ 
+**********
+unimplemented.m
+********
+;	Lucasfilm Ltd.
+;	30-April-1986
+;
+	include	"action_head.i"
+
+	actionStart
+
+	chainTo	v_boing
+
+	actionEnd
+ 
+**********
+vectors.m
+********
+v_ESP_talk:			block	3
+v_all_sfx_off:			block	3
+v_get_furniture_xy:		block	3
+v_update_cursor:		block	3
+v_region_change:		block	3
+v_clear_text_line:		block	3
+v_change_player_color:		block	3
+v_beep_or_boing:		block	3
+v_start_walk:			block	3
+v_find_goto_alt_entry:		block	3
+ 
+**********
+vendo_SELECT.m
+********
+	lda #0				; ...byte plus 2 more zero...
+	putArg 2
+	putArg 3
+	movew #arguments, printf_parameters
+	jsr v_balloon_printf
+	string "Price: $#"
+	rts
+
+	actionEnd
+
+ 
+**********
+vendo_SELL.m
+********
+	getResponse SELL_PRICE
+	tay
+	pla
+	jsr v_spend			; Spend the money
+	complexSound	VENDO_DISPENSING, actor_noid
+	addwwb response_data, response_data, #VENDO_PRODUCT
+	lda	#0			;drop in region
+	chainTo v_unpack_contents_vector
+
+	actionEnd
+ 
+**********
+vendo_do.m
+********
+	lda #0				; ...byte plus 2 more zero...
+	putArg 2
+	putArg 3
+	movew #arguments, printf_parameters
+	jsr v_balloon_printf
+	string "Price: $#"
+	rts
+
+	actionEnd
+
+ 
+**********
+vendo_put.m
+********
+	cmp	#SUCCESS_VALUE
+	if (equal) {			; If so, create a new object
+		complexSound	VENDO_DISPENSING
+		addwwb response_data, response_data, #VENDO_PRODUCT
+		lda	#0		; container = region
+		chainTo v_unpack_contents_vector
+	}
+	chainTo v_beep_or_boing		; Complain on failure
+
+	actionEnd
+ 
+**********
+walkie_talkie_do.m
+********
+	actionStart
+
+	lda in_hand_noid
+	cmp pointed_noid
+	if (equal) {		; Have to be holding object to do this
+;		chainTo v_hangup_or_answer
+	}
+	chainTo v_depends
+
+	actionEnd
+ 
+**********
+walkie_talkie_get.m
+********
+	    if (!zero) {			; Non-zero is success
+	        lda pointed_noid
+	    	jsr v_get_subject_object
+	        changeContainers 0, AVATAR_HAND, actor_noid
+		lda #PHONE_ACTIVE
+		chainTo v_answer_or_unhook
+	    }
+	}
+	chainTo	v_beep				; If we get here we failed
+	actionEnd
+ 
+**********
+walkie_talkie_put.m
+********
+					cmp #PHONE_TALKING
+					if (!equal) {
+						chainTo v_go_to_and_drop_at
+					}
+				}
+			}
+		}
+	}
+	chainTo v_hangup
+	actionEnd
+ 
+**********
+walkie_talkie_talk.m
+********
+
+	lda in_hand_noid
+	cmp pointed_noid
+	if (equal) {
+		chainTo v_dial_or_talk
+	}
+	ldx #0
+	chainTo v_talk
+
+	actionEnd
+ 
+**********
+wall_go.m
+********
+;
+	include	"action_head.i"
+
+	actionStart
+	getProp pointed, OBJECT_y_position
+					; Clamp walk y-coord at wall base
+	sta desired_y
+	chainTo	v_goXY			; Cursor is default motion target!
+	actionEnd
+
+ 
+**********
+windup_toy_WIND.m
+********
+	if (geq) {		; Clamp at 4
+		lda #4
+	}
+	putProp actor		; Save new count
+	lda #WINDUP_WOUND
+	newImage actor_noid
+	rts
+
+	actionEnd
+
+ 
+**********
+windup_toy_do.m
+********
+		}
+		putProp pointed	; Save new count
+		lda #WINDUP_WOUND
+		newImage pointed_noid
+		rts
+	}
+	chainTo v_depends	; Punt to 'depends' if not holding
+
+	actionEnd
+
+ 

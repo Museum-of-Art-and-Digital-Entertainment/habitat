@@ -1,0 +1,62 @@
+@region $ dnalsi_60 {
+    north: dnalsi_61.l;
+    west: dnalsi_50.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @flat { x:0; y:2; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @flat { x:52; y:2; or:244; 
+            8:1;
+        }
+        @hole { x:96; y:159; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @tree { x:132; y:91; or:1; style:2; gr_state:2; }
+        @tree { x:60; y:128; or:188; style:2; }
+        @tree { x:128; y:21; or:1; style:2; gr_state:4; }
+        @flat { x:52; y:4; or:188; style:1; 
+            8:2;
+        }
+        @tree { x:116; y:111; or:17; style:2; gr_state:3; }
+        @bush { x:56; y:137; or:8; style:4; }
+        @hole { x:104; y:144; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @box { x:0; y:0; or:80; style:1; 
+                    8:2;
+                    9:0;
+                    10:0;
+
+                    [
+                        @knick_knack { x:3; y:3; or:0; 
+                            8:0;
+                        }
+                        @knick_knack { x:0; y:0; or:0; 
+                            8:0;
+                        }
+                        @knick_knack { x:2; y:2; or:0; style:2; 
+                            8:0;
+                        }
+                        @knick_knack { x:1; y:1; or:0; style:2; 
+                            8:0;
+                        }
+                    ]
+                }
+                @plant { x:2; y:2; or:32; 
+                    8:1;
+                }
+                @plant { x:1; y:1; or:32; 
+                    8:1;
+                }
+                @knife { x:3; y:3; or:0; }
+            ]
+        }
+    ]
+}

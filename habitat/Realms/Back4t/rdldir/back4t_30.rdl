@@ -1,0 +1,8 @@
+@region $ back4t_30 {
+    south: back4t_20.l;
+    region_orientation: FACE_NORTH;
+    [
+        @ground { x:0; y:4; or:204; style:1; }
+        @sky { x:0; y:0; or:0; style:4; }
+    ]
+}

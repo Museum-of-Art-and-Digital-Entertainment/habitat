@@ -1,0 +1,115 @@
+From randy Fri Nov  4 08:22:35 1988
+Return-Path: <randy>
+Received: by xanadu.com id AA21762; Fri, 4 Nov 88 08:22:35 PST
+Date: Fri, 4 Nov 88 08:22:35 PST
+From: randy (Randy Farmer -- A survivor of the Lost Patrol)
+Message-Id: <8811041622.AA21762@xanadu.com>
+To: chip
+Status: RO
+
+>From sun!fai!nobuot Thu Nov  3 23:02:36 1988
+Return-Path: <sun!fai!nobuot>
+Received: from sun.UUCP by xanadu.com id AA18566; Thu, 3 Nov 88 23:02:35 PST
+Received: from fai.UUCP by sun.Sun.COM (4.0/SMI-4.0)
+	id AA27369; Thu, 3 Nov 88 15:39:14 PST
+Received: by fai.fai.com; id AA20148; Thu, 3 Nov 88 11:00:52-1795
+Date: Thu, 3 Nov 88 11:00:52-1795
+From: Nobuo Takahacshi X4282 <sun!fai!nobuot>
+Message-Id: <8811031900.AA20148@fai.fai.com>
+To: xanadu!randy
+Status: R
+
+Randy,
+
+  There are some missing files in the tape you have sent to Japan.
+
+  I include the list of missing files.
+
+************************************
+****    missing files           ****
+****                            ****
+****                NOV.2.1988  ****
+************************************
+1.  Filename: Debug
+2.  Filename: Debug.incl.pl1
+3.  Filename: Lists.incl.pl1
+4.  Filename: Lists.strux.incl.pl1
+5.  Filename: Messages
+6.  Filename: Messages.incl.pl1
+7.  Filename: Queues
+8.  Filename: Queues.incl.pl1
+9.  Filename: Stat.strux
+10. Filename: Stat.strux.incl.pl1
+11. Filename: TimeAfterTime
+12. Filename: TimeAfterTime.incl.pl1
+13. Filename: avatar
+14. Filename: avatar_props.incl.pl1
+15. Filename: class_avatar.incl.pl1
+16. Filename: class_ground.incl.pl1
+17. Filename: class_paper.incl.pl1
+18. Filename: class_region.incl.pl1
+19. Filename: containment
+20. Filename: defs_class
+21. Filename: defs_message.incl.pl1
+22. Filename: initialize_resources.incl.pl1
+23. Filename: instance_head
+24. Filename: mail_info
+25. Filename: new_textdb
+26. Filename: object
+27. Filename: parser.incl.pl1
+28. Filename: process_control.incl.pl1
+29. Filename: question
+30. Filename: region
+31. Filename: region.defs
+32. Filename: struct_avatar
+33. Filename: struct_book
+34. Filename: struct_class
+35. Filename: system_io_constants
+36. Filename: teleport
+37. Filename: textdb
+38. Filename: turf
+39. Filename: y.tab.incl.pl1
+40. makeshape4.c
+41. face.c
+42. struct_user.incl.pl1
+43. struct_jukebox.catalog.incl.pl1
+44. width.incl.pl1 (jan.23)
+45. yaccpar.pl1
+46. emacsStuff/ply-convert.ml
+47. source code to  sun.o
+48. source code to  map.o 
+< Ghu Plex Griddle related >
+49. chiproof.gri
+50. sheriffoffice.gri
+51. turf3.gri
+52. general_store_ext.gri
+53. /u0/habitat/defines.ghu
+54. popustop.p
+55. frontage.p
+56. equates.p
+57. apartments.p
+58. qgrad.p
+59. stores.p
+60. lottery.p
+end
+
+  Possible reason why they are missing.
+
+1. PL/I files may have very long name(up to 30 charaters)
+2. When they are unloaded to UNIX tape, names would have been truncated
+  to 14 character long.
+3. Files with the same name except after 14 characters seemed to be dropped
+  from the tape.
+
+  I will be leaving for Las Vegas and Japan on 11/13. Please prepare the tape
+by 11/11 so that I can bring it with me.
+
+  I will visit Lucas film with Fujitsu's executives on 11/10 so I can take 
+that chance to pick up the tape.
+
+Thnaks
+
+Nob
+
+
+

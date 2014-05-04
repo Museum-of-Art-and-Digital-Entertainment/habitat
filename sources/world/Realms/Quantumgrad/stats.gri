@@ -1,0 +1,235 @@
+use region {
+  ident: r -1001
+  owner: a -1
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  theft_free: '1'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "The Office.         "
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use bureaucrat {
+  container: r -1001
+  x: 48
+  y: 69
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 4
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use head {
+  container: r -1001
+  x: 50
+  y: 102
+  style: 73
+  gr_state: 1
+  orient: 1
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use avatar {
+  region: r 0
+  container: o 0
+  x: 52
+  y: 128
+  gr_state: 0
+  gr_width: 0
+  genl_flags: '00000000000000000000000000000000'b
+  orient: 132
+  style: 0
+  name: "          "
+  screen_name: "          "
+  activity: 136
+  action: 0
+  health: 0
+  restrainer: 0
+  custom: 16, 48, 0
+  bank_balance: 16
+  turf: r 0
+  stun_count: 0
+  nitty_bits: '0000000000000000000000000000000'b
+  curse_immune: '0'b
+  true_orient: 0
+  true_head_style: 0
+  true_custom: 0, 0, 0
+  curse_type: 0
+  curse_counter: 0
+  last_on: 0
+}
+use head {
+  container: a -1005
+  x: 0
+  y: 6
+  style: 21
+  gr_state: 0
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use atm {
+  container: r -1001
+  x: 16
+  y: 95
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use changomatic {
+  container: r -1001
+  x: 90
+  y: 108
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use spray_can {
+  container: r -1001
+  x: 140
+  y: 58
+  style: 0
+  gr_state: 0
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  charge: 0
+}
+use fountain {
+  container: r -1001
+  x: 80
+  y: 19
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  live: '0'b
+}
+use teleport {
+  container: r -1001
+  x: 132
+  y: 14
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  state: 0
+  take: 0
+  address: "                    "
+}
+use avatar {
+  region: r 0
+  container: o 0
+  x: 116
+  y: 61
+  gr_state: 0
+  gr_width: 0
+  genl_flags: '00000000000000000000000000000000'b
+  orient: 2
+  style: 0
+  name: "          "
+  screen_name: "          "
+  activity: 146
+  action: 0
+  health: 0
+  restrainer: 0
+  custom: 32, 48, 0
+  bank_balance: 0
+  turf: r 0
+  stun_count: 0
+  nitty_bits: '0000000000000000000000000000000'b
+  curse_immune: '0'b
+  true_orient: 0
+  true_head_style: 0
+  true_custom: 0, 0, 0
+  curse_type: 0
+  curse_counter: 0
+  last_on: 0
+}
+use head {
+  container: a -1012
+  x: 0
+  y: 6
+  style: 1
+  gr_state: 1
+  orient: 8
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use vendo_inside {
+  container: r -1001
+  x: 4
+  y: 5
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+}
+use vendo_front {
+  container: o -1014
+  x: 0
+  y: 0
+  style: 0
+  gr_state: 0
+  orient: 140
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  item_price: 0
+  display_item: 0
+  prices: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+}

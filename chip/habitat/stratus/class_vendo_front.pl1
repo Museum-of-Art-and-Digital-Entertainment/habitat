@@ -1,0 +1,389 @@
+/*
+ *   class_vendo_front.pl1
+ *
+ *   Vendo front object behavior module for MicroCosm(TM).
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   20-June-1986
+ */
+
+%replace VENDO_FRONT_CAPACITY by 10;
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+declare book_vendo_info entry(pointer) returns(character(114) varying);
+declare drugs_vendo_info entry(pointer) returns(character(114) varying);
+declare magic_vendo_info entry(pointer) returns(character(114) varying);
+declare key_vendo_info entry(pointer) returns(character(114) varying);
+declare sensor_vendo_info entry(pointer) returns(character(114) varying);
+
+initialize_class_vendo_front: procedure;
+
+     %replace VENDO_FRONT_REQUESTS by 5;
+
+     declare a(0:VENDO_FRONT_REQUESTS) entry based;
+     declare class_vendo_front_actions pointer;
+     declare 1 vendo_front based %include struct_vendo_front;
+
+     %replace I by CLASS_VENDO_FRONT;
+
+     Class_Table(I).capacity = VENDO_FRONT_CAPACITY;
+     Class_Table(I).max_requests = VENDO_FRONT_REQUESTS;
+     Class_Table(I).alloc_size = size(vendo_front);
+     Class_Table(I).pc_state_bytes = 5;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_vendo_front_actions);
+     Class_Table(I).actions = class_vendo_front_actions;
+
+     Class_Table(I).actions->a(HELP)    = vendo_front_HELP;       /* 0 */
+     Class_Table(I).actions->a(1)       = illegal;          /* 1 */
+     Class_Table(I).actions->a(2)       = illegal;          /* 2 */
+     Class_Table(I).actions->a(3)       = illegal;          /* 3 */
+     Class_Table(I).actions->a(PAY)     = vendo_PAY;        /* 4 */
+     Class_Table(I).actions->a(VSELECT) = vendo_VSELECT;    /* 5 */
+
+end initialize_class_vendo_front;
+
+%replace VENDO_DISPLAY by 1;
+
+vendo_VSELECT: procedure;
+     declare 1 vinside based(vinsideptr) %include struct_vendo_inside;
+     declare vinsideptr pointer;
+     declare 1 self based(selfptr) %include struct_vendo_front;
+     declare dummy bit(1) aligned;
+     declare save_display_item binary(15);
+     declare save_noid binary(15);
+     declare loop_counter binary(15);
+
+     vinsideptr = ObjList(self.container);
+     if (vinside.contents->c(VENDO_DISPLAY) = NULL) then do;
+         call select_out_of_order;
+         return;
+     end;
+     save_display_item = self.display_item;
+     loop_counter = 0;
+foon:self.display_item = self.display_item + 1;
+     if (self.display_item > 9) then self.display_item = 0;
+     if (self.contents->c(self.display_item) = NULL) then do ;
+          loop_counter = loop_counter + 1;
+          if (loop_counter = VENDO_FRONT_CAPACITY) then do;
+               self.display_item = save_display_item;
+          end; else
+               goto foon;
+     end;
+     save_noid = vinside.contents->c(VENDO_DISPLAY);
+     dummy = change_containers(save_noid,
+          self.noid, save_display_item, true); /* never fails (decreases mem us
++e) */
+     if (^dummy) then
+          call trace_msg ('IMPOSSIBLE VENDO ERROR:  args=' || ltrim(save_noid) 
++||
+                          ',' || ltrim(self.noid) || ',' || 
+                          ltrim(save_display_item) || ', vendo=' ||
+                          ltrim(self.obj_id));
+     if (^ change_containers((self.contents->c(self.display_item)),
+               vinside.noid, VENDO_DISPLAY, true)) then do;
+          dummy = change_containers(save_noid, vinside.noid, VENDO_DISPLAY, tru
++e);
+          self.display_item = save_display_item;
+          call select_out_of_order;
+          return;
+     end;
+     self.item_price = self.prices(self.display_item);
+     self.gen_flags(MODIFIED) = true;
+     call checkpoint_object (0, self.noid);  /* To insure consistent vendo */
+     call r_msg_3(mod(self.item_price, 256),
+            divide(self.item_price, 256, 15), self.display_item);
+     call n_msg_1(avatarptr, POSTURE$, OPERATE);
+     call n_msg_3(selfptr, VSELECT$, mod(self.item_price, 256),
+            divide(self.item_price, 256, 15), self.display_item);
+end vendo_VSELECT;
+
+select_out_of_order: procedure;
+     call object_say(self.noid, 'This machine is out of order.');
+     call r_msg_3(0, 0, 255);           /* fail */
+     call trace_msg ('Broken vendo: ' || ltrim(self.obj_id));
+end select_out_of_order;
+
+vendo_PAY: procedure;
+     declare 1 vinside based(vinsideptr) %include struct_vendo_inside;
+     declare vinsideptr pointer;
+     declare 1 self based(selfptr) %include struct_vendo_front;
+     declare obj_vector character(256) varying;
+     declare new_x binary(15);
+     declare new_y binary(15);
+     declare junk binary(15);
+     declare item_price_lo binary(15);
+     declare item_price_hi binary(15);
+     declare objptr pointer;
+
+     vinsideptr = ObjList(self.container);
+     item_price_lo = mod(self.item_price, 256);
+     item_price_hi = divide(self.item_price, 256, 15);
+     if (spend_check((self.item_price))) then do;
+          new_x = vinside.x + 8;
+          new_y = vinside.y;
+          call set_bit(new_y, 8);
+          objptr = clone(vinside.contents->c(VENDO_DISPLAY), new_x, new_y);
+          if (objptr = null()) then do;
+               call r_msg_1(BOING_FAILURE);
+               return;
+          end;
+          junk = spend((self.item_price));
+          self.take = self.take + self.item_price;
+          self.gen_flags(MODIFIED) = true;
+          obj_vector = vectorize(objptr);
+          call r_msg_3_s(TRUE, item_price_lo, item_price_hi, obj_vector);
+          call n_msg_3_s(selfptr, SELL$, avatar.noid, item_price_lo, item_price
++_hi, obj_vector);
+     end; else do;
+          call object_say(self.noid, 'You don''t have enough money.  The item o
++n display costs $' || ltrim(self.item_price) || '.');
+          call r_msg_1(FALSE);
+     end;
+end vendo_PAY;
+
+clone: procedure(objnoid, new_x, new_y) returns(pointer);
+     declare objnoid binary(15);
+     declare new_x binary(15);
+     declare new_y binary(15);
+     declare 1 object based(objptr) %include struct_gen_object;
+     declare objptr pointer;
+     declare 1 newobj based(newobjptr) %include struct_gen_container;
+     declare newobjptr pointer;
+     declare save_noid binary(15);
+     declare save_obj_id binary(31);
+     declare save_ptr pointer;
+     declare i binary(15);
+     declare funnyout(256) character based(funnyoutptr);
+     declare funnyoutptr pointer;
+     declare funnyin(256) character based(funnyinptr);
+     declare funnyinptr pointer;
+
+     objptr = ObjList(objnoid);
+     newobjptr = create_object(object.class, 0, 0, 0, 0, 0, 0, 0);
+     if (newobjptr = null()) then return(null());
+     save_noid = newobj.noid;
+     save_obj_id = newobj.obj_id;
+     save_ptr = newobj.contents;
+     funnyinptr = objptr;
+     funnyoutptr = newobjptr;
+     do i=1 to divide(Class_Table(object.class).alloc_size, 8, 15);
+          funnyout(i) = funnyin(i);
+     end;
+     newobj.noid = save_noid;
+     newobj.obj_id = save_obj_id;
+     if (Class_Table(object.class).capacity ^= 0)
+          then newobj.contents = save_ptr;
+     newobj.x = new_x;
+     newobj.y = new_y;
+     call set_bit(newobj.y, 8);
+     newobj.container = THE_REGION;
+     newobj.gen_flags(MODIFIED) = true;
+     return(newobjptr);
+end clone;
+
+vendo_HELP: procedure(frontptr);
+     declare frontptr pointer;
+     declare 1 front based(frontptr) %include struct_vendo_front;
+     declare displayptr pointer;
+     declare interiorptr pointer;
+     declare 1 interior based(interiorptr) %include struct_vendo_inside;
+     declare 1 display based(displayptr) %include struct_gen_object;
+     declare the_message character(114) varying;
+     declare info_messages(0:158) character(80) varying static init(
+'i',                                     /*   0 -- region */
+'i',                                     /*   1 -- avatar */
+'m',                                     /*   2 -- amulet */
+'-',                                     /*   3 */
+'i',                                     /*   4 -- atm */
+'GAME PIECE, for board games of all kinds.', /*   5 -- game piece */
+'BAG, a useful container.',              /*   6 -- bag */
+'BALL, for throwing and playing.',       /*   7 -- ball */
+'-',                                     /*   8 */
+'-',                                     /*   9 */
+'b',                                     /*  10 -- book */
+'BOOMERANG, non-functional.',            /*  11 -- boomerang */
+'BOTTLE, holds water.',                  /*  12 -- bottle */
+'BOX, a useful container.',              /*  13 -- box */
+'-',                                     /*  14 */
+'-',                                     /*  15 */
+'CLUB.',                                 /*  16 -- club */
+'COMPASS, shows direction of West Pole.',/*  17 -- compass */
+'i',                                     /*  18 -- countertop */
+'-',                                     /*  19 */
+'i',                                     /*  20 -- crystal ball */
+'DIE, for immediate acess to random numbers.', /*  21 -- die */
+'i',                                     /*  22 -- display case */
+'i',                                     /*  23 -- door */
+'i',                                     /*  24 -- dropbox */
+'d',                                     /*  25 -- drugs */
+'ESCAPE DEVICE, takes you home in a panic.', /*  26 -- escape device */
+'GUN.',                                  /*  27 -- fake gun */
+'i',                                     /*  28 -- elevator */
+'i',                                     /*  29 -- flag */
+'LIGHT, illuminates the dark places.',   /*  30 -- flashlight */
+'FRISBEE, for throwing and playing',     /*  31 -- frisbee */
+'i',                                     /*  32 -- garbage can */
+'m',                                     /*  33 -- gemstone */
+'-',                                     /*  34 */
+'GRENADE.',                              /*  35 -- grenade */
+'i',                                     /*  36 -- ground */
+'GUN',                                   /*  37 -- gun */
+'i',                                     /*  38 -- hand of god */
+'-',                                     /*  39 -- hat */
+'INSTANT OBJECT PILL',                   /*  40 -- instant object pill */
+'-',                                     /*  41 -- jacket */
+'k' ,                                    /*  42 -- key */
+'KNICK-KNACK of some sort',              /*  43 -- knick knack */
+'KNIFE.',                                /*  44 -- knife */
+'i',                                     /*  45 -- magic lamp */
+'m',                                     /*  46 -- magic staff */
+'m',                                     /*  47 -- magic wand */
+'i',                                     /*  48 -- mailbox */
+'i',                                     /*  49 -- matchbook */
+'-',                                     /*  50 */
+'-',                                     /*  51 */
+'MOVIE CAMERA.',                         /*  52 -- movie camera */
+'-',                                     /*  53 */
+'PAPER, for notes and mail.',            /*  54 -- paper */
+'-',                                     /*  55 */
+'i',                                     /*  56 -- short sign */
+'i',                                     /*  57 -- sign */
+'i',                                     /*  58 -- plant */
+'-',                                     /*  59 */
+'m',                                     /*  60 -- ring */
+'i',                                     /*  61 -- rock */
+'-',                                     /*  62 */
+'SECURITY DEVICE.',                      /*  63 -- security device */
+'s',                                     /*  64 -- sensor */
+'-',                                     /*  65 */
+'-',                                     /*  66 */
+'-',                                     /*  67 */
+'-',                                     /*  68 */
+'i',                                     /*  69 -- sky */
+'i',                                     /*  70 -- stereo */
+'i',                                     /*  71 -- tape */
+'-',                                     /*  72 */
+'-',                                     /*  73 */
+'i',                                     /*  74 -- teleport booth */
+'i',                                     /*  75 -- ticket */
+'i',                                     /*  76 -- tokens */
+'-',                                     /*  77 */
+'-',                                     /*  78 */
+'-',                                     /*  79 */
+'i',                                     /*  80 -- wall */
+'-',                                     /*  81 */
+'WINDUP TOY.',                           /*  82 -- windup toy */
+'-',                                     /*  83 */
+'CHANGE-O-MATIC, lets you change your Turf.', /*  84 -- changomatic */
+'i',                                     /*  85 -- vendo front */
+'i',                                     /*  86 -- vendo inside */
+'i',                                     /*  87 -- trapezoid */
+'i',                                     /*  88 -- hole */
+'SHOVEL, for digging holes.',            /*  89 -- shovel */
+'i',                                     /*  90 -- sex changer */
+'STUN GUN.',                             /*  91 -- stun gun */
+'i',                                     /*  92 -- super trapezoid */
+'i',                                     /*  93 -- flat */
+'TEST OBJECT!',                          /*  94 -- test */
+'BODY SPRAYER, lets you change your body colors.', /*  95 -- spray can */
+'i',                                     /*  96 -- pawn machine */
+'i',                                     /*  97 -- switch / immobile magic */
+'i',                                     /*  98 -- "glue" */
+'-',                                     /*  99 */
+'-',                                     /* 100 */
+'-',                                     /* 101 */
+'-',                                     /* 102 */
+'-',                                     /* 103 */
+'-',                                     /* 104 */
+'-',                                     /* 105 */
+'-',                                     /* 106 */
+'-',                                     /* 107 */
+'-',                                     /* 108 */
+'-',                                     /* 109 */
+'-',                                     /* 110 */
+'-',                                     /* 111 */
+'-',                                     /* 112 */
+'-',                                     /* 113 */
+'-',                                     /* 114 */
+'-',                                     /* 115 */
+'-',                                     /* 116 */
+'-',                                     /* 117 */
+'-',                                     /* 118 */
+'-',                                     /* 119 */
+'-',                                     /* 120 */
+'-',                                     /* 121 */
+'-',                                     /* 122 */
+'-',                                     /* 123 */
+'-',                                     /* 124 */
+'-',                                     /* 125 */
+'-',                                     /* 126 */
+'HEAD.',                                 /* 127 -- head */
+'-',                                     /* 128 */
+'i',                                     /* 129 -- aquarium */
+'i',                                     /* 130 -- bed */
+'i',                                     /* 131 -- bridge */
+'i',                                     /* 132 -- building */
+'i',                                     /* 133 -- bush */
+'i',                                     /* 134 -- chair */
+'i',                                     /* 135 -- chest */
+'i',                                     /* 136 -- coke machine */
+'i',                                     /* 137 -- couch */
+'i',                                     /* 138 -- fence */
+'i',                                     /* 139 -- floor lamp */
+'i',                                     /* 140 -- fortune machine */
+'i',                                     /* 141 -- fountain */
+'-',                                     /* 142 */
+'i',                                     /* 143 -- house cat */
+'i',                                     /* 144 -- hot tub */
+'i',                                     /* 145 -- jukebox */
+'-',                                     /* 146 */
+'i',                                     /* 147 -- pond */
+'i',                                     /* 148 -- river */
+'i',                                     /* 149 -- roof */
+'i',                                     /* 150 -- safe */
+'-',                                     /* 151 */
+'i',                                     /* 152 -- picture */
+'i',                                     /* 153 -- street */
+'i',                                     /* 154 -- streetlamp */
+'i',                                     /* 155 -- table */
+'i',                                     /* 156 -- tree */
+'i',                                     /* 157 -- window */
+'i'                                      /* 158 -- bureaucrat */
+     );
+
+     interiorptr = ObjList(front.container);
+     displayptr = ObjList(interior.contents->c(VENDO_DISPLAY));
+     the_message = info_messages(display.class);
+     if (the_message = '-') then /* non-existant objects */
+          the_message = 'This object does not exist.';
+     else if (the_message = 'b') then
+          the_message = book_vendo_info(displayptr);
+     else if (the_message = 'd') then
+          the_message = drugs_vendo_info(displayptr);
+     else if (the_message = 'm') then
+          the_message = magic_vendo_info(displayptr);
+     else if (the_message = 'k') then
+          the_message = key_vendo_info(displayptr);
+     else if (the_message = 's') then
+          the_message = sensor_vendo_info(displayptr);
+     else if (the_message = 'i') then do; /* impossible to get messages */
+          call trace_msg('Impossible vendo help request, class '||ltrim(front.c
++lass));
+          the_message = 'Hey!  This thing shouldn''t be in a VenDroid!';
+     end;
+     call r_msg_s('VENDO: DO displays next selection.  PUT tokens here to purch
++ase item on display.');
+     call object_say(front.noid, the_message || '  $' || ltrim(front.item_price
++));
+end vendo_HELP;
+
+vendo_front_HELP: procedure;
+     call vendo_HELP(selfptr);
+end vendo_front_HELP;

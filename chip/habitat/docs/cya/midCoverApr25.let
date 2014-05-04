@@ -1,0 +1,48 @@
+.so /u1/gg/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 1.5i			\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.TA 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.ds T \v'-3p'\s-5TM\s+5\v'3p'   \" \*T in document
+.ds S \v'-9p'\s-9\s-6TM\s+9\s+6\v'9p' \" \*S in title
+.AS 4                            \" 2 lines address and date
+.na				\" no adjust
+.if !n .ps 12                   \" use large font size if itroff/ditroff 
+.if !n .vs 13p                   \" and use larger vertical spacing
+.if !n .PS 12
+.if !n .VS 13p
+.nh
+.ND
+.H				\" page headers
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+Exhibit B of the MicroCosm agreement calls for us to make two deliveries for
+mid-April: 1) a videotape demonstrating the preliminary system and 2) a disk
+containing the preliminary system software.  These are enclosed.
+
+The disk is actually two disks, one a program disk and the other an objects
+data disk.  You should put the first in the disk drive in response to the
+Q-Link prompt to insert the program disk, and the second in response to
+MicroCosm's prompt to ``change disks''.  Have fun!
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+enc: tape, software
+
+cc:  Steve Arnold
+     Jim Kimsey
+     Marc Seriff
+     Clive Smith

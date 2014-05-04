@@ -1,0 +1,4 @@
+/*        MicroCosm Teleport Database                                */
+
+     10 key         character(20),
+     10 device_id   binary(31);

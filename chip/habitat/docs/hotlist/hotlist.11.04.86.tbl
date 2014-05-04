@@ -1,0 +1,126 @@
+.ds Dq November 4, 1986
+.LP
+This page intentionally bogus.
+.ds LH HABITAT
+.ds CH \\*(Dq
+.ds RH HOT LIST
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.pn 1
+.bp
+Habitat Task List \(em \*(Dq
+.TS
+tab (:) ;
+l l l l l l l l
+n lp-1 n l l l l l .
+#:Task:Priority:Status:Effects:Who:Due:Updated
+_:_:_:_:_:_:_:_
+0:1200 baud communications fix:1:testing:p:r cj:now:11/4
+1:Add BOING! sound effect for capacity overflow:1:pending:ph:cr:beta:11/3
+2:Choose set of records for Hall Of Records:1:half:d:cra:beta:11/3
+3:Create user map of downtown:1:done:d:cr:beta:11/4
+4:Draft Geographic Master Plan:1:design:d:c ra:beta:11/4
+5:Finish players' manual (add illustrations):1:90%:d:c g:beta:11/3
+6:Implement host memory capacity monitor phase II:1:active:h:j c:beta:11/3
+7:Make sure we can rebind and reboot regionproc:1:pending:h:jc:beta:11/3
+8:Upload and install new downtown:1:ready:w:r c:beta:11/3
+9:Test avatar point-to-point talk echo:1:ready:h:r:now:11/3
+10:Test glue object:1:ready:h:r:now:11/3
+11:Change magic protocol to send object pointed noid:2:pending:ih:rc:beta:11/3
+12:Cleanup existing world database:2:started:w:ar:beta:11/4
+13:Define initial magical powers:2:design:d:car:beta:11/3
+14:Draft economic policy:2:pending:d:c ra:beta:11/3
+15:Implement Oracle logging and response capability:2:unknown:h:j:beta:11/3
+16:Implement bank account deduction utility for Rant ads:2:pending:u:j:beta:11/3
+17:Implement home vendo:2:started:i:ga:beta:11/4
+18:Implement text to paper/book conversion utility:2:pending:u:j:beta:11/3
+19:Install D'nalsi Island adventure:2:ready:w:r:beta:11/3
+20:Install region rally:2:ready:w:rc:beta:11/3
+21:Install software to keep records for Hall Of Records:2:pending:h:jc:beta:11/3
+22:Make compass work on host:2:pending:h:c:beta:11/3
+23:Make teleport HELP give teleport address:2:pending:h:cj:beta:11/3
+24:Reset database for beta release:2:pending:w:cr:beta:11/3
+25:Test pawnshop-machine object:2:ready:h:r:beta:11/3
+26:Test switch (stationary magic) object:2:ready:h:rc:beta:11/3
+27:Upload and install Forest Road:2:ready:w:a rc:beta:11/3
+28:Determine powers and privileges of Adventure Masters:2:pending:d:rca:during:11/3
+29:Generate, upload and install Capture-The-Flag regions:2:design:w:r:during:11/3
+30:Implement bureaucrat-in-a-box:2:pending:ih:cr:during:11/3
+31:Implement die object:2:50%:ih:rc:during:11/3
+32:Implement elevator object:2:50%:ih:crg:during:11/3
+33:Implement game piece object:2:50%:ih:rc:during:11/3
+34:Talk to Tom Canaday about operations and Weekly Rant:2:pending:d:cr:now:11/3
+35:Test light handling with containers and region changes:2:ready:h:r:now:11/3
+36:Make vendo HELP describe item on display:2:pending:h:c:opt:11/3
+37:Draft Rant advertisement policy and procedure:3:pending:d:c:beta:11/3
+38:Implement Rant distribution mechanism:3:pending:h:jc:beta:11/3
+39:Implement initial magical powers:3:pending:h:car:beta:11/3
+40:Make host send motd on bootup:3:pending:h:cj:beta:11/3
+41:Create general purpose database filter:3:pending:u:jc:during:11/3
+42:Draft final specification for Ghu:3:50%:d:c:during:11/3
+43:Implement Capture-The-Flag entry and exit daemons:3:pending:h:cr:during:11/3
+44:Implement database fragment copy function:3:pending:u:j:during:11/3
+45:Implement game show:3:pending:wh:ra:during:11/3
+46:Install Cooties game:3:design:wh:cra:during:11/3
+47:Install Quest For Tome Of Wealth And Fame:3:design:wh:r c:during:11/3
+48:Write Guidebook To The Oracle:3:pending:d:c:during:11/3
+49:Design Machiavelli:3:50%:d:c:pub:11/3
+50:Design and implement stock market game:3:50%:dwh:r:pub:11/3
+51:Design quest for product launch:3:pending:dw:rca n:pub:11/3
+52:Draft Adventure Masters' manual:3:pending:d:cr:pub:11/3
+53:Generate first 20K turves and related infrastructure:3:pending:w:acr:pub:11/3
+54:Implement Ghu:3:pending:u:j c:pub:11/3
+55:Implement apartment generator:3:pending:u:c:pub:11/3
+56:Implement teleport entry database utility:4:pending:u:j:during:11/3
+57:Install board games:4:design:w:ra c:during:11/3
+58:Setup talk show:4:pending:w:ra:during:11/3
+59:Setup theaters:4:pending:w:ra:during:11/3
+60:Change changomatic to alter houses outside turf:4:pending:h:c:opt:11/3
+61:Make magic HELP give little rhyme about magic item:4:pending:h:c:opt:11/3
+62:Add connecting region number to sky, door and building:4:pending:h:c:pub:11/3
+63:Implement Adventure Master support software:4:pending:h:j c:pub:11/3
+64:Start Machiavelli:4:pending:w:cra:pub:11/3
+65:Design Auto-Oracle:5:pending:hu:c:not:11/3
+66:Implement stochastic region generator:5:pending:u:c:not:11/3
+67:Implement turn avatar to ghost on logout:2:pending:h:j:beta:11/4
+68:Make ghost appear only if ghosts online:2:pending:h:j:beta:11/4
+69:Exclude non-beta-testers from system:2:pending:h:j:beta:11/4
+70:Define garbage collector:3:pending:dh:cj:during:11/4
+71:Design batch transactions:3:pending:dh:cj:during:11/4
+72:Create avatars with token in pocket:3:pending:h:j:beta:11/4
+73:Add vendos outside of downtown:3:pending:w:ac:beta:11/4
+74:Implement countertop transactions:3:pending:h:c j:during:11/4
+.TE
+.sp
+.SH
+Key
+.LP
+\fI#\fR \(em Task number \(em an arbitrary number assigned for tracking
+purposes.
+.LP
+\fITask\fR \(em a short description of the task.
+.LP
+\fIPriority\fR \(em relative priority of task in the range 1 to 5:
+1\(rhimmediately vital, 2\(rhessential but not immediately so, 3\(rhimportant,
+4\(rhwill have to wait for more important items first, 5\(rhdesirable someday
+if we have the time.
+.LP
+\fIStatus\fR \(em current status of task.
+.LP
+\fIEffects\fR \(em which portions of the system this task effects:
+p\(rhCommodore 64 program disk, i\(rhCommodore 64 image disk, h\(rhhost
+system, d\(rhdesign or documentation, w\(rhworld database, u\(rhStratus or
+Unix based utilities.
+.LP
+\fIWho\fR \(em who is responsible for performing this task: c\(rhChip
+Morningstar, r\(rhRandy Farmer, a\(rhAric Wilmunder, j\(rhJanet Hunter,
+g\(rhGary Winnick, n\(rhNoah Falstein.  Names are listed in order of
+importance to task.  Names after a space are secondary personnel for task.
+.LP
+\fIDue\fR \(em where in the product cycle completion of this task is due:
+beta\(rhbeta release time, during\(rhduring beta test period, pub\(rhpublic
+release time, opt\(rhoptional task, now\(rhtask should be performed
+immediately, not\(rhtask is not important to overall schedule.
+.LP
+\fIUpdated\fR \(em date that this task's entry in this list was last updated.

@@ -1,0 +1,21 @@
+@region $ dnalsi_76 {
+    south: dnalsi_75.l;
+    west: dnalsi_66.l;
+    region_orientation: FACE_NORTH;
+    [
+        @flat { x:0; y:4; or:244; 
+            8:3;
+        }
+        @wall { x:0; y:0; or:0; style:4; }
+        @rock { x:32; y:148; or:16; 
+            8:1;
+        }
+        @rock { x:112; y:148; or:16; 
+            8:1;
+        }
+        @ground { x:244; y:4; or:188; style:1; }
+        @bush { x:120; y:22; or:16; style:4; gr_state:2; }
+        @bush { x:24; y:17; or:17; style:4; gr_state:2; }
+        @bush { x:48; y:17; or:16; style:4; }
+    ]
+}

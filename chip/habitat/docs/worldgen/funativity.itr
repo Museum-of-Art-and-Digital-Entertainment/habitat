@@ -1,0 +1,673 @@
+.AM
+.ds Dq June 28, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Funativitizing\s-9
+.AU
+an analysis of stuff to do in the Habitat\*T
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH FUNATIVITY
+.ds CH \\*(Dq
+.ds RH Habitat Document # 22
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Board Games and Card Games\s-3
+.PP
+These don't map into \fIHabitat\fP very well.  The mechanics of most of these
+sorts of games would be impossible to emulate without extensive additional
+programming, and would in many cases only result in a duplication of the games
+already available on Q-Link.  I don't think that this is a profitable avenue
+to explore.
+.SH
+\s+3Computer and Video Games\s-3
+.PP
+Perhaps surprisingly, these also don't map into \fIHabitat\fP too well, and
+for the same reason: too much additional work to program them.
+.SH
+\s+3Conversation\s-3
+.PP
+Obviously, our system mechanics support conversation in the same vein as that
+supported by People Connection, with a slight additional visual element.  To
+the extent that people want to use \fIHabitat\fP as a conversational channel,
+we should provide easily accessible but off-the-beaten-track spaces for this
+to occur.  There are lots of different possible venues which we could support,
+the most obvious to me being:
+.IP "    \(bu"
+Relatively blank open plazas for people who just want to carry on a chat with
+minimum system load (i.e., People Connection emulation).
+.IP "    \(bu"
+Secluded places in the forest and in other nearby but out of the way nooks and
+crannies for private heart-to-heart chats, conspiratorial gatherings, meetings
+of covens, and so on.
+.IP "    \(bu"
+Public meeting areas for prearranged gathering of strangers (e.g., open
+meetings to solicit interest in forming expeditionary parties, Amway
+conventions, political caucuses, etc.)
+.IP "    \(bu"
+Semi-public meeting areas for special interest groups of all sorts.
+.IP "    \(bu"
+Ultra-secret meeting places for the really major conspiratory or criminal
+elements.
+.IP "    \(bu"
+Social spaces such as bars and restaurants for strangers to meet and become
+acquainted in.
+.SH
+\s+3Business\s-3
+.PP
+I doubt if we want to have Avatars going to their Avatar jobs to earn their
+Avatar paychecks to pay the Avatar mortgages on their Avatar houses.  On the
+other hand, business has long been a fruitful source of material for games of
+all sorts, and I see no reason why we shouldn't have business and commerce in
+the \fIHabitat\fP for those who are amused by such things.  Some people
+clearly enjoy being mercantile empire builders, and we want to encourage such
+people to get involved.  To make business possible, we need some basic
+mechanisms, which I think we basically have \(em a monetary system and a means
+of exchange using it, and some simple tools for the automation of certain
+commercial activities (vending machines, ATMs, and so on).  What sorts of
+business-like activities could a \fIHabitat\fP subscriber get involved in?
+.PP
+Let's look at ``real'' world business activities for a moment.  We can divide
+the world up a number of different ways, but the following seems like a useful
+categorization for our purposes:
+.IP "    \(bu"
+\fIProduction\fP of products or services that some customer(s) out there in
+the world wants for some reason.  This encompasses most manufacturing,
+agricultural, and resource extraction type industries.
+.IP "    \(bu"
+\fIDelivery\fP of products or services to the customer(s).  This includes
+retail businesses, direct-sales organizations, restaurants, etc.
+.IP "    \(bu"
+\fIManipulation\fP of the business system itself for the purposes of
+accumulating wealth.  This includes stock and commodity trading, corporate
+empire building, and some of the accounting, legal and insurance businesses.
+.PP
+A prerequisite for the first two of these is that there exist a market, i.e.,
+that there be something that people want (enough to pay for) that they cannot
+or do not wish to provide for themselves.  It requires some notion of value
+\(em some things must have intrinsic worth due to their utility (tools that do
+useful or interesting things), their rarity (gold and precious stones for
+example) or both.  If these conditions are met, economic behavior of some sort
+is virtually unavoidable.
+.PP
+The first form of business requires the conversion of one sort of resource
+into another.  The input resource can be almost anything \(em time, effort,
+rocks, etc.  The output resource must be something for which there is a
+demand.  The conversion process can either be an explicit conversion, where
+some machine, say, converts rocks into teleport escape devices for example, or
+it can be the result of simple effort on someone's part.  For example, one
+could make a career out of finding rare and valuable artifacts in the
+wilderness and bringing them back and selling them at a premium, having saved
+the customers the bother and effort of going out and finding these things
+themselves.  People are motivated to go into this sort of business for one or
+both of two reasons: 1) the conversion activity is in some fashion
+intrinsically interesting or compelling, or 2) money.
+.PP
+The second form of business involves acting as the middle-man between the
+customer on the one hand and the provider of the product on the other.  People
+are motivated to go into this sort of business for similar reasons: 1) the
+interaction with the customer or the supplier is rewarding in some way, or 2)
+money.
+.PP
+The third form of business requires the existence of a market infrastructure:
+businesses as entities that can themselves be the subject of trade, exchanges
+where such trade can occur, and so on.  This requires that the business
+organizations themselves be separable from the particular individuals
+associated with them and indeed that there are \fIorganizations\fP as such.
+Business activity of this form involves the creation and nurturing of such
+organizations and the manipulations of the business infrastructure in various
+ways (i.e., ``playing the market'').  As before, the motivations for doing
+this are: 1) the machinations themselves are intrinsically rewarding, or 2)
+money.
+.PP
+Notice the similarity in the motivations behind all of these activities.
+However, be careful not to liken them to each other too strongly.  Indeed, the
+motivations of a professional treasure hunter will be very different from
+those of a restauranteur or innkeeper which will in turn be different still
+from those of a Machiavellian tycoon.
+.PP
+The monetary motivation will only work if one (or both) of two situations can
+be made to apply.  The first is that money has some intrinsic worth in the
+world that makes it somehow desirable to obtain.  There must be desirable
+goods or services that can only be obtained by the accumulation of larger than
+ordinary quantities of cash.  The second is that money is appealing in the
+abstract as some sort of score.  The latter is, in fact, the model adopted by
+most business-oriented games.  The best business games, however, also use
+money as resource that must be risked in order to achieve further gain, thus
+placing the player in an interesting decision-making position of some sort.
+.PP
+Activities motivated by the intrinsic interest of the activity itself perhaps
+ought not to be characterized as ``business''.  Instead, we will cover a
+number of such activities as things unto themselves in the discussions below.
+Business, then, will remain Business, with the capital ``\fBB\fP'': activities
+whose primary motivation is, on the surface at least, the making of money
+(``Honey, we don't wheel & deal for money.  We wheel & deal for fun.  Money's
+just a way of keeping score!'' \(em James Garner in \fIThe Wheeler
+Dealers\fR).
+.PP
+One potential activity in the \fIHabitat\fP perhaps ought to be \fIThe
+Business Game\fR.  \fIThe Business Game\fR, on the surface, is a stock market
+simulation.  We set up the \fIHabitat Stock Exchange\fP, a fictitious entity
+somewhere off in never-never land.  Stock prices are reported regularly in the
+\fIInvestors' Daily Poop Sheet\fR, a document that gets updated periodically
+as stock prices fluctuate.  Players at \fIThe Business Game\fR can buy and
+sell stocks using the funds from the bank accounts and orders sent via mail
+messages to their ``broker'' (the broker will simply be an automaton that
+reads the mail messages and executes the specified transactions).  We can
+``prime'' the stock exchange using the prices of real stocks in the real world
+or we could use fictitious stocks and some sort of bogus internal economic
+model.  I tend to favor using real stocks (if it is legal to do so) as it
+makes the market fluctuations more predictable.  Players would then make or
+lose money as the prices of their stocks rise and fall and would receive
+dividends as well.  If this is as far as the game goes, fine, but I think we
+can make it more interesting by allowing Avatars to establish new
+corporations, issue stock, and trade this stock on the Exchange also.  These
+corporations would have bank accounts, just like players, from which they
+could issue dividend payments to their stockholders, and they could also own
+property and play the stock market as individual players can.  As in the real
+world, the way to increase the value of a corporation's stock is to increase
+the value of the corporation by making money and acquiring assets out in the
+world.  This in turn means that these \fIHabitat\fP corporations would
+actually have to DO things.  This could result in all sorts of interesting
+economic behavior motivated at its root simply by players trying to get a
+better score at \fIThe Business Game\fR.  To the extent that they are able to
+draw other (non-\fIBusiness Game\fR) players into their activities and
+schemes, the world becomes more interesting and more complex.
+.SH
+\s+3Politics\s-3
+.PP
+The \fIHabitat\fP has no intrinsic government per se, other than the system
+administrators attempting to ensure that persons committing certain sorts of
+particularly anti-social acts are not allowed on the system.  All that is
+required for government of some sort to spontaneously form, however, is a
+group of people who wish to enforce some sort of rule or coercive power over
+some other (or possibly the same) group of people within a particular area.
+As soon as they attempt to do this you will have government of a sort, be it
+constitutional democracy or utter despotism.  However, it is my personal
+belief that, given a large enough player population, the formation of such
+entities is all but inevitable.
+.PP
+Depending on how they work, player originated governments can either be a
+source of interest and conflict that serves to draw people in and absorb their
+attention or a source of irritation and distress that drives subscribers away.
+Obviously, we want the former to occur and wish to avoid the latter at all
+costs.
+.PP
+To avoid driving people away, I suggest the following strategies be employed:
+First, it should be possible to establish a border around an area, but we
+should make it very difficult, if not impossible, to have an absolutely sealed
+border.  It should always be possible to emigrate from an undesirable area.
+Fortunately, teleport booths provide an ideal source of border ``leaks''.
+Only by guarding all the teleport booths in an area can that area be sealed
+off from the outside world.  If, by chance, some very resourceful group is
+able to do this, the Oracle always has the option of installing more booths to
+make the task of guarding them all more difficult.  Second, a means of
+relocating one's turf (by changing where it is connected to the rest of the
+world) should be provided, so that emigration does not mean enormous
+sacrifice.  Third, areas should be provided that have established, stable
+governments of various sorts that by their very existence exclude the
+formation of something more repulsive.
+.PP
+We can experiment a little bit with the degree to which the stability of these
+regimes will be enforced by the system itself and the degree to which it will
+be enforced by the citizens.  Some ideas we can play with include establishing
+weapons-free zones that preclude the major form of coercive behavior of one
+Avatar upon another, Oracular elimination or relocation of ``undesirables''
+from a given area, and the practice of granting or denying requests made to
+the Oracle partially on the basis of the lawfulness (or lack thereof) of the
+behavior of the requester.
+.PP
+This all suggests another couple of interesting activities in the
+\fIHabitat\fP which I call \fIThe Democracy Game\fR and \fIThe King Game\fR.
+\fIThe King Game\fR is the simpler of the two: we establish a part of the
+\fIHabitat\fP world that is The Kingdom, and some Avatar (it doesn't really
+matter who) is appointed King.  The King has absolute authority and can call
+on certain powers of the Oracle to back him up (e.g., to zap the
+non-compliant, insubordinate, seditious or disliked).  Anybody who bumps off
+the King becomes King.  The King can abdicate at any time by appointing
+somebody else King.  That's it.  The King receives a score that is the
+population of The Kingdom integrated over the duration of his reign.  The
+object of the game is, of course, to get the highest score.  You get a bigger
+score for having a bigger population (i.e., it doesn't pay to extend your
+reign by killing everybody off or by driving them away and it does pay to
+induce people to immigrate from other parts of the \fIHabitat\fP) and by
+staying King longer.  Fun, eh?
+.PP
+\fIThe Democracy Game\fR is quite a bit more abstract.  In addition, it
+requires the involvement of a trustworthy party to act as moderator or referee
+in order to get the game started.  As with \fIThe King Game\fR, we set aside a
+chunk of the \fIHabitat\fP to be The Democracy.  We endow The Democracy with a
+Constitution (the United States Constitution, suitably modified for the
+\fIHabitat\fP environment, is probably a good model to use).  The moderator,
+using Oracular powers, acts much as the Americans did in Japan after World War
+II: decrees a Constitution, imposes order for as long as it takes to conduct
+proper elections to fill out the institutions called for by the Constitution,
+and then gradually withdraws, leaving the inhabitants to their own devices.
+The citizens then get to play politics for as long as it holds their interest.
+The game is to see how long the whole thing lasts before it decays into
+revolution or apathy.  I'm not sure how we would assign a score or even if
+trying to assign a score would be desirable.
+.SH
+\s+3Travel, Tourism and Exploration\s-3
+.PP
+One activity that many people find enjoyable is visiting new places and
+exploring them.  In the ``real'' world, tourism is a major industry.  As with
+most of the activities discussed here, there are degrees of self-direction
+that people exhibit.  Some people prefer packaged tours where everything is
+pre-arranged and all they have to do is go along for the ride.  Others, more
+adventurous, prefer to tour on their own, perhaps with the aid of maps and
+guidebooks.  Still others (a small group) prefer to explore virgin territory,
+going places where no one has previously been, places where there are no maps
+except those that the explorers create for themselves as they travel.
+.PP
+Such travel is motivated by many things.  However, the main motivations as I
+see it are twofold.  The first is that the places to visit are intrinsically
+interesting: there are sights to see, things to do, and people to meet.  The
+second is curiosity: people just want to know what is on the other side of
+that hill.
+.PP
+Travel and exploration are obvious activities in the \fIHabitat\fP as well.
+Parts of the world that are interesting to look at will, of course, become
+attractions.  Given the relatively low level of graphic complexity we are able
+to support, however, I suspect that this will not become a major driving
+force.  On the other hand, since interesting activities will be located in
+different parts of the world, people will have to move around in order to
+partake of them.
+.PP
+As the population of the world grows, its social geography will become more
+complex.  Many parts of the world will not be distinguished from each other by
+their physical features but by their sociological features.  This will be
+especially true if we give players the opportunity to relocate their turf to
+different parts of the world.  Different communities will attract different
+sorts of people, giving each area a character of its own.  The socially
+adventurous will want to visit different parts of the \fIHabitat\fP to
+experience the ``strange'' folk that inhabit those places.
+.PP
+I think that local exploration will be a significant activity.  People want
+(and need) ``mental maps'' of the area around them, even if they are not
+interested in exploring the entire world.  Although we will provide written
+maps of the ``civilized'' regions, many people don't deal well with maps and
+no map can substitute for direct experience anyway.  I think it is inevitable
+that almost everyone will spend a certain amount of time, at least initially,
+just wandering around and familiarizing themselves with their surroundings.
+However, such acts of familiarization should not be confused with the activity
+of the serious traveller or explorer.
+.PP
+The serious traveller is the person who wants to ``see the world''.  He wants
+to visit all the different places that there are, to experience for himself
+what they are like and how they are connected to each other.  The traveller is
+stimulated by the diversity of the world.  The serious explorer, on the other
+hand, is the person who wants to go places other people haven't been, to be
+the first to discover hidden treasures, magic places and mysterious
+connections, to be the one to map out virgin territory.  The explorer relishes
+the challenge of finding his way on his own, without the guidance of those who
+have been there before.  The explorer likes to be the one to bring the news of
+what lies over yonder.
+.PP
+The above discussion suggests \fIThe Travel Game\fR and \fIThe Exploration
+Game\fR.  \fIThe Travel Game\fR is quite simple: try to travel as widely as
+possible and visit as many different places as you can.  It's quite informal,
+as we can't afford to keep track of where everyone has and hasn't been.  The
+object of \fIThe Exploration Game\fR is to visit places nobody else has been
+before.  This we can keep track of, simply by giving every region a bit that
+indicates whether it has ever been entered.  We increase your Exploration
+score every time you enter a previously unentered region.  This can be
+moderated more formally, by announcing in the \fIHabitat\fP newspaper when new
+chunks of the world are opened up and then sponsoring prizes for exploration
+of the new territory (with perhaps a special prize for whoever creates the
+best map).
+.SH
+\s+3Sex\s-3
+.PP
+I mention this for the sake of completeness, since vicarious sexual activity
+seems to be a major purpose to which online social systems seem to have been
+put.  I don't think ours will be an exception, but I suspect that such
+activity will be less prevalant in the \fIHabitat\fP than elsewhere.  The
+reason I suspect this is that pure text-based chat utilities are ``theater of
+the mind'', whereas \fIHabitat\fP is not.  Since these systems have no graphic
+dimension to speak of, they rely heavily on imaginative visualization, and so,
+in some sense, all things are is possible.  This is effective because people
+are acting out their fantasies.  \fIHabitat\fP provides its own visual channel
+that overrides the imaginary one.  It is to ordinary chat systems as
+television is to radio.  Since we have not endowed Avatars with any primary
+sexual characteristics or abilities (though it has been suggested
+semi-seriously by a surprising number of people), \fIHabitat\fP is not well
+equipped to support the sorts of sexual activity that goes on in chat systems.
+.SH
+\s+3Reading, Literature and Poetry\s-3
+.PP
+The text handling facilities in \fIHabitat\fP are quite primitive, intended
+for the passing of short notes and pre-formatted online documents.  Thus, I
+don't think that there will be much literary activity as such.  However,
+Q-Link already supports something called the \fICafe Bozart\fR, which purports
+to be Parisian sidewalk cafe in which the primary activity is literary
+intellectual conversation.  The additional dimensions of communication that
+\fIHabitat\fP provides, via gestures and the spatial relationship between the
+conversing parties, may well appeal to the small but dedicated group of
+aficionados of this strange establishment.  This, at least, was the surmise of
+the Cafe's proprietor when I spoke with him on my visit to Virginia in April.
+.SH
+\s+3Religion\s-3
+.PP
+Religion, in the context of \fIHabitat\fP, can be considered in two completely
+separate ways.  The first is the theological and mythological underpinnings of
+the \fIHabitat\fP fantasy itself.  The second is the activity of religious
+persons who are inhabitants of the \fIHabitat\fP.  I will discuss the latter
+first.
+.PP
+Oddly, the two (non-techie) demographic groups which seem to have taken most
+readily to online systems as a means of communications and of community
+formation are gays and Christians.  I will try to avoid letting my personal
+prejudices enter the discussion here, other than to mention that an Oracle
+sponsored ``Kill A Christian For Cthulu'' campaign might be an amusing
+diversion (\fII'm joking, Steve\fR).  It does occur to me that the Christian
+community might want to establish churches inside the \fIHabitat\fP, and in
+the interest of egalitarianism we ought to provide a means for doing this.
+All this would require would be that certain spaces be set aside to have
+church regions plugged into them as requested by the community.
+.PP
+\fIHabitat\fP itself, however, has something of a religion of its own: it has
+a deity \(em the Oracle \(em and a limited but reasonably accurate theology.
+The Oracle exists, can be communicated with, can affect the world in powerful
+ways, and, in fact, can be said to have created the world.  Furthermore,
+unlike real-world religions, these statements about a Greater Being are
+demonstrably true!  It remains to be seen what additional superstitions about
+the Oracle will be generated by people on their own.  Given the mechanisms we
+have defined, however, it does seem that there will be an informal activity
+that I call \fIThe Religion Game\fR.  This game consists of the ongoing
+interaction between the inhabitants of the world and the system operators, in
+which the players ask questions of the Oracle and ask wishes from genies in
+magic lamps, and the system people answer the questions and twiddle with the
+world.  The object of the game is for the people on each side to try to
+demonstrate that they are more clever that the people on the other.  You think
+I am maybe joking?  Watch!
+.PP
+It may be that people establish churches of the Oracular religion and invent
+bizarre practices of worship.  It will be interesting to observe the
+interactions between these people and the Christians.
+.SH
+\s+3Theater, Television and Movies\s-3
+.PP
+\fIHabitat\fP contains no presentation medium of the sort provided by a
+television set or a movie screen.  Theatrical drama, though, is still quite
+feasible.  However, such drama will be more in the vein of street theater than
+that of a staged production.  This is due to the limitation on the number of
+Avatars that may occupy a region at any one time.  Given the current limit of
+six, both the audience and the cast have to be quite small, and they are
+thrown together in a rather intimate setting, as theater goes.  Audience
+participation theatrical role playing is another thing that the fellow running
+the Cafe Bozart wants to experiment with.  I think it could be interesting.
+.PP
+I think there are some interesting possibilities for role-playing games (not
+the Dungeons & Dragons variety but the pop-psych variety) in here somewhere,
+but I need to give it more thought.
+.SH
+\s+3Camping and Hiking\s-3
+.PP
+These are experiences that don't map into \fIHabitat\fP very well on their
+own, since they hinge on the kinesthetic and environmental elements of the
+great outdoors.  However, there is a closely related activity which could be a
+nice fit: \fIOrienteering\fR.  Orienteering is a solo sport that involves
+finding your way through unfamiliar territory using maps, landmarks, and your
+wits.  With a large enough world, it will be possible to plot out a wide
+variety of orienteering courses.  Someone would have to take responsibility
+for planning and organizing competitions, but that is the sort of thing that
+is relatively easy to get interested volunteers to do.
+.SH
+\s+3Spectator Sports\s-3
+.PP
+Spectator sports won't work very well in the \fIHabitat\fP, for the same
+reason that movies and the like don't work: you can't get enough people in one
+place at a time.  Furthermore, such sports are rather passive, in the sense
+that the audience does not do much except watch.  \fIHabitat\fP is a
+participation-based medium rather than a presentation-based one, and I suspect
+that such things as spectator sports would not come across well, given our
+graphics limitations.
+.SH
+\s+3Participatory Sports\s-3
+.PP
+Participatory sports, on the other hand, fit in quite well.  The traditional
+team sports, such as football, baseball, basketball, and so on, will not work,
+but there are certainly others that will.  To work, a game must be
+geographically spread out and can't require observation of the entire play
+area at once.  It also cannot rely on the traditional athletic sorts of skills
+and activities, such as running around and throwing and catching balls.  Some
+games that \fIdo\fP map well into \fIHabitat\fP include:
+.IP "    \(bu"
+\fICapture The Flag\fR is a game that most people probably associate with
+summer camp, but which could be played quite readily in the \fIHabitat\fP.  A
+game could be set up in a special area of the world set aside especially for
+that purpose (with, presumably, strategically placed obstacles and so on) or
+it could be played on top of some pre-existing area in the midst of everyone
+else going about their normal activities.
+.IP "    \(bu"
+\fIThe Survival Game\fR has recently become popular in certain circles.  This
+is a slightly more bloodthirsty variant of \fICapture The Flag\fR.  In
+\fIHabitat\fP we would probably want to use stun-guns (which would temporarily
+disable a player) or teleport-guns (which would zap the victim off to some
+other part of the world, out of the action).  The playing field options are
+the same as with \fICapture The Flag\fR.
+.IP "    \(bu"
+\fIAssassin\fR is another somewhat martial sport, popular on some college
+campuses.  As with \fIThe Survival Game\fR, the participants would probably be
+armed with stun-guns or teleport-guns, though a variant for really serious
+players could use ``real'' guns, making the stakes somewhat higher.
+.IP "    \(bu"
+\fIScavenger Hunt\fR is an obvious possibility, and certainly less violent
+that some of the above ideas.  There are lots of strange artifacts in the
+world that could be left lying around to make a scavenger hunt challenging and
+interesting.
+.PP
+All of the above games require an organizer to set things up and to referee
+the play.  Such organization could be performed by system people or by player
+volunteers.  Probably we'd want system people to do it initially, to get the
+ball rolling, and then turn it over to the volunteers once the bugs were
+worked out of the rules and procedures.
+.SH
+\s+3Fantasy Role Playing Games\s-3
+.PP
+FRP games are a natural fit for the \fIHabitat\fP.  While graphically it does
+not have the gothic trappings associated with \fIDungeons and Dragons\fR, it
+does share a structural similarity (as well as some cultural heritage) with
+the FRP model of reality.  I think we will have little difficulty attracting
+FRP enthusiasts.  There are some significant differences between the way
+\fIHabitat\fP works and the way FRP games work (other than the obvious one
+that \fIHabitat\fP is done with computer graphics) that deserve discussion,
+however.
+.PP
+An FRP game is typically moderated by a human referee (e.g., the ``Dungeon
+Master'' in D&D) who generates the fantasy world, describes the goings on to
+the player, arbitrates the actions taken by the players, and controls the
+various elements making up the world, such as what are called ``Non-Player
+Characters'' or NPC's.  \fIHabitat\fP has no such human moderator: though
+human operators can and will intervene in the goings on, they do not directly
+control everything that happens.  Instead, computer generated displays
+described the goings on to the players and the software arbitrates their
+actions.  There are no NPC's.  All characters have players behind them, since
+the system can support a large enough population to make this feasible, while
+it can't hope to generate good enough simulacra to control the characters
+itself in a plausible manner.
+.PP
+The major creative contribution that an FRP moderator makes to a game,
+however, is in the pre-game setup.  He establishes the scenario, designs the
+world, and fleshes it out with details and characters that make it interesting
+and provide challenges and thrills for the players.  \fIHabitat\fP will
+clearly have a place for people to fill this role.
+.PP
+Obviously, the moderator has a different set of constraints to operate under
+than that associated with the rules of a typical FRP game.  He has to work
+with the building blocks provided, with limited ability to set up new objects
+or new capabilities that are not already resident in the C64 software.  Since
+these building blocks can be combined very flexibly and since (we hope) they
+will provide good coverage of the space of possible things that the system can
+potentially do, I do not anticipate that this constraint will be a roadblock.
+It will, however, require the moderator to think in somewhat different terms
+than he may be used to.
+.PP
+Also, all characters in this world have real human beings behind them.  Thus,
+to generate a situation that involves encounters between the players and other
+characters, the moderator must recruit additional players to fill the roles of
+the other characters.  This, to me, is an interesting challenge.  A skillful
+moderator should be able to set up multiple interlocking scenarios in which
+the players in one scenario are the background characters in another, with a
+relatively small number of volunteers taking on ``spear carrier'' roles.
+These latter players could, in fact, be ``ringers'' throw into the mix by the
+moderator to liven things up for everyone else, much as a court jester might
+stir things up in medieval times.
+.PP
+As the scenarios progress, the moderator would step in from time to time,
+using Oracular powers to keep things moving along at an enjoyable pace.
+However, the oversight exercised by the moderator would be much lighter than
+that required for a traditional FRP game, enabling him to supervise a much
+larger and much more diverse group of players and activities.
+.PP
+I will not discuss specific scenarios here, as such discussion could go on
+indefinitely.  However, it would perhaps be fruitful to involve some
+experienced FRP moderators in such a discussion soon (even if they \fIare\fP
+geeks).
+.SH
+\s+3War\s-3
+.PP
+There are two largely independent forms of war that are worth discussing in
+the context of \fIHabitat\fP.  I call them ``play war'' and ``real war''.
+These terms are in quotes because the reality I refer to is a very slippery
+notion.
+.PP
+\fIPlay war\fR is wargames: warfare as an abstract activity for the amusement
+and intellectual stimulation of the players.  The issues under dispute, if
+any, are contrived for the sake of a good rationale for the scenario.  The
+players, though they may take the game seriously as a game, are not party to
+some sort of personal conflict.  The fighting is conducted within the context
+of some pre-arranged situation and within the confines of some set of rules.
+.PP
+\fIReal war\fR, on the other hand, revolves around a genuine conflict between
+people.  This conflict can in turn be subdivided into two types.  First, there
+may be disputes \fIinternal\fP to the socio-political structure of the
+\fIHabitat\fP itself, where, for example, different groups disagree violently
+on issues of control over a particular section of the world.  Second, there
+may be clashes between groups or individuals motivated by \fIexternal\fP
+conflicts of personality or ideology.  For example, I could easily envision
+such a tiff developing between the online gay community and the fundamentalist
+Christians.  Whereas on ordinary systems such people could wage a war of
+words, exchanging bulletin board postings full of argument and denunciation,
+in the \fIHabitat\fP they can express themselves in a more dramatic fashion.
+.PP
+I will discuss each of the above categories of warfare in turn.  An essential
+observation, however, as that this categorization is given largely to provide
+a means of analysis.  In reality I suspect that the dividing lines between
+them will be rather blurry.
+.PP
+\fIPlay war\fR is, in some sense, simply a more elaborate team sport than any
+of the games previously discussed.  Depending on the rules and the situations
+we establish, the battles can range from simple, stylized combats lasting a
+limited time to elaborate extended campaigns that rage continuously for months
+or years.  Traditional wargamers will be attracted to these, so I think they
+are worth setting up.  As with other team sports, some sort of referee or
+moderator will be required to make sure the sides are balanced, that the rules
+are workable, and that the rules are obeyed.  Particular attention should be
+payed to rules regarding behavior toward non-combatants, so that overly
+rambunctious (rambo-nctious?) gamers do not drive non-wargamers of the system
+with their antics.
+.PP
+Another avenue worth exploring is to embed the militaristic elements in a
+broader socio-political simulation, creating fictitious nation states that
+have some built-in conflict.  Various players would take on the roles of
+soldiers, officers, statesmen, diplomats, and so on.  Each role would have
+associated with it a particular agenda \(em the diplomats being biased toward
+negotiated settlement for example.  This sort of simulation is distinguished
+from our next subject, \fIreal war\fR of the internally motivated sort,
+largely by the fact that it is governed by rules and because the conflicts,
+such as they are, are designed into it.
+.PP
+Internally motivated \fIreal war\fR, if it occurs, is interesting because it
+will mean that the players have ``bought into'' the \fIHabitat\fP version of
+reality.  Its desirability is a somewhat more slippery issue.  From an
+economic standpoint, as long as a conflict is engrossing for those involved in
+it, it is desirable.  Once they start being turned off by it, we start losing
+business and then it becomes undesirable.  From a psychological standpoint, we
+need to be concerned with the effect the conflict is having on those involved,
+and in particular the ways, if any, that it is spilling out into their
+non-\fIHabitat\fP lives.  Clearly there is a balance point between providing
+an attractive and useful laboratory of social experimentation on the one hand
+and providing a psychological meat grinder that messes up people's minds on
+the other.  I am not sure where this balance point lies, though my intuition
+tells me that the natural equilibrium point of the system will fall somewhere
+on the desirable side.
+.PP
+Externally motivated \fIreal war\fR, on the other hand, appears to me to be
+potentially very dangerous.  Though I might be tempted, for example, to go
+around tossing grenades into gatherings of fundamentalists, I know that our
+real-world traditions of tolerance and even-temperedness have evolved for very
+good reasons \(em namely that such behavior can quickly escalate into
+uncontrolled waves of violent conflict that leave no one unhurt.  In the
+\fIHabitat\fP, however, people are removed from many of the real-world
+inhibitory constraints that make civilization possible.  It will be part of
+the Oracle's responsibility to try to damp certain kinds of anti-social
+tendencies on the part of players, at least until functional social
+institutions develop inside the \fIHabitat\fP to cope appropriately.  We have
+a moral obligation to be very conscientious in playing this role.
+.PP
+Another topic to consider, unrelated to the above discussion, is the form that
+warfare in the \fIHabitat\fP will take.  It will not be warfare in the
+traditional sense, with large armies moving \fIen masse\fR across the
+countryside wielding weapons of mass destruction.  For one thing, there are no
+weapons of mass destruction in the world, unless we choose to create these
+things ourselves (and we will not) and there is no means for players to create
+such weapons on their own.  In addition, the limitation of six Avatars per
+region precludes mass action.  Instead, I think that \fIHabitat\fP warfare
+will be more like gangland warfare, with small groups striking strategic
+points at relatively infrequent intervals.
+.SH
+\s+3Amusement Parks\s-3
+.PP
+The major amusements at amusement parks are rides, food and games of skill.
+We can't do the first two at all, and the third is tricky (since we don't have
+a truly real-time system) and would require special software.  I think,
+therefor, that amusements parks will not be a fruitful avenue to explore.
+.SH
+\s+3Computer Hacking\s-3
+.PP
+I will admit up front that the following proposal is a little bizarre...
+.PP
+One of the considerations in the design of the object model of the world and
+the communications protocol that makes it possible was that there should be no
+way that someone could obtain undue advantage by tinkering with the software
+in their own home computer.  By this we mean that they should not be able to
+cheat by having their machine provide bogus, misleading information to the
+host or by having it issue commands or requests which the software as
+distributed would not permit.  One of the consequences of this design is that
+any computer which speaks the communications protocol correctly must be
+considered to be legitimate.  There is no way we can enforce a restriction
+that player machine be running exactly the software we have provided.  It
+could just as easily be running a ``hacked'' version of our software or a
+completely new system of some player's own creation.  Though it would be among
+the odder things to do in the \fIHabitat\fP, we could, in fact, encourage this
+in certain ways, if we so chose.
+.PP
+We could, for example, publish a specification of the communications protocol
+(which actually might be safer for us than leaving it to somebody else to
+reverse engineer it).  We could even, if we wanted to get really off the wall,
+publish a toolkit to write systems that talk to \fIHabitat\fP.
+.PP
+Why would someone want to do this, if no undue advantage can be gained?  An
+amusing activity for the really hard-core computer geeks could be the creation
+of automata to control their Avatars in the world \(em in essence,
+player-programmed robot Avatars.  This is the sort of challenging problem that
+would appeal to the dedicated computer hobbyist.
+.PP
+But wait, there's more!
+.PP
+You could, for example, write a program to allow your Avatar to provide some
+service to other players in the world when you are not around to control it
+yourself, and so your Avatar could be earning extra tokens while you sleep.
+The reason this is interesting to us is because Quantum Link charges by the
+hour, and this provides a motivation for people to hook up to \fIHabitat\fP
+even when they aren't around to participate themselves.

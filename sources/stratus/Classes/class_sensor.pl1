@@ -1,0 +1,98 @@
+/*
+ *   class_sensor.pl1
+ *
+ *   Object behavior module for class sensor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+%replace NUMBER_OF_SCAN_TYPES by 1;   /* This should grow! */
+
+declare sensor_scans(NUMBER_OF_SCAN_TYPES) entry returns(binary(15)) variable
+                                                                       static;
+
+initialize_class_sensor: procedure;
+
+     %replace SENSOR_REQUESTS by 4;
+
+     declare a(0:SENSOR_REQUESTS) entry based;
+     declare class_sensor_actions pointer;
+     declare 1 sensor based %include struct_sensor;
+
+     %replace I by CLASS_SENSOR;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = SENSOR_REQUESTS;
+     Class_Table(I).alloc_size = size(sensor);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_sensor_actions);
+     Class_Table(I).actions = class_sensor_actions;
+
+     Class_Table(I).actions->a(HELP)  = sensor_HELP;   /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(SCAN)  = sensor_SCAN;   /* 4 */
+
+end initialize_class_sensor;
+
+sensor_SCAN: procedure;
+     declare 1 self based(selfptr) %include struct_sensor;
+     declare result binary(15);
+
+     if (holding(selfptr)) then do;
+          if (self.scan_type < 1 | NUMBER_OF_SCAN_TYPES < self.scan_type) then 
++do;
+               call object_say(self.noid, 'This sensor is broken.');
+               result = FALSE;
+          end; else do;
+               self.gr_state = sensor_scans(self.scan_type)();
+               self.gen_flags(MODIFIED) = true;
+               result = self.gr_state;
+               call n_msg_1(selfptr, SCAN$, result);
+          end;
+     end; else
+          result = FALSE;
+     call r_msg_1(result);
+end sensor_SCAN;
+
+initialize_sensors: procedure;
+     sensor_scans(1) = sense_weapons;
+end initialize_sensors;
+
+sense_weapons: procedure returns(binary(15));
+     declare i binary(15);
+
+     do i=0 to 255;
+          if (ObjList(i) ^= null()) then
+               if (ObjList(i)->o.class = CLASS_GUN |
+                         ObjList(i)->o.class = CLASS_KNIFE |
+                         ObjList(i)->o.class = CLASS_CLUB |
+                         ObjList(i)->o.class = CLASS_GRENADE) then
+                    return(TRUE);
+     end;
+     return(FALSE);
+end sense_weapons;
+
+sensor_HELP: procedure;
+     /* Eventually this should send something based on the scan type. */
+     call r_msg_s('SENSOR: Select DO to operate.');
+end sensor_HELP;
+
+sensor_vendo_info: procedure(sensorptr) returns(character(114) varying);
+     declare sensorptr pointer;
+     declare 1 sensor based(sensorptr) %include struct_sensor;
+
+     return('SENSOR, no information available (yet).');
+end sensor_vendo_info;

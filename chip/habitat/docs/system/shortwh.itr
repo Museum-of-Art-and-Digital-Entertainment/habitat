@@ -1,0 +1,474 @@
+.de Th	\" Thoughts -- what the player says to himself
+.LP
+.B
+..
+.de Ac	\" Action -- what the player does
+.LP
+.R
+..
+.de De	\" Description -- what happens behind the scenes
+.IP
+.I
+..
+.ds Dq October 17, 1985
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9A Short While in The Life of
+
+The Universe\s-9
+.AU
+A document to help us visualize the player interaction in MicroCosm\*T
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH A SHORT WHILE...
+.ds CH \\*(Dq
+.ds RH MicroCosm Document #5
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+This document is an attempt to describe a slice of life in the
+\fBMicroCosm\*T\fR universe, so that we might have a better visualization of
+what the system will be like from the player's point of view.  This document
+will, in all probability, be updated from time to time, as our conception of
+the universe changes.  I have no doubt that such changes will occur, because
+of maturation of the design and the pressures of implementation.
+.PP
+The material below which is in normal typeface is a description of what you
+see and do as you control your avatar in a journey out into the world.  The
+paragraphs in \fIitalics\fR describe what is going on behind the scenes and
+give other details about the way things work or about alternate things that
+might have happened.  Paragraphs in \fBboldface\fR represent you the player
+speaking or thinking.
+.SH
+\s+3A Short While in The Life of The Universe\s-3
+.sp
+.Th
+Well, I guess it's about time to go check out the back forty, and see what the
+neighbors are up to lately.
+.Ac
+You turn on your Commodore 64, slap your trusty \fBMicroCosm Personality
+Disk\fR into the disk drive, plug the phone into the modem, and boot up the
+half of the \fBMicroCosm\fR system that lives in your home.  The disk twitches
+and the modem beeps and squeals (actually, we hope it doesn't, but you never
+know about these modems).  After a few minutes, a message appears on the
+screen, in large, reassuring letters: ``Welcome to the MicroCosm''.
+.De
+After loading itself from disk, the \fBMicroCosm Home System\fP reads a few
+important facts that it has stashed away: your system identity, the phone
+number of the local network port, and the last known configuration of your
+turf in the \fBMicroCosm\fP universe.  It dials up the network and threads its
+way through the nation's telecommunications systems to the \fBMicroCosm\fP
+host.  There it logs in as you, interchanging a few brief messages with the
+host that establish your identity in the system.  Once this is done it is
+ready for action, and lets you know by displaying the welcome mat.
+.Ac
+The welcome screen is quickly replaced by a view of your avatar, standing
+around waiting in the middle of your turf.  You see a small humanoid figure
+two or three inches high.  He (for it appears to be male) is wearing brown
+pants, a green t-shirt, and what looks like a matching green golfer's cap.  He
+stands facing you, with his hands on his hips, and appears to be grinning
+innocently.  The expression on his face says, ``Hey, this is gonna be FUN!''
+Yup, that's you all right.  The part of your turf that he is standing in looks
+like the living room of a typical American home.  You see a couch, a couple of
+chairs, and a lamp.  There is also a door in the far wall, which you know from
+experience is the front door of your avatar's house.  You grab the joy stick
+and you're ready to go.
+.De
+The computer noted that you left your avatar standing in the living room the
+last time you interacted with the \fBMicroCosm\fP, so it looked in its local
+database to see how your living room was laid out.  It drew the walls and
+door, and then the pieces of furniture.  The images for the door and the
+furniture came from the standard library of household objects that comes with
+every \fBMicroCosm\fP disk.  It also remembered what your avatar was wearing
+as well as what its basic body looks like.  (You can customize the appearance
+of clothing and so forth at will, but altering the body shape requires a
+special visit to the ``body shop''.)
+.Th
+OK, Phread, let's go check the mail.
+.De
+Some people think of their avatars as separate personalities.  Others think of
+them as extensions of themselves.  You prefer the former mode and refer to
+your avatar as ``Phread''.
+.Ac
+You point to the door with the cursor and press the button.  A little menu of
+actions appears and you select the entry labeled ``\fBdo\fR''.  The avatar
+figure turns around, walks to the door, reaches out, opens the door, and steps
+through the doorway.  The scene immediately cuts to a view of the outside of
+your house: You see a simple, suburban house, with a sidewalk going up to the
+front door and a mailbox at the foot of the sidewalk.  Your avatar is standing
+in the doorway.
+.De
+Associated with each region of the universe is a standard viewpoint.  The
+location of this viewpoint is established by the owner of the region.  Most of
+the time this will automatically be done for him by the \fBMicroCosm\fP
+software.  In the situation described here, the viewpoint for the living room
+looks down at the furniture and the inside front wall of the house.  The
+viewpoint for the outside front of the house looks back at the house from the
+street.  When the avatar crosses the threshold from one region to another, the
+viewpoint used to render the display changes automatically from the standard
+viewpoint of the first region to that of the second.  This is what happened
+when the avatar stepped through the doorway.
+.Ac
+You notice that the little red flag on the mailbox is up, indicating that
+there is mail waiting for you, so you point at the mailbox and select
+``\fBget\fR''.  The avatar walks down the sidewalk to the mailbox (and the
+door closes behind him).  He stops at the mailbox, reaches towards it, opens
+it, and extracts what appears to be some letters.  Now that the mailbox has
+been emptied, the red flag on it is lowered.
+.De
+Control over the avatar is expressed in terms of a small set of general
+actions constrained by a locus of attention that provides a context for
+giving the general actions specific local meanings.  This locus of attention
+is indicated by pointing the cursor at the desired object or place.  An action
+is then selected from a menu of choices and the appropriate interpretation of
+that action relative to the center of attention is taken.  In the above
+narratives, this happened twice.
+.De
+In the first action taken above, the selected target was the door.  The action
+selected was ``\fBdo\fP''.  The \fBdo\fP action applied to a door is
+interpreted as a request to open or close the door (i.e., open it if it's
+closed and vice-versa).  The \fBdo\fP action in general, when applied to an
+object that is not immediately at the avatar's hand, also implies motion
+towards the object in order to be able to execute the action.  Thus a motion
+component is overlaid onto this \fBdo\fP action, which in turn implies that a
+motion through (not just to) the doorway is desired.  If simple motion to the
+doorway was desired, a ``\fBgo\fP'' action would have been selected instead.
+This would have carried the avatar to the door to await further instructions.
+At that point a \fBdo\fP action directed at the door would open the door and
+leave the avatar standing next to the open door.  A further \fBgo\fP action
+directed at the door would carry the avatar through the doorway itself (also,
+a \fBgo\fP action directed against a closed door carries with it the
+imperative to open the door before passing through).
+.De
+The second action taken above is directly analogous to the first.  The action
+this time is \fBget\fP.  The \fBget\fP action associated with a mailbox
+involves opening the mailbox and removing its contents, which is exactly what
+happened here.
+.Ac
+You want to read the letters so you point at the stuff in the avatar's hand
+and again select \fBdo\fR.  The view is replaced by a shot of a pair of
+stylized hands holding two envelopes: you have two letters.
+.De
+What happened was that as the avatar was stepping through the doorway, the
+home system was building the display for the view from the outside of the
+house.  Its internal model of the area outside the house included the fact
+that there was a mailbox there, so it queried the host for the state of the
+mailbox: does it have mail or not?  The host responded that it had two
+letters, so the home system knew to display the mailbox with the red flag up.
+As the avatar was walking down the sidewalk to the mailbox the home system
+again queried the host, this time requesting the contents of the letters
+themselves.  The host responded with some text which the home system tucked
+away for safe keeping until you ask to see it.
+.Ac
+You point at the top letter and again select the ubiquitous \fBdo\fR (just
+about everything is done with \fBdo\fR).  The screen is filled with text:
+.nf
+
+.B1
+\f(CB
+      For your convenience
+ the world will be unavailable
+              from
+            midnight
+               to
+            3:00 AM
+          next Tuesday
+
+                \(em God\fR
+
+.B2
+
+.fi
+This is obviously just a notice from the host system operations people warning
+you about impending downtime.  A \fBput\fR action takes you back to the view
+of the hands holding the mail.  You point at the second letter and \fBdo\fR:
+.nf
+
+.B1
+\fH
+ Phread,
+   Come to the Fnork Fountain as soon as you can.
+ Bugsy\fR
+
+.B2
+
+.fi
+.Th
+Aha!  Something's afoot.
+.Ac
+``Bugsy'' is another inhabitant of the universe with whom you occasionally
+have adventures.  The ``Fnork Fountain'' is a nearby place where avatars
+gather to meet, do business, and embark on quests into the world.  Fortunately
+for you it is not too far away; just down the road a spell, as a matter of
+fact.  Another \fBput\fR gets you back to the view of the hands holding the
+letters.  Yet another \fBput\fR (without selecting one of the two letters)
+gets you back to the view of your avatar standing in front of his house.  You
+stuff the letters in his pockets (point at the pockets, \fBput\fR) and head on
+down the road to the right (point at road to right, then choose \fBgo\fR.
+.De
+Here we simply displayed the text of the letters on the screen.  The letters
+carried with them some minimal formatting information, so that, for example,
+the letter from God was laid out one way while the message from Bugsy was laid
+out another.  The mail system is set up inside the host so that players can
+send short messages to each other and so, as in this case, the system
+administrators can broadcast important news to the player community.  To send
+a letter, of course, you go to the Post Office.
+.De
+In our example, Phread put the letters in his pocket.  As far as the host is
+concerned, these letters have been delivered and it no longer cares about
+them.  You can retrieve the letters from Phread's pocket at any time simply by
+\fBget\fPting on the pockets.  Alternatively, you could have made him go back
+into the house and leave them somewhere inside.  To retrieve them again, he
+would have to return to the house.  Yet a third alternative would be to go
+back in the house and throw the letters in the trash, whereupon they would
+disappear forever.  None of these actions, however, would require any
+transaction with the host.  They are strictly local.  Note that this does mean
+that the local computer could ``cheat'' and let you, say, take the letters out
+of Phread's pocket after he'd left them in the house, but this would not be an
+important transaction that affects the state of the world in any substantive
+way.  One could just as easily argue that in such a case the avatar was just
+recalling the letters from memory \(em which is, of course, exactly what the
+home computer is doing.
+.De
+Heading down the road entails a major context shift on the part of the home
+system, because, for the first time, the avatar is stepping off of his own
+turf.  The state of the turf is almost entirely internal to the home computer,
+and so movement and actions within it require few transactions with the host.
+Stepping outside requires information that the home machine will not have
+unless it asks.
+.Ac
+As you head down the road, the view shifts again, this time showing the view
+down the road in the direction you are walking (or rather, in the direction
+Phread is walking).  You point at the horizon above the road and choose
+\fBgo\fR.  This indicates that you wish to walk down the road indefinitely
+far, continuing until you run into something or explicitly indicate that you
+wish to stop.  The viewpoint follows the avatar as he walks.  From time to
+time he passes things by the side of the road: other avatars' houses, fences,
+telephone poles, etc.  At one point he passes another avatar walking in the
+opposite direction.  You see another humanoid figure of roughly the same model
+as Phread, but proportioned and dressed somewhat differently.  Since you are
+each bent on business elsewhere, neither of you chooses to speak to the other,
+but the other avatar gives a friendly wave as he goes by.  After a short while
+the Fnork Fountain comes into view and you select the ``\fBstop\fR'' action,
+which causes Phread to cease walking.  You stop and look around.
+.De
+Once off his own turf, an avatar's movement is regulated by exchanges with the
+host.  The host imposes a limitation on how much travel may occur in a given
+interval of time.  When walking along, the home system essentially sends a
+continuous stream of ``walk to location xx'' messages to the host.  Each such
+message updates the avatar's position in the world.  The host enforces the
+restriction that the distance between the avatar's old position and its new
+one is no more than a certain amount.  This limit is referred to as ``walking
+speed''.  (Actually, an avatar may exceed walking speed by a factor of two or
+three for a short time.  This, not surprisingly, we call ``running''.  Running
+is not allowed without a penalty, however.  The penalty is a greatly reduced
+walking speed for a moderate amount of time thereafter \(em the avatar is
+tired and has to take a breather.)  The host responds to each movement request
+with a confirmation or a denial.  Denial can come for two basic reasons: the
+travel distance was too large, or some obstruction blocked the way.  The
+denial message that the host sends back will tell which of these things it
+was.
+.De
+As the avatar moves across the landscape, the home system also queries the
+host about things that have come into view.  The query messages ask, ``what
+can I see in region thus-and-so''.  The responses take the form, ``there's an
+object of type xx at location yy'', or, ``there's nothing there''.  The home
+system must then display the appropriate images on the screen in the
+appropriate locations.  Some objects, such as telephone poles or the road
+surface itself, have unvarying standard representations that the home system
+can call up out of its internal database of imagery.  Other objects are
+somewhat more complicated and require a query to the host to obtain more
+information.  Consider, for example, a house.  A house has a basic form that
+the home system knows.  It builds the picture of a house out of a set of
+pre-defined building blocks, but it must ask the host for the configuration of
+these standardized components:  How big is it?  Where are the doors and
+windows located? and What color is it?  Of course, if the house was not going
+to be a significant element in the actions of the avatar (i.e., you're just
+passing by and you don't really care what it looks like) the home system could
+simply display a generic house image and save the communications bandwidth
+with the host for something more important (remember: 300 baud).
+.De
+Some even more unusual or complicated features, such as the Fountain, may have
+to be described by getting the images themselves from the host.  However, such
+objects are guaranteed not to change their appearance, and so your home system
+can obtain the image and save it forever on disk for future reference.
+.De
+Note that the home system must explicitly query the host for information about
+what is seen, rather than having this information provided automatically as a
+result of movement.  This is because the home system has the option of locally
+caching the information about what has been encountered.  Thus, if in the
+above example you wished to have Phread just walk back to his house, your home
+machine needn't ask the host about any of the objects encountered along the
+way.  It can simply remember them from the trip out.  Of course, there is
+always the chance that something might have appeared, disappeared, moved or
+changed, but the probability of this happening is usually fairly low.
+Possibly we will provide an option on the ``tell me what is here'' query that
+adds a time-stamp, so that you can effectively ask, ``what is here that has
+changed since time such-and-such''.  Since usually the answer will be that
+nothing has changed, communications bandwidth requirements will be reduced.
+.De
+The encounter with the other avatar on the road is a special case, however.
+If another avatar moves into range of yours, your home system is notified by
+the host without your having to ask.  When the avatar appears initially, a
+message arrives giving the parameters that describe its appearance and its
+location.  (I am still undecided on the issue of identity: should avatars have
+unique identities that other players can perceive, i.e., can you pretend to
+be somebody else or will they always know that it's you?).  Any time the
+avatar moves or takes any action that is perceptible to you, you are
+notified.  When the avatar disappears from view, you are notified.  This means
+that encounters with other players are bandwidth-intensive.  Some means of
+restricting the density of avatars in a particular area will be needed to
+avoid overload.
+.Ac
+In the view in front of your, you see the Fnork Fountain itself (a baroque
+structure indeed) and three or four other avatars standing around.  One of
+these you recognize as your friend Bugsy.  You walk up to him (point at him,
+select \fBgo\fR) and begin a conversation.  To talk to another avatar, you
+point at him and type whatever you wish to say on the keyboard.  Things that
+he says to you appear in a line of text at the bottom of the screen, like the
+chase-lights displaying the news at Times Square.
+.De
+Multiple people can potentially be speaking to you at the same time.  The one
+who starts talking first gets through first.  The avatar who is speaking is
+highlighted on the screen above, so that you can tell who is talking.  Of
+course, at 300 baud, a multi-person conversation can be confusing if people
+all try to talk at once.  Folks will just have to learn manners.  You can
+speak to multiple people \(em to anyone in ``hearing range'' actually \(em by
+pointing at the sky or the ground and then typing.
+.Ac
+So you say (or rather, type) to Bugsy,
+.nf
+
+\fBWhat's up, Bugface?
+
+	\fCWord is something big is about to happen.
+
+\fBWhat?
+
+	\fCSomething wonderful...\fR
+
+.fi
+and so the conversation goes and it turns out to not be so wonderful really.
+You eventually establish that there's this gang of slimy avatars are scheming
+to ``take over'' the region of the world you inhabit, and are planning on
+extorting tribute from all the inhabitants before allowing them to move around
+safely.  In other words, if you step off your turf and you haven't paid up, a
+bunch of nasties will come and beat you up, or worse.
+.Th
+Oh sh*t!
+.Ac
+The two of you decide that you should visit the Wise One, a certain avatar who
+is reputed to give good advice in such matters.  Fortunately, you know
+whereabouts the Wise One is to be found.  Unfortunately, it is quite far away.
+Fortunately, Bugsy has a car.  The two of you walk to Bugsy's house (a journey
+similar to the one you made to get here).  Bugsy's house is like yours, but
+not identical.  And in front is parked Bugsy's car.
+.Ac
+Bugsy gives you the car keys.  Handing something to someone is simple.  You
+get the item into your hand, point at the person you wish to give it to, and
+select \fBput\fR.  This is what the player controlling Bugsy does with the car
+keys.  Receiving an item is equally simple: it appears in your hands.
+.De
+When you give an item to someone else, your home computer sends a message to
+the host that says, basically, ``give item number such-and-such to person
+xx''.  If the person is close enough and is not already holding something
+else, it works.  Your home machine then makes note of the fact that it no
+longer possesses the item, and displays the item in the hands of the receiver
+instead of in your hands.  Receiving an item is just as easy.  Your home
+system gets a message from the host that says ``you were just given item
+number such-and-such''.  It can acknowledge the receipt, in which case it
+places the item in your hands, or refuse it, in which case the giver's attempt
+to pass the item to you fails.
+.Ac
+You get in the car by pointing at it and selecting \fBgo\fR.  Having the car
+keys in your hands confers on you the right to open the car doors.  Once you
+are in the car the keys confer on you the right to drive it.  Driving a car is
+just like walking, except that you go faster.  Also, the images displayed are
+those of you in the car rather than of you walking.  The car will not run into
+things (or run people over) unless you explicitly command it to.  This may
+wreck the car or the thing hit or both.  Of course, wrecking the car while you
+are driving it also entails a significant risk of injuring yourself as well.
+.De
+The car keys act as a limited token of authority over someone else's property.
+Ordinarily, you can only manipulate objects that you yourself own or that
+are owned by nobody.  However, when Bugsy gives you the car keys he doesn't
+give you the car itself.  The keys give you the right to operate the car, but
+Bugsy retains property rights to the vehicle.  This may be useful for
+supporting economic behavior within the system.  How this will work is
+unclear, however.
+.De
+Vehicles are a special class of objects.  They confer on the avatars operating
+them an increased traveling speed.  They also confer an increased carrying
+capacity.  Vehicles are also containers: things can be put inside them and
+then these things move without volition of their own.  This is particularly
+important in the case of avatars who are passengers (as opposed to the driver)
+in a vehicle.  They are carried along wherever the vehicle goes and have no
+say in their location.  Furthermore, it is impossible for an avatar to leave a
+vehicle that it is moving.
+.De
+Display management during travel by vehicle is a special problem.  The problem
+arises because the number of objects that can come into view in a given amount
+of time is greater, since the speed of motion is greater.  There are a couple
+of ways of dealing with this.  One is to consider that an avatar inside a
+vehicle simply cannot see as far.  The idea is that things are going by so
+rapidly that you only notice things that are nearby.  The other way to cope
+with this is to deliberately choose to ignore certain fields of view.  For
+example, only request information from the host about objects that are in the
+road ahead or which are major navigational landmarks (such as road signs).
+Only when you reach your destination do you request a complete description of
+the environment you have arrived in.
+.De
+Collisions are another complication.  They require that the host perform a
+probabilistic computation to determine the nature and extent of the damages,
+and then to inflict the damages it must alter various properties of the things
+damaged and send out messages informing the owners of what has happened.
+.Ac
+So, you get in the car and drive off to look for the Wise One.  We won't go
+into too much detail about the journey, because, as we said, it's just like
+walking only faster.  Suffice to say that you are bright enough to not run
+into anything along the way, and in due time you arrive at the house of the
+Wise One.
+.Ac
+You open the door of the car (point at car, \fBdo\fR), get out (point at
+outside of car, \fBgo\fR), and walk up the walkway to the front door of the
+Wise One's house.  This house is like yours only bigger and fancier.  You
+knock on the front door.  Knocking on a door is just like trying to open it:
+you point at it and select \fBdo\fR.  The difference is that the door is not
+yours, and so you can't open it (unless you have a key).  Knocking is what's
+left \(em you're still trying to open it, but now you're stuck with hoping
+that someone else will come and open it for you.  In this case, after a few
+moments, the door opens and an avatar appears.
+.De
+When someone attempts to enter your turf, the host system tries to contact
+you.  If you are not on the system, or if you \fRare\fP on the system but your
+avatar is not on your turf, then the area occupied by your turf is impassable
+to others.  The imagery displayed of it is that of whatever set of objects
+represented it the last time you \fRwere\fP around.  If, however, you are on
+the system \fRand\fP at home, the host sends a message to your machine
+informing you of the intrusion.  Your computer alerts you with the sound of
+someone knocking at your door.  You are then free to respond as you wish.  If
+you do not go out and interact with the visitor, the visitor will perceive
+things just as if you were not home.
+.Ac
+You speak to the person who answered the door:
+.nf
+
+\fBIs this the house of the Wise One?
+
+	\fCOh no, I'm terribly sorry.  That is the place next door.\fR
+
+.fi
+The avatar points to the left.  Though you don't understand how you could have
+gotten the address wrong, you thank him and walk to the left.  Another,
+similarly large house comes into view.  You walk up to the front door and
+knock.  There is no answer...
+

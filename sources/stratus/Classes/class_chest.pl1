@@ -1,0 +1,51 @@
+/*
+ *   class_chest.pl1
+ *
+ *   Behavior module for object class chest.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   11-April-1986
+ */
+
+%replace CHEST_CAPACITY by 20;
+%include 'defs_helper.incl.pl1';
+%include 'microcosm.incl.pl1';
+
+%include 'defs_action.incl.pl1';
+
+initialize_class_chest: procedure;
+
+     %replace CHEST_REQUESTS by 5;
+
+     declare a(0:CHEST_REQUESTS) entry based;
+     declare class_chest_actions pointer;
+     declare 1 chest based %include struct_chest;
+
+     %replace I by CLASS_CHEST;
+
+     Class_Table(I).capacity = CHEST_CAPACITY;
+     Class_Table(I).max_requests = CHEST_REQUESTS;
+     Class_Table(I).alloc_size = size(chest);
+     Class_Table(I).pc_state_bytes = 3;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = true;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_chest_actions);
+     Class_Table(I).actions = class_chest_actions;
+
+     Class_Table(I).actions->a(HELP) = chest_HELP; /* 0 */
+     Class_Table(I).actions->a(1)              = illegal;               /* 1 */
+     Class_Table(I).actions->a(2)              = illegal;               /* 2 */
+     Class_Table(I).actions->a(3)              = illegal;               /* 3 */
+     Class_Table(I).actions->a(CLOSECONTAINER) = generic_CLOSECONTAINER;/* 4 */
+     Class_Table(I).actions->a(OPENCONTAINER)  = generic_OPENCONTAINER; /* 5 */
+
+end initialize_class_chest;
+
+chest_HELP: procedure;
+     declare 1 self based(selfptr) %include struct_chest;
+
+     call lock_HELP('Chest', self.key_hi * 256 + self.key_lo, self.open_flags);
+end chest_HELP;

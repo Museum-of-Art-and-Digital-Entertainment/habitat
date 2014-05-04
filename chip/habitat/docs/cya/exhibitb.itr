@@ -1,0 +1,244 @@
+.so /usr/lfl/lib/doctemps/papdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6.5i			\" line-length - 6.5 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 5n				\" paragraph indent - 0
+.HM 1i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 6 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+
+.na
+.ND
+.fi
+.ls 2
+.ce
+.ul
+EXHIBIT B:  MILESTONES AND DELIVERABLES FOR MICROCOSM
+
+Note: the notation "(L->Q)" means a deliverable that Lucasfilm (LFL)
+delivers to Quantum; the notation "(Q->L)" means a deliverable that Quantum
+delivers to Lucasfilm; the notation "(joint)" means a deliverable that
+consists of two interdependent components that Lucasfilm and Quantum
+exchange with each other; the notation "C64" refers to the Commodore 64
+computer.
+
+CONTRACT SIGNING			PAYMENT TO LFL	$25,000
+
+
+DECEMBER 15, 1985--
+
+MILESTONE:		Graphics tools -- completion of software to enable an
+			artist/animator to design and compose imagery and 
+			animation of avatars and objects.
+
+DELIVERABLE (L->Q): 	Videotape demonstration of the graphics tools
+			in action, showing what the software does and how it 
+			is used.
+
+MILESTONE:		Graphics driver -- software to render imagery and 
+			animate avatars and objects complete as a package of
+			'standalone' routines that are fully functional but 
+			not integrated into any finished system.
+
+DELIVERABLE (L->Q): 	Videotape demonstration of the animation driver in
+			action, showing its speed and approximate capabilities
+			in isolation.
+
+MILESTONE:		Communications routines -- existing C64 software for
+			communications with the Q-Link host is available for
+			incorporation into LFL generated systems.
+
+DELIVERABLE (Q->L): 	Source code for C64 routines with accompanying
+			documentation (in machine-readable form).
+
+
+JANUARY 15, 1986--				PAYMENT TO LFL:  $25,000
+
+MILESTONE:		Primitive communications -- C64 able to exchange 
+			trivial messages with the host system.
+
+DELIVERABLE(joint): 	LFL C64 system is able to call up Q-Link and initiate
+			communications under program control; the C64 can send
+			messages to the host which the host echoes; the host
+			can in turn send messages to the C64 which the C64
+			echoes.
+
+MILESTONE:		Host development system -- Host system is available 
+			to LFL programmers for programming, testing and 
+			installation of object modeling software in the 
+			developmental host database.
+
+DELIVERABLE (Q->L): 	Login id's, phone numbers, and any other information
+			and measures necessary so that LFL programmers can
+			remotely access Quantum's development system for
+			software development use.
+
+MILESTONE:		Object definitions -- the basic set of objects which 
+			constitutes the MicroCosm fantasy experience is 
+			defined.
+
+DELIVERABLE (L->Q): 	Definition document listing the contents of the basic
+			object set including a description of the name,
+			appearance, purpose and behavior of each object that
+			Lucasfilm intends to implement as part of this
+			project.
+
+FEBRUARY 15, 1986--				PAYMENT TO LFL:  $25,000
+
+MILESTONE:		Primitive host database processor -- the 
+			object-oriented behavior invocation mechanism in 
+			the host is functional.
+
+DELIVERABLE (Q->L): 	LFL C64 is able to call up Q-Link and initiate
+			communications with the MicroCosm host database
+			processor; it is further able to send requests to
+			dummy test objects and receive appropriate responses
+			via the object/message protocols defined in the system
+			specifications; the database is made available on the
+			Quantum development system for LFL programmers to
+			install and test object modeling software.
+
+MILESTONE:		Partial object artwork -- the first batch of imagery 
+			for displaying objects and scenes on the C64 screen.
+
+DELIVERABLE (L->Q):	Videotape and possibly screen photographs of artwork
+			and animation on the screen of the C64 portraying
+			avatars and many of the objects in the basic object
+			set.
+
+
+MARCH 15, 1985--				PAYMENT TO LFL:  $25,000
+
+MILESTONE:		Graphics and animation -- the graphics and animation 
+			subsystem of the C64 MicroCosm implementation is 
+			finished to a first approximation (i.e., it works 
+			though there may still be a few bugs in the system).
+
+DELIVERABLE (L->Q): 	Videotape of graphics and animation routines being put
+			through their paces on the C64.
+
+MILESTONE:		More artwork -- further imagery for objects and 
+			scenes on the C64 screen.
+
+DELIVERABLE (L->Q): 	Videotape and/or screen photographs of artwork and
+			animation on the C64 screen.
+
+MILESTONE:		Some functional objects -- the first batch of 
+			objects (including both C64 and host resident 
+			components) is working.
+
+DELIVERABLE (L->Q): 	Videotape demonstrating player interaction with
+			objects involving the C64 acting in concert with the
+			host.
+
+
+APRIL 15, 1986--				PAYMENT DUE LFL:  $25,000
+
+MILESTONE:		Finished host database processor -- the baseline 
+			host system software is completed.
+
+DELIVERABLE (Q->L): 	Complete host database system is available to LFL
+			programmers for final testing.
+
+MILESTONE:		Rest of objects -- more or less complete object set 
+			is working.
+
+DELIVERABLE (L->Q): 	Videotape demonstrating player interaction with the
+			MicroCosm system; bootable C64 diskette containing
+			complete pre-release C64 portion of system; complete
+			pre-release host database installed on Quantum's
+			development machine.
+
+MILESTONE:		Beta-test test procedures defined, and timing of 
+			beta-test developed.
+
+DELIVERABLE (Q->L):	Complete beta-test procedures and evaluation plan
+			beta-test version of MicroCosm.
+
+
+MAY 15, 1986--					PAYMENT DUE LFL:  $25,000
+
+MILESTONE:		System integration -- complete beta-testable system 
+			is finished.
+
+DELIVERABLE (L->Q): 	Bootable C64 diskette containing beta-release of C64
+			portion of system; host portion of system installed on
+			host machine.
+
+MILESTONE:		Preliminary player documentation -- documentation 
+			necessary for players to use the beta-release C64 
+			MicroCosm system on Q-Link.
+
+DELIVERABLE (L->Q): 	Text and illustrations for preliminary MicroCosm
+			player's manual.
+
+MILESTONE:		Beta-test release -- release of complete system to a 
+			limited and carefully selected set of players for 
+			purposes of in situ testing and debugging.
+
+DELIVERABLE (Q->L): 	List of players participating in beta-test use of
+			MicroCosm (these players have received diskettes of
+			the beta-release C64 system software, documentation,
+			and access to the beta-release host system); player
+			feedback channels must be provided and LFL programmers
+			should have direct access to the player feedback
+			information so received in order to proceed with
+			debugging and tuning.
+
+
+JUNE 15, 1986--					PAYMENT TO LFL:  $25,000
+
+MILESTONE:		Complete system integration -- complete set of 
+			objects entirely functional and full system 
+			operating smoothly.
+
+DELIVERABLE (L->Q): 	Diskette containing most up-to-date version of C64
+			system and matching host system software installed in
+			host.
+
+MILESTONE:		Avatar customization package -- standalone 
+			C64 program to enable a	player to interactively 
+			customize the appearance and properties of his 
+			MicroCosm avatar.
+
+DELIVERABLE (L->Q): 	Diskette containing C64 Avatar customization program.
+
+MILESTONE:		Turf customization package -- standalone C64 program 
+			to enable a player to interactively customize the 
+			content and layout of his turf region(s) in the
+			MicroCosm world.
+
+DELIVERABLE (L->Q): 	Diskette containing C64 Turf customization program.
+
+
+JULY 15, 1986--					PAYMENT DUE LFL:  $25,000
+
+MILESTONE:		Final player documentation -- documentation necessary
+			for players to use the final release of the C64 
+			MicroCosm system on Q-Link.
+
+DELIVERABLE (L->Q): 	Text and illustrations for the release edition of the
+			MicroCosm player's manual.
+
+MILESTONE:		Final system software -- the absolute last (until 
+			the next rev) most up to date, most debugged and most
+			finely tuned version of the software.
+
+DELIVERABLE (L->Q): 	C64 diskette containing full C64 software package plus
+			final release object set installed on Q-Link host.
+
+MILESTONE:		PUBLIC MICROCOSM SYSTEM RELEASE--
+
+DELIVERABLE (Q->L): 	System made available to paying customers on Q-Link.
+
+
+AUGUST 15, 1986--				PAYMENT TO LFL:  $25,000
+
+MILESTONE:		Final reports and documentation-- the last bits of
+			paperwork and documentation before the system can 
+			truly be said to be finished.
+
+DELIVERABLE (joint): 	Quantum and LFL each provide a final report detailing
+			the final disposition of the project.
+
+

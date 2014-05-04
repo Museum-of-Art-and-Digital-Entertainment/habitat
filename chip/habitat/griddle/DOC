@@ -1,0 +1,23 @@
+/u0/chip/habitat/griddle:
+	This directory contains the Griddle and Fred utilities.  They share
+most of their source, since they are mostly the same program, so they are both
+together here.  Fred uses Fastlink, so some stuff for it is elsewhere.
+
+These are the files here:
+DOC		- This file
+regiontools.t	- Documentation for Fred and Griddle
+
+Makefile	- Makefile to compile everything
+*.c, *.y, *.h	- Source files
+
+fred		- Executable for Fred
+griddle		- Executable for Griddle
+
+reno.out	- Binary for C64 half of Fred (gets uploaded through Fastlink)
+
+util		- A directory containing some minor utilities that work with
+		  Fred.  Fred keeps a stat file of what commands are used so
+		  We can collect frequency info for improving the command
+		  interface.  These utilities deal with this stat file.  The
+		  utilities are all short and their source is their
+		  documentation.

@@ -1,0 +1,46 @@
+.so /usr/lfl/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 2i				\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.ta 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.na				\" no adjust
+.HO				\" page headers
+.ps 12
+.DT 
+.LA
+Janet Hunter
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Janet Hunter
+Dear Janet,
+
+The milestones and deliverables schedule described in Exhibit B of the
+MicroCosm contract calls for us to make one delivery for mid-January.
+
+Enclosed you will find a VHS video tape showing the first batch of imagery for
+displaying objects on the Commodore 64 screen.  This set of artwork includes
+most of the objects that we will be creating.  Other than a few miscellaneous
+items, the only objects missing are clothing objects and background scenery
+(rivers, mountains, and the like).  These items will be included in next
+month's package.
+
+The tape also shows some early avatar animation.  I should point out that in
+addition to a greater range of motions and actions than is shown here, there
+will also be more in-between frames in the final product so that the motion
+will appear more fluid and natural than it does in this demo.
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+enc: tape
+
+cc:  Steve Arnold
+     Jim Kimsey
+     Marc Seriff
+     Clive Smith

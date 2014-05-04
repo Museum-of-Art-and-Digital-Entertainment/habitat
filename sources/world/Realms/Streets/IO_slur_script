@@ -1,0 +1,159 @@
+echo IO_e_end
+/u0/chip/microcosm/slur/slur regdir/IO_e_end.reg \
+     -o rdldir/IO_e_end.rdl \
+     -d FACE_SOUTH \
+     -r IO_e_end \
+     -w IO_117_front
+echo IO_117_front
+/u0/chip/microcosm/slur/slur regdir/IO_117_front.reg \
+     -o rdldir/IO_117_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_117_front \
+     -s IO_117_interior \
+     -w IO_217_front \
+     -e IO_e_end
+echo IO_117_interior
+/u0/chip/microcosm/slur/slur regdir/IO_117_interior.reg \
+     -o rdldir/IO_117_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_117_interior \
+     -n IO_117_front
+echo IO_217_front
+/u0/chip/microcosm/slur/slur regdir/IO_217_front.reg \
+     -o rdldir/IO_217_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_217_front \
+     -s IO_217_interior \
+     -w IO_317_front \
+     -e IO_117_front
+echo IO_217_interior
+/u0/chip/microcosm/slur/slur regdir/IO_217_interior.reg \
+     -o rdldir/IO_217_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_217_interior \
+     -n IO_217_front
+echo IO_317_front
+/u0/chip/microcosm/slur/slur regdir/IO_317_front.reg \
+     -o rdldir/IO_317_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_317_front \
+     -s IO_317_interior \
+     -w IO_417_front \
+     -e IO_217_front
+echo IO_317_interior
+/u0/chip/microcosm/slur/slur regdir/IO_317_interior.reg \
+     -o rdldir/IO_317_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_317_interior \
+     -n IO_317_front
+echo IO_417_front
+/u0/chip/microcosm/slur/slur regdir/IO_417_front.reg \
+     -o rdldir/IO_417_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_417_front \
+     -s IO_417_interior \
+     -w IO_517_front \
+     -e IO_317_front
+echo IO_417_interior
+/u0/chip/microcosm/slur/slur regdir/IO_417_interior.reg \
+     -o rdldir/IO_417_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_417_interior \
+     -n IO_417_front
+echo IO_517_front
+/u0/chip/microcosm/slur/slur regdir/IO_517_front.reg \
+     -o rdldir/IO_517_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_517_front \
+     -s IO_517_interior \
+     -w IO_cross \
+     -e IO_417_front
+echo IO_517_interior
+/u0/chip/microcosm/slur/slur regdir/IO_517_interior.reg \
+     -o rdldir/IO_517_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_517_interior \
+     -n IO_517_front
+echo IO_cross
+/u0/chip/microcosm/slur/slur regdir/IO_cross.reg \
+     -o rdldir/IO_cross.rdl \
+     -d FACE_SOUTH \
+     -r IO_cross \
+     -w IO_617_front \
+     -e IO_517_front
+echo IO_617_front
+/u0/chip/microcosm/slur/slur regdir/IO_617_front.reg \
+     -o rdldir/IO_617_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_617_front \
+     -s IO_617_interior \
+     -w IO_717_front \
+     -e IO_cross
+echo IO_617_interior
+/u0/chip/microcosm/slur/slur regdir/IO_617_interior.reg \
+     -o rdldir/IO_617_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_617_interior \
+     -n IO_617_front
+echo IO_717_front
+/u0/chip/microcosm/slur/slur regdir/IO_717_front.reg \
+     -o rdldir/IO_717_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_717_front \
+     -s IO_717_interior \
+     -w IO_817_front \
+     -e IO_617_front
+echo IO_717_interior
+/u0/chip/microcosm/slur/slur regdir/IO_717_interior.reg \
+     -o rdldir/IO_717_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_717_interior \
+     -n IO_717_front
+echo IO_817_front
+/u0/chip/microcosm/slur/slur regdir/IO_817_front.reg \
+     -o rdldir/IO_817_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_817_front \
+     -s IO_817_interior \
+     -w IO_917_front \
+     -e IO_717_front
+echo IO_817_interior
+/u0/chip/microcosm/slur/slur regdir/IO_817_interior.reg \
+     -o rdldir/IO_817_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_817_interior \
+     -n IO_817_front
+echo IO_917_front
+/u0/chip/microcosm/slur/slur regdir/IO_917_front.reg \
+     -o rdldir/IO_917_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_917_front \
+     -s IO_917_interior \
+     -w IO_1017_front \
+     -e IO_817_front
+echo IO_917_interior
+/u0/chip/microcosm/slur/slur regdir/IO_917_interior.reg \
+     -o rdldir/IO_917_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_917_interior \
+     -n IO_917_front
+echo IO_1017_front
+/u0/chip/microcosm/slur/slur regdir/IO_1017_front.reg \
+     -o rdldir/IO_1017_front.rdl \
+     -d FACE_SOUTH \
+     -r IO_1017_front \
+     -s IO_1017_interior \
+     -w IO_w_end \
+     -e IO_917_front
+echo IO_1017_interior
+/u0/chip/microcosm/slur/slur regdir/IO_1017_interior.reg \
+     -o rdldir/IO_1017_interior.rdl \
+     -d FACE_NORTH \
+     -r IO_1017_interior \
+     -n IO_1017_front
+echo IO_w_end
+/u0/chip/microcosm/slur/slur regdir/IO_w_end.reg \
+     -o rdldir/IO_w_end.rdl \
+     -d FACE_SOUTH \
+     -r IO_w_end \
+     -e IO_1017_front

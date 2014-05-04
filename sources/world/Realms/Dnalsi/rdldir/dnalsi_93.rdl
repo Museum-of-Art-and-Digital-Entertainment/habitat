@@ -1,0 +1,80 @@
+@region $ dnalsi_93 {
+    north: dnalsi_94.l;
+    south: dnalsi_92.l;
+    west: dnalsi_83.l;
+    region_orientation: FACE_EAST;
+    [
+        @ground { x:0; y:2; or:244; }
+        @wall { x:0; y:0; or:0; style:4; }
+        @hole { x:60; y:156; or:0; gr_state:1; 
+            8:2;
+            9:0;
+            10:0;
+
+            [
+                @box { x:0; y:0; or:0; style:1; 
+                    8:2;
+                    9:0;
+                    10:0;
+
+                    [
+                        @sign { x:0; y:0; or:0; gr_state:1; 
+                            8:133;
+                            9:131;
+                            10:78;
+                            11:79;
+                            12:84;
+                            13:32;
+                            14:72;
+                            15:69;
+                            16:82;
+                            17:69;
+                            18:32;
+                            19:69;
+                            20:73;
+                            21:84;
+                            22:72;
+                            23:69;
+                            24:82;
+                            25:33;
+                            26:32;
+                            27:32;
+                            28:32;
+                            29:32;
+                            30:32;
+                            31:32;
+                            32:32;
+                            33:32;
+                            34:32;
+                            35:32;
+                            36:32;
+                            37:32;
+                            38:32;
+                            39:32;
+                            40:32;
+                            41:32;
+                            42:32;
+                            43:32;
+                            44:32;
+                            45:32;
+                            46:32;
+                            47:32;
+                        }
+                    ]
+                }
+            ]
+        }
+        @tree { x:40; y:23; or:173; style:2; gr_state:4; }
+        @tree { x:48; y:28; or:172; style:2; }
+        @tree { x:88; y:27; or:173; style:2; }
+        @tree { x:92; y:27; or:172; style:2; gr_state:4; }
+        @ground { x:0; y:4; or:188; style:1; }
+        @bottle { x:16; y:158; or:0; 
+            8:0;
+        }
+        @tree { x:104; y:97; or:172; style:2; gr_state:2; }
+        @tree { x:88; y:115; or:172; style:2; gr_state:3; }
+        @tree { x:44; y:93; or:173; style:2; gr_state:2; }
+        @tree { x:28; y:113; or:173; style:2; gr_state:3; }
+    ]
+}

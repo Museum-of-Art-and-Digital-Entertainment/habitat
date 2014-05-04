@@ -1,0 +1,18 @@
+/*
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   9-April-1986
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+
+%include 'Actions>actions_container.incl.pl1';
+%include 'Actions>actions_door.incl.pl1';
+%include 'Actions>actions_gpt.incl.pl1';
+%include 'Actions>actions_mail.incl.pl1';
+%include 'Actions>actions_music.incl.pl1';
+%include 'Actions>actions_oracle.incl.pl1';
+%include 'Actions>actions_switch.incl.pl1';
+%include 'Actions>actions_help.incl.pl1';
+%include 'Actions>actions_weapon.incl.pl1';

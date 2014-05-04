@@ -1,0 +1,863 @@
+/*
+ * database.pl1 -- Database access routines for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 10-April-1987
+ *
+ * These routines provide access to the various Habitat databases.  All calls
+ * to read, write or seek within these databases happen here.  We keep a
+ * buffer (named 'info_buf' that contains the most recently read entity and
+ * then provide defined structs for avatar, object and region descriptors that
+ * point to it.  There is also a global tag 'info_type' that indicates what
+ * sort of thing is currently in 'info_buf' and whether it has been written
+ * or not.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'stdio.incl.pl1';
+%include 'class.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'expr.incl.pl1';
+
+declare s$attach_port entry(char(*) var, char(*) var, bin(15), bin(15),
+     bin(15));
+declare s$keyed_position entry(bin(15), char(*) var, char(*) var, bin(15),
+     char(*), bin(15), bin(15));
+declare s$keyed_rewrite entry(bin(15), char(*) var, bin(15), char(*),
+     bin(15));
+declare s$seq_position entry(bin(15), bin(15), bin(31), bin(15));
+declare s$seq_write entry(bin(15), bin(15), char(*), bin(15));
+declare s$seq_rewrite entry(bin(15), bin(15), char(*), bin(15));
+declare s$seq_delete entry(bin(15), bin(15));
+declare s$open entry(bin(15), bin(15), bin(15), bin(15), bin(15), bin(15),
+     char(*) var, bin(15));
+declare s$seq_read entry(bin(15), bin(15), bin(15), char(*), bin(15));
+
+declare database_directory_path character(256) varying external;
+
+%replace MAX_DB by 7;
+declare db_port(0:MAX_DB) binary(15) static;
+%replace DB_REGION   by SYM$REGION; /* 0 */
+%replace DB_AVATAR   by SYM$AVATAR; /* 1 */
+%replace DB_OBJECT   by SYM$OBJECT; /* 2 */
+%replace DB_TELEPORT by 3;
+%replace DB_TEXT     by 4;
+%replace DB_QUESTION by 5;
+%replace DB_MAIL     by 6;
+%replace DB_TURF     by 7;
+
+declare db_name(0:MAX_DB) character(8) varying static init(
+     'region', 'avatar', 'object', 'teleport', 'text', 'question', 'mail',
+     'turf');
+declare high_id_used(0:MAX_DB) binary(31) static init((8) 5000);
+declare c_flag(0:MAX_DB) character(1) static
+     init( 'r', 'a', 'o', 'p', 't', 'q', 'm', 'f' );
+
+declare 1 region_struct   based, %include 'region';;
+declare 1 avatar_struct   based, %include 'avatar';;
+declare 1 object_struct   based, %include 'object';;
+declare 1 teleport_struct based, %include 'teleport';
+declare 1 text_struct     based, %include 'new_textdb';
+declare 1 question_struct based, %include 'question';
+declare 1 mail_struct     based, %include 'mail_info';
+declare 1 turf_struct     based, %include 'turf';
+
+declare info_buf(2) static external character(MAX_RECORD_SIZE);
+%replace DB$CURRENT by 1;
+%replace DB$TEMP    by 2;
+declare changed_flag(2) bit(1) static external init(false, false);
+declare bytes_read(2) binary(15) static external init(0, 0);
+declare pos_buf static character(MAX_RECORD_SIZE);
+declare 1 cur_region    defined(info_buf(DB$CURRENT)) like region_struct;
+declare 1 cur_avatar    defined(info_buf(DB$CURRENT)) like avatar_struct;
+declare 1 cur_object    defined(info_buf(DB$CURRENT)) like object_struct;
+declare 1 cur_teleport  defined(info_buf(DB$CURRENT)) like teleport_struct;
+declare 1 cur_text      defined(info_buf(DB$CURRENT)) like text_struct;
+declare 1 cur_question  defined(info_buf(DB$CURRENT)) like question_struct;
+declare 1 cur_mail      defined(info_buf(DB$CURRENT)) like mail_struct;
+declare 1 cur_turf      defined(info_buf(DB$CURRENT)) like turf_struct;
+declare 1 temp_region   defined(info_buf(DB$TEMP))    like region_struct;
+declare 1 temp_avatar   defined(info_buf(DB$TEMP))    like avatar_struct;
+declare 1 temp_object   defined(info_buf(DB$TEMP))    like object_struct;
+declare 1 temp_teleport defined(info_buf(DB$TEMP))    like teleport_struct;
+declare 1 temp_text     defined(info_buf(DB$TEMP))    like text_struct;
+declare 1 temp_question defined(info_buf(DB$TEMP))    like question_struct;
+declare 1 temp_mail     defined(info_buf(DB$TEMP))    like mail_struct;
+declare 1 temp_turf     defined(info_buf(DB$TEMP))    like turf_struct;
+
+/* info_type flags what sort of thing is in info_buf:
+     'u'=undefined,
+     'a'=avatar,
+     'o'=object,
+     'r'=region,
+     'p'=teleport address,
+     't'=text page,
+     'q'=question to oracle
+     'm'=mail information
+     'f'=turfs unallocated
+*/
+declare info_type(2) static external char(1) init('u', 'u');
+
+declare contents_symbolptr static external pointer;
+
+open_habitat_files: procedure;
+     db_port(DB_AVATAR)   = open_database_file('MC_avatar',   'ident');
+     db_port(DB_OBJECT)   = open_database_file('MC_object',   'ident');
+     db_port(DB_REGION)   = open_database_file('MC_region',   'ident');
+     db_port(DB_TELEPORT) = open_database_file('MC_teleport', 'dial_code');
+     db_port(DB_TEXT)     = open_database_file('MC_text',     'ident');
+     db_port(DB_QUESTION) = open_database_file('MC_oracle',   '');
+     db_port(DB_MAIL)     = open_database_file('MC_mail',     'account');
+     db_port(DB_TURF)     = open_database_file('MC_turf',     '');
+end open_habitat_files;
+
+open_database_file: procedure(filename, key_name) returns(binary(15));
+     declare filename character(*) varying;
+     declare key_name character(*) varying;
+     declare fullname character(256) varying;
+     declare result_port binary(15);
+     declare rc binary(15);
+
+     fullname = database_directory_path || '>' || filename;
+     call s$attach_port('', fullname, 0, result_port, rc);
+     if (rc = 0) then
+          if (key_name ^= '') then
+               call s$open(result_port, IO_SEQUENTIAL, MAX_RECORD_SIZE,
+                    IO_UPDATE, IO_IMPLICIT_LOCKING, IO_INDEXED, key_name, rc);
+          else
+               call s$open(result_port, IO_SEQUENTIAL, MAX_RECORD_SIZE,
+                    IO_UPDATE, IO_IMPLICIT_LOCKING, IO_SEQ_ACCESS, '', rc);
+     if (rc ^= 0) then
+          call fatal_error('Can''t open "' || fullname || '".');
+     return(result_port);
+end open_database_file;
+
+pos_db_by_ident: procedure(ident, key_flag, db) returns(binary(31));
+     declare ident binary(31);
+     declare key_flag binary(15);
+     declare db binary(15);
+     declare regptr pointer;
+     declare 1 reg based(regptr) like region_struct;
+     declare 1 tex based(regptr) like text_struct;
+
+     regptr = addr(pos_buf);
+     reg.ident = ident; /* assumes ident is same for all db's! */
+     if (db = DB_TEXT) then
+          tex.page = 1;
+     if (pos_db(key_flag, 'ident', db)) then
+          return(reg.ident);
+     else
+          return(-1);
+end pos_db_by_ident;
+
+pos_db: procedure(key_flag, key_name, db) returns(bit(1));
+     declare key_flag binary(15);
+     declare key_name character(*) varying;
+     declare db binary(15);
+     declare rc binary(15);
+
+     call s$keyed_position(db_port(db), key_name, '', MAX_RECORD_SIZE,
+          pos_buf, key_flag, rc);
+     if (rc = e$record_not_found) then
+          return(false);
+     else if (err_check(rc, ' positioning ' || db_name(db) || ' db by ' ||
+               key_name)) then
+          return(false);
+     return(true);
+end pos_db;
+
+advance_db: procedure(count, db) returns(bit(1));
+     declare count binary(31);
+     declare db binary(15);
+     declare mode binary(15);
+     declare rc binary(15);
+
+     if (count = 0) then
+          return(true);
+     else if (count < 0) then do;
+          count = -count;
+          mode = SEQ_BACKWARD;
+     end; else
+          mode = SEQ_FORWARD;
+     call s$seq_position(db_port(db), mode, count, rc);
+     return (rc = 0);
+end advance_db;
+
+advance_object: procedure(count) returns(bit(1));
+     declare count binary(31);
+
+     return(advance_db(count, DB_OBJECT));
+end advance_object;
+
+advance_avatar: procedure(count) returns(bit(1));
+     declare count binary(31);
+
+     return(advance_db(count, DB_AVATAR));
+end advance_avatar;
+
+pos_region: procedure(regionnum, key_flag) returns(binary(31));
+     declare regionnum binary(31);
+     declare key_flag binary(15);
+
+     return(pos_db_by_ident(regionnum, key_flag, DB_REGION));
+end pos_region;
+
+get_next_record: procedure(resultptr, mode, db) returns(binary(31));
+     declare resultptr pointer;
+     declare mode binary(15);
+     declare db binary(15);
+     declare 1 result based(resultptr) like region_struct;
+     declare rc binary(15);
+
+     resultptr = addr(info_buf(mode));
+     info_type(mode) = 'u';
+
+     call s$seq_read(db_port(db), MAX_RECORD_SIZE, bytes_read(mode),
+          info_buf(mode), rc);
+     if (rc = e$end_of_file) then
+          return(-1);
+     else if (err_check(rc, ' reading ' || db_name(db) || ' db')) then
+          return(-1);
+
+     info_type(mode) = c_flag(db);
+     changed_flag(mode) = false;
+     return(result.ident); /* assumes ident is same in all db's */
+end get_next_record;
+
+get_next_region: procedure(resultptr, mode) returns(binary(31));
+     declare resultptr pointer;
+     declare mode binary(15);
+
+     return(get_next_record(resultptr, mode, DB_REGION));
+end get_next_region;
+
+get_record: procedure(global_id, mode, db) returns(bit(1));
+     declare global_id binary(31);
+     declare mode binary(15);
+     declare db binary(15);
+     declare dummy pointer;
+
+     if (pos_db_by_ident(global_id, KEY_EQUAL, db) ^= -1) then
+          if (get_next_record(dummy, mode, db) ^= -1) then
+               return(true);
+          else
+               call error('can''t read ' || db_name(db) || ' ' ||
+                    ltrim(global_id));
+     else
+          call error('can''t find ' || db_name(db) || ' ' ||
+               ltrim(global_id));
+     return(false);
+end get_record;
+
+get_region: procedure(global_id, mode) returns(bit(1));
+     declare global_id binary(31);
+     declare mode binary(15);
+
+     return(get_record(global_id, mode, DB_REGION));
+end get_region;
+
+pos_avatar: procedure(avatarnum, key_flag) returns(binary(31));
+     declare avatarnum binary(31);
+     declare key_flag binary(15);
+
+     return(pos_db_by_ident(avatarnum, key_flag, DB_AVATAR));
+end pos_avatar;
+
+pos_avatar_by_region: procedure(regionnum, key_flag) returns(binary(31));
+     declare regionnum binary(31);
+     declare key_flag binary(15);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+
+     avaptr = addr(pos_buf);
+     ava.region = regionnum;
+     if (pos_db(key_flag, 'region', DB_AVATAR)) then
+          return(ava.ident);
+     else
+          return(-1);
+end pos_avatar_by_region;
+
+pos_avatar_by_name: procedure(namenum, key_flag) returns(binary(31));
+     declare namenum binary(31);
+     declare key_flag binary(15);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare stringptr pointer;
+     declare string character(256) varying based(stringptr);
+     
+     stringptr = i2p(namenum);
+     avaptr = addr(pos_buf);
+     ava.name = string;
+     if (pos_db(key_flag, 'compname', DB_AVATAR)) then
+          return(ava.ident);
+     else
+          return(-1);
+end pos_avatar_by_name;
+
+get_next_avatar: procedure(resultptr, mode) returns(binary(31));
+     declare resultptr pointer;
+     declare mode binary(15);
+
+     return(get_next_record(resultptr, mode, DB_AVATAR));
+end get_next_avatar;
+
+get_avatar: procedure(global_id, mode) returns(bit(1));
+     declare global_id binary(31);
+     declare mode binary(15);
+     declare dummy pointer;
+
+     return(get_record(global_id, mode, DB_AVATAR));
+end get_avatar;
+
+map_avatar_name_to_id: procedure(namenum) returns(binary(31));
+     declare namenum binary(31);
+     declare stringptr pointer;
+     declare string character(256) varying based(stringptr);
+
+     if (get_avatar_by_name(namenum, DB$TEMP)) then
+          return(temp_avatar.ident);
+     else do;
+          stringptr = i2p(namenum);
+          call error('there is no avatar "' || string || '"');
+          return(-1);
+     end;
+end map_avatar_name_to_id;
+
+map_avatar_id_to_name: procedure(id) returns(character(10) varying);
+     declare id binary(31);
+
+     if (get_avatar(id, DB$TEMP)) then
+          return(ltrim(temp_avatar.screen_name));
+     else do;
+          call error('there is no avatar ' || ltrim(id) || '!');
+          return('');
+     end;
+end map_avatar_id_to_name;
+
+get_avatar_by_name: procedure(namenum, mode) returns(bit(1));
+     declare namenum binary(31);
+     declare mode binary(15);
+     declare dummy pointer;
+     declare nameptr pointer;
+     declare name character(256) varying based(nameptr);
+
+     nameptr = i2p(namenum);
+     if (pos_avatar_by_name(namenum, KEY_EQUAL) ^= -1) then
+          if (get_next_avatar(dummy, mode) ^= -1) then
+               return(true);
+          else
+               call error('can''t read avatar "' || name || '"');
+     else
+          call error('can''t find avatar "' || name || '"');
+     return(false);
+end get_avatar_by_name;
+
+pos_object: procedure(objectnum, key_flag) returns(binary(31));
+     declare objectnum binary(31);
+     declare key_flag binary(15);
+
+     return(pos_db_by_ident(objectnum, key_flag, DB_OBJECT));
+end pos_object;
+
+pos_object_by_cont: procedure(cont, key_flag) returns(binary(31));
+     declare 1 cont like value_descriptor;
+     declare key_flag binary(15);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+
+     objptr = addr(pos_buf);
+     obj.host = cont.value;
+     obj.type = cont.data_type;
+     if (pos_db(key_flag, 'container', DB_OBJECT)) then
+          return(obj.ident);
+     else
+          return(-1);
+end pos_object_by_cont;
+
+get_next_object: procedure(resultptr, mode) returns(binary(31));
+     declare resultptr pointer;
+     declare mode binary(15);
+
+     return(get_next_record(resultptr, mode, DB_OBJECT));
+end get_next_object;
+
+get_object: procedure(global_id, mode) returns(bit(1));
+     declare global_id binary(31);
+     declare mode binary(15);
+
+     if (global_id = 0) then do;
+          addr(info_buf(mode))->object_struct.ident = 0;
+          addr(info_buf(mode))->object_struct.class = -1;
+          info_type(mode) = 'o';
+          return(true);
+     end; else
+          return(get_record(global_id, mode, DB_OBJECT));
+end get_object;
+
+lookup_data: procedure(value, default, mode) returns(bit(1));
+     declare 1 value like value_descriptor;
+     declare default binary(15);
+     declare mode binary(15);
+     declare type binary(15);
+
+     type = value.data_type;
+     if (type = SYM$INTEGER) then
+          type = default;
+     if (type = SYM$AVATAR | type = SYM$OBJECT | type = SYM$REGION) then
+          return(get_record(value.value, mode, type));
+     else if (type = SYM$STRING | type = SYM$AVA_NAME) then
+          return(get_avatar_by_name(value.value, mode));
+     else do;
+          call error('unable to lookup undefined value in database');
+          return(false);
+     end;
+end lookup_data;
+
+pos_by_value: procedure(value, default, key_flag) returns(binary(31));
+     declare 1 value like value_descriptor;
+     declare default binary(15);
+     declare key_flag binary(15);
+     declare type binary(15);
+
+     type = value.data_type;
+     if (type = SYM$INTEGER) then
+          type = default;
+     if (type = SYM$AVATAR | type = SYM$OBJECT | type = SYM$REGION) then
+          return(pos_db_by_ident(value.value, key_flag, type));
+     else if (type = SYM$STRING | type = SYM$AVA_NAME) then
+          return(pos_avatar_by_name(value.value, key_flag));
+     else do;
+          call error('unable to lookup undefined value in database');
+          return(-1);
+     end;
+end pos_by_value;
+
+update_record: procedure(mode);
+     declare mode binary(15);
+     declare db binary(15);
+     declare rc binary(15);
+
+     if (info_type(mode) = 'a') then
+          db = DB_AVATAR;
+     else if (info_type(mode) = 'r') then
+          db = DB_REGION;
+     else if (info_type(mode) = 'o') then do;
+          db = DB_OBJECT;
+          if (addr(info_buf(mode))->object_struct.ident = 0) then do;
+               call error('can''t update null object');
+               return;
+          end;
+          addr(info_buf(mode))->object_struct.prop_length =
+               class_size(addr(info_buf(mode))->object_struct.class) -
+               object_base_offset;
+     end; else if (info_type(mode) = 'p') then
+          db = DB_TELEPORT;
+     else do;
+          call error('there is no entity to update');
+          return;
+     end;
+     if (^changed_flag(mode)) then
+          call warning('the entity has not been changed');
+     call s$keyed_rewrite(db_port(db), '', bytes_read(mode), info_buf(mode),
+               rc);
+     if (rc ^= 0) then
+          call error('writing ' || db_name(db) || ' database record');
+     else
+          changed_flag(mode) = false;
+end update_record;
+
+write_new_record: procedure(mode, class);
+     declare mode binary(15);
+     declare class binary(15);
+     declare db binary(15);
+     declare rc binary(15);
+     declare write_size binary(15);
+
+     if (class = CLASS_AVATAR) then do;
+          info_type(mode) = 'a';
+          db = DB_AVATAR;
+          write_size = divide(size(temp_avatar), 8, 15);
+     end; else if (class = CLASS_REGION) then do;
+          info_type(mode) = 'r';
+          db = DB_REGION;
+          write_size = divide(size(temp_region), 8, 15);
+     end; else if (class = -1) then do;
+          info_type(mode) = 'p';
+          db = DB_TELEPORT;
+          write_size = divide(size(temp_teleport), 8, 15);
+     end; else do;
+          info_type(mode) = 'o';
+          db = DB_OBJECT;
+          addr(info_buf(mode))->object_struct.prop_length =
+               class_size(class) - object_base_offset;
+          write_size = divide(size(temp_object), 8, 15);
+     end;
+     changed_flag(mode) = true;
+     bytes_read(mode) = class_size(class);
+     call s$seq_write(db_port(db), write_size, info_buf(mode), rc);
+     if (rc ^= 0) then
+          call error('writing new ' || db_name(db) || ' database record');
+     else
+          changed_flag(mode) = false;
+end write_new_record;
+
+type_code: procedure(class) returns(binary(15));
+     declare class binary(15);
+
+     if (class = CLASS_REGION) then
+          return(SYM$REGION);
+     else if (class = CLASS_AVATAR) then
+          return(SYM$AVATAR);
+     else
+          return(SYM$OBJECT);
+end type_code;
+
+generate_new_id: procedure(class) returns(binary(31));
+     declare class binary(15);
+
+     if (class = CLASS_REGION) then
+          return(generate_new_db_id(DB_REGION));
+     else if (class = CLASS_AVATAR) then
+          return(generate_new_db_id(DB_AVATAR));
+     else
+          return(generate_new_db_id(DB_OBJECT));
+end generate_new_id;
+
+generate_new_text_id: procedure returns(binary(31));
+     return(generate_new_db_id(DB_TEXT));
+end generate_new_text_id;
+
+generate_new_db_id: procedure(db) returns(binary(31));
+     declare db binary(15);
+     declare increment binary(31);
+     declare target binary(31);
+
+     increment = 10000;
+     target = high_id_used(db) + 1;
+     if (pos_db_by_ident(target, KEY_EQUAL, db) ^= -1) then do;
+          do while (increment >= 1);
+               target = target + increment;
+               do while (pos_db_by_ident(target, KEY_EQUAL, db) ^= -1);
+                    target = target + increment;
+               end;
+               target = target - increment;
+               increment = divide(increment, 10, 15);
+          end;
+          target = target + 1;
+     end;
+     call putline('new ' || db_name(db) || ' ' || ltrim(target));
+     high_id_used(db) = target;
+     return(target);
+end generate_new_db_id;
+
+delete_current_record: procedure(db);
+     declare db binary(15);
+     declare rc binary(15);
+
+     call s$seq_delete(db_port(db), rc);
+     if (rc ^= 0) then
+          call error('deleting record from ' || db_name(db) || ' db, err=' ||
+               ltrim(rc));
+end delete_current_record;
+
+get_teleport: procedure(address, mode, prefix_ok) returns(bit(1));
+     declare address character(*) varying;
+     declare mode binary(15);
+     declare prefix_ok bit(1);
+
+     if (pos_teleport(address, prefix_ok)) then
+          if (prefix_ok) then
+               return(get_next_teleport(address, mode));
+          else
+               return(get_next_teleport('', mode));
+     else
+          return(false);
+end get_teleport;
+
+pos_teleport: procedure(address, prefix_ok) returns(bit(1));
+     declare address character(*) varying;
+     declare prefix_ok bit(1);
+     declare key_flag binary(15);
+     declare telptr pointer;
+     declare 1 tel based(telptr) like teleport_struct;
+     declare rc binary(15);
+
+     telptr = addr(pos_buf);
+     tel.key = address;
+     if (^prefix_ok) then
+          return(pos_db(KEY_EQUAL, 'dial_code', DB_TELEPORT));
+     call s$keyed_position(db_port(DB_TELEPORT), 'dial_code', address,
+          MAX_RECORD_SIZE, pos_buf, KEY_PREFIX_EQ, rc);
+     if (rc = e$record_not_found) then
+          return(false);
+     else if (err_check(rc, ' positioning teleport db by dial_code')) then
+          return(false);
+     return(true);
+end pos_teleport;
+
+get_next_teleport: procedure(prefix, mode) returns(bit(1));
+     declare prefix character(*) varying;
+     declare mode binary(15);
+     declare resultptr pointer;
+     declare 1 result based(resultptr) like teleport_struct;
+
+     if (get_next_record(resultptr, mode, DB_TELEPORT) ^= -1) then
+          return(prefix = substr(result.key, 1, length(prefix)));
+     else
+          return(false);
+end get_next_teleport;
+
+delete_teleport: procedure(address);
+     declare address character(20) varying;
+
+     if (pos_teleport(address, false)) then do;
+          call delete_current_record(DB_TELEPORT);
+          call putline('Teleport "' || address || '" deleted');
+     end; else
+          call error('there is no teleport "' || ltrim(address) || '"');
+end delete_teleport;
+
+get_text_id: procedure(mode, is_paper) returns(binary(31));
+     declare mode binary(15);
+     declare is_paper bit(1);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare 1 book_object based,
+               2     current_page     binary(15),
+               2     text_id          binary(31),
+               2     last_page        binary(15);
+     declare 1 paper_object based,
+               2     text_id          binary(31);
+
+     objptr = addr(info_buf(mode));
+     if (info_type(mode) = 'o') then
+          if (obj.class = CLASS_PAPER) then do;
+               is_paper = true;
+               return(addr(obj.properties)->paper_object.text_id);
+          end; else if (obj.class = CLASS_BOOK | obj.class =
+                    CLASS_PLAQUE) then do;
+               is_paper = false;
+               return(addr(obj.properties)->book_object.text_id);
+          end;
+     call error('entity is not a text object');
+     is_paper = false;
+     return(-1);
+end get_text_id;
+
+pos_text: procedure(text_id, page_number) returns(bit(1));
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare texptr pointer;
+     declare 1 tex based(texptr) like text_struct;
+
+     texptr = addr(pos_buf);
+     tex.key = text_id;
+     tex.page = page_number;
+     return(pos_db(KEY_EQUAL, 'ident', DB_TEXT));
+end pos_text;
+
+rewind_text: procedure returns(bit(1));
+     return(pos_db(KEY_FIRST, 'ident', DB_TEXT));
+end rewind_text;
+
+get_next_text: procedure(mode) returns(bit(1));
+     declare mode binary(15);
+     declare resultptr pointer;
+
+     return(get_next_record(resultptr, mode, DB_TEXT) ^= -1);
+end get_next_text;
+
+get_page: procedure(text_id, page_number, mode) returns(bit(1));
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare mode binary(15);
+     declare result bit(1);
+
+     if (pos_text(text_id, page_number)) then do;
+          result = get_next_text(mode);
+          if (result & mode = DB$CURRENT) then do;
+               last_textid = text_id;
+               if (page_number = 1) then
+                    page_count = cur_text.page_cnt;
+          end;
+          return(result);
+     end; else
+          return(false);
+end get_page;
+
+write_page: procedure(text, text_id, page_number);
+     declare text character(640) varying;
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare rc binary(15);
+
+     temp_text.data = text;
+     temp_text.key = text_id;
+     temp_text.page = page_number;
+     call s$seq_write(db_port(DB_TEXT), bytesize(temp_text),
+          info_buf(DB$TEMP), rc);
+     if (rc = e$invalid_duplicate_key) then do;
+          call putline('rewriting document ' || ltrim(text_id) || ' page ' ||
+               ltrim(page_number));
+          call rewrite_page(DB$TEMP);
+     end; else if (rc ^= 0) then
+          call error('writing to text database');
+end write_page;
+
+rewrite_page: procedure(mode);
+     declare mode binary(15);
+     declare rc binary(15);
+
+     call s$keyed_rewrite(db_port(DB_TEXT), '', bytesize(temp_text),
+          info_buf(mode), rc);
+     if (rc ^= 0) then
+          call error('writing to text database');
+end rewrite_page;
+
+end_document: procedure(text_id, page_number, is_paper);
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare pages binary(15);
+     declare is_paper bit(1);
+
+     pages = page_number - 1;
+     do while (pos_text(text_id, page_number));
+          call delete_current_record(DB_TEXT);
+          page_number = page_number + 1;
+     end;
+     if (get_page(text_id, 1, DB$TEMP)) then do;
+          temp_text.page_cnt = pages;
+          page_count = pages;
+          temp_text.permanent = ^is_paper;
+          call rewrite_page(DB$TEMP);
+     end; else
+          call error('unable to set page count in database');
+end end_document;
+
+send_mail: procedure(from_avatar, to_avatar, mail_text_id);
+     declare from_avatar binary(31);
+     declare to_avatar binary(31);
+     declare mail_text_id binary(31);
+     declare from_name character(10) varying;
+     declare postmark character(32) varying;
+     declare postmark_line character(40) varying;
+     declare new_text character(640) varying;
+     declare rc binary(15);
+     declare s$string_date_time entry(character(32) varying);
+     declare s$int_date_time entry(binary(31));
+
+     from_name = map_avatar_id_to_name(from_avatar);
+     call s$string_date_time(postmark);
+     postmark_line = 'From: ' || from_name ||
+          copy(' ', 15 - length(from_name)) || 'Postmark: ' ||
+          substr(postmark, 1, 8) || byte(NEWLINE);
+     if (get_page(mail_text_id, 1, DB$TEMP)) then do;
+          new_text = postmark_line || temp_text.data;
+          call write_page(new_text, mail_text_id, 1);
+          temp_mail.addressee = to_avatar;
+          temp_mail.sender = from_avatar;
+          call s$int_date_time(temp_mail.time_sent);
+          temp_mail.text_id = mail_text_id;
+          call s$seq_write(db_port(DB_MAIL), bytesize(temp_mail),
+               info_buf(DB$TEMP), rc);
+          if (rc ^= 0) then
+               call error('writing to mail database');
+     end; else
+          call error('unable to postmark letter');
+end send_mail;
+
+pos_mail: procedure(to_whom) returns(bit(1));
+     declare to_whom binary(31);
+     declare mailptr pointer;
+     declare 1 mail based(mailptr) like mail_struct;
+
+     mailptr = addr(pos_buf);
+     mail.addressee = to_whom;
+     return(pos_db(KEY_EQUAL, 'account', DB_MAIL));
+end pos_mail;
+
+get_next_mail: procedure(mode) returns(bit(1));
+     declare mode binary(15);
+     declare resultptr pointer;
+
+     return(get_next_record(resultptr, mode, DB_MAIL) ^= -1);
+end get_next_mail;
+
+delete_current_mail: procedure;
+     declare rc binary(15);
+
+     call s$seq_delete(db_port(DB_MAIL), rc);
+     if (rc ^= 0) then
+          call error('deleting mail entry, rc=' || ltrim(rc));
+end delete_current_mail;
+
+rewind_questions: procedure;
+     declare rc binary(15);
+
+     call s$seq_position(db_port(DB_QUESTION), 1, 0, rc);
+end rewind_questions;
+
+get_next_question: procedure(mode) returns(bit(1));
+     declare mode binary(15);
+     declare resultptr pointer;
+
+     return(get_next_record(resultptr, mode, DB_QUESTION) ^= -1);
+end get_next_question;
+
+rewrite_question: procedure(mode);
+     declare mode binary(15);
+     declare rc binary(15);
+
+     call s$seq_rewrite(db_port(DB_QUESTION), bytes_read(mode),
+          info_buf(mode), rc);
+     if (rc ^= 0) then
+          call error('rewriting question entry, rc=' || ltrim(rc));
+end rewrite_question;
+
+delete_current_question: procedure;
+     declare rc binary(15);
+
+     call s$seq_delete(db_port(DB_QUESTION), rc);
+     if (rc ^= 0) then
+          call error('deleting question entry, rc=' || ltrim(rc));
+end delete_current_question;
+
+rewind_turfs: procedure;
+     declare rc binary(15);
+
+     call s$seq_position(db_port(DB_TURF), 1, 0, rc);
+end rewind_turfs;
+
+get_next_turf: procedure(mode) returns(binary(15));
+     declare mode binary(15);
+     declare resultptr pointer;
+
+     do while (get_next_record(resultptr, mode, DB_TURF) ^= -1);
+          if (bytes_read(mode) ^= 0) then
+               return(bytes_read(mode));
+     end;
+     return(0);
+end get_next_turf;
+
+delete_current_turf: procedure;
+     declare rc binary(15);
+
+     call s$seq_delete(db_port(DB_TURF), rc);
+     if (rc ^= 0) then
+          call error('deleting turf entry, rc=' || ltrim(rc));
+end delete_current_turf;
+
+write_new_turf: procedure(string);
+     declare string character(*) varying;
+     declare rc binary(15);
+
+     call s$seq_position(db_port(DB_TURF), 2, 0, rc);
+     if (rc = 0) then
+          call s$seq_write(db_port(DB_TURF), length(string), (string), rc);
+     if (rc ^= 0) then
+          call error('writing turf file, rc=' || ltrim(rc));
+end write_new_turf;

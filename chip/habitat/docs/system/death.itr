@@ -1,0 +1,113 @@
+.AM
+.ds Dq December 10, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Avatar Death\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH DEATH
+.ds CH \\*(Dq
+.ds RH Habitat Document # 37
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Introduction\s-3
+.PP
+The purpose of this document is to clarify the nature, purpose and
+implementation of ``Avatar death''.
+.SH
+\s+3What does it mean for an Avatar to ``die''?\s-3
+.PP
+Death is supposed to be the worst thing that can happen to an Avatar
+(otherwise we'd have to figure out how to implement ``a fate worse than
+death'').  Our intent is that it should be the ultimate catastrophe that a
+player tries to avoid.  Of course, we don't want to kill Avatars permanently,
+in the way that real world death operates \(em it would clearly be foolish to
+drive willing, paying subscribers away by forcibly removing them from the
+system just because somebody mugged them in a back alley.  It is therefore
+necessary that reincarnation be a part of the process, whatever that process
+may be.
+.SH
+\s+3What happens when an Avatar dies?\s-3
+.PP
+When an Avatar dies, it reappears someplace else.  The two obvious possible
+places we could make it reappear are its Turf or a ``reincarnation station''
+of some sort.  We decided against the latter because it really would serve no
+purpose.  The Avatar has just been forcibly removed from where it was, so it's
+not going to be getting back there any time soon; further dislocation seems
+senseless.
+.PP
+To prevent death from being used simply as a convenient, instantaneous
+return-to-Turf operator, there need to be some further consequences to the
+event.  We wish these consequences to have both local and global effects on
+the player.  We want to effect both the course of whatever activity he was in
+the midst of at the time and his overall situation in the world.
+.PP
+The simple and intuitive local effect that we have chosen is to take away any
+possessions that the Avatar may have been carrying.  The item in his hands, if
+any, is dropped on the ground at the spot where he met his demise, while the
+objects in his pockets, if any, vanish into ``limbo'' (we may, in the future,
+wish to provide a means for an Avatar to go on a quest to recover such
+possessions, but for the time being they will just be gone).  The Avatar will
+arrive at his Turf empty handed; those who did him in may have an opportunity
+to steal what he was carrying.
+.PP
+Choosing a global effect is trickier, however.  We have chosen to fine the
+Avatar, penalizing him some fraction of his bank account balance (down to some
+irreducible minimum fine) and some proportion of the cash Tokens stored in his
+Turf.  This has a couple of interesting consequences.  One is that
+impoverished Avatars will have nothing to lose.  The other is that Avatars who
+choose dangerous occupations may look for ways to store their funds as cash
+Tokens hidden outside their Turves.  Since there are no ultimately safe ways
+to do this, all sorts of secondary game play effects may result.  To start
+with, we will set the bank account penalty at 20% or T100, whichever is
+greater, and the in-Turf cash penalty at 50%.  As with other global
+parameters, these may ultimately need to be adjusted up or down on the basis
+of operational experience.
+.SH
+\s+3How can an Avatar die?\s-3
+.PP
+Each Avatar has a \fChealth\fR property that is a measure of the Avatar's
+relative physical well being.  Various implements (notably weapons) lower the
+\fChealth\fP value, while others (notably drugs) raise it.  If \fChealth\fP
+drops to zero or below, the Avatar dies.  Newly hatched or reincarnated
+Avatars have their \fChealth\fP set to the maximum value, 255.
+.PP
+Guns subtract 50 points from \fChealth\fP, knives subtract 25, and clubs 10.
+For one Avatar to attack another with a knife or a club, the attacker must be
+adjacent to the victim.  Guns, on the other hand, are ranged weapons and the
+attacker may be anywhere within the region.  A grenade takes off 100 points
+from the \fChealth\fP of every Avatar in the region where it explodes.
+.PP
+Different types of drugs have different effects.  The most common drug (I
+suppose it's the \fIHabitat\fP analog to aspirin) adds 50 points to
+\fChealth\fP.  Less common drugs variously restore \fChealth\fP to the maximum
+value (the miracle cure pill) or subtract from it (poison).  In addition, each
+Avatar recovers 25 points of \fChealth\fP each day it logs in, up to the
+maximum.  This process driving this healing operation can be the same one that
+makes trust fund payments, since the algorithm is the same.
+.SH
+\s+3Is death necessary?\s-3
+.PP
+A significant design question, completely aside from the issues of the
+mechanism itself, is whether there should be such a thing as death at all.  We
+feel that there should be, because there needs to be a means by which Avatars
+can forcibly influence each other, threaten each other and so on.  In the real
+world this would not be desirable, of course, but all drama hinges on conflict
+and so we require a way to make conflict possible.
+.PP
+To avoid overemphasis on the violent aspects of the world, and to provide an
+alternative for those players whose idea of fun does not include violent
+conflict, we will designate certain important public areas (such as the
+downtowns of cities and most residential areas) as weapons-free zones.  In
+these areas, weapons will not work and Avatars will be immune to the violence
+of others.  The boundaries of these areas will be marked with signs as a
+warning to persons travelling in either direction.

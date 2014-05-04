@@ -1,0 +1,14 @@
+#! /bin/sh
+
+db region_is_ready +1 > .temp
+
+while (grep 0x00 .temp)
+do
+	db region_is_ready +1 > .temp
+done
+
+# snap
+
+echo $1
+bload $1
+

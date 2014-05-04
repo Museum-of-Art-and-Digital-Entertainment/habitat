@@ -1,0 +1,229 @@
+use region r_9160 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9152
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 2
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_7272 {
+  container: r r_9160
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_7273 {
+  container: r r_9160
+  x: 160
+  y: 32
+  style: 0
+  gr_state: 0
+  orient: 148
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 112
+  pattern_x_size: 0
+  pattern_y_size: 1
+  pattern: 170, 85, 85, 85, 86, 165, 101, 101, 89, 89, 101, 165, 89, 89, 102, 1
+01, 89, 89, 105, 101, 89, 89, 101, 101, 86, 165, 101, 101, 85, 85, 85, 85
+}
+use sign o_7274 {
+  container: r r_9160
+  x: 0
+  y: 88
+  style: 6
+  gr_state: 2
+  orient: 172
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "QuizShows\ Inc\R  Presents:\R\(Trivia\ 4\ You!"
+}
+use trapezoid o_7275 {
+  container: r r_9160
+  x: 96
+  y: 144
+  style: 0
+  gr_state: 3
+  orient: 236
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use sign o_7276 {
+  container: r r_9160
+  x: 4
+  y: 100
+  style: 0
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(      \ #1   #2   #3  \>\>\RHost          "
+}
+use trapezoid o_7277 {
+  container: r r_9160
+  x: 56
+  y: 144
+  style: 0
+  gr_state: 3
+  orient: 188
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use trapezoid o_7278 {
+  container: r r_9160
+  x: 136
+  y: 144
+  style: 0
+  gr_state: 3
+  orient: 244
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use trapezoid o_7279 {
+  container: r r_9160
+  x: 12
+  y: 132
+  style: 0
+  gr_state: 3
+  orient: 80
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 2
+  upper_left_x: 0
+  upper_right_x: 19
+  lower_left_x: 0
+  lower_right_x: 19
+  height: 168
+}
+use book o_1002482 {
+  container: r r_9160
+  x: 66
+  y: 160
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 65535
+  last_page: 1
+}
+use flashlight o_1003552 {
+  container: r r_9160
+  x: 67
+  y: 160
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}
+use book o_1003868 {
+  container: r r_9160
+  x: 68
+  y: 160
+  style: 4
+  gr_state: 1
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 3
+  text_id: 99
+  last_page: 2
+}
+use book o_1004052 {
+  container: r r_9160
+  x: 61
+  y: 160
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 2
+  text_id: 96
+  last_page: 1
+}
+use book o_1004740 {
+  container: r r_9160
+  x: 67
+  y: 160
+  style: 3
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  current_page: 3
+  text_id: 95
+  last_page: 7
+}
+use flashlight o_1005030 {
+  container: r r_9160
+  x: 64
+  y: 160
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 16
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  on: 0
+}

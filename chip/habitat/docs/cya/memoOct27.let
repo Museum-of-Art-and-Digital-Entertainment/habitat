@@ -1,0 +1,189 @@
+.so /u1/gg/lib/doctemps/letdefs.nr
+.PL 11i				\" page length - 11 inches
+.LL 6i		        	\" line-length - 6 inches
+.PO 1i				\" left-margin - 1 inch
+.PI 0				\" paragraph indent - 0
+.HM 1.5i			\" header margin - 1 inch
+.FM 1i				\" footer margin - 1 inch
+.TA 5 10 15 20 25 30 35 40 45	\" tabs every 8 characters
+.ds T \v'-3p'\s-5TM\s+5\v'3p'   \" \*T in document
+.ds A \v'-3p'\s-5TM*\s+5\v'3p'   \" \*A in document
+.ds S \v'-9p'\s-9\s-6TM\s+9\s+6\v'9p' \" \*S in title
+.AS 4                            \" 2 lines address and date
+.na				\" no adjust
+.if !n .ps 12                   \" use large font size if itroff/ditroff 
+.if !n .vs 13p                   \" and use larger vertical spacing
+.if !n .PS 12
+.if !n .VS 13p
+.nh
+.ND
+.H				\" page headers
+.DT 
+.LA
+Marc Serrif
+Quantum Computer Services
+8620 Westwood Center Drive
+Vienna, VA 22180
+.NM Marc Serrif
+Dear Marc,
+
+This note represents an attempt to sort out some of the recent confusion
+between our two organizations in regards to the 1200 baud communications
+problems that seem to have cropped up with Habitat.  Here is the situation as
+we understand it.  In the interest of completeness, much of what follows is
+unfortunately rather esoteric and technical.
+
+It all begins with a problem that cropped up in May.
+
+The Commodore 64 has only a limited amount of memory available for buffering
+messages sent to it by the host.  The practical consequence of this is that
+there are situations in which such messages may pile up more quickly than they
+can be processed.  For example, region transitions usually require the
+Commodore to read data from the disk in order to process the region
+description message.  Since the Commodore disk is rather slow, it is quite
+possible for more messages to arrive during disk read time than the Commodore
+64 has buffers to hold.  Ideally, there should be a way for the host to
+recognize that the Commodore is preoccupied and therefor to stop sending
+messages and instead hold them until the Commodore subsequently requests the
+host to resume sending.  This way the Commodore could halt the choking flow of
+message traffic until it had freed sufficient buffer capacity to handle it.
+Unfortunately, in May we learned, much to our surprise, that the PlayNet
+communications routines do not provide a means to do this.
+
+This situation presents some difficulty for Habitat, since buffer overrun was
+clearly unacceptable.  The obvious thing to do, in an ideal world, would be to
+augment the host communication protocol software to support the sort of
+stop/start handshaking just described.  However, Quantum has shown a severe
+aversion to altering this part of the system in any way.  As we understand it,
+this is because it is code inherited from PlayNet that is at the same time
+ill-understood and yet vital to the continued operation of nearly every aspect
+of the Q-Link system.  Modifying this software is therefor felt to be a
+high-risk activity.  Consequently, the ideal solution to the buffer overrun
+problem was not an option.  Instead, Quantum suggested a solution which was
+informally dubbed the ``NAK hack''.
+
+The ``NAK hack'' entails simply ignoring messages for which there is no buffer
+space (colloquially, ``dropping them on the floor'').  When the contents of
+the full buffers are processed and the Commodore 64 has room to receive more
+messages, it NAKs the first of the discarded messages as if there had been a
+communications error, causing the host to retransmit them.  The ``NAK hack''
+was implemented in time for the CES presentation and seemed to handle the
+problems we were then experiencing with buffer overruns.
+
+The story resumes on Friday, October 10.  During a telephone conversation
+between Janet Hunter and me, Janet described a problem that had been revealed
+during regular testing at Quantum.  The specific symptom described was a
+command interface lockup that had occurred when a tester had tried to exit the
+``pick-from-container'' screen while other activities were going on in his
+region.  Our further investigation revealed that this problem only occurred at
+1200 baud.  I discussed the problem with Randy Farmer.  We concluded that it
+was related to the ``NAK hack''.
+
+As with region transitions, the pick-from-container screen requires use of the
+NAK hack.  The NAK gets sent out when the player exits from the screen,
+triggering a flood of messages.  At 300 baud, these messages can be processed
+more or less as quickly as they come.  However, at 1200 baud the messages pile
+up more quickly than they can be handled.  Ordinarily, this is no problem,
+since the excess message can be handled in the same fashion (i.e., discard
+them and then NAK later).  The problem occurs when there are transmission
+errors (due, for example, to phone line noise).  Each error requires a NAK,
+and each NAK requires an output buffer.  If the communications foulup lasts
+for an extended period (say, a couple of seconds), several messages in a row
+can be garbled, including the NAK packets themselves.  The two computers
+exchange (garbled) NAKs as the Commodore 64 struggles vainly to resynchronize
+itself with the host, until its output buffers fill up with unacknowledged NAK
+messages, whereupon it's stuck.
+
+Even \fIthis\fP should, in theory, not be fatal.  The Commodore 64
+periodically transmits ``heartbeat'' messages to the host (heartbeats do not
+require output buffers).  All the Commodore needs to do, in theory, is wait
+for the next heartbeat to go out; the ACK response to the heartbeat would
+contain the information the Commodore needs to clear out its buffers and
+resume normal operation.  However, from our study of the communications logs,
+it appeared that heartbeats were not being ACKed by the host when the host had
+NAKs outstanding, though the documentation we had from Quantum said that they
+should always be ACKed.  It appeared to us that the host protocol software was
+not behaving as documented.  I called Janet.  Janet referred us to Ken
+Huntsman, so Randy called him.  Ken said he would have to study the source
+code to the communications software and get back to us.
+
+Monday, October 13 was Columbus Day, a holiday for Quantum employees, so
+nothing was resolved on the issue that day.  The next day, Tuesday, Randy
+contacted Ken, who said he needed to study the code some more, but that at
+first glance it did indeed appear that the implementation did not match the
+documentation.
+
+On Wednesday, Randy again spoke to Ken, who concluded that the proper function
+of the host code was uncertain, that they weren't really sure exactly how it
+was supposed to work.  I called Janet, and asked if the host software could be
+repaired to work as documented, and she reiterated Quantum's refusal to touch
+the code for fear of breaking something and leaving thousands of active Q-Link
+subscribers in the lurch.  Randy spoke with Janet and asked if anybody there
+had any suggestions about what might be done with the Commodore 64 software to
+deal with this (since it the communications protocol code on the Commodore was
+their software to begin with).  She passed him to Mike Ficco, who is working
+on the GEOS Q-Link implementation.  It turned out that he had scrapped the
+Commodore 64 protocol code and rewritten it from scratch because ``there are
+about nine ways it can break''.  Randy asked him for a copy of the code.  Mike
+put the code online and Randy immediately uploaded it for examination.
+
+The next day, Thursday, October 16, Randy studied Mike's code and found that,
+unlike the original PlayNet version, it was well commented and readily
+comprehensible.  Unfortunately, the code was largely untested and was not of a
+form that it could be directly plugged into our software in place of the
+existing routines.  Fortunately, examination did reveal a method for dealing
+with our problem.  This method had previously occurred to us, but we were not
+sure whether it would entail a violation of the protocol.  Mike had
+legitimized it for us.  The critical realization is that only the oldest
+outstanding NAK is significant, so only one NAK needs to be kept around
+occupying an output buffer.  Since we can assure that there will be \fIone\fP
+output buffer available when needed for this purpose, the problem of running
+out of output buffers is solved.  However, applying this modification to our
+software looked like it would be a time consuming and problem prone process.
+
+Fortunately, on Friday, Randy had a critical insight that enabled him to
+implement the change quickly, which he proceeded to do.  He then placed the
+resulting software in the upload directory on our system for Janet to grab,
+which she did.
+
+The following Monday, October 20, I spoke with Janet.  She acknowledged
+receipt of the new software and said that they were beginning testing.  In the
+same conversation she identified a few (unrelated) bugs that they had
+identified.  We worked on fixing these bugs, world generation, and testing for
+the rest of the week.  Each day, Janet would convey the latest news.  In
+addition to a few more unrelated bugs, she said that sporadic lockups were
+still being reported at 1200 baud.  We fixed the other bugs as they were
+identified, but in all of our testing have not been able to cause (nor even
+see) any further communications problems.
+
+The present status is this: there \fIappears\fP to be a problem with the
+communications protocol at 1200 baud.  We have been unable to reproduce it in
+extensive testing.  Janet has not been able to reproduce it either, nor has
+she observed it directly \(em all we have are reports from users.  The nature
+of the problem is unclear, as is its location.  In particular, it is uncertain
+whether the difficulty is with the host software or with the Commodore
+software.  Our intuition is that the difficulty lies in the host.  We
+understand how the Commodore 64 software works and the reported misbehavior is
+not consistent with our understanding.  On the other hand, the host software
+seems to be prone to unpredictable behavior and nobody seems to understand it
+thoroughly.  Unfortunately, it will be difficult to isolate the problem until
+we can observe it in action.
+
+At root, the difficulty is really PlayNet protocol software and the NAK hack.
+The NAK hack is a kludge to circumvent an inadequacy in PlayNet's original
+system.  It interacts badly with other bugs in the PlayNet software, requiring
+successive tweaks to the Commodore 64 code in order make the whole system work
+as it should.  The real question at hand is whether we can address the present
+problem with yet another tweak to the Commodore software or whether Quantum
+will have to bite the bullet and rework the PlayNet code.  We understand that
+the latter is an expensive and perilous proposition, but it may be necessary.
+
+.LS
+Sincerely,
+.FI
+Chip Morningstar
+
+
+cc:	Steve Arnold
+	Randy Farmer
+	Janet Hunter

@@ -1,0 +1,90 @@
+
+From chip Wed Sep 10 15:04:50 1986
+Received: by moth; 10 SEP 86 15:04:50 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: sda
+Cc: chip
+Subject: Re:  status of planning
+Status: RO
+
+I spoke with Marc and Anne right after lunch.  Got my questions answered ok
+and went over my current setup plan with them.  We agree on most everything.
+
+Marc wants to stress to the demonstrators what they are allowed to do rather
+than what they are not allowed to do -- i.e., prescribe rather than proscribe.
+I will be changing the tone of the plan document a little bit to reflect this
+idea.
+
+Physical setup is as we expected, 8 stations grouped into 4 pairs.  Anne says
+they can put the 2 pairs that are out on the dance floor back-to-back but that
+this will be problem for the other two stations.  I suggested that we should
+have a Stratus terminal or a voice line to Virginia in a back room somewhere.
+Anne said this was a problem because we only have 8 phone lines, which had to
+be set up special.  Marc, however, saw the value in this suggestion and
+recommends that we keep one of demo stations near a curtain where we can pull
+it down and use its phone line to call Virginia if we have to.
+
+They are planning on having 4 people online from Virginia, not the 8 that I
+had guessed, though Marc said they could add more if we wanted them to.  It's
+no big deal to me (my choice of 8 was arbitrary) so we are going to plan on
+the basis of 4.  One of the 4 will be Ken Huntsman, who will be standing by in
+Virginia as the experienced hand in case of problems.
+
+Anne stressed that their years of experience giving demos has taught them to
+expect glitches and crashes due to telephone problems, so we should just be
+cool and not worry too much if something dies -- we should just be prepared to
+drop back and restart.
+
+They agreed that they are responsible for technical logistics but that we are
+responsible for the content of the demo.
+
+From chip Mon Sep 29 17:17:42 1986
+Received: from moth by kessel; 29 SEP 86 17:17:42 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: sda
+Cc: aric, farmer
+Received: by moth; 29 SEP 86 17:17:45 PDT
+Subject: OK, here's the plan
+
+The Habitat gang all got together today and spent a few hours discussing
+world development and so on.  Here's what we worked out:
+
+We are going on the expectation that I am going to continue to be preoccupied
+with design and concept work for the next phases of the project, if there are
+to be any, and that I will also be responsible for overseeing the Beta-test
+(the assumption being that the Beta test will result in sudden, massive
+feedback that will require some action on our part).  This means that the work
+of world generation is going to fall primarily to Randy and Aric, though I
+will supervise.  On the basis of these assumptions, came up with the following
+division of task responsibilities for the next couple of weeks:
+
+Randy --
+Install materials for D'nalsi Island treasure hunt (books, clues, wizard's
+house furnishings, etc.).
+Implement "Quest for the Jewelled Horn of the Green Bleem" (an ongoing
+treasure hunt based on Hal Barwood's revolving-owner artifact idea).
+Set up a stock-market game.
+Set up a capture-the-flag game.
+Set up a road-rally game.
+
+Aric --
+Develop King Game into a complete entity (possibly based on "Chicago Kingpin",
+at his option).
+Add new regions to Populopolis and polish what's already there.  In
+particular, add back alley, library (library is needed for D'nalsi
+Island adventure, among other things), and theater.
+Finish the Road Through The Woods realm.
+Install Burma Shave signs.
+Set up an Assassin game.
+Create one new adventure/game of his own devising.
+
+Chip --
+Provide host software support for above projects, as needed.
+Work on concept development and planning for extensions/follow-on projects/
+support tools.
+Update and finish manual.
+Develop operations plans.
+Oversee Beta-test.
+
+
+

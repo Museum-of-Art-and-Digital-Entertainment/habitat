@@ -1,0 +1,13 @@
+/u0/chip/habitat: This is the master Habitat directory.  Most stuff related to
+		  Habitat should be found here.
+
+DOC	- This file
+docs	- Habitat documentation
+ghu	- Master PL/1 source for Ghu
+griddle	- Griddle and Fred live here
+looi	- Historical/obsolete stuff (never used)
+muddle	- Muddle and Puddle live here
+noodl	- Historical/obsolete stuff (never used)
+plex	- Plex lives here
+slur	- Historical/obsolete utility (used but now dead)
+status	- Obsolete status documentation

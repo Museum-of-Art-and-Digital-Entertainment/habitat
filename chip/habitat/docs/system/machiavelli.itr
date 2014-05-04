@@ -1,0 +1,195 @@
+.AM
+.ds Dq August 6, 1986
+.lg 1
+.TL
+\s+9\f(BIMachiavelli\fR
+
+A Habitat Sub-game\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH MACHIAVELLI
+.ds CH \\*(Dq
+.ds RH Habitat Document # 24
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.SH
+\s+3Background\s-3
+.PP
+The basic starting idea was to have the player attempting to infiltrate a
+foreign culture, passing himself off as one of its members.  He gets points
+for not getting caught.  The problem, of course, is that there needs to be a
+culture for this to happen in.  This would not be a problem if we had 1000
+sysops for every player.  In such a situation we could simply have the sysops
+play the roles of the normal population, provided that we had fabricated a
+reasonable facade for them to adopt.  The difficulty is that the numbers are
+reversed: there are more like 1000 players for every sysop.  Therefore, we
+need to construct a framework in which virtually every person in the world is
+an imposter, with only a random sprinkling of system people to keep things
+``honest''.
+.PP
+Real cultures are evolved, not designed.  We don't have time to wait for
+evolution to take its course, and besides we want the culture that results to
+have particular characteristics: it must be sufficiently simple that the
+players can pick up the ``rules'' relatively quickly, but it must be complex
+enough that the rules are not trivial (i.e., there have to be plenty of
+opportunities to slip up).  It has to be intrinsically interesting enough to
+hold the players' attention while this is all going on.  It also has to be
+structured so that it is mostly self-policing.  By this I mean that it can not
+require constant oversight of every little detail to keep people in their
+roles.  Rather, it must carry with it motivations that cause people to enforce
+the cultural norms among themselves.
+.PP
+The most obvious example that I can think of is some sort of rigid
+authoritarian hierarchy ostensibly devoted to some external purpose but in
+fact primarily consisting of persons preoccupied with advancing their own
+position and status within the hierarchy.  Examples of such cultures include
+the Catholic church and the ruling elite in the Soviet Union.  Such cultures
+are characterized by rigid, complex and somewhat arbitrary rules systems, and
+in the more extreme cases by an innate hypocrisy resulting from the need for
+people to maintain a certain external image while at the same time forcing
+them to actually break the stated rules if they wish to actually accomplish
+anything significant.
+.PP
+The source of game play in this is that advancement requires breaking the
+rules, but breaking the rules puts you at risk from the other players.  You
+can not break the rules in complete secrecy since the forbidden activities
+largely involve transactions with other players.  Thus, you must risk exposure
+to get ahead.  If you observe another player breaking a rule, you have the
+choice of exposing him (for which you receive some reward), participating with
+him in the illegal act (for which you receive some portion of the fruits of
+that act), or using the knowledge as leverage to extract some favor from the
+other player (in essence, blackmail).  We thus have a situation ripe with all
+sorts of delightful Machiavellian intrigues.
+.PP
+The implementation difficulty arises out of the issue of motivation: why are
+you attempting to get ahead in this culture and, in particular, what does it
+mean to ``get ahead'' at all?  In other words, what do you get for rising to
+the top of the heap?  In the real world situations mentioned above, the
+motivations are primarily twofold: material advantage and personal power.
+.PP
+In the Habitat, material advantage has relatively little meaning until the
+world is sufficiently established that there can be a meaningful economy
+(which will take at least some while).  Having 1,000,000 tokens versus having
+10 tokens is meaningless, except as the most abstract sort of score, if the
+tokens themselves cannot be redeemed for anything desirable.  On the other
+hand, people will do the most ridiculous things for token prizes (no pun
+intended...well maybe a little bit), so offering chocolate busts of Robes
+Pierre or Machiavelli T-shirts to the most successful schemers may be the way
+to go.
+.PP
+Personal power can be meaningful in the Habitat, if we are careful.  It could
+also get out of hand and backfire in some very unpleasant ways if we are not
+careful.  However, I think that we can safely allow certain exercise of
+personal power within the context of the contrived culture itself: the risk
+that you run of having your ill deeds exposed is the effect of having those in
+higher places exercise their powers to the detriment of your position in the
+game.
+.SH
+\s+3The Game\s-3
+.PP
+First, we must have an organizational structure for this all to take place
+within.  Since this is supposed to be a paranoid, Machiavellian organization,
+what could be more appropriate than the \fIHabitat Illuminatti\fR?  The
+Illuminatti are a secret society devoted to attaining power over the
+inhabitants of the world, with the goal of eventually gaining complete
+domination.
+.PP
+The Illuminatti are ruled by the \fIHigh Council\fR.  The Council consists of
+seven members: a \fIChairman\fR and the \fIMinisters\fR of the six
+\fISections\fP.  Each Section is responsible for a certain aspect of the
+organization's affairs, while the Council establishes the rules and policy for
+the organization as a whole.  The six Sections are: \fIRecruitment\fP,
+\fIEnforcement\fP, \fISecurity\fP, \fIIntelligence\fP, \fICollections\fP and
+\fIDisbursements\fP.  Note that since the Council consists of seven members,
+they cannot all meet together in one place.  Thus they must depend on one
+another to stay informed of the activities of the Council as a whole.  
+.PP
+The \fIRecruitment Section\fR is responsible for bringing new members into the
+organization.  The \fIEnforcement Section\fR is responsible for enforcing the
+decrees of the Council by acting against avatars (inside or outside the
+organization) who are perceived as threats, as ``troublemakers'', or simply as
+inconvenient.  The \fISecurity Section\fR is responsible for overseeing the
+security of the organization by, for example, making sure that it is not
+infiltrated by its enemies.  The \fIIntelligence Section\fR is responsible for
+collecting information about enemies of the organization and for identifying
+possible opportunities to exploit.  The \fICollections Section\fR is
+responsible for all flow of funds into the organization.  The \fIDisbursement
+Section\fR is responsible for all flow of funds out of it.  The Chairman has
+no specific responsibilities.  However, the Chairman controls the agenda at
+Council meetings, conducts the meetings (and gets to say who can speak and in
+what order), and breaks ties in Council votes.  The Chairman is also the
+person who gets the big prize.
+.PP
+Below the Council, The Illuminatti organization is structured in cells.  Each
+cell consists of a \fICell Leader\fR and no more than three additional \fICell
+Members\fR.  Each Cell Member can in turn be the Cell Leader of another cell.
+Each Section Minister is the Cell Leader of the top-level cell of his or her
+particular Section.  If any member of the organization dies, he is replaced by
+promoting a member of his immediately subordinate cell.  Which member gets
+promoted is determined by \fIhis\fP Cell Leader.  When a member is promoted,
+he in turn picks one of his subordinate Cell Members to be promoted in his
+place.  The only exception is the Chairman, who is elected by the Council.
+.PP
+The following rules apply:
+.IP "\ \ 1."
+The purpose of the organization to attain world domination, i.e., forceful
+control over all avatars in the Habitat.  Any act by a member of the
+organization that runs counter to this purpose is forbidden.
+.IP "\ \ 2."
+All aspects of the organization's affairs, including its very existence,
+are secret.  A member may not divulge organizational secrets to non-members
+for any reason, nor may he allow non-members to attain any knowledge of the
+organization by any means.  Divulging organizational secrets to other members
+who are not known to be members is treated the same as divulging to
+non-members.  A member may not divulge organizational secrets to any other
+member without express permission of his Cell Leader, and in any case may not
+divulge secrets to anyone who is not either a fellow Cell Member or a member
+of a directly subordinate cell.
+.IP "\ \ 3."
+Members must give absolute obedience to their Cell Leaders and follow their
+orders without question.
+.IP "\ \ 4."
+A member may not engage in any Illuminatti affairs which are outside the
+jurisdiction of his Section.
+.IP "\ \ 5."
+An avatar may not belong to more than one Cell at once.
+.IP "\ \ 6."
+Once an avatar is a member of the Illuminatti, he is a member for life.
+Resignation is not allowed.
+.IP "\ \ 7."
+Any transgression of these rules is punishable by death, expropriation of
+property, or any other consequence the Council cares to choose.
+.IP "\ \ 8."
+Decisions of the Council are binding on all members of the organization and
+have the same power as these rules.  The Council may not, however, make any
+decision that weakens or in any way subordinates these rules.
+.IP "\ \ 9."
+Decisions of the Council require a majority vote of the members, and the
+Chairman must participate in the vote.  The sole exception is the election of
+Chairman, which must be by a majority of the other six members.  Once elected,
+the Chairman holds his position for life.
+.PP
+The object of the game is to become Chairman.  We establish a prize for the
+player who is Chairman at the end of a specified period.
+.PP
+Note that there is no explicit mechanism for enforcing the rules.  In fact, it
+will almost surely be impossible to advance without breaking the rules from
+time to time.  For example, recruitment is impossible without breaking rule
+#2.  Enforcement of the rules is the responsibility of the organization
+members.
+.PP
+We will start the game by taking the initial batch of players and arbitrarily
+appointing them to positions in the hierarchy.  Among them will be some
+``ringers'' (sysops in disguise) who will keep things ``honest'' by pointing
+the finger at those who are breaking the rules.  The rules become, in essence,
+the tools of the players.  The players can use the rules to argue among
+themselves about what is to be done in a particular situation.  The only thing
+that needs to be monitored is the Council proceedings that determine who is to
+be Chairman.
+

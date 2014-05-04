@@ -1,0 +1,396 @@
+%replace true                           by   '1'b;
+%replace false                          by   '0'b;
+
+%replace wait_forever                   by     -1;
+%replace e$invalid_eventid              by   1183;
+%replace e$record_not_found             by   1112;
+
+%replace DEBUGGING            by '1'b;
+
+declare  c$attach_link        entry (char(*) var, char(*) var, bin(15), bin(15));
+declare  s$allocate           entry (bin(31), pointer);
+declare  s$free               entry (pointer);
+declare  s$int_date_time      entry (bin(31));
+declare  s$keyed_read         entry (bin(15), char(*)var, char(*)var, bin(15),
+                                     bin(15), char(*), bin(15));
+declare  s$open               entry (bin(15), bin(15), bin(15), bin(15),
+                                     bin(15), bin(15), char(32)var, bin(15));
+declare  s$parse_command      entry (char(*)var, bin(15),
+                                     char(*)var, bit(1) aligned,
+                                     char(*)var);
+declare  s$seq_delete         entry (bin(15), bin(15));
+declare  s$seq_read           entry (bin(15), bin(15), bin(15), char(*), bin(15));
+declare  s$seq_rewrite        entry (bin(15), bin(15), char(*), bin(15));
+declare  s$seq_write          entry (bin(15), bin(15), char(*), bin(15));
+declare  s$set_task_wait_info entry (bin(31), bin(15), bin(15), bin(15));
+declare  s$task_setup_wait    entry (bin(31), bin(15), bin(15), bin(31),
+                                     bin(31), bin(31), bin(15), bin(15));
+declare  s$task_wait_event    entry (bin(31), bin(31), bin(15), bin(31),
+                                     bin(15), bin(31), bin(31), bin(15));
+
+
+%nolist;  %include 'Messages.incl.pl1';        %list;
+%nolist;  %include 'Queues.incl.pl1';          %list;
+%nolist;  %include 'Debug.incl.pl1';           %list;
+%nolist;  %include 'TimeAfterTime.incl.pl1';   %list;
+%nolist;  %include 'Stat.strux.incl.pl1';      %list;
+
+%include 'defs_statistics.incl.pl1';
+
+declare BUGON                           bit(1) static external initial(false);
+%page ;
+%replace server_event                   by    1;
+%replace tact_event                     by    2;
+%replace obn_event                      by    3;
+%replace stat_event                     by    4;
+%replace max_events                     by    4;
+
+declare  MainQ                          pointer external initial(null()) ;
+declare  MainQID                        binary(31) external static;
+
+declare  ec (64)                        binary (31)   static   external;
+declare  ei (64)                        binary (31)   static   external;
+
+declare  (stats_port,stats_size)     external bin(15);
+
+declare 1 stats external,
+%include 'avatar_statistics';;
+declare stats_buf char(1) defined(stats);
+
+declare  record_exists                  bit(1) aligned static external;
+
+declare  max_slots                      bin(15) static external;
+declare  max_big_slots                  bin(15) static external;
+
+%page ;
+avatar_stats:  procedure  options (main);
+   declare  event_index                 binary (15);
+   declare  code                        binary (15);
+   declare  index                       binary (15);
+   declare  done                        bit     (1);
+   declare  task                        binary (15);
+   declare  event                       binary (31);
+   declare  count                       binary (31);
+   declare  status                      binary (31);
+
+   call initialize_process;
+
+   do  while (true);
+       call s$task_wait_event (Master_ei, wait_forever, task, event,
+                               event_index, count, status, code);
+       if (code ^= 0)  then do;
+           call debug_msg (code, 'task_wait_event '  ||
+                                 'task = '    ||  ltrim (task)  ||
+                                 ' index = '  ||  ltrim (event_index));
+           if (code = e$invalid_eventid   &
+               task ^= 0   &   task ^= tact_event)  then do;
+               call s$task_setup_wait (Master_ei, task, 0, tact_ei, tact_ec,
+                                       wait_forever, index, code);
+               if (code ^= 0)  then  call debug_msg (code, 'err task setup wait');
+               end;
+           end;
+
+         else if (task = server_event) then call handle_msg;
+         else if (task = tact_event) then do;
+               call ProcessTact;
+               call GetTactInfo (tact_ei, tact_ec);
+               call s$task_setup_wait (Master_ei, tact_event, 1, tact_ei, tact_ec,
+                                       wait_forever, index, code);
+               if (code ^= 0)  then  call debug_msg (code, 'Tact task setup');
+               end;
+         else if (task = obn_event)   then  call resend_msg (Q_ptrs (event_index));
+         else if (task = stat_event)  then  call resend_msg (stat_queue_ptr);
+         end;
+
+end avatar_stats;
+
+%page ;
+initialize_process:  procedure;
+   declare  code         binary (15);
+   declare  my_name      char(32) var;
+   declare  my_type      bin(15);
+   declare  habitat_log  bit(1) aligned;
+
+
+   call s$parse_command ('avatar_stats', code,
+                         'switch(-subsys_log),=1', habitat_log,
+                         'end');
+   if (code ^= 0)  then  call die_msg (code, 'bad paramter');
+
+   if (habitat_log) then call set_debug_queue ('habitat_debug');
+   call initialize_queues_and_tasks ('records', MainQ,
+                                     max_events, obn_event, tact_event);
+   call GetQueueInformation (MainQ,my_name,MainQID,my_type);
+
+   call open_habitat_files;
+
+   max_slots     = dimension (stats.slot,1);
+   max_big_slots = dimension (stats.big_slot,1);
+
+end  initialize_process;
+%page;
+handle_msg:  procedure;
+
+declare event_index      binary (15);
+declare mtype            binary (31);
+declare len              binary (31);
+declare uid              binary (31);
+declare qid              binary (31);
+declare sub_addr         binary (15);
+declare code             binary (15);
+declare buffer           character(1024) ;
+declare f_cnt            binary (15);
+declare f_list(6)        binary (15);
+
+  do while (true);
+     call get_sub_message (MainQ, event_index, mtype, buffer, length(buffer),
+                           len, uid, qid, sub_addr, f_cnt, f_list);
+     if (mtype = -1) then return;
+
+     if (mtype = msg$user_stats)
+     then do ;
+          call process_input (addr(buffer)); 
+     end ;
+     else if (mtype = message$statflush)
+     then do ;
+          /* nothing */
+     end ;
+     else if (mtype = message$debug_msg)
+     then do ;
+          call debug_on (buffer,len);
+     end ; 
+     else do ; 
+          call trace_msg (' Unknown msg type = '  ||  ltrim (mtype)  ||
+                                       ' qid = '  ||  ltrim (qid));
+     end;
+     end;
+
+end handle_msg;
+%page ;
+process_input: procedure (ptr); 
+declare ptr    pointer;
+declare (i,j)  bin(15);
+declare ok     bit(1) aligned;
+
+declare 1 hstats  based(ptr),
+%include 'stat_buffer.incl.pl1';
+
+     do i = 1 to hstats.count;
+        if (hstats.userid(i) ^= 0)
+           then ok = get_user_record (hstats.userid(i));
+           else ok = false;
+        if (ok) then do;
+           do j = i to hstats.count;              /* get all entries for user */
+              if (hstats.userid(j) = stats.user_id) then do;
+                 call process_entry (hstats.entry(j));
+                 hstats.userid(j) = 0;
+                 end;
+              end;
+           call adjust_highwater_records;
+           call update_user_record;
+           end;
+        end;
+
+end process_input;
+%page;
+process_entry: procedure (req);
+
+declare 1 req,
+          2 userid     binary(31),
+          2 function   binary(15),
+          2 field      binary(15),
+          2 data       binary(31);
+
+     if (req.function = HS$adjust)
+        then call field_adjust (req.field,req.data);
+     else if (req.function = HS$set)
+        then call field_set (req.field,req.data);
+     else if (req.function = HS$max)
+        then call field_max (req.field,req.data);
+     else if (req.function = HS$min)
+        then call field_min (req.field,req.data);
+     else do;
+        call trace_msg ('Bad function requested: ' || ltrim(req.function));
+        return;
+        end;
+
+     return;
+
+end process_entry;
+%page;
+get_user_record: procedure (user) returns (bit(1) aligned);
+declare user   binary(31);
+declare i      binary(31);
+declare bytes  binary(15);
+declare code   binary(15);
+
+     stats.user_id = user;
+     record_exists = true;
+
+     call s$keyed_read (stats_port,'ident','',stats_size,bytes,stats_buf,code);
+
+     if (code = e$record_not_found) then do;
+        call s$int_date_time (stats.when_created);
+        stats.user_id = user;
+        stats.last_death = 0;
+        do i = 1 to max_slots;
+           stats.slot(i) = 0;
+           end;
+        do i = 1 to max_big_slots;
+           stats.big_slot(i) = 0;
+           end;
+        record_exists = false;
+        return (true);
+        end;
+
+     else if (code ^= 0) then do;
+        call debug_msg (code,'read stats for ' || ltrim(user));
+        return (false);
+        end;
+
+     return (true);
+
+end get_user_record;
+%page;
+update_user_record: procedure;
+declare code        bin(15);
+
+     if (record_exists)
+        then call s$seq_rewrite (stats_port,stats_size,stats_buf,code);
+        else call s$seq_write   (stats_port,stats_size,stats_buf,code);
+     if (code ^= 0)
+        then call debug_msg (code,'update stats ' || ltrim(stats.user_id));
+
+end update_user_record;
+%page;
+field_adjust: procedure (field_id,value);
+declare field_id    binary(15);
+declare value       binary(31);
+
+     if (field_id < 100) then do;
+        if (field_id < 1  |  field_id > max_slots) then do;
+           call trace_msg ('Adjust for bad field: ' || ltrim(field_id) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.slot(field_id) = stats.slot(field_id) + value;
+        end;
+
+     else do;
+        field_id = field_id - 100;
+        if (field_id < 1  |  field_id > max_big_slots) then do;
+           call trace_msg ('Adjust for bad field: ' || ltrim(field_id+100) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.big_slot(field_id) = stats.big_slot(field_id) + value;
+        end;
+
+end field_adjust;
+%page;
+field_set: procedure (field_id,value);
+declare field_id    binary(15);
+declare value       binary(31);
+
+     if (field_id < 100) then do;
+        if (field_id < 1  |  field_id > max_slots) then do;
+           call trace_msg ('Set for bad field: ' || ltrim(field_id) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.slot(field_id) = value;
+        end;
+
+     else do;
+        field_id = field_id - 100;
+        if (field_id < 1  |  field_id > max_big_slots) then do;
+           call trace_msg ('Set for bad field: ' || ltrim(field_id+100) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.big_slot(field_id) = value;
+        end;
+
+end field_set;
+%page;
+field_max: procedure (field_id,value);
+declare field_id    binary(15);
+declare value       binary(31);
+
+     if (field_id < 100) then do;
+        if (field_id < 1  |  field_id > max_slots) then do;
+           call trace_msg ('MAX for bad field: ' || ltrim(field_id) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.slot(field_id) = max(value,stats.slot(field_id));
+        end;
+
+     else do;
+        field_id = field_id - 100;
+        if (field_id < 1  |  field_id > max_big_slots) then do;
+           call trace_msg ('MAX for bad field: ' || ltrim(field_id+100) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.big_slot(field_id) = max(value,stats.big_slot(field_id));
+        end;
+
+end field_max;
+%page;
+field_min: procedure (field_id,value);
+declare field_id    binary(15);
+declare value       binary(31);
+
+     if (field_id < 100) then do;
+        if (field_id < 1  |  field_id > max_slots) then do;
+           call trace_msg ('MIN for bad field: ' || ltrim(field_id) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.slot(field_id) = min(value,stats.slot(field_id));
+        end;
+
+     else do;
+        field_id = field_id - 100;
+        if (field_id < 1  |  field_id > max_big_slots) then do;
+           call trace_msg ('MIN for bad field: ' || ltrim(field_id+100) ||
+                           ', user = ' || ltrim(stats.user_id));
+           return;
+           end;
+        stats.big_slot(field_id) = min(value,stats.big_slot(field_id));
+        end;
+
+end field_min;
+%page;
+adjust_highwater_records: procedure;
+
+     stats.slot(HS$max_lifetime) = max(stats.slot(HS$lifetime),
+                                       stats.slot(HS$max_lifetime));
+
+     stats.big_slot(HS$max_wealth-100) = max(stats.big_slot(HS$wealth-100),
+                                             stats.big_slot(HS$max_wealth-100));
+
+     stats.big_slot(HS$max_travel-100) = max(stats.big_slot(HS$travel-100),
+                                             stats.big_slot(HS$max_travel-100));
+
+end adjust_highwater_records;
+%page;
+open_habitat_files: procedure;
+declare code bin(15);
+%replace implicit_lock   by 4;
+%replace indexed_access  by 3;
+%replace input_io        by 1;
+%replace seq_org         by 3;
+%replace sequential_access by 1;
+%replace update_io       by 4;
+
+     stats_size = bytesize(stats);
+
+     call c$attach_link ('MC_stats', 'MC_stats', stats_port, code);
+     if (code ^= 0) then call die_msg (code, 'attach to MC_stats');
+     call s$open (stats_port, seq_org, stats_size, update_io, 
+                  implicit_lock, indexed_access, 'ident', code);
+     if (code ^= 0) then call die_msg (code, 'open of MC_stats');
+
+end open_habitat_files;

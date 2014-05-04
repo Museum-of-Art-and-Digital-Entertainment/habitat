@@ -1,0 +1,62 @@
+@region $ dnalsi_4a {
+    north: dnalsi_4b.l;
+    south: dnalsi_49.l;
+    east: dnalsi_5a.l;
+    west: dnalsi_3a.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:244; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:2;
+        }
+        @bush { x:72; y:45; or:25; style:4; gr_state:2; }
+        @vendo_inside { x:12; y:27; or:236; style:1; gr_state:3; 
+            8:3;
+            9:0;
+            10:0;
+
+            [
+                @vendo_front { x:0; y:0; or:0; style:1; 
+                    8:3;
+                    9:0;
+                    10:0;
+                    11:0;
+                    12:0;
+
+                    [
+                        @book { x:0; y:0; or:0; style:4; 
+                            8:0;
+                        }
+                        @book { x:1; y:1; or:0; style:4; 
+                            8:0;
+                        }
+                    ]
+                }
+                @book { x:1; y:1; or:0; style:4; 
+                    8:0;
+                }
+            ]
+        }
+        @bush { x:88; y:45; or:24; style:4; gr_state:2; }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:120; y:45; or:24; style:4; gr_state:2; }
+        @dropbox { x:124; y:138; or:0; }
+        @rock { x:88; y:137; or:16; 
+            8:1;
+        }
+        @short_sign { x:4; y:81; or:16; style:5; gr_state:9; 
+            8:80;
+            9:79;
+            10:83;
+            11:84;
+            12:67;
+            13:65;
+            14:82;
+            15:68;
+            16:32;
+            17:32;
+        }
+    ]
+}

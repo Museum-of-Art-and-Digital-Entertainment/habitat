@@ -1,0 +1,560 @@
+.AM
+.ds Dq December 5, 1986
+.lg 1
+.ds T \v'-3p'\s-5TM\s+5\v'3p'
+.ds M \v'-9p'\s-8TM\s+8\v'9p'
+.TL
+\s+9Habitat Geographic Master Plan\s-9
+.AU
+by
+Chip Morningstar
+.AI
+Lucasfilm Ltd. Games Division
+\\*(Dq
+.ds LH GEOGRAPHY
+.ds CH \\*(Dq
+.ds RH Habitat Document # 34
+.ds LF Lucasfilm Ltd. Proprietary Information
+.ds CF - % -
+.ds RF CONFIDENTIAL
+.AM
+.IP "\fBto\s-3\(bu\s+3pol\s-3\(bu\s+3o\s-3\(bu\s+3gy\ \ "
+\fIn \fB1 : \fRtopographical study of a particular place; \fIspecif\fP: the
+history of a region as indicated by its topography \fB2 : \fRa branch of
+mathematics that investigates the properties of a geometric configuration (as
+a point set) that are unaltered if the configuration is subjected to a
+one-to-one continuous transformation in both directions
+.IP "\fBto\s-3\(bu\s+3pog\s-3\(bu\s+3ra\s-3\(bu\s+3phy\ \ "
+\fIn \fB1a : \fRthe art or practice of graphic delineation in detail usually
+on maps or charts of natural and man-made features of a place or region
+especially in a way to show their relative positions and elevations \fBb :
+\fRtopographical surveying \fB2a : \fRthe configuration of a surface including
+its relief and the position of its natural and man-made features \fBb : \fRthe
+physical or natural features of an object or entity and their structural
+relationships
+.IP "\fBge\s-3\(bu\s+3og\s-3\(bu\s+3ra\s-3\(bu\s+3phy\ \ "
+\fIn \fB1 : \fRa science that deals with the earth and its life; especially :
+the description of land, sea, air, and the distribution of plant and animal
+life including man and his industries \fB2 : \fRthe geographic features of an
+area \fB3 : \fRa treatise on geography \fB4 : \fRa delineation or systematic
+arrangement of constituent elements : CONFIGURATION
+.sp
+.SH
+\s+3Introduction\s-3
+.PP
+This document describes the \fIHabitat\fP Geographic Master Plan.  This plan
+details the physical model of the \fIHabitat\fP world: what the fictional
+topography is supposed to be, where cities, towns and other Avatar
+developments are to be located, where highways and roads run, etc.  The
+purpose of the plan is to enable us to manage the growth of the \fIHabitat\fP
+world so that things are added in an orderly, sensible and predictable
+fashion.
+.SH
+\s+3Overall Topology of The Habitat World\s-3
+.PP
+Due to the way regions are connected to one another (a directed graph), the
+topology of the world can be quite arbitrary.  In particular, it need not be
+euclidean.  However, in the interest of keeping things comprehensible to the
+player, we will, as a rule, deviate from a euclidean norm in only a few
+special sorts of ways.  These are:
+.IP "\ \ \ \ \(bu\ "
+Representation of spaces which are psychologically larger than the things they
+connect to.  This includes such things as the interiors of buildings and
+caves, where a single doorway region can lead to a whole labyrinth.  However,
+the interior and exterior taken by themselves are each euclidean.  It is only
+the connection between them that introduces a non-euclidean element.
+.IP "\ \ \ \ \(bu\ "
+Situations in which there is an implied extra dimension.  This includes
+apartment buildings in which the floors are strung together with elevators.
+The player's mental model is of a euclidean space, but a three-dimensional
+one.
+.IP "\ \ \ \ \(bu\ "
+Puzzles in which there is a deliberate effort to mislead the player (e.g., the
+desert/maze).  These should be used sparingly and with care, and there should
+be some indication to the player that he or she is about to step into an
+irregular situation.
+.PP
+Keeping the above points in mind, we chose to generate a synthetic
+topographical map for the \fIHabitat\fP world (see fig. 1).  The ``natural''
+features, such as mountains, oceans, and so on, have no real meaning in terms
+of the underlying structural model (i.e., regions).  However, they provide a
+set of constraints for locating cities and other places relative to each other
+in an interesting and naturalistic manner.  They also provide a fantasy
+rationale for interposing various obstacles between places.
+.PP
+The overall shape of the world is a cylinder.  This gives us one axis that
+wraps around on itself and one axis that is bounded.  The wraparound means
+that Avatar philosophers can argue about whether the world is round or flat
+while the great Avatar explorers circumnavigate the world to settle the issue.
+The boundary edges mean that Avatars can run into or fall off of the edge of
+the world.  The ``edge of the world'' idea is a wonderful source of creative
+material.  The edges can hold sites for a variety of interesting things, such
+as special reality-maintenance facilities, secret passageways, and the like,
+that hint at some underlying apparatus supporting the world.  Mostly, however,
+the edges of the world will simply be impassable barriers (either walls or
+precipices, depending on where one visits).  The edges of the cylinder also
+provide a place to add on if more room is needed.
+.PP
+This plan is predicated on a maximum population of 50,000 Avatars.  This
+number was chosen because it is well in excess of the expected initial
+population base but not outrageously huge.  It is a somewhat arbitrary number,
+in that it represents a guess about the need for territory that the running
+system will have.  Using the apartment building scheme outlined in previous
+documents, a typical Avatar city will be set up to support a population of
+around 2,500, requiring us to have around 20 cities.  Of course, we would like
+the populations to vary a bit in order to keep things interesting, so instead
+of having 20 cities of 2,500 Avatars each we'll have some larger and some
+smaller.
+.PP
+In order to have a reasonable proportion of countryside to urban area, we have
+chosen (again, somewhat arbitrarily) a typical linear separation between
+cities of 100 regions.  In other words, if an Avatar was to walk from one city
+to an adjacent one along the connecting road, he would walk through 100 or so
+regions (TelePorting, of course, jumps over them all in one step).  With the
+present city layout, this results in a total circumference of approximately
+1000 regions.  Our cylinder is proportioned with a 5:1 ratio of circumference
+to height, so this makes it about 200 regions high.  In terms of human units,
+if we consider each region to be about 50 feet across, the world would be
+about 10 miles by 2 miles.  This is not huge on a human scale, though it's
+quite large by artificial fantasy world standards.  And, of course, the
+effective size is much larger due to the introduction of non-euclidean
+elements in the topology.
+.SH
+\s+3Cities\s-3
+.PP
+Referring again to the map: 20 cities are placed in the locations indicated.
+There is a major road network that passes through or near all 20 cities.  The
+single continuous circum-Habitat highway, ``I-5'', and its major tributaries
+form the skeleton of Avatar civilization in Habitat.  Note that certain areas
+are blocked by lakes and seas.  Since there are no boats or ships in
+\fIHabitat\fP, these bodies of water are simply impassable obstacles that the
+roads must go around.  Similarly, high mountains and steep grades are avoided.
+Thus, the roads are channeled into the pathways shown on the map.
+.PP
+The city sites shown are now just locations on a map without cities on them.
+In the beginning, of course, there will be only one city (Populopolis), but
+more will appear as the population of the world grows.  Here are the cities in
+the order they are to be added:
+.TS
+tab (:) ;
+l l l l 
+n l n l .
+Number:Name:Target population:Teleport area code
+_:_:_:_
+1:Populopolis:500:pop
+2:Quantumgrad:6000:q
+3:Strakhenville:3000:str
+4:Wasteland City:500:wc
+5:Schnozz Point:2500:snzz
+6:Port Vilhelm:4500:pv
+7:Crossroads:4000:xxx
+8:Barstow:500:bar
+9:Foonjyo:3000:foon
+10:Land's End:3500:end
+11:Theodopolis:4500:theo
+12:Wilberforce:2500:wil
+13:Bratwurst's Folly:1500:bwf
+14:Mudhole:1000:mud
+15:Opal:1000:opal
+16:Gazooka:3500:gaz
+17:Eagles' Nest:2500:nest
+18:Alpine Grove:2000:alp
+19:Fnork Falls:3000:fnf
+20:Swamp Flats:500:sf
+.TE
+.LP
+Each successive city on the list ought to be begun (i.e., Avatars should start
+occupying it) when the city before it on the list starts to approach about 2/3
+of its target population.
+.SH
+\s+3Area Codes\s-3
+.PP
+Each city is the center of an area code zone for the TelePort system.  These
+zones define the difference between local and long-distance TelePorts:
+TelePort trips within an area code are local while ones that cross one or more
+area code boundaries are long-distance.  The physical topology of the area
+code zones themselves is used for computing the distance of long-distance
+\&'Ports and thus the charge.  The area code zones are indicated on the map.
+.SH
+\s+3Climate and Vegetation\s-3
+.PP
+The topographical characteristics of our synthetic scenery suggest a number of
+distinct climatological zones.  While there is no actual weather in
+\fIHabitat\fP, it is helpful, as was the case with the topology, to adopt a
+convention whereby the characteristics of different parts of the world are
+constrained in a meaningful way.  We have chosen to partition the world into
+climate zones, each having one of five general climate types.  These types in
+turn suggest the density and type of vegetation that will decorate the scenery
+in each and the general visual style of undeveloped places.  The five climate
+zones are:
+.TS
+tab (:) ;
+l l l .
+Type:Climate:Features
+_:_:_
+A:Arid:Desert
+B:Semi-arid:Plains and grassland
+C:Temperate:Forest
+D:Tropical:Jungle
+E:Wet:Swamp
+.TE
+Please refer to the climatological map for the areas covered by each type.
+.SH
+\s+3The Structure Of Cities\s-3
+.PP
+Each of the 20 \fIHabitat\fP cities will have a distinct style and
+personality.  This style will be reflected in the way the business and
+residential districts are laid out, where the streets run, and so on.
+However, there are some elements that are common to all cities.  At a minimum,
+there are the places that provide the essential support services that Avatars
+need in order to function in the world.  Thus, for example, every city has at
+least one Oracle fountain.  The establishments that support certain heavily
+used functions may be replicated at various places around the city depending
+on the size of the population that must be served.
+.PP
+These are the services that each city must provide:
+.TS
+tab (:) ;
+l l l
+l l n .
+Service:Purpose:Population supported per unit
+_:_:_
+Fountain:Oracle:1000
+Bank:Access to money:250
+News stand:Distribution of timely information:250
+General store:Distribution of misc. merchandise:500
+Body paint shop:Avatar customization:500
+Head shop:Avatar customization:500
+Furniture shop:Turf customization:500
+Pawnshop:Recycling dead objects:500
+Library:Access to archival information:500
+City Hall:Bureaucratic support services:500
+Hall of Records:Distribution of feedback to players:500
+.TE
+``Population supported per unit'' is the estimated city population that a
+given establishment can handle.  In other words, the total population of the
+city divided by this number gives the number of such establishments the city
+needs.  These numbers represent an educated guess and will, in all likelihood,
+need to be adjusted upward or downward (probably upward) based on the
+beta-test feedback.
+.PP
+Each city consists of one or more business districts surrounded by residential
+areas.  Each city is located either along or at the end of one of the main
+roads.  This road runs through or immediately adjacent to the business
+districts.  The residential areas are connected to the business districts,
+either directly or by connecting to the main road just outside them.
+.PP
+A business district consists of various of the essential support
+establishments described above mixed with other, non-essential businesses
+(usually associated with things of a recreational nature for the players to do
+in town), and Avatar-run businesses.  The latter begin life as empty
+storefronts and are assigned to entreprenurially inclined players as the city
+is populated.  Other than the above generalities, there are no hard-and-fast
+rules about the layout of cities.
+.PP
+A residential district consists of both apartment buildings and houses.
+However, the bulk of the \fIHabitat\fP population will reside in apartments.
+Since residential areas require large numbers of regions (at least two per
+player in addition to assorted connecting regions), they will be generated
+in bulk using semi-automated tools.
+.PP
+Note that not all business establishments nor all turves are necessarily
+located in the highly planned and organized areas that cities represent.
+Indeed, we want to spice things up by allowing both commercial and residential
+regions in the rural areas between cities, as well has having occasional
+business regions in residential areas and vice-versa.  However, in keeping
+with our mass-audience orientation, these regions will be relatively uncommon
+and usually reserved for special purposes or for players who are somehow
+privileged (as a result of either achievement or oracular fiat).
+.SH
+\s+3Growth Of Cities\s-3
+.PP
+In order to manage the growth of the world we must, among other things, plan
+how cities are going to grow.  Each city will be created in five phases.
+These are: \fIlayout\fR, \fImapping\fP, \fIregion design\fR,
+\fIinstallation\fP and \fIpopulation\fP.  We have chosen this phase structure
+so that we can ``pipeline'' the creation effort, working on different phases
+of different cities at any given time.  We do not need to create the whole
+world at once.
+.LP
+\fILayout
+.PP
+In the \fIlayout\fP phase we create a skeleton design.  This is essentially a
+sketch map of the city, showing streets and roads, residential and business
+areas, public areas such as plazas and parks, sites of major buildings, and so
+on.  It will look rather like a Rand-McNally road map of the interstate
+freeway system: complete, but without a lot of detail.  These sketch maps,
+rendered in an aesthetically pleasing form, can also be used as maps for
+publication and distribution to the players.
+.LP
+\fIMapping
+.PP
+In the \fImapping\fP phase we design the specific details of the city's
+layout.  The output of this phase is a detailed map of the city showing
+essentially all the regions in it, though it need not give the specific
+interior layout of things like apartment buildings, libraries, and similar
+places that have simple, standardized insides.  The maps generated in this
+phase will resemble, in both style and level of detail, the present maps of
+Populopolis and the other realms that we have installed.  These were generated
+fairly quickly and easily on a Macintosh with MacDraw, using stylized mapping
+symbols which we designed for the purpose (the collection of such symbols will
+undoubtedly need to be enlarged as we go, but that presents no difficulty).
+The conventional mapping symbols represent conventional types of regions that
+we will use as pre-fabricated ``building blocks''.  The map should note any
+anomalous regions that will require individual human attention.
+.LP
+\fIRegion design
+.PP
+In the \fIregion design\fR phase we create the actual regions that will be
+required in order to construct the city.  This creation process can take a
+number of forms, corresponding to the level effort called for, which in turn
+depends on the nature and quantity of the particular types of regions desired.
+.PP
+At the lowest level of effort are stochastic region generators.  These are
+utility programs that generate random regions of particular types according to
+simple statistical rules.  These can create simple regions that are required
+in large numbers.  Such regions may include turf interiors, tract house
+fronts, road and highway regions, forest regions, and so on.  These sorts of
+programs do not produce regions of great interest, but that is not their
+purpose.  Their purpose is to generate quantity.
+.PP
+A level above stochastically generated regions are library regions.  These are
+regions that were individually designed and then saved in a library for
+re-use.  They have more character than randomly generated regions (since they
+were, once upon a time, designed by a human being), but they still serve the
+cause of quantity in that we will use them over and over again.  Library
+regions include such things as turf interiors (we currently have 120 or so
+individually designed turf interiors) as well as store fronts and the like.
+.PP
+The next level of effort involves what we might call ``semi-custom'' regions.
+These are regions that are either created stochastically or extracted from the
+library, and then hand customized to give them individual identities or to
+adapt them to particular purposes.  This customization can range from simply
+changing the color of a wall or the text on a sign to extensive redesign.
+.PP
+At the highest level of effort are ``fully-custom'' regions.  These are
+regions that are created from scratch for a particular purpose with our region
+editor or with the Reno utility (when it becomes available).  Since they are
+custom designed, they can be exactly fitted to their particular purpose or
+place, but at a relatively high cost in time and effort.
+.PP
+The job of creating cities for thousands of Avatars is clearly a large one.
+To make the job tractable we will, of course, want to push as much of it down
+to as low a level in the aforementioned hierarchy as possible.  The strategy
+is to use automated tools and standard building blocks for bulk and hand-made
+regions for seasoning.
+.PP
+The final output of the region design phase is a collection of regions.  This
+collection takes the form of raw data files that will be fed into the later
+phases of the city creation process.  This includes the data that specifies
+how the regions are to be connected and oriented with respect to one another.
+.LP
+\fIInstallation
+.PP
+In the \fIinstallation\fP phase we generate the actual regions on the host.
+This includes running the data files generated in the previous phase through
+various translating programs in order to produce the final description files
+suitable for transfer to the Stratus.  These files are then uploaded to the
+host system and run through additional translating programs that result in the
+actual database entries which \fIHabitat\fP uses.  The city is initially
+created in ``limbo'', disconnected from the rest of the world, in the sense
+that it is unreachable by ordinary Avatars.  However, by virtue of our
+privileged powers over the database, it is not unreachable to us.  We make a
+walking tour of the new real estate with an Avatar of our own in order to
+verify that all is as it should be.  Any glitches that may have crept into the
+process are noted and corrected, and the new city is manually connected to the
+rest of the universe at the place designated on the master map of the world.
+.LP
+\fIPopulation
+.PP
+In the \fIpopulation\fP phase we add the new turves of the new city to the
+system's list of unassigned turf regions and begin assigning these regions to
+new players.  The city starts to fill up with inhabitants and come to life.
+We announce the presence of the city to the rest of the world, encouraging the
+enterprising and the larcenous to come and set up shop.  The system operator
+handling allocations of business property has a busy couple of days putting
+people in business in the new downtown, and then the city is alive.
+.SH
+\s+3Roads\s-3
+.PP
+As previously mentioned, the cities of \fIHabitat\fP are connected by a road
+network.  There is a major world circling thoroughfare (named ``I-5'', in
+honor of the real world's best example of a highway through nowhere) and
+several secondary roads.  The purpose of these roads is not so much to serve
+as a transportation network \(em TelePorts do the job much more quickly and
+conveniently \(em but to act as a skeleton on which to hang new realms.  The
+roads act as leading lines, enticing the players out of the cities on journeys
+of exploration.
+.PP
+A road is realized in the world database by an unbroken chain of connecting
+regions, each of which has a road object running through it indicating the
+path of travel.  Typical road length between cities is on the order of 100
+regions.  This means that to represent the entire road network as presently
+designed we will have to generate some 2,500 or so road regions.  In addition,
+we would like to have one or two regions of wilderness on each side of the
+road running in parallel with it, to give the narrow strip at least a little
+depth.  This will require an another 5,000 to 10,000 regions.  However, as
+with much of the cities themselves, the large number of regions required can
+be generated using stochastic methods and library regions.
+.PP
+The road network should be generated along with the cities.  The regions
+created for a city should include that city's share of the road network \(em
+the roads extending in all directions from the city, halfway to any
+neighboring cities.  If the neighboring cities exist, the roads extending
+outward from the new city will just connect up.  If a neighboring city doesn't
+exist yet, then the road in that direction just ends out in the wilderness
+with a construction zone region.
+.SH
+\s+3New Realms\s-3
+.PP
+A \fIrealm\fP, in the terminology we have adopted, is a collection of
+connected regions created together for the purpose of some activity or
+adventure.  Expansion of the world beyond the basic skeletal structure
+consists of the creation of new realms.  The process of realm creation is much
+like that of city creation, except that there will generally be less
+homogeneity and consequently fewer opportunities to use the various labor
+saving region generation techniques described above.  However, it is not the
+purpose of this document to discuss where realms come from so much as where
+they go.
+.PP
+Broadly speaking, a new realm can be ``attached'' to one of four places:
+directly to a city, to the skeletal road network, to some other realm, or to
+nothing at all (i.e., accessible only through TelePort).  The choice of the
+most appropriate connection point will depend on the theme of the new realm
+and on available connection points.  For example, a wilderness realm probably
+should be attached to the road network somewhere out in the hinterlands, while
+a realm that represented the ruins of an abandoned city could be attached
+either to the road or to an existing city.  Realms connecting to other realms
+should build upon one another.  Realms that are not connected to anything at
+all should either represent places that are truly remote and inaccessible
+(such as islands or distant mountaintops) or places whose existence is
+ethereal or abstract (e.g., Avatar Hell, the moons of \fIHabitat\fP, or the
+West Pole).  It is also reasonable to build additional roads that branch off
+of the main road network to lead to interesting places.
+.bp
+.CD
+\fB\s+6Appendix A: Notes on the 20 Habitat cities\s-6\fR
+.DE
+.LP
+\fIPopulopolis
+.PP
+Populopolis is \fIHabitat\fP's first city.  It is named ``Populopolis''
+because of its immense size (it's as small as cities in \fIHabitat\fP come).
+.LP
+\fIQuantumgrad
+.PP
+Quantumgrad is where the ``War to End All Wars, I Think'' started and ended.
+It features a number of historical monuments commemorating various events from
+the era when Fredrich the Ill-Mannered attempted to overthrow the Oracle and
+establish an ``Avatars' Paradise''.  It is also \fIHabitat\fP's largest city.
+.LP
+\fIStrakhenville
+.PP
+Strakhenville is a city that prides itself in being rich in \fIstrakh\fP.
+Strakh, of course, is the opposite of \fIstrumph\fP.
+.LP
+\fIWasteland City
+.PP
+Wasteland City is located in the middle of the desert, hence the name.  Though
+small, it has a reputation for toughness and macho.  It is a place where Real
+Avatars can feel at home.
+.LP
+\fISchnozz Point
+.PP
+The city of Schnozz Point is located on the tip of the peninsula of the same
+name.  The origin of the peninsula's name is obvious if you look at the map.
+.LP
+\fIPort Vilhelm
+.PP
+Port Vilhelm was built as a seaport by the eccentric \fIHabitat\fP
+zillionaire, Vilhelm Von Voorzsimmer (after whom \fIHabitat\fP's greatest
+honor, the Voozsimmer Award For Distinguishable Service, is named).
+Unfortunately, a seaport doesn't make much sense in \fIHabitat\fP, since there
+are no ships.  Fortunately, no one in Port Vilhelm has noticed this and the
+city thrives.  In Port Vilhelm it is conventional for Avatars to greet each
+other by saying, ``Hello sailor''.
+.LP
+\fICrossroads
+.PP
+Crossroads is located at a major crossroad.  The Avatars who live there have
+an undeserved reputation for not being very creative.
+.LP
+\fIBarstow
+.PP
+Barstow is a place people go through on their way to someplace else.  That's
+why it's not very big.
+.LP
+\fIFoonjyo
+.PP
+Foonjyo rests in the shadow of Mt. Foonji, the highest point in \fIHabitat\fP.
+Mt. Foonji is reputed to be the site of numerous mysterious and mystical
+goings on, and so Foonjyo is a haven for mystics and religious weirdos of all
+sorts.
+.LP
+\fILand's End
+.PP
+Land's End is where the land ends, at least if you are walking south.
+.LP
+\fITheodopolis
+.PP
+Theodopolis is where Theodophilus lives.  Try to say ``Theodophilus lives in
+Theodopolis'' ten times fast.
+.LP
+\fIWilberforce
+.PP
+Wilberforce is a farming town.  Primary crops are heads and mayonnaise.
+.LP
+\fIBratwurst's Folly
+.PP
+Due to the pattern of the TelePort area code zones, Bratwurst's Folly is the
+most remote city in \fIHabitat\fP, even travelling by TelePort.  That's why
+folks thought it was folly for Bratwurst to build a town there.  They were
+wrong \(em the place is a haven for artists and poets who want to get away
+from it all and for criminals and fugitives from justice of all sorts.
+.LP
+\fIMudhole
+.PP
+Mudhole is next to a big mud hole.  Its inhabitants are considered
+``eccentric''.
+.LP
+\fIOpal
+.PP
+Opal is a mining town, known for gemstones of all sorts.
+.LP
+\fIGazooka
+.PP
+Gazooka has no explanation for its name.  Ya wanna make something of it?
+.LP
+\fIEagles' Nest
+.PP
+Eagles' Nest is located in the foothills of some of \fIHabitat\fP's more
+mountainous country.  The folks there keep hoping that there will be eagles in
+\fIHabitat\fP some day.
+.LP
+\fIAlpine Grove
+.PP
+Alpine Grove is located in woods up in the hills.  It's a nice place.
+.LP
+\fIFnork Falls
+.PP
+Fnork Falls in not named after any waterfalls, since there are no waterfalls
+in \fIHabitat\fP.  It was settled by refugees from Montana, where they like to
+name towns Somethingorother Falls.
+.LP
+\fISwamp Flats
+.PP
+Swamp Flats was built in a flat spot in a swamp.
+.bp
+.CD
+\fB\s+6Appendix B: Interesting places that don't exist yet\s-6\fR
+.DE
+.LP
+.nf
+Avatar Hell
+The West pole
+The Control Center For The Whole World
+Mt. Foonji
+The Mudhole mudhole
+The moons of \fIHabitat\fP
+The Great Enchanted Art Deco Caves
+Jack's Head Farm

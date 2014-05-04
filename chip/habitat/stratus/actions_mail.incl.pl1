@@ -1,0 +1,66 @@
+/*
+ *   actions_mail.pl1
+ *
+ *   Behavior routines for the mail protocol.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ */
+
+/*
+ * %include 'microcosm.incl.pl1';
+ * %include 'defs_helper.incl.pl1';
+ */
+
+generic_READMAIL: procedure;
+     declare 1 self based(selfptr) %include struct_mailbox;
+     declare more_mail binary(15);
+
+     more_mail = FALSE;
+     if (/*self.mail_arrived = TRUE &*/ empty_handed(avatarptr) &
+               self.owner = UserList(avatar.avatarslot)->u.U_Id) then do;
+          call get_mail_message (avatarptr);
+     end; else
+          call r_msg_2(more_mail, NULL);
+end generic_READMAIL;
+
+dead_generic_READMAIL_result: procedure (message_id,more_mail);
+     declare message_id binary(31);
+     declare more_mail  binary(15);
+
+     declare 1 result based(resultptr) %include struct_paper;
+     declare resultptr pointer;
+
+     if (message_id ^= 0) then do;
+          resultptr = create_object(CLASS_PAPER,0,0,0,HANDS,0,0,avatar.noid);
+          if (resultptr = null()) then do;
+               call r_msg_2(more_mail, NULL);
+               return;
+          end;
+          result.text_id = message_id;
+          call announce_object(resultptr);
+          call r_msg_1_s(more_mail, vectorize(resultptr));
+     end; else;
+          call r_msg_2(more_mail, NULL);
+
+end dead_generic_READMAIL_result;
+
+generic_SENDMAIL: procedure;
+     declare letter_id binary(15);
+     declare 1 letter based(letterptr) %include struct_paper;
+     declare letterptr pointer;
+     declare success binary(15);
+
+     if (holding_class(CLASS_PAPER)) then do;
+          letter_id = avatar.contents->c(HANDS);
+          letterptr = ObjList(letter_id);
+          if (letter.text_id = 0)
+             then success = false;
+             else success = send_mail_message(avatarptr,letter.text_id);
+          if (success = TRUE) then
+               call disappear_object(letter_id);
+     end; else
+          success = FALSE;
+     call r_msg_1(success);
+end generic_SENDMAIL;

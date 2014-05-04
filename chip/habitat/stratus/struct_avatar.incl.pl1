@@ -1,0 +1,30 @@
+/*
+ *   struct_avatar.incl.pl1
+ *
+ *   Struct stub for avatar instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   8-April-1986
+ *   revised 13-March-1987 JH new database structure
+ *
+ */
+,    2    common_head                        like instance_head,
+     2    contents                           pointer,
+     2    class_specific                     ,
+           3   activity                      binary(15),
+           3   action                        binary(15),
+           3   health                        binary(15),
+           3   restrainer                    binary(15),
+           3   customize(3)                  binary(15),
+/* Host specific: */
+           3   bank_account_balance          binary(31),
+           3   turf                          binary(31),
+           3   stun_count                    binary(15),
+           3   nitty_bits(32)                bit(1),
+           3   true_orientation              binary(15),
+           3   true_head_style               binary(15),
+           3   true_custom(3)                binary(15),
+           3   curse_type                    binary(15),
+           3   curse_counter                 binary(15),
+           3   last_login                    binary(31);

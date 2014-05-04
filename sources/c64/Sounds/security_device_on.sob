@@ -1,0 +1,13 @@
+; security_device_on:
+;		Uses no PW ramps
+	byte	0x2d		;Gate Ramp ADSR Wave 
+	byte	0x40,0x2,0xc0,0x3,0x2,0x0	; Start_Freq,Duration,Increment
+	byte	0xdf,0x0	; ADSR
+	byte	0x10	; Waveform
+
+	byte	0x20		;Wave 
+	byte	0x0	; Waveform
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

@@ -1,0 +1,55 @@
+@region $ dnalsi_47 {
+    north: dnalsi_48.l;
+    east: dnalsi_57.l;
+    west: dnalsi_37.l;
+    region_orientation: FACE_SOUTH;
+    [
+        @sky { x:0; y:0; or:0; style:4; }
+        @flat { x:0; y:4; or:188; 
+            8:2;
+        }
+        @trapezoid { x:72; y:48; or:220; 
+            8:0;
+            9:0;
+            10:0;
+            11:232;
+            12:17;
+            13:32;
+        }
+        @trapezoid { x:24; y:48; or:8; 
+            8:0;
+            9:0;
+            10:0;
+            11:247;
+            12:14;
+            13:16;
+        }
+        @trapezoid { x:104; y:48; or:8; 
+            8:0;
+            9:0;
+            10:0;
+            11:235;
+            12:29;
+            13:28;
+        }
+        @trapezoid { x:48; y:48; or:16; 
+            8:0;
+            9:0;
+            10:0;
+            11:238;
+            12:8;
+            13:24;
+        }
+        @bush { x:16; y:129; or:49; style:4; }
+        @rock { x:108; y:138; or:16; style:2; 
+            8:1;
+        }
+        @flat { x:0; y:4; or:188; style:1; 
+            8:2;
+        }
+        @bush { x:108; y:136; or:24; style:4; gr_state:2; }
+        @rock { x:88; y:137; or:16; 
+            8:1;
+        }
+    ]
+}

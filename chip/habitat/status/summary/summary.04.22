@@ -1,0 +1,84 @@
+From chip Wed Apr 22 21:54:18 1987
+Received: by moth; 22 APR 87 21:54:18 PST
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer, nancy, sda
+Subject: summary, 4/22
+Status: R
+
+Task summary for Wednesday, April 22
+
+Format: Left-hand column is priority/release requirement ('A' = alpha, 'B' =
+beta, 'R' = release, '-' = usable as done, '+' = strictly wishlist item).
+Next column to the right is status: 'T' = testing, 'W' = working on it, ' ' =
+pending, 'I' = just an idea right now.  Next comes the initials of the people
+responsible for the item, then the item itself.
+
+Currently active official task list items:
+2A   j c make book help give title (#77)
+2B   j create program to generate book of records (#21a)
+3R W c implement Ghu (#54)
+
+General items on internal list:
+1A T c flipped doors put you in wrong spot on region entry (off by 8 to right)
+2B   c Mailbox and Dropbox help are not appropriate
+2A   j checkpoint avatar/contents on turn to ghost (head & hand)
+2B   j max occupants for region
+2B T r multi-object FIDDLE
+2B   ? Publish first Rant, and populate newstands
+2A T c Supply Pawn Machine Values
+2B   c make book, key, etc. work with vendo HELP
+2B T r Generate online map of populopolis and put at Ymporium
+2B T a weapons free zone in the city limits
+3R   c describe graphics chars in manual
+3R   r Check prices in all vendos
+3- T r add more fortunes to fortune machine
+3R   r c ghost/avatar only door restrictions
+3B   r make clone recurse
+3R   r spray cans run out (host destroys) after n uses
+3R T c add chores for vendo SELECT, magic
+3B T c check customizer text
+4+   ? camera object
+4R   a customizer: 4-5 selections of heads -- host chooses vector to send
+4+   j change host flag for ghost (Y hi-bit) so avatars' XY pos are maintained
+4+   r Give objects the power to PROMPT the user ('What is the secret word?')
+4+   r a magic GO
+4R   r c g book binder machine
+4R   r c g xerox machine
+4+   r make host send avatars word balloon color in customizer byte
+?R   ? Batch process: Close all unlocked doors
+?B   ? Batch process: Remove curses, immunities
+?+ I ? Turn to fly on teleport
+?+ I ? teleport to Auditorium, and you arrive as a ghost.  good for meetings
+?+ I ? traps that spring monsters
+?+ I ? wands that identify everyone in the room
+
+Playtest 4.7 problems 4/15:
+1A T r Janet got hung
+1A   r j c People having problems with login
+?B   j r Check mailer with full sheet
+
+playtest 4.7 problems 4/16:
+3R   r Get pointed info BEFORE throttle wait
+4+   ? You can enter a region thru a closed door
+4+   c j Doors should know which region you came from
+4R T r Game pieces make noise when set down
+??   ? Screen Flash (what is this ?)
+
+playtest 4.7 problems 4/19:
+2B   c r couldn't put down wand after auto-teleport
+3B T a c check widths on plants and trees
+
+playtest 4.7/4.8 problems 4/20:
+2B   r what if an avatar dies while waiting for a reply?
+2B   r Capture The Flag Entry: Frame-Rate sucks & needs T intersect
+3B T r paper state did not change when erased (was originally blank)
+3-   a in turfs, user can walk over chest legs
+3-   r Teleport Put chore CBB
+3R W r Book interface: put cursor at bottom. Better cursor graphic
+4+   r Make clicking cursor also face front & back.
+4+   r Map shift-0 into ')' for touch typists
+
+playtest 4.7/4.8 problems 4/21:
+2B W a bad address fields in some teleports
+3A T a flashing newsstand legs in front of Ymporium
+

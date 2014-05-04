@@ -1,0 +1,1303 @@
+/*
+ * display.pl1 -- Database display commands for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 21-May-1987
+ *
+ * These routines handle the actual execution of various commands that
+ * display information in the Habitat world databases.
+ *
+ */
+
+%include 'ghu.incl.pl1';
+
+%include 'stdio.incl.pl1';
+%include 'value_struct.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'field_struct.incl.pl1';
+%include 'command.incl.pl1';
+%include 'database.incl.pl1';
+%include 'class.incl.pl1';
+%include 'expr.incl.pl1';
+%include 'world.incl.pl1';
+%include 'lex.incl.pl1';
+%include 'tables.incl.pl1';
+
+declare 1 astate_descriptor based,
+          2     activity        binary(15),     /*  0 */
+          2     action          binary(15),     /*  2 */
+          2     health          binary(15),     /*  4 */
+          2     restrainer      binary(15),     /*  6 */
+          2     custom(3)       binary(15),     /*  8 */
+          2     bank_balance    binary(31),     /* 14 */
+          2     home_turf       binary(31),     /* 18 */
+          2     stun_count      binary(15),     /* 22 */
+          2     nitty_bits(32)  bit(1),         /* 24 */
+          2     true_orient     binary(15),     /* 28 */
+          2     true_head_style binary(15),     /* 30 */
+          2     true_custom(3)  binary(15),     /* 32 */
+          2     curse_type      binary(15),     /* 38 */
+          2     curse_counter   binary(15),     /* 40 */
+          2     last_on         binary(31);     /* 42 */
+
+%replace QUERY_QUIT   by 0;
+%replace QUERY_DELETE by 1;
+%replace QUERY_NEXT   by 2;
+%replace QUERY_ANSWER by 3;
+%replace QUERY_PRINT  by 4;
+
+%replace CONT$CONTENTS by 0;
+%replace CONT$GRIDDLE by 1;
+%replace CONT$RAW by 2;
+
+declare outbuf character(LINE_LENGTH) varying static;
+
+declare s$cv_to_string_date_time entry(binary(31), character(*) varying);
+
+declare raw_base binary(31) static;
+
+c$contents: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, false, CONT$CONTENTS);
+end c$contents;
+
+c$contents_full: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, true, CONT$CONTENTS);
+end c$contents_full;
+
+c$griddle: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, false, CONT$GRIDDLE);
+end c$griddle;
+
+c$griddle_full: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, true, CONT$GRIDDLE);
+end c$griddle_full;
+
+c$raw: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, false, CONT$RAW);
+end c$raw;
+
+c$raw_full: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+
+     call dump_contents(arg1, true, CONT$RAW);
+end c$raw_full;
+
+dump_contents: procedure(arg, recurse_flag, format);
+     declare arg binary(31);
+     declare recurse_flag bit(1);
+     declare format binary(15);
+     declare 1 value_array(1) like augmented_value_descriptor;
+     declare 1 value like value_descriptor;
+
+     if (format = CONT$CONTENTS) then
+          call putline(
+'Global ID        Class            X   Y   Style Orient GSt GWd   Container');
+
+     call default_type(eval(arg), SYM$REGION, value);
+
+     raw_base = -1001;
+     if (format ^= CONT$CONTENTS) then do;
+          if (lookup_data(value, SYM$REGION, DB$TEMP)) then do;
+               if (format = CONT$GRIDDLE) then do;
+                    if (value.data_type = SYM$REGION) then
+                         call griddle_region(addr(temp_region));
+                    else if (value.data_type = SYM$OBJECT) then
+                         call griddle_object(addr(temp_object));
+                    else /* if (value.data_type = SYM$AVATAR) then */
+                         call griddle_avatar(addr(temp_avatar));
+               end; else /* if (format = CONT$RAW) then */ do;
+                    if (value.data_type = SYM$REGION) then
+                         call raw_region(addr(temp_region), 0);
+                    else if (value.data_type = SYM$OBJECT) then
+                         call raw_object(addr(temp_object), 0);
+                    else /* if (value.data_type = SYM$AVATAR) then */
+                         call raw_avatar(addr(temp_avatar), 0);
+               end;
+          end; else do;
+               call error('not found');
+               return;
+          end;
+     end;
+
+     value_array(1).data_type = value.data_type;
+     value_array(1).value = value.value;
+     value_array(1).rel_value = raw_base + 1;
+     call dump_sub_contents(value_array, 1, recurse_flag, format);
+end dump_contents;
+
+dump_sub_contents: procedure(values, value_count, recurse_flag, format)
+          recursive;
+     declare 1 values(*) like augmented_value_descriptor;
+     declare 1 value like value_descriptor;
+     declare value_count binary(15);
+     declare recurse_flag bit(1);
+     declare format binary(15);
+     declare container_base binary(31);
+     declare 1 sub_values(100) like augmented_value_descriptor;
+     declare sub_count binary(15);
+     declare i binary(15);
+     declare global_id binary(31);
+     declare regptr pointer;
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+
+     sub_count = 0;
+     do i=1 to value_count while (^user_break_flag);
+          if (values(i).data_type = SYM$REGION) then do;
+               if (pos_avatar_by_region(values(i).value, KEY_EQUAL) ^= -1) then do;
+                    global_id = get_next_avatar(avaptr, DB$TEMP);
+                    do while (global_id ^= -1 & ava.region = values(i).value);
+                         if (recurse_flag) then do;
+                              sub_count = sub_count + 1;
+                              sub_values(sub_count).data_type = SYM$AVATAR;
+                              sub_values(sub_count).value = ava.ident;
+                              sub_values(sub_count).rel_value = raw_base;
+                         end;
+                         if (format = CONT$CONTENTS) then
+                              call short_print_avatar(avaptr);
+                         else if (format = CONT$GRIDDLE) then
+                              call griddle_avatar(avaptr);
+                         else /* if (format = CONT$RAW) then */
+                              call raw_avatar(avaptr, values(i).rel_value);
+                         global_id = get_next_avatar(avaptr, DB$TEMP);
+                    end;
+               end;
+          end;
+          if (values(i).data_type = SYM$STRING | values(i).data_type =
+                    SYM$AVA_NAME) then do;
+               values(i).value = map_avatar_name_to_id(values(i).value);
+               if (values(i).value = -1) then
+                    return;
+               values(i).data_type = SYM$AVATAR;
+          end;
+          value.value = values(i).value;
+          value.data_type = values(i).data_type;
+          if (pos_object_by_cont(value, KEY_EQUAL) ^= -1) then do;
+               global_id = get_next_object(objptr, DB$TEMP);
+               do while (global_id ^= -1 & obj.host = values(i).value &
+                              obj.type = values(i).data_type);
+                    if (recurse_flag) then do;
+                         sub_count = sub_count + 1;
+                         sub_values(sub_count).data_type = SYM$OBJECT;
+                         sub_values(sub_count).value = obj.ident;
+                         sub_values(sub_count).rel_value = raw_base;
+                    end;
+                    if (format = CONT$CONTENTS) then
+                         call short_print_object(objptr);
+                    else if (format = CONT$GRIDDLE) then
+                         call griddle_object(objptr);
+                    else /* if (format = CONT$RAW) then */
+                         call raw_object(objptr, values(i).rel_value);
+                    global_id = get_next_object(objptr, DB$TEMP);
+               end;
+          end;
+     end;
+     if (recurse_flag & sub_count > 0 & ^user_break_flag) then
+          call dump_sub_contents(sub_values, sub_count, true, format);
+end dump_sub_contents;
+
+short_print_avatar: procedure(avaptr);
+     declare avaptr pointer;     
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare cont_str character(12);
+     declare temp_string character(80) varying;
+
+     if (ava.inside = 0) then
+          cont_str = '';
+     else
+          cont_str = substr(string(ava.inside), 5) || '/o';
+     put string(temp_string) edit(ava.ident, 1, '(avatar)')
+          (f(10,0), x(3), f(3,0), x(1), a);
+     call putcol(temp_string, 33);
+     put string(outbuf) edit(ava.x_pos, ava.y_pos, rank(ava.style),
+          ava.orientation, ava.graphic_st, ava.graphic_wd, cont_str)
+          (f(3,0), x(1), f(3,0), x(3), f(3,0), x(3), f(3,0), x(3), f(3,0),
+          x(1), f(3,0), x(2), a);
+     call putline(outbuf);
+end short_print_avatar;
+
+short_print_object: procedure(objptr);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare cont_str character(12);
+     declare temp_string character(80) varying;
+
+     if (obj.type = SYM$REGION) then
+          cont_str = '';
+     else /* if (obj.type = SYM$AVATAR | obj.type = SYM$OBJECT) then */
+          cont_str = substr(string(obj.host), 5) || '/' ||
+          container_code(obj.type);
+     put string(temp_string) edit(obj.ident, obj.class, '(',
+          class_name(obj.class), ')')
+          (f(10,0), x(3), f(3,0), x(1), a, a, a);
+     call putcol(temp_string, 33);
+     put string(outbuf) edit(obj.x_pos, obj.y_pos, obj.style, obj.orientation,
+          obj.graphic_st, obj.graphic_wd, cont_str)
+          (f(3,0), x(1), f(3,0), x(3), f(3,0), x(3), f(3,0), x(3), f(3,0),
+          x(1), f(3,0), x(2), a);
+     call putline(outbuf);
+end short_print_object;
+
+c$display: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare symbolptr pointer;
+     declare 1 symbol based(symbolptr) like symbol_table_entry;
+     declare stringptr pointer;
+     declare string based(stringptr) character(256) varying;
+     declare bitstringptr pointer;
+     declare 1 bitstring based(bitstringptr) like vbit_struct;
+     declare i binary(15);
+
+     valueptr = eval(arg1);
+     if (value.data_type = SYM$UNDEFINED) then
+          call putstr('undefined value');
+     else if (value.data_type = SYM$NAME) then do;
+          symbolptr = i2p(value.value);
+          call putstr('symbol: ' || symbol.symbol_nameptr->symbol_name);
+     end; else if (value.data_type = SYM$STRING) then do;
+          stringptr = i2p(value.value);
+          call putstr('"');
+          do i = 1 to length(string);
+               call putstr(unescape(substr(string, i, 1)));
+          end;
+          call putstr('"');
+     end; else if (value.data_type = SYM$BITSTRING) then do;
+          bitstringptr = i2p(value.value);
+          call putstr('''');
+          do i = 1 to bitstring.len;
+               if (substr(bitstring.bits, i, 1)) then
+                    call putstr('1');
+               else
+                    call putstr('0');
+          end;
+          call putstr('''b');
+     end; else if (value.data_type = SYM$ALIAS) then
+          call error('BOTCH: alias value crept into expression somehow!');
+     else if (value.data_type = SYM$FIELD) then
+          call error('BOTCH: field value crept into expression somehow!');
+     else if (value.data_type = SYM$ARRAY) then
+          call error('BOTCH: array value crept into expression somehow!');
+     else if (value.data_type = SYM$OBJECT_CONTENTS) then
+          call error('BOTCH: object contents value crept into expression somehow!');
+     else if (value.data_type = SYM$AVATAR_CONTENTS) then
+          call error('BOTCH: avatar contents value crept into expression somehow!');
+     else if (value.data_type = SYM$MACRO) then
+          call putstr('macro');
+     else if (value.data_type = SYM$AVATAR) then do;
+          if (get_avatar(value.value, DB$CURRENT)) then
+               call dump_avatar(addr(cur_avatar));
+     end; else if (value.data_type = SYM$AVA_NAME) then do;
+          if (get_avatar_by_name(value.value, DB$CURRENT)) then
+               call dump_avatar(addr(cur_avatar));
+     end; else if (value.data_type = SYM$REGION) then do;
+          if (get_region(value.value, DB$CURRENT)) then
+               call dump_region(addr(cur_region));
+     end; else if (value.data_type = SYM$OBJECT) then do;
+          if (get_object(value.value, DB$CURRENT)) then
+               call dump_object(addr(cur_object));
+     end; else /* if (value.data_type = SYM$INTEGER) then */
+          call putstr(ltrim(value.value));
+     call free(valueptr);
+     if (arg2 = 0) then
+          call putchar(NEWLINE);
+end c$display;
+
+dump_teleport: procedure(telptr);
+     declare telptr pointer;
+     declare 1 tel based(telptr) like teleport_struct;
+
+     call putline('teleport  "' || ltrim(tel.key) || '" = o ' ||
+          ltrim(tel.device_id));
+end dump_teleport;
+
+dump_region: procedure(regptr);
+     declare regptr pointer;
+     declare 1 reg based(regptr) like region_struct;
+     declare i binary(15);
+
+     call putchar(NEWLINE);
+     call putline('---- Region ' || ltrim(reg.ident) || ' ---- "' ||
+          rtrim(reg.name) || '"');
+
+     call putcol('      Owner: ' || ltrim(reg.owner_id), 32);
+     call putcol('Light_level: ' || ltrim(reg.bounds(1)), 54);
+     call putline('Depth: ' || ltrim(reg.bounds(2)));
+
+     call putcol('Class_group: ' || ltrim(reg.class_group), 37);
+     call putcol('Orient: ' || ltrim(reg.orientation), 52);
+     call putline('Avatars: ' || ltrim(rank(reg.terrain)));
+
+     call putcol('   Town_dir: "' || reg.to_town || '" = ' || ltrim(rank(reg.to_town)), 35);
+     call putline('Port_dir: "' || reg.to_port || '" = ' || ltrim(rank(reg.to_port)));
+
+     call putcol('Weapons_free: ' || ltrim(reg.flags(5)), 33);
+     call putline('Theft_free: ' || ltrim(reg.flags(6)));
+
+     call putcol('Neighbors: North: ' || ltrim(reg.neighbor(3)), 39);
+     call putline('East: ' || ltrim(reg.neighbor(1)));
+     call putcol('           South: ' || ltrim(reg.neighbor(4)), 39);
+     call putline('West: ' || ltrim(reg.neighbor(2)));
+
+     call putcol('Exits: North_exit: ' || ltrim(reg.exit_type(3)), 34);
+     call putline('East_exit: ' || ltrim(reg.exit_type(1)));
+     call putcol('       South_exit: ' || ltrim(reg.exit_type(4)), 34);
+     call putline('West_exit: ' || ltrim(reg.exit_type(2)));
+
+     call putcol('Restrictions: North_restriction: ' || ltrim(reg.flags(3)), 41);
+     call putline('East_restriction: ' || ltrim(reg.flags(1)));
+     call putcol('              South_restriction: ' || ltrim(reg.flags(4)), 41);
+     call putline('West_restriction: ' || ltrim(reg.flags(2)));
+
+     call putstr('Nitty bits: ''');
+     do i=7 to 32;
+          call putstr(ltrim(reg.flags(i)));
+     end;
+     call putline('''b');
+end dump_region;
+
+dump_avatar: procedure(avaptr);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare last_on character(32) varying;
+     declare i binary(15);
+     declare astateptr pointer;
+     declare 1 astate based(astateptr) like astate_descriptor;
+
+     call putchar(NEWLINE);
+     call putline('---- Avatar ' || ltrim(ava.ident) || ' ----');
+
+     astateptr = addr(ava.profile);
+     call s$cv_to_string_date_time(astate.last_on, last_on);
+     call putcol('Name: ' || ava.name, 35);
+     call putline('Last on: ' || last_on);
+
+     call putcol('Region: ' || ltrim(ava.region), 26);
+     call putcol('X: ' || ltrim(ava.x_pos), 36);
+     call putcol('Y: ' || ltrim(ava.y_pos), 46);
+     call putline('Container: ' || ltrim(ava.inside));
+
+     call putcol('Gr_state: ' || ltrim(ava.graphic_st), 24);
+     call putcol('Gr_width: ' || ltrim(ava.graphic_wd), 47);
+     call putcol('Orient: ' || ltrim(ava.orientation), 64);
+     call putline('Style: ' || ltrim(rank(ava.style)));
+
+     call putcol('   Restrainer: ' || ltrim(astate.restrainer), 29);
+     call putcol('Activity: ' || ltrim(astate.activity), 47);
+     call putcol('Action: ' || ltrim(astate.action), 63);
+     call putline('Health: ' || ltrim(astate.health));
+
+     call putcol('      Custom1: ' || ltrim(astate.custom(1)), 30);
+     call putcol('Custom2: ' || ltrim(astate.custom(2)), 46);
+     call putline('Custom3: ' || ltrim(astate.custom(3)));
+
+     call putcol(' True_custom1: ' || ltrim(astate.true_custom(1)), 25);
+     call putcol('True_custom2: ' || ltrim(astate.true_custom(2)), 52);
+     call putline('True_custom3: ' || ltrim(astate.true_custom(3)));
+
+     call putcol(' Bank_balance: ' || ltrim(astate.bank_balance), 28);
+     call putcol('Turf: ' || ltrim(astate.home_turf), 54);
+     call putline('Stun_count: ' || ltrim(astate.stun_count));
+
+     call putcol('  True_orient: ' || ltrim(astate.true_orient), 22);
+     call putline('True_head_style: ' || ltrim(astate.true_head_style));
+
+     call putcol('   Curse_type: ' || ltrim(astate.curse_type), 24);
+     call putline('Curse_counter: ' || ltrim(astate.curse_counter));
+
+     call putstr(' Nitty bits: ''');
+     do i=1 to 32;
+          call putstr(ltrim(astate.nitty_bits(i)));
+     end;
+     call putline('''b');
+end dump_avatar;
+
+dump_object: procedure(objptr);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare dataptr pointer;
+     declare fieldsptr pointer;
+     declare 1 fields(1) based(fieldsptr) like field_descriptor;
+     declare (i, f) binary(15);
+     declare offset binary(15);
+     declare bit_offset binary(15);
+     declare data_type binary(15);
+
+     if (obj.ident = 0) then do;
+          call putline('null object');
+          return;
+     end;
+     call putchar(NEWLINE);
+     call putline('---- Object ' || ltrim(obj.ident) || ' ----');
+
+     call putstr('Class: ' || ltrim(obj.class));
+     call putcol(' (' || class_name(obj.class) || ')', 34);
+     call putcol('X: ' || ltrim(obj.x_pos), 44);
+     call putcol('Y: ' || ltrim(obj.y_pos), 54);
+     call putline('Container: ' || ltrim(obj.host) || '/' ||
+          container_code(obj.type));
+
+     call putcol('Gr_state: ' || ltrim(obj.graphic_st), 22);
+     call putcol('Gr_width: ' || ltrim(obj.graphic_wd), 44);
+     call putcol('Orient: ' || ltrim(obj.orientation), 61);
+     call putline('Style: ' || ltrim(obj.style));
+
+     call putcol('Restricted: ' || ltrim(obj.genl_flags(1)), 40);
+     call putline('Prop_length: ' || ltrim(obj.prop_length));
+
+     call putstr('Nitty bits: ''');
+     do i=2 to 32;
+          call putstr(ltrim(obj.genl_flags(i)));
+     end;
+     call putline('''b');
+
+     if (class_field_count(obj.class) > 0) then do;
+          dataptr = objptr;
+          fieldsptr = class_fields(obj.class);
+          do f = 1 to class_field_count(obj.class);
+             if (fields(f).invisible = 0) then do;
+                 call putstr(fields(f).name->
+                    symbol_table_entry.symbol_nameptr->symbol_name || ': ');
+                 call setup_offsets(fields(f).offset, offset, bit_offset);
+                 call output_field_values(addrel(dataptr, offset),
+                    fields(f).dimension, fields(f).data_type, bit_offset);
+                 call putchar(NEWLINE);
+             end;
+          end;
+     end;
+end dump_object;
+
+output_field_values: procedure(dataptr, dimension, data_type, bit_offset);
+     declare dataptr pointer;
+     declare dimension binary(15);
+     declare data_type binary(15);
+     declare bit_offset binary(15);
+     declare i binary(15);
+
+     if (data_type = FIELD$VARSTRING) then
+          call putstr('"' || dataptr->pvstring || '"');
+     else do i = 1 to dimension;
+          if (data_type ^= FIELD$CHARACTER & data_type ^= FIELD$WORDS &
+                    data_type ^= FIELD$BIT & i > 1) then
+               call putstr(', ');
+          if (data_type = FIELD$BIN15) then
+               call putstr(ltrim(dataptr->pbin15(i)));
+          else if (data_type = FIELD$BIN31) then
+               call putstr(ltrim(dataptr->pbin31(i)));
+          else if (data_type = FIELD$CHARACTER) then do;
+               if (i = 1) then call putstr('"');
+               call putstr(unescape(dataptr->pchar(i)));
+               if (i = dimension) then call putstr('"');
+          end; else if (data_type = FIELD$WORDS) then do;
+               if (i = 1) then call putstr('"');
+               call putstr(unescape(dataptr->pchar(i*2)));
+               if (i = dimension) then call putstr('"');
+          end; else if (data_type = FIELD$BIT) then do;
+               if (i = 1) then call putstr('''');
+               call putstr(ltrim(substr(dataptr->pbit, bit_offset + i, 1)));
+               if (i = dimension) then call putstr('''b');
+          end; else if (data_type = FIELD$AVAID) then
+               call putstr('a ' || ltrim(dataptr->pbin31(i)));
+          else if (data_type = FIELD$OBJID) then
+               call putstr('o ' || ltrim(dataptr->pbin31(i)));
+          else if (data_type = FIELD$REGID) then
+               call putstr('r ' || ltrim(dataptr->pbin31(i)));
+          else if (data_type = FIELD$FATWORD) then
+               call putstr(ltrim(dataptr->pbin15((i*2) - 1) +
+                           256 * dataptr->pbin15((i*2)    )));
+          else if (data_type = FIELD$ENTITY) then do;
+               call putstr(container_code(dataptr->pentity(i).type) || ' ');
+               if (dataptr->pentity(i).ident > 0) then
+                    call putstr(container_code(dataptr->pentity(i).type) ||
+                         '_');
+               call putstr(ltrim(dataptr->pentity(i).ident));
+          end; else /* if (data_type = FIELD$BYTE) then */
+               call putstr(ltrim(rank(dataptr->pchar(i))));
+     end;
+end output_field_values;
+
+griddle_region: procedure(regptr);
+     declare regptr pointer;
+     declare 1 reg based(regptr) like region_struct;
+     declare i binary(15);
+
+     call putline('use region r_' || ltrim(reg.ident) || ' {');
+
+     call gdl_l('owner', reg.owner_id, 'a');
+     call gdl_w('light_level', reg.bounds(1));
+     call gdl_w('depth', reg.bounds(2));
+     call gdl_l('east_neighbor', reg.neighbor(1), 'r');
+     call gdl_l('west_neighbor', reg.neighbor(2), 'r');
+     call gdl_l('north_neighbor', reg.neighbor(3), 'r');
+     call gdl_l('south_neighbor', reg.neighbor(4), 'r');
+     call gdl_w('class_group', reg.class_group);
+     call gdl_w('orient', reg.orientation);
+     call gdl_w('entry_proc', reg.entry_proc);
+     call gdl_w('exit_proc', reg.exit_proc);
+     call gdl_w('east_exit', reg.exit_type(1));
+     call gdl_w('west_exit', reg.exit_type(2));
+     call gdl_w('north_exit', reg.exit_type(3));
+     call gdl_w('south_exit', reg.exit_type(4));
+     call gdl_t('east_restriction', reg.flags, 1, 1);
+     call gdl_t('west_restriction', reg.flags, 2, 1);
+     call gdl_t('north_restriction', reg.flags, 3, 1);
+     call gdl_t('south_restriction', reg.flags, 4, 1);
+     call gdl_t('weapons_free', reg.flags, 5, 1);
+     call gdl_t('nitty_bits', reg.flags, 6, 27);
+     call gdl_c('name', reg.name, 20);
+     call gdl_b('avatars', reg.terrain);
+     call gdl_c('town_dir', reg.to_town, 1);
+     call gdl_c('port_dir', reg.to_port, 1);
+
+     call putline('}');
+end griddle_region;
+
+griddle_avatar: procedure(avaptr);
+     declare avaptr pointer;
+     declare 1 ava based(avaptr) like avatar_struct;
+     declare last_on character(32) varying;
+     declare i binary(15);
+     declare astateptr pointer;
+     declare 1 astate based(astateptr) like astate_descriptor;
+
+     astateptr = addr(ava.profile);
+
+     call putline('use avatar a_' || ltrim(ava.ident) || ' {');
+
+     call gdl_l('region', ava.region, 'r');
+     call gdl_n('container', 'o', ava.inside);
+     call gdl_w('x', ava.x_pos);
+     call gdl_w('y', ava.y_pos);
+     call gdl_w('gr_state', ava.graphic_st);
+     call gdl_w('gr_width', ava.graphic_wd);
+     call gdl_t('genl_flags', ava.genl_flags, 1, 32);
+     call gdl_w('orient', ava.orientation);
+     call gdl_b('style', ava.style);
+     call gdl_c('name', ava.name, 10);
+     call gdl_c('screen_name', ava.screen_name, 10);
+
+     call gdl_w('activity', astate.activity);
+     call gdl_w('action', astate.action);
+     call gdl_w('health', astate.health);
+     call gdl_w('restrainer', astate.restrainer);
+     call gdl_wm('custom', astate.custom, 3);
+     call gdl_l('bank_balance', astate.bank_balance, '');
+     call gdl_l('turf', astate.home_turf, 'r');
+     call gdl_w('stun_count', astate.stun_count);
+     call gdl_t('nitty_bits', astate.nitty_bits, 1, 31);
+     call gdl_t('curse_immune', astate.nitty_bits, 32, 1);
+     call gdl_w('true_orient', astate.true_orient);
+     call gdl_w('true_head_style', astate.true_head_style);
+     call gdl_wm('true_custom', astate.true_custom, 3);
+     call gdl_w('curse_type', astate.curse_type);
+     call gdl_w('curse_counter', astate.curse_counter);
+
+     call putline('}');
+end griddle_avatar;
+
+griddle_object: procedure(objptr);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare dataptr pointer;
+     declare fieldsptr pointer;
+     declare 1 fields(1) based(fieldsptr) like field_descriptor;
+     declare (i, f) binary(15);
+     declare offset binary(15);
+     declare bit_offset binary(15);
+     declare data_type binary(15);
+
+     call putline('use ' || translate(class_name(obj.class), '_', ' ') ||
+          ' o_' || ltrim(obj.ident) || ' {');
+     call gdl_n('container', container_code(obj.type), obj.host);
+     call gdl_w('x', obj.x_pos);
+     call gdl_w('y', obj.y_pos);
+     call gdl_w('style', obj.style);
+     call gdl_w('gr_state', obj.graphic_st);
+     call gdl_w('orient', obj.orientation);
+     call gdl_w('gr_width', obj.graphic_wd);
+     call gdl_t('restricted', obj.genl_flags, 1, 1);
+     call gdl_t('nitty_bits', obj.genl_flags, 2, 31);
+
+     if (class_field_count(obj.class) > 0) then do;
+          dataptr = objptr;
+          fieldsptr = class_fields(obj.class);
+          do f = 1 to class_field_count(obj.class);
+             if (fields(f).invisible = 0) then do;
+                call putstr('  ' || fields(f).name->
+                    symbol_table_entry.symbol_nameptr->symbol_name || ': ');
+                call setup_offsets(fields(f).offset, offset, bit_offset);
+                call griddle_field_values(addrel(dataptr, offset),
+                    fields(f).dimension, fields(f).data_type, bit_offset);
+                call putchar(NEWLINE);
+             end;
+          end;
+     end;
+     call putline('}');
+end griddle_object;
+
+gdl_l: procedure(label, value, tag);
+     declare label character(*) varying;
+     declare value binary(31);
+     declare tag character(1) varying;
+
+     if (tag = '') then
+          call putline('  ' || label || ': ' || ltrim(value));
+     else if (value > 0) then
+          call putline('  ' || label || ': ' || tag || ' ' || tag || '_' ||
+               ltrim(value));
+     else
+          call putline('  ' || label || ': ' || tag || ' ' || ltrim(value));
+end gdl_l;
+
+gdl_n: procedure(label, tag, value);
+     declare label character(*) varying;
+     declare tag character(1);
+     declare value binary(31);
+
+     if (value > 0) then
+          call putline('  ' || label || ': ' || tag || ' ' || tag || '_' ||
+               ltrim(value));
+     else
+          call putline('  ' || label || ': ' || tag || ' ' || ltrim(value));
+end gdl_n;
+
+gdl_w: procedure(label, value);
+     declare label character(*) varying;
+     declare value binary(15);
+
+     call putline('  ' || label || ': ' || ltrim(value));
+end gdl_w;
+
+gdl_wm: procedure(label, values, count);
+     declare label character(*) varying;
+     declare values(*) binary(15);
+     declare count binary(15);
+     declare i binary(15);
+
+     call putstr('  ' || label || ': ');
+     do i = 1 to count;
+          call putstr(ltrim(values(i)));
+          if (i ^= count) then call putstr(', ');
+     end;
+     call putchar(NEWLINE);
+end gdl_wm;
+
+gdl_b: procedure(label, value);
+     declare label character(*) varying;
+     declare value character(1);
+
+     call putline('  ' || label || ': ' || ltrim(rank(value)));
+end gdl_b;
+
+gdl_c: procedure(label, value, len);
+     declare label character(*) varying;
+     declare value character(*);
+     declare len binary(15);
+
+     call putline('  ' || label || ': "' || substr(value, 1, len) || '"');
+end gdl_c;
+
+gdl_t: procedure(label, value, offset, len);
+     declare label character(*) varying;
+     declare value(*) bit(1);
+     declare offset binary(15);
+     declare len binary(15);
+     declare i binary(15);
+
+     call putstr('  ' || label || ': ''');
+     do i = 1 to len;
+          call putstr(ltrim(value(offset + i - 1)));
+     end;
+     call putline('''b');
+end gdl_t;
+
+griddle_field_values: procedure(dataptr, dimension, data_type, bit_offset);
+     declare dataptr pointer;
+     declare dimension binary(15);
+     declare data_type binary(15);
+     declare bit_offset binary(15);
+     declare i binary(15);
+
+     if (data_type = FIELD$VARSTRING) then
+          call putstr('"' || dataptr->pvstring || '"');
+     else do i = 1 to dimension;
+          if (data_type ^= FIELD$CHARACTER & data_type ^= FIELD$BIT &
+                    data_type ^= FIELD$WORDS & i > 1) then
+               call putstr(', ');
+          if (data_type = FIELD$BIN15) then
+               call putstr(ltrim(dataptr->pbin15(i)));
+          else if (data_type = FIELD$BIN31) then
+               call putstr(ltrim(dataptr->pbin31(i)));
+          else if (data_type = FIELD$AVAID) then do;
+               call putstr('a ');
+               if (-1000 > dataptr->pbin31(i) | dataptr->pbin31(i) >= 1) then
+                    call putstr('a_');
+               call putstr(ltrim(dataptr->pbin31(i)));
+          end; else if (data_type = FIELD$OBJID) then do;
+               call putstr('o ');
+               if (-1000 > dataptr->pbin31(i) | dataptr->pbin31(i) >= 1) then
+                    call putstr('o_');
+               call putstr(ltrim(dataptr->pbin31(i)));
+          end; else if (data_type = FIELD$REGID) then do;
+               call putstr('r ');
+               if (-1000 > dataptr->pbin31(i) | dataptr->pbin31(i) >= 1) then
+                    call putstr('r_');
+               call putstr(ltrim(dataptr->pbin31(i)));
+          end; else if (data_type = FIELD$CHARACTER) then do;
+               if (i = 1) then call putstr('"');
+               call putstr(unescape(dataptr->pchar(i)));
+               if (i = dimension) then call putstr('"');
+          end; else if (data_type = FIELD$WORDS) then do;
+               if (i = 1) then call putstr('"');
+               call putstr(unescape(dataptr->pchar(i*2)));
+               if (i = dimension) then call putstr('"');
+          end; else if (data_type = FIELD$BIT) then do;
+               if (i = 1) then call putstr('''');
+               call putstr(ltrim(substr(dataptr->pbit, bit_offset + i, 1)));
+               if (i = dimension) then call putstr('''b');
+          end; else if (data_type = FIELD$FATWORD) then
+               call putstr(ltrim(dataptr->pbin15((i*2) - 1) +
+                           256 * dataptr->pbin15((i*2)    )  ));
+          else if (data_type = FIELD$ENTITY) then
+               call putstr(container_code(dataptr->pentity(i).type) || ' ' ||
+                           container_code(dataptr->pentity(i).type) || '_' ||
+                           ltrim(dataptr->pentity(i).ident));
+          else /* if (data_type = FIELD$BYTE) then */
+               call putstr(ltrim(rank(dataptr->pchar(i))));
+     end;
+end griddle_field_values;
+
+raw_region: procedure(regptr, container_relative_id);
+     declare regptr pointer;
+     declare container_relative_id binary(31);
+
+     call rawline(0, regptr, container_relative_id);
+end raw_region;
+
+raw_avatar: procedure(avaptr, container_relative_id);
+     declare avaptr pointer;
+     declare container_relative_id binary(31);
+
+     call rawline(1, avaptr, container_relative_id);
+end raw_avatar;
+
+raw_object: procedure(objptr, container_relative_id);
+     declare objptr pointer;
+     declare 1 obj based(objptr) like object_struct;
+     declare container_relative_id binary(31);
+
+     call rawline(obj.class, objptr, container_relative_id);
+end raw_object;
+
+rawline: procedure(class, dataptr, container_relative_id);
+     declare class binary(31);
+     declare dataptr pointer;
+     declare container_relative_id binary(31);
+
+     dataptr->object_struct.ident = raw_base;
+     raw_base = raw_base - 1;
+     if (container_relative_id ^= 0) then do;
+          if (class = CLASS_AVATAR) then
+               dataptr->avatar_struct.region = container_relative_id;
+          else if (class ^= CLASS_REGION) then
+               dataptr->object_struct.host = container_relative_id;
+     end;
+          
+     call putstr('/' || ltrim(class) || ' ');
+     call put_hexstring(dataptr, class_size(class));
+     call putchar(NEWLINE);
+end rawline;
+
+c$display_default: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+
+     if (info_type(DB$CURRENT) = 'a') then
+          call dump_avatar(addr(cur_avatar));
+     else if (info_type(DB$CURRENT) = 'r') then
+          call dump_region(addr(cur_region));
+     else if (info_type(DB$CURRENT) = 'o') then
+          call dump_object(addr(cur_object));
+     else if (info_type(DB$CURRENT) = 'u') then
+          call error('there is currently no default entity');
+     else
+          call error('the current default entity is not displayable');
+     call putchar(NEWLINE);
+end c$display_default;
+
+c$find: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+
+     valueptr = eval(arg1);
+     do while (lookup_data(value, SYM$OBJECT, DB$TEMP));
+          if (info_type(DB$TEMP) = 'a') then do;
+               if (temp_avatar.inside = SYM$REGION) then do;
+                    value.value = temp_avatar.region;
+                    value.data_type = SYM$REGION;
+               end; else do;
+                    value.value = temp_avatar.inside;
+                    value.data_type = SYM$OBJECT;
+               end;
+               call putline('Avatar ' || ltrim(temp_avatar.ident) || ' (' ||
+                    rtrim(temp_avatar.name) || ') currently in ' ||
+                    type_name(value.data_type) || ' ' || ltrim(value.value));
+          end; else if (info_type(DB$TEMP) = 'o') then do;
+               call putline('Object ' || ltrim(temp_object.ident) || ' (' ||
+                    class_name((temp_object.class)) || ') currently in ' ||
+                    type_name(temp_object.type) || ' ' || ltrim(temp_object.host));
+               value.value = temp_object.host;
+               value.data_type = temp_object.type;
+          end; else /* if (info_type(DB$TEMP) = 'r') then */
+               goto end_find;
+          if (value.data_type = SYM$REGION) then
+               goto end_find;
+     end;
+end_find:
+     call free(valueptr);
+end c$find;
+
+c$get: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare dummy bit(1);
+
+     valueptr = eval(arg1);
+     if (value.data_type = SYM$AVATAR) then
+          dummy = get_avatar(value.value, DB$CURRENT);
+     else if (value.data_type=SYM$AVA_NAME | value.data_type=SYM$STRING) then
+          dummy = get_avatar_by_name(value.value, DB$CURRENT);
+     else if (value.data_type = SYM$REGION) then
+          dummy = get_region(value.value, DB$CURRENT);
+     else if (value.data_type = SYM$OBJECT) then
+          dummy = get_object(value.value, DB$CURRENT);
+     else if (value.data_type = SYM$UNDEFINED) then
+          call error('can''t get undefined value');
+     else
+          call error('illegal data type for get');
+     call free(valueptr);
+end c$get;
+
+c$list_active: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     call putline('list_active not yet implemented');
+end c$list_active;
+
+c$list: procedure(arg1, arg2);
+     declare (arg1, arg2) binary(31);
+     declare (region1, region2) binary(31);
+     declare regptr pointer;
+     declare 1 reg based(regptr) like region_struct;
+
+     region1 = obspec_r(arg1, 0);
+     region2 = obspec_r(arg2, 0);
+     if (region2 = -1) then
+          region2 = region1;
+     else if (region1 < 0 | region2 < 0) then
+          return;
+     else if (region2 < region1) then do;
+          call error('invalid region range');
+          return;
+     end;
+     
+     call putline(
+          '    REGION           WEST       NORTH          EAST       SOUTH');
+     region1 = pos_region(region1, KEY_GTEQ);
+     if (region1 >= 0) then
+          region1 = get_next_region(regptr, DB$TEMP);
+     do while (0 <= region1 & region1 <= region2 & ^user_break_flag);
+          put string(outbuf) edit(reg.ident, reg.neighbor(2),
+               reg.neighbor(3), reg.neighbor(1), reg.neighbor(4))
+               (f(10,0), x(5), (f(10,0), x(2)));
+          call putline(outbuf);
+          region1 = get_next_region(regptr, DB$TEMP);
+     end;
+end c$list;
+
+c$oracle: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     call execute_oracle(arg1, arg2, false);
+end c$oracle;
+
+c$oracle_dump: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+
+     call execute_oracle(arg1, arg2, true);
+end c$oracle_dump;
+
+execute_oracle: procedure(arg1, arg2, dump_flag);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare dump_flag bit(1);
+     declare oracle binary(31);
+     declare since binary(31);
+     declare ovalueptr pointer;
+     declare 1 ovalue based(ovalueptr) like value_descriptor;
+     declare time_strptr pointer;
+     declare time_str based(time_strptr) character(256) varying;
+     declare rc binary(15);
+     declare filename character(LINE_LENGTH) varying;
+     declare filenameptr pointer;
+     declare advance bit(1);
+     declare action binary(15);
+     declare timestr character(32) varying;
+     declare dummy binary(15);
+     declare s$cv_to_int_date_time entry(char(*) var, binary(31), binary(15));
+     %replace ORACLE_ID by 958121855;
+
+     if (i2p(arg1) = null()) then
+          oracle = 0;
+     else do;
+          ovalueptr = eval(arg1);
+          if (ovalue.data_type = SYM$UNDEFINED) then do;
+               call error('undefined value for oracle id');
+               call free(ovalueptr);
+               return;
+          end;
+          oracle = avalue(ovalueptr, dummy);
+          call free(ovalueptr);
+     end;
+     if (i2p(arg2) = null()) then
+          since = 0;
+     else do;
+          ovalueptr = eval(arg2);
+          if (ovalue.data_type = SYM$UNDEFINED) then do;
+               call error('undefined value for time stamp');
+               call free(ovalueptr);
+               return;
+          end; else if (ovalue.data_type = SYM$STRING) then do;
+               time_strptr = i2p(ovalue.value);
+               call s$cv_to_int_date_time(time_str, since, rc);
+               if (rc ^= 0) then do;
+                    call error('"' || time_str ||
+                         '" is not a legitimate time value');
+                    call free(ovalueptr);
+                    return;
+               end;
+          end; else
+               since = avalue(ovalueptr, dummy);
+          call free(ovalueptr);
+     end;
+     call rewind_questions;
+     do while (get_next_question(DB$CURRENT) & ^user_break_flag);
+          if (^cur_question.answered & (cur_question.oracle_id = oracle |
+                    oracle = 0) & cur_question.time_asked >= since) then do;
+               call s$cv_to_string_date_time(cur_question.time_asked,timestr);
+               call putline('to: ' || ltrim(cur_question.oracle_id) ||
+                    ' from: ' || map_avatar_id_to_name(cur_question.
+                    originator) || ' time: ' || timestr);
+               call putline('"' || cur_question.text || '"');
+               if (^dump_flag) then do;
+                    advance = false;
+                    do while (^advance);
+                         advance = true;
+                         action = query_user(filename);
+                         if (action = QUERY_QUIT) then
+                              goto end_ORACLE;
+                         else if (action = QUERY_DELETE) then
+                              call delete_current_question;
+                         else if (action = QUERY_ANSWER) then do;
+                              advance = false;
+                              if (filename ^= '') then
+                                   filenameptr = addr(filename);
+                              else
+                                   filenameptr = null();
+                              call execute_sendmail(cur_question.originator,
+                                   ORACLE_ID, filenameptr);
+                         end; else if (action = QUERY_PRINT) then do;
+                              advance = false;
+                              call putline('to: ' || ltrim(cur_question.
+                                   oracle_id) || ' from: ' ||
+                                   map_avatar_id_to_name(cur_question.
+                                   originator) || ' time: ' || timestr);
+                              call putline('"' || cur_question.text || '"');
+                         end; /* else (action = QUERY_NEXT) */
+                    end;
+               end;
+          end;
+     end;
+     call putline('no more questions to the oracle');
+end_ORACLE:
+     call set_prompt('ghu? ');
+end execute_oracle;
+
+query_user: procedure(argument) returns(binary(15));
+     declare argument character(*) varying;
+     declare resp_line character(LINE_LENGTH) varying;
+     declare resp character(LINE_LENGTH) varying;
+     declare space_index binary(15);
+
+     do while (true);
+          call set_prompt('next? ');
+          resp_line = getline();
+          space_index = index(resp_line, ' ');
+          if (space_index = 0) then
+               resp = resp_line;
+          else
+               resp = substr(resp_line, 1, space_index - 1);
+          argument = '';
+          if (resp = 'q' | resp = 'quit' | resp = 'exit' | resp = 'stop') then
+               return(QUERY_QUIT);
+          else if (resp = 'd' | resp = 'del' | resp = 'delete') then
+               return(QUERY_DELETE);
+          else if (resp = 'n' | resp = 'next' | resp = '') then
+               return(QUERY_NEXT);
+          else if (resp = 'p' | resp = 'print') then
+               return(QUERY_PRINT);
+          else if (resp = 'a' | resp = 'ans' | resp = 'answer' |
+                   resp = 'r' | resp = 'rep' | resp = 'reply') then do;
+               if (space_index ^= 0) then
+                    argument = ltrim(rtrim(substr(resp_line, space_index)));
+               return(QUERY_ANSWER);
+          end; else if (resp ^= '?' | resp ^= 'h' | resp ^= 'help') then
+               call error('Ghu doesn''t understand "' || resp || '"');
+          call putline('Please respond: quit, delete, reply, print or next');
+     end;
+end query_user;
+
+c$read_implicit: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare text_id binary(31);
+     declare dummybit bit(1);
+
+     text_id = get_text_id(DB$CURRENT, dummybit);
+     if (text_id >= 0) then
+          call show_text(text_id, 0);
+end c$read_implicit;
+
+c$read: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare dummybit bit(1);
+
+     text_id = extract_text_id(arg1, dummybit);
+     page_number = extract_page_number(arg2);
+     if (text_id >= 0 & page_number >= 0) then
+          call show_text(text_id, page_number);
+end c$read;
+
+extract_text_id: procedure(exprnum, is_paper) returns(binary(31));
+     declare exprnum binary(31);
+     declare result binary(31);
+     declare 1 value like value_descriptor;
+     declare is_paper bit(1);
+
+     call default_type(eval(exprnum), SYM$INTEGER, value);
+     result = -1;
+     is_paper = false;
+     if (value.data_type = SYM$OBJECT) then
+          if (get_object(value.value, DB$TEMP)) then
+               result = get_text_id(DB$TEMP, is_paper);
+          else
+               call error('there is no object ' || ltrim(value.value));
+     else if (value.data_type ^= SYM$INTEGER) then
+          call error('invalid data type for text identifier');
+     else
+          result = value.value;
+     return(result);
+end extract_text_id;
+
+extract_page_number: procedure(exprnum) returns(binary(15));
+     declare exprnum binary(31);
+     declare result binary(15);
+     declare 1 value like value_descriptor;
+
+     result = -1;
+     if (i2p(exprnum) = null()) then
+          result = 0;
+     else do;
+          call default_type(eval(exprnum), SYM$INTEGER, value);
+          if (value.data_type ^= SYM$INTEGER) then
+               call error('invalid data type for page number');
+          else
+               result = value.value;
+     end;
+     return(result);
+end extract_page_number;
+
+show_text: procedure(text_id, page_number);
+     declare text_id binary(31);
+     declare page_number binary(15);
+
+     if (page_number > 0) then do;
+          if (^show_page(text_id, page_number)) then
+               call error('unable to read text ' || ltrim(text_id) ||
+                    ' page ' || ltrim(page_number));
+     end; else do;
+          page_number = 1;
+          do while (show_page(text_id, page_number) & ^user_break_flag);
+               page_number = page_number + 1;
+          end;
+          if (page_number <= 1) then
+               call error('unable to read text ' || ltrim(text_id));
+     end;
+end show_text;
+
+show_page: procedure(text_id, page_number) returns(bit(1));
+     declare text_id binary(31);
+     declare page_number binary(15);
+     declare column binary(15);
+     declare i binary(15);
+     declare c character(1);
+
+     if (^get_page(text_id, page_number, DB$CURRENT)) then
+          return(false);
+     call putstr('######################################## ');
+     call putline('Text ' || ltrim(cur_text.key) || ', page ' ||
+          ltrim(cur_text.page));
+     column = 1;
+     do i = 1 to length(cur_text.data) while (^user_break_flag);
+          c = substr(cur_text.data, i, 1);
+          if (c ^= byte(NEWLINE)) then do;
+               call putstr(unescape(c));
+               column = column + 1;
+          end;
+          if (column = 41 | i = length(cur_text.data) | c = byte(NEWLINE)) then do;
+               call putchar(NEWLINE);
+               column = 1;
+          end;
+     end;
+     return(true);
+end show_page;
+
+c$titles: procedure(arg1, arg2);
+     declare arg1 binary(31);
+     declare arg2 binary(31);
+     declare lower binary(31);
+     declare upper binary(31);
+     declare i binary(15);
+     declare limit binary(15);
+
+     lower = avalue(eval(arg1), 0);
+     upper = avalue(eval(arg2), 0);
+     if (upper = -1) then
+          upper = lower;
+     else if (upper < 0 | lower < 0) then do;
+          call error('invalid title limits');
+          return;
+     end; else if (upper < lower) then do;
+          call error('invalid title index range');
+          return;
+     end;
+     if (rewind_text()) then do;
+          do while (get_next_text(DB$TEMP) & ^user_break_flag);
+               if (temp_text.key > upper) then
+                    return;
+               if (temp_text.page = 1 & temp_text.key >= lower) then do;
+                    call putstr(ltrim(temp_text.key) || ': "');
+                    limit = index(temp_text.data, byte(NEWLINE));
+                    if (limit < 1) then
+                         limit = 640;
+                    if (limit > 1) then do i = 1 to min(limit - 1, 40);
+                         call putstr(unescape(substr(temp_text.data, i, 1)));
+                    end;
+                    call putline('"');
+               end;
+          end;
+     end;
+end c$titles;
+
+c$turfs: procedure(dummy1, dummy2);
+     declare dummy1 binary(31);
+     declare dummy2 binary(31);
+     declare len binary(15);
+
+     call rewind_turfs;
+     len = get_next_turf(DB$TEMP);
+     do while (len ^= 0 & ^user_break_flag);
+          call putline(substr(temp_turf.turf_number, 1, len));
+          len = get_next_turf(DB$TEMP);
+     end;
+end c$turfs;
+
+eval_teleport: procedure(arg) returns(character(20) varying);
+     declare arg binary(31);
+     declare valueptr pointer;
+     declare 1 value based(valueptr) like value_descriptor;
+     declare stringptr pointer;
+     declare 1 string based(stringptr) character(256) varying;
+
+     valueptr = eval(arg);
+     if (value.data_type ^= SYM$STRING) then do;
+          call error('illegal data type for teleport address');
+          return('');
+     end;
+     stringptr = i2p(value.value);
+     call free(valueptr);
+     call squeeze(string);
+     if (index(string, '-') = 0) then
+          return('pop-' || string);
+     return(string);
+end eval_teleport;
+
+c$teleport_lookup: procedure(arg1, dummy2);
+     declare arg1 binary(31);
+     declare dummy2 binary(31);
+     declare string character(20) varying;
+     declare star binary(15);
+
+     string = eval_teleport(arg1);
+     star = index(string, '*');
+     if (star = 0) then
+          if (get_teleport(string, DB$TEMP, false)) then
+               call dump_teleport(addr(temp_teleport));
+          else
+               call error('there is no teleport ' || string);
+     else do;
+          string = substr(string, 1, star - 1);
+          if (pos_teleport(string, true)) then
+               do while (get_next_teleport(string, DB$TEMP) & ^user_break_flag);
+                    call dump_teleport(addr(temp_teleport));
+               end;
+          else
+               call error('there are no teleports ' || string || '*');
+     end;
+end c$teleport_lookup;
+
+squeeze: procedure(s);
+     declare s character(*) varying;
+     declare temp character(256) varying;
+     declare i binary(15);
+
+     s = translate(s, 'abcdefghijklmnopqrstuvwxyz',
+                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     temp = '';
+     do i = 1 to length(s);
+          if (substr(s, i, 1) ^= ' ') then
+               temp = temp || substr(s, i, 1);
+     end;
+     s = temp;
+end squeeze;

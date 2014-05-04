@@ -1,0 +1,149 @@
+use region {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r -1
+  north_neighbor: r -1
+  south_neighbor: r -1
+  class_group: 0
+  orient: 1
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '000000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 228
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid {
+  container: r -1001
+  x: 160
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 220
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 127
+  pattern_x_size: 1
+  pattern_y_size: 15
+  pattern: 170, 170, 149
+}
+use sign {
+  container: r -1001
+  x: 12
+  y: 126
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\(\h All forms MUST\Rbe in triplicate.     "
+}
+use sign {
+  container: r -1001
+  x: 8
+  y: 8
+  style: 0
+  gr_state: 3
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "Property    Licenses    Complaints      "
+}
+use bureaucrat {
+  container: r -1001
+  x: 16
+  y: 145
+  style: 0
+  gr_state: 0
+  orient: 48
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use bureaucrat {
+  container: r -1001
+  x: 64
+  y: 145
+  style: 0
+  gr_state: 0
+  orient: 56
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use bureaucrat {
+  container: r -1001
+  x: 116
+  y: 145
+  style: 0
+  gr_state: 0
+  orient: 40
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+}
+use head {
+  container: o
+  x: 0
+  y: 0
+  style: 86
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head {
+  container: o
+  x: 0
+  y: 0
+  style: 64
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use head {
+  container: o
+  x: 0
+  y: 0
+  style: 6
+  gr_state: 1
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

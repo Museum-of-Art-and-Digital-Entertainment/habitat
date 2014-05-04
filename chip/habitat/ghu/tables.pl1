@@ -1,0 +1,318 @@
+/*
+ * tables.pl1 -- Tables of text for Ghu.
+ *
+ * Chip Morningstar
+ * Lucasfilm Ltd.
+ * 10-April-1987
+ *
+ * This file contains the definitions of all the text table for Ghu.  These
+ * tables allow us to print out class names, recognize field names, etc.  The
+ * tables are accessed through function calls so we can check parameters
+ * without having to turn on global array bounds checking and so we can
+ * intercept out-of-bounds values cleanly (for diagnostic purposes, PL/1's
+ * run-time handling of such errors is a little too severe).
+ *
+ */
+
+%include 'ghu.incl.pl1';
+%include 'symbol_struct.incl.pl1';
+%include 'stdio.incl.pl1';
+
+declare class_strings(-1:MAX_CLASS) character(20) varying static external init(
+          'object',              /* -1 */
+          'region',              /* 0 */
+          'avatar',              /* 1 */
+          'amulet',              /* 2 */
+          'ghost',               /* 3 */
+          'atm',                 /* 4 */
+          'game piece',          /* 5 */
+          'bag',                 /* 6 */
+          'ball',                /* 7 */
+          '?????',               /* 8 */
+          '?????',               /* 9 */
+          'book',                /* 10 */
+          'boomerang',           /* 11 */
+          'bottle',              /* 12 */
+          'box',                 /* 13 */
+          '?????',               /* 14 */
+          '?????',               /* 15 */
+          'club',                /* 16 */
+          'compass',             /* 17 */
+          'countertop',          /* 18 */
+          '?????',               /* 19 */
+          'crystal ball',        /* 20 */
+          'die',                 /* 21 */
+          'display case',        /* 22 */
+          'door',                /* 23 */
+          'dropbox',             /* 24 */
+          'drugs',               /* 25 */
+          'escape device',       /* 26 */
+          'fake gun',            /* 27 */
+          'elevator',            /* 28 */
+          'flag',                /* 29 */
+          'flashlight',          /* 30 */
+          'frisbee',             /* 31 */
+          'garbage can',         /* 32 */
+          'gemstone',            /* 33 */
+          '?????',               /* 34 */
+          'grenade',             /* 35 */
+          'ground',              /* 36 */
+          'gun',                 /* 37 */
+          'hand of god',         /* 38 */
+          'hat',                 /* 39 */
+          'instant object pill', /* 40 */
+          '?????',               /* 41 */
+          'key',                 /* 42 */
+          'knick knack',         /* 43 */
+          'knife',               /* 44 */
+          'magic lamp',          /* 45 */
+          'magic staff',         /* 46 */
+          'magic wand',          /* 47 */
+          'mailbox',             /* 48 */
+          'matchbook',           /* 49 */
+          '?????',               /* 50 */
+          '?????',               /* 51 */
+          'movie camera',        /* 52 */
+          '?????',               /* 53 */
+          'paper',               /* 54 */
+          'plaque',              /* 55 */
+          'short sign',          /* 56 */
+          'sign',                /* 57 */
+          'plant',               /* 58 */
+          '?????',               /* 59 */
+          'ring',                /* 60 */
+          'rock',                /* 61 */
+          '?????',               /* 62 */
+          'security device',     /* 63 */
+          'sensor',              /* 64 */
+          '?????',               /* 65 */
+          '?????',               /* 66 */
+          '?????',               /* 67 */
+          '?????',               /* 68 */
+          'sky',                 /* 69 */
+          'stereo',              /* 70 */
+          'tape',                /* 71 */
+          '?????',               /* 72 */
+          '?????',               /* 73 */
+          'teleport booth',      /* 74 */
+          'ticket',              /* 75 */
+          'tokens',              /* 76 */
+          '?????',               /* 77 */
+          '?????',               /* 78 */
+          '?????',               /* 79 */
+          'wall',                /* 80 */
+          '?????',               /* 81 */
+          'wind up toy',         /* 82 */
+          '?????',               /* 83 */
+          'changomatic',         /* 84 */
+          'vendo front',         /* 85 */
+          'vendo inside',        /* 86 */
+          'trapezoid',           /* 87 */
+          'hole',                /* 88 */
+          'shovel',              /* 89 */
+          'sex changer',         /* 90 */
+          'stun gun',            /* 91 */
+          'super trapezoid',     /* 92 */
+          'flat',                /* 93 */
+          'test',                /* 94 */
+          'spray can',           /* 95 */
+          'pawn machine',        /* 96 */
+          'magic immobile',      /* 97 */
+          'glue',                /* 98 */
+          '?????',               /* 99 */
+          '?????',               /* 100 */
+          '?????',               /* 101 */
+          '?????',               /* 102 */
+          '?????',               /* 103 */
+          '?????',               /* 104 */
+          '?????',               /* 105 */
+          '?????',               /* 106 */
+          '?????',               /* 107 */
+          '?????',               /* 108 */
+          '?????',               /* 109 */
+          '?????',               /* 110 */
+          '?????',               /* 111 */
+          '?????',               /* 112 */
+          '?????',               /* 113 */
+          '?????',               /* 114 */
+          '?????',               /* 115 */
+          '?????',               /* 116 */
+          '?????',               /* 117 */
+          '?????',               /* 118 */
+          '?????',               /* 119 */
+          '?????',               /* 120 */
+          '?????',               /* 121 */
+          '?????',               /* 122 */
+          '?????',               /* 123 */
+          '?????',               /* 124 */
+          '?????',               /* 125 */
+          '?????',               /* 126 */
+          'head',                /* 127 */
+          '?????',               /* 128 */
+          'aquarium',            /* 129 */
+          'bed',                 /* 130 */
+          'bridge',              /* 131 */
+          'building',            /* 132 */
+          'bush',                /* 133 */
+          'chair',               /* 134 */
+          'chest',               /* 135 */
+          'coke machine',        /* 136 */
+          'couch',               /* 137 */
+          'fence',               /* 138 */
+          'floor lamp',          /* 139 */
+          'fortune machine',     /* 140 */
+          'fountain',            /* 141 */
+          '?????',               /* 142 */
+          'house cat',           /* 143 */
+          'hot tub',             /* 144 */
+          'jukebox',             /* 145 */
+          '?????',               /* 146 */
+          'pond',                /* 147 */
+          'river',               /* 148 */
+          'roof',                /* 149 */
+          'safe',                /* 150 */
+          '?????',               /* 151 */
+          'picture',             /* 152 */
+          'street',              /* 153 */
+          'streetlamp',          /* 154 */
+          'table',               /* 155 */
+          'tree',                /* 156 */
+          'window',              /* 157 */
+          'bureaucrat',          /* 158 */
+          '?????',               /* 159 */
+          '?????',               /* 160 */
+          '?????',               /* 161 */
+          '?????',               /* 162 */
+          '?????',               /* 163 */
+          '?????',               /* 164 */
+          '?????',               /* 165 */
+          '?????',               /* 166 */
+          '?????',               /* 167 */
+          '?????',               /* 168 */
+          '?????',               /* 169 */
+          '?????',               /* 170 */
+          '?????',               /* 171 */
+          '?????',               /* 172 */
+          '?????',               /* 173 */
+          '?????',               /* 174 */
+          '?????',               /* 175 */
+          '?????',               /* 176 */
+          '?????',               /* 177 */
+          '?????',               /* 178 */
+          '?????',               /* 179 */
+          '?????',               /* 180 */
+          '?????',               /* 181 */
+          '?????',               /* 182 */
+          '?????',               /* 183 */
+          '?????',               /* 184 */
+          '?????',               /* 185 */
+          '?????',               /* 186 */
+          '?????',               /* 187 */
+          '?????',               /* 188 */
+          '?????',               /* 189 */
+          '?????',               /* 190 */
+          '?????',               /* 191 */
+          '?????',               /* 192 */
+          '?????',               /* 193 */
+          '?????',               /* 194 */
+          '?????',               /* 195 */
+          '?????',               /* 196 */
+          '?????',               /* 197 */
+          '?????',               /* 198 */
+          '?????',               /* 199 */
+          '?????',               /* 200 */
+          '?????',               /* 201 */
+          '?????',               /* 202 */
+          '?????',               /* 203 */
+          '?????',               /* 204 */
+          '?????',               /* 205 */
+          '?????',               /* 206 */
+          '?????',               /* 207 */
+          '?????',               /* 208 */
+          '?????',               /* 209 */
+          '?????',               /* 210 */
+          '?????',               /* 211 */
+          '?????',               /* 212 */
+          '?????',               /* 213 */
+          '?????',               /* 214 */
+          '?????',               /* 215 */
+          '?????',               /* 216 */
+          '?????',               /* 217 */
+          '?????',               /* 218 */
+          '?????',               /* 219 */
+          '?????',               /* 220 */
+          '?????',               /* 221 */
+          '?????',               /* 222 */
+          '?????',               /* 223 */
+          '?????',               /* 224 */
+          '?????',               /* 225 */
+          '?????',               /* 226 */
+          '?????',               /* 227 */
+          '?????',               /* 228 */
+          '?????',               /* 229 */
+          '?????',               /* 230 */
+          '?????',               /* 231 */
+          '?????',               /* 232 */
+          '?????',               /* 233 */
+          '?????',               /* 234 */
+          '?????',               /* 235 */
+          '?????',               /* 236 */
+          '?????',               /* 237 */
+          '?????',               /* 238 */
+          '?????',               /* 239 */
+          '?????',               /* 240 */
+          '?????',               /* 241 */
+          '?????',               /* 242 */
+          '?????',               /* 243 */
+          '?????',               /* 244 */
+          '?????',               /* 245 */
+          '?????',               /* 246 */
+          '?????',               /* 247 */
+          '?????',               /* 248 */
+          '?????',               /* 249 */
+          '?????',               /* 250 */
+          '?????',               /* 251 */
+          '?????',               /* 252 */
+          '?????',               /* 253 */
+          '?????',               /* 254 */
+          '?????'                /* 255 */
+     );
+
+type_name: procedure(type) returns(character(9) varying);
+     declare type binary(15);
+     declare type_strings(0:SYM$INTEGER) character(9) varying static init(
+          'region',       'avatar',       'object',       'undefined',
+          'name',         'string',       'macro',        'alias',
+          'parameter',    'ava name',     'field',        'array',
+          'bit str',      'o content',    'a content',    'integer'
+     );
+
+     if (0 <= type & type <= SYM$INTEGER) then
+          return(type_strings(type));
+     else do;
+          call error('type ' || ltrim(type) || ' out of bounds');
+          return('?????');
+     end;
+end type_name;
+
+container_code: procedure(type) returns(character);
+     declare type binary(15);
+
+     if (type = SYM$REGION) then
+          return('r');
+     else if (type = SYM$AVATAR) then
+          return('a');
+     else
+          return('o');
+end container_code;
+
+class_name: procedure(class) returns(character(20) varying);
+     declare class binary(31);
+
+     if (-1 <= class & class <= MAX_CLASS) then
+          return(class_strings(class));
+     else do;
+          call error('class number ' || ltrim(class) || ' out of bounds');
+          return('?????');
+     end;
+end class_name;

@@ -1,0 +1,25 @@
+echo region_rally
+slur regdir/region_rally.reg \
+	-o rdldir/region_rally.rdl \
+	-d FACE_WEST \
+	-r region_rally \
+
+echo victory_region
+slur regdir/victory_region.reg \
+	-o rdldir/victory_region.rdl \
+	-d FACE_WEST \
+	-r victory_region \
+	-e fountain_region \
+	-n fountain_region \
+	-s fountain_region \
+	-w fountain_region \
+
+echo fail_region
+slur regdir/fail_region.reg \
+	-o rdldir/fail_region.rdl \
+	-d FACE_WEST \
+	-r fail_region \
+	-e fountain_region \
+	-n fountain_region \
+	-s fountain_region \
+	-w fountain_region \

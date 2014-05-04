@@ -1,0 +1,22 @@
+/*
+ *   struct_jukebox.incl.pl1
+ *
+ *   Struct stub for jukebox instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   playing        binary(15),
+/* Host private: */
+           3   plays_to_go    binary(15),
+           3   take           binary(15),
+           3   music          pointer,
+           3   music_count    binary(15),
+           3   catalog_pos    binary(15),
+           3   play_list      pointer,
+           3   play_pointer   pointer;
+     

@@ -1,0 +1,8 @@
+; parking_meter_expires_pw
+	; Pulsewidth Ramp starts here
+	byte	0x5		;Gate Ramp 
+	byte	0x30,0x0,0x0,0x1,0x0,0x1	; Start_Freq,Duration,Increment
+
+	byte	0x2		;Stop 
+	byte	0x0	; next_sfx_number
+

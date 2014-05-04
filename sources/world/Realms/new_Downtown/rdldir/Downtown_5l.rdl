@@ -1,0 +1,44 @@
+@region $ Downtown_5l {
+    north: Downtown_3j.l;
+    west: Downtown_5k.l;
+    region_orientation: FACE_NORTH;
+    [
+        @wall { x:0; y:0; or:148; style:5; }
+        @ground { x:0; y:4; or:204; style:1; }
+        @door { x:32; y:34; or:80; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @door { x:88; y:34; or:81; 
+            8:2;
+            9:0;
+            10:0;
+        }
+        @short_sign { x:4; y:80; or:0; style:5; gr_state:8; 
+            8:32;
+            9:32;
+            10:128;
+            11:77;
+            12:69;
+            13:78;
+            14:32;
+            15:32;
+            16:32;
+            17:32;
+        }
+        @short_sign { x:100; y:80; or:0; style:5; gr_state:8; 
+            8:32;
+            9:128;
+            10:87;
+            11:79;
+            12:77;
+            13:69;
+            14:78;
+            15:32;
+            16:32;
+            17:32;
+        }
+        @sex_changer { x:124; y:138; or:0; }
+    ]
+}

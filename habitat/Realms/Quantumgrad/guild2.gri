@@ -1,0 +1,154 @@
+use region {
+  ident: r -1001
+  owner: a 0
+  light_level: 0
+  depth: 29
+  east_neighbor: r 0
+  west_neighbor: r 0
+  north_neighbor: r 0
+  south_neighbor: r 0
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '1'b
+  west_restriction: '1'b
+  north_restriction: '1'b
+  south_restriction: '1'b
+  weapons_free: '0'b
+  theft_free: '0'b
+  nitty_bits: '00000000000000000000000000'b
+  name: "Danger!Training Area"
+  avatars: 6
+  town_dir: "}"
+  port_dir: "}"
+}
+use wall {
+  container: r -1001
+  x: 0
+  y: 0
+  style: 6
+  gr_state: 0
+  orient: 132
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  length: 0
+  height: 0
+  pattern: 0
+}
+use ground {
+  container: r -1001
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 104
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use sign {
+  container: r -1001
+  x: 20
+  y: 110
+  style: 0
+  gr_state: 5
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\hTraining Area                          "
+}
+use gun {
+  container: r -1001
+  x: 4
+  y: 130
+  style: 0
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: r -1001
+  x: 16
+  y: 130
+  style: 1
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: r -1001
+  x: 28
+  y: 130
+  style: 3
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use gun {
+  container: r -1001
+  x: 48
+  y: 130
+  style: 2
+  gr_state: 0
+  orient: 0
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife {
+  container: r -1001
+  x: 4
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife {
+  container: r -1001
+  x: 64
+  y: 150
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife {
+  container: r -1001
+  x: 44
+  y: 150
+  style: 1
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use knife {
+  container: r -1001
+  x: 24
+  y: 150
+  style: 0
+  gr_state: 0
+  orient: 16
+  gr_width: 0
+  restricted: '1'b
+  nitty_bits: '0000000000000000000000000000000'b
+}

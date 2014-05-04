@@ -1,0 +1,14 @@
+/*
+ *   struct_bridge.incl.pl1
+ *
+ *   Struct stub for bridge instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   10-April-1986
+ *
+ */
+,    2    common_head         like instance_head,
+     2    class_specific      ,
+           3   width          binary(15),
+           3   length         binary(15);

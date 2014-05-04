@@ -1,0 +1,160 @@
+use region r_9114 {
+  owner: a -1
+  light_level: 0
+  depth: 32
+  east_neighbor: r -1
+  west_neighbor: r r_9106
+  north_neighbor: r r_9115
+  south_neighbor: r r_9113
+  class_group: 0
+  orient: 0
+  entry_proc: 0
+  exit_proc: 0
+  east_exit: 0
+  west_exit: 0
+  north_exit: 0
+  south_exit: 0
+  east_restriction: '0'b
+  west_restriction: '0'b
+  north_restriction: '0'b
+  south_restriction: '0'b
+  weapons_free: '1'b
+  nitty_bits: '100000000000000000000000000'b
+  name: "                    "
+  avatars: 6
+}
+use ground o_6744 {
+  container: r r_9114
+  x: 0
+  y: 4
+  style: 1
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use super_trapezoid o_6745 {
+  container: r r_9114
+  x: 160
+  y: 1
+  style: 0
+  gr_state: 0
+  orient: 164
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 1
+  upper_left_x: 96
+  upper_right_x: 255
+  lower_left_x: 96
+  lower_right_x: 0
+  height: 127
+  pattern_x_size: 3
+  pattern_y_size: 7
+  pattern: 86, 85, 90, 149, 89, 149, 101, 101, 101, 101, 101, 101, 149, 89, 165
+, 105, 165, 105, 149, 89, 101, 101, 101, 101, 101, 101, 89, 149, 90, 149, 86, 8
+5
+}
+use window o_6746 {
+  container: r r_9114
+  x: 12
+  y: 64
+  style: 3
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use door o_6747 {
+  container: r r_9114
+  x: 80
+  y: 32
+  style: 1
+  gr_state: 1
+  orient: 57
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  open_flags: 3
+  key: 0
+  connection: r 0
+}
+use sign o_6748 {
+  container: r r_9114
+  x: 40
+  y: 254
+  style: 0
+  gr_state: 7
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\(Machuta's                            "
+}
+use short_sign o_6749 {
+  container: r r_9114
+  x: 56
+  y: 254
+  style: 0
+  gr_state: 6
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\(Magic  "
+}
+use window o_6750 {
+  container: r r_9114
+  x: 120
+  y: 64
+  style: 3
+  gr_state: 0
+  orient: 0
+  gr_width: 20
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+}
+use trapezoid o_6751 {
+  container: r r_9114
+  x: 36
+  y: 104
+  style: 0
+  gr_state: 0
+  orient: 252
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  trapezoid_type: 3
+  upper_left_x: 4
+  upper_right_x: 79
+  lower_left_x: 4
+  lower_right_x: 79
+  height: 153
+}
+use sign o_6752 {
+  container: r r_9114
+  x: 40
+  y: 254
+  style: 0
+  gr_state: 8
+  orient: 0
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  text: "\h\(\(Machuta's                            "
+}
+use street o_6753 {
+  container: r r_9114
+  x: 68
+  y: 10
+  style: 0
+  gr_state: 6
+  orient: 64
+  gr_width: 0
+  restricted: '0'b
+  nitty_bits: '0000000000000000000000000000000'b
+  width: 0
+  height: 0
+}

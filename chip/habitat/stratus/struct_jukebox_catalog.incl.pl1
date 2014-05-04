@@ -1,0 +1,13 @@
+/*
+ *   struct_jukebox_catalog.incl.pl1
+ *
+ *   Struct stub for music in jukebox catalog.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   12-April-1986
+ *
+ */
+,    2    letter         binary(15),
+     2    number         binary(15),
+     2    song           pointer;

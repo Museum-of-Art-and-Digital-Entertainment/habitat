@@ -1,0 +1,263 @@
+
+
+echo Desert_1a
+slur regdir/Desert_1a.reg \
+	-o rdldir/Desert_1a.rdl \
+	-d FACE_WEST \
+	-r Desert_1a \
+	-n Desert_1b \
+	-e Desert_2a \
+	-w Desert_1b
+
+
+
+echo Desert_1b
+slur regdir/Desert_1b.reg \
+	-o rdldir/Desert_1b.rdl \
+	-d FACE_WEST \
+	-r Desert_1b \
+	-n Desert_2c \
+	-s Desert_1a \
+	-e Desert_1c \
+	-w Desert_2b
+
+
+
+echo Desert_1c
+slur regdir/Desert_1c.reg \
+	-o rdldir/Desert_1c.rdl \
+	-d FACE_WEST \
+	-r Desert_1c \
+	-n Desert_1d \
+	-s Desert_1c \
+	-e Desert_2c \
+	-w Desert_5c
+
+
+
+echo Desert_1d
+slur regdir/Desert_1d.reg \
+	-o rdldir/Desert_1d.rdl \
+	-d FACE_WEST \
+	-r Desert_1d \
+	-n Desert_2e \
+	-s Desert_1e \
+	-e Desert_2d \
+	-w Desert_2d
+
+
+echo Desert_1e
+slur regdir/Desert_1e.reg \
+	-o rdldir/Desert_1e.rdl \
+	-d FACE_WEST \
+	-r Desert_1e \
+	-n Desert_3e \
+	-s Desert_1d \
+	-e Desert_2e \
+	-w Desert_1f 
+
+
+
+echo Desert_1f
+slur regdir/Desert_1f.reg \
+	-o rdldir/Desert_1f.rdl \
+	-d FACE_WEST \
+	-r Desert_1f \
+	-s Desert_1e \
+	-e Desert_2f 
+
+
+
+echo Desert_2a
+slur regdir/Desert_2a.reg \
+	-o rdldir/Desert_2a.rdl \
+	-d FACE_WEST \
+	-r Desert_2a \
+	-n Desert_2b \
+	-e Desert_3a 
+
+
+
+echo Desert_2b
+slur regdir/Desert_2b.reg \
+	-o rdldir/Desert_2b.rdl \
+	-d FACE_WEST \
+	-r Desert_2b \
+	-e Desert_3b 
+
+
+echo Desert_2c
+slur regdir/Desert_2c.reg \
+	-o rdldir/Desert_2c.rdl \
+	-d FACE_WEST \
+	-r Desert_2c \
+	-n Desert_3c 
+
+echo Desert_2d
+slur regdir/Desert_2d.reg \
+	-o rdldir/Desert_2d.rdl \
+	-d FACE_WEST \
+	-r Desert_2d \
+	-e Desert_3d 
+
+echo Desert_2e
+slur regdir/Desert_2e.reg \
+	-o rdldir/Desert_2e.rdl \
+	-d FACE_WEST \
+	-r Desert_2e \
+	-n Desert_1f \
+	-e Desert_3e 
+
+echo Desert_2f
+slur regdir/Desert_2f.reg \
+	-o rdldir/Desert_2f.rdl \
+	-d FACE_WEST \
+	-r Desert_2f \
+	-e Desert_3f 
+
+echo Desert_3a
+slur regdir/Desert_3a.reg \
+	-o rdldir/Desert_3a.rdl \
+	-d FACE_WEST \
+	-r Desert_3a \
+	-w Desert_2b \
+	-n Desert_4b \
+	-e Desert_4a 
+
+echo Desert_3b
+slur regdir/Desert_3b.reg \
+	-o rdldir/Desert_3b.rdl \
+	-d FACE_WEST \
+	-r Desert_3b \
+	-w Desert_1b \
+	-n Desert_3c \
+	-e Desert_2c 
+
+echo Desert_3c
+slur regdir/Desert_3c.reg \
+	-o rdldir/Desert_3c.rdl \
+	-d FACE_WEST \
+	-r Desert_3c \
+	-n Desert_3b \
+	-e Desert_4d 
+
+echo Desert_3d
+slur regdir/Desert_3d.reg \
+	-o rdldir/Desert_3d.rdl \
+	-d FACE_WEST \
+	-r Desert_3d \
+	-w Desert_2d \
+	-n Desert_2e 
+
+echo Desert_3e
+slur regdir/Desert_3e.reg \
+	-o rdldir/Desert_3e.rdl \
+	-d FACE_WEST \
+	-r Desert_3e \
+	-n Desert_4d 
+
+echo Desert_3f
+slur regdir/Desert_3f.reg \
+	-o rdldir/Desert_3f.rdl \
+	-d FACE_WEST \
+	-r Desert_3f \
+	-w Desert_5f \
+	-e Desert_1f 
+
+echo Desert_4a
+slur regdir/Desert_4a.reg \
+	-o rdldir/Desert_4a.rdl \
+	-d FACE_WEST \
+	-r Desert_4a \
+	-w Desert_3a \
+	-n Desert_4d \
+	-e Desert_5a 
+
+echo Desert_4b
+slur regdir/Desert_4b.reg \
+	-o rdldir/Desert_4b.rdl \
+	-d FACE_WEST \
+	-r Desert_4b \
+	-s Desert_3b 
+
+echo Desert_4c
+slur regdir/Desert_4c.reg \
+	-o rdldir/Desert_4c.rdl \
+	-d FACE_WEST \
+	-r Desert_4c \
+	-w Desert_4b \
+	-n Desert_3d 
+
+echo Desert_4d
+slur regdir/Desert_4d.reg \
+	-o rdldir/Desert_4d.rdl \
+	-d FACE_WEST \
+	-r Desert_4d \
+	-w Desert_3d \
+	-n Desert_4e \
+	-e Desert_5d 
+
+echo Desert_4e
+slur regdir/Desert_4e.reg \
+	-o rdldir/Desert_4e.rdl \
+	-d FACE_WEST \
+	-r Desert_4e \
+	-n Desert_4f \
+	-e Desert_5e \
+	-s Desert_4d 
+
+echo Desert_4f
+slur regdir/Desert_4f.reg \
+	-o rdldir/Desert_4f.rdl \
+	-d FACE_WEST \
+	-r Desert_4f \
+	-w Desert_3f \
+	-s Desert_5e 
+
+echo Desert_5a
+slur regdir/Desert_5a.reg \
+	-o rdldir/Desert_5a.rdl \
+	-d FACE_WEST \
+	-r Desert_5a \
+	-w Desert_4a \
+	-n Desert_5b \
+	-e Desert_5b 
+
+echo Desert_5b
+slur regdir/Desert_5b.reg \
+	-o rdldir/Desert_5b.rdl \
+	-d FACE_WEST \
+	-r Desert_5b \
+	-w Desert_5c \
+	-n Desert_4c 
+
+echo Desert_5c
+slur regdir/Desert_5c.reg \
+	-o rdldir/Desert_5c.rdl \
+	-d FACE_WEST \
+	-r Desert_5c \
+	-w Desert_4c 
+
+echo Desert_5d
+slur regdir/Desert_5d.reg \
+	-o rdldir/Desert_5d.rdl \
+	-d FACE_WEST \
+	-r Desert_5d \
+	-w Desert_4d \
+	-n Desert_5f \
+	-s Desert_5c 
+
+echo Desert_5e
+slur regdir/Desert_5e.reg \
+	-o rdldir/Desert_5e.rdl \
+	-d FACE_WEST \
+	-r Desert_5e \
+	-w Desert_4e \
+	-s Desert_5d 
+
+echo Desert_5f
+slur regdir/Desert_5f.reg \
+	-o rdldir/Desert_5f.rdl \
+	-d FACE_WEST \
+	-r Desert_5f \
+	-w Desert_4f 

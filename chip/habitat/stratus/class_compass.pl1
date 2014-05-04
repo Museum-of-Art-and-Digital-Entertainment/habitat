@@ -1,0 +1,55 @@
+/*
+ *   class_compass.pl1
+ *
+ *   Compass object behavior module for Habitat.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   27-April-1987
+ */
+
+%include 'microcosm.incl.pl1';
+%include 'defs_helper.incl.pl1';
+%include 'defs_action.incl.pl1';
+
+initialize_class_compass: procedure;
+
+     %replace COMPASS_REQUESTS by 4;
+
+     declare a(0:COMPASS_REQUESTS) entry based;
+     declare class_compass_actions pointer;
+     declare 1 compass based %include struct_compass;
+
+     %replace I by CLASS_COMPASS;
+
+     Class_Table(I).capacity = 0;
+     Class_Table(I).max_requests = COMPASS_REQUESTS;
+     Class_Table(I).alloc_size = size(compass);
+     Class_Table(I).pc_state_bytes = 0;
+     Class_Table(I).known = true;
+     Class_Table(I).opaque_container = false;
+     Class_Table(I).filler = false;
+
+     allocate a set(class_compass_actions);
+     Class_Table(I).actions = class_compass_actions;
+
+     Class_Table(I).actions->a(HELP) = generic_HELP; /* 0 */
+     Class_Table(I).actions->a(GET)   = generic_GET;   /* 1 */
+     Class_Table(I).actions->a(PUT)   = generic_PUT;   /* 2 */
+     Class_Table(I).actions->a(THROW) = generic_THROW; /* 3 */
+     Class_Table(I).actions->a(DIRECT) = compass_DIRECT; /* 4 */
+
+end initialize_class_compass;
+
+compass_DIRECT: procedure;
+     declare 1 self based(selfptr) %include struct_compass;
+     declare response character(7) varying;
+
+     response = 'WEST: ';
+     if (self.gr_state = 0) then response = response || byte(124);
+     else if (self.gr_state = 1) then response = response || byte(126);
+     else if (self.gr_state = 2) then response = response || byte(125);
+     else if (self.gr_state = 3) then response = response || byte(127);
+     else response = response || '?';
+     call r_msg_s(response);
+end compass_DIRECT;

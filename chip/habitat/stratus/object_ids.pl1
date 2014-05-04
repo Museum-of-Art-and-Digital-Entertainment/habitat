@@ -1,0 +1,107 @@
+object_ids: procedure options(main);
+
+%replace true                      by '1'b;
+%replace false                     by '0'b;
+
+%replace NO_COPY_ON_REF            by 0;
+%replace ONE_PAGE                  by 1;
+%replace STARTING_WITH_1ST         by 1;
+%replace VM_READ_AND_WRITE_ACCESS  by 2;
+
+%replace ONE_BILLION               by 1000000000;
+%replace MAX_PROCESSES             by 32;
+%replace WAIT_FOREVER              by -1;
+
+%include 'system_io_constants';
+
+declare  object_id_array      fixed bin(15) external static;
+declare  1 next(-1:MAX_PROCESSES-1) based(addr (object_id_array)),
+           2 object_id             bin(31),
+           2 text_id               bin(31);
+
+declare (code,i)              bin(15);
+declare shared_file_path      char (256) var;
+declare shared_file_port      bin(15);
+
+declare 1 control,
+          2 object            bin(31),
+          2 text              bin(31);
+
+declare event_id(1)           bin(31);
+declare event_cnt(1)          bin(31);
+declare event_status          bin(31);
+declare event_number          bin(15);
+
+dcl  s$attach_event           entry (char(256) var, bin(31), bin(31), bin(15));
+dcl  s$attach_port            entry (char(32) var, char(256) var, bin (15),
+                                     bin (15), bin (15));
+dcl  s$connect_vm_region      entry (bin (15), bin (15), bin (15), bin (31),
+                                     bin (15), bin (15), bin (15));
+dcl  s$expand_path            entry (char(256) var, char(32) var, char(256) var,
+                                     bin (15));
+dcl  s$open                   entry (bin (15), bin (15), bin (15), bin (15),
+                                     bin (15), bin (15), char(32) var, bin (15));
+dcl  s$read_event             entry (bin(31), bin(31), bin(31), bin(15));
+dcl  s$wait_event             entry (bin(15), (*) bin(31), (*) bin(31), bin(31),
+                                     bin(15), bin(15));
+
+%page;
+
+   call s$expand_path ('MC_object_ids', '', shared_file_path,code);
+   if (code ^= 0) then call die_msg (code, 'expanding path');
+   call s$attach_port ('', shared_file_path, DONT_HOLD, shared_file_port, code);
+   if (code ^= 0) then call die_msg (code, 'attaching port');
+
+   call s$open (shared_file_port, FIXED_FILE, 4096, UPDATE_TYPE,
+               IMPLICIT_LOCKING, VM_ACCESS_MODE, '', code);
+   if (code ^= 0) then call die_msg (code, 'open file');
+   call s$connect_vm_region (shared_file_port, object_id_array,
+               ONE_PAGE, STARTING_WITH_1ST,
+               VM_READ_AND_WRITE_ACCESS, NO_COPY_ON_REF, code);
+   if (code ^= 0) then call die_msg (code, 'connecting to vm region');
+
+   call s$attach_event (shared_file_path,event_id(1),event_cnt(1),code);
+   if (code ^= 0) then call die_msg (code, 'attach event');
+
+   control.object = 0;
+   control.text   = 0;
+
+   do i = -1 to MAX_PROCESSES-1;
+      if (next.object_id(i) > control.object) 
+         then control.object = next.object_id(i);
+      if (next.text_id(i) > control.text) 
+         then control.text = next.text_id(i);
+      end;
+   control.object = control.object + 1;
+   control.text   = control.text   + 1;
+
+   do while (true);
+      do i = -1 to MAX_PROCESSES-1;
+         if (next.object_id(i) = 0) then do;
+            next.object_id(i) = control.object;
+            control.object    = control.object + 1;
+            end;
+         if (next.text_id(i) = 0) then do;
+            next.text_id(i) = control.text;
+            control.text    = control.text + 1;
+            end;
+         end;
+      call s$read_event (event_id(1),event_cnt(1),event_status,code);
+      if (code ^= 0) then call die_msg (code, 'read event');
+      event_number = 1;
+      call s$wait_event (1,event_id,event_cnt,WAIT_FOREVER,event_number,code);
+      if (code ^= 0) then call die_msg (code, 'wait event');
+      end;
+
+end object_ids;
+die_msg: procedure (code, msg);
+
+dcl  code      bin (15);
+dcl  msg       char (*) var;
+
+dcl  s$error   entry (fixed bin (15), char (*) var, char (*) var);
+
+   call s$error (code, '', msg);
+   signal error;
+
+end die_msg;

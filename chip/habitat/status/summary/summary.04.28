@@ -1,0 +1,128 @@
+From chip Tue Apr 28 16:58:23 1987
+Received: by moth; 28 APR 87 16:58:23 PDT
+From: chip (Chip Morningstar -- "Software Without Moving Parts")
+To: aric, chip, farmer, nancy, sda
+Subject: Summary report, 4/28
+Status: R
+
+Here is the task summary for Tuesday, April 28.
+
+Format: Left-hand column is priority/release requirement ('A' = alpha, 'B' =
+beta, 'R' = release, '-' = usable as done, '+' = strictly wishlist item).
+Next column to the right is status: 'D' = done, 'T' = testing, 'W' = working
+on it, ' ' = pending, 'I' = just an idea right now.  Next comes the initials
+of the people responsible for the item, then the item tag number, and finally
+the item itself.
+
+Finished today:
+2B D a #x13 weapons free zone in the city limits
+3R D c #x20 add chores for vendo SELECT, magic
+2B D c r #x44 couldn't put down wand after auto-teleport
+3B D a c #x45 check widths on plants and trees
+3- D a #x49 in turfs, user can walk over chest legs
+2B D c #102 Need orientation independant compass image
+2A D r #107 Still able to steal paper from an avatar (HOST)
+3B D a #116 Improve Plaque text in Arcade
+3B D r c #121 Escape devices: 1) should start with 10 chgs 2)help give chgs
+3B D c a #123 reduce price of fortune (current price $10)
+-- D #128 Nancy got confused after reading mail, *you have mail* didnt go away
+1A D j #130 Cathy melted down when someone entered backgammon [j fixed #134]
+3B D r c #131 Using Choke and Fortune machines: async chore.
+1A D r #133 Users able to put items in closed containers!
+2B D c #135 Vendo help not working right (check out machutas, left vendo)
+1A D r #137 Aric put a box down, and the x coord was way wrong
+
+Currently active official task list items:
+2A W j c #x1 make book help give title (#77)
+2B   j #x2 create program to generate book of records (#21a)
+3R W c #x3 implement Ghu (#54)
+
+General items on internal list:
+2A   j #x6 checkpoint avatar/contents on turn to ghost (head & hand)
+2B   j #x7 max occupants for region
+2B T r #x8 multi-object FIDDLE
+2B   ? #x9 Publish first Rant, and populate newstands
+3R   c #x14 describe graphics chars in manual
+3R   r #x15 Check prices in all vendos
+3- T r #x16 add more fortunes to fortune machine
+3R T r c #x17 ghost/avatar only door restrictions
+3B   r #x18 make clone recurse
+3R   r #x19 spray cans run out (host destroys) after n uses
+4+   ? #x22 camera object
+4R   a #x23 customizer: 4-5 selections of heads -- host chooses vector to send
+4+   j #x24 change host flag for ghost (Y hi-bit) so avatars' XY pos are kept
+4+   r #x25 Give objects the power to PROMPT user ('What is the secret word?')
+4+   r a #x26 magic GO
+4R   r c g #x27 book binder machine
+4R   r c g #x28 xerox machine
+4+   r #x29 make host send avatars word balloon color in customizer byte
+?R   ? #x30 Batch process: Close all unlocked doors
+?B   ? #x31 Batch process: Remove curses, immunities
+?+ I ? #x32 Turn to fly on teleport
+?+ I ? #x33 teleport to Auditorium, and you arrive as a ghost (for meetings)
+?+ I ? #x34 traps that spring monsters
+?+ I ? #x35 wands that identify everyone in the room
+
+Playtest 4.7 problems 4/15:
+1A T r #x36 Janet got hung
+1A T r j c #x37 People having problems with login
+?B T j r #x38 Check mailer with full sheet
+
+playtest 4.7 problems 4/16:
+3R   r #x39 Get pointed info BEFORE throttle wait
+4+   ? #x40 You can enter a region thru a closed door
+4+ W c j #x41 Doors should know which region you came from
+??   ? #x43 Screen Flash (what is this ?)
+
+playtest 4.7/4.8 problems 4/20:
+2B   r #x46 what if an avatar dies while waiting for a reply?
+2B   r #x47 Capture The Flag Entry: Frame-Rate sucks & needs T intersect
+3-   r #x50 Teleport Put chore CBB
+4+   r #x52 Make clicking cursor also face front & back.
+4+   r #x53 Map shift-0 into ')' for touch typists
+
+playtest 4/14 & 4/15 problems (from Quantum):
+2B T a #1 Make sure all multi-page books/plaques are correct (Arcade/Hall-Rec)
+	(populop map should NOT be on plaque)
+2B W c #12 Multi-door entry does not place you in front of correct door
+1B T c r j #19 PUT put a game piece in wrong place (review tape: suspect host)
+2B T r #23 Bahia put head on 'BAR'/backgammon, did not go where specified.
+2B W a #28 Make reset use Multi-object fiddle.				
+
+Evidence of memory damage (source unknown):
+1B ? r #14 Dammaged road graphic. [possibly fixed by item #112 fix]
+
+ARF bugs to 4/23
+1B T j #100 Balloons limited to one packet, break up longer (HOST)
+4R   r #101 Better SFX timing (lowest prio, not likely to happen)
+3B   r #104 If you swap disks early on return to PC, recover.
+3B   r #105 Better error recovery for disk routines.
+3R   r #106 bottom of screen interrupt tears after text mode.
+1R   j #108 Charlie almost 'timed-out' while in text mode (HOST) (turn off the
+	'inactivity timer')
+2B T r #110 Shift-Restore not working reliably, implement alternate
+1B T r #112 Bad request sent to host, class sensor?
+2B   r #113 C64 protocol not as streamlined as possible
+2B W a #114 Is RESET games sending unneeded messages? [this repeats item #28]
+3B   j c #115 Should ESP send fail message?
+
+Evidence of memory damage (source unknown):
+1B ? r #111 Pocket graphics degenerated,eventualy hung [maybe fix by #112 fix]
+
+ARF bugs to 4/27: (version 4.9)
+3B   a #117 Region:9171 Have arrow/sign point the way out
+?+ I a c r #118 Immobile magic that would require key to operate?
+1A T r #119 Switches and Lights do not wait for replies.
+2A T r #120 Book interface not working right on Populop map
+2B   r #122 for 'DO's that include GO (door/vendo/hole) face_cursor on arrival
+?B   r #124 Janet had a strange head graphic in her pocket
+1A T j #125 Fix for overly long text packets
+2B   a #126 When Janet entered backgammon, all the dice were 'spinning'
+2B T r #127 host Recieved CRC errors during init, but recovered. [Dup #x37]
+
+ARF bugs 4/28:
+3- I r #129 book interface:BACK beep on page 0, Limit cursor to bottom line?
+2A T j #134 Janet will presently truncate excessive text messages
+2B T r c #136 Spray Cans on heads: Janet used stripes, and for translucent!
+2A W c j #138 De-ghosting, ghosting is not handling flashlights correctly
+

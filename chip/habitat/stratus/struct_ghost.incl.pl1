@@ -1,0 +1,12 @@
+/*
+ *   struct_ghost.incl.pl1
+ *
+ *   Struct stub for ghost instance descriptor.
+ *
+ *   Chip Morningstar
+ *   Lucasfilm Ltd.
+ *   22-September-1986
+ *
+ */
+,    2    common_head         like instance_head
+ ; /* terminates struct header from include file */
