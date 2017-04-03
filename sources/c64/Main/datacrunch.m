@@ -205,7 +205,7 @@ squeeze_memory::
 	movew	desired_size,hold_desire
 	movew	#0xffff,desired_size
 	dec	moving_memory				; protect sounds
-	jsr	crunch					; try to find space
+	jsr	CRUNCH					; try to find space
 	inc	moving_memory
 	ldxy	hold_desire
 	jsr	search_for_best_block

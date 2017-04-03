@@ -183,7 +183,7 @@ deallocate_mem::
 GetSound::
 	sta ISA_number
 	moveb #type_sound,ISA_flag
-	jsr get_ISA_addr
+	jsr Get_ISA_addr
 	lGetSoundAddr ISA_number,temp_ptr1
 	ldxy temp_ptr1
 	rts
@@ -196,7 +196,7 @@ GetImage::
 	ldy	object
 	sta	ISA_number
 	moveb #type_image,ISA_flag
-	jsr get_ISA_addr
+	jsr Get_ISA_addr
 	lGetImageAddr ISA_number,temp_ptr1
 	ldxy temp_ptr1
 	rts
@@ -204,7 +204,7 @@ GetImage::
 GetAction::
 	sta ISA_number
 	moveb #type_action,ISA_flag
-	jsr get_ISA_addr
+	jsr Get_ISA_addr
 	lGetActionAddr ISA_number,temp_ptr1
 	ldxy temp_ptr1
 	rts
