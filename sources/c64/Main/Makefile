@@ -70,8 +70,11 @@ OBJS7 = animinit.obj
 .m.obj:
 	echo 'macrossing' $*'.m' ; macross -c -o $*.obj all.m $*.m
 
-all:
-	echo	"type 'Habitat' from my Io Directory"
+all: new
+# 	echo	"type 'Habitat' from my Io Directory"
+
+clean:
+	rm *.obj
 
 new: $(OBJS) $(OBJS2) $(OBJS3) $(OBJS4) $(OBJS5) $(OBJS6) $(OBJS7)
 	echo 'slinking'
@@ -83,4 +86,6 @@ new: $(OBJS) $(OBJS2) $(OBJS3) $(OBJS4) $(OBJS5) $(OBJS6) $(OBJS7)
  -l 0x6a00 $(OBJS3)\
  -l 0x8000 $(OBJS2)\
  -l 0xff40 $(OBJS6) > SIZE
-
+	a65toprg ../all.out ../all.prg > SIZE2
+	mcmgtrim ../all.prg ../mcmg.prg
+	habdiska ../mcmg.prg ../Habitat-A.d64

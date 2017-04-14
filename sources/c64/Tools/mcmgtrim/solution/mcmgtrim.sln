@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E399C155-3CF6-4B25-A14F-9587EDE2A3FF}") = "mcmgtrim", "mcmgtrim.vcxproj", "{1DC3642A-CCEC-4885-9D6D-CCAFD2D203BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DC3642A-CCEC-4885-9D6D-CCAFD2D203BF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1DC3642A-CCEC-4885-9D6D-CCAFD2D203BF}.Debug|Win32.Build.0 = Debug|Win32
+		{1DC3642A-CCEC-4885-9D6D-CCAFD2D203BF}.Release|Win32.ActiveCfg = Release|Win32
+		{1DC3642A-CCEC-4885-9D6D-CCAFD2D203BF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
