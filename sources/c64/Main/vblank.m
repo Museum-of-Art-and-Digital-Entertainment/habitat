@@ -27,7 +27,7 @@ init_vblank::
 	moveb	#special_mode,	graphics_mode
 	moveb	#0b00010000,	current_screen
 
-	movew	#Normal_NMI,	NMI_routine
+	movew	#normal_NMI,	NMI_routine
 	movew	#Normal_BRK,	BRK_routine
 	moveb	#0b00011011,	VIC_control	; allow VBLANK
 	jsr	set_bitmap_on_vector

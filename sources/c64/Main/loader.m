@@ -222,7 +222,7 @@ thank_you:
 mif (debug_mode) {
 	string	"Auto Version"
 } melse {
-	string "Version Beta 1.0"
+	string "Version 1.0"
 }
 
 swap_please:
@@ -233,17 +233,17 @@ dump_text:
 
 title_music_start::
 title_music_v0::
-		include	"titles_music_v0.sob"
+		include	"../Sounds/titles_music_v0.sob"
 title_music_v0_pw::
-		include	"titles_music_v0.spb"
+		include	"../Sounds/titles_music_v0.spb"
 title_music_v1::
-		include	"titles_music_v1.sob"
+		include	"../Sounds/titles_music_v1.sob"
 title_music_v1_pw::
-		include	"titles_music_v1.spb"
+		include	"../Sounds/titles_music_v1.spb"
 title_music_v2::
-		include	"titles_music_v2.sob"
+		include	"../Sounds/titles_music_v2.sob"
 title_music_v2_pw::
-		include	"titles_music_v2.spb"
+		include	"../Sounds/titles_music_v2.spb"
 title_music_end::
 
 end_of_loader::
