@@ -7,6 +7,9 @@
 #include "muddleTypes.h"
 #include "muddleGlobals.h"
 
+void outputByte();
+void outputWord();
+
 static FILE	*outputFile;
 int		 imageBase;
 int		 actionBase;
@@ -193,15 +196,19 @@ outputThings(thing, type)
 	outputFile = thing->outputFile;
 	offset = TABLE_SIZE * sizeof(word);
 	gapFlag = FALSE;
-	for (i=0; i<TABLE_SIZE; ++i) {
-		if (thing->fileNames[i] == NULL) {
+	for (i=0; i<TABLE_SIZE; ++i)
+	{
+		if (thing->fileNames[i] == NULL)
+		{
 			outputWord(0xFFFF);
 			thing->table[i] = 0;
 			if (!gapFlag) {
 				printf(" ...\n");
 				gapFlag = TRUE;
 			}
-		} else {
+		}
+		else
+		{
 			size = fileSize(thing->fileNames[i]);
 			if (size == -1) {
 				thing->fileNames[i] = NULL;
@@ -218,7 +225,9 @@ outputThings(thing, type)
 	}
 	printf("\n");
 	for (i=0; i<TABLE_SIZE; ++i)
-		if (thing->fileNames[i] != NULL) {
+	{
+		if (thing->fileNames[i] != NULL)
+		{
 			outputWord(thing->table[i] + 5);
 			outputByte(type);
 			outputByte(0);
@@ -230,6 +239,7 @@ outputThings(thing, type)
 				imageCelWidthTable[i] = celWidth;
 			}
 		}
+	}
 	fclose(outputFile);
 }
 
@@ -296,7 +306,7 @@ outputFileData(size, fileName)
 	byte	 hugeBuffer[64000];
 	byte	*bufptr;
 
-	if ((inputFile = fopen(fileName, "r")) == NULL) {
+	if ((inputFile = fopen(fileName, "rb")) == NULL) {
 		error("couldn't open data file '%s'\n", fileName);
 		perror("Unix says");
 		outputByte(0);	/* null checksum */

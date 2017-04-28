@@ -358,7 +358,7 @@ outputFileData(size, fileName)
 	byte	 hugeBuffer[64000];
 	byte	*bufptr;
 
-	if ((inputFile = fopen(fileName, "r")) == NULL) {
+	if ((inputFile = fopen(fileName, "rb")) == NULL) {
 		error("couldn't open data file '%s'\n", fileName);
 		perror("Unix says");
 		outputByte(0);	/* null checksum */
