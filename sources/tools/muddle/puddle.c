@@ -70,7 +70,7 @@ main(argc, argv)
 	oldSize = inputDatFile(argv[1], "old .dat file", &oldData);
 	newSize = inputDatFile(argv[2], "new .dat file", &newData);
 	if (argc == 4)
-		outfyle = openFile(argv[3], "w", "output .dat file");
+		outfyle = openFile(argv[3], "wb", "output .dat file");
 	else
 		outfyle = stdout;
 	findHoles(&oldData, &newData);
@@ -113,7 +113,7 @@ inputDatFile(fileName, fileDescription, table)
 	int	 size;
 	word	 aWord;
 
-	infyle = openFile(fileName, "r", fileDescription);
+	infyle = openFile(fileName, "rb", fileDescription);
 	for (i=0; i<TABLE_SIZE; ++i) {
 		aWord = inputWord(infyle);
 		if (aWord != 0xFFFF)

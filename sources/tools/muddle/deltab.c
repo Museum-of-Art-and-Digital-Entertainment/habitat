@@ -31,10 +31,10 @@ main(argc, argv)
 	} else {
 		blockSize = 256;
 	}
-	if ((fyle1 = fopen(argv[1], "r")) == NULL) {
+	if ((fyle1 = fopen(argv[1], "rb")) == NULL) {
 		fprintf(stderr, "deltab: can't open %s\n", argv[1]);
 		exit(1);
-	} else if ((fyle2 = fopen(argv[2], "r")) == NULL) {
+	} else if ((fyle2 = fopen(argv[2], "rb")) == NULL) {
 		fprintf(stderr, "deltab: can't open %s\n", argv[2]);
 		exit(1);
 	}

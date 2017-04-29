@@ -70,15 +70,15 @@ outputClasses()
 
 	offset = TABLE_SIZE * sizeof(word);
 	outputFile = classFile;
-	printf("Classes:\n");
+	printf("{\n\t\"Classes\": [\n");
 	gapFlag = FALSE;
 	for (i=0; i<TABLE_SIZE; ++i) {
 		if (theClasses[i] == NULL) {
 			outputWord(0xFFFF);
 			if (!gapFlag) {
-				printf(" ...\n");
 				gapFlag = TRUE;
 			}
+			printf("\t\t{ \"index\":%3d, \"length\": 0, \"class\":null }", i);
 		} else {
 			outputWord(offset);
 			size = ((classDescriptorHeaderType *)
@@ -86,12 +86,16 @@ outputClasses()
 				   classDescriptorLength;
 			offset += size;
 			gapFlag = FALSE;
-			printf(" %02x (%2d) %s\n", i, size, theClasses[i]->name);
+			printf("\t\t{ \"index\":%3d, \"length\":%2d, \"class\":\"%s\" }", i, size, theClasses[i]->name);
 			fprintf(classEquatesFile, "define %s = %d\n",
 				theClasses[i]->name, i);
 		}
+		if (i<TABLE_SIZE-1) {
+			printf (",");
+		}
+		printf("\n");
 	}
-	printf("\n");
+	printf("\t],\n\n");
 	for (i=0; i<TABLE_SIZE; ++i)
 		if (theClasses[i] != NULL) {
 			outputOneClass(i);
@@ -112,37 +116,76 @@ printClass(index)
 	void				 printThing();
 
 	class = theClasses[index];
-	printf("class %s (%d)\n", class->name, index);
+	printf("\t\"%s\": {\n\t\t\"index\":%d,\n", class->name, index);
 	descriptor = (classDescriptorHeaderType *)class->classDescriptor;
-	printf("  class length: %d\n", descriptor->classDescriptorLength);
-	printf("  images: %d\n", descriptor->numberOfImages);
-	printf("  sounds: %d\n", descriptor->numberOfSounds);
-	printf("  actions: %d\n", descriptor->numberOfActions);
-	printf("  images offset: 0x%x\n", descriptor->offsetToImages);
-	printf("  sounds offset: 0x%x\n", descriptor->offsetToSounds);
-	printf("  actions offset: 0x%x\n", descriptor->offsetToActions);
-	printf("  data:\n");
+	printf("\t\t\"length\":%d,\n", descriptor->classDescriptorLength);
+	printf("\t\t\"num images\":%d,\n", descriptor->numberOfImages);
+	printf("\t\t\"num sounds\":%d,\n", descriptor->numberOfSounds);
+	printf("\t\t\"num actions\":%d,\n", descriptor->numberOfActions);
+	printf("\t\t\"images offset\":%d,\n", descriptor->offsetToImages);
+	printf("\t\t\"sounds offset\":%d,\n", descriptor->offsetToSounds);
+	printf("\t\t\"actions offset\":%d,\n", descriptor->offsetToActions);
+	printf("\t\t\"data\": [\n");
 	dataPtr = class->classDescriptor + SIZEOF_CLASS_DESCRIPTOR_HEADER_TYPE;
 	if (dataPtr == class->classDescriptor + descriptor->offsetToImages)
-		printf("    <no data>\n");
-	while (dataPtr < class->classDescriptor + descriptor->offsetToImages)
-		printf("    0x%02x\n", *dataPtr++);
-	printf("  images:\n");
+		printf(" ],\n");
+	else
+	{
+		while (dataPtr < class->classDescriptor + descriptor->offsetToImages)
+		{
+			printf("\t\t\t%d", *dataPtr++);
+			if (dataPtr < (class->classDescriptor + descriptor->offsetToImages))
+				printf(",");
+			printf("\n");
+		}
+		printf("\t\t],\n");
+	}
+	printf("\t\t\"images\": [");
 	if (descriptor->numberOfImages == 0)
-		printf("    <no images>\n");
-	else for (i=0; i<descriptor->numberOfImages; ++i)
-		printThing(i, &images, *dataPtr++);
-	printf("  sounds:\n");
+		printf(" ],\n");
+	else
+	{
+		printf("\n");
+		for (i=0; i<descriptor->numberOfImages; ++i)
+		{
+			printThing(i, &images, *dataPtr++);
+			if (i < descriptor->numberOfImages-1)
+				printf(",");
+			printf("\n");
+		}
+		printf("\t\t],\n");
+	}
+	printf("\t\t\"sounds\": [");
 	if (descriptor->numberOfSounds == 0)
-		printf("    <no sounds>\n");
-	else for (i=0; i<descriptor->numberOfSounds; ++i)
-		printThing(i, &sounds, *dataPtr++);
-	printf("  actions:\n");
+		printf(" ],\n");
+	else
+	{
+		printf("\n");
+		for (i=0; i<descriptor->numberOfSounds; ++i)
+		{
+			printThing(i, &sounds, *dataPtr++);
+			if (i < descriptor->numberOfSounds-1)
+				printf(",");
+			printf("\n");
+		}
+		printf("\t\t],\n");
+	}
+	printf("\t\t\"actions\": [");
 	if (descriptor->numberOfActions == 0)
-		printf("    <no actions>\n");
-	else for (i=0; i<descriptor->numberOfActions; ++i)
-		printThing(i, &actions, *dataPtr++);
-	printf("\n");
+		printf(" ]\n");
+	else
+	{
+		printf("\n");
+		for (i=0; i<descriptor->numberOfActions; ++i)
+		{
+			printThing(i, &actions, *dataPtr++);
+			if (i < descriptor->numberOfActions-1)
+				printf(",");
+			printf("\n");
+		}
+		printf("\t\t]\n");
+	}
+	printf("\t},\n\n");
 }
 
   void
@@ -192,7 +235,7 @@ outputThings(thing, type)
 	void	outputWord();
 	void	outputFileData();
 
-	printf("%s:\n", thing->name);
+	printf("\t\"%s\": [\n", thing->name);
 	outputFile = thing->outputFile;
 	offset = TABLE_SIZE * sizeof(word);
 	gapFlag = FALSE;
@@ -203,9 +246,9 @@ outputThings(thing, type)
 			outputWord(0xFFFF);
 			thing->table[i] = 0;
 			if (!gapFlag) {
-				printf(" ...\n");
 				gapFlag = TRUE;
 			}
+			printf("\t\t{ \"index\":%3d, \"length\":   0, \"filename\":null }", i);
 		}
 		else
 		{
@@ -220,10 +263,19 @@ outputThings(thing, type)
 				offset += size + 5;
 			}
 			gapFlag = FALSE;
-			printf(" %02x (%3d) %s\n",i,size,thing->fileNames[i]);
+			printf("\t\t{ \"index\":%3d, \"length\":%4d, \"filename\":\"%s\" }", i, size, thing->fileNames[i]);
 		}
+		if (i<TABLE_SIZE-1) {
+			printf (",");
+		}
+		printf("\n");
 	}
-	printf("\n");
+	printf("\t]");
+	if (thing->name[0] != 'H')
+		printf (",\n\n");
+	else
+		printf("\n}\n");
+
 	for (i=0; i<TABLE_SIZE; ++i)
 	{
 		if (thing->fileNames[i] != NULL)
@@ -249,7 +301,7 @@ printThing(number, itemTable, index)
   itemTableType	*itemTable;
   byte		 index;
 {
-	printf("    [%d] %3d %s\n", number, index,
+	printf("\t\t\t{ \"index\":%3d, \"ref index\":%3d, \"filename\":\"%s\" }", number, index,
 		itemTable->fileNames[index]);
 }
 
