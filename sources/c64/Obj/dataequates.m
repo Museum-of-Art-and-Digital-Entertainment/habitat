@@ -1,0 +1,252 @@
+
+define	end_of_standard_init	=	6	; ''  ''    ''       ''
+define	object_init_offset	=	6	; ''  ''    ''       ''
+define	AVATAR_HAND		=	5
+define	AVATAR_HEAD		=	6
+define	AVATAR_LAST		=	6
+
+define	OPAQUE			=	0x80
+
+; ----------------------------------------------------------------------
+; Equates
+; ----------------------------------------------------------------------
+		org	0
+type_object:	block	1
+type_class:	block	1
+type_image:	block	1
+type_action:	block	1
+type_sound:	block	1
+
+		org	0
+size_offset:		block	2
+link_offset:
+BLOCK_type:		block	1
+BLOCK_number:		block	1
+BLOCK_lrc:		block	1
+BLOCK_data_offset:	block	0
+
+		org 0
+OBJECT_object_length:	block	2			; common to all objcts
+OBJECT_block_info:	block	2
+OBJECT_wait_state:			; double duty high 4 bits wait
+OBJECT_resources:	block	1	; low four bits -resource status-
+OBJECT_class_pointer:	block	1
+OBJECT_style_pointer:	block	1
+OBJECT_x_position:	block	1
+OBJECT_container_offset:			; contained objects have no y
+OBJECT_y_position:	block	1
+OBJECT_orientation:	block	1
+OBJECT_animation_state:	block	1		; host sends as an init byte
+OBJECT_contained_by:	block	1
+
+OBJECT_animation_frame:	block	1
+OBJECT_animation_start:	block	1
+OBJECT_animation_end:	block	1
+
+OBJECT_text_start:	block	0
+OBJECT_contents:	block	0
+generic_object_end:
+
+AVATAR_contents:		block	7
+AVATAR_background_activity:	block	1
+AVATAR_action:			block	1
+AVATAR_health:			block	1
+AVATAR_restrainer:		block	1
+AVATAR_customize:		block	2
+AVATAR_destination_x:		block	1
+AVATAR_destination_y:		block	1
+
+AVATAR_cel_state:		block	6
+AVATAR_cel_state_start:		block	6
+AVATAR_cel_state_end:		block	6
+
+
+;;AVATAR_xlo:			block	1
+;;AVATAR_ylo:			block	1
+;;AVATAR_cel_frame_number:	block	6
+;;AVATAR_cel_1_state_table:	block	16
+;;AVATAR_cel_2_state_table:	block	16
+;;AVATAR_cel_3_state_table:	block	16
+;;AVATAR_cel_4_state_table:	block	16
+;;AVATAR_cel_5_state_table:	block	16
+;;AVATAR_cel_6_state_table:	block	16
+
+AVATAR_limb_activity:		block	6
+define PATTERN_TORSO = 0
+define TORSO_MASK = 0x0F
+define PATTERN_LEGS = 0
+define LEGS_MASK = 0xF0
+define PATTERN_ARMS = 1
+define ARMS_MASK = 0xF0
+define PATTERN_HAIR = 1
+define HAIR_MASK = 0x0F
+define SEX_BIT = 0x80
+
+		org generic_object_end
+HEAD_init_state:		block	1
+
+		org generic_object_end
+GENERIC_state:			block	1
+
+		org generic_object_end
+GENERIC_on:			block	1
+
+		org generic_object_end
+GENERIC_isMagic:		block	1
+
+		org generic_object_end
+GENERIC_mass:			block	1
+
+		org generic_object_end
+TRAP_type:			block	1
+TRAP_parameters:		block	5
+;  for super traps
+TRAP_pattern_x_size:		block	1
+TRAP_pattern_y_size:		block	1
+TRAP_pattern_stuff:		block	32
+
+		org generic_object_end
+AQUARIUM_state:			block	1
+
+		org generic_object_end
+BOOK_pageNumber:		block	1
+
+		org generic_object_end
+BOTTLE_filled:			block	1
+
+		org generic_object_end
+DIE_state:			block	1
+
+		org generic_object_end
+DOOR_flags:			block	1
+DOOR_key_hi:			block	1
+DOOR_key_lo:			block	1
+
+		org generic_object_end
+DRUGS_count:			block	1
+
+		org generic_object_end
+ESCAPE_DEVICE_charge:		block	1
+
+		org generic_object_end
+FAKE_GUN_state:			block	1
+FAKE_GUN_safetyOn:		block	1
+
+		org generic_object_end
+FLAG_state:			block	1
+
+		org generic_object_end
+FLASHLIGHT_on:			block	1
+
+		org generic_object_end
+FLOOR_LAMP_on:			block	1
+
+		org generic_object_end
+GEMSTONE_isMagic:		block	1
+
+		org generic_object_end
+GRENADE_pinPulled:		block	1
+
+		org generic_object_end
+GUN_safetyOn:			block	1
+
+		org generic_object_end
+HAND_OF_GOD_state:		block	1
+
+		org generic_object_end
+JUKEBOX_playsToGo:		block	1
+
+		org generic_object_end
+KEY_key_number_hi:		block	1
+KEY_key_number_lo:		block	1
+
+		org generic_object_end
+MAGIC_LAMP_state:		block	1
+MAGIC_LAMP_wisher:		block	1
+
+		org generic_object_end
+MAILBOX_mailArrived:		block	1
+
+		org generic_object_end
+MOVIE_CAMERA_on:		block	1
+
+		org generic_object_end
+PARKING_METER_state:		block	1
+
+		org generic_object_end
+STEREO_tape:			block	1
+
+
+		org generic_object_end
+TELEPORT_state:			block	1
+
+		org generic_object_end
+TOKENS_denomination:		block	2
+
+		org generic_object_end
+TOP_torsoPattern:		block	1
+TOP_armPattern:			block	1
+
+		org generic_object_end
+BOTTOM_legPattern:		block	1
+
+		org generic_object_end
+VENDO_FRONT_contents:		block  10
+VENDO_FRONT_junk:		block	3
+VENDO_FRONT_price:		block	1
+VENDO_FRONT_displaySlot:	block	1
+
+		org generic_object_end
+VENDO_INSIDE_vendoFront:	block	1
+VENDO_INSIDE_productOnDisplay:	block	1
+VENDO_INSIDE_junk:		block	3
+
+		org generic_object_end
+WINDUP_TOY_windLevel:		block	1
+
+		org generic_object_end
+ZONE_name:			block	10
+ZONE_west:			block	1		; object # of neighbor
+ZONE_north:			block	1
+ZONE_east:			block	1
+ZONE_south:			block	1
+ZONE_orientation:		block	1		; west/north/etc.
+ZONE_style:			block	1
+ZONE_light_level:		block	1		; init at ???
+ZONE_horizon:			block	1		; init at 32?
+ZONE_ClassGroup:		block	1
+
+
+
+
+; These are the instance variables that follow the contents vector in all
+;  container objects
+		org 0
+CONTAINER_flags:	block	1
+CONTAINER_key_hi:	block	1
+CONTAINER_key_lo:	block	1
+
+		org 0
+CLASS_class_length:	block	2
+CLASS_block_info:	block	3
+CLASS_image_count:	block	1
+CLASS_sound_count:	block	1
+CLASS_action_count:	block	1
+CLASS_image_offset:	block	1
+CLASS_sound_offset:	block	1
+CLASS_action_offset:	block	1
+CLASS_object_length:	block	1
+CLASS_init_count:				; low 6 bits
+CLASS_flags:		block	1		; high 2 (only one used now)
+CLASS_capacity:		block	1
+CLASS_start_images:	block	0
+;CLASS_max_occupancy:	block	1
+; ----------------------------------------------------------------------
+define class_file  = 0x0100
+define action_file = 0x0200
+define sound_file  = 0x0600
+define image_file  = 0x0700
+define head_file   = 0x1600
+define id_file	   = 0x1200		; is this a data disk?
+define loader_file = id_file+1
+define charset_file = 0x1208

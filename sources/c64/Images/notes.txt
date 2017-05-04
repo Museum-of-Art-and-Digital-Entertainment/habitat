@@ -1,0 +1,146 @@
+Missing/Bad/Extraneous Images
+-----------------------------
+
+Props
+-----
+angelwing.m ; MISSING
+avatar.m ; MISSING
+drag.m ; MISSING
+gunship.m ; MISSING
+peng_uppercase.m ; (Peng.bin) ; MISSING
+spid.m ; MISSING
+tank.m ; MISSING
+tentacle.m ; MISSING
+
+barred_old.m ; UNUSED
+boldhead.m ; UNUSED
+bbox1.m ; UNUSED
+bedb.m ; UNUSED
+bedf.m ; UNUSED
+beep.m ; UNUSED
+bell.m ; UNUSED
+bpack.m ; UNUSED
+c.m ; UNUSED
+cactus.m ; UNUSED
+cage2.m ; UNUSED
+car4.m ; UNUSED
+carb.m ; UNUSED
+carf.m ; UNUSED
+cbolt.m ; UNUSED
+copter2.m ; UNUSED
+disk.m ; UNUSED
+empty.m ; UNUSED
+explo1.m ; UNUSED
+explo2.m ; UNUSED
+explo3.m ; UNUSED
+fpants.m ; UNUSED
+good_image.m ; UNUSED
+head.m ; UNUSED
+heads.m ; UNUSED
+heli.m ; UNUSED
+mp.m ; UNUSED
+temp.m ; UNUSED
+th.m ; UNUSED
+
+gdoor.m ; EXTRA
+hand2.m ; EXTRA
+test.m ; EXTRA
+toad.m ; EXTRA
+
+
+Heads
+-----
+kenhead201.m ; MISSING
+kenhead202.m ; MISSING
+kenhead203.m ; MISSING
+kenhead205.m ; MISSING
+kenhead206.m ; MISSING
+kenhead207.m ; MISSING
+kenhead208.m ; MISSING
+kenhead209.m ; MISSING
+kenhead210.m ; MISSING
+kenhead211.m ; MISSING
+kenhead212.m ; MISSING
+kenhead213.m ; MISSING
+kenhead214.m ; MISSING
+kenhead215.m ; MISSING
+kenhead216.m ; MISSING
+kenhead217.m ; MISSING
+kenhead218.m ; MISSING
+kenhead219.m ; MISSING
+kenhead220.m ; MISSING
+kenhead221.m ; MISSING
+kenhead222.m ; MISSING
+kenhead223.m ; MISSING
+kenhead224.m ; MISSING
+kenhead225.m ; MISSING
+kenhead226.m ; MISSING
+kenhead227.m ; MISSING
+kenhead228.m ; MISSING
+kenhead229.m ; MISSING
+kenhead230.m ; MISSING
+kenhead231.m ; MISSING
+kenhead232.m ; MISSING
+kenhead233.m ; MISSING
+kenhead234.m ; MISSING
+kenhead235.m ; MISSING
+kenhead236.m ; MISSING
+kenhead237.m ; MISSING
+kenhead238.m ; MISSING
+kenhead239.m ; MISSING
+mouse0.m  ; BAD SOURCE <<
+newhab1.m ; BAD SOURCE <<
+newhab3.m ; MISSING
+newhab5.m ; MISSING
+newhab6.m ; MISSING
+newhab7.m ; MISSING
+newhab8.m ; MISSING
+newhab9.m ; MISSING
+newhab10.m ; MISSING
+newhab11.m ; MISSING
+newhab13.m ; MISSING
+newhab14.m ; MISSING
+newhab15.m ; MISSING
+newhab16.m ; MISSING
+newhab17.m ; MISSING
+newhab18.m ; MISSING
+newhab19.m ; MISSING
+newhab20.m ; MISSING
+newhab21.m ; MISSING
+newhab22.m ; MISSING
+newhab23.m ; MISSING
+newhab24.m ; MISSING
+nillhead.m  ; MISSING
+undefined0.m ; MISSING
+undefined1.m ; MISSING
+undefined2.m ; MISSING
+undefined3.m ; MISSING
+undefined4.m ; MISSING
+undefined5.m ; MISSING
+undefined6.m ; MISSING
+undefined7.m ; MISSING
+undefined8.m ; MISSING
+undefined9.m ; MISSING
+undefined10.m ; MISSING
+undefined11.m ; MISSING
+undefined12.m ; MISSING
+undefined13.m ; MISSING
+undefined14.m ; MISSING
+undefined15.m ; MISSING
+undefined16.m ; MISSING
+undefined17.m ; MISSING
+undefined18.m ; MISSING
+undefined19.m ; MISSING
+undefined20.m ; MISSING
+undefined21.m ; MISSING
+undefined22.m ; MISSING
+undefined23.m ; MISSING
+undefined24.m ; MISSING
+undefined25.m ; MISSING
+undefined26.m ; MISSING
+undefined27.m ; MISSING
+undefined28.m ; MISSING
+undefined29.m ; MISSING
+undefined30.m ; MISSING
+undefined31.m ; MISSING
+

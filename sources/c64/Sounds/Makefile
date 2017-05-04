@@ -1,3 +1,5 @@
+.SILENT:
+
 .SUFFIXES:	.sob .spb .bin .pwbin
 
 OBJECTS = \
@@ -27,6 +29,7 @@ crystal_ball.bin \
 crystal_ball.pwbin \
 door_closing.bin \
 door_opening.bin \
+door_opening.pwbin \
 error_beep.bin \
 escape_device_activates.bin \
 escape_device_used_up.bin \
@@ -146,16 +149,21 @@ region_change_music_v1.bin \
 region_change_music_v2.bin \
 spraycan.bin
 
+sounds: $(OBJECTS)
+
 .sob.bin:
+	echo making $*.bin
 	cp org_statement temp.m
 	cat $*.sob >>temp.m
-	macross temp.m  -o m.out
-	loadrom -p 0 -t < m.out > $*.bin
+	macross -c -p -o $*.obj temp.m
+	mtobin $*.obj $*.bin
 
 .spb.pwbin:
+	echo making $*.pwbin
 	cp org_statement temp.m
 	cat $*.spb >>temp.m
-	macross temp.m  -o m.out
-	loadrom -p 0 -t < m.out > $*.pwbin
+	macross -c -p -o $*.obj temp.m
+	mtobin $*.obj $*.pwbin
 
-sounds: $(OBJECTS)
+clean:
+	rm *.obj *.bin *.pwbin

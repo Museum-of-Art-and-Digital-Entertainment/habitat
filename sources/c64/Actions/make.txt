@@ -1,0 +1,1 @@
+Run Makefile in ../Behaviors to generate Actions .bin files.

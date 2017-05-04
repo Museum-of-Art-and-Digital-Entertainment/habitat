@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F7F1FB6A-5C79-4B4E-A91E-49AF661C8B99}") = "mtobin", "mtobin.vcxproj", "{2B2A330C-AF70-4C17-9F60-67F1C451500C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B2A330C-AF70-4C17-9F60-67F1C451500C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2B2A330C-AF70-4C17-9F60-67F1C451500C}.Debug|Win32.Build.0 = Debug|Win32
+		{2B2A330C-AF70-4C17-9F60-67F1C451500C}.Release|Win32.ActiveCfg = Release|Win32
+		{2B2A330C-AF70-4C17-9F60-67F1C451500C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

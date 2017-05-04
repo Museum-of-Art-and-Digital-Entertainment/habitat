@@ -1,13 +1,15 @@
+.SILENT:
+
 .SUFFIXES: .m .bin
 
 OBJECTS = \
  atm_do.bin atm_get.bin atm_put.bin \
  avatar_do.bin avatar_get.bin avatar_go.bin avatar_put.bin avatar_talk.bin \
   avatar_ATTACK.bin avatar_BASH.bin avatar_CLOSE.bin \
-  avatar_CLOSECONTAINER.bin avatar_DIE.bin avatar_GET.bin \
+  avatar_CLOSECONTAINER.bin avatar_DIE.bin avatar_GET_uppercase.bin \
   avatar_GRABFROM.bin avatar_OPEN.bin avatar_REINCARNATE.bin \
   avatar_OPENCONTAINER.bin avatar_PAID.bin avatar_POSTURE.bin \
-  avatar_PUT.bin avatar_REMOVE.bin avatar_SITORGETUP.bin\
+  avatar_PUT_uppercase.bin avatar_REMOVE.bin avatar_SITORGETUP.bin\
   avatar_THROW.bin avatar_WALK.bin avatar_WEAR.bin \
  book_do.bin \
  bottle_rdo.bin bottle_FILL.bin bottle_POUR.bin\
@@ -66,7 +68,7 @@ OBJECTS = \
   generic_switch.bin generic_throw.bin generic_PAY.bin \
   generic_test.bin \
   generic_enterOrExit.bin \
-  generic_changeState.bin generic_CHANGESTATE.bin\
+  generic_changeState.bin generic_CHANGESTATE_uppercase.bin\
   generic_OFF.bin generic_OFFLIGHT.bin \
   generic_ON.bin generic_ONLIGHT.bin generic_PLAY.bin generic_SPEAK.bin \
   generic_coinOp.bin generic_destroy.bin \
@@ -76,8 +78,13 @@ OBJECTS = \
   trap_go.bin trap_put.bin\
   illegal.bin noEffect.bin unimplemented.bin
 
-.m.bin:
-	macross -p $*.m
-	loadrom -q -p 0 -t < m.out > $*.bin
-
 actions: $(OBJECTS)
+.m.bin:
+	echo making $*.bin
+	macross -c -p -o $*.obj $*.m
+	mtobin $*.obj $*.bin
+	cp -f $*.bin ../Actions/$*.bin
+
+clean:
+	rm *.obj *.bin
+
