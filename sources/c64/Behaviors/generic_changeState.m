@@ -21,4 +21,3 @@ define	NEW_STATE	=	0
 	rts
 
 	actionEnd
-

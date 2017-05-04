@@ -26,7 +26,24 @@ define SELECT_SUCCESS = 0
 		ldx	pointed_noid		; Sent to the jukebox
 		jsr	v_send_string		; Send the request...
 		jsr	v_balloonMessage	; ...and echo it locally
-		waitFor reply_wait_bit		; Wait for response
+
+		;waitFor reply_wait_bit		; Wait for response
+
+		lda	switcher		; appears to be debug code
+		cmp	reply_wait_bit
+		beq	jukebox_next
+		lda	0xd020
+		pha
+		lda	reply_wait_bit
+		sta	0xd020
+jukebox_wait:
+		lda	switcher
+		cmp	reply_wait_bit
+		bne	jukebox_wait
+		pla
+		sta	0xd020
+
+jukebox_next:
 		jsr	v_clear_text_line
 		getResponse SELECT_SUCCESS
 		if (!zero) {			; If it worked...
