@@ -11,6 +11,8 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include "class_defs.h"
 
 typedef unsigned char	byte;
@@ -32,8 +34,13 @@ typedef struct {
 
 #define THE_REGION	0
 
-#define CLASS_MAX	256
+#if 0
 #define SIZE_OFFSET	12	/* was 11, then we added LRC checking */
+#else
+#define SIZE_OFFSET	11	/* Make it work with slur/class2.dat */
+#endif
+
+#define CLASS_MAX	256
 int	 classSizes[CLASS_MAX];
 char	*className[CLASS_MAX] = {
 #include "classNames.h"
@@ -53,24 +60,26 @@ char	*westNeighbor = NULL;
 char	*direction = NULL;
 char	*teleportAddress = NULL;
 bool	 turfFlag = FALSE;
+bool	 shortenObjs = FALSE;
+bool	 debugLog = FALSE;
 
 char	*classFileName = "class.dat";
 FILE	*classFyle;
 
-FILE	*cvFyle = stdin;
-
-FILE	*ofyle = stdout;
+FILE	*cvFyle;
+FILE	*ofyle;
 
 #define CV_MAX		256
 byte	 contentsVector[CV_MAX];
 
+int	fileIsValid();
 void	examineObjects();
 void	initialize();
 void	inputContentsVector();
 int	inputContentsVectorChunk();
 void	inputData();
 void	inputNoidClassList();
-byte	*malloc();
+/* byte	*malloc(); */
 void	repairObject();
 void	outputObject();
 void	outputRiddleFragment();
@@ -78,11 +87,16 @@ byte	readByte();
 void	readClassFile();
 word	readWord();
 void	tab();
+void	outputObjectDebug();
 
+  int
 main(argc, argv)
   int	 argc;
   char	*argv[];
 {
+	cvFyle = stdin;
+	ofyle = stdout;
+
 	initialize(argc, argv);
 	readClassFile();
 	inputContentsVector();
@@ -111,6 +125,11 @@ initialize(argc, argv)
 				fprintf(stderr, "slur: can't open cv file '%s'\n", arg);
 				exit(1);
 			}
+
+			if (!fileIsValid(arg)) {
+				fprintf(stderr, "slur: cv file is empty or invalid\n");
+				exit(1);
+			}
 			continue;
 		}
 		for (j=1; arg[j]!='\0'; j++) switch (arg[j]) {
@@ -121,6 +140,11 @@ initialize(argc, argv)
 				exit(1);
 			} else {
 				classFileName = *args++;
+			}
+
+			if (!fileIsValid(classFileName)) {
+				fprintf(stderr, "slur: class file is empty or invalid\n");
+				exit(1);
 			}
 			continue;
 
@@ -201,9 +225,17 @@ initialize(argc, argv)
 			}
 			continue;
 
+		case 'S':
+			shortenObjs = TRUE;
+			continue;
+
+		case 'v':
+			debugLog = TRUE;
+			continue;
+
 		default:
 			fprintf(stderr, "slur: bad command line flag '%s'\n",
-				arg[j]);
+				arg);
 			continue;
 		}
 	}
@@ -215,6 +247,19 @@ initialize(argc, argv)
 	}
 }
 
+  int
+fileIsValid(path)
+  char *path;
+{
+	struct stat sb;
+
+	if (stat(path, &sb) == 0) {
+		if (sb.st_size > 0)
+			return(TRUE);
+	}
+	return(FALSE);
+}
+
   void
 readClassFile()
 {
@@ -222,13 +267,14 @@ readClassFile()
 
 	for (i=0; i<CLASS_MAX; ++i)
 		classSizes[i] = readWord(classFyle);
-	for (i=0; i<CLASS_MAX; ++i)
+	for (i=0; i<CLASS_MAX; ++i) {
 		if (classSizes[i] == 0xFFFF)
 			classSizes[i] = 0;
 		else {
 			fseek(classFyle, classSizes[i]+SIZE_OFFSET, 0);
 			classSizes[i] = readByte(classFyle) & 0x7F;
 		}
+	}
 }
 
   void
@@ -242,9 +288,19 @@ inputContentsVector()
   int
 inputContentsVectorChunk()
 {
+	int ret;
+
 	inputNoidClassList();
 	inputData();
-	return(readByte(cvFyle));
+
+	if (debugLog)
+	    fprintf(stderr, "last offset %ld\n", ftell(cvFyle));
+
+	/* Some files use 0xAA as padding at the end */
+	ret = readByte(cvFyle);
+	if (ret == 0xaa)
+		ret = 0;
+	return(ret);
 }
 
   void
@@ -265,16 +321,48 @@ inputData()
 	int	 size;
 	int	 noid;
 	int	 class;
-
 	cvPtr = contentsVector;
 	while (*cvPtr != 0) {
 		noid = *cvPtr++;
-		optr = malloc((size = classSizes[class = *cvPtr++]) + 2);
+		class = *cvPtr++;
+		size = classSizes[class];
+		optr = malloc(size + 1);
 		objects[noid] = (object *)optr;
 		*optr++ = class;
 		*optr++ = FALSE;
-		while (size-- > 0)
-			*optr++ = readByte(cvFyle);
+		if (debugLog) {
+			fprintf(stderr, "* noid %d class %d size %d: ",
+			    noid, class, size);
+		}
+
+		/*
+		 * There's a mismatch between what the class table says the
+		 * sizes should be and what they are. It appears Chip made
+		 * a change to make tables a container at some point, but
+		 * some of the .reg files we have were created before that
+		 * change. So we need to decide whether to trust these sizes
+		 * or override and use shorter ones.
+		 *
+		 * TODO: auto-detect these since first 3 bytes should be 00
+		 */
+		if (shortenObjs) {
+			if ((class == CLASS_TABLE || class == CLASS_CHAIR) &&
+			    size == 9)
+			    size = 6;
+			else if ((class == CLASS_PICTURE) && size == 8)
+			    size = 6;
+		}
+
+		while (size-- > 0) {
+			*optr = readByte(cvFyle);
+			if (debugLog)
+				fprintf(stderr, "%02x ", *optr);
+			optr++;
+		}
+		if (debugLog) {
+		    fprintf(stderr, "\n");
+		    outputObjectDebug(objects[noid]);
+		}
 	}
 }
 
@@ -335,12 +423,14 @@ examineObjects()
 {
 	int	i;
 
-	for (i=0; i<OBJECT_MAX; ++i)
+	for (i=0; i<OBJECT_MAX; ++i) {
 		if (objects[i] != NULL)
 			objects[i]->isContainer = FALSE;
-	for (i=0; i<OBJECT_MAX; ++i)
+	}
+	for (i=0; i<OBJECT_MAX; ++i) {
 		if (objects[i] != NULL && objects[i]->containedBy != 0)
 			objects[objects[i]->containedBy]->isContainer = TRUE;
+	}
 }
 
 #define OPEN_BIT 0x01
@@ -356,7 +446,6 @@ repairObject(obj)
   object	*obj;
 {
 	byte	*dataPtr;
-	int	 i;
 
 	dataPtr = ((byte *)obj) + 8;
 	switch (obj->class) {
@@ -451,34 +540,53 @@ outputObject(obj)
 		for (i=7; i<=classSizes[obj->class]; ++i) {
 			tab(); fprintf(ofyle, "%d:%d;\n", i+1, *dataPtr++);
 		}
+
+#ifdef DUMP_TELEPORT_ADDRESSES
+		/*
+		 * Teleports and elevators have an additional list of
+		 * addresses in this form of a parameter:
+		 *
+		 *     teleport_address: 32, 32, 32, ... ;
+		 *
+		 * However, we don't have any .reg files that provide any
+		 * useful data for these. Instead, it's just 20 empty values
+		 * (all 32). We don't print these by default, relying on later
+		 * processing steps to add in useful addresses.
+		 */
 		if (obj->class == CLASS_TELEPORT_BOOTH || obj->class ==
 				CLASS_ELEVATOR) {
 			i = 0;
 			tab(); fprintf(ofyle, "teleport_address: ");
-			if (teleportAddress != NULL)
-			    for (; i<20 & teleportAddress[i]!='\0'; ++i)
+			if (teleportAddress != NULL) {
+			    for (; i<20 & teleportAddress[i]!='\0'; ++i) {
 				if (i < 19)
 				   fprintf(ofyle, "%d, ", teleportAddress[i]);
 				else
 				   fprintf(ofyle, "%d;\n",teleportAddress[i]);
-			for (; i<20; ++i)
+			    }
+			}
+			for (; i<20; ++i) {
 				if (i < 19)
 					fprintf(ofyle, "%d, ", ' ');
 				else
 					fprintf(ofyle, "%d;\n", ' ');
+			}
 		}
+#endif /* DUMP_TELEPORT_ADDRESSES */
+
 		tabLevel--;
 	}
 	if (obj->isContainer) {
 		tabLevel++;
 		fprintf(ofyle, "\n"); tab(); fprintf(ofyle, "[\n");
 		tabLevel++;
-		for (i=0; i<OBJECT_MAX; ++i)
+		for (i=0; i<OBJECT_MAX; ++i) {
 			if (objects[i] != NULL && objects[objects[i]->
 					containedBy] == obj) {
 				repairObject(objects[i]);
 				outputObject(objects[i]);
 			}
+		}
 		tabLevel--;
 		tab(); fprintf(ofyle, "]\n");
 		tabLevel--;
@@ -493,4 +601,21 @@ tab()
 
 	for (i=tabLevel; i>0; --i)
 		fprintf(ofyle, "    ");
+}
+
+/*
+ * Dump an object to stderr, saving and restoring the previous output file
+ * handle in between. This is needed because parse errors tend to make slur
+ * crash before it can generate useful output on valid objects.
+ */
+  void
+outputObjectDebug(obj)
+  object	*obj;
+{
+	FILE	*ofyleBackup;
+
+	ofyleBackup = ofyle;
+	ofyle = stderr;
+	outputObject(obj);
+	ofyle = ofyleBackup;
 }
